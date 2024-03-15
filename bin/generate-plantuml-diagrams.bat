@@ -1,4 +1,4 @@
-@echo off
+bin/generate-plantuml-diagrams.sh@echo off
 setlocal EnableDelayedExpansion
 
 set PLANTUML_PATH=../libs/plantuml-1.2023.1.jar
