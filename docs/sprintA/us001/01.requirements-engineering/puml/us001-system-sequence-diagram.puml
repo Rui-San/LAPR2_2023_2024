@@ -1,4 +1,4 @@
-@startuml
+    @startuml
 skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
@@ -7,30 +7,24 @@ title System Sequence Diagram (SSD) - Alternative One
 
 autonumber
 
-actor "Organization\nEmployee" as Employee
+actor "HRM\nMS Employee" as Employee
 participant ":System" as System
 
 activate Employee
 
-    Employee -> System : asks to create a new task
+    Employee -> System : asks to register a new skill
     activate System
 
-        System --> Employee : requests data (i.e. reference, designation, informal\ndescription, technical description, duration, cost)
+        System --> Employee : requests skill data
     deactivate System
 
     Employee -> System : types requested data
     activate System
 
-        System --> Employee : shows task category list and asks to select one
-    deactivate System
-
-    Employee -> System : selects a task category
-    activate System
-
         System --> Employee : shows all data and requests confirmation
     deactivate System
 
-    Employee -> System : confirms data
+    Employee -> System : confirms data and submits
     activate System
 
         System --> Employee : displays operation success
