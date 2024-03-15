@@ -12,7 +12,8 @@ As an HRM, I want to register a job.
 **From the specifications document:**
 
 >	MS has a wide range of employees who carry out the most varied tasks in the context
-of managing green spaces. Some job examples are designer, estimator, gardener, electrician or bricklayer. Thus, an employee has a main occupation (job) and a set of skills
+of managing green spaces. Some job examples are designer, estimator, gardener, electrician 
+or bricklayer. Thus, an employee has a main occupation (job) and a set of skills
 that enable him to perform/take on certain tasks/responsibilities, for example, driving
 vehicles of different types (e.g. light, or heavy), operating machines such as backhoes
 or tractors; tree pruning; application of phytopharmaceuticals.
@@ -58,14 +59,10 @@ or tractors; tree pruning; application of phytopharmaceuticals.
 **Input Data:**
 
 * Typed data:
-    * job name
     * job reference
+    * job name
     * informal description
     * technical description
-    * estimated duration
-	
-* Selected data:
-    * job category
 
 **Output Data:**
 
