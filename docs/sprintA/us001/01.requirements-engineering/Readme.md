@@ -12,25 +12,29 @@ be appointed to a collaborator.
 
 **From the specifications document:**
 
->	Each task is characterized by having a unique reference per organization, a designation, an informal and a technical description, an estimated duration and cost, as well as a task category. 
+>	... an employee has a main occupation (job) and a set of skills
+that enable him to perform/take on certain tasks/responsibilities, for example, driving
+vehicles of different types (e.g. light, or heavy), operating machines such as backhoes
+or tractors; tree pruning; application of phytopharmaceuticals. 
 
->	As long as it is not published, access to the task is exclusive to the employees of the respective organization. 
+>	When creating multipurpose teams, the number of members
+and the set of skills that must be covered are crucial. 
 
 **From the client clarifications:**
 
-> **Question:** Which is the unit of measurement used to estimate duration?
+> **Question:** What criteria are necessary to register a skill?
 >
-> **Answer:** Duration is estimated in days.
+> **Answer:** o nome da skill, por exemplo: podador, condutor de veiculos pesados, aplicador de fito-farmacos
 
-> **Question:** Monetary data is expressed in any particular currency?
+> **Question:** When a skill that already exists is created, what should the system do?
 >
-> **Answer:** Monetary data (e.g. estimated cost of a task) is indicated in POT (virtual currency internal to the platform).
+> **Answer:** By definition, it's not possible to have duplicate values in a set. Checking for duplicates isn't a business rule; it's at the technological level.
+
 
 ### 1.3. Acceptance Criteria
 
 * **AC1:** All required fields must be filled in.
-* **AC2:** The task reference must have at least 5 alphanumeric characters.
-* **AC3:** When creating a task with an existing reference, the system must reject such operation and the user must be able to modify the typed reference.
+* **AC2:** When registering a new skill with an existing reference, the system must inform the user that the reference already exists.
 
 ### 1.4. Found out Dependencies
 
