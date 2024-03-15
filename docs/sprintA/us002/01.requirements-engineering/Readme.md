@@ -20,23 +20,19 @@ or tractors; tree pruning; application of phytopharmaceuticals.
 
 **From the client clarifications:**
 
-> **Question:** When the user registers a job does he select a job from a list or does he type out a custom job name?
->
-> **Answer:** ---
-
 > **Question:** What data is introduced by the user when creating a job?
+>
+> **Answer:** The name of the job
+
+> **Question:** When the user registers a job does he select a job from a list or does he type out a custom job name?
 >
 > **Answer:** ---
 
 > **Question:** What happens when the user tries to create a job with an existing reference?
 > 
-> **Answer:** ---
+> **Answer:** By definition a set can´t have duplicates. Assuring no duplicates is not a business rule is a tecnichal issue.
 
-> **Question:** What are the valid inputs for each field? For example, are there any restrictions on the format or length of the job reference, designation, or descriptions?
-> 
-> **Answer:** --- 
-
-> **Question:** Are there any default values for any of the fields?
+> **Question:** What are the valid inputs for each field? For example, are there any restrictions on the format or length of the job name?
 > 
 > **Answer:** ---
 
@@ -48,11 +44,10 @@ or tractors; tree pruning; application of phytopharmaceuticals.
 
 * **AC1:** All required fields must be filled in.
 * **AC2:** When creating a job with an existing reference, the system must inform the user that the reference already exists.
-* **AC3:** ---
 
 ### 1.4. Found out Dependencies
 
-* There is no dependency for this user story, unless the user has to create a Job Category before creating a job, that would make creating a job dependent on the Job Category creation.
+* There are no dependencies for this user story.
 
 ### 1.5 Input and Output Data
 
@@ -61,8 +56,6 @@ or tractors; tree pruning; application of phytopharmaceuticals.
 * Typed data:
     * job reference
     * job name
-    * informal description
-    * technical description
 
 **Output Data:**
 
@@ -78,4 +71,4 @@ or tractors; tree pruning; application of phytopharmaceuticals.
 
 ### 1.7 Other Relevant Remarks
 
-*
+* There are no other relevant remarks for this user story.
