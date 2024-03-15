@@ -1,11 +1,12 @@
-# US006 - Create a Task 
+# US001 - Register a skill
 
 
 ## 1. Requirements Engineering
 
 ### 1.1. User Story Description
 
-As an organization employee, I want to create a new task in order to be further published.
+As a Human Resources Manager (HRM), I want to register skills that may
+be appointed to a collaborator.
 
 ### 1.2. Customer Specifications and Clarifications 
 

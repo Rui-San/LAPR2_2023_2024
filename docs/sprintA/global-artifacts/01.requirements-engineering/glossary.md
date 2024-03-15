@@ -4,11 +4,15 @@
 
 _(Complete according to the provided example)_
 
-| **_TEA_** (EN) | **_Description_** (EN)                                                                    |                                       
-|:---------------|:------------------------------------------------------------------------------------------|
-| **Clerk**      | Person responsible for carrying out various business supporting activities on the system. |
-| **CLK**        | Acronym for _Clerk_.                                                                      |
-| **...**        | ...                                                                                       |
+| **_TEA_** (EN) | **_Description_** (EN)                                                                                                       |                                       
+|:---------------|:-----------------------------------------------------------------------------------------------------------------------------|
+| **HRM**        | Human Resources Manager.                                                                                                     |
+| **FM**         | Fleet Manager.                                                                                                               |
+| **GSM**        | Green Space Manager.                                                                                                         |
+| **GSU**        | Green Space User.                                                                                                            |
+| **PVM**        | Minimal Viable Product.                                                                                                      |
+| **MS**         | MusgoSublime is the organization dedicated to the planning, construction and maintenance of green spaces for collective use. |
+
 
 
 
