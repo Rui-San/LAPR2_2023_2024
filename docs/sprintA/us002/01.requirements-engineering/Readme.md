@@ -1,11 +1,11 @@
-# US006 - Create a Task 
+# US002 - Register a Job 
 
 
 ## 1. Requirements Engineering
 
 ### 1.1. User Story Description
 
-As an organization employee, I want to create a new task in order to be further published.
+As an HRM, I want to register a job.
 
 ### 1.2. Customer Specifications and Clarifications 
 
@@ -17,13 +17,29 @@ As an organization employee, I want to create a new task in order to be further 
 
 **From the client clarifications:**
 
-> **Question:** Which is the unit of measurement used to estimate duration?
+> **Question:** When the user registers a job does he select a job from a list or does he type out a custom job name?
 >
-> **Answer:** Duration is estimated in days.
+> **Answer:** ---
 
-> **Question:** Monetary data is expressed in any particular currency?
+> **Question:** What data is introduced by the user when creating a job?
 >
-> **Answer:** Monetary data (e.g. estimated cost of a task) is indicated in POT (virtual currency internal to the platform).
+> **Answer:** ---
+
+> **Question:** What happens when the user tries to create a job with an existing reference?
+> 
+> **Answer:** ---
+
+> **Question:** What are the valid inputs for each field? For example, are there any restrictions on the format or length of the job reference, designation, or descriptions?
+> 
+> **Answer:** --- 
+
+> **Question:** Are there any default values for any of the fields?
+> 
+> **Answer:** ---
+
+> **Question:** Is there a limit to the number of jobs that can be registered by a user or within the organization?
+> 
+> **Answer:** ---
 
 ### 1.3. Acceptance Criteria
 
