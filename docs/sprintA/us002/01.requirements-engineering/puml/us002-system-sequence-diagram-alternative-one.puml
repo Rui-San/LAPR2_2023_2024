@@ -1,4 +1,4 @@
-@startuml
+    @startuml
 skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
@@ -19,12 +19,6 @@ activate Employee
     deactivate System
 
     Employee -> System : types requested data
-    activate System
-
-        System --> Employee : shows job category list and asks to select one
-    deactivate System
-
-    Employee -> System : selects a job category
     activate System
 
         System --> Employee : shows all data and requests confirmation
