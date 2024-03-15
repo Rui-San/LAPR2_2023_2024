@@ -64,8 +64,6 @@ or tractors; tree pruning; application of phytopharmaceuticals.
 * Typed data:
     * job reference
     * job name
-    * informal description
-    * technical description
 
 **Output Data:**
 
