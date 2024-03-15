@@ -11,9 +11,11 @@ As an HRM, I want to register a job.
 
 **From the specifications document:**
 
->	Each task is characterized by having a unique reference per organization, a designation, an informal and a technical description, an estimated duration and cost, as well as a task category. 
-
->	As long as it is not published, access to the task is exclusive to the employees of the respective organization. 
+>	MS has a wide range of employees who carry out the most varied tasks in the context
+of managing green spaces. Some job examples are designer, estimator, gardener, electrician or bricklayer. Thus, an employee has a main occupation (job) and a set of skills
+that enable him to perform/take on certain tasks/responsibilities, for example, driving
+vehicles of different types (e.g. light, or heavy), operating machines such as backhoes
+or tractors; tree pruning; application of phytopharmaceuticals.
 
 **From the client clarifications:**
 
@@ -44,8 +46,8 @@ As an HRM, I want to register a job.
 ### 1.3. Acceptance Criteria
 
 * **AC1:** All required fields must be filled in.
-* **AC2:** The task reference must have at least 5 alphanumeric characters.
-* **AC3:** When creating a task with an existing reference, the system must reject such operation and the user must be able to modify the typed reference.
+* **AC2:** When creating a job with an existing reference, the system must inform the user that the reference already exists.
+* **AC3:** ---
 
 ### 1.4. Found out Dependencies
 
@@ -61,7 +63,6 @@ As an HRM, I want to register a job.
     * informal description
     * technical description
     * estimated duration
-    * estimated salary
 	
 * Selected data:
     * job category
