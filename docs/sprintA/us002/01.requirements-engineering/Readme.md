@@ -20,27 +20,19 @@ or tractors; tree pruning; application of phytopharmaceuticals.
 
 **From the client clarifications:**
 
-> **Question:** What are the required fields for registering a job?
+> **Question:** What data is introduced by the user when creating a job?
 >
-> **Answer:** ---
+> **Answer:** The name of the job
 
 > **Question:** When the user registers a job does he select a job from a list or does he type out a custom job name?
 >
 > **Answer:** ---
 
-> **Question:** What data is introduced by the user when creating a job?
->
-> **Answer:** ---
-
 > **Question:** What happens when the user tries to create a job with an existing reference?
 > 
-> **Answer:** ---
+> **Answer:** By definition a set can´t have duplicates. Assuring no duplicates is not a business rule is a tecnichal issue.
 
-> **Question:** What are the valid inputs for each field? For example, are there any restrictions on the format or length of the job reference, designation, or descriptions?
-> 
-> **Answer:** --- 
-
-> **Question:** Are there any default values for any of the fields?
+> **Question:** What are the valid inputs for each field? For example, are there any restrictions on the format or length of the job name?
 > 
 > **Answer:** ---
 
