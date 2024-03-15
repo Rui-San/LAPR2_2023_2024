@@ -45,19 +45,14 @@ and the set of skills that must be covered are crucial.
 **Input Data:**
 
 * Typed data:
-    * a reference
-    * a designation 
-    * an informal description
-    * a technical description
-    * an estimated duration
-    * an estimated cost
+    * Skill description
 	
 * Selected data:
     * a task category 
 
 **Output Data:**
 
-* List of existing task categories
+* List of all Skills
 * (In)Success of the operation
 
 ### 1.6. System Sequence Diagram (SSD)
