@@ -1,17 +1,27 @@
-# US006 - Create a Task 
+# US003 - Register a collaborator
 
 
 ## 1. Requirements Engineering
 
 ### 1.1. User Story Description
 
-As an organization employee, I want to create a new task in order to be further published.
-
+As an HRM, I want to register a collaborator with a job and fundamental characteristics
 ### 1.2. Customer Specifications and Clarifications 
 
 **From the specifications document:**
 
->	Each task is characterized by having a unique reference per organization, a designation, an informal and a technical description, an estimated duration and cost, as well as a task category. 
+>	Each task is characterized by having a unique reference per organization, a designation, an informal and a technical description, an estimated duration and cost, as well as a task category.
+MS has a wide range of employees who carry out the most varied tasks in the context
+of managing green spaces. Some job examples are designer, estimator, gardener, electrician or bricklayer. Thus, an employee has a main occupation (job) and a set of skills
+that enable him to perform/take on certain tasks/responsibilities, for example, driving
+vehicles of different types (e.g. light, or heavy), operating machines such as backhoes
+or tractors; tree pruning; application of phytopharmaceuticals.
+Tasks are carried out on an occasional or regular basis in one or more green spaces,
+for example: tree pruning; installation of an irrigation system; installation of a lighting
+system.
+Teams are temporary associations of employees who will carry out a set of tasks in
+one or more green spaces. When creating multipurpose teams, the number of members
+and the set of skills that must be covered are crucial.
 
 >	As long as it is not published, access to the task is exclusive to the employees of the respective organization. 
 
