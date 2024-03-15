@@ -54,7 +54,7 @@ light or heavy, open box or closed vans or trucks.
     * acquisition date
     * maintenance/checkup frequency (in kms)
     * plate
-	
+
 * Selected data:
     * brand
     * model
