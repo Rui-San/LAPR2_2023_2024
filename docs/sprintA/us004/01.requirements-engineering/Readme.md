@@ -5,25 +5,28 @@
 
 ### 1.1. User Story Description
 
-As an organization employee, I want to create a new task in order to be further published.
+As an HRM, i want to assign one or more skills to a collaborator
 
 ### 1.2. Customer Specifications and Clarifications 
 
 **From the specifications document:**
 
->	Each task is characterized by having a unique reference per organization, a designation, an informal and a technical description, an estimated duration and cost, as well as a task category. 
+>	Set of skills that enable him to perform on certain tasks, for example, driving
+vehicles of different types (e.g. light, or heavy), operating machines such as backhoes
+or tractors; tree pruning; application of phytopharmaceuticals.
 
->	As long as it is not published, access to the task is exclusive to the employees of the respective organization. 
+>	 Thus, an employee has a main occupation (job) and a set of skills
+that enable him to perform/take on certain tasks/responsibilities 
 
 **From the client clarifications:**
 
-> **Question:** Which is the unit of measurement used to estimate duration?
+> **Question:** Is there any specific characteristic that the collaborator need to have before assign him any skill?
 >
-> **Answer:** Duration is estimated in days.
+> **Answer:** No
 
-> **Question:** Monetary data is expressed in any particular currency?
+> **Question:** Is there a minimal or maximun number of skills?
 >
-> **Answer:** Monetary data (e.g. estimated cost of a task) is indicated in POT (virtual currency internal to the platform).
+> **Answer:** No
 
 ### 1.3. Acceptance Criteria
 
@@ -33,26 +36,31 @@ As an organization employee, I want to create a new task in order to be further 
 
 ### 1.4. Found out Dependencies
 
-* There is a dependency on "US003 - Create a task category" as there must be at least one task category to classify the task being created.
+* There is a dependency on "US001 - As a HRM, I want to register skills that may
+  be appointed to a collaborator." as there must be at least one registed skill to be assigned for a collaborator.
 
 ### 1.5 Input and Output Data
 
 **Input Data:**
 
 * Typed data:
-    * a reference
-    * a designation 
-    * an informal description
-    * a technical description
-    * an estimated duration
-    * an estimated cost
+    * employee ID 
+    * name
+    * skill to be assigned
+    * date of birth
+    * email
+    * contact
 	
 * Selected data:
-    * a task category 
+    * a skill category 
 
 **Output Data:**
 
-* List of existing task categories
+* Driving vehicles of different types
+* Operating machines
+* Tree pruning
+* Installation of an irrigation system
+* installation of a lighting system
 * (In)Success of the operation
 
 ### 1.6. System Sequence Diagram (SSD)
