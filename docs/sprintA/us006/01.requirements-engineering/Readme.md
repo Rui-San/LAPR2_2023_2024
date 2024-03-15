@@ -17,10 +17,22 @@ light or heavy, open box or closed vans or trucks.
 
 **From the client clarifications:**
 
-> **Question:** What is the purpose of the "Maintenance/Checkup Frequency" field?
+> **Question:** For the application to work does the FM need to fill all the attributes of the vehicle?
+>
+> **Answer:** Yes, besides the vehicle plate that by mistake doesn't appear on the text.
+
+> **Question:** Should the application identify a registered vehicle by a serial number or other attribute?
 >
 > **Answer:** ---
 
+> **Question:** If the Fm inserts the same vehicle by mistake, should it inform ther user of the mistake and give him the option to add another vehicle?
+>
+> **Answer:** ---
+
+> **Question:** Is Brand, Model and Type a list of options or a free text?
+> 
+> **Answer:** ---
+ 
 ### 1.3. Acceptance Criteria
 
 * **AC1:** All required fields must be filled in.
@@ -41,7 +53,8 @@ light or heavy, open box or closed vans or trucks.
     * register date
     * acquisition date
     * maintenance/checkup frequency (in kms)
-	
+    * plate
+
 * Selected data:
     * brand
     * model
