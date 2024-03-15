@@ -11,7 +11,7 @@ As an HRM, I want to register a job.
 
 **From the specifications document:**
 
->	MS has a wide range of employees who carry out the most varied tasks in the context
+> MS has a wide range of employees who carry out the most varied tasks in the context
 of managing green spaces. Some job examples are designer, estimator, gardener, electrician 
 or bricklayer. Thus, an employee has a main occupation (job) and a set of skills
 that enable him to perform/take on certain tasks/responsibilities, for example, driving
@@ -78,4 +78,4 @@ or tractors; tree pruning; application of phytopharmaceuticals.
 
 ### 1.7 Other Relevant Remarks
 
-* 
+*
