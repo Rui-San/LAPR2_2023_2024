@@ -7,24 +7,25 @@ title System Sequence Diagram (SSD) - Alternative One
 
 autonumber
 
-actor "Organization\nEmployee" as Employee
+actor "FM\nMS Employee" as Employee
 participant ":System" as System
 
 activate Employee
 
-    Employee -> System : asks to create a new task
+    Employee -> System : asks to create a new vehicle
     activate System
 
-        System --> Employee : requests data (i.e. reference, designation, informal\ndescription, technical description, duration, cost)
+        System --> Employee : shows brand, model and type list and asks to select fields
     deactivate System
 
-    Employee -> System : types requested data
+
+    Employee -> System : selects a brand, model and type
     activate System
 
-        System --> Employee : shows task category list and asks to select one
+        System --> Employee : requests other data ( tare, gross weight, current km, register date, acquisition date, maintenance/checkup frequency (in kms))
     deactivate System
 
-    Employee -> System : selects a task category
+    Employee -> System : types in the requested data
     activate System
 
         System --> Employee : shows all data and requests confirmation
