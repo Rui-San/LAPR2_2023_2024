@@ -14,7 +14,9 @@ _Evaluates the user interface. It has several subcategories,
 among them: error prevention; interface aesthetics and design; help and
 documentation; consistency and standards._
 
-(fill in here )
+- The software must implement unit tests for all methods, except for
+  methods that implement Input/Output operations.
+- The application language must be in English.
 
 ## Reliability
 
@@ -34,7 +36,7 @@ _The supportability requirements gathers several characteristics, such as:
 testability, adaptability, maintainability, compatibility,
 configurability, installability, scalability and more._
 
-(fill in here )
+- The application must support English language.
 
 ## +
 
@@ -42,22 +44,30 @@ configurability, installability, scalability and more._
 
 _Specifies or constraints the system design process. Examples may include: programming languages, software process, mandatory standards/patterns, use of development tools, class library, etc._
 
-(fill in here )
+- The application must be developed in Java language.
+- The application must be developed using either Intellij or NetBeans IDE.
+- The application's graphical interface is to be developed in JavaFX 11.
+- During software development, Javadoc must be used to generate useful documentation for Java code.
+- The application should use object serialization to ensure data persistence between two runs of the application.
 
 ### Implementation Constraints
 
-_Specifies or constraints the code or construction of a system such
-such as: mandatory standards/patterns, implementation languages,
+_Specifies or constraints the code or construction of a system such as: mandatory standards/patterns, implementation languages,
 database integrity, resource limits, operating system._
 
-(fill in here )
+- During the system development, the team must adopt best practices for
+  identifying requirements, and for OO software analysis and design;
+- During the system development, the team must adopt recognized coding standards (e.g., CamelCase)
+- The JaCoCo plugin should be used to generate the coverage report.
+
 
 ### Interface Constraints
 
 _Specifies or constraints the features inherent to the interaction of the
 system being developed with other external systems._
 
-(fill in here )
+- All the images/figures produced during the software development process should
+  be recorded in SVG format.
 
 ### Physical Constraints
 
