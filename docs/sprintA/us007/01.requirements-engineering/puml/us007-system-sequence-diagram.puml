@@ -1,0 +1,39 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title US007 - System Sequence Diagram (SSD)
+
+autonumber
+
+actor "FM\nMS Employee" as Employee
+participant ":System" as System
+
+activate Employee
+
+    Employee -> System : Asks to register a new vehicle's check-up
+    activate System
+
+        System --> Employee : Shows the vehicles list and asks to select one
+    deactivate System
+
+    Employee -> System : Selects a vehicle
+    activate System
+
+        System --> Employee : Requests data (Date of check-up, Current kilometers)
+    deactivate System
+
+    Employee -> System : Types requested data
+    activate System
+
+        System --> Employee : Shows all data and requests confirmation
+    deactivate System
+
+    Employee -> System : Confirms data
+    activate System
+
+        System --> Employee : Displays operation success
+    deactivate System
+
+@enduml
