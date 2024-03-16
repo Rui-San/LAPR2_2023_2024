@@ -23,11 +23,15 @@ light or heavy, open box or closed vans or trucks.
 
 > **Question:** Should the application identify a registered vehicle by a serial number or other attribute?
 >
-> **Answer:** ---
+> **Answer:** By plate id.
 
-> **Question:** If the Fm inserts the same vehicle by mistake, should it inform ther user of the mistake and give him the option to add another vehicle?
+> **Question:** Should the application a group the vehicles by their brand, serial number or other attribute?
 >
-> **Answer:** ---
+> **Answer:** No requirements were set concerning groups of vehicles.
+
+> **Question:** If the Fm inserts the same vehicle by mistake, should it inform the user of the mistake and give him the option to add another vehicle?
+>
+> **Answer:** Duplication of data is not a business rule is technical one, since by definition in a set you cant have duplicates.
 
 > **Question:** Is Brand, Model and Type a list of options or a free text?
 > 
@@ -71,10 +75,6 @@ light or heavy, open box or closed vans or trucks.
 #### Alternative One
 
 ![System Sequence Diagram - Alternative One](svg/us006-system-sequence-diagram-alternative-one.svg)
-
-#### Alternative Two
-
-![System Sequence Diagram - Alternative Two](svg/us006-system-sequence-diagram-alternative-two.svg)
 
 ### 1.7 Other Relevant Remarks
 
