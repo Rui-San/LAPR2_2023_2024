@@ -24,7 +24,7 @@ and the set of skills that must be covered are crucial.
 
 > **Question:** What criteria are necessary to register a skill?
 >
-> **Answer:** o nome da skill, por exemplo: podador, condutor de veiculos pesados, aplicador de fito-farmacos
+> **Answer:** The name of the skill, for example: pruner, heavy vehicle driver, phytosanitary product applicator.
 
 > **Question:** When a skill that already exists is created, what should the system do?
 >
