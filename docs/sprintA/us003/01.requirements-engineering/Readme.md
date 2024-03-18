@@ -10,7 +10,7 @@ As an HRM, I want to register a collaborator with a job and fundamental characte
 
 **From the specifications document:**
 
->	Each task is characterized by having a unique reference per organization, a designation, an informal and a technical description, an estimated duration and cost, as well as a task category.
+
 MS has a wide range of employees who carry out the most varied tasks in the context
 of managing green spaces. Some job examples are designer, estimator, gardener, electrician or bricklayer. Thus, an employee has a main occupation (job) and a set of skills
 that enable him to perform/take on certain tasks/responsibilities, for example, driving
@@ -23,42 +23,66 @@ Teams are temporary associations of employees who will carry out a set of tasks 
 one or more green spaces. When creating multipurpose teams, the number of members
 and the set of skills that must be covered are crucial.
 
->	As long as it is not published, access to the task is exclusive to the employees of the respective organization. 
+
+Human Resources Manager (HRM) - a person who manages human resources
+and defines teams based on the needs of ongoing projects and the skills of the
+employees.
+• Fleet Manager (FM) – a person who manages the fleet park, the machines, equipment and vehicles, ensuring their good condition and assigning them to the tasks
+to be carried out.
+• Collaborator – a person who is an employee of the organization and carries out
+design, construction and/or maintenance tasks for green areas, depending on their
+skills.
+• Green Spaces Manager (GSM) - the person responsible for managing the green
+spaces in charge of the organization.
+• Green Spaces User (GSU) - a person who uses the green spaces managed by the
+organization and who can through the Portal, make comments or report faults in
+parks and gardens on the Portal.
+
 
 **From the client clarifications:**
 
-> **Question:** Which is the unit of measurement used to estimate duration?
+> **Question** When creating a collaborator with an existing name ... What does the system do? What characteristics are important to success the register?
+> 
+> **Answer:** It's not common and most improbable to have different individuals with same name in the same context, however it’s ID documentation number should be unique for sure.
 >
-> **Answer:** Duration is estimated in days.
-
-> **Question:** Monetary data is expressed in any particular currency?
+> **Question** What are the fundamental characteristics of the employee?
+> 
+> **Answer** name, date of birth, date of admission, address, contact (telephone and email), identification document and its number
 >
-> **Answer:** Monetary data (e.g. estimated cost of a task) is indicated in POT (virtual currency internal to the platform).
+> **Question** Does the HRM select the job from a list that we display?
+> 
+> **Answer** displaying or not, It's a matter of UX, the dev team should decide about it, but the valid jobs are the ones created within the US02.
 
 ### 1.3. Acceptance Criteria
 
 * **AC1:** All required fields must be filled in.
-* **AC2:** The task reference must have at least 5 alphanumeric characters.
-* **AC3:** When creating a task with an existing reference, the system must reject such operation and the user must be able to modify the typed reference.
+* **AC2:** ID documentation number must be unique
+* **AC3:** ID number must only contain numbers
+* **AC4:** Date of birth must be valid
+* **AC5:** Date of admission must not be earlier than date of birth
+* **AC6:** Name must contain only valid characters
 
 ### 1.4. Found out Dependencies
 
-* There is a dependency on "US003 - Create a task category" as there must be at least one task category to classify the task being created.
+* There is a dependency on "US001 - Register a skill" as if the collaborator has at least one skill, it has to exist before
+* There is a dependency on "US002 - Create a job" as the jobs need to exist to be assigned to the collaborator
 
 ### 1.5 Input and Output Data
 
 **Input Data:**
 
 * Typed data:
-    * a reference
-    * a designation 
-    * an informal description
-    * a technical description
-    * an estimated duration
-    * an estimated cost
+    * name
+    * date of birth
+    * date of admission
+    * address
+    * contact (email and telephone)
+    * ID doc type
+    * ID number
 	
 * Selected data:
-    * a task category 
+    * job
+    * skill (optional)
 
 **Output Data:**
 
@@ -79,4 +103,4 @@ and the set of skills that must be covered are crucial.
 
 ### 1.7 Other Relevant Remarks
 
-* The created task stays in a "not published" state in order to distinguish from "published" tasks.
+* If the date of admission exceeds the current date, a warning must appear
