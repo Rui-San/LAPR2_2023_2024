@@ -12,9 +12,13 @@ However, be aware, this is a pedagogical simplification. On further projects and
 
 # Use Cases / User Stories
 
-| UC/US | Description                                   |                   
-|:------|:----------------------------------------------|
-| US001 | [Short name for US001](../../us001/Readme.md) |
-| ...   | ...                                           |
-| US006 | [Create a Task](../../us006/Readme.md)        |
-| ...   | ...                                           |
+| UC/US | Description                                               |                   
+|:------|:----------------------------------------------------------|
+| US001 | [Register a skill](../../us001/Readme.md)                 |
+| US002 | [Register a job](../../us002/Readme.md)                   |
+| US003 | [Register a collaborator](../../us003/Readme.md)          |
+| US004 | [Assign skills to a collaborator](../../us004/Readme.md)  |
+| US005 | [Create a task](../../us005/Readme.md)                    |
+| US006 | [Register a Vehicle](../../us006/Readme.md)               |
+| US007 | [Register a vehicle’s check-up](../../us007/Readme.md)    |
+| US008 | [List vehicles needing check-up](../../us008/Readme.md)   |
