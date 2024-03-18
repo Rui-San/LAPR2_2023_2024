@@ -35,11 +35,18 @@ light or heavy, open box or closed vans or trucks.
 
 > **Question:** Is Brand, Model and Type a list of options or a free text?
 > 
-> **Answer:** ---
+> **Answer:** Free text
  
 ### 1.3. Acceptance Criteria
 
 * **AC1:** All required fields must be filled in.
+* **AC2:** The system must not allow the registration of two vehicles with the same plate.
+* **AC3:** Brand, Model, Type and Plate ID can't contain special characters.
+* **AC4:** Tare, Gross Weight, Current Km and Checkup Frequency Kms must be positive numbers.
+* **AC5:** Register Date and Acquisition Date must be valid dates.
+* **AC6:** Register date and acquisition date must be in the past.
+* **AC7:** Acquisition date must not be earlier than the register date.
+* **AC8:** Tare must be less than the Gross Weight.
 
 ### 1.4. Found out Dependencies
 
@@ -50,19 +57,16 @@ light or heavy, open box or closed vans or trucks.
 **Input Data:**
 
 * Typed data:
-    * vehicle reference
+    * plate id
+    * brand
+    * model
+    * type
     * tare
     * gross weight
     * current km
     * register date
     * acquisition date
-    * maintenance/checkup frequency (in kms)
-    * plate
-
-* Selected data:
-    * brand
-    * model
-    * type
+    * checkup frequency kms
 
 **Output Data:**
 
@@ -78,4 +82,4 @@ light or heavy, open box or closed vans or trucks.
 
 ### 1.7 Other Relevant Remarks
 
-* The created task stays in a "not published" state in order to distinguish from "published" tasks.
+* The FM must be able to register a vehicle, but the system must not allow the registration of two vehicles with the same plate.
