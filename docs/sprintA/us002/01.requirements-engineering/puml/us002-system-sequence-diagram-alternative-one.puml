@@ -15,7 +15,7 @@ activate Employee
     Employee -> System : asks to create a new job
     activate System
 
-        System --> Employee : requests job data
+        System --> Employee : requests job data (job name)
     deactivate System
 
     Employee -> System : types requested data

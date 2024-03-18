@@ -24,26 +24,15 @@ or tractors; tree pruning; application of phytopharmaceuticals.
 >
 > **Answer:** The name of the job
 
-> **Question:** When the user registers a job does he select a job from a list or does he type out a custom job name?
->
-> **Answer:** ---
-
 > **Question:** What happens when the user tries to create a job with an existing reference?
 > 
 > **Answer:** By definition a set can´t have duplicates. Assuring no duplicates is not a business rule is a tecnichal issue.
 
-> **Question:** What are the valid inputs for each field? For example, are there any restrictions on the format or length of the job name?
-> 
-> **Answer:** ---
-
-> **Question:** Is there a limit to the number of jobs that can be registered by a user or within the organization?
-> 
-> **Answer:** ---
-
 ### 1.3. Acceptance Criteria
 
 * **AC1:** All required fields must be filled in.
-* **AC2:** When creating a job with an existing reference, the system must inform the user that the reference already exists.
+* **AC2:** When creating a job that already exists, the system must inform the user that the job already exists.
+* **AC3:** The job name can't contain special characters and numbers, only spaces.
 
 ### 1.4. Found out Dependencies
 
@@ -54,7 +43,6 @@ or tractors; tree pruning; application of phytopharmaceuticals.
 **Input Data:**
 
 * Typed data:
-    * job reference
     * job name
 
 **Output Data:**
