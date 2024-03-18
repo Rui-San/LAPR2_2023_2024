@@ -34,7 +34,8 @@ and the set of skills that must be covered are crucial.
 ### 1.3. Acceptance Criteria
 
 * **AC1:** All required fields must be filled in.
-* **AC2:** When registering a new skill with an existing reference, the system must inform the user that the reference already exists.
+* **AC2:** Skill description must not contain numbers or special characters.
+
 
 ### 1.4. Found out Dependencies
 
@@ -46,27 +47,15 @@ and the set of skills that must be covered are crucial.
 
 * Typed data:
     * Skill description
-	
-* Selected data:
-    * a task category 
 
 **Output Data:**
 
 * List of all Skills
-* (In)Success of the operation
+* Success of the operation
 
 ### 1.6. System Sequence Diagram (SSD)
 
-**_Other alternatives might exist._**
+![System Sequence Diagram - Alternative One](svg/us001-system-sequence-diagram.svg)
 
-#### Alternative One
-
-![System Sequence Diagram - Alternative One](svg/us006-system-sequence-diagram-alternative-one.svg)
-
-#### Alternative Two
-
-![System Sequence Diagram - Alternative Two](svg/us006-system-sequence-diagram-alternative-two.svg)
 
 ### 1.7 Other Relevant Remarks
-
-* The created task stays in a "not published" state in order to distinguish from "published" tasks.

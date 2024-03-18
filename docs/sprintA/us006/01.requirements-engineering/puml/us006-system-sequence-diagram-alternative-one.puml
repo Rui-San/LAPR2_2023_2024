@@ -15,23 +15,17 @@ activate Employee
     Employee -> System : asks to create a new vehicle
     activate System
 
-        System --> Employee : shows brand, model and type list and asks to select fields
+        System --> Employee : requests vehicle data (plate id, brand, model, type, tare, gross weight, current km, register date, acquisition date, checkup frequency kms)
     deactivate System
 
 
-    Employee -> System : selects a brand, model and type
-    activate System
-
-        System --> Employee : requests other data ( tare, gross weight, current km, register date, acquisition date, maintenance/checkup frequency (in kms))
-    deactivate System
-
-    Employee -> System : types in the requested data
+    Employee -> System : Types requested data
     activate System
 
         System --> Employee : shows all data and requests confirmation
     deactivate System
 
-    Employee -> System : confirms data
+    Employee -> System : confirms data and submits
     activate System
 
         System --> Employee : displays operation success
