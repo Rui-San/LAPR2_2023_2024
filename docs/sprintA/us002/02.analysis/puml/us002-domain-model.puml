@@ -2,21 +2,15 @@
 skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
-
+'skinparam linetype ortho
 'left to right direction
-
 skinparam classAttributeIconSize 0
-
 hide circle
 hide methods
 
 'title Domain Model
 
-'class Platform {
-'  -description
-'}
-
-class MusgoSublime {
+class Organization {
     name
     vatNumber
     website
@@ -24,17 +18,32 @@ class MusgoSublime {
     email
 }
 
-class Job {
+class Employee {
     name
+    admissionDate
+    birthDate
+    address
+    contactInfo
+    IdDocType
+    IdNumber
+}
+
+class HRM{
+
 }
 
 class Collaborator{
-    name
-    email
-    position
-    phone
+    skills
+    job
 }
 
-MusgoSublime "1" - "0..*" Collaborator : has >
-Collaborator "1 HRM" -- "*" Job : creates >
+class Job{
+    job name
+}
+
+Organization "1" --right "1..*" Employee
+HRM "1" --left "1" Employee : "is >"
+HRM "1" --down "0..*" Collaborator : "registers >"
+Collaborator "1" -left "1" Job : "has >"
+
 @enduml

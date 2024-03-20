@@ -2,30 +2,46 @@
 skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
-
+'skinparam linetype ortho
 'left to right direction
-
 skinparam classAttributeIconSize 0
-
 hide circle
 hide methods
 
-title US006 Domain Model
+'title Domain Model
 
 class Organization {
-    plate id
-    brand
-    model
-    type
-    tare
-    gross weight
-    current km
-    register date
-    acquisition date
-    checkup frequency km
+    name
+    vatNumber
+    website
+    phoneNumber
+    email
 }
 
+class Employee {
+    name
+    admissionDate
+    birthDate
+    address
+    contactInfo
+    IdDocType
+    IdNumber
+}
 
-'Platform "1" -- "*" Organization : has registered >
-'Platform "1" -- "*" Category : defines >
+class FM{
+
+}
+
+class Vehicle{
+    plate
+    brand
+    model
+    year
+    color
+}
+
+Organization "1" --right "1..*" Employee
+FM "1" --left "1" Employee : "is >"
+FM "1" --down "0..*" Vehicle : "registers >"
+
 @enduml
