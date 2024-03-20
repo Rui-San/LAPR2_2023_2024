@@ -10,10 +10,6 @@ hide methods
 
 'title Domain Model
 
-'class Platform {
-'  -description
-'}
-
 class Organization {
     name
     vatNumber
@@ -22,63 +18,120 @@ class Organization {
     email
 }
 
-class Task {
-    reference
-    description
-    informalDesc
-    technicalDesc
-    duration
-    cost
-}
-
-class Category {
-    description
-}
-
 class Employee {
     name
+    admissionDate
+    birthDate
+    address
+    contactInfo
+    IdDocType
+    IdNumber
+}
+
+class HRM{
+
+}
+
+class FM{
+
+}
+
+class Collaborator{
+    skills
+    job
+}
+
+class Skill{
+    name
+    description
+}
+
+class Job{
+    job name
+}
+
+class Vehicle{
+    plate
+    brand
+    model
+    year
+    color
+}
+
+class Checkup{
+    date
+    description
+}
+
+class Team_Proposal{
+    maxTeamSize
+    setOfSkills
+}
+
+class Team{
+    name
+    description
+    members
+}
+
+class Agenda{
+
+}
+
+class Task{
+    description
+    deadline
+    status
+    priority
+}
+
+class System_User{
+    username
+    password
     email
-    position
-    phone
 }
 
-class TechnicalSkill{
-    shortDescription
-    fullDescription
+class GSU{
+
 }
 
-class ActivityArea{
-    shortDescription
-    fullDescription
+class Portal{
+
 }
 
-class FeatureTS{
-    mandatory
+class Comment{
+    date
+    text
+    author
 }
 
-'class User {
-'    name
-'    email
-'    password
-'}
-class PostalAddress{
-    street
-    zipCode
-    city
+class Green_Space{
+    name
+    location
+    description
 }
-'Platform "1" -- "*" Organization : has registered >
-'Platform "1" -- "*" Category : defines >
-Organization "1" - "0..*" Employee : has >
-Organization "1" - "0..*" Task: owns >
-'Task "*" -- "1" Employee: created by >
-Employee "1" -- "*" Task : creates >
-'Employee "0..1" -- "1" User: acts as >
-Task "*" - "1" Category: cataloged as >
-TechnicalSkill "*" - "1" ActivityArea: regarding an >
 
-Category "*" - "*" TechnicalSkill :  : requires >
-(Category, TechnicalSkill) . FeatureTS
-
-Organization "1" -left "1" PostalAddress : located At >
+Organization "1" -- "1..*" Green_Space : "manages >"
+Green_Space "1" -- "1" Portal : "has >"
+GSU -- System_User : "is >"
+Employee -- System_User : "is >"
+Organization "1" -- "*" Employee : "has >"
+HRM -- Employee : "is >"
+FM --up Employee : "is >"
+HRM "1" -- "*" Job : "registers >"
+HRM "1" -- "*" Collaborator : "registers >"
+HRM "1" -- "*" Skill : "registers >"
+Collaborator "1" -- "0..*" Skill : "has >"
+Collaborator "1" -- "*" Job : "has >"
+Checkup "1" -- "*" Vehicle : "has >"
+FM "1" -- "*" Vehicle : "registers >"
+FM "1" -- "*" Checkup : "registers >"
+HRM "1" -- "*" Team_Proposal : "registers >"
+Task "*" --right "1" Agenda : "is part of >"
+Team "1" -- "0..*" Task : "has >"
+Portal "1" -- "0..*" Comment : "has >"
+GSU "1" -- "*" Comment : "registers >"
+Team_Proposal "1" -- "*" Team : "generates >"
+Team "1" -- "1..*" Collaborator : "has >"
 
 @enduml

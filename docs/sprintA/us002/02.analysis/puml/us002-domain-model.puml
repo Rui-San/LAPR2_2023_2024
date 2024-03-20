@@ -1,0 +1,40 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+'title Domain Model
+
+'class Platform {
+'  -description
+'}
+
+class MusgoSublime {
+    name
+    vatNumber
+    website
+    phoneNumber
+    email
+}
+
+class Job {
+    name
+}
+
+class Collaborator{
+    name
+    email
+    position
+    phone
+}
+
+MusgoSublime "1" - "0..*" Collaborator : has >
+Collaborator "1 HRM" -- "*" Job : creates >
+@enduml

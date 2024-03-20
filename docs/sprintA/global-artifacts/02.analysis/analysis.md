@@ -34,31 +34,38 @@ To identify domain conceptual classes, start by making a list of candidate conce
 
 **Roles of People or Organizations**
 
-* 
+* Organization
+* Employee
+* System User
+* Collaborator
+* Team
+* FM
+* HRM
+* GSU
 
 ---
 
 **Places**
 
-* 
+* Green Spaces
 
 ---
 
 **Noteworthy Events**
 
-* 
+* Vehicle Checkup
 
 ---
 
 **Physical Objects**
 
-* 
+* Vehicle
 
 ---
 
 **Descriptions of Things**
 
-* 
+* System User
 
 ---
 
@@ -70,31 +77,33 @@ To identify domain conceptual classes, start by making a list of candidate conce
 
 **Containers**
 
-* 
+* Portal
 
 ---
 
 **Elements of Containers**
 
-* 
+* Comments
 
 ---
 
 **Organizations**
 
-* 
+* Organization
 
 ---
 
 **Other External/Collaborating Systems**
 
-* 
+* GSU
 
 ---
 
 **Records of finance, work, contracts, legal matters**
 
-* 
+* Agenda
+* Team Proposal
+* Vehicle Checkup
 
 ---
 
@@ -106,7 +115,7 @@ To identify domain conceptual classes, start by making a list of candidate conce
 
 **Documents mentioned/used to perform some work/**
 
-* 
+* Team Proposal
 
 ---
 
@@ -124,11 +133,30 @@ An association is a relationship between instances of objects that indicates a r
 - etc.
 
 
-| Concept (A) 		|  Association   	|  Concept (B) |
-|----------	   		|:-------------:		|------:       |
-| C1  	| verb1    		 	| C2  |
-| ...  	| ...    		 	| ...  |
-
+| Concept (A) 		 | Association   	 |   Concept (B) |
+|----------------|:---------------:|--------------:|
+| Organization |     manages     |   Green Space |
+| Organization |       has       |      Employee |
+| GSU |       is        |   System User |
+| Employee |       is        |   System User |
+| FM |       is        |      Employee |
+| HRM |       is        |      Employee |
+| Green Space |       has       |        Portal |
+| Portal |       has       |       Comment |
+| GSU |    registers    |       Comment |
+| FM |    registers    |       Vehicle |
+| FM |    registers    |       Checkup |
+| Checkup |       has       |       Vehicle |
+| HRM |    registers    |           Job |
+| HRM |    registers    |         Skill |
+| HRM |    registers    |  Collaborator |
+| Collaborator |       has       |         Skill |
+| Collaborator |       has       |           Job |
+| HRM |    registers    | Team Proposal |
+| Team Proposal |    generates    |          Team |
+| Team |       has       |  Collaborator |
+| Team |       has       |          Task |
+| Task |   is part of    |        Agenda |
 
 
 ## Domain Model

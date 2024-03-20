@@ -8,7 +8,8 @@ title System Sequence Diagram (SSD) - Alternative One
 autonumber
 
 actor "HRM\nMS Employee" as Employee
-participant ":System" as System
+participant ":CreateJobUI" as System
+participant ":CreateJobController" as Controller
 
 activate Employee
 
