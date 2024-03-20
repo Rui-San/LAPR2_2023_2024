@@ -58,11 +58,15 @@ parks and gardens on the Portal.
 ### 1.3. Acceptance Criteria
 
 * **AC1:** All required fields must be filled in.
-* **AC2:** ID documentation number must be unique
-* **AC3:** ID number must only contain numbers
-* **AC4:** Date of birth must be valid
-* **AC5:** Date of admission must not be earlier than date of birth
-* **AC6:** Name must contain only valid characters
+* **AC2:** ID documentation number must be unique.
+* **AC3:** ID documentation number must only contain numbers.
+* **AC4:** Birthdate must be valid.
+* **AC5:** Date of admission must not be earlier than date of birth.
+* **AC6:** Mobile number must contain 9 numeric digits.
+* **AC7:** Name must contain only valid characters.
+* **AC8:** Employee name must have at least 2 names (first and last).
+* **AC9:** Email must contain only one "@".
+* 
 
 ### 1.4. Found out Dependencies
 
@@ -90,7 +94,7 @@ parks and gardens on the Portal.
 
 **Output Data:**
 
-* List of existing task categories
+* All data is shown for confirmation.
 * Success of the operation
 
 ### 1.6. System Sequence Diagram (SSD)

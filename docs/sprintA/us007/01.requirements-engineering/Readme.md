@@ -28,6 +28,7 @@ As an FM, I wish to register a vehicle’s check-up.
 ### 1.3. Acceptance Criteria
 
 * **AC1:** All required fields must be filled in.
+* **AC2:** Date must not be in the future. 
 * **AC2:** User must select a vehicle from database before filling in the check-up data.
 * **AC3:** The current kilometers entered should be a numeric value higher than zero.
 * **AC4:** After successful registration, the system should provide feedback indicating the completion of the operation.
@@ -45,15 +46,15 @@ As an FM, I wish to register a vehicle’s check-up.
     * Current kilometers
 
 * Selected data:
-    * A vehicle from database
+    * A vehicle from the list
 
 **Output Data:**
 
 * List of registered vehicles
-* (In)Success of the operation
+* Success of the operation
 
 ### 1.6. System Sequence Diagram (SSD)
 
-![System Sequence Diagram - Alternative One](svg/us007-system-sequence-diagram.svg)
+![System Sequence Diagram](svg/us007-system-sequence-diagram.svg)
 
 ### 1.7 Other Relevant Remarks
