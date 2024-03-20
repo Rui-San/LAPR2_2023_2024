@@ -10,7 +10,25 @@ skinparam classAttributeIconSize 0
 hide circle
 hide methods
 
-title US01 - Domain Model
+title US001 - Domain Model
+
+class Organization {
+    name
+    vatNumber
+    website
+    phoneNumber
+    email
+}
+
+class Employee {
+    name
+    admissionDate
+    birthDate
+    address
+    contactInfo
+    IdDocType
+    IdNumber
+}
 
 class HRM{
 
@@ -26,6 +44,11 @@ class Collaborator{
     job
 }
 
+
+
+Organization "1" -- "*" Employee : "has >"
+HRM --|> Employee
+HRM "1" -- "*" Collaborator : "registers >"
 HRM "1" -- "1..*" Skill : "registers >"
 Collaborator "1" -- "*" Skill : "has >"
 

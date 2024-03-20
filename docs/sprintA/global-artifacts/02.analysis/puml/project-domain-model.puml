@@ -113,11 +113,11 @@ class Green_Space{
 
 Organization "1" -- "1..*" Green_Space : "manages >"
 Green_Space "1" -- "1" Portal : "has >"
-GSU -- System_User : "is >"
-Employee -- System_User : "is >"
+GSU --|> System_User
+Employee --|> System_User
 Organization "1" -- "*" Employee : "has >"
-HRM -- Employee : "is >"
-FM --up Employee : "is >"
+HRM --|> Employee
+FM --up|> Employee
 HRM "1" -- "*" Job : "registers >"
 HRM "1" -- "*" Collaborator : "registers >"
 HRM "1" -- "*" Skill : "registers >"
