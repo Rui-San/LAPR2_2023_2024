@@ -13,12 +13,10 @@ _(Complete according to the provided example)_
 | **PVM**          | Minimal Viable Product.                                                                                                                                |
 | **MS**           | MS is an acronym for MusgoSublime.                                                                                                                     |
 | **MusgoSublime** | MusgoSublime is the organization dedicated to the planning, construction and maintenance of green spaces for collective use.                           |
-| **Green Space**  | Refere-se aos espaços verdes em locais públicos, como parques e jardins.                                                                               |
 | **Collaborator** | Employee of the organization with specific skills for executing tasks related to green space management.                                               |
+| **Green Space**  | Referes to green spaces in public places (e.g. parks and gardens).                                                                                     |
 | **Task**         | Tasks performed by collaborators.                                                                                                                      |
-| **JavaFX 11**    | The framework used to develop the graphical interface of the application.                                                                              |
-| **User Story**   | ----                                                                                                                                                   |
-| **US**           | ---                                                                                                                                                    |
+| **JavaFX 11**    | The framework used to develop the graphical interface of the application.                                                                              | 
 | **User**         | Individual who can use the application.                                                                                                                |
 | **Diary**        | Crucial mechanism for planning the week's work.                                                                                                        |
 | **Team**         | Group of workers who collaborate as a team to accomplish a task.                                                                                       |
@@ -39,7 +37,9 @@ _(Complete according to the provided example)_
 | **(?)Machine**   | All types of machines that are allocated to tasks and are company assets.                                                                              |
 | **(?)equipment** | Assets owned by a company and utilized for tasks, including tools and machinery.                                                                       |
 | **User Portal**  | Platform where users can post comments, report faults and malfunctions of equipment.                                                                   |
-
+| **Doc**          | Referes to the identification document                                                                                                                 |
+| **ID**           | Number of identification document                                                                                                                      |
+| **Check-up**     | The action of subjecting company vehicles to a periodic inspection.                                                                                    |
 
 
 
