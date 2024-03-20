@@ -5,25 +5,25 @@
 
 ### 1.1. User Story Description
 
-As an organization employee, I want to create a new task in order to be further published.
+As an FM, I want to list the vehicles needing the check-up.
 
 ### 1.2. Customer Specifications and Clarifications 
 
 **From the specifications document:**
 
->	Each task is characterized by having a unique reference per organization, a designation, an informal and a technical description, an estimated duration and cost, as well as a task category. 
+>	As for machines, MS has tractors, backhoe loaders and rotating machines, lawnmowers, among others. 
 
->	As long as it is not published, access to the task is exclusive to the employees of the respective organization. 
+>	This type of vehicle can be only for passengers or mixed, light or heavy, open box or closed vans or trucks. 
 
 **From the client clarifications:**
 
-> **Question:** Which is the unit of measurement used to estimate duration?
+> **Question:** Can the vehicles get placed automatically on a list or the one listing has to be the FM?
 >
-> **Answer:** Duration is estimated in days.
+> **Answer:** 
 
-> **Question:** Monetary data is expressed in any particular currency?
+> **Question:** 
 >
-> **Answer:** Monetary data (e.g. estimated cost of a task) is indicated in POT (virtual currency internal to the platform).
+> **Answer:** 
 
 ### 1.3. Acceptance Criteria
 
@@ -33,26 +33,26 @@ As an organization employee, I want to create a new task in order to be further 
 
 ### 1.4. Found out Dependencies
 
-* There is a dependency on "US003 - Create a task category" as there must be at least one task category to classify the task being created.
+* There is a dependency on "US007 - As an FM, I wish to register a vehicle’s check-up" as there must be at least one registed vehicle to check-up for presenting the list of vehicles.
 
 ### 1.5 Input and Output Data
 
 **Input Data:**
 
 * Typed data:
-    * a reference
-    * a designation 
-    * an informal description
-    * a technical description
-    * an estimated duration
-    * an estimated cost
+    * brand
+    * model
+    * plate number
+    * number of kms
+    * frequency of checkup
+    * last checkup
 	
 * Selected data:
     * a task category 
 
 **Output Data:**
 
-* List of existing task categories
+* List the vehicles needing the check-up
 * (In)Success of the operation
 
 ### 1.6. System Sequence Diagram (SSD)
@@ -61,11 +61,8 @@ As an organization employee, I want to create a new task in order to be further 
 
 #### Alternative One
 
-![System Sequence Diagram - Alternative One](svg/us006-system-sequence-diagram-alternative-one.svg)
+![System Sequence Diagram - Alternative One](svg/us008-system-sequence-diagram.svg)
 
-#### Alternative Two
-
-![System Sequence Diagram - Alternative Two](svg/us006-system-sequence-diagram-alternative-two.svg)
 
 ### 1.7 Other Relevant Remarks
 
