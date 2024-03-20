@@ -1,0 +1,32 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+title US01 - Domain Model
+
+class HRM{
+
+}
+
+class Skill{
+    name
+    description
+}
+
+class Collaborator{
+    skills
+    job
+}
+
+HRM "1" -- "1..*" Skill : "registers >"
+Collaborator "1" -- "*" Skill : "has >"
+
+@enduml
