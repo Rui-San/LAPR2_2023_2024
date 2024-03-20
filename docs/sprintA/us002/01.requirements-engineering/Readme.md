@@ -28,6 +28,18 @@ or tractors; tree pruning; application of phytopharmaceuticals.
 > 
 > **Answer:** By definition a set can´t have duplicates. Assuring no duplicates is not a business rule is a tecnichal issue.
 
+> **Question:** É relevante associar uma área ou setor específico a cada Job? (Por exemplo, "Jardineiro" seria inserido no setor de "Manutenção")
+> 
+> **Answer:** Não é necessário na medida que não existem US que sugiram que isso possa vir a ser necessário
+
+> **Question:** Deve-se incluir informações como salário, tipo de contratação (full-time ou part-time), e modalidade de trabalho (presencial, remoto ou híbrido) no Job?
+> 
+> **Answer:** Não é necessário na medida que não existem US que sugiram que isso possa vir a ser necessário
+
+> **Question:** Que outras informações acha necessárias associar ao Job?
+> 
+> **Answer:** Para já nenhumas.
+
 ### 1.3. Acceptance Criteria
 
 * **AC1:** All required fields must be filled in.

@@ -30,11 +30,19 @@ and the set of skills that must be covered are crucial.
 >
 > **Answer:** By definition, it's not possible to have duplicate values in a set. Checking for duplicates isn't a business rule; it's at the technological level.
 
+> **Question:** Which are the skills accepted? Or should we enable the HRM to introduce anything as a skill?
+>
+> **Answer:** All, it's up to HRM to decide. (special characters or algarisms should not be allowed in the skill name)
+
+> **Question:**  Do I need to add skills  by writing them or can I just give a file with all the skills?
+> 
+> **Answer:** Both are acceptable since the business the same the crucial difference resides in the UX.
+
 
 ### 1.3. Acceptance Criteria
 
 * **AC1:** All required fields must be filled in.
-* **AC2:** Skill description must not contain numbers or special characters.
+* **AC2:** Skill description must not contain numbers or special characters, only spaces.
 
 
 ### 1.4. Found out Dependencies
@@ -46,7 +54,7 @@ and the set of skills that must be covered are crucial.
 **Input Data:**
 
 * Typed data:
-    * Skill description
+    * Skill name
 
 **Output Data:**
 
