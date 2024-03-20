@@ -47,7 +47,7 @@ and the set of skills that must be covered are crucial.
 
 ### 1.4. Found out Dependencies
 
-* There is a dependency on "US003 - Create a task category" as there must be at least one task category to classify the task being created.
+* There are no dependencies for this user story.
 
 ### 1.5 Input and Output Data
 
