@@ -1,0 +1,51 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+'skinparam linetype ortho
+'left to right direction
+skinparam classAttributeIconSize 0
+hide circle
+hide methods
+
+title Domain Model
+
+class Organization {
+    name
+    vatNumber
+    website
+    phoneNumber
+    email
+}
+
+class Employee {
+    name
+    admissionDate
+    birthDate
+    address
+    contactInfo
+    IdDocType
+    IdNumber
+}
+
+class HRM{
+
+}
+
+class Collaborator{
+    skills
+    job
+}
+
+class Skill{
+    name
+    description
+}
+
+Organization "1" --right "*" Employee : "has >"
+HRM --up|> Employee
+HRM "1" -- "*" Collaborator : "registers >"
+HRM "1" -- "*" Skill : "registers >"
+Collaborator "1" --right "1..*" Skill : "has >"
+
+@enduml
