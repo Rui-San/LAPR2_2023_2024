@@ -71,7 +71,7 @@ b) 33480 (there is a difference minor than 5% of the number of kms of the checku
 
 **Output Data:**
 
-* List the vehicles needing the check-up
+* List the vehicles needing the check-up (with vehicle/data details)
 
 
 ### 1.6. System Sequence Diagram (SSD)
