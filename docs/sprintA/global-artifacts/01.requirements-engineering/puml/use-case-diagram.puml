@@ -2,21 +2,22 @@
 'skinparam monochrome true
 skinparam packageStyle rectangle
 'skinparam shadowing false
-skinparam linetype cubic
+
+skinparam rectangle {
+    borderColor transparent
+}
 
 title Use Case Diagram
 
 left to right direction
 
-rectangle "System Actors" as actors {
-
     actor "HRM"
     actor "FM"
-}
 
 
+rectangle {
 
-rectangle "Use Cases" as usecases{
+
     usecase "UC1 - Register a skill" as UC1
     usecase "UC2 - Register a job" as UC2
     usecase "UC3 - Register a collaborator" as UC3
@@ -26,23 +27,28 @@ rectangle "Use Cases" as usecases{
     usecase "UC7 - Register a vehicle’s check-up" as UC7
     usecase "UC8 - List vehicles needing check-up" as UC8
 
-    HRM - UC1
-    HRM - UC2
-    HRM --- UC3
-    HRM -- UC4
-    HRM -- UC5
-    FM -- UC6
-    FM -- UC7
-    FM ---- UC8
+    HRM --> UC1
+    HRM --> UC2
+    HRM --> UC3
+    HRM --> UC4
+    HRM --> UC5
+    FM --> UC6
+    FM --> UC7
+    FM --> UC8
 
 
-    UC3 .> UC1
+skinparam note {
+    borderColor transparent
+    backgroundColor transparent
+    UC3 > UC1
     UC3 .> UC2
     UC4 .> UC1
     UC4 .> UC3
     UC7 .> UC6
     UC8 .> UC6
     UC8 .> UC7
+}
+
 
 
 }
