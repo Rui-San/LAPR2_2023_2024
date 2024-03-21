@@ -1,4 +1,4 @@
-# US006 - Create a Task 
+# US008 - List of vehicles needing the check-up
 
 
 ## 1. Requirements Engineering
@@ -21,49 +21,61 @@ As an FM, I want to list the vehicles needing the check-up.
 >
 > **Answer:** 
 
-> **Question:** 
+> **Question:** What are the requests/ input data to list the vehicles needing the check-up?
 >
-> **Answer:** 
+> **Answer:** Current Km and Maintenance/Check-up Frequency (in Kms) are sufficient.
 
+> **Question:** Are there acceptance criteria when asking for the list?
+> 
+> **Answer:** For example:
+a vehicle that made the checkup at 23500 and has a checkup frequency of 10000km.
+a) If it currently has 33600 (exceeded) or
+b) 33480 (there is a difference minor than 5% of the number of kms of the checkup frequency).
+
+> **Question:** Can the vehicles get placed automatically on a list or the one listing has to be the FM?
+> 
+> **Answer:** The list of vehicles is automatically created but the creation is triggered by the FM.
+
+> **Question:** What information will appear on the final list regarding the vehicle,besides the needing for check-up?
+> 
+> **Answer:** Data that allow to identify the vehicle like Plate, brand and modle, as well as, the data that allowed to select/insert te vehicle in the list, number of kms, frequency of checkup and the last checkup.
+
+>**Question** By what percentage of the checkup frequency should the vehicle appear in need of a checkup?
+> 
+> **Answer:** Consider 5%.
+> 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** All required fields must be filled in.
-* **AC2:** The task reference must have at least 5 alphanumeric characters.
-* **AC3:** When creating a task with an existing reference, the system must reject such operation and the user must be able to modify the typed reference.
+* **AC1:** The list must contain all vehicles that already exceeded the number of kilometers required for the inspection.
+  * Current vehicle kms > last check-up kms + check-up frequency kms.
+* **AC2:** The list must contain all vehicles whose current kilometers is within a 5% margin of the next inspection (5% of the check-up frequency).
+    * Current vehicle kms ≥ last check-up kms + (0.95×check-up frequency kms)
+* **AC3:** Vehicle's current kilometers, check-up frequency (in kms) and last check done is the necessary data in order to calculate the vehicles to appear on the list.
+* **AC4:** The list must clearly identify the vehicles through: plate number, brand, model and the reason that justified the checkup need.
+
 
 ### 1.4. Found out Dependencies
 
-* There is a dependency on "US007 - As an FM, I wish to register a vehicle’s check-up" as there must be at least one registed vehicle to check-up for presenting the list of vehicles.
+* There is a dependency on "US006 - Regiter a vehicle" as there must be at least one vehicle registed in the system to appear on the list. 
+* There is a dependency on "US007 - Register a vehicle’s check-up" as we need information about the last vehicle check-up.
+
 
 ### 1.5 Input and Output Data
 
 **Input Data:**
 
-* Typed data:
-    * brand
-    * model
-    * plate number
-    * number of kms
-    * frequency of checkup
-    * last checkup
-	
-* Selected data:
-    * a task category 
+* Data required to produce the list:
+    * Current kilometers
+    * Check-up frequency (in kms)
+    * Last check-up done (in kms)
 
 **Output Data:**
 
 * List the vehicles needing the check-up
-* (In)Success of the operation
+
 
 ### 1.6. System Sequence Diagram (SSD)
 
-**_Other alternatives might exist._**
-
-#### Alternative One
-
 ![System Sequence Diagram - Alternative One](svg/us008-system-sequence-diagram.svg)
 
-
 ### 1.7 Other Relevant Remarks
-
-* The created task stays in a "not published" state in order to distinguish from "published" tasks.
