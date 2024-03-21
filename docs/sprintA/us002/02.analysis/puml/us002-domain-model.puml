@@ -8,7 +8,7 @@ skinparam classAttributeIconSize 0
 hide circle
 hide methods
 
-'title Domain Model
+title Domain Model
 
 class Organization {
     name
@@ -32,18 +32,12 @@ class HRM{
 
 }
 
-class Collaborator{
-    skills
-    job
-}
-
 class Job{
     job name
 }
 
-Organization "1" --right "1..*" Employee
-HRM "1" --left "1" Employee : "is >"
-HRM "1" --down "0..*" Collaborator : "registers >"
-Collaborator "1" -left "1" Job : "has >"
+Organization "1" -- "*" Employee : "has >"
+HRM --|> Employee
+HRM "1" -- "*" Job : "registers >"
 
 @enduml
