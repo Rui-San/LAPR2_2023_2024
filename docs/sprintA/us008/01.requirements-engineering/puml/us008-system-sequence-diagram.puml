@@ -3,7 +3,7 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title System Sequence Diagram (SSD)
+title US008 - System Sequence Diagram (SSD)
 
 autonumber
 
@@ -12,28 +12,24 @@ participant ":System" as System
 
 activate Employee
 
-    Employee -> System : asks to create a new task
+    Employee -> System : Requests to show the list of vehicles needing inspection
     activate System
 
-        System --> Employee : requests data (brand, model, plate number)
+        System -> System : Determine vehicles needing inspection \nand gather details of each vehicle.
+
+        System -> Employee : Show the list of vehicles needing check-up with vehicle \ndetails and the data/inputs used on the formula
+
     deactivate System
 
-    Employee -> System : types requested data
-    activate System
+note right
+**Vehicle details:**
+*Plate, brand, model, last check-up
 
-        System --> Employee : shows the list of vehicles needing the checkup
-    deactivate System
+**Data/Inputs used to determine vehicles:**
+*current kilometers, check-up frequency
+last check-up done
+end note
 
-    Employee -> System : selects a vehicle
-    activate System
-
-        System --> Employee : shows all data about that vehicle
-    deactivate System
-
-    Employee -> System : confirms data
-    activate System
-
-        System --> Employee : displays operation success
     deactivate System
 
 @enduml

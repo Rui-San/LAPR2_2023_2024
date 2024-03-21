@@ -38,7 +38,7 @@ b) 33480 (there is a difference minor than 5% of the number of kms of the checku
 
 > **Question:** What information will appear on the final list regarding the vehicle,besides the needing for check-up?
 > 
-> **Answer:** Data that allow to identify the vehicle like Plate, brand and modle, as well as, the data that allowed to select/insert te vehicle in the list, number of kms, frequency of checkup and the last checkup.
+> **Answer:** Data that allow to identify the vehicle like Plate, brand and model, as well as, the data that allowed to select/insert te vehicle in the list, number of kms, frequency of checkup and the last checkup.
 
 >**Question** By what percentage of the checkup frequency should the vehicle appear in need of a checkup?
 > 
@@ -76,6 +76,6 @@ b) 33480 (there is a difference minor than 5% of the number of kms of the checku
 
 ### 1.6. System Sequence Diagram (SSD)
 
-![System Sequence Diagram - Alternative One](svg/us008-system-sequence-diagram.svg)
+![System Sequence Diagram](svg/us008-system-sequence-diagram.svg)
 
 ### 1.7 Other Relevant Remarks
