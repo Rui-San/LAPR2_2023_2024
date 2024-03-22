@@ -33,7 +33,7 @@ activate Employee
         System --> Employee : Shows skill list and asks to select one or more (or none)
     deactivate System
 
-    Employee -> System : Select desired skills (0,1 ore more)
+    Employee -> System : Select desired skills (0,1 or more)
 
     activate System
 

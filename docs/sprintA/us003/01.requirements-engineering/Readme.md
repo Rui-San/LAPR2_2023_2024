@@ -60,10 +60,10 @@ parks and gardens on the Portal.
 * **AC1:** All required fields must be filled in.
 * **AC2:** ID documentation number must be unique.
 * **AC3:** ID documentation number must only contain numbers.
-* **AC4:** Birthdate must be valid.
-* **AC5:** Date of admission must not be earlier than date of birth.
+* **AC4:** The system must ensure that the birthdate corresponds to a minimum of 18 years old.
+* **AC5:** Date of admission must not be earlier than birthdate.
 * **AC6:** Mobile number must contain 9 numeric digits.
-* **AC7:** Name must contain only valid characters.
+* **AC7:** Name must contain only alphabetic characters.
 * **AC8:** Employee name must have at least 2 names (first and last).
 * **AC9:** Email must contain only one "@".
 * 
@@ -89,7 +89,7 @@ parks and gardens on the Portal.
     * ID doc number
 
 * Selected data:
-    * Job
+    * A Job
     * Skills
 
 **Output Data:**
