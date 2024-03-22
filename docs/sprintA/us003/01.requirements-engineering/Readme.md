@@ -53,7 +53,6 @@ ones created within the US02.
 * **AC7:** Name must contain only alphabetic characters.
 * **AC8:** Employee name must have at least 2 names (first and last).
 * **AC9:** Email must contain only one "@".
-* 
 
 ### 1.4. Found out Dependencies
 
