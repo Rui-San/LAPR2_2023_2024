@@ -31,6 +31,7 @@ As an HRM, I want to assign one or more skills to a collaborator.
 ### 1.3. Acceptance Criteria
 
 * **AC1:** All required fields must be filled in.
+* **AC2:** At least one skill must be selected from the list.
 
 ### 1.4. Found out Dependencies
 
