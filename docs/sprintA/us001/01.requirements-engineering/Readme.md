@@ -12,10 +12,9 @@ be appointed to a collaborator.
 
 **From the specifications document:**
 
->	... an employee has a main occupation (job) and a set of skills
-that enable him to perform/take on certain tasks/responsibilities, for example, driving
-vehicles of different types (e.g. light, or heavy), operating machines such as backhoes
-or tractors; tree pruning; application of phytopharmaceuticals. 
+>	Thus, an employee has a main occupation (job) and
+a set of skills that enable him to perform/take on certain tasks/responsibilities, for example, driving vehicles of different types (e.g. light, or heavy), operating machines such
+as backhoes or tractors; tree pruning; application of agriculture phytopharmaceuticals. 
 
 >	When creating multipurpose teams, the number of members
 and the set of skills that must be covered are crucial. 
@@ -58,12 +57,14 @@ and the set of skills that must be covered are crucial.
 
 **Output Data:**
 
-* List of all Skills
+* List of all registered skills
 * Success of the operation
 
 ### 1.6. System Sequence Diagram (SSD)
 
-![System Sequence Diagram - Alternative One](svg/us001-system-sequence-diagram.svg)
+![System Sequence Diagram](svg/us001-system-sequence-diagram.svg)
 
 
 ### 1.7 Other Relevant Remarks
+
+* After registering a new skill and confirm the operation, the program will show the list of all skills registered.

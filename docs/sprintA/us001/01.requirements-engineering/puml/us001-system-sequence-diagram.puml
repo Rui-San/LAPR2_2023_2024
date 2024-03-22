@@ -3,31 +3,31 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title System Sequence Diagram (SSD) - Alternative One
+title US001 - System Sequence Diagram (SSD)
 
 autonumber
 
-actor "HRM\nMS Employee" as Employee
+actor "HRM" as Employee
 participant ":RegisterSkillUI" as System
 
 activate Employee
 
-    Employee -> System : asks to register a new skill
+    Employee -> System : Asks to register a new skill
     activate System
 
-        System --> Employee : requests skill data
+        System --> Employee : Requests data (skill name)
     deactivate System
 
-    Employee -> System : types requested data
+    Employee -> System : Types requested data
     activate System
 
-        System --> Employee : shows all data and requests confirmation
+        System --> Employee : Shows typed data and requests confirmation
     deactivate System
 
-    Employee -> System : confirms data and submits
+    Employee -> System : Confirms data and submits
     activate System
 
-        System --> Employee : displays operation success
+        System --> Employee : Displays operation success and shows the \nlist of all registered skills
     deactivate System
 
 @enduml
