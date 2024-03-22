@@ -22,19 +22,19 @@ or tractors; tree pruning; application of phytopharmaceuticals.
 
 > **Question:** What data is introduced by the user when creating a job?
 >
-> **Answer:** The name of the job
+> **Answer:** The name of the job.
 
 > **Question:** What happens when the user tries to create a job with an existing reference?
 > 
 > **Answer:** By definition a set can´t have duplicates. Assuring no duplicates is not a business rule is a tecnichal issue.
 
-> **Question:** É relevante associar uma área ou setor específico a cada Job? (Por exemplo, "Jardineiro" seria inserido no setor de "Manutenção")
+> **Question:** É relevante associar uma área ou setor específico a cada Job? (Por exemplo, "Jardineiro" seria inserido no setor de "Manutenção").
 > 
-> **Answer:** Não é necessário na medida que não existem US que sugiram que isso possa vir a ser necessário
+> **Answer:** Não é necessário na medida que não existem US que sugiram que isso possa vir a ser necessário.
 
 > **Question:** Deve-se incluir informações como salário, tipo de contratação (full-time ou part-time), e modalidade de trabalho (presencial, remoto ou híbrido) no Job?
 > 
-> **Answer:** Não é necessário na medida que não existem US que sugiram que isso possa vir a ser necessário
+> **Answer:** Não é necessário na medida que não existem US que sugiram que isso possa vir a ser necessário.
 
 > **Question:** Que outras informações acha necessárias associar ao Job?
 > 
@@ -43,8 +43,7 @@ or tractors; tree pruning; application of phytopharmaceuticals.
 ### 1.3. Acceptance Criteria
 
 * **AC1:** All required fields must be filled in.
-* **AC2:** When creating a job that already exists, the system must inform the user that the job already exists.
-* **AC3:** The job name can't contain special characters and numbers, only spaces.
+* **AC2:** The job name can't contain special characters and numbers, only spaces.
 
 ### 1.4. Found out Dependencies
 
@@ -55,19 +54,16 @@ or tractors; tree pruning; application of phytopharmaceuticals.
 **Input Data:**
 
 * Typed data:
-    * job name
+    * Job name
 
 **Output Data:**
 
-* (In)Success of the operation
+* List of all registered jobs.
+* Success of the operation.
 
 ### 1.6. System Sequence Diagram (SSD)
 
-**_Other alternatives might exist._**
-
-#### Alternative One
-
-![System Sequence Diagram - Alternative One](svg/us002-system-sequence-diagram-alternative-one.svg)
+![System Sequence Diagram - Alternative One](svg/us002-system-sequence-diagram.svg)
 
 ### 1.7 Other Relevant Remarks
 
