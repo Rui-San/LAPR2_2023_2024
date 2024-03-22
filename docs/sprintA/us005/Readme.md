@@ -1,4 +1,4 @@
-# US005 - Create a Task 
+# US005 - Generate team proposal 
 
 [Requirements Engineering](01.requirements-engineering/Readme.md)
 

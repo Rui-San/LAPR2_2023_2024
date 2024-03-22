@@ -1,0 +1,66 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+'skinparam linetype ortho
+'left to right direction
+skinparam classAttributeIconSize 0
+hide circle
+hide methods
+
+title Domain Model
+
+class Organization {
+    name
+    vatNumber
+    website
+    phoneNumber
+    email
+}
+
+class Employee {
+    name
+    admissionDate
+    birthDate
+    address
+    contactInfo
+    IdDocType
+    IdNumber
+}
+
+class HRM{
+
+}
+
+class Collaborator{
+    skills
+    job
+}
+
+class Skill{
+    name
+    description
+}
+
+class Team_Proposal{
+    maxTeamSize
+    setOfSkills
+}
+
+class Team{
+    name
+    description
+    members
+}
+
+Organization "1" --right "*" Employee : "has >"
+HRM --up|> Employee
+HRM "1" -- "*" Collaborator : "registers >"
+HRM "1" -- "*" Skill : "registers >"
+Team_Proposal "1" --left "1..*" Skill : "has >"
+Collaborator "1" -- "0..*" Skill : "has >"
+HRM "1" --down "*" Team_Proposal : "registers >"
+Team_Proposal "1" --right "*" Team : "generates >"
+Team "1" -- "1..*" Collaborator : "has >"
+
+@enduml
