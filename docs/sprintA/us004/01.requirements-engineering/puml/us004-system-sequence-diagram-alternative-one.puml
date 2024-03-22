@@ -3,37 +3,37 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title System Sequence Diagram (SSD) - Alternative One
+title US004 - System Sequence Diagram (SSD)
 
 autonumber
 
-actor "Human Resources Manager" as Employee
-participant ":System" as System
+actor "HRM" as Employee
+participant ":AssignSkillUI" as System
 
 activate Employee
 
-    Employee -> System : asks to assign a skill to a collaborator
+    Employee -> System : Asks to assign one or more skills to a collaborator
     activate System
 
-        System --> Employee : requests data (employee ID, name, skill to be assigned, date of birth, email, contact)
+        System --> Employee : Shows a list of Collaborators and asks to select one
     deactivate System
 
-    Employee -> System : types requested data
+    Employee -> System : Selects a collaborator
     activate System
 
-        System --> Employee : shows skill category list and asks to select one
+        System --> Employee : Shows a list with the available skills and asks \nto select the pretended skills (one or more)
     deactivate System
 
-    Employee -> System : selects a skill category
+    Employee -> System : Selects the desired skills
     activate System
 
-        System --> Employee : shows all data and requests confirmation
+        System --> Employee : Shows all data and requests confirmation
     deactivate System
 
-    Employee -> System : confirms data
+    Employee -> System : Confirms the operation
     activate System
 
-        System --> Employee : displays operation success
+        System --> Employee : Displays operation success
     deactivate System
 
 @enduml
