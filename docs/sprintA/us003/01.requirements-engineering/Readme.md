@@ -38,6 +38,10 @@ and its number
 > **Answer:** Displaying or not, It's a matter of UX, the dev team should decide about it, but the valid jobs are the
 ones created within the US02.
 
+> **Question:** Should the system able the HRM to insert multiple collaborators in one interaction before saving them?
+> 
+> **Answer:** It's not required to do so.
+
 ### 1.3. Acceptance Criteria
 
 * **AC1:** All required fields must be filled in.
