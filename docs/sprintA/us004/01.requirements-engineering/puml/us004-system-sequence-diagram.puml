@@ -19,13 +19,19 @@ activate Employee
     deactivate System
 
     Employee -> System : Selects a collaborator
+
+    loop
+
     activate System
 
-        System --> Employee : Shows a list with the available skills and asks \nto select the pretended skills (one or more)
+        System --> Employee : Displays a list of available skills and asks to \nselect the desired ones.
     deactivate System
 
     Employee -> System : Selects the desired skills
+
+
     activate System
+    end
 
         System --> Employee : Shows all data and requests confirmation
     deactivate System
