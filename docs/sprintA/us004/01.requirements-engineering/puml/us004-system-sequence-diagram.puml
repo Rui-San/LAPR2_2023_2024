@@ -24,10 +24,10 @@ activate Employee
 
     activate System
 
-        System --> Employee : Displays a list of available skills and asks to \nselect the desired ones.
+        System --> Employee : Displays a list of available skills.
     deactivate System
 
-    Employee -> System : Selects the desired skills
+    Employee -> System : Selects option
 
 
     activate System
