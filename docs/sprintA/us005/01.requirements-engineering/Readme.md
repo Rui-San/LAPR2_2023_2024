@@ -46,7 +46,7 @@ and the set of skills that must be covered are crucial.
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** The maximum team size and the set of skills need to be supplied by the HRM
+* **AC1:** The maximum team size and the set of skills need to be supplied by the HRM.
 * **AC2:** All required fields must be filled in.
 
 ### 1.4. Found out Dependencies

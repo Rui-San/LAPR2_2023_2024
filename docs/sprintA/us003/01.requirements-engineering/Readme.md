@@ -44,15 +44,17 @@ ones created within the US02.
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** All required fields must be filled in.
-* **AC2:** ID documentation number must be unique.
-* **AC3:** ID documentation number must only contain numbers.
-* **AC4:** The system must ensure that the birthdate corresponds to a minimum of 18 years old.
-* **AC5:** Date of admission must not be earlier than birthdate.
-* **AC6:** Mobile number must contain 9 numeric digits.
-* **AC7:** Name must contain only alphabetic characters.
-* **AC8:** Employee name must have at least 2 names (first and last).
-* **AC9:** Email must contain only one "@".
+* **AC1:** Name, birthdate, admission date, address, contact info (mobile and
+  email), ID doc type and respective number should be provided by HRM.
+* **AC2:** All required fields must be filled in.
+* **AC3:** ID documentation number must be unique.
+* **AC4:** ID documentation number must only contain numbers.
+* **AC5:** The system must ensure that the birthdate corresponds to a minimum of 18 years old.
+* **AC6:** Date of admission must not be earlier than birthdate.
+* **AC7:** Mobile number must contain 9 numeric digits.
+* **AC8:** Name must contain only alphabetic characters.
+* **AC9:** Employee name must have at least 2 names (first and last).
+* **AC10:** Email must contain only one "@".
 
 ### 1.4. Found out Dependencies
 
