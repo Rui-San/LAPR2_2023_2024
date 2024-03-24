@@ -37,6 +37,7 @@ As an HRM, I want to assign one or more skills to a collaborator.
 
 * There is a dependency on "US001 - Register a skill" as there must be at least one registed skill to be assigned to a
   collaborator.
+* *There is a dependency on "US003 - Register a collaborator" as there must be at least one registered collaborator before assigning skills to him.
 
 ### 1.5 Input and Output Data
 
@@ -56,3 +57,5 @@ As an HRM, I want to assign one or more skills to a collaborator.
 ![System Sequence Diagram](svg/us004-system-sequence-diagram.svg)
 
 ### 1.7 Other Relevant Remarks
+
+
