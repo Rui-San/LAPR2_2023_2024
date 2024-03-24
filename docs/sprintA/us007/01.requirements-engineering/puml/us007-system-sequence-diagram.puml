@@ -7,7 +7,7 @@ title US007 - System Sequence Diagram (SSD)
 
 autonumber
 
-actor "FM\nMS Employee" as Employee
+actor "Fleet Manager" as Employee
 participant ":RegisterCheckupUI" as System
 
 activate Employee

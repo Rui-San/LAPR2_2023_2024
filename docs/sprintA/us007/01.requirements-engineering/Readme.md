@@ -10,9 +10,11 @@ As an FM, I wish to register a vehicle’s check-up.
 
 **From the specifications document:**
 
-> Vehicle and Equipment Fleet Manager (VFM) – a person who manages the fleet
-> park, the machines, equipment and vehicles, ensuring their good condition and
-> assigning them to the tasks to be carried out.
+>Vehicles are needed to carry out the tasks assigned to the teams as well as to transport
+machines and equipment. This type of vehicle can be only for passengers or mixed,
+light or heavy, open box or closed vans or trucks.
+
+> Vehicle and Equipment Fleet Manager (VFM) – a person who manages the fleet park, the machines, equipment and vehicles, ensuring their good condition and assigning them to the tasks to be carried out.
 
 
 **From the client clarifications:**
@@ -50,7 +52,7 @@ As an FM, I wish to register a vehicle’s check-up.
 
 **Output Data:**
 
-* List of registered vehicles
+* Vehicle and Check-up data for confirmation
 * Success of the operation
 
 ### 1.6. System Sequence Diagram (SSD)
