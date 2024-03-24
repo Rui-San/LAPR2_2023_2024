@@ -15,13 +15,13 @@ activate Employee
     Employee -> System : Asks to register a new vehicle's check-up
     activate System
 
-        System --> Employee : Shows the vehicles list and asks to select one
+        System --> Employee : Shows the list of vehicles and asks to select one
     deactivate System
 
     Employee -> System : Selects a vehicle
     activate System
 
-        System --> Employee : Requests data (Date of check-up, Current kilometers)
+        System --> Employee : Requests check-up data (Date of check-up, Current kilometers)
     deactivate System
 
     Employee -> System : Types requested data
