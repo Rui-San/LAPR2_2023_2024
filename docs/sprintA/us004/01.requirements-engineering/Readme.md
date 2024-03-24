@@ -10,12 +10,9 @@ As an HRM, I want to assign one or more skills to a collaborator.
 
 **From the specifications document:**
 
-> Set of skills that enable him to perform on certain tasks, for example, driving
-> vehicles of different types (e.g. light, or heavy), operating machines such as backhoes
-> or tractors; tree pruning; application of phytopharmaceuticals.
+> Set of skills that enable him to perform on certain tasks, for example, driving vehicles of different types (e.g. light, or heavy), operating machines such as backhoes or tractors; tree pruning; application of phytopharmaceuticals.
 
-> Thus, an employee has a main occupation (job) and a set of skills
-> that enable him to perform/take on certain tasks/responsibilities.
+> Thus, an employee has a main occupation (job) and a set of skills that enable him to perform/take on certain tasks/responsibilities.
 
 **From the client clarifications:**
 
