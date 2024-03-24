@@ -11,7 +11,7 @@ Gross Weight, Current Km, Register Date, Acquisition Date, Maintenance/Checkup F
 
 **From the specifications document:**
 
->	Vehicles are needed to carry out the tasks assigned to the teams as well as to transport
+> Vehicles are needed to carry out the tasks assigned to the teams as well as to transport
 machines and equipment. This type of vehicle can be only for passengers or mixed,
 light or heavy, open box or closed vans or trucks.
 
@@ -42,43 +42,41 @@ light or heavy, open box or closed vans or trucks.
 * **AC1:** All required fields must be filled in.
 * **AC2:** The system must not allow the registration of two vehicles with the same plate.
 * **AC3:** Brand, Model, Type and Plate ID can't contain special characters.
-* **AC4:** Tare, Gross Weight, Current Km and Checkup Frequency Kms must be positive numbers.
-* **AC5:** Register Date and Acquisition Date must be valid dates.
-* **AC6:** Register date and acquisition date must be in the past.
-* **AC7:** Acquisition date must not be earlier than the register date.
-* **AC8:** Tare must be less than the Gross Weight.
+* **AC4:** Tare, Gross Weight and Checkup Frequency Kms must be positive numbers.
+* **AC5:** Current kilometers must be a non-negative number.
+* **AC6:** Register Date and Acquisition Date must be valid dates.
+* **AC7:** Register date and acquisition date must not be a future date.
+* **AC8:** Acquisition date must not be earlier than the register date.
+* **AC9:** Tare must be less than the Gross Weight.
 
 ### 1.4. Found out Dependencies
 
-* There is a dependency on "US003 - Create a task category" as there must be at least one task category to classify the task being created.
+* There is no dependencies for this user story.
 
 ### 1.5 Input and Output Data
 
 **Input Data:**
 
 * Typed data:
-    * plate id
-    * brand
-    * model
-    * type
-    * tare
-    * gross weight
-    * current km
-    * register date
-    * acquisition date
-    * checkup frequency kms
+    * Plate id
+    * Brand
+    * Model
+    * Type
+    * Tare
+    * Gross weight
+    * Current km
+    * Register date
+    * Acquisition date
+    * Checkup frequency kms
 
 **Output Data:**
 
-* (In)Success of the operation
+* Vehicle data for confirmation
+* Success of the operation
 
 ### 1.6. System Sequence Diagram (SSD)
 
-**_Other alternatives might exist._**
-
-#### Alternative One
-
-![System Sequence Diagram - Alternative One](svg/us006-system-sequence-diagram-alternative-one.svg)
+![System Sequence Diagram](svg/us006-system-sequence-diagram.svg)
 
 ### 1.7 Other Relevant Remarks
 
