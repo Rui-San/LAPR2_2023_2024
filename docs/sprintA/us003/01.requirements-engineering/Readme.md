@@ -76,7 +76,7 @@ ones created within the US02.
 
 * Selected data:
     * A Job
-    * Skills
+    * Skills (optional)
 
 **Output Data:**
 
@@ -90,3 +90,4 @@ ones created within the US02.
 ### 1.7 Other Relevant Remarks
 
 * If the date of admission exceeds the current date, a warning must appear
+* In this scenario, the HR Manager (HRM) has the option to register a collaborator either with one or more skills, or alternatively, without any skills.
