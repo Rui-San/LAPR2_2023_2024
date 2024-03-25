@@ -63,7 +63,7 @@ or tractors; tree pruning; application of phytopharmaceuticals.
 
 ### 1.6. System Sequence Diagram (SSD)
 
-![System Sequence Diagram - Alternative One](svg/us002-system-sequence-diagram.svg)
+![System Sequence Diagram](svg/us002-system-sequence-diagram.svg)
 
 ### 1.7 Other Relevant Remarks
 
