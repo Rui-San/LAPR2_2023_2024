@@ -13,7 +13,8 @@ Iterative Development".
 
 **Business Transactions**
 
-*
+* Planning, construction and maintenance of green spaces
+* Task
 
 ---
 
@@ -44,6 +45,7 @@ Iterative Development".
 * Team
 * FM
 * HRM
+* GSM
 * GSU
 
 ---
@@ -51,24 +53,56 @@ Iterative Development".
 **Places**
 
 * Green Spaces
+* Garden
+* Park
 
 ---
 
 **Noteworthy Events**
 
-* Vehicle Checkup
+* Registering new skill
+* Registering new job
+* Registering new collaborator
+* Register a vehicle
+* Register a vehicle's check-up
+* List of the vehicles needing the check-up
+* Generate team proposal automatically
 
 ---
 
 **Physical Objects**
 
 * Vehicle
+  * Passengers
+  * Mixed
+  * Light
+  * Heavy
+  * Open Box
+  * Closed Vans
+  * Trucks
+* Machine
+  * Tractors
+  * Backhoe loaders
+  * Rotating machines
+  * Lawnmowers
+* Equipment
+  * Sprayers
+  * Lifting Platforms
+  * Chainsaws
+  * Brush cutters
+  * Blowers
+  * Ladders
+  * Cisterns
+  * Disc harrows
+  * Weeders
+  * Aerotors
+  * Scarifiers
 
 ---
 
 **Descriptions of Things**
 
-* System User
+* 
 
 ---
 
@@ -80,13 +114,14 @@ Iterative Development".
 
 **Containers**
 
-* Portal
+* User Portal
 
 ---
 
 **Elements of Containers**
 
 * Comments
+* Report faults/malfunctions
 
 ---
 
@@ -139,10 +174,10 @@ remembering, or it is derivable from the List of Common Associations:
 |----------------|:---------------:|--------------:|
 | Organization   |     manages     |   Green Space |
 | Organization   |       has       |      Employee |
-| GSU            |       is        |   System User |
-| Employee       |       is        |   System User |
-| FM             |       is        |      Employee |
-| HRM            |       is        |      Employee |
+| GSU            |      is an      |   System User |
+| Employee       |      is an      |   System User |
+| FM             |      is an      |      Employee |
+| HRM            |      is an      |      Employee |
 | Green Space    |       has       |        Portal |
 | Portal         |       has       |       Comment |
 | GSU            |    registers    |       Comment |
