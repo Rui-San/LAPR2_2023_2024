@@ -6,7 +6,8 @@ _Specifies functionalities that:
 &nbsp; &nbsp; (i) are common across several US/UC;  
 &nbsp; &nbsp; (ii) are not related to US/UC, namely: Audit, Reporting and Security._
 
-(fill in here)
+- The application is to support the management of green spaces in urban contexts.
+- 
 
 ## Usability
 
@@ -14,8 +15,7 @@ _Evaluates the user interface. It has several subcategories,
 among them: error prevention; interface aesthetics and design; help and
 documentation; consistency and standards._
 
-- The software must implement unit tests for all methods, except for
-  methods that implement Input/Output operations.
+- The software must implement unit tests.
 - The application language must be in English.
 
 ## Reliability
@@ -37,6 +37,7 @@ testability, adaptability, maintainability, compatibility,
 configurability, installability, scalability and more._
 
 - The application must support English language.
+- Implementation must follow a TDD (Test-Driven Development) approach.
 
 ## +
 
