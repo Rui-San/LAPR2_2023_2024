@@ -37,18 +37,9 @@ rectangle {
     FM --> UC8
 
 
-    UC3 .> UC1
-    UC3 .> UC2
-    UC4 .> UC1
-    UC4 .> UC3
-    UC7 .> UC6
-    UC8 .> UC6
-    UC8 .> UC7
-
-
-
 
 }
 
 
 @enduml
+
