@@ -8,6 +8,8 @@ _Specifies functionalities that:
 
 - The application supports the management of green spaces in urban contexts.
 - All those who wish to use the application must be authenticated.
+- The application must provide a Green Spaces User Portal, allowing Green Spaces Users to make comments or report faults in
+  parks and gardens.
 
 
 ## Usability
