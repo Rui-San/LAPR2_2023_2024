@@ -3,7 +3,7 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title System Sequence Diagram (SSD) - Alternative Two
+title System Sequence Diagram (SSD) - Alternative One
 
 autonumber
 
@@ -12,20 +12,23 @@ participant ":System" as System
 
 activate Employee
 
-    Employee -> System : asks to create a new task
+    Employee -> System : asks to create a new team proposal
     activate System
 
-        System --> Employee : shows task category list and asks to select one
-    deactivate System
-
-    Employee -> System : selects a task category
-    activate System
-
-        System --> Employee : requests data (i.e. reference, designation, informal\ndescription, technical description, duration, cost)
+        System --> Employee : requests data ( max team size )
     deactivate System
 
     Employee -> System : types requested data
-    activate System
+
+        loop
+            activate System
+
+                System --> Employee : Shows list of skills and asks to select one
+            deactivate System
+
+            Employee -> System : Selects a skill
+            activate System
+        end loop
 
         System --> Employee : shows all data and requests confirmation
     deactivate System
@@ -35,4 +38,5 @@ activate Employee
 
         System --> Employee : displays operation success
     deactivate System
+
 @enduml
