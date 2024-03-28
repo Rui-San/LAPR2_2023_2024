@@ -30,11 +30,19 @@ and the set of skills that must be covered are crucial.
 
 > **Question:** Are the skills(input) typed or selected
 >
-> **Answer:** ---
+> **Answer:** the ux/ui is up to the dev team.
 
-> **Question:** Does the output show the team members with or without their skills?
-> 
-> **Answer:** ---
+> **Question:** I would like to ask if, in this US, there should be any more information in the team generated beyond the collaborators in which it consists?
+>
+> **Answer:** The information should contain each of team members and the skills.
+
+> **Question:** I would also like to know if a collaborator can be in more than one team at the same time?
+>
+> **Answer:** No
+
+> **Question:** I would to know which business rules apply for the input data to generate a team proposal.
+>
+> **Answer:** max and min team size, and a a list of skills needed. (For instance: min: 3, max: 4 )
 
 > **Question:** How does it generate the team if there are not enough employees?
 > 
@@ -48,6 +56,8 @@ and the set of skills that must be covered are crucial.
 
 * **AC1:** The maximum team size and the set of skills need to be supplied by the HRM.
 * **AC2:** All required fields must be filled in.
+* **AC3:** Maximum team size must be greater than 0.
+* **AC4:** There must be at least one skill selected before submitting.
 
 ### 1.4. Found out Dependencies
 
@@ -73,7 +83,7 @@ and the set of skills that must be covered are crucial.
 
 #### Alternative One
 
-![System Sequence Diagram - Alternative One](svg/us006-system-sequence-diagram-alternative-one.svg)
+![System Sequence Diagram - Alternative One](svg/us005-system-sequence-diagram-alternative-one.svg)
 
 ### 1.7 Other Relevant Remarks
 
