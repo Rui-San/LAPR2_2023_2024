@@ -4,7 +4,7 @@
 
 ### 1.1. User Story Description
 
-As a HRM, I want to generate a team proposal automatically.
+As an HRM, I want to generate a team proposal automatically.
 
 ### 1.2. Customer Specifications and Clarifications 
 
