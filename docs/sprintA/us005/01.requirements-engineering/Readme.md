@@ -42,7 +42,7 @@ and the set of skills that must be covered are crucial.
 
 > **Question:** I would to know which business rules apply for the input data to generate a team proposal.
 >
-> **Answer:** max and min team size, and a a list of skills needed. (For instance: min: 3, max: 4 )
+> **Answer:** max and min team size, and a list of skills needed. (For instance: min: 3, max: 4 )
 
 > **Question:** How does it generate the team if there are not enough employees?
 > 
