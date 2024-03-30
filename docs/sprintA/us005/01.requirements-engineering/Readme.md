@@ -26,7 +26,7 @@ and the set of skills that must be covered are crucial.
 
 > **Question:** I would also like to know if a collaborator can be in more than one team at the same time?
 >
-> **Answer:** No
+> **Answer:** No.
 
 > **Question:** Are the skills(input) typed or selected
 >
@@ -35,10 +35,6 @@ and the set of skills that must be covered are crucial.
 > **Question:** I would like to ask if, in this US, there should be any more information in the team generated beyond the collaborators in which it consists?
 >
 > **Answer:** The information should contain each of team members and the skills.
-
-> **Question:** I would also like to know if a collaborator can be in more than one team at the same time?
->
-> **Answer:** No
 
 > **Question:** I would to know which business rules apply for the input data to generate a team proposal.
 >
@@ -54,36 +50,37 @@ and the set of skills that must be covered are crucial.
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** The maximum team size and the set of skills need to be supplied by the HRM.
+* **AC1:** The maximum and minimum team size and the set of skills need to be supplied by the HRM.
 * **AC2:** All required fields must be filled in.
 * **AC3:** Maximum team size must be greater than 0.
 * **AC4:** There must be at least one skill selected before submitting.
+* **AC5:** A collaborator cannot be in two different teams at the same time.
+* **AC6:** The HRM must be able to accept or refuse the proposed team.
+* **AC7:** The required quantity of a specific skill cannot exceed the maximum team size.
 
 ### 1.4. Found out Dependencies
 
-* There is a dependency on "US001 - Register a skill" as there must be at least one skill registered in the system in order to create a team proposal and choose colaborators with those same skills.
+* There is a dependency on "US001 - Register a skill" as there must be at least one skill registered in the system in order to generate a team proposal.
+* There is a dependency on "US003 - Register a collaborator" as there must be collaborators registered in the system in order to generate a team proposal.
 
 ### 1.5 Input and Output Data
 
 **Input Data:**
 
 * Typed data:
+    * Minimum team size
     * Maximum team size
 	
 * Selected data:
     * Set of skills 
 
 **Output Data:**
-
-* Success of the operation
+  * Team generated (Containing each team members and the set of skills).
+  * Success of the operation
 
 ### 1.6. System Sequence Diagram (SSD)
 
-**_Other alternatives might exist._**
-
-#### Alternative One
-
-![System Sequence Diagram - Alternative One](svg/us005-system-sequence-diagram-alternative-one.svg)
+![System Sequence Diagram](svg/us005-system-sequence-diagram.svg)
 
 ### 1.7 Other Relevant Remarks
 
