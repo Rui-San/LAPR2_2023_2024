@@ -133,7 +133,7 @@ Iterative Development".
 
 **Other External/Collaborating Systems**
 
-* GSU
+* 
 
 ---
 
