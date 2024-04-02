@@ -1,4 +1,4 @@
-SS@startuml
+@startuml
 skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
@@ -12,7 +12,6 @@ title Domain Model
 
 class Organization {
     name
-    address
     nif
     website
     phoneNumber
@@ -31,13 +30,10 @@ class Collaborator{
     name
     admissionDate
     birthDate
-    address
     phoneNumber
     email
     idDocType
     idNumber
-    skills
-    job
 }
 
 class HRM{
@@ -71,15 +67,13 @@ class Vehicle{
 }
 
 class Checkup{
-    plateId
     date
-    description
+    checkupKms
 }
 
-class Team_Proposal{
+class TeamRequest{
     minTeamSize
     maxTeamSize
-    setOfSkills
 }
 
 class Team{
@@ -89,8 +83,7 @@ class Team{
 }
 
 class Agenda{
-    date
-    tasks
+
 }
 
 class Task{
@@ -129,10 +122,7 @@ class Green_Space{
     description
 }
 
-class SetOfSkills{
-    quantity
-    skillName
-}
+
 
 class System_Admin{
 
@@ -163,21 +153,25 @@ Organization "1" -- "1" Address : "has >"
 Collaborator "1" --left "1" Address : "has >"
 Collaborator "1" -- "*" Skill : "has >"
 Collaborator "1" -- "1..*" Job : "has >"
-HRM "1" -- "*" Collaborator : "registers >"
+HRM "1" --left "*" Collaborator : "registers >"
 HRM "1" --left "*" Job : "registers >"
 HRM "1" -- "*" Skill : "registers >"
 HRM --up|> Role
-HRM "1" -- "*" Team_Proposal : "registers >"
-Team_Proposal "1" --right "0..1" Team : "generates >"
-Team_Proposal "1" --down "1..*" SetOfSkills : "has >"
+HRM "1" -- "*" TeamRequest : "makes >"
+TeamRequest "1" --right "*" TeamProposal : "generates >"
+TeamProposal "1" --right "0..1" Team : "converts into >"
+HRM "1" -- "1..*" Team : "edits >"
+'TeamRequest "1" --down "1..*" SetOfSkills : "has >"
+HRM "1" --right "*" TeamProposal: "accepts/rejects >"
 Team "1" --down "*" Task : "has >"
-SetOfSkills "1" --- "1..*" Skill : "has >"
-Agenda "1" -- "*" Task : "contain >"
-FM --left|> Role
-FM "1" -- "*" Vehicle : "registers >"
-FM "1" -- "*" Checkup : "registers >"
-Vehicle "1" --right "*" Checkup : "has >"
-Team "1" ---up "*" Collaborator : "has >"
+'SetOfSkills "1" --left "1..*" Skill : "has >"
+Agenda "1" --left "*" Task : "contain >"
+FM -left|> Role
+FM "1" --right "*" Vehicle : "registers >"
+FM "1" --down "*" Checkup : "registers >"
+Vehicle "1" -- "*" Checkup : "has >"
+Team "1" --up "*" Collaborator : "has >"
 Organization "1" --right "*" Portal : "owns >"
+TeamRequest "1" --left "1..*" Skill : "has a set of >"
 
 @enduml
