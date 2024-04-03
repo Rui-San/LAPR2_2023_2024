@@ -140,13 +140,12 @@ class GSM{
 
 Collaborator --up|> System_User
 System_Admin "1" -- "*" System_User : "manages >"
-System_User "1" -- "*" Role : "has >"
+System_User "1" --down "*" Role : "plays >"
 Green_Space "1" -- "1" Address : "has >"
-GSU --|> Portal_User
+GSU --down|> Portal_User
+Portal_User "*" --left "*" Comment : "adds >"
 GSM -|> Role
-Portal_User "1" --right "*" Comment : "registers >"
 Portal "1" --down "*" Comment : "has >"
-Portal "1" -- "*" Portal_User : "has >"
 Organization "1" ---down "*" Collaborator : "has >"
 Organization "1" --left "*" Green_Space : "manages >"
 Organization "1" -- "1" Address : "has >"
@@ -169,7 +168,7 @@ Agenda "1" --left "*" Task : "contain >"
 FM -left|> Role
 FM "1" --right "*" Vehicle : "registers >"
 FM "1" --down "*" Checkup : "registers >"
-Vehicle "1" -- "*" Checkup : "has >"
+Vehicle "1" --- "*" Checkup : "has >"
 Team "1" --up "*" Collaborator : "has >"
 Organization "1" --right "*" Portal : "owns >"
 TeamRequest "1" --left "1..*" Skill : "has a set of >"
