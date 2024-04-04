@@ -36,6 +36,10 @@ light or heavy, open box or closed vans or trucks.
 > **Question:** Is Brand, Model and Type a list of options or a free text?
 > 
 > **Answer:** Free text
+
+> **Question:** When a vehicle is registered, are there specific requirements for accepting the brand? For example, does the system need to check if the brand is on a predetermined list? Does this also apply to the model or any other characteristics?
+> 
+> **Answer:** No. One can consider a list of brands and a list of models previsously inserted in the system, no need to go through validations.
  
 ### 1.3. Acceptance Criteria
 
