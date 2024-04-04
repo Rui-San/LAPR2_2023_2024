@@ -23,7 +23,7 @@ light or heavy, open box or closed vans or trucks.
 
 > **Question:** Can the vehicles get placed automatically on a list or the one listing has to be the FM?
 >
-> **Answer:** 
+> **Answer:** The list of vehicles is automatically created but the creation is triggered by the FM.
 
 > **Question:** What are the requests/ input data to list the vehicles needing the check-up?
 >
