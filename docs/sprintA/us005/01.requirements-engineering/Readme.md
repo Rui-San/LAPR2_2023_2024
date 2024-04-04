@@ -54,10 +54,10 @@ and the set of skills that must be covered are crucial.
 * **AC2:** The maximum and minimum team size and the set of skills need to be supplied by the HRM.
 * **AC3:** Minimum and Maximum team size must be greater than 0.
 * **AC4:** The Maximum team size must be greater than or equal to the minimum team size.
-* **AC4:** There must be at least one skill selected before submitting.
-* **AC5:** A collaborator cannot be in two different teams at the same time.
-* **AC6:** The HRM must be able to accept or refuse the proposed team.
-* **AC7:** The required quantity of a specific skill cannot exceed the maximum team size.
+* **AC5:** There must be at least one skill selected before submitting.
+* **AC6:** A collaborator cannot be in two different teams at the same time.
+* **AC7:** The HRM must be able to accept or refuse the proposed team.
+* **AC8:** The required quantity of a specific skill cannot exceed the maximum team size.
 
 ### 1.4. Found out Dependencies
 
