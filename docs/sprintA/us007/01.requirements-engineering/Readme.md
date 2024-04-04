@@ -60,9 +60,9 @@ light or heavy, open box or closed vans or trucks.
 * **AC1:** All required fields must be filled in.
 * **AC2:** Date must not be in the future. 
 * **AC3:** The vehicle of the check-up must be a vehicle of the organization.
-* **AC2:** User must select a vehicle from database before filling in the check-up data.
-* **AC3:** The current kilometers entered should be a numeric value higher than zero.
-* **AC4:** After successful registration, the system should provide feedback indicating the completion of the operation.
+* **AC4:** User must select a vehicle from the list before filling in the check-up data.
+* **AC5:** The current kilometers entered should be a numeric value higher than zero.
+* **AC6:** After successful registration, the system should provide feedback indicating the completion of the operation.
 
 ### 1.4. Found out Dependencies
 
