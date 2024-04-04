@@ -37,11 +37,24 @@ and the set of skills that must be covered are crucial.
 > 
 > **Answer:** Both are acceptable since the business the same the crucial difference resides in the UX.
 
+> **Question:** Should the system able the HRM to introduce multiple skills in one interaction before saving all of them?
+> 
+> **Answer:** It's not required to do so.
+
+> **Question:** Which information is mandatory for creating a new skill?
+> 
+> **Answer:** The skill name.
+
+> **Question:** The indentificator of the skill will be the name, or the system will generate authomatically and Id when the manager insert the name?
+> 
+> **Answer:** A skill is just a name, can be a composition of words like "Light Vehicle Driving Licence".
+
+
 
 ### 1.3. Acceptance Criteria
 
 * **AC1:** All required fields must be filled in.
-* **AC2:** Skill description must not contain numbers or special characters, only spaces.
+* **AC2:** Skill name must not contain numbers or special characters, only letters and spaces.
 
 
 ### 1.4. Found out Dependencies
