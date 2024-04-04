@@ -36,7 +36,7 @@ and the set of skills that must be covered are crucial.
 >
 > **Answer:** The information should contain each of team members and the skills.
 
-> **Question:** I would to know which business rules apply for the input data to generate a team proposal.
+> **Question:** I would like to know which business rules apply for the input data to generate a team proposal.
 >
 > **Answer:** max and min team size, and a list of skills needed. (For instance: min: 3, max: 4 )
 
