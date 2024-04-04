@@ -53,7 +53,7 @@ b) 33480 (there is a difference minor than 5% of the number of kms of the checku
 * **AC1:** The list must contain all vehicles that already exceeded the number of kilometers required for the inspection.
   * Current vehicle kms > last check-up kms + check-up frequency kms.
 * **AC2:** The list must contain all vehicles whose current kilometers is within a 5% margin of the next inspection (5% of the check-up frequency).
-    * Current vehicle kms ≥ last check-up kms + (0.95×check-up frequency kms)
+  * Current vehicle kms ≥ last check-up kms + (0.95×check-up frequency kms)
 * **AC3:** Vehicle's current kilometers, check-up frequency (in kms) and last check done is the necessary data in order to calculate the vehicles to appear on the list.
 * **AC4:** The list must clearly identify the vehicles through: plate number, brand, model and the reason that justified the checkup need.
 * **AC5:** If there are no vehicles requiring a check-up, the list should appear empty.
@@ -84,4 +84,4 @@ b) 33480 (there is a difference minor than 5% of the number of kms of the checku
 
 ### 1.7 Other Relevant Remarks
 
-* Every time the Fleet Manager requests the generation of a list, it will be created taking into account the provided inputs and creation formulas.
+* Every time the Fleet Manager requests the generation of a list, it will be created taking into account the data required to produce the list and the creation formulas.
