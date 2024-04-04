@@ -50,9 +50,10 @@ and the set of skills that must be covered are crucial.
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** The maximum and minimum team size and the set of skills need to be supplied by the HRM.
-* **AC2:** All required fields must be filled in.
-* **AC3:** Maximum team size must be greater than 0.
+* **AC1:** All required fields must be filled in.
+* **AC2:** The maximum and minimum team size and the set of skills need to be supplied by the HRM.
+* **AC3:** Minimum and Maximum team size must be greater than 0.
+* **AC4:** The Maximum team size must be greater than or equal to the minimum team size.
 * **AC4:** There must be at least one skill selected before submitting.
 * **AC5:** A collaborator cannot be in two different teams at the same time.
 * **AC6:** The HRM must be able to accept or refuse the proposed team.
@@ -85,3 +86,4 @@ and the set of skills that must be covered are crucial.
 ### 1.7 Other Relevant Remarks
 
 * If there are no skills in the system and the user is unable to create a team proposal, the system should provide information why it can't generate a team.
+* The Set of skills is a collection of selected skills and their required quantities needed for creating the team proposal. This includes, for each skill selected, the skill name and the required quantity of that skill.
