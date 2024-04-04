@@ -40,7 +40,13 @@ light or heavy, open box or closed vans or trucks.
 > **Question:** When a vehicle is registered, are there specific requirements for accepting the brand? For example, does the system need to check if the brand is on a predetermined list? Does this also apply to the model or any other characteristics?
 > 
 > **Answer:** No. One can consider a list of brands and a list of models previsously inserted in the system, no need to go through validations.
- 
+
+> **Question:** What are the validation requirements for the vehicle ID?
+>
+> **Answer:** After 2020: AA-00-AA\
+Between 2005-2020 00-AA-00\
+Between 1992-2005 00-00-XX
+
 ### 1.3. Acceptance Criteria
 
 * **AC1:** All required fields must be filled in.
