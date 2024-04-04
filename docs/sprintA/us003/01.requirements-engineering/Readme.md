@@ -44,17 +44,19 @@ ones created within the US02.
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** Name, birthdate, admission date, address, contact info (mobile and
-  email), ID doc type and respective number should be provided by HRM.
-* **AC2:** All required fields must be filled in.
-* **AC3:** ID documentation number must be unique.
-* **AC4:** ID documentation number must only contain numbers.
-* **AC5:** The system must ensure that the birthdate corresponds to a minimum of 18 years old.
-* **AC6:** Date of admission must not be earlier than birthdate.
-* **AC7:** Mobile number must contain 9 numeric digits.
-* **AC8:** Name must contain only alphabetic characters.
-* **AC9:** Employee name must have at least 2 names (first and last).
-* **AC10:** Email must contain only one "@".
+* **AC1:** The name of the Collaborator can only contain alphabetic characters, spaces and hyphens.
+* **AC2:** The Collaborator must have two names (first and last).
+* **AC3:** The Collaborator must be at least 18 years old (Current date - birthdate >= 18).
+* **AC4:** The birthdate and admission date must follow the format DD/MM/YYYY.
+* **AC5:** The birthdate must be within a reasonable range (not in the future and not earlier than 1900).
+* **AC6:** The admission date must not be earlier than the birthdate nor the organization's creation date.
+* **AC7:** Email must contain one "@".
+* **AC8:** The mobile number must contain 9 numeric digits.
+* **AC9:** The ID documentation type must be one of the following: CC, BI or Passport.
+* **AC10:** If the doc type is "Passport", the ID number must have 2 alphanumeric characters followed by 6 numeric digits.
+* **AC11:** If the doc type is "BI" or "CC", the ID number must contain 9 numeric digits.
+* **AC12:** The ID documentation number must be unique.
+* **AC13:** There must be at least one job selected from the job list.
 
 ### 1.4. Found out Dependencies
 
