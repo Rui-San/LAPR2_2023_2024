@@ -35,7 +35,7 @@ light or heavy, open box or closed vans or trucks.
 
 > **Question:** Is Brand, Model and Type a list of options or a free text?
 > 
-> **Answer:** Free text
+> **Answer:** Free text.
 
 > **Question:** When a vehicle is registered, are there specific requirements for accepting the brand? For example, does the system need to check if the brand is on a predetermined list? Does this also apply to the model or any other characteristics?
 > 
@@ -50,12 +50,15 @@ Between 1992-2005 00-00-XX
 ### 1.3. Acceptance Criteria
 
 * **AC1:** All required fields must be filled in.
-* **AC2:** The system must not allow the registration of two vehicles with the same plate.
-* **AC3:** Brand, Model, Type and Plate ID can't contain special characters.
-* **AC4:** Tare, Gross Weight and Checkup Frequency Kms must be positive numbers.
+* **AC2:** The Plate id must follow the following format, according to its Register date:
+  * **Between 1992-2005:** "Two digits-Two digits-Two letters" (Example: 00-00-XX);
+  * **Between 2005-2020:** "Two digits-Two letters-Two digits" (Example: 00-AA-00);
+  * **After 2020:** "Two letters-Two Digits-Two letters" (Example: AA-00-AA):
+* **AC3:** Brand, Model and Type can't contain special characters.
+* **AC4:** Tare, Gross Weight and Check-up Frequency Kms must be positive numbers.
 * **AC5:** Current kilometers must be a non-negative number.
-* **AC6:** Register Date and Acquisition Date must be valid dates.
-* **AC7:** Register date and acquisition date must not be a future date.
+* **AC6:** Register date and Acquisition date must be valid dates.
+* **AC7:** Register date and Acquisition date must not be a future date.
 * **AC8:** Acquisition date must not be earlier than the register date.
 * **AC9:** Tare must be less than the Gross Weight.
 
@@ -77,7 +80,7 @@ Between 1992-2005 00-00-XX
     * Current km
     * Register date
     * Acquisition date
-    * Checkup frequency kms
+    * Check-up frequency kms
 
 **Output Data:**
 
