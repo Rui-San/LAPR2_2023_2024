@@ -1,0 +1,168 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+'skinparam linetype ortho
+'left to right direction
+skinparam classAttributeIconSize 0
+hide circle
+hide methods
+
+title Domain Model
+
+class Organization {
+    name
+    nif
+    website
+    phoneNumber
+    email
+}
+
+class Address{
+    street
+    streetNumber
+    postalCode
+    city
+    district
+}
+
+class Collaborator{
+    name
+    admissionDate
+    birthDate
+    phoneNumber
+    email
+    idDocType
+    idNumber
+}
+
+class HRM{
+
+}
+
+class VFM{
+
+}
+
+class Skill{
+    skillName
+    description
+}
+
+class Job{
+    jobName
+}
+
+class Vehicle{
+    plateId
+    brand
+    model
+    type
+    tare
+    grossWeight
+    currentKm
+    registerDate
+    acquisitionDate
+    checkupFrequencyKms
+}
+
+class Checkup{
+    date
+    checkupKms
+}
+
+class TeamRequest{
+    minTeamSize
+    maxTeamSize
+}
+
+class Team{
+    name
+    description
+    members
+}
+
+class Agenda{
+
+}
+
+class Task{
+    title
+    duration
+    status
+    priority
+}
+
+class Portal_User{
+    username
+    password
+    email
+}
+
+class GSU{
+
+}
+
+class Portal{
+    name
+    description
+    url
+}
+
+class Comment{
+    date
+    text
+    author
+}
+
+class Green_Space{
+    name
+    address
+    type
+    description
+}
+
+
+
+class System_Admin{
+
+}
+
+class System_User{
+    username
+    password
+    email
+}
+
+class GSM{
+
+}
+
+class TeamProposal{
+
+}
+
+Organization "1" -- "1" Agenda : "owns >"
+Organization "1" -- "*" Portal : "owns >"
+Organization "1" -- "*" Task : "owns >"
+Organization "1" -- "*" Green_Space : "manages >"
+Organization "1" -- "*" Vehicle : "owns >"
+Organization "1" -- "*" Collaborator : "employs >"
+Collaborator "1" -- "0..*" Role : "plays >"
+HRM --|> Role
+VFM --|> Role
+Agenda "1" -- "*" Task : "contains >"
+HRM "1" -- "*" Job : "registers >"
+HRM "1" -- "*" Skill : "registers >"
+HRM "1" -- "*" TeamRequest : "requests >"
+TeamRequest "1" -- "*" Skill : "has a set of >"
+TeamRequest "1" -- "*" TeamProposal : "generates >"
+TeamProposal "1" -- "*" Team : "converts into >"
+HRM "1" -- "*" TeamProposal : "accepts/refuses >"
+HRM "1" -- "*" Team : "edits >"
+Collaborator "1" -- "0..*" Skill : "has >"
+Collaborator "1" -- "*" Job : "has >"
+HRM "1" -- "*" Collaborator : "registers >"
+
+
+@enduml

@@ -122,12 +122,6 @@ class Green_Space{
     description
 }
 
-
-
-class System_Admin{
-
-}
-
 class System_User{
     username
     password
@@ -138,39 +132,54 @@ class GSM{
 
 }
 
+class NeedingCheckupList{
+
+}
+
+class SystemAdmin{
+
+}
+
+SystemAdmin "1" - "*" System_User : "manages >"
 Collaborator --up|> System_User
-System_Admin "1" -- "*" System_User : "manages >"
-System_User "1" --down "*" Role : "plays >"
-Green_Space "1" -- "1" Address : "has >"
+'System_Admin "1" -- "*" System_User : "manages >"
+Collaborator "1" --right "*" Role : "plays >"
+Green_Space "1" --- "1" Address : "has >"
 GSU --down|> Portal_User
 Portal_User "*" --left "*" Comment : "adds >"
-GSM -|> Role
+GSM --|> Role
 Portal "1" --down "*" Comment : "has >"
 Organization "1" ---down "*" Collaborator : "has >"
 Organization "1" --left "*" Green_Space : "manages >"
 Organization "1" -- "1" Address : "has >"
 Collaborator "1" --left "1" Address : "has >"
 Collaborator "1" -- "*" Skill : "has >"
-Collaborator "1" -- "1..*" Job : "has >"
+Collaborator "1" --- "1..*" Job : "has >"
 HRM "1" --left "*" Collaborator : "registers >"
 HRM "1" --left "*" Job : "registers >"
 HRM "1" -- "*" Skill : "registers >"
 HRM --up|> Role
-HRM "1" -- "*" TeamRequest : "makes >"
-TeamRequest "1" --right "*" TeamProposal : "generates >"
+HRM "1" --- "*" TeamRequest : "makes >"
+TeamRequest "1" --down "*" TeamProposal : "generates >"
 TeamProposal "1" --right "0..1" Team : "converts into >"
 HRM "1" -- "1..*" Team : "edits >"
 'TeamRequest "1" --down "1..*" SetOfSkills : "has >"
 HRM "1" --right "*" TeamProposal: "accepts/rejects >"
 Team "1" --down "*" Task : "has >"
 'SetOfSkills "1" --left "1..*" Skill : "has >"
-Agenda "1" --left "*" Task : "contain >"
-FM -left|> Role
+Agenda "1" -- "*" Task : "contain >"
+Organization "1" -- "1" Agenda : "owns >"
+FM --left|> Role
 FM "1" --right "*" Vehicle : "registers >"
 FM "1" --down "*" Checkup : "registers >"
 Vehicle "1" --- "*" Checkup : "has >"
 Team "1" --up "*" Collaborator : "has >"
 Organization "1" --right "*" Portal : "owns >"
-TeamRequest "1" --left "1..*" Skill : "has a set of >"
+TeamRequest "1" ---left "1..*" Skill : "has a set of >"
+Organization "1" -- "*" Task : "owns >"
+Portal "1" -- "*" Portal_User : "used by >"
+NeedingCheckupList "1" -- "*" Vehicle : "may be part of <"
+FM "1" --up "1" NeedingCheckupList : "triggers >"
+Organization "1" --down "*" Vehicle : "owns >"
 
 @enduml
