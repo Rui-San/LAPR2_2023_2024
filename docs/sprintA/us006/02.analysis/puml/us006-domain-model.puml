@@ -31,7 +31,7 @@ class Vehicle{
     checkupFrequencyKms
 }
 
-Organization "1" -- "*" Vehicle : "has >"
+Organization "1" -- "*" Vehicle : "owns >"
 FM "1" -- "*" Vehicle : "registers >"
 
 @enduml
