@@ -3,7 +3,7 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 'skinparam linetype ortho
-'left to right direction
+left to right direction
 skinparam classAttributeIconSize 0
 hide circle
 hide methods
@@ -41,6 +41,10 @@ class HRM{
 
 }
 
+class FM{
+
+}
+
 class Team{
     name
     description
@@ -66,21 +70,64 @@ class Checkup{
     checkupKms
 }
 
+class GreenSpace{
+    name
+    address
+    type
+    description
+}
+
+class Address{
+    street
+    streetNumber
+    postalCode
+    city
+    district
+}
+
+class Task{
+    title
+    duration
+    status
+    priority
+}
+
+class UserPortal{
+    name
+    url
+}
+
+class Comment{
+    text
+    date
+    author
+}
+
+Organization "1" -- "*" Task : "owns >"
+Organization "1" -- "1" Agenda : "owns >"
+Organization "1" -- "*" Address : "is located at >"
+Organization "1" -- "1..*" UserPortal : "owns >"
+Organization "1" -- "*" GreenSpace : "manages >"
 Organization "1" -- "*" Skill : "owns >"
-HRM "1" -- "*" Skill : "register >"
 Organization "1" -- "*" Job : "owns >"
-HRM "1" -- "*" Job : "register >"
-HRM "1" -- "*" Collaborator : "register >
 Organization "1" -- "*" Collaborator : "has >"
-HRM "1" -- "*" Collaborator : "assigns skills to >"
-Collaborator "1" -- "*" Skill : "has >"
-Collaborator "1" -- "1" Job : "has >"
-Team "1" -- "*" Collaborator : "has >"
-HRM "1" -- "*" Team : "generates >"
 Organization "1" -- "*" Vehicle : "owns >"
+Collaborator "1" -- "*" Skill : "has >"
+Collaborator "1" -- "*" Address : "lives in >"
+Collaborator "1" -- "1" Job : "has >"
+HRM "1" -- "*" Skill : "register >"
+HRM "1" -- "*" Job : "register >"
+HRM "1" -- "*" Collaborator : "register >"
+HRM "1" -- "*" Collaborator : "assigns skills to >"
+HRM "1" -- "*" Team : "generates >"
 FM "1" -- "*" Vehicle : "registers >"
 FM "1" -- "*" Vehicle : "lists needing check-up >"
-Vehicle "1" -- "*" Checkup : "does >"
 FM "1" -- "*" Checkup : "registers >"
+UserPortal "1" -- "*" Comment : "has >"
+Agenda "1" -- "*" Task : "has >"
+Task "*" -- "1" Team : "is carried out by >"
+GreenSpace "1" -- "*" Address : "is located at >"
+Team "1" -- "*" Collaborator : "has >"
+Vehicle "1" -- "*" Checkup : "does >"
 
 @enduml
