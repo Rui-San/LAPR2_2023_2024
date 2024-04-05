@@ -2,39 +2,22 @@
 skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
-'skinparam linetype ortho
+
 'left to right direction
+
 skinparam classAttributeIconSize 0
+
 hide circle
 hide methods
 
-title Domain Model
+title US004 - Domain Model
 
 class Organization {
     name
-    vatNumber
+    nif
     website
     phoneNumber
     email
-}
-
-class Employee {
-    name
-    admissionDate
-    birthDate
-    address
-    contactInfo
-    IdDocType
-    IdNumber
-}
-
-class HRM{
-
-}
-
-class Collaborator{
-    skills
-    job
 }
 
 class Skill{
@@ -42,10 +25,22 @@ class Skill{
     description
 }
 
-Organization "1" --right "*" Employee : "has >"
-HRM --up|> Employee
-HRM "1" -- "*" Collaborator : "registers >"
-HRM "1" -- "*" Skill : "registers >"
-Collaborator "1" --right "1..*" Skill : "has >"
+class HRM{
+
+}
+
+class Collaborator{
+    name
+    admissionDate
+    birthDate
+    phoneNumber
+    email
+    idDocType
+    idDocNumber
+}
+
+Organization "1" -- "*" Collaborator : "has >"
+HRM "1" -- "*" Collaborator : "assigns skills to >"
+Collaborator "1" -- "*" Skill : "has >"
 
 @enduml
