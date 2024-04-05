@@ -2,9 +2,7 @@
 skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
-
 'left to right direction
-
 skinparam classAttributeIconSize 0
 
 hide circle
@@ -14,24 +12,10 @@ title US001 - Domain Model
 
 class Organization {
     name
-    vatNumber
+    nif
     website
     phoneNumber
     email
-}
-
-class Employee {
-    name
-    admissionDate
-    birthDate
-    address
-    contactInfo
-    IdDocType
-    IdNumber
-}
-
-class HRM{
-
 }
 
 class Skill{
@@ -39,17 +23,11 @@ class Skill{
     description
 }
 
-class Collaborator{
-    skills
-    job
+class HRM{
+
 }
 
-
-
-Organization "1" -- "*" Employee : "has >"
-HRM --|> Employee
-HRM "1" -- "*" Collaborator : "registers >"
-HRM "1" -- "1..*" Skill : "registers >"
-Collaborator "1" -- "*" Skill : "has >"
+Organization "1" -- "*" Skill : "owns >"
+HRM "1" -- "*" Skill : "register >"
 
 @enduml
