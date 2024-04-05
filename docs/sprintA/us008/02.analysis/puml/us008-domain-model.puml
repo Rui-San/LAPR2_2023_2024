@@ -4,11 +4,13 @@ skinparam packageStyle rectangle
 skinparam shadowing false
 'skinparam linetype ortho
 'left to right direction
+
 skinparam classAttributeIconSize 0
+
 hide circle
 hide methods
 
-title US006 - Domain Model
+title US008 - Domain Model
 
 class Organization {
     name
@@ -31,7 +33,13 @@ class Vehicle{
     checkupFrequencyKms
 }
 
-Organization "1" -- "*" Vehicle : "has >"
-FM "1" -- "*" Vehicle : "registers >"
+
+
+
+FM "1" -- "*" Vehicle : "lists needing check-up >"
+Organization "1" -- "*" Vehicle : "owns >"
+
+
+
 
 @enduml
