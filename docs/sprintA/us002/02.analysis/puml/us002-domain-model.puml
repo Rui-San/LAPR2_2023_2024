@@ -2,42 +2,33 @@
 skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
-'skinparam linetype ortho
+
 'left to right direction
+
 skinparam classAttributeIconSize 0
+
 hide circle
 hide methods
 
-title Domain Model
+title US002 - Domain Model
 
 class Organization {
     name
-    vatNumber
+    nif
     website
     phoneNumber
     email
 }
 
-class Employee {
+class Job{
     name
-    admissionDate
-    birthDate
-    address
-    contactInfo
-    IdDocType
-    IdNumber
 }
 
 class HRM{
 
 }
 
-class Job{
-    job name
-}
-
-Organization "1" -- "*" Employee : "has >"
-HRM --|> Employee
-HRM "1" -- "*" Job : "registers >"
+Organization "1" -- "*" Job : "owns >"
+HRM "1" -- "*" Job : "register >"
 
 @enduml
