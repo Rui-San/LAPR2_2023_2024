@@ -1,0 +1,43 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title US003 - System Sequence Diagram (SSD)
+
+autonumber
+
+actor "HRM" as Employee
+participant ":RegisterCollabUI" as System
+
+activate Employee
+
+    Employee -> System : Asks to register a collaborator
+
+    activate System
+
+        System --> Employee : Requests data (name, birthdate, admission date, address, \nemail,mobile number, id doc type, id doc number)
+    deactivate System
+
+    Employee -> System : Types requested data
+
+    activate System
+
+        System --> Employee : Shows job list and asks to select one
+    deactivate System
+
+    Employee -> System : Selects a job
+
+    activate System
+
+        System --> Employee : Shows all data and requests confirmation
+    deactivate System
+
+    Employee -> System : Confirms data
+
+    activate System
+
+        System --> Employee : Displays operation success
+    deactivate System
+
+@enduml

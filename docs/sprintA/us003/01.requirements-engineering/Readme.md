@@ -79,8 +79,8 @@ ones created within the US02.
     * ID doc number
 
 * Selected data:
+    * A skill (optional)
     * A Job
-    * Skills (optional)
 
 **Output Data:**
 
@@ -89,7 +89,14 @@ ones created within the US02.
 
 ### 1.6. System Sequence Diagram (SSD)
 
-![System Sequence Diagram](svg/us003-system-sequence-diagram.svg)
+#### Alternative one
+
+![System Sequence Diagram](svg/us003-system-sequence-diagram-alternative-one.svg)
+
+#### Alternative two
+
+![System Sequence Diagram](svg/us003-system-sequence-diagram-alternative-two.svg)
+
 
 ### 1.7 Other Relevant Remarks
 
