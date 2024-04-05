@@ -39,14 +39,10 @@ Iterative Development".
 **Roles of People or Organizations**
 
 * Organization
-* Employee
-* System User
 * Collaborator
 * Team
 * FM
 * HRM
-* GSM
-* GSU
 
 ---
 
@@ -61,6 +57,7 @@ Iterative Development".
 **Noteworthy Events**
 
 * Registering new skill
+* Assign skills to collaborator
 * Registering new job
 * Registering new collaborator
 * Register a vehicle
@@ -121,7 +118,6 @@ Iterative Development".
 **Elements of Containers**
 
 * Comments
-* Report faults/malfunctions
 
 ---
 
@@ -140,7 +136,6 @@ Iterative Development".
 **Records of finance, work, contracts, legal matters**
 
 * Agenda
-* Team Proposal
 * Vehicle Checkup
 
 ---
@@ -153,7 +148,7 @@ Iterative Development".
 
 **Documents mentioned/used to perform some work/**
 
-* Team Proposal
+* 
 
 ---
 
@@ -170,30 +165,35 @@ remembering, or it is derivable from the List of Common Associations:
 - **_A_** is related with a transaction (item) of **_B_**
 - etc.
 
-| Concept (A) 		 | Association   	 |   Concept (B) |
-|----------------|:---------------:|--------------:|
-| Organization   |     manages     |   Green Space |
-| Organization   |       has       |      Employee |
-| GSU            |      is an      |   System User |
-| Employee       |      is an      |   System User |
-| FM             |      is an      |      Employee |
-| HRM            |      is an      |      Employee |
-| Green Space    |       has       |        Portal |
-| Portal         |       has       |       Comment |
-| GSU            |    registers    |       Comment |
-| FM             |    registers    |       Vehicle |
-| FM             |    registers    |       Checkup |
-| Checkup        |       has       |       Vehicle |
-| HRM            |    registers    |           Job |
-| HRM            |    registers    |         Skill |
-| HRM            |    registers    |  Collaborator |
-| Collaborator   |       has       |         Skill |
-| Collaborator   |       has       |           Job |
-| HRM            |    registers    | Team Proposal |
-| Team Proposal  |    generates    |          Team |
-| Team           |       has       |  Collaborator |
-| Team           |       has       |          Task |
-| Task           |   is part of    |        Agenda |
+| Concept (A) 		 | Association   	 |  Concept (B) |
+|----------------|:---------------:|-------------:|
+| Organization   |      owns       |         Task |
+| Organization   |      owns       |       Agenda |
+| Organization   | is located at   |      Address |
+| Organization   |      owns       |   UserPortal |
+| Organization   |    manages      |   GreenSpace |
+| Organization   |      owns       |        Skill |
+| Organization   |      owns       |          Job |
+| Organization   |      has        | Collaborator |
+| Organization   |      owns       |      Vehicle |
+| Collaborator   |       has       |        Skill |
+| Collaborator   |   lives in      |      Address |
+| Collaborator   |       has       |          Job |
+| HRM            |    register     |        Skill |
+| HRM            |    register     |          Job |
+| HRM            |    register     | Collaborator |
+| HRM            | assigns skills to | Collaborator |
+| HRM            |    generates    |       Team   |
+| FM             |    registers    |      Vehicle |
+| FM             | lists needing check-up | Vehicle |
+| FM             |    registers    |     Checkup  |
+| UserPortal     |       has       |      Comment |
+| Agenda         |       has       |        Task  |
+| Task           | is carried out by |       Team  |
+| GreenSpace     | is located at   |      Address |
+| Team           |       has       | Collaborator |
+| Vehicle        |       does      |     Checkup  |
+
 
 ## Domain Model
 
