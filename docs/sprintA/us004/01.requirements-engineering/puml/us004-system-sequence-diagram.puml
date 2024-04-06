@@ -33,7 +33,7 @@ activate Employee
     activate System
     end
 
-        System --> Employee : Shows all data and requests confirmation
+        System --> Employee : Shows all data (collaborator and his skills) and \nrequests confirmation
     deactivate System
 
     Employee -> System : Confirms the operation
