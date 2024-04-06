@@ -20,7 +20,7 @@ class Organization {
 
 class Skill{
     name
-    description
+
 }
 
 class Collaborator{
@@ -69,13 +69,16 @@ class Checkup{
     date
     checkupKms
 }
+class CheckupList{
+
+}
 
 class GreenSpace{
     name
-    address
     type
     description
 }
+
 
 class Address{
     street
@@ -105,7 +108,7 @@ class Comment{
 
 Organization "1" -- "*" Task : "owns >"
 Organization "1" -- "1" Agenda : "owns >"
-Organization "1" -- "*" Address : "is located at >"
+Organization "1" -- "1" Address : "has an >"
 Organization "1" -- "1..*" UserPortal : "owns >"
 Organization "1" -- "*" GreenSpace : "manages >"
 Organization "1" -- "*" Skill : "owns >"
@@ -113,7 +116,7 @@ Organization "1" -- "*" Job : "owns >"
 Organization "1" -- "*" Collaborator : "has >"
 Organization "1" -- "*" Vehicle : "owns >"
 Collaborator "1" -- "*" Skill : "has >"
-Collaborator "1" -- "*" Address : "lives in >"
+Collaborator "1" -- "1" Address : "has an >"
 Collaborator "1" -- "1" Job : "has >"
 HRM "1" -- "*" Skill : "register >"
 HRM "1" -- "*" Job : "register >"
@@ -121,13 +124,14 @@ HRM "1" -- "*" Collaborator : "register >"
 HRM "1" -- "*" Collaborator : "assigns skills to >"
 HRM "1" -- "*" Team : "generates >"
 FM "1" -- "*" Vehicle : "registers >"
-FM "1" -- "*" Vehicle : "lists needing check-up >"
 FM "1" -- "*" Checkup : "registers >"
 UserPortal "1" -- "*" Comment : "has >"
 Agenda "1" -- "*" Task : "has >"
 Task "*" -- "1" Team : "is carried out by >"
-GreenSpace "1" -- "*" Address : "is located at >"
+GreenSpace "1" -- "1" Address : "has an >"
 Team "1" -- "*" Collaborator : "has >"
 Vehicle "1" -- "*" Checkup : "does >"
+CheckupList "1" -- "1..*" Vehicle : "has >"
+FM "1" -- "*" CheckupList : "requests to show >"
 
 @enduml
