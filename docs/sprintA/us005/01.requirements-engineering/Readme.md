@@ -38,7 +38,8 @@ and the set of skills that must be covered are crucial.
 
 > **Question:** I would like to know which business rules apply for the input data to generate a team proposal.
 >
-> **Answer:** max and min team size, and a list of skills needed. (For instance: min: 3, max: 4 )
+> **Answer:** max and min team size, and a list of skills needed. (For example: min: 3, max: 4 and the skill needed: 4 tree pruner and 1 light vehicle driver
+meaning that one team member have 2 skills.)
 
 > **Question:** How does it generate the team if there are not enough employees?
 > 
@@ -59,6 +60,12 @@ and the set of skills that must be covered are crucial.
 > **Question:** Should the generated team be assigned the task defined/default into the to-do list?
 >
 > **Answer:** No.
+
+> **Question:** How does he propose a team, for what purpose? (Is there any predefinition)?
+> 
+> **Answer:** There is no purpose, at least in this sprint.
+
+> **Question:** 
 
 ### 1.3. Acceptance Criteria
 
