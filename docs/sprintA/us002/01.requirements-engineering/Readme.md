@@ -65,7 +65,7 @@ or tractors; tree pruning; application of phytopharmaceuticals.
 ### 1.3. Acceptance Criteria
 
 * **AC1:** All required fields must be filled in.
-* **AC2:** AC2: Job name must not contain numbers and the only special characters allowed are spaces and hyphens.
+* **AC2:** Job name must not contain numbers and the only special characters allowed are spaces and hyphens.
 
 ### 1.4. Found out Dependencies
 

@@ -9,7 +9,9 @@ _(Complete according to the provided example)_
 | **Agenda**        | Crucial mechanism for planning the week's work.                                                                                                        |
 | **Automatically** | Something that is done without human intervention.                                                                                                     |
 | **Backlog**       | A list of tasks or items awaiting completion or further action.                                                                                        |
+| **BI**            | Refers to Portuguese identity card.                                                                                                                    |
 | **CamelCase**     | CamelCase is a coding convention where compound words are written without spaces, and each word begins with a capital letter except for the first one. |
+| **CC**            | Referes to Portuguese citizen card.                                                                                                                    | 
 | **Check-up**      | The action of subjecting company vehicles to a periodic inspection.                                                                                    |
 | **Collaborator**  | Employee of the organization with specific skills for executing tasks related to green space management.                                               |
 | **Doc**           | Refers to the identification document.                                                                                                                 |
@@ -29,6 +31,7 @@ _(Complete according to the provided example)_
 | **Javadoc**       | Automatic documentation generator for Java code, using specially formatted comments.                                                                   |
 | **JavaFX 11**     | The framework used to develop the graphical interface of the application.                                                                              |
 | **JUnit 5**       | Testing framework for Java.                                                                                                                            |
+| **km**            | Kilometer, a unit of distance measurement.                                                                                                             |
 | **MS**            | MS is an acronym for MusgoSublime.                                                                                                                     |
 | **MusgoSublime**  | MusgoSublime is the organization dedicated to the planning, construction, and maintenance of green spaces for collective use.                          |
 | **NetBeans**      | Integrated development environment by Oracle Corporation.                                                                                              |
@@ -42,6 +45,8 @@ _(Complete according to the provided example)_
 | **Task**          | Tasks performed by collaborators.                                                                                                                      |
 | **TDD**           | Test-Driven Development.                                                                                                                               |
 | **Team**          | Group of workers who collaborate as a team to accomplish a task.                                                                                       |
+| **UI**            | User Interface.                                                                                                                                        |
 | **User**          | Individual who can use the application.                                                                                                                |
 | **User Portal**   | Platform where users can post comments, report faults and malfunctions of equipment.                                                                   |
+| **UX**            | User Experience.                                                                                                                                       |
 | **VFM**           | Vehicle and Equipment Fleet Manager.                                                                                                                   |
