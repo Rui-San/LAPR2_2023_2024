@@ -28,17 +28,17 @@ or tractors; tree pruning; application of phytopharmaceuticals.
 > 
 > **Answer:** By definition a set can´t have duplicates. Assuring no duplicates is not a business rule is a tecnichal issue.
 
-> **Question:** É relevante associar uma área ou setor específico a cada Job? (Por exemplo, "Jardineiro" seria inserido no setor de "Manutenção").
+> **Question:** Is it relevant to associate a specific area or sector with each job? (For example, would "Gardener" be placed in the "Maintenance" sector?)
 > 
-> **Answer:** Não é necessário na medida que não existem US que sugiram que isso possa vir a ser necessário.
+> **Answer:** It's not necessary as there are no User Stories suggesting that this might become necessary.
 
-> **Question:** Deve-se incluir informações como salário, tipo de contratação (full-time ou part-time), e modalidade de trabalho (presencial, remoto ou híbrido) no Job?
+> **Question:** Should information such as salary, type of employment (full-time or part-time), and mode of work (on-site, remote, or hybrid) be included in the job?
 > 
-> **Answer:** Não é necessário na medida que não existem US que sugiram que isso possa vir a ser necessário.
+> **Answer:** It's not necessary as there are no User Stories suggesting that this might become necessary.
 
-> **Question:** Que outras informações acha necessárias associar ao Job?
+> **Question:** What other information do you think is necessary to associate with the Job?
 > 
-> **Answer:** Para já nenhumas.
+> **Answer:** For now, none.
 
 > **Question:** Is there any Job category : for classifying jobs like gardening, drivers, administration employees , etc?
 > 

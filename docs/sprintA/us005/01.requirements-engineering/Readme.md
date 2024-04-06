@@ -65,7 +65,6 @@ meaning that one team member have 2 skills.)
 > 
 > **Answer:** There is no purpose, at least in this sprint.
 
-> **Question:** 
 
 ### 1.3. Acceptance Criteria
 
