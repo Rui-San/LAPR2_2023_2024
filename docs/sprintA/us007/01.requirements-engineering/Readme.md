@@ -39,21 +39,17 @@ light or heavy, open box or closed vans or trucks.
 > 
 > **Answer:** While registering a checkup, the vehicle id, date and current kms, shoud be considered.
 
-> **Question:** Does the HRM need to specify the task first for the team to be generated?
-> 
-> **Answer:** No.
-
-> **Question:** Should there be a default task? If so what are the minimum characteristics(collaborators and jobs needed, time interval, green space...)?
->
-> **Answer:** No.
-
-> **Question:** Should the generated team be assigned the task defined/default into the to-do list?
->
-> **Answer:** No.
-
 > **Question:** Does a vehicle need to be registered in US06 before being able to go for a check-up in US07?
 > 
 > **Answer:** Yes.
+
+> **Question:** Can a vehicle have more than one check-up?
+> 
+> **Answer:** Yes.
+
+> **Question:** Which attributes will you need for the vehicle's check-up?
+> 
+> **Answer:** Plate number, date, kms at checkup
 
 ### 1.3. Acceptance Criteria
 

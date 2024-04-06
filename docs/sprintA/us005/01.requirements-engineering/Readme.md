@@ -48,6 +48,18 @@ and the set of skills that must be covered are crucial.
 >
 > **Answer:** The systems provide team proposals and HRM can accept of refuse the proposals. In the future (not in this sprint) HRM may decide to edit the team.
 
+> **Question:** Does the HRM need to specify the task first for the team to be generated?
+>
+> **Answer:** No.
+
+> **Question:** Should there be a default task? If so what are the minimum characteristics(collaborators and jobs needed, time interval, green space...)?
+>
+> **Answer:** No.
+
+> **Question:** Should the generated team be assigned the task defined/default into the to-do list?
+>
+> **Answer:** No.
+
 ### 1.3. Acceptance Criteria
 
 * **AC1:** All required fields must be filled in.
