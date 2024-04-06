@@ -20,7 +20,7 @@ class Organization {
 
 class Skill{
     name
-    description
+
 }
 
 class HRM{
