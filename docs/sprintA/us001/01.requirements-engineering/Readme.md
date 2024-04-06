@@ -49,7 +49,13 @@ and the set of skills that must be covered are crucial.
 > 
 > **Answer:** A skill is just a name, can be a composition of words like "Light Vehicle Driving Licence".
 
+> **Question:**  Does the HRM need to see the confirmation of the sucess of the operation and the skills added or just the sucess of the operation?
+>
+> **Answer:** It will depend on if you opt to insert one skil or a set of skils in a batch. Maybe some adaptation needed.
 
+> **Question:** Is there any other possible outcome like if the HMR does not put the requested data, do I need to ask the user to register a diferent competence?
+> 
+> **Answer:** This US is quite simple, at the moment a skill is simply a name.
 
 ### 1.3. Acceptance Criteria
 
