@@ -36,6 +36,7 @@ _(Complete according to the provided example)_
 | **MusgoSublime**  | MusgoSublime is the organization dedicated to the planning, construction, and maintenance of green spaces for collective use.                          |
 | **NetBeans**      | Integrated development environment by Oracle Corporation.                                                                                              |
 | **OO**            | Refers to Object-Oriented.                                                                                                                             |
+| **PlantUML**      | Tool to create diagrams using simple text.                                                                                                             |
 | **PVM**           | Minimal Viable Product.                                                                                                                                |
 | **SCRUM**         | Framework for managing and organizing work.                                                                                                            |
 | **Skill**         | A characteristic of an employee and/or a specific ability to perform a task.                                                                           |
