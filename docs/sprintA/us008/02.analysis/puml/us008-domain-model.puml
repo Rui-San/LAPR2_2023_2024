@@ -33,11 +33,16 @@ class Vehicle{
     checkupFrequencyKms
 }
 
+class CheckupList{
+
+}
 
 
 
-FM "1" -- "*" Vehicle : "lists needing check-up >"
-Organization "1" -- "*" Vehicle : "owns >"
+
+FM "1" -- "*" CheckupList : " requests to show >"
+Organization "1" --- "*" Vehicle : "owns >"
+CheckupList "1" -- "1..*" Vehicle : "has >"
 
 
 
