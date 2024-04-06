@@ -70,36 +70,36 @@ Iterative Development".
 **Physical Objects**
 
 * Vehicle
-  * Passengers
-  * Mixed
-  * Light
-  * Heavy
-  * Open Box
-  * Closed Vans
-  * Trucks
+    * Passengers
+    * Mixed
+    * Light
+    * Heavy
+    * Open Box
+    * Closed Vans
+    * Trucks
 * Machine
-  * Tractors
-  * Backhoe loaders
-  * Rotating machines
-  * Lawnmowers
+    * Tractors
+    * Backhoe loaders
+    * Rotating machines
+    * Lawnmowers
 * Equipment
-  * Sprayers
-  * Lifting Platforms
-  * Chainsaws
-  * Brush cutters
-  * Blowers
-  * Ladders
-  * Cisterns
-  * Disc harrows
-  * Weeders
-  * Aerotors
-  * Scarifiers
+    * Sprayers
+    * Lifting Platforms
+    * Chainsaws
+    * Brush cutters
+    * Blowers
+    * Ladders
+    * Cisterns
+    * Disc harrows
+    * Weeders
+    * Aerotors
+    * Scarifiers
 
 ---
 
 **Descriptions of Things**
 
-* 
+*
 
 ---
 
@@ -129,7 +129,7 @@ Iterative Development".
 
 **Other External/Collaborating Systems**
 
-* 
+*
 
 ---
 
@@ -148,7 +148,7 @@ Iterative Development".
 
 **Documents mentioned/used to perform some work/**
 
-* 
+*
 
 ---
 
@@ -165,35 +165,35 @@ remembering, or it is derivable from the List of Common Associations:
 - **_A_** is related with a transaction (item) of **_B_**
 - etc.
 
-| Concept (A) 		 | Association   	 |  Concept (B) |
-|----------------|:---------------:|-------------:|
-| Organization   |      owns       |         Task |
-| Organization   |      owns       |       Agenda |
-| Organization   | is located at   |      Address |
-| Organization   |      owns       |   UserPortal |
-| Organization   |    manages      |   GreenSpace |
-| Organization   |      owns       |        Skill |
-| Organization   |      owns       |          Job |
-| Organization   |      has        | Collaborator |
-| Organization   |      owns       |      Vehicle |
-| Collaborator   |       has       |        Skill |
-| Collaborator   |   lives in      |      Address |
-| Collaborator   |       has       |          Job |
-| HRM            |    register     |        Skill |
-| HRM            |    register     |          Job |
-| HRM            |    register     | Collaborator |
+| Concept (A) 		 |  Association   	  |  Concept (B) |
+|----------------|:-----------------:|-------------:|
+| Organization   |       owns        |         Task |
+| Organization   |       owns        |       Agenda |
+| Organization   |      has an       |      Address |
+| Organization   |       owns        |   UserPortal |
+| Organization   |      manages      |   GreenSpace |
+| Organization   |       owns        |        Skill |
+| Organization   |       owns        |          Job |
+| Organization   |        has        | Collaborator |
+| Organization   |       owns        |      Vehicle |
+| Collaborator   |        has        |        Skill |
+| Collaborator   |      has an       |      Address |
+| Collaborator   |        has        |          Job |
+| HRM            |     register      |        Skill |
+| HRM            |     register      |          Job |
+| HRM            |     register      | Collaborator |
 | HRM            | assigns skills to | Collaborator |
-| HRM            |    generates    |       Team   |
-| FM             |    registers    |      Vehicle |
-| FM             | lists needing check-up | Vehicle |
-| FM             |    registers    |     Checkup  |
-| UserPortal     |       has       |      Comment |
-| Agenda         |       has       |        Task  |
-| Task           | is carried out by |       Team  |
-| GreenSpace     | is located at   |      Address |
-| Team           |       has       | Collaborator |
-| Vehicle        |       does      |     Checkup  |
-
+| HRM            |     generates     |         Team |
+| FM             |     registers     |      Vehicle |
+| FM             |     registers     |      Checkup |
+| FM             | requests to show  |  CheckupList |
+| UserPortal     |        has        |      Comment |
+| Agenda         |        has        |         Task |
+| Task           | is carried out by |         Team |
+| GreenSpace     |      has an       |      Address |
+| Team           |        has        | Collaborator |
+| Vehicle        |       does        |      Checkup |
+| CheckupList    |        has        |      Vehicle |
 
 ## Domain Model
 
