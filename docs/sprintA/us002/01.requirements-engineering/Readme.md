@@ -40,6 +40,28 @@ or tractors; tree pruning; application of phytopharmaceuticals.
 > 
 > **Answer:** Para já nenhumas.
 
+> **Question:** Is there any Job category : for classifying jobs like gardening, drivers, administration employees , etc?
+> 
+> **Answer:** There is no job category.
+
+> **Question:** Is there Job Skills: for assigning qualified employee/collaborator in future (having same qualities and skills)?
+> 
+> **Answer:** There is the concept of skill but not directly related (atm) with job.
+
+> **Question:** Can special characters and numbers be entered when registering a job?
+> 
+> **Answer:** No.
+
+> **Question:** I assume that a job name cannot be empty. Is that right?
+> 
+> **Answer:** That's right.
+
+> **Question:** What do you want to see as an output?
+> 
+> **Answer:** The UX/UI is to be decided by dev team.
+
+ 
+
 ### 1.3. Acceptance Criteria
 
 * **AC1:** All required fields must be filled in.
