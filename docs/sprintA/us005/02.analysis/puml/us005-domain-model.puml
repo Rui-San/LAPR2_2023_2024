@@ -37,6 +37,6 @@ class Collaborator{
 }
 
 Organization "1" -- "*" Collaborator : "has >"
-Team "1" -- "*" Collaborator : "has >"
+Team "1" --left "*" Collaborator : "has >"
 HRM "1" -- "*" Team : "generates >"
 @enduml
