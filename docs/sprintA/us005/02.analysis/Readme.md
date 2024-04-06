@@ -1,4 +1,4 @@
-# US005 - Generate team proposal
+# US005 - Generate a team proposal
 
 ## 2. Analysis
 
