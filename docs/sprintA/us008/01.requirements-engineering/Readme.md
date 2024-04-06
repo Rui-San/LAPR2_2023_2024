@@ -29,7 +29,7 @@ light or heavy, open box or closed vans or trucks.
 >
 > **Answer:** Current Km and Maintenance/Check-up Frequency (in Kms) are sufficient.
 
-> **Question:** Are there acceptance criteria when asking for the list?
+> **Question:** What are there acceptance criteria when asking for the list?
 > 
 > **Answer:** For example:
 a vehicle that made the checkup at 23500 and has a checkup frequency of 10000km.
@@ -44,9 +44,14 @@ b) 33480 (there is a difference minor than 5% of the number of kms of the checku
 > 
 > **Answer:** Data that allow to identify the vehicle like Plate, brand and model, as well as, the data that allowed to select/insert te vehicle in the list, number of kms, frequency of checkup and the last checkup.
 
->**Question** By what percentage of the checkup frequency should the vehicle appear in need of a checkup?
+> **Question:** By what percentage of the checkup frequency should the vehicle appear in need of a checkup?
 > 
 > **Answer:** Consider 5%.
+
+> **Question:** What is the word "x" missing on the following sentence? "The list must clearly identify the vehicles through: plate number, brand, model and the "x" that justified the checkup need."
+>
+> **Answer:** "x" DATA:
+current kms, frequency, last checkup kms, next checkup (optimal) kms
 
 ### 1.3. Acceptance Criteria
 
@@ -55,7 +60,7 @@ b) 33480 (there is a difference minor than 5% of the number of kms of the checku
 * **AC2:** The list must contain all vehicles whose current kilometers is within a 5% margin of the next inspection (5% of the check-up frequency).
   * Current vehicle kms ≥ last check-up kms + (0.95×check-up frequency kms)
 * **AC3:** Vehicle's current kilometers, check-up frequency (in kms) and last check done is the necessary data in order to calculate the vehicles to appear on the list.
-* **AC4:** The list must clearly identify the vehicles through: plate number, brand, model and the reason that justified the checkup need.
+* **AC4:** The list must clearly identify the vehicles through: plate number, brand, model and the data that justified the checkup need.
 * **AC5:** If there are no vehicles requiring a check-up, the list should appear empty.
 
 ### 1.4. Found out Dependencies
