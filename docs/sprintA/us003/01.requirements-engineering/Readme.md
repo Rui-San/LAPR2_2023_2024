@@ -42,6 +42,29 @@ ones created within the US02.
 > 
 > **Answer:** It's not required to do so.
 
+> **Question:** What should be the accepted format for the emails? Should only specific email services be accepted?
+> 
+> **Answer:** A valid email address consists of an email prefix and an email domain, both in acceptable formats.
+The prefix appears to the left of the @ symbol. The domain appears to the right of the @ symbol.
+For example, in the address example@mail.com, "example" is the email prefix, and "mail.com" is the email domain.
+
+> **Question:** Is there any limitation regarding the length of the name of the collaborator?
+> 
+> **Answer:** According to the Portuguese law a name should contain at maximum six words;
+
+> **Question:** Should we consider valid only the birthdates in which the collaborator has more than 18 years?
+> 
+> **Answer:** Yes.
+
+> **Question:** What should be the format for the phone number? 9 numbers?
+> 
+> **Answer:** Validating 9 digits will be acceptable; validating with international format would be excelent;
+
+> **Question:** What is the format for the numbers from the id doc types?
+> 
+> **Answer:** Each doc type has specific formats like taxpayer number, Citizen Card ou passport.
+
+
 ### 1.3. Acceptance Criteria
 
 * **AC1:** The name of the Collaborator can only contain alphabetic characters, spaces and hyphens.
@@ -50,13 +73,15 @@ ones created within the US02.
 * **AC4:** The birthdate and admission date must follow the format DD/MM/YYYY.
 * **AC5:** The birthdate must be within a reasonable range (not in the future and not earlier than 1900).
 * **AC6:** The admission date must not be earlier than the birthdate nor the organization's creation date.
-* **AC7:** Email must contain one "@".
+* **AC7:** Email must contain an email prefix, an email domain and the symbol "@".
+The prefix must appear to the left of the @ symbol. The domain must appear to the right of the @ symbol.
 * **AC8:** The mobile number must contain 9 numeric digits.
 * **AC9:** The ID documentation type must be one of the following: CC, BI or Passport.
-* **AC10:** If the doc type is "Passport", the ID number must have 2 alphanumeric characters followed by 6 numeric digits.
+* **AC10:** If the doc type is "Passport", the ID number must have 2 letters followed by 6 numeric digits.
 * **AC11:** If the doc type is "BI" or "CC", the ID number must contain 9 numeric digits.
 * **AC12:** The ID documentation number must be unique.
 * **AC13:** There must be at least one job selected from the job list.
+* **AC14:** The name of the Collaborator can only contain a maximum of six words.
 
 ### 1.4. Found out Dependencies
 
