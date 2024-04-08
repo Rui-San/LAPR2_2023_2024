@@ -1,0 +1,33 @@
+    @startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title US001 - System Sequence Diagram (SSD)
+
+autonumber
+
+actor "HRM" as Employee
+participant ":RegisterSkillUI" as System
+
+activate Employee
+
+    Employee -> System : Asks to register a new skill
+    activate System
+
+        System --> Employee : Requests data (skill name)
+    deactivate System
+
+    Employee -> System : Types requested data
+    activate System
+
+        System --> Employee : Shows typed data and requests confirmation
+    deactivate System
+
+    Employee -> System : Confirms data and submits
+    activate System
+
+        System --> Employee : Displays operation success and shows the \nlist of all registered skills
+    deactivate System
+
+@enduml

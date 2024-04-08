@@ -1,0 +1,44 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+title US003 - Domain Model
+
+class Organization {
+    name
+    nif
+    website
+    phoneNumber
+    email
+}
+
+class HRM{
+
+}
+
+class Job{
+    name
+}
+
+class Collaborator{
+    name
+    admissionDate
+    birthDate
+    phoneNumber
+    email
+    idDocType
+    idDocNumber
+}
+
+HRM "1" -- "*" Collaborator : "register >"
+Organization "1" -- "*" Collaborator : "has >"
+Collaborator "1" -- "1" Job : "has >"
+
+@enduml

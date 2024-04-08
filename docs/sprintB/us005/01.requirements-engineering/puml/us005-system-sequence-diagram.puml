@@ -1,0 +1,59 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title US005 - System Sequence Diagram (SSD)
+
+autonumber
+
+actor "HRM" as Employee
+participant ":TeamProposalUI" as System
+
+
+activate Employee
+
+    Employee -> System : Asks to generate a new team proposal
+    activate System
+
+        System --> Employee : Requests data (max and min team size)
+    deactivate System
+
+    Employee -> System : Types requested data
+
+
+        loop
+            activate System
+
+                System --> Employee : Shows list of skills and asks to select one
+            deactivate System
+
+            Employee -> System : Selects a skill from the list and specifies the \nquantity of that skill.
+            activate System
+        end loop
+
+        note right
+                **(5) NOTE:**
+                **Set of skills:**
+                *Set of skills required for the team proposal;
+                *Includes the skill name and the required quantity.
+        end note
+
+    loop until the team generated is accepted
+    System -> System: Generate the team proposal\nwith given information
+
+
+        System --> Employee : Shows team generated and asks for confirmation
+
+    deactivate System
+    Employee -> System : Accepts or rejects the proposal.
+    activate System
+    end loop
+
+
+    activate System
+
+        System --> Employee : Displays operation success
+    deactivate System
+
+@enduml

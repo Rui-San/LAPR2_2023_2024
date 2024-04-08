@@ -1,0 +1,34 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+title US002 - Domain Model
+
+class Organization {
+    name
+    nif
+    website
+    phoneNumber
+    email
+}
+
+class Job{
+    name
+}
+
+class HRM{
+
+}
+
+Organization "1" -- "*" Job : "owns >"
+HRM "1" -- "*" Job : "register >"
+
+@enduml
