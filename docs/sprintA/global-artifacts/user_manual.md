@@ -1,8 +1,14 @@
+# User Manual
 # Green Space Management App
+### Instituto Superior de Engenharia do Porto
+#### Laboratory/Project II - LEI
 
-## Instituto Superior de Engenharia do Porto
-
-### Group 34 - CodeFlow
+#### 1DCDD - GROUP 034 – CODEFLOW
+- PEDRO COSTA (1221790)
+- RUI SANTIAGO (1221402)
+- DIÓGENES DE JESUS (1210879)
+- ALEXANDRE MOURA (1231193)
+- FRANCISCO TROCADO (1230608)
 
 ---
 
@@ -11,10 +17,12 @@
 - [Glossary](#glossary)
 - [Introduction](#introduction)
 - [System Overview](#system-overview)
-- [Features](#features)
+- [System Features](#features)
 - [Troubleshooting](#troubleshooting)
 - [Frequently Asked Questions](#frequently-asked-questions)
 - [References](#references)
+
+---
 
 ## Glossary
 
@@ -60,11 +68,32 @@
 | **User Portal**                       | Platform where users can post comments, report faults and malfunctions of equipment.                                                                   |
 | **VFM**                               | Vehicle and Equipment Fleet Manager.                                                                                                                   |
 
+---
+
 ## Introduction
 
-This user manual was designed as a guide to help users navigate and comprehend the functionalities of our application
-effectively. Its purpose is to provide step-by-step instructions for users to operate the application in the easiest way and efficiently.
+Green spaces are really important for enhancing the quality of life for residents and even visitors. Effectively
+managing these areas requires an efficient application that focuses on each of the topics inherent in their management.
 
+This user manual was designed as a guide to help users navigate and comprehend the functionalities of our application
+effectively. Its purpose is to provide step-by-step instructions for users to operate the application in the easiest
+way and efficiently.
+
+The application is still in its implementation phase, however, it aims to provide a set of
+funcionalities which are intuitive and easy-to-use for managing public parks and gardens in urban spaces.
+
+The User Manual isdivided into several parts, each one addressing a specific aspect of the application. The sections are
+as listed:
+
+- Glossary, which contains a list of terms, expressions and acronyms used throughout the project.
+- System Overview, which describes the main functionalities of the application. It includes an overall description of
+  the product, including the objectives of the
+  application, its structure , the reference to the main features, and highlight of the main modules represented in a
+  diagram.
+- System Features, listing the main features of the application. Each feature in this user manual corresponds to a
+  user story in software development terminology, it means one “action” the user may perform on the application.
+
+---
 
 ## System Overview
 
@@ -90,6 +119,8 @@ functionalities and the dependencies that exist between them.
 
 ![Domain Model](02.analysis/svg/project-domain-model.svg)
 
+---
+
 ## Features
 
 #### Register a Skill | Human Resources Manager
@@ -104,9 +135,9 @@ functionalities and the dependencies that exist between them.
 
 #### Register a Vehicle | Fleet Manager
 
-#### Register a Vehicle Check-up | Fleet Manager
+#### Register a Vehicle's Check-up | Fleet Manager
 
-#### List Vehicles needing a check-up | Fleet Manager
+#### List Vehicles needing check-up | Fleet Manager
 
 ## Troubleshooting
 
