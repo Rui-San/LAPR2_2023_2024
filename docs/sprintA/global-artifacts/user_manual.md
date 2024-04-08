@@ -62,6 +62,10 @@
 
 ## Introduction
 
+This user manual was designed as a guide to help users navigate and comprehend the functionalities of our application
+effectively. Its purpose is to provide step-by-step instructions for users to operate the application in the easiest way and efficiently.
+
+
 ## System Overview
 
 The main objective of this Java-built application is to provide a solution that supports the activities of an
