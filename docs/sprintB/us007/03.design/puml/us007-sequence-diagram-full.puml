@@ -1,0 +1,55 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title US007 - System Sequence Diagram (SSD)
+
+autonumber
+
+actor "Fleet Manager" as Employee
+participant ":RegisterCheckupUI" as UI
+participant ":RegisterCheckupController" as CTRL
+participant ":Repositories" as Repos
+participant ":OrganizationRepository" as RPS
+
+activate Employee
+
+    Employee -> UI : Asks to register a new vehicle's check-up
+    activate UI
+
+                    UI -> CTRL : getCheckupList()
+                    activate CTRL
+
+                            CTRL -> Repos : getInstance()
+                            CTRL -> RPS : getVehiclesNeedingCheckup()
+                        activate RPS
+
+                            RPS -> CTRL : vehiclesNeedingCheckupList
+                        deactivate RPS
+
+                        CTRL -> UI : vehiclesNeedingCheckupList
+                    deactivate CTRL
+
+        UI --> Employee : Shows the list of vehicles and asks to select one
+    deactivate UI
+
+    Employee -> UI : Selects a vehicle
+    activate UI
+
+        UI --> Employee : Requests check-up data (Date of check-up, Current kilometers)
+    deactivate UI
+
+    Employee -> UI : Types requested data
+    activate UI
+
+        UI --> Employee : Shows all data and requests confirmation
+    deactivate UI
+
+    Employee -> UI : submits data
+    activate UI
+
+        UI --> Employee : Displays operation success
+    deactivate UI
+
+@enduml
