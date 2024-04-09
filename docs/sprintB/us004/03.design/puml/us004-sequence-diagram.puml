@@ -7,40 +7,79 @@ title US004 - System Sequence Diagram (SSD)
 
 autonumber
 
-actor "HRM" as Employee
+actor "HRM" as HRM
 participant ":AssignSkillUI" as UI
-participant ":AssignSkillController" as Controller
+participant ":AssignSkillController" as CTRL
+participant "organization\n:Organization" as ORG
 
-activate Employee
 
-    Employee -> UI : Asks to assign one or more skills to a collaborator
+activate HRM
+
+    HRM -> UI : Asks to assign one or more skills to a collaborator
+
     activate UI
 
-        UI --> Employee : Shows a list of Collaborators and asks to select one
+        UI -> CTRL : getListOfCollaborators()
+
+
+        activate CTRL
+            CTRL -> ORG : getListOfCollaborators()
+            activate ORG
+            ORG -> CTRL : ListOfCollaborators
+            deactivate ORG
+
+            CTRL -> UI : ListOfCollaborators
+
+
+
+
+        deactivate CTRL
+
+        UI --> HRM : Shows a list of Collaborators and asks to select one
     deactivate UI
 
-    Employee -> UI : Selects a collaborator
+    HRM -> UI : Selects a collaborator
+
+
+
+
 
     loop
 
     activate UI
+    UI --> UI : keepCollaborator(colaboratorData)
 
-        UI --> Employee : Displays a list of available skills and asks to \nselect one.
+        UI --> HRM : Displays a list of available skills and asks to \nselect one.
     deactivate UI
 
-    Employee -> UI : Selects a skill
+    HRM -> UI : Selects a skill
 
 
     activate UI
+
+    UI --> UI : keepSkill(skillName)
+
     end
 
-        UI --> Employee : Shows all data (collaborator and his skills) and \nrequests confirmation
+        UI --> HRM : Shows all data (collaborator and his skills) and \nrequests confirmation
     deactivate UI
 
-    Employee -> UI : Confirms the operation
+    HRM -> UI : Confirms the operation
     activate UI
 
-        UI --> Employee : Displays operation success
+    UI -> CTRL : assignSkillsToCollaborator(collaborator, skills)
+
+        activate CTRL
+        CTRL -> ORG
+            activate ORG
+            ORG ->CTRL : assignSkillsToCollaborator(collaborator, skills)
+
+            deactivate ORG
+
+            CTRL -> UI : "VERIFY 13 to 18 ITERACTION"
+        deactivate CTRL
+
+        UI --> HRM : Displays operation success
     deactivate UI
 
 @enduml
