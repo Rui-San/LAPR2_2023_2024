@@ -1,8 +1,19 @@
-# Green Space Management App
+# User Manual
 
-## Instituto Superior de Engenharia do Porto
+# Green Spaces Management App
 
-### Group 34 - CodeFlow
+### Instituto Superior de Engenharia do Porto
+
+#### Laboratory/Project II - LEI
+#### 1DCDD - GROUP 034 – CODEFLOW
+
+- PEDRO COSTA (1221790)
+- RUI SANTIAGO (1221402)
+- DIÓGENES DE JESUS (1210879)
+- ALEXANDRE MOURA (1231193)
+- FRANCISCO TROCADO (1230608)
+
+#### **Date:** April 9th, 2024
 
 ---
 
@@ -11,10 +22,12 @@
 - [Glossary](#glossary)
 - [Introduction](#introduction)
 - [System Overview](#system-overview)
-- [Features](#features)
+- [System Features](#features)
 - [Troubleshooting](#troubleshooting)
 - [Frequently Asked Questions](#frequently-asked-questions)
 - [References](#references)
+
+---
 
 ## Glossary
 
@@ -60,35 +73,59 @@
 | **User Portal**                       | Platform where users can post comments, report faults and malfunctions of equipment.                                                                   |
 | **VFM**                               | Vehicle and Equipment Fleet Manager.                                                                                                                   |
 
+---
+
 ## Introduction
 
-This user manual was designed as a guide to help users navigate and comprehend the functionalities of our application
-effectively. Its purpose is to provide step-by-step instructions for users to operate the application in the easiest way and efficiently.
+Green spaces are really important for enhancing the quality of life for residents and even visitors. Effectively
+managing these areas requires an efficient application that focuses on each of the topics inherent in their management.
 
+This user manual was designed as a guide to help users navigate and comprehend the functionalities of our application
+effectively. Its purpose is to provide step-by-step instructions for users to operate the application in the easiest way
+and efficiently.
+
+The application is still in its implementation phase, however, it aims to provide a set of functionalities which are
+intuitive and easy-to-use for managing public parks and gardens in urban spaces.
+
+The User Manual is divided into several parts, each one addressing a specific aspect of the application. The sections
+for this sprint are as listed:
+
+- **Glossary**, which contains a list of terms, expressions and acronyms used throughout the project followed by its
+  description.
+
+- **System Overview**, which describes the main functionalities of the application. It includes an overall description of
+  the product, including the objectives of the application, its structure, the reference to the main features and the
+  representation of the diagram.
+
+- **System Features**, listing the main features of the application. Each feature in this user manual corresponds to a user
+  story in software development terminology, it means one “action” the user may perform on the application.
+
+---
 
 ## System Overview
 
 The main objective of this Java-built application is to provide a solution that supports the activities of an
 organization responsible for managing green spaces, predominantly in urban contexts.
 
-Through the use of this application, users have at their disposal a set of functionalities that streamline the company's
-activities, making management more efficient, facilitating planning and coordination of its activities.
+While using this application, users have at their disposal a set of functionalities that streamline the company's
+activities, making management more efficient, facilitating planning and coordination of the activities.
 
 Through a user-friendly interface, the system enables managers to register collaborators, jobs, and skills, which allows
 the manager to automatically create a team that will execute tasks of an agenda, ensuring greater efficiency and
-coordination in the work.
+coordination in the work. Furthermore, the application also facilitates the fleet management, including vehicles,
+machinery, and equipment through functionalities that allow the registration of the organization's vehicles, as well as
+the management of vehicle check-ups.
 
-Furthermore, the application facilitates the fleet management, including vehicles, machinery, and equipment through
-functionalities that allow the registration of the organization's vehicles, as well as the management of vehicle
-check-ups.
-
-The application will also provide a portal where green space users can access information about green spaces, report
+The application will also provide a portal where green space users can access information about the green spaces, report
 problems and malfunctions or suggest improvements.
 
 To demonstrate more easily how the application works, we have developed a diagram that shows the system's
 functionalities and the dependencies that exist between them.
 
+
 ![Domain Model](02.analysis/svg/project-domain-model.svg)
+
+---
 
 ## Features
 
@@ -104,9 +141,9 @@ functionalities and the dependencies that exist between them.
 
 #### Register a Vehicle | Fleet Manager
 
-#### Register a Vehicle Check-up | Fleet Manager
+#### Register a Vehicle's Check-up | Fleet Manager
 
-#### List Vehicles needing a check-up | Fleet Manager
+#### List Vehicles needing check-up | Fleet Manager
 
 ## Troubleshooting
 
