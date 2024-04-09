@@ -1,0 +1,46 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title US004 - System Sequence Diagram (SSD)
+
+autonumber
+
+actor "HRM" as Employee
+participant ":AssignSkillUI" as UI
+participant ":AssignSkillController" as Controller
+
+activate Employee
+
+    Employee -> UI : Asks to assign one or more skills to a collaborator
+    activate UI
+
+        UI --> Employee : Shows a list of Collaborators and asks to select one
+    deactivate UI
+
+    Employee -> UI : Selects a collaborator
+
+    loop
+
+    activate UI
+
+        UI --> Employee : Displays a list of available skills and asks to \nselect one.
+    deactivate UI
+
+    Employee -> UI : Selects a skill
+
+
+    activate UI
+    end
+
+        UI --> Employee : Shows all data (collaborator and his skills) and \nrequests confirmation
+    deactivate UI
+
+    Employee -> UI : Confirms the operation
+    activate UI
+
+        UI --> Employee : Displays operation success
+    deactivate UI
+
+@enduml
