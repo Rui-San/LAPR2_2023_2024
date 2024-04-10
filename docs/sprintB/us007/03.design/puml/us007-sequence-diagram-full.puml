@@ -10,16 +10,16 @@ autonumber
 actor "Fleet Manager" as Employee
 participant ":RegisterCheckupUI" as UI
 participant ":RegisterCheckupController" as RCCtrl
-'participant ":Repositories" as RepositorySingleton
-'participant "repositories\n:Repositories" as PLAT
 'participant "taskCategoryRepository:\nTaskCategoryRepository" as TaskCategoryRepository
 'participant ":ApplicationSession" as _APP
 'participant "appSession\n:ApplicationSession" as APP
 'participant "currentSession\n:UserSession" as SESSAO
 'participant "vehicleRepository:\nVehicleRepository" as VehicleRepository
-participant ":Vehicle" as Vehicle
-'participant "organizationRepository:\nOrganizationRepository" as OrganizationRepository
 participant ":Organization" as Organization
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as PLAT
+participant ":vehicleCheckupRepository\n:VehicleCheckupRepository" as VCRepo
+'participant "organizationRepository:\nOrganizationRepository" as OrganizationRepository
 participant ":Vehicle Checkup" as VCheckup
 
 activate Employee
@@ -63,20 +63,30 @@ activate Employee
         UI --> RCCtrl : registerVehicleCheckup(Vehicle, \nDate of check-up, \nCurrent kilometers)
         activate RCCtrl
 
-            RCCtrl --> Vehicle : registerVehicleCheckup(vehicle, \ndateOfCheckup, \ncurrentKms)
-            activate Vehicle
+            RCCtrl --> RepositorySingleton : getInstance()
+            activate RepositorySingleton
 
-                Vehicle --> VCheckup** : create(Vehicle, Date of check-up, Current kilometers)
+                RepositorySingleton --> RCCtrl : repositories
+            deactivate RepositorySingleton
+            RCCtrl --> PLAT : getVehicleCheckupRepository()
+            activate PLAT
+
+                PLAT --> RCCtrl : VehicleCheckupRepository
+            deactivate PLAT
+            RCCtrl --> VCRepo : registerVehicleCheckup(vehicle, \ndateOfCheckup, \ncurrentKms)
+            activate VCRepo
+
+                VCRepo --> VCheckup** : create(Vehicle, Date of check-up, Current kilometers)
                 note right of VCheckup
                     VehicleCheckup constructor
                     normally validates arguments
                 end note
-                Vehicle --> Vehicle : addCheckup(vehicleCheckup)
-                Vehicle --> Vehicle : validateCheckup(vehicleCheckup)
-                Vehicle --> RCCtrl : vehicleCheckup
-            deactivate Vehicle
+                VCRepo --> VCRepo : validateCheckup(vehicleCheckup)
+                VCRepo --> VCRepo : addCheckup(vehicleCheckup)
+                VCRepo --> RCCtrl : vehicleCheckup
+            deactivate VCRepo
 
-            RCCtrl --> UI : Organization
+            RCCtrl --> UI : vehicleCheckup
         deactivate RCCtrl
 
         UI --> Employee : Displays operation success
