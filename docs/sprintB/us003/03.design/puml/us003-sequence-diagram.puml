@@ -10,6 +10,7 @@ autonumber
 actor "HRM" as HRM
 participant ":RegisterCollaboratorUI" as UI
 participant ":RegisterCollaboratorController" as CTRL
+participant ":organization \nOrganization" as ORG
 
 activate HRM
 
@@ -23,13 +24,23 @@ activate HRM
     HRM -> UI : Types requested data
 
     activate UI
-        UI --> UI : keepData(name, birthdate, admission\ndate, address, email,mobile number,\nid doc type, id doc number
+        UI --> UI : keepData(name, birthdate, admission\ndate, address, email,mobile number,\nid doc type, id doc number)
 
         UI -> CTRL : getJobList()
 
+
         activate CTRL
-            CTRL -> UI : jobList
+
+            CTRL -> ORG : getJobList()
+
+            activate ORG
+
+            ORG --> CTRL : jobList
+            deactivate ORG
+
+            CTRL --> UI : jobList
         deactivate CTRL
+
         UI --> HRM : Shows job list and asks to select one
     deactivate UI
 
@@ -37,6 +48,7 @@ activate HRM
 
     activate UI
 
+        UI --> UI : keepData(jobName)
         UI --> HRM : Shows all data and requests confirmation
     deactivate UI
 
@@ -44,7 +56,21 @@ activate HRM
 
     activate UI
 
+        UI -> CTRL : createCollaborator(name, birthdate, admission\ndate, address, email,mobile number, id doc type,\nid doc number, jobName)
+        activate CTRL
+
+            CTRL -> ORG : createCollaborator(name, birthdate, admission\ndate, address, email,mobile number, id doc type,\nid doc number, jobName)
+            activate ORG
+
+                ORG --> CTRL : collaborator
+            deactivate ORG
+
+            CTRL --> UI : collaborator
+        deactivate CTRL
+
         UI --> HRM : Displays operation success
     deactivate UI
+
+
 
 @enduml

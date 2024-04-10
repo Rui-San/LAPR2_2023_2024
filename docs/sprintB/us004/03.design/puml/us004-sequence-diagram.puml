@@ -88,10 +88,10 @@ loop while doesn't choose to advance
     HRM -> UI : Confirms the operation
     activate UI
 
-    UI -> CTRL : addSkillsToCollaborator(List<Skills> skills)
+    UI -> CTRL : addSkillsToCollaborator(collaborator, List<Skills> skills)
 
         activate CTRL
-        CTRL -> ORG : addSkillsToCollaborator(List<Skills> skills)
+        CTRL -> ORG : addSkillsToCollaborator(collaborator, List<Skills> skills)
             activate ORG
             ORG ->CTRL : show Collaborator
 
