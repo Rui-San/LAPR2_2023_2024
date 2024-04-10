@@ -1,0 +1,43 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title US003 - Sequence Diagram
+
+autonumber
+
+actor "HRM" as HRM
+participant ":RegisterCollaboratorUI" as CTRL
+
+activate HRM
+
+    HRM -> CTRL : Asks to register a collaborator
+
+    activate CTRL
+
+        CTRL --> HRM : Requests data (name, birthdate, admission date, address, \nemail,mobile number, id doc type, id doc number)
+    deactivate CTRL
+
+    HRM -> CTRL : Types requested data
+
+    activate CTRL
+
+        CTRL --> HRM : Shows job list and asks to select one
+    deactivate CTRL
+
+    HRM -> CTRL : Selects a job
+
+    activate CTRL
+
+        CTRL --> HRM : Shows all data and requests confirmation
+    deactivate CTRL
+
+    HRM -> CTRL : Confirms data
+
+    activate CTRL
+
+        CTRL --> HRM : Displays operation success
+    deactivate CTRL
+
+@enduml
