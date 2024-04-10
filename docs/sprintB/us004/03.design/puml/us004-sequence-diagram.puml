@@ -3,7 +3,7 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title US004 - System Sequence Diagram (SSD)
+title US004 - Sequence Diagram
 
 autonumber
 
@@ -44,22 +44,43 @@ activate HRM
 
 
 
-    loop
+
 
     activate UI
-    UI --> UI : keepCollaborator(colaboratorData)
 
+    UI -> CTRL : getSkillList()
+
+    activate CTRL
+    CTRL -> ORG : getSkillList()
+
+    activate ORG
+
+    ORG -> CTRL : skillList
+
+    deactivate ORG
+
+    UI --> UI : keepCollaborator(collaborator)
+
+    CTRL -> UI : skillList
+
+        deactivate CTRL
+loop while doesn't choose to advance
         UI --> HRM : Displays a list of available skills and asks to \nselect one.
+
     deactivate UI
+
+
 
     HRM -> UI : Selects a skill
 
 
     activate UI
 
-    UI --> UI : keepSkill(skillName)
-
     end
+
+    UI --> UI : keepSelectedSkills(List<Skills> skills)
+
+
 
         UI --> HRM : Shows all data (collaborator and his skills) and \nrequests confirmation
     deactivate UI
@@ -67,16 +88,16 @@ activate HRM
     HRM -> UI : Confirms the operation
     activate UI
 
-    UI -> CTRL : assignSkillsToCollaborator(collaborator, skills)
+    UI -> CTRL : addSkillsToCollaborator(List<Skills> skills)
 
         activate CTRL
-        CTRL -> ORG
+        CTRL -> ORG : addSkillsToCollaborator(List<Skills> skills)
             activate ORG
-            ORG ->CTRL : assignSkillsToCollaborator(collaborator, skills)
+            ORG ->CTRL : show Collaborator
 
             deactivate ORG
 
-            CTRL -> UI : "VERIFY 13 to 18 ITERACTION"
+            CTRL -> UI : show Collaborator
         deactivate CTRL
 
         UI --> HRM : Displays operation success
