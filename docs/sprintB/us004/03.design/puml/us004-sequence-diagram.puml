@@ -21,66 +21,50 @@ activate HRM
 
         UI -> CTRL : getListOfCollaborators()
 
-
         activate CTRL
+
             CTRL -> ORG : getListOfCollaborators()
             activate ORG
-            ORG -> CTRL : ListOfCollaborators
+
+                ORG -> CTRL : ListOfCollaborators
             deactivate ORG
-
             CTRL -> UI : ListOfCollaborators
-
-
-
-
         deactivate CTRL
-
         UI --> HRM : Shows a list of Collaborators and asks to select one
     deactivate UI
 
     HRM -> UI : Selects a collaborator
 
-
-
-
-
-
-
     activate UI
 
-    UI -> CTRL : getSkillList()
+        UI -> CTRL : getSkillList()
 
-    activate CTRL
-    CTRL -> ORG : getSkillList()
+        activate CTRL
 
-    activate ORG
+            CTRL -> ORG : getSkillList()
 
-    ORG -> CTRL : skillList
+            activate ORG
 
-    deactivate ORG
+                ORG -> CTRL : skillList
+            deactivate ORG
 
-    UI --> UI : keepCollaborator(collaborator)
+            UI --> UI : keepCollaborator(collaborator)
 
-    CTRL -> UI : skillList
-
+            CTRL -> UI : skillList
         deactivate CTRL
-loop while doesn't choose to advance
-        UI --> HRM : Displays a list of available skills and asks to \nselect one.
 
+        loop while doesn't choose to advance
+
+            UI --> HRM : Displays a list of available skills and asks to \nselect one.
     deactivate UI
 
-
-
-    HRM -> UI : Selects a skill
-
+        HRM -> UI : Selects a skill
 
     activate UI
 
-    end
+        end
 
-    UI --> UI : keepSelectedSkills(List<Skills> skills)
-
-
+        UI --> UI : keepSelectedSkills(List<Skills> skills)
 
         UI --> HRM : Shows all data (collaborator and his skills) and \nrequests confirmation
     deactivate UI
@@ -88,15 +72,16 @@ loop while doesn't choose to advance
     HRM -> UI : Confirms the operation
     activate UI
 
-    UI -> CTRL : addSkillsToCollaborator(collaborator, List<Skills> skills)
+        UI -> CTRL : addSkillsToCollaborator(collaborator, List<Skills> skills)
 
         activate CTRL
-        CTRL -> ORG : addSkillsToCollaborator(collaborator, List<Skills> skills)
+
+            CTRL -> ORG : addSkillsToCollaborator(collaborator, List<Skills> skills)
+
             activate ORG
-            ORG ->CTRL : show Collaborator
 
+                ORG ->CTRL : show Collaborator
             deactivate ORG
-
             CTRL -> UI : show Collaborator
         deactivate CTRL
 
