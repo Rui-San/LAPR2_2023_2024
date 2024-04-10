@@ -34,10 +34,10 @@ activate Employee
             RCCtrl --> Organization : getAllVehicles()
             activate Organization
 
-                Organization --> RCCtrl : Vehicles
+                Organization --> RCCtrl : vehiclesList
             deactivate Organization
 
-            RCCtrl --> UI : VehiclesList
+            RCCtrl --> UI : vehiclesList
         deactivate RCCtrl
 
         UI --> Employee : Shows the list of vehicles and asks to select one
