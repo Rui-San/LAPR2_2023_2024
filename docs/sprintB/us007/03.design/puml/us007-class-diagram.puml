@@ -1,0 +1,57 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+
+'left to right direction
+
+Class RegisterCheckupController{
+    +getVehicles()
+    +registerVehicleCheckup(vehicle, \ndateOfCheckup, \ncurrentKms)
+}
+
+Class RegisterCheckupUI {
+
+}
+
+Class Vehicle{
+    -String plateID
+    -String brand
+    -String model
+    -String type
+    -Double tare
+    -Double grossWeight
+    -Double currentKms
+    -Date registerDate
+    -Date acquisitionDate
+    -Double checkupFrequencyKms
+    +registerVehicleCheckup(vehicle, \ndateOfCheckup, \ncurrentKms)
+    +addCheckup(vehicleCheckup)
+    +validateCheckup(vehicleCheckup)
+}
+
+class Organization {
+    -String name
+    -NIF nif
+    -Website website
+    -Phonenumber phoneNumber
+    -Email email
+}
+
+class Checkup{
+    -Date date
+    -Double checkupKms
+    +Checkup(vehicle, \ndateOfCheckup, \ncheckupKms)
+}
+
+
+RegisterCheckupUI --.> RegisterCheckupController
+RegisterCheckupController --.> Vehicle : vehicle
+RegisterCheckupController --.> Organization : organization
+Vehicle --.* Checkup : checkup
+
+@enduml
