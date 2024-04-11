@@ -199,7 +199,7 @@
                         <configuration>
                             <archive>
                                 <manifest>
-                                    <mainClass>pt.ipp.isep.dei.esoft.project.ui.Main</mainClass>
+                                    <mainClass>pt.ipp.isep.dei.esoft.project._templateFiles.ui.Main</mainClass>
                                 </manifest>
                             </archive>
                             <descriptorRefs>

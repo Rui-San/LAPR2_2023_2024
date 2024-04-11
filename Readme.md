@@ -93,28 +93,29 @@ mvn test javadoc:javadoc jacoco:report org.pitest:pitest-maven:mutationCoverage 
 Place the following plugin on the appropriate place of the pom.xml file.
 
 ```xml
+
 <plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-assembly-plugin</artifactId>
-    <version>3.6.0</version>
-    <executions>
-        <execution>
-            <phase>package</phase>
-            <goals>
-                <goal>single</goal>
-            </goals>
-            <configuration>
-                <archive>
-                    <manifest>
-                        <mainClass>pt.ipp.isep.dei.esoft.project.ui.Main</mainClass>
-                    </manifest>
-                </archive>
-                <descriptorRefs>
-                    <descriptorRef>jar-with-dependencies</descriptorRef>
-                </descriptorRefs>
-            </configuration>
-        </execution>
-    </executions>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-assembly-plugin</artifactId>
+  <version>3.6.0</version>
+  <executions>
+    <execution>
+      <phase>package</phase>
+      <goals>
+        <goal>single</goal>
+      </goals>
+      <configuration>
+        <archive>
+          <manifest>
+            <mainClass>pt.ipp.isep.dei.esoft.project._templateFiles.ui.Main</mainClass>
+          </manifest>
+        </archive>
+        <descriptorRefs>
+          <descriptorRef>jar-with-dependencies</descriptorRef>
+        </descriptorRefs>
+      </configuration>
+    </execution>
+  </executions>
 </plugin>
 ```
 
