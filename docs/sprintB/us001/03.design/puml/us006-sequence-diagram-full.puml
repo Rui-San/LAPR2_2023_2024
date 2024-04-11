@@ -3,178 +3,84 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
+title US001 - Sequence Diagram
+
 autonumber
 
 'hide footbox
-actor "Organization Employee" as ADM
-participant ":CreateTaskUI" as UI
-participant ":CreateTaskController" as CTRL
-participant ":Repositories" as RepositorySingleton
-participant "repositories\n:Repositories" as PLAT
-participant "taskCategoryRepository:\nTaskCategoryRepository" as TaskCategoryRepository
-participant ":ApplicationSession" as _APP
-participant "appSession\n:ApplicationSession" as APP
-participant "currentSession\n:UserSession" as SESSAO
-participant "organizationRepository:\nOrganizationRepository" as OrganizationRepository
-participant "organization\n:Organization" as ORG
-participant "task\n:Task" as TAREFA
+actor "HRM" as HRM
+participant ":RegisterSkillUI" as RSU
+participant ":RegisterSkillController" as RSC
+participant ":organization \nOrganization" as ORG
+participant ":Skill \nSkill" as Skill
 
-activate ADM
+activate HRM
 
-        ADM -> UI : asks to create a new task
+        HRM -> RSU : Asks to register a skill
 
-        activate UI
+        activate RSU
 
-'            UI --> ADM : requests data (reference, description,  informal \n description, technical description, duration, cost)
-            'create CTRL
-            UI -> CTRL** : create
+            RSU --> HRM : Request data(skill name)
+        deactivate RSU
 
-            UI -> CTRL : getTaskCategories()
-            activate CTRL
+        HRM -> RSU: Types requested data
 
-                CTRL -> RepositorySingleton : getInstance()
-                activate RepositorySingleton
-
-                    RepositorySingleton --> CTRL: repositories
-                deactivate RepositorySingleton
-
-                CTRL -> PLAT : getTaskCategoryRepository()
-                activate PLAT
-
-                    PLAT --> CTRL: taskCategoryRepository
-                deactivate PLAT
-
-                CTRL -> TaskCategoryRepository : getTaskCategories()
-                activate TaskCategoryRepository
-
-                    TaskCategoryRepository --> CTRL : taskCategoryList
-                deactivate TaskCategoryRepository
-
-                CTRL --> UI : taskCategoryList
-            deactivate CTRL
-
-            UI --> ADM : shows task category list\n and asks to sleect one
-        deactivate UI
-
-    ADM -> UI : selects a task category
-    activate UI
-
-        UI --> ADM : requests data
-    deactivate UI
-
-    ADM -> UI : types requested data (reference, description, \ninformal description, technical description,\nduration, cost)
-    activate UI
-
-        UI --> ADM : shows selected category and requested data
-    deactivate UI
-
-    ADM -> UI : submits data
-    activate UI
-
-        UI -> CTRL : createTask(reference,\ndescription,\ninformalDescription,\ntechnicalDescription,\nduration, cost,\ntaskCategoryDescription)
-        activate CTRL
-
-            CTRL -> CTRL : getTaskCategoryByDescription(taskCategoryDescription)
-            activate CTRL
-
-                CTRL -> RepositorySingleton : getInstance()
-                activate RepositorySingleton
-
-                    RepositorySingleton --> CTRL: repositories
-                deactivate RepositorySingleton
-
-                CTRL -> PLAT : getTaskCategoryRepository()
-                activate PLAT
-
-                    PLAT -> CTRL : taskCategoryRepository
-                deactivate PLAT
-
-                CTRL -> TaskCategoryRepository : getTaskCategoryByDescription(taskCategoryDescription)
-                activate TaskCategoryRepository
-
-                    TaskCategoryRepository --> CTRL : taskCategory
-                deactivate TaskCategoryRepository
-                    CTRL --> CTRL : taskCategory
-            deactivate CTRL
-
+        activate RSU
+            RSU --> RSU : keepData(skill name)
             |||
-            CTRL -> CTRL : getEmployeeFromSession()
-            activate CTRL
-
-                CTRL -> _APP: getInstance()
-                activate _APP
-                    _APP -> CTRL: appSession
-                deactivate _APP
+            RSU -> RSC : getSkillList()
 
 
-                CTRL -> APP: getCurrentSession()
-                activate APP
+            activate RSC
 
-                    APP --> CTRL: currentSession
-                deactivate APP
+                RSC -> ORG : getSkillList()
+                |||
 
-                CTRL -> SESSAO: email = getUserEmail()
-                activate SESSAO
-
-                    SESSAO --> CTRL: email
-                deactivate SESSAO
-
-
-                CTRL -> PLAT: getOrganizationRepository(email)
-                activate PLAT
-
-                    PLAT --> CTRL: organizationRepository
-                deactivate PLAT
-
-
-                CTRL -> OrganizationRepository: getOrganizationByEmployeeEmail(email)
-                activate OrganizationRepository
-
-                    loop [for each organization
-                        OrganizationRepository -> ORG : anyEmployeeHasEmail(email)
-                        activate ORG
-
-                             ORG --> OrganizationRepository : true/false
-                        deactivate ORG
-                    end
-                    OrganizationRepository --> CTRL : organization
-                deactivate OrganizationRepository
-
-                CTRL -> ORG: getEmployeeByEmail(email)
                 activate ORG
 
-                    ORG --> CTRL : employee
+                ORG --> RSC : SkillList
                 deactivate ORG
 
-                CTRL --> CTRL : employee
-            deactivate CTRL
+                RSC --> RSU: SkillList
+            deactivate RSC
 
-            |||
-            CTRL -> ORG: createTask(employee, reference, description,\ninformalDescription, technicalDescription,\nduration, cost, , taskCategory, employee)
-            activate ORG
+            RSU --> HRM : Shows Skill list and asks to select one
 
-                ORG -> TAREFA**: create(employee, reference, description,\ninformalDescription, technicalDescription,\nduration, cost, taskCategory, employee)
-                ORG -> ORG: addTask (task)
+        deactivate RSU
 
+        HRM -> RSU : Selects a skill
 
+        activate RSU
+
+            RSU --> RSU : keepData(skill name)
+            RSU --> HRM : Shows all data and requests confirmation
+        deactivate RSU
+
+        HRM -> RSU : Confirms data
+
+        activate RSU
+
+            RSU -> RSC : createSkill(name)
+            activate RSC
+
+                RSU -> ORG : createSkill(name)
                 activate ORG
-                    ORG -> ORG: validateTask(task)
-                    activate ORG
-                        ORG --> ORG
-                    deactivate ORG
 
-                    ORG --> ORG
+                    ORG -> Skill : createSkill(name)
+                    note right of Skill : Skill constructor\n normally validates arguments.
+                    |||
+                    |||
+                    ORG -> ORG : addToSkillList(skill)
+                    ORG --> RSC : skill
                 deactivate ORG
 
-                ORG --> CTRL : task
+                RSC --> RSU : skill
+            deactivate RSC
 
-            deactivate ORG
+            RSU --> HRM : Displays operation sucess
 
-            CTRL --> UI: task
-            deactivate CTRL
-            UI --> ADM: displays operation success
-    deactivate UI
+        deactivate RSU
 
-deactivate ADM
+
 
 @enduml
