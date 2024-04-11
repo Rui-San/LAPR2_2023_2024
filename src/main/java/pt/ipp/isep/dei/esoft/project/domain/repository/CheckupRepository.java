@@ -43,9 +43,9 @@ public class CheckupRepository {
      *
      * @return The list of task categories.
      */
-    public List<TaskCategory> getTaskCategories() {
+    public List<VehicleCheckup> getVehicleCheckups() {
         //This is a defensive copy, so that the repository cannot be modified from the outside.
-        return List.copyOf(taskCategories);
+        return List.copyOf(vehicleCheckups);
     }
 
 }
