@@ -1,0 +1,40 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+title US001 - Class Diagram
+skinparam classAttributeIconSize 0
+
+'left to right direction
+
+Class RegisterSkillController{
+    +getSkill()
+    +registerSkill(skill name)
+}
+
+Class RegisterSkillUI {
+
+}
+
+class Organization {
+    -String name
+    -NIF nif
+    -Website
+    -Phonenumber
+    -Email email
+}
+class HRM {
+
+}
+
+class Skill{
+    -ListOfAllRegisteredSkills
+
+}
+RegisterSkillUI --.> RegisterSkillController
+HRM --o Organization
+RegisterSkillController --.> Skill
+HRM -->  RegisterSkillUI
+@enduml
