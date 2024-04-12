@@ -9,7 +9,7 @@ autonumber
 
 actor "Fleet Manager" as Employee
 participant ":RegisterVehicleUI" as System
-participant ":RegisterVehicleController" as CRTL
+participant ":RegisterVehicleController" as CTRL
 participant ":organization \nOrganization" as ORG
 
 activate Employee
@@ -29,12 +29,17 @@ System --> Employee : Requests vehicle data (plate id, brand, model, type,\ntare
 
     Employee -> System : Confirms data and submits
     activate System
-        System->CRTL :RegisterVehicle(plateId,brand,model,\ntype,tare,grossWeight,currentKm,\nregisterDate,acquisitionDate,\ncheckupFrequencyKms)
-        activate CRTL
-            CRTL->ORG :RegisterVehicle(plateId,brand,model,\ntype,tare,grossWeight,currentKm,\nregisterDate,acquisitionDate,\ncheckupFrequencyKms)
+        System->CTRL :RegisterVehicle(plateId,brand,model,\ntype,tare,grossWeight,currentKm,\nregisterDate,acquisitionDate,\ncheckupFrequencyKms)
+        activate CTRL
+            CTRL->ORG :RegisterVehicle(plateId,brand,model,\ntype,tare,grossWeight,currentKm,\nregisterDate,acquisitionDate,\ncheckupFrequencyKms)
+            |||
+            |||
             activate ORG
-
+            ORG->CTRL:Vehicle
+            CTRL->System: Vehicle
         System --> Employee : Displays operation success
     deactivate System
+
+
 
 @enduml
