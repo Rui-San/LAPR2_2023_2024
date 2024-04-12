@@ -1,8 +1,8 @@
-# US006 - Create a Task
+# US006 - Register a vehicle
 
-## 3. Design - User Story Realization
+## 6. Design - User Story Realization
 
-### 3.1. Rationale
+### 6.1. Rationale
 
 _**Note that SSD - Alternative One is adopted.**_
 
@@ -35,7 +35,7 @@ Other software classes (i.e. Pure Fabrication) identified:
 * AssignSkillUI
 * AssignSkillController
 
-## 3.2. Sequence Diagram (SD)
+## 6.2. Sequence Diagram (SD)
 
 _**Note that SSD - Alternative Two is adopted.**_
 

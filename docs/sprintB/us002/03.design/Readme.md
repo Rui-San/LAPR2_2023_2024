@@ -1,4 +1,4 @@
-# US006 - Create a Task 
+# US002 - Register a new job
 
 ## 3. Design - User Story Realization 
 

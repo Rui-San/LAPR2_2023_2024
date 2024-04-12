@@ -12,7 +12,6 @@ participant ":RegisterCollaboratorUI" as UI
 participant ":RegisterCollaboratorController" as CTRL
 participant ":organization \nOrganization" as ORG
 participant ":collaborator \nCollaborator" as COL
-
 activate HRM
 
     HRM -> UI : Asks to register a collaborator

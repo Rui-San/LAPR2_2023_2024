@@ -1,0 +1,37 @@
+    @startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title US002 - System Sequence Diagram (SSD)
+
+autonumber
+
+actor "HRM" as Employee
+participant ":CreateJobUI" as CJU
+participant ":CrateJobController" as CJC
+participant ":Organization" as ORG
+participant ":Job" as JOB
+
+activate Employee
+
+    Employee -> CJU : Asks to register a new job
+    activate CJU
+
+        CJU --> Employee : Requests job data (job name)
+    deactivate CJU
+
+    Employee -> CJU : Types requested data
+    activate CJU
+    CJU -> CJU : keepData (job name)
+
+        CJU --> Employee : Shows typed data and requests confirmation
+    deactivate CJU
+
+    Employee -> CJU : Confirms data and submits
+    activate CJU
+
+        CJU --> Employee : Displays operation success and shows the \nlist of all registered jobs
+    deactivate CJU
+
+@enduml
