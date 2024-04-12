@@ -172,18 +172,18 @@ remembering, or it is derivable from the List of Common Associations:
 | Organization   |      has an       |      Address |
 | Organization   |       owns        |   UserPortal |
 | Organization   |      manages      |   GreenSpace |
-| Organization   |       owns        |        Skill |
-| Organization   |       owns        |          Job |
 | Organization   |        has        | Collaborator |
 | Organization   |       owns        |      Vehicle |
 | Collaborator   |        has        |        Skill |
 | Collaborator   |      has an       |      Address |
 | Collaborator   |        has        |          Job |
+| HRM            |       is a        | Collaborator |
 | HRM            |     register      |        Skill |
 | HRM            |     register      |          Job |
 | HRM            |     register      | Collaborator |
 | HRM            | assigns skills to | Collaborator |
 | HRM            |     generates     |         Team |
+| FM             |       is a        | Collaborator |
 | FM             |     registers     |      Vehicle |
 | FM             |     registers     |      Checkup |
 | FM             | requests to show  |  CheckupList |
