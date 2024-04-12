@@ -75,7 +75,6 @@ and the set of skills that must be covered are crucial.
 
 **Output Data:**
 
-* List of all registered skills
 * Success of the operation
 
 ### 1.6. System Sequence Diagram (SSD)
