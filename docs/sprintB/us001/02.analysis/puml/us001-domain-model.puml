@@ -10,13 +10,6 @@ hide methods
 
 title US001 - Domain Model
 
-class Organization {
-    name
-    nif
-    website
-    phoneNumber
-    email
-}
 
 class Skill{
     name
@@ -27,7 +20,6 @@ class HRM{
 
 }
 
-Organization "1" -- "*" Skill : "owns >"
 HRM "1" -- "*" Skill : "register >"
 
 @enduml
