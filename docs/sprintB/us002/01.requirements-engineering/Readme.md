@@ -80,7 +80,6 @@ or tractors; tree pruning; application of phytopharmaceuticals.
 
 **Output Data:**
 
-* List of all registered jobs.
 * Success of the operation.
 
 ### 1.6. System Sequence Diagram (SSD)

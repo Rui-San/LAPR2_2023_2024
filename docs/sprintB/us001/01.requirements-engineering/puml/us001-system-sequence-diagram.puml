@@ -20,7 +20,7 @@ activate Employee
     loop until typed data is validated
     Employee -> System : Types requested data
     activate System
-        System --> System : validates data
+        System --> System : validatesData
         System --> Employee : Shows typed data and requests confirmation
     deactivate System
 end
