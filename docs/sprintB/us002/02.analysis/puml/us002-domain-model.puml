@@ -12,14 +12,6 @@ hide methods
 
 title US002 - Domain Model
 
-class Organization {
-    name
-    nif
-    website
-    phoneNumber
-    email
-}
-
 class Job{
     name
 }
@@ -28,7 +20,6 @@ class HRM{
 
 }
 
-Organization "1" -- "*" Job : "owns >"
 HRM "1" -- "*" Job : "register >"
 
 @enduml
