@@ -23,16 +23,18 @@ activate Employee
 
         System --> Employee : Requests check-up data (Date of check-up, Current kilometers)
     deactivate System
-
+    loop until data is validated
     Employee -> System : Types requested data
     activate System
-
+        System --> System : validatesData
         System --> Employee : Shows all data and requests confirmation
     deactivate System
 
+    end loop
+
     Employee -> System : Confirms data
     activate System
-
+        System --> System : keepData(vehicle, date of \ncheck-up, current kilometers)
         System --> Employee : Displays operation success
     deactivate System
 
