@@ -20,7 +20,7 @@ activate Employee
 
     Employee -> System : Selects a collaborator
 
-    loop
+    loop until no longer want to select skills
 
     activate System
 
@@ -38,7 +38,7 @@ activate Employee
 
     Employee -> System : Confirms the operation
     activate System
-
+        System --> System : keepData(collaborator,\nList<Skill> skills)
         System --> Employee : Displays operation success
     deactivate System
 

@@ -63,7 +63,7 @@ As an HRM, I want to assign one or more skills to a collaborator.
 
 **Output Data:**
 
-* List with the information about the selected collaborator and his skills.
+* Shows the information about the selected collaborator and his skills for confirmation.
 * Success of the operation
 
 ### 1.6. System Sequence Diagram (SSD)
