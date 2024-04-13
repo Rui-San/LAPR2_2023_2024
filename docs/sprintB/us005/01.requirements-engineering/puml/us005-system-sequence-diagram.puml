@@ -19,10 +19,12 @@ activate Employee
         System --> Employee : Requests data (max and min team size)
     deactivate System
 
+    loop until input data is validated
+
     Employee -> System : Types requested data
 
-
-        loop
+    |||
+        loop until no longer want to select skills
             activate System
 
                 System --> Employee : Shows list of skills and asks to select one
@@ -30,6 +32,12 @@ activate Employee
 
             Employee -> System : Selects a skill from the list and specifies the \nquantity of that skill.
             activate System
+    |||
+    end loop
+
+    System --> System : validatesData
+    |||
+
         end loop
 
         note right
@@ -40,7 +48,7 @@ activate Employee
         end note
 
     loop until the team generated is accepted
-    System -> System: Generate the team proposal\nwith given information
+    System --> System: Generate the team proposal\nwith given information
 
 
         System --> Employee : Shows team generated and asks for confirmation
@@ -48,11 +56,13 @@ activate Employee
     deactivate System
     Employee -> System : Accepts or rejects the proposal.
     activate System
+
     end loop
+    |||
 
 
     activate System
-
+        System --> System : keepData(team)
         System --> Employee : Displays operation success
     deactivate System
 
