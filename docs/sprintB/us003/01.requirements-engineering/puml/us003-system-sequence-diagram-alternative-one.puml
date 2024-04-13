@@ -15,10 +15,11 @@ activate Employee
     Employee -> System : Asks to register a collaborator
 
     activate System
-
+        |||
         System --> Employee : Requests data (name, birthdate, admission date, address, \nemail,mobile number, id doc type, id doc number)
     deactivate System
 
+    loop until typed data is validated
     Employee -> System : Types requested data
 
     activate System
@@ -29,14 +30,17 @@ activate Employee
     Employee -> System : Selects a job
 
     activate System
-
+        |||
+        System --> System : validatesData
+        |||
         System --> Employee : Shows all data and requests confirmation
     deactivate System
-
+    end
     Employee -> System : Confirms data
 
     activate System
-
+        System --> System : keepsData(name, birthdate, admission\ndate, address, email,mobile number,\nid doc type, id doc number, jobName)
+        |||
         System --> Employee : Displays operation success
     deactivate System
 

@@ -106,7 +106,6 @@ As an HRM, I want to register a collaborator with a job and fundamental characte
     * ID doc number
 
 * Selected data:
-    * A skill (optional)
     * A Job
 
 **Output Data:**
@@ -116,13 +115,8 @@ As an HRM, I want to register a collaborator with a job and fundamental characte
 
 ### 1.6. System Sequence Diagram (SSD)
 
-#### Alternative one
+![System Sequence Diagram](svg/us003-system-sequence-diagram.svg)
 
-![System Sequence Diagram](svg/us003-system-sequence-diagram-alternative-one.svg)
-
-#### Alternative two
-
-![System Sequence Diagram](svg/us003-system-sequence-diagram-alternative-two.svg)
 
 ### 1.7 Other Relevant Remarks
 
