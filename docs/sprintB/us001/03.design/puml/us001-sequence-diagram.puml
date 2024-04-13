@@ -1,0 +1,54 @@
+    @startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title US001 - Sequence Diagram
+
+autonumber
+
+actor "HRM" as Employee
+participant ":RegisterSkillUI" as System
+participant ":RegisterSkillController" as RSC
+participant ":organization \nOrganization" as ORG
+participant ":skill \nSkill" as SL
+
+activate Employee
+
+    Employee -> System : Asks to register a new skill
+    activate System
+
+        System --> Employee : Requests data (skill name)
+    deactivate System
+    loop until typed data is validated
+    Employee -> System : Types requested data
+    activate System
+        System --> System : keepData(skillName)
+
+        System --> Employee : Shows typed data and requests confirmation
+
+    deactivate System
+end
+    Employee -> System : Confirms data and submits
+    activate System
+        System -> RSC : createSkill(skill name)
+        activate RSC
+
+            RSC -> ORG : createSkill(skill name)
+            activate ORG
+                ORG -> SL** : createSkill(Skill Name)
+                |||
+                |||
+                ORG --> ORG : addToSkillList(skillname)
+
+                ORG --> RSC : skill name
+            deactivate ORG
+
+            RSC --> System : skill name
+
+        deactivate RSC
+
+
+        System --> Employee : Displays operation success
+
+@enduml
