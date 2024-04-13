@@ -9,7 +9,7 @@ autonumber
 
 actor "HRM" as Employee
 participant ":CreateJobUI" as CJU
-participant ":CrateJobController" as CJC
+participant ":CreateJobController" as CJC
 participant ":Organization" as ORG
 participant ":Job" as JOB
 
@@ -30,6 +30,23 @@ activate Employee
 
     Employee -> CJU : Confirms data and submits
     activate CJU
+
+    CJU -> CJC : createJob (job name)
+
+
+    activate CJC
+
+    CJC -> ORG : createJob (job name)
+
+
+
+    activate ORG
+
+    ORG -> JOB
+
+
+
+
 
         CJU --> Employee : Displays operation success and shows the \nlist of all registered jobs
     deactivate CJU
