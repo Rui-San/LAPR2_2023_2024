@@ -8,6 +8,7 @@ public class Address {
     private String district;
 
     private static final int POSTAL_CODE_TOTAL_DIGITS = 8;
+    private static final char POSTAL_CODE_SEPARATOR = '-';
 
     public Address(String street, int streetNumber, String postalCode, String city, String district) {
         if (validateStreet(street)) {
@@ -128,7 +129,7 @@ public class Address {
      */
     private static boolean validatePostalCode(String postalCode) {
 
-        if (!validateStringNotNullOrEmpty(postalCode) || postalCode.length() != POSTAL_CODE_TOTAL_DIGITS || postalCode.charAt(5) != '-') {
+        if (!validateStringNotNullOrEmpty(postalCode) || postalCode.length() != POSTAL_CODE_TOTAL_DIGITS || postalCode.charAt(5) != POSTAL_CODE_SEPARATOR) {
             return false;
         }
 
