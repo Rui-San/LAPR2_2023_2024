@@ -10,8 +10,13 @@ autonumber
 actor "HRM" as HRM
 participant ":RegisterCollaboratorUI" as UI
 participant ":RegisterCollaboratorController" as CTRL
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as PLAT
+participant "jobRepository:\nJobRepository" as JobRepository
 participant ":organization \nOrganization" as ORG
 participant ":collaborator \nCollaborator" as COL
+
+
 activate HRM
 
     HRM -> UI : Asks to register a collaborator
@@ -20,6 +25,8 @@ activate HRM
 
         UI --> HRM : Requests data (name, birthdate, admission date, address, \nemail,mobile number, id doc type, id doc number)
     deactivate UI
+
+    loop until typed data is validated
 
     HRM -> UI : Types requested data
 
@@ -31,13 +38,24 @@ activate HRM
 
         activate CTRL
 
-            CTRL -> ORG : getJobList()
-|||
+            CTRL -> RepositorySingleton : getInstance()
 
-            activate ORG
+            activate RepositorySingleton
 
-            ORG --> CTRL : jobList
-            deactivate ORG
+            RepositorySingleton --> CTRL : repositories
+            deactivate RepositorySingleton
+
+            CTRL -> PLAT : getJobRepository()
+            activate PLAT
+
+            PLAT --> CTRL : jobRepository
+            deactivate PLAT
+
+            CTRL -> JobRepository : getJobList()
+            activate JobRepository
+
+            JobRepository --> CTRL : jobList
+            deactivate JobRepository
 
             CTRL --> UI : jobList
         deactivate CTRL
@@ -52,6 +70,7 @@ activate HRM
         UI --> UI : keepData(jobName)
         UI --> HRM : Shows all data and requests confirmation
     deactivate UI
+    end
 
     HRM -> UI : Confirms data
 

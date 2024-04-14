@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.util.regex.Pattern;
+
 public class Email {
 
     private String email;
@@ -9,13 +11,11 @@ public class Email {
     private static final String PT_EXTENTION = ".pt";
 
     public Email(String email) {
-        if (isValidEmail(email)) {
+        if (validateEmail(email)) {
             this.email = email;
-        } else{
-            // criar a class para as exceções
-            // throw new InvalidEmailExeption("Endereço de email inválido! Introduza novamente.");
+        } else {
+            throw new IllegalArgumentException("Endereço de email inválido! Introduza novamente.");
         }
-
     }
 
     public String getEmail() {
@@ -26,6 +26,22 @@ public class Email {
         this.email = email;
     }
 
+    /**
+     * Validates if the String is not null or empty
+     *
+     * @param string
+     * @return the logical state of the validation. True if String is not empty/null
+     */
+    private static boolean validateStringNotNullOrEmpty(String string) {
+        return !(string == null) && !(string.isEmpty());
+    }
+
+    /**
+     * Validates if email format is validated (my algorithm)
+     *
+     * @param email
+     * @return the logical state of the validation. True if email format is valid
+     */
     private boolean isValidEmail(String email) {
 
         if (!email.contains("@")) {
@@ -47,6 +63,27 @@ public class Email {
 
         return ((emailName.length() > 1) && (domain.length() > 1) && (extension.equals(COM_EXTENTION) || extension.equals(PT_EXTENTION)));
 
+    }
+
+    /**
+     * Validates if email format is validated (regex patern algorithm)
+     *
+     * @param email
+     * @return the logical state of the validation. True if email format is valid
+     */
+    private boolean validateEmail(String email) {
+        if (!validateStringNotNullOrEmpty(email)) {
+            return false;
+        }
+
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        Pattern pat = Pattern.compile(emailRegex);
+
+        if (pat.matcher(email).matches()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 

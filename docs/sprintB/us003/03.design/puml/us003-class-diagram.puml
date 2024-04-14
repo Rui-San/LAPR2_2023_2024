@@ -1,0 +1,55 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+
+
+class Collaborator {
+     - String name
+     - Date admissionDate
+     - Date birthDate
+     - String phoneNumber
+     - Email email
+     - String idDocType
+     - int idDocNumber
+}
+
+class Job {
+    - String jobName
+}
+
+class Organization {
+    - String name
+    - int nif
+    - String website
+    - String phone
+    - String email
+}
+
+class JobReposity {
+    - Repositories()
+    + getInstance() : Repositories
+    + getJobRepository()
+}
+
+class RegisterCollaboratorController {
+    + CreateTaskController(organizationRepository, taskCategoryRepository)
+    + getJobList()
+    + createCollaborator(name, birthdate, admission date, address, email,\nmobile number, id doc type, id doc number, jobName)
+}
+
+class RegisterCollaboratorUI {
+}
+
+RegisterCollaboratorUI -right.-> RegisterCollaboratorController
+RegisterCollaboratorController -.> Organization
+Organization -down-> Collaborator
+RegisterCollaboratorController -.-> JobReposity
+JobReposity --> Job
+Collaborator -> Job
+
+@enduml

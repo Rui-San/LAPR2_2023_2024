@@ -13,43 +13,31 @@ participant ":ListVehiclesNeedingCheckupController" as CTRL
 participant ":Organization" as ORG
 participant ":Repositories" as Repos
 participant "repositories\n:Repositories" as PLAT
-participant "organizationRepository\n:OrganizationRepository" as ORGRepo
-participant "checkupRepositoty\n:CheckupRepository" as CheckupRepo
+participant ":checkupRepository" as CheckupRepo
 
 activate Employee
 
-    Employee -> UI : Requests to show the list of \nvehicles needing a check-up
+    Employee -> UI : Requests to show the list of vehicles needing inspection
     activate UI
 
         UI -> CTRL** : create
         UI -> CTRL : getVehiclesNeedingCheckup()
         activate CTRL
 
-            CTRL -> Repos : getInstance()
-            activate Repos
-
-                Repos -> CTRL : repositories
-            deactivate Repos
-            CTRL -> PLAT : repositories
-            activate PLAT
-
-                PLAT -> CTRL : organizationRepository
-            deactivate PLAT
-            CTRL -> ORGRepo : getOrganizationByEmail(**email**)
-            activate ORGRepo
-
-                ORGRepo -> CTRL : organization
-            deactivate ORGRepo
-
             CTRL-> ORG : getVehiclesNeedingCheckup()
             activate ORG
 
+                ORG -> ORG : getVehiclesList()
+                ORG -> Repos : getInstance()
+                activate Repos
+
+                    Repos -> ORG : repositories
+                deactivate Repos
                 ORG -> PLAT : repositories
                 activate PLAT
 
                     PLAT -> ORG : checkupRepository
                 deactivate PLAT
-                ORG --> ORG : getVehicleList()
                 loop for each vehicle in vehiclesList
                     ORG -> CheckupRepo : needsCheckup(Vehicle vehicle)
                     activate CheckupRepo
