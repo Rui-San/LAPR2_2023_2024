@@ -43,7 +43,7 @@ activate Employee
 
                 PLAT --> RCCtrl : organizationRepository
             deactivate PLAT
-            RCCtrl --> OrganizationRepository : getOrganization()
+            RCCtrl --> OrganizationRepository : getOrganizationByEmail(email)
             activate OrganizationRepository
 
                 OrganizationRepository --> RCCtrl : organization
