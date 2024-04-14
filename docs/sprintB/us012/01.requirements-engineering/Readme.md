@@ -1,4 +1,4 @@
-# US012 - Import a .csv file containing lines with Water Point X, Water Point Y and istance
+# US012 - Import a .csv file containing lines with Water Point X, Water Point Y and distance
 
 ## 1. Requirements Engineering
 
