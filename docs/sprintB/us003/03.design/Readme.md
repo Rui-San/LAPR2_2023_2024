@@ -14,7 +14,7 @@ _**Note that SSD - Alternative One is adopted.**_
 | Step 2: Requests data (name, birthdate, admission date, address, \nemail,mobile number, id doc type, id doc number)  		 | 	... displaying the form for the actor to input data?						           | RegisterCollaboratorUI         | Pure Fabrication: User will insert data on the User Interface.                                                |
 | Step 3: Types requested data  		                                                                                        | 	... validating input data?                                           | RegisterCollaboratorUI         | Pure Fabrication                                                                                              |
 |                                                                                                                         | ... temporarily keeping input data?                                   | RegisterCollaboratorUI         | Pure Fabrication                                                                                              |
-| Step 4: Shows job list and asks to select one  		                                                                       | 	... obtaining the list of jobs?                                      | Organization                   | Information Expert: Organization knows/has its own jobs.                                                      |
+| Step 4: Shows job list and asks to select one  		                                                                       | 	... obtaining the list of jobs?                                      | JobRepository                  | Pure Fabrication                                                                                              |
 |                                                                                                                         | ... displaying the list of jobs?                                      | RegisterCollaboratorUI         | Pure Fabrication                                                                                              |
 | Step 5: Selects a job  		                                                                                               | 	... validating the selected data?                                    | RegisterCollaboratorUI         | Pure Fabrication                                                                                              |
 |                                                                                                                         | ... temporarily keeping the selected job?                             | RegisterCollaboratorUI         | Pure Fabrication                                                                                              |
@@ -36,6 +36,7 @@ Other software classes (i.e. Pure Fabrication) identified:
 
 * RegisterCollaboratorUI
 * RegisterCollaboratorController
+* JobRepository
 
 ## 3.2. Sequence Diagram (SD)
 
@@ -45,7 +46,7 @@ _**Note that SSD - Alternative Two is adopted.**_
 
 This diagram shows the full sequence of interactions between the classes involved in the realization of this user story.
 
-![Sequence Diagram - Full](svg/us006-sequence-diagram-full.svg)
+![Sequence Diagram - Full](svg/us003-sequence-diagram.svg)
 
 ### Split Diagrams
 
@@ -74,4 +75,4 @@ It uses Interaction Occurrence (a.k.a. Interaction Use).
 
 ## 3.3. Class Diagram (CD)
 
-![Class Diagram](svg/us006-class-diagram.svg)
+![Class Diagram](svg/us003-class-diagram.svg)
