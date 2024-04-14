@@ -54,10 +54,14 @@ these expenses efficiently.
 
 **From the client clarifications:**
 
-> **Question:** What is the expected output of this US? 
+> **Question:** The file ”WaterUsed.csv” should be given by the user?
 >
-> **Answer:** 
+> **Answer:** Yes
 
+> **Question:** When the user enters the park identification, should this be by name or through an ID?
+> 
+> 
+> **Answer:** Users will answer the survey but anonymously. (*? I don't know what the client means by this answer.*)
  
 ### 1.3. Acceptance Criteria
 
