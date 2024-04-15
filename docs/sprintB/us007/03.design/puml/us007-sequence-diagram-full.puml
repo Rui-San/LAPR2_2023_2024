@@ -10,7 +10,7 @@ autonumber
 actor "Fleet Manager" as Employee
 participant ":RegisterCheckupUI" as UI
 participant ":RegisterCheckupController" as RCCtrl
-participant ":Date" as Date
+participant "checkupDate\n:Date" as Date
 'participant "taskCategoryRepository:\nTaskCategoryRepository" as TaskCategoryRepository
 'participant ":ApplicationSession" as _APP
 'participant "appSession\n:ApplicationSession" as APP
@@ -19,7 +19,7 @@ participant ":Date" as Date
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as PLAT
 participant "organizationRepository\n:OrganizationRepository" as OrganizationRepository
-participant ":Organization" as Organization
+participant "organization\n:Organization" as Organization
 participant ":vehicleCheckupRepository\n:VehicleCheckupRepository" as VCRepo
 'participant "organizationRepository:\nOrganizationRepository" as OrganizationRepository
 participant ":Vehicle Checkup" as VCheckup
