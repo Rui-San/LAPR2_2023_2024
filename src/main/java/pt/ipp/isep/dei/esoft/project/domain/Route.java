@@ -14,6 +14,18 @@ public class Route implements Comparable<Route> {
         this.distance = distance;
     }
 
+    public int getWaterPointX() {
+        return waterPointX;
+    }
+
+    public int getWaterPointY() {
+        return waterPointY;
+    }
+
+    public double getDistance() {
+        return distance;
+    }
+
     @Override
     public String toString() {
         return "FileCsv{" +
@@ -32,4 +44,6 @@ public class Route implements Comparable<Route> {
             return 0;
         }
     }
+
+
 }
