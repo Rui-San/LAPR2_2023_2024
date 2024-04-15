@@ -10,6 +10,8 @@ public class RouteImporter {
     private File fileCsv;
     private ArrayList<Route> routesList;
 
+    private static final String DIVISOR_CSV = ",";
+
     public RouteImporter(File fileCsv) {
         this.fileCsv = fileCsv;
     }
@@ -23,7 +25,7 @@ public class RouteImporter {
 
         while (in.hasNextLine()) {
             linha = in.nextLine();
-            dados = linha.split(",");
+            dados = linha.split(DIVISOR_CSV);
 
             int waterPointX = Integer.parseInt(dados[0]);
             int waterPointY = Integer.parseInt(dados[1]);
@@ -39,9 +41,6 @@ public class RouteImporter {
         return routesList;
 
     }
-
-
-
 
 
 }
