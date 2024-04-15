@@ -1,7 +1,5 @@
-package pt.ipp.isep.dei.esoft.project.domain;
+package pt.ipp.isep.dei.esoft.project.domain.matdisc;
 
-
-import java.util.Comparator;
 
 public class Route implements Comparable<Route> {
     private int waterPointX;

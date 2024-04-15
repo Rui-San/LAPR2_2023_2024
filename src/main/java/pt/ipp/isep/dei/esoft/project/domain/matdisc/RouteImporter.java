@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.esoft.project.domain;
+package pt.ipp.isep.dei.esoft.project.domain.matdisc;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
