@@ -5,13 +5,13 @@ import java.util.Collections;
 import java.util.List;
 
 public class Kruskal {
-    public static List<Route> minimalSpanningTree(List<Route> routeList) {
+    public static List<Route> minimalSpanningTree(List<Route> routesList) {
 
         ArrayList<Route> minimalSpanningTree = new ArrayList<>();
 
-        Collections.sort(routeList);
+        Collections.sort(routesList);
 
-        int StopCriteria = routeList.size() - 1;
+        int StopCriteria = countUniqueVertices(routesList) - 1;
 
 
 
@@ -20,4 +20,21 @@ public class Kruskal {
 
         return minimalSpanningTree;
     }
+
+
+    public static int countUniqueVertices(List<Route> routesList) {
+        List<Integer> uniqueVertices = new ArrayList<>();
+
+        for (Route route : routesList) {
+            if (!uniqueVertices.contains(route.getWaterPointX())) {
+                uniqueVertices.add(route.getWaterPointX());
+            }
+            if (!uniqueVertices.contains(route.getWaterPointY())) {
+                uniqueVertices.add(route.getWaterPointY());
+            }
+        }
+
+        return uniqueVertices.size();
+    }
+
 }

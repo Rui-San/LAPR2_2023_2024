@@ -8,7 +8,6 @@ import java.io.File;
 public class RouteImporter {
 
     private File fileCsv;
-    private ArrayList<Route> routesList;
 
     private static final String DIVISOR_CSV = ",";
 
