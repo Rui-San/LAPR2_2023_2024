@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.time.LocalDate;
+
 /**
  * to create variables that represent a date in day/month/year
  */
@@ -48,6 +50,12 @@ public class Date implements Comparable<Date>{
     @Override
     public String toString() {
         return day + "/" + month + "/" + year;
+    }
+
+    public boolean isPastDate(){
+        LocalDate today = LocalDate.now();
+        Date todayDate = new Date(today.getDayOfMonth(), today.getMonthValue(), today.getYear());
+        return this.compareTo(todayDate) < 0;
     }
 
     @Override
