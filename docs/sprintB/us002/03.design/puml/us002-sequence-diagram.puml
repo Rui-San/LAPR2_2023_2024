@@ -20,33 +20,34 @@ activate Employee
 
         CJU --> Employee : Requests job data (job name)
     deactivate CJU
-
+    loop until typed data is validated
     Employee -> CJU : Types requested data
     activate CJU
     CJU -> CJU : keepData (job name)
 
         CJU --> Employee : Shows typed data and requests confirmation
     deactivate CJU
+    end
 
     Employee -> CJU : Confirms data and submits
     activate CJU
 
     CJU -> CJC : createJob (job name)
 
-
     activate CJC
 
     CJC -> ORG : createJob (job name)
 
-
-
     activate ORG
 
-    ORG -> JOB
+    ORG -> JOB** : createJob (job name)
 
+    ORG -> ORG : addToJobList (job name)
 
-
-
+    ORG -> CJC : job name
+    deactivate ORG
+    CJC -> CJU : job name
+    deactivate CJC
 
         CJU --> Employee : Displays operation success and shows the \nlist of all registered jobs
     deactivate CJU
