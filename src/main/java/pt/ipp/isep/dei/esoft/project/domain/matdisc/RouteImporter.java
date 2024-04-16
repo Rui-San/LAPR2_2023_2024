@@ -13,15 +13,24 @@ public class RouteImporter {
         System.out.println("What is the path of the File?");
         String fileName = ler.nextLine();
 
+        Route rota = new Route(1, 2, 3);
+
+        System.out.println(rota);
+
         try {
             RouteImporter routeImporter = new RouteImporter(fileName);
             List<Route> routesList = routeImporter.importRoutes();
+            routeImporter.printRoutesList(routesList);
+
 
         } catch (FileNotFoundException e) {
             System.err.println("File not found, please type a valid path");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        System.out.println();
+
     }
 
     private File fileCsv;
@@ -47,8 +56,13 @@ public class RouteImporter {
         if (!fileName.toLowerCase().endsWith(".csv")) {
             throw new IOException("Invalid file type. Only .csv files are allowed!");
         }
+    }
 
-        showImportedData(importRoutes());
+    @Override
+    public String toString() {
+        return "RouteImporter{" +
+                "fileCsv=" + fileCsv +
+                '}';
     }
 
     public List<Route> importRoutes() throws FileNotFoundException {
@@ -79,13 +93,12 @@ public class RouteImporter {
         return routesList;
     }
 
-    public void showImportedData(List<Route> routesList) {
+    public void printRoutesList(List<Route> routesList) {
+        System.out.println("Routes List:");
         for (Route route : routesList) {
-            System.out.println(route);
+            System.out.printf("V1: %d,V2: %d,Distance: %.2f%n", route.getWaterPointX(), route.getWaterPointY(), route.getDistance());
         }
     }
-
-
 }
 
 

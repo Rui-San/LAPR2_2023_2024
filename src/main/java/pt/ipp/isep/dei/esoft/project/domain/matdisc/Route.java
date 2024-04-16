@@ -26,10 +26,9 @@ public class Route implements Comparable<Route> {
 
     @Override
     public String toString() {
-        return "FileCsv{" +
-                "waterPointX=" + waterPointX +
-                ", waterPointY=" + waterPointY +
-                ", distance=" + distance +
+        return "Water Point X=" + waterPointX +
+                ", Water Point Y=" + waterPointY +
+                ", Distance=" + distance +
                 '}';
     }
 
