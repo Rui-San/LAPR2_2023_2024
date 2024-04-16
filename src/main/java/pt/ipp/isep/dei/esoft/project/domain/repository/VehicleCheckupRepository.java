@@ -1,18 +1,15 @@
 package pt.ipp.isep.dei.esoft.project.domain.repository;
 
-import pt.ipp.isep.dei.esoft.project._templateFiles.domain.TaskCategory;
-import pt.ipp.isep.dei.esoft.project.domain.Date;
-import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
 import pt.ipp.isep.dei.esoft.project.domain.VehicleCheckup;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class CheckupRepository {
+public class VehicleCheckupRepository {
 
     private final List<VehicleCheckup> vehicleCheckups;
-    public CheckupRepository() {
+    public VehicleCheckupRepository() {
         vehicleCheckups = new ArrayList<>();
     }
 

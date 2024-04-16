@@ -1,0 +1,21 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title US013 - System Sequence Diagram (SSD)
+
+autonumber
+
+actor "GSM" as GSM
+participant ":ObtainRouteUI" as UI
+
+activate GSM
+
+    GSM -> UI : Requests to apply the algorithm to obtain best route
+    activate UI
+    UI --> UI : Apply the algorithm on the\ndata structure with all routes\ninformation obtained in US012.
+    UI --> GSM : Shows the route that passes through all points with\nthe minimum accumulated cost.
+    deactivate UI
+
+@enduml
