@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.domain.matdisc;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -18,6 +19,8 @@ public class RouteImporter {
 
         } catch (FileNotFoundException e) {
             System.err.println("File not found, please type a valid path");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -25,13 +28,27 @@ public class RouteImporter {
 
     private static final String DIVISOR_CSV = ";";
 
-    public RouteImporter(String pathName) {
-        File csv = new File(pathName);
-        this.fileCsv = csv;
+    public RouteImporter(String pathName) throws IOException {
+        this.fileCsv = new File(pathName);
+        validateCsvExtension();
+
     }
 
     public File getFileCsv() {
         return fileCsv;
+    }
+
+    private void validateCsvExtension() throws IOException {
+        if (!getFileCsv().isFile()) {
+            throw new IOException("Invalid File: " + getFileCsv().getAbsolutePath());
+        }
+
+        String fileName = getFileCsv().getName();
+        if (!fileName.toLowerCase().endsWith(".csv")) {
+            throw new IOException("Invalid file type. Only .csv files are allowed!");
+        }
+
+        showImportedData(importRoutes());
     }
 
     public List<Route> importRoutes() throws FileNotFoundException {
@@ -60,7 +77,12 @@ public class RouteImporter {
         in.close();
 
         return routesList;
+    }
 
+    public void showImportedData(List<Route> routesList) {
+        for (Route route : routesList) {
+            System.out.println(route);
+        }
     }
 
 
