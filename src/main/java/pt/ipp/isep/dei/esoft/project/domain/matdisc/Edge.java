@@ -1,12 +1,12 @@
 package pt.ipp.isep.dei.esoft.project.domain.matdisc;
 
 
-public class Route implements Comparable<Route> {
+public class Edge implements Comparable<Edge> {
     private int waterPointX;
     private int waterPointY;
     private double distance;
 
-    public Route(int waterPointX, int waterPointY, double distance) {
+    public Edge(int waterPointX, int waterPointY, double distance) {
         this.waterPointX = waterPointX;
         this.waterPointY = waterPointY;
         this.distance = distance;
@@ -32,10 +32,10 @@ public class Route implements Comparable<Route> {
                 '}';
     }
 
-    public int compareTo(Route otherRoute) {
-        if (this.distance < otherRoute.distance) {
+    public int compareTo(Edge otherEdge) {
+        if (this.distance < otherEdge.distance) {
             return -1;
-        } else if (this.distance > otherRoute.distance) {
+        } else if (this.distance > otherEdge.distance) {
             return 1;
         } else {
             return 0;
