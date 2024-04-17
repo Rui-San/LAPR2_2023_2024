@@ -33,7 +33,7 @@ public class FileInfo {
         return
                 "File Name: '" + fileName + '\'' +
                         ", Total Lines: " + totalLines +
-                        ", Execution Time: " + executionTime;
+                        ", Execution Time: " + executionTime + "ms";
     }
 
 
