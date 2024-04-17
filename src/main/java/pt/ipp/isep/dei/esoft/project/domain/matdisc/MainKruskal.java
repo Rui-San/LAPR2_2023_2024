@@ -1,30 +1,58 @@
 package pt.ipp.isep.dei.esoft.project.domain.matdisc;
 
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
-import java.util.function.DoubleFunction;
 
 public class MainKruskal {
     public static final String CSV_DIVISOR = ";";
     public static final int TOTAL_NUMBER_OF_COLUMNS = 3;
 
+    public static List<FileInfo> FILE_INFO_LIST = new ArrayList<>();
+
     public static void main(String[] args) {
 
         Scanner read = new Scanner(System.in);
-        System.out.println("What is the path of the file?");
-        String fileName = read.nextLine();
+        boolean continueProgram = true;
 
-        List<Edge> edgeList = readCsvFile(fileName);
-        if (edgeList != null) {
-            List<Edge> minimalSpanningTree = calculateKruskalMST(edgeList);
-            printMinimalSpanningTree(minimalSpanningTree, fileName);
+        long startTime, endTime;
+
+        while (continueProgram) {
+            System.out.println("What is the path of the file?");
+            String fileName = read.nextLine();
+
+            startTime = System.currentTimeMillis();
+            List<Edge> edgeList = readCsvFile(fileName);
+            if (edgeList != null) {
+                int totalLines = edgeList.size();
+                List<Edge> minimalSpanningTree = calculateKruskalMST(edgeList);
+                printMinimalSpanningTree(minimalSpanningTree, fileName);
+                endTime = System.currentTimeMillis();
+                long executionTime = endTime - startTime;
+                FileInfo fileInfo = new FileInfo(fileName, totalLines, executionTime);
+                FILE_INFO_LIST.add(fileInfo);
+
+                System.out.println();
+                System.out.println("You wish to insert more csv files?");
+                System.out.println("Yes or No");
+                String answer = read.nextLine();
+                if (answer.equalsIgnoreCase("No")) {
+                    continueProgram = false;
+                }
+            } else {
+                continueProgram = false;
+            }
         }
+        System.out.println();
+        System.out.println("PARA EFEITOS DE TESTE (esta lista de objetos FileInfo será usada para gerar gráfico)");
+        System.out.println("Ficheiros lidos até ao fecho do programa:");
 
+        for (FileInfo fileInfo : FILE_INFO_LIST) {
+            System.out.println(fileInfo);
+        }
 
     }
 
@@ -32,34 +60,36 @@ public class MainKruskal {
         List<Edge> edgeList = new ArrayList<>();
         File csv = new File(fileName);
 
-        if (isValidFile(csv)) {
-            try (Scanner in = new Scanner(csv)) {
-                while (in.hasNextLine()) {
-                    String line = in.nextLine();
-                    String[] parts = line.split(CSV_DIVISOR);
+        if (!isValidFile(csv)) {
+            return null;
+        }
 
-                    if (parts.length == TOTAL_NUMBER_OF_COLUMNS) {
-                        try {
-                            String waterPointX = parts[0].trim();
-                            String waterPointY = parts[1].trim();
-                            double distance = Double.parseDouble(parts[2].trim());
+        try (Scanner in = new Scanner(csv)) {
+            while (in.hasNextLine()) {
+                String line = in.nextLine();
+                String[] parts = line.split(CSV_DIVISOR);
 
-                            Edge edge = new Edge(waterPointX, waterPointY, distance);
-                            edgeList.add(edge);
+                if (parts.length == TOTAL_NUMBER_OF_COLUMNS) {
+                    try {
+                        String waterPointX = parts[0].trim();
+                        String waterPointY = parts[1].trim();
+                        double distance = Double.parseDouble(parts[2].trim());
 
-                        } catch (NumberFormatException e) {
-                            System.out.println("Error: Unable to parse values in line.");
-                            return null;
-                        }
-                    } else {
-                        System.out.println("Error: The number of Columns of the .csv file must be exactly 3");
+                        Edge edge = new Edge(waterPointX, waterPointY, distance);
+                        edgeList.add(edge);
+
+                    } catch (NumberFormatException e) {
+                        System.out.println("Error: Unable to parse values in line.");
                         return null;
                     }
+                } else {
+                    System.out.println("Error: The number of Columns of the .csv file must be exactly 3");
+                    return null;
                 }
-            } catch (FileNotFoundException e) {
-                System.out.println("Error: File Not Found.");
-                return null;
             }
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: File Not Found.");
+            return null;
         }
         return edgeList;
     }
