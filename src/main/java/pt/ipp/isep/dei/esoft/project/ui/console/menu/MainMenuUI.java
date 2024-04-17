@@ -1,8 +1,8 @@
-package pt.ipp.isep.dei.esoft.project._templateFiles.ui.console.menu;
+package pt.ipp.isep.dei.esoft.project.ui.console.menu;
 
-import pt.ipp.isep.dei.esoft.project._templateFiles.ui.console.authorization.AuthenticationUI;
-import pt.ipp.isep.dei.esoft.project._templateFiles.ui.console.utils.Utils;
-import pt.ipp.isep.dei.esoft.project._templateFiles.ui.console.DevTeamUI;
+import pt.ipp.isep.dei.esoft.project.ui.console.authorization.AuthenticationUI;
+import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
+import pt.ipp.isep.dei.esoft.project.ui.console.DevTeamUI;
 
 import java.util.ArrayList;
 import java.util.List;

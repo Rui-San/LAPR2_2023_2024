@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.esoft.project._templateFiles.ui.console.utils;
+package pt.ipp.isep.dei.esoft.project.ui.console.utils;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

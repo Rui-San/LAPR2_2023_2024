@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.esoft.project._templateFiles.ui.console;
+package pt.ipp.isep.dei.esoft.project.ui.console;
 
 /**
  * @author Paulo Maio pam@isep.ipp.pt
