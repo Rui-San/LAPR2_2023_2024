@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.esoft.project._templateFiles.ui;
+package pt.ipp.isep.dei.esoft.project.ui;
 
 import pt.ipp.isep.dei.esoft.project._templateFiles.application.controller.authorization.AuthenticationController;
 import pt.ipp.isep.dei.esoft.project._templateFiles.domain.Employee;

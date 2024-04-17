@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.esoft.project._templateFiles.ui.console.menu;
+package pt.ipp.isep.dei.esoft.project.ui.console.menu;
 
 import org.apache.commons.lang3.StringUtils;
 

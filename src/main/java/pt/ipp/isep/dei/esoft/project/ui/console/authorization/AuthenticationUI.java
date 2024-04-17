@@ -1,9 +1,9 @@
-package pt.ipp.isep.dei.esoft.project._templateFiles.ui.console.authorization;
+package pt.ipp.isep.dei.esoft.project.ui.console.authorization;
 
 import pt.ipp.isep.dei.esoft.project._templateFiles.application.controller.authorization.AuthenticationController;
-import pt.ipp.isep.dei.esoft.project._templateFiles.ui.console.menu.AdminUI;
-import pt.ipp.isep.dei.esoft.project._templateFiles.ui.console.menu.MenuItem;
-import pt.ipp.isep.dei.esoft.project._templateFiles.ui.console.utils.Utils;
+import pt.ipp.isep.dei.esoft.project.ui.console.menu.AdminUI;
+import pt.ipp.isep.dei.esoft.project.ui.console.menu.MenuItem;
+import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 import pt.isep.lei.esoft.auth.mappers.dto.UserRoleDTO;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.esoft.project._templateFiles.ui.console;
+package pt.ipp.isep.dei.esoft.project.ui.console;
 
 import pt.ipp.isep.dei.esoft.project._templateFiles.application.controller.CreateTaskController;
 import pt.ipp.isep.dei.esoft.project._templateFiles.domain.Task;
