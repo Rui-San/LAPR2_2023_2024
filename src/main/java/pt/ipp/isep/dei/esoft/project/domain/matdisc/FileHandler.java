@@ -29,7 +29,7 @@ public class FileHandler {
     public List<Edge> importFromFile() {
         List<Edge> edgesList = new ArrayList<>();
 
-        if (!isValidFile()) {
+        if (isValidFile()) {
             try (Scanner in = new Scanner(getFile())) {
                 while (in.hasNextLine()) {
                     String line = in.nextLine();
@@ -44,10 +44,12 @@ public class FileHandler {
                             Edge edge = new Edge(waterPointX, waterPointY, distance);
                             edgesList.add(edge);
                         } catch (NumberFormatException e) {
-                            System.out.println("Error: Unable to parse values in line: " + line);
+                            System.out.println("Error: Unable to parse values in line.");
+                            return edgesList;
                         }
                     } else {
-                        throw new FileNotFoundException("Número de colunas tem que ser exatamente 3");
+                       System.out.println("Number of Columns of the .csv file must be exactly 3");
+                        return edgesList;
                     }
                 }
             } catch (FileNotFoundException e) {

@@ -11,18 +11,21 @@ public class KruskalAlgorithm {
         String fileName = read.nextLine();
         FileHandler file = new FileHandler(fileName);
         List<Edge> edgesList = file.importFromFile();
-        System.out.println(file);
 
-        for (Edge edge : edgesList) {
-            System.out.println(edge.getWaterPointX() + ", " + edge.getWaterPointY() + ", " + edge.getDistance());
-        }
+        if (!edgesList.isEmpty()) {
+            System.out.println("Content of the imported csv file:");
+            for (Edge edge : edgesList) {
+                System.out.println(edge.getWaterPointX() + ", " + edge.getWaterPointY() + ", " + edge.getDistance());
+            }
 
-        List<Edge> minimumSpanningTree = kruskalMST(edgesList);
-        System.out.println();
-        for (Edge edge : minimumSpanningTree) {
-            System.out.println(edge.getWaterPointX() + ", " + edge.getWaterPointY() + ", " + edge.getDistance());
+            List<Edge> minimumSpanningTree = kruskalMST(edgesList);
+            System.out.println();
+            System.out.println("Minimal Spanning Tree:");
+            for (Edge edge : minimumSpanningTree) {
+                System.out.println(edge.getWaterPointX() + ", " + edge.getWaterPointY() + ", " + edge.getDistance());
+            }
+            printCost(minimumSpanningTree);
         }
-        printCost(minimumSpanningTree);
     }
 
     public static List<Edge> kruskalMST(List<Edge> edgeList) {
