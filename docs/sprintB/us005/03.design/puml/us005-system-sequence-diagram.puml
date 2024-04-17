@@ -13,7 +13,6 @@ participant ":TeamProposalController" as TPC
 participant ":Repository" as REP
 participant ":repositories \nRepositories" as REPS
 participant ":skillRepository \nSkillRepository" as SR
-participant ":organization \nOrganization" as ORG
 participant ":teamproposal \nTeamProposal" as TP
 
 
@@ -83,15 +82,35 @@ activate Employee
         System --> Employee : Shows team generated and asks for confirmation
 
     deactivate System
+
+
     Employee -> System : Accepts or rejects the proposal.
     activate System
+        System -> TPC : createTeam(team)
+        activate TPC
+            TPC -> REP : getInstance()
+
+                activate REP
+                REP --> TPC : repositories
+                deactivate REP
+                TPC -> REPS : getTeamRepository()
+
+                activate REPS
+                REPS --> TPC : teamRepository
+                deactivate REPS
+                TPC -> TP : addToTeamRepository(team)
+
+                activate TP
+                TP --> TPC : (team)
+                deactivate TP
+
 
     end loop
     |||
+        TPC --> System : (team)
+        deactivate TPC
 
 
-    activate System
-        System --> System : keepData(team)
         System --> Employee : Displays operation success
     deactivate System
 
