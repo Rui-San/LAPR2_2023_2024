@@ -9,12 +9,18 @@ public class Collaborator {
     private Address address;
     private Email email;
     private int mobileNumber;
-    private String idDocType;
+
+    public static enum IdDocType {
+        CC, Passport
+    }
+
+    private IdDocType idDocType;
+
     private int idDocNumber;
 
-    private static final String[] ID_DOC_TYPES = {"CC", "Passport"};
 
-    public Collaborator(String name, Date birthdate, Date admissionDate, Address address, Email email, int mobileNumber, String idDocType, int idDocNumber) {
+
+    public Collaborator(String name, Date birthdate, Date admissionDate, Address address, Email email, int mobileNumber, IdDocType idDocType, int idDocNumber) {
         if (validateName(name)) {
             this.name = name;
         } else {
@@ -77,11 +83,11 @@ public class Collaborator {
         this.mobileNumber = mobileNumber;
     }
 
-    public String getIdDocType() {
+    public IdDocType getIdDocType() {
         return idDocType;
     }
 
-    public void setIdDocType(String idDocType) {
+    public void setIdDocType(IdDocType idDocType) {
         this.idDocType = idDocType;
     }
 
