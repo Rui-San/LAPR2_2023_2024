@@ -2,10 +2,10 @@ package pt.ipp.isep.dei.esoft.project.domain.matdisc;
 
 import java.util.Arrays;
 
-public class DisjointSet {
+public class DisjointSetNotUtilizing {
     int[] parent;
 
-    public DisjointSet(int size) {
+    public DisjointSetNotUtilizing(int size) {
         parent = new int[size + 1];
         Arrays.fill(parent, -1);
     }

@@ -2,21 +2,21 @@ package pt.ipp.isep.dei.esoft.project.domain.matdisc;
 
 
 public class Edge implements Comparable<Edge> {
-    private int waterPointX;
-    private int waterPointY;
+    private String waterPointX;
+    private String waterPointY;
     private double distance;
 
-    public Edge(int waterPointX, int waterPointY, double distance) {
+    public Edge(String waterPointX, String waterPointY, double distance) {
         this.waterPointX = waterPointX;
         this.waterPointY = waterPointY;
         this.distance = distance;
     }
 
-    public int getWaterPointX() {
+    public String getWaterPointX() {
         return waterPointX;
     }
 
-    public int getWaterPointY() {
+    public String getWaterPointY() {
         return waterPointY;
     }
 
