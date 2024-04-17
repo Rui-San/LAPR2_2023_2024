@@ -17,7 +17,6 @@ public class KruskalAlgorithm {
             System.out.println(edge.getWaterPointX() + ", " + edge.getWaterPointY() + ", " + edge.getDistance());
         }
 
-
         List<Edge> minimumSpanningTree = kruskalMST(edgesList);
         System.out.println();
         for (Edge edge : minimumSpanningTree) {
