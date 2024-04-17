@@ -13,13 +13,18 @@ class Collaborator {
      - Date admissionDate
      - Date birthDate
      - String phoneNumber
-     - Email email
      - String idDocType
      - int idDocNumber
 }
 
 class Job {
     - String jobName
+}
+
+class Date {
+    - int day
+    - int month
+    - int year
 }
 
 class Organization {
@@ -31,10 +36,21 @@ class Organization {
 }
 
 class JobReposity {
+    + add(job)
+    + validateJob(job)
+    + getJob()
+}
+
+class Repositories {
     - Repositories()
     + getInstance() : Repositories
     + getJobRepository()
 }
+
+note bottom of JobReposity
+    - used for displaying
+    the job list
+end note
 
 class RegisterCollaboratorController {
     + CreateTaskController(organizationRepository, taskCategoryRepository)
@@ -45,11 +61,30 @@ class RegisterCollaboratorController {
 class RegisterCollaboratorUI {
 }
 
-RegisterCollaboratorUI -right.-> RegisterCollaboratorController
-RegisterCollaboratorController -.> Organization
+class Email{
+    - String email
+}
+
+class Address{
+    - String street
+    - int streetNumber
+    - String postalCode
+    - String city
+    - String district
+
+}
+
+RegisterCollaboratorUI .right.> RegisterCollaboratorController
+RegisterCollaboratorController ..> Organization
 Organization -down-> Collaborator
-RegisterCollaboratorController -.-> JobReposity
+RegisterCollaboratorController ..> JobReposity
 JobReposity --> Job
-Collaborator -> Job
+Collaborator --> Job
+Collaborator --> Email
+Collaborator --> Address
+Collaborator --> Date
+RegisterCollaboratorController ..> Repositories
+Repositories --> JobReposity
+
 
 @enduml
