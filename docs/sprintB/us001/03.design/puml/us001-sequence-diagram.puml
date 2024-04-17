@@ -10,8 +10,9 @@ autonumber
 actor "HRM" as Employee
 participant ":RegisterSkillUI" as System
 participant ":RegisterSkillController" as RSC
-participant ":organization \nOrganization" as ORG
-participant ":skill \nSkill" as SL
+participant ":Repository" as REP
+participant ":repositories \nRepositories" as REPS
+participant ":skillRepository \nSkillRepository" as SR
 
 activate Employee
 
@@ -34,15 +35,22 @@ end
         System -> RSC : createSkill(skill name)
         activate RSC
 
-            RSC -> ORG : createSkill(skill name)
-            activate ORG
-                ORG -> SL** : createSkill(Skill Name)
-                |||
-                |||
-                ORG --> ORG : addToSkillList(skillname)
+                RSC -> REP : getInstance()
 
-                ORG --> RSC : skill name
-            deactivate ORG
+                activate REP
+                REP --> RSC : repositories
+                deactivate REP
+                RSC -> REPS : getSkillRepository()
+
+                activate REPS
+                REPS --> RSC : skillRepository
+                deactivate REPS
+
+                RSC -> SR : addToSkillList(skill name)
+                activate SR
+                SR --> RSC : skill name
+                deactivate SR
+
 
             RSC --> System : skill name
 

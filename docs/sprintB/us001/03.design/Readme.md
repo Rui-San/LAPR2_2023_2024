@@ -8,21 +8,16 @@ _**Note that SSD - US001 is adopted.**_
 
 | Interaction ID                                       | Question: Which class is responsible for...                            | Answer                | Justification (with patterns)                                                                                 |
 |:-----------------------------------------------------|:-----------------------------------------------------------------------|:----------------------|:--------------------------------------------------------------------------------------------------------------|
-| Step 1: Asks to register a collaborator  		          | ... interacting with the actor?                                        | Register Skill UI     | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
+| Step 1: Asks to register a new skill		               | ... interacting with the actor?                                        | Register Skill UI     | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
 | 			  		                                              | ... coordinating the US?                                               | CreateSkillController | Controller                                                                                                    |
-| 			  		                                              | ... knowing the user using the system?                                 | UserSession           | IE: cf. A&A component documentation.                                                                          |
 | Step 2: Request data (skill name)  		                | 							                                                                | RegisterSkillUI       | Pure Fabrication: User will insert data on the User Interface.                                                |
 | Step 3: Types requested data  		                     | 	...validating input data?                                             | RegisterSkillUI       | IE: object created in step 1 has its own data.                                                                |
 |                                                      | ...temporarily keeping input data?                                     | RegisterSkillUI       | Pure Fabrication                                                                                              |
-| Step 4: Show skill list and asks to select one  		   | 	... obtaining the list of skills?                                     | HRM                   | Information Expert: HRM register a skill                                                                      |
-|                                                      | ... displaying the list of skills?                                     | RegisterSkillUI       | Pure Fabrication                                                                                              |
-| Step 5: Selects a skill  		                          | 	... validating the selected data?                                     | RegisterSkillUI       | Pure Fabrication                                                                                              |
-|                                                       | ... temporarilly keeping the selected job?                             | RegisterSkillUI       | Pure Fabrication                                                                                              |
-| Step 6: Shows all data and requests confirmation  		 | ... displaying all the information before confirmation?						          | RegisterSkillUI       | Pure Fabrication                                                                                              |              
-| Step 7: Confirms data  		                            | 	... creating the Skill object                                         | Organization          | Creator (Rule 1): in the DM Organization owns Skill                                                           | 
+| Step 4: Shows all data and requests confirmation  		 | ... displaying all the information before confirmation?						          | RegisterSkillUI       | Pure Fabrication                                                                                              |              
+| Step 5: Confirms data  		                            | 	... creating the Skill object                                         | SkillRepository       | Creator (Rule 1): Repository manage the created items                                                         | 
 | 			  		                                              | 	... validating the data locally (mandatory data)?                     |                       | Information Expert:                                                                                           | 
 | 			  		                                              | 	... adding to a collection and globally validating duplicate records? |                       | Information Expert:                                                                                           | 
-| Step 8: Displays operation success  		               | 	... informing operation success?                                      | CreateSkillUI         | Pure Fabrication                                                                                              | 
+| Step 6: Displays operation success  		               | 	... informing operation success?                                      | CreateSkillUI         | Pure Fabrication                                                                                              | 
 
 ### Systematization ##
 
@@ -44,7 +39,7 @@ Other software classes (i.e. Pure Fabrication) identified:
 
 This diagram shows the full sequence of interactions between the classes involved in the realization of this user story.
 
-![Sequence Diagram - Full](svg/us001-sequence-diagram-full.svg)
+![Sequence Diagram - Full](svg/us001-sequence-diagram.svg)
 
 ### Split Diagrams
 
