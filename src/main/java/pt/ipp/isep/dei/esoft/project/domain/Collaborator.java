@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
-import javax.naming.Name;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 public class Collaborator {
@@ -11,28 +12,31 @@ public class Collaborator {
     private Email email;
     private int mobileNumber;
 
-    public static enum IdDocType {
+    private enum IdDocType {
         CC, Passport
     }
 
     private IdDocType idDocType;
 
     private int idDocNumber;
+    private List<Skill> skillList;
 
     private enum NameValidationResults {
         VALID, EMPTYNULL, CONTAINS_SPECIAL_CHARACTERS
     }
 
 
-    public Collaborator(String name, Date birthdate, Date admissionDate, Address address, Email email, int mobileNumber, IdDocType idDocType, int idDocNumber) {
+    public Collaborator(String name, Date birthdate, Date admissionDate, String street, int streetNumber, String postalCode,
+                        String city, String district, String email, int mobileNumber, IdDocType idDocType, int idDocNumber) {
         setName(name);
         this.birthdate = birthdate;
         this.admissionDate = admissionDate;
-        this.address = address;
-        this.email = email;
+        this.address = new Address(street, streetNumber, postalCode, city, district);
+        this.email = new Email(email);
         this.mobileNumber = mobileNumber;
         this.idDocType = idDocType;
         this.idDocNumber = idDocNumber;
+        this.skillList = new ArrayList<>();
     }
 
     public String getName() {
@@ -80,8 +84,8 @@ public class Collaborator {
         return email;
     }
 
-    public void setEmail(Email email) {
-        this.email = email;
+    public void setEmail(String email) {
+        this.email.setEmail(email);
     }
 
     public int getMobileNumber() {
@@ -120,6 +124,15 @@ public class Collaborator {
                 ", idDocType='" + idDocType + '\'' +
                 ", idDocNumber=" + idDocNumber +
                 '}';
+    }
+
+    /**
+     * Assign selected skills to a collaborator (1 or more skills)
+     *
+     * @param skillsToAdd
+     */
+    public void assignSkills(List<Skill> skillsToAdd) {
+        skillList.addAll(skillsToAdd);
     }
 
     /**

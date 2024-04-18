@@ -9,7 +9,6 @@ public class Address {
 
     private enum PostalCodeValidationResults {
         INVALID_FORMAT, VALID, CONTAIN_LETTERS, EMPTY
-
     }
 
     private static final int POSTAL_CODE_TOTAL_DIGITS = 8;

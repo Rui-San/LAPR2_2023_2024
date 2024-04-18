@@ -1,21 +1,14 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
-import java.util.regex.Pattern;
-
 public class Email {
-
     private String email;
 
-    private static final int NUMBER_PARTS_OF_DOMAIN = 2;
-    private static final String COM_EXTENTION = ".com";
-    private static final String PT_EXTENTION = ".pt";
+    private enum ValidateEmailResults {
+        EMPTY, VALID, INVALID_PREFIX, INVALID_DOMAIN, WRONG_FORMAT
+    }
 
     public Email(String email) {
-        if (validateEmail(email)) {
-            this.email = email;
-        } else {
-            throw new IllegalArgumentException("Endereço de email inválido! Introduza novamente.");
-        }
+        setEmail(email);
     }
 
     public String getEmail() {
@@ -23,68 +16,56 @@ public class Email {
     }
 
     public void setEmail(String email) {
-        this.email = email;
-    }
-
-    /**
-     * Validates if the String is not null or empty
-     *
-     * @param string
-     * @return the logical state of the validation. True if String is not empty/null
-     */
-    private static boolean validateStringNotNullOrEmpty(String string) {
-        return !(string == null) && !(string.isEmpty());
-    }
-
-    /**
-     * Validates if email format is validated (my algorithm)
-     *
-     * @param email
-     * @return the logical state of the validation. True if email format is valid
-     */
-    private boolean isValidEmail(String email) {
-
-        if (!email.contains("@")) {
-            return false;
+        ValidateEmailResults validateEmailResults = validateEmail(email);
+        switch (validateEmailResults) {
+            case EMPTY:
+                throw new IllegalArgumentException("Email must not be empty");
+            case WRONG_FORMAT:
+                throw new IllegalArgumentException("Email format must follow the pattern prefix@domain");
+            case INVALID_PREFIX:
+                throw new IllegalArgumentException("Email prefix not valid. Only letters, numbers and _ . - are accepted");
+            case INVALID_DOMAIN:
+                throw new IllegalArgumentException("Email domain not valid.");
+            case VALID:
+                this.email = email;
+                break;
         }
-
-        String[] emailParts = email.split("@");
-        String emailName = emailParts[0];
-        String emailDomain = emailParts[1];
-
-        String[] domainParts = emailDomain.split("\\.");
-
-        if (domainParts.length != NUMBER_PARTS_OF_DOMAIN) {
-            return false;
-        }
-
-        String domain = domainParts[0];
-        String extension = domainParts[1];
-
-        return ((emailName.length() > 1) && (domain.length() > 1) && (extension.equals(COM_EXTENTION) || extension.equals(PT_EXTENTION)));
-
     }
 
     /**
-     * Validates if email format is validated (regex patern algorithm)
+     * Validates if email format is validated
      *
      * @param email
      * @return the logical state of the validation. True if email format is valid
      */
-    private boolean validateEmail(String email) {
-        if (!validateStringNotNullOrEmpty(email)) {
-            return false;
+    private ValidateEmailResults validateEmail(String email) {
+        if (email == null || email.trim().isEmpty()) {
+            return ValidateEmailResults.EMPTY;
         }
 
-        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
-        Pattern pat = Pattern.compile(emailRegex);
+        String[] parts = email.split("@");
 
-        if (pat.matcher(email).matches()) {
-            return true;
-        } else {
-            return false;
+        if (parts.length != 2) {
+            return ValidateEmailResults.WRONG_FORMAT;
         }
+
+        String prefix = parts[0];
+        String domain = parts[1];
+
+        if (prefix.isEmpty() || domain.isEmpty()) {
+            return ValidateEmailResults.WRONG_FORMAT;
+        }
+
+        String prefixPattern = "^[a-zA-Z0-9_.-]+$";
+        String domainPattern = "^(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+
+        if (!prefix.matches(prefixPattern)) {
+            return ValidateEmailResults.INVALID_PREFIX;
+        }
+
+        if (!domain.matches(domainPattern)) {
+            return ValidateEmailResults.INVALID_DOMAIN;
+        }
+        return ValidateEmailResults.VALID;
     }
-
-
 }
