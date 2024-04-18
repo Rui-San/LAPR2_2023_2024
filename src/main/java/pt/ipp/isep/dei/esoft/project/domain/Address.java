@@ -7,35 +7,20 @@ public class Address {
     private String city;
     private String district;
 
+    private enum PostalCodeValidationResults {
+        INVALID_FORMAT, VALID, CONTAIN_LETTERS, EMPTY
+
+    }
+
     private static final int POSTAL_CODE_TOTAL_DIGITS = 8;
     private static final char POSTAL_CODE_SEPARATOR = '-';
 
     public Address(String street, int streetNumber, String postalCode, String city, String district) {
-        if (validateStreet(street)) {
-            this.street = street;
-        } else {
-            throw new IllegalArgumentException("Street is empty, please fill in the field!");
-        }
-        if (validateStreetNumber(streetNumber)) {
-            this.streetNumber = streetNumber;
-        } else {
-            throw new IllegalArgumentException("Street Number is empty, please full in the field!");
-        }
-        if (validatePostalCode(postalCode)) {
-            this.postalCode = postalCode;
-        } else {
-            throw new IllegalArgumentException("Postal Code is invalid, please follow the format XXXX-XXX");
-        }
-        if (validateCity(city)) {
-            this.city = city;
-        } else {
-            throw new IllegalArgumentException("City is empty, please fill in the field!");
-        }
-        if (validateDistrict(district)) {
-            this.district = district;
-        } else {
-            throw new IllegalArgumentException("District is empty, please fill in the field!");
-        }
+        setStreet(street);
+        setStreetNumber(streetNumber);
+        setPostalCode(postalCode);
+        setCity(city);
+        setDistrict(district);
     }
 
     public String getStreet() {
@@ -43,7 +28,11 @@ public class Address {
     }
 
     public void setStreet(String street) {
-        this.street = street;
+        if (validateStreet(street)) {
+            this.street = street;
+        } else {
+            throw new IllegalArgumentException("Street must not be empty!");
+        }
     }
 
     public int getStreetNumber() {
@@ -51,7 +40,11 @@ public class Address {
     }
 
     public void setStreetNumber(int streetNumber) {
-        this.streetNumber = streetNumber;
+        if (validateStreetNumber(streetNumber)) {
+            this.streetNumber = streetNumber;
+        } else {
+            throw new IllegalArgumentException("Street number must be a positive number!");
+        }
     }
 
     public String getPostalCode() {
@@ -59,7 +52,18 @@ public class Address {
     }
 
     public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
+        PostalCodeValidationResults postalCodeValidationResults = validatePostalCode(postalCode);
+        switch (postalCodeValidationResults) {
+            case EMPTY:
+                throw new IllegalArgumentException("Postal code must not be empty");
+            case INVALID_FORMAT:
+                throw new IllegalArgumentException("Postal code must follow the format XXXX-XXX");
+            case CONTAIN_LETTERS:
+                throw new IllegalArgumentException("Postal code must not contain letters");
+            case VALID:
+                this.postalCode = postalCode;
+                break;
+        }
     }
 
     public String getCity() {
@@ -67,7 +71,11 @@ public class Address {
     }
 
     public void setCity(String city) {
-        this.city = city;
+        if (validateCity(city)) {
+            this.city = city;
+        } else {
+            throw new IllegalArgumentException("City must not be empty");
+        }
     }
 
     public String getDistrict() {
@@ -75,8 +83,13 @@ public class Address {
     }
 
     public void setDistrict(String district) {
-        this.district = district;
+        if(validateDistrict(district)){
+            this.district=district;
+        }else {
+            throw new IllegalArgumentException("District must not be empty");
+        }
     }
+
 
     @Override
     public String toString() {
@@ -90,35 +103,17 @@ public class Address {
     }
 
     /**
-     * Validates if the String is not null or empty
+     * Validates if the street is not null or empty
      *
-     * @param string
-     * @return the logical state of the validation. True if String is not empty/null
-     */
-    private static boolean validateStringNotNullOrEmpty(String string) {
-        return !(string == null) && !(string.isEmpty());
-    }
-
-    /**
-     * Validates if the number is not null or empty
-     *
-     * @param number
-     * @return the logical state of the validation. True if number is not empty/null
-     */
-    private static boolean isValidPositiveInteger(int number) {
-        return number > 0;
-    }
-
-    /**
      * @param street
-     * @return the logical state of the validation. True if street is validated
+     * @return the logical state of the validation. True if street is validated (not null and not empty)
      */
     private static boolean validateStreet(String street) {
-        return validateStringNotNullOrEmpty(street);
+        return street != null && !street.trim().isEmpty();
     }
 
     private static boolean validateStreetNumber(int number) {
-        return isValidPositiveInteger(number);
+        return number > 0;
     }
 
     /**
@@ -127,27 +122,30 @@ public class Address {
      * @param postalCode
      * @return the logical state of the validation. True if Postal Code is validated
      */
-    private static boolean validatePostalCode(String postalCode) {
+    private static PostalCodeValidationResults validatePostalCode(String postalCode) {
 
-        if (!validateStringNotNullOrEmpty(postalCode) || postalCode.length() != POSTAL_CODE_TOTAL_DIGITS || postalCode.charAt(5) != POSTAL_CODE_SEPARATOR) {
-            return false;
+        if (postalCode == null || postalCode.trim().isEmpty()) {
+            return PostalCodeValidationResults.EMPTY;
+        }
+
+        if (postalCode.length() != POSTAL_CODE_TOTAL_DIGITS || postalCode.charAt(5) != POSTAL_CODE_SEPARATOR) {
+            return PostalCodeValidationResults.INVALID_FORMAT;
         }
 
         char[] postalCodeByLetters = postalCode.toCharArray();
 
         for (int i = 0; i < 4; i++) {
             if (!Character.isDigit(postalCodeByLetters[i])) {
-                return false;
+                return PostalCodeValidationResults.CONTAIN_LETTERS;
             }
         }
 
         for (int i = 5; i < postalCodeByLetters.length; i++) {
             if (!Character.isDigit(postalCodeByLetters[i])) {
-                return false;
+                return PostalCodeValidationResults.CONTAIN_LETTERS;
             }
         }
-
-        return true;
+        return PostalCodeValidationResults.VALID;
     }
 
     /**
@@ -157,7 +155,7 @@ public class Address {
      * @return
      */
     private static boolean validateCity(String city) {
-        return validateStringNotNullOrEmpty(city);
+        return city != null && !city.trim().isEmpty();
     }
 
     /**
@@ -167,7 +165,7 @@ public class Address {
      * @return
      */
     private static boolean validateDistrict(String district) {
-        return validateStringNotNullOrEmpty(district);
+        return district != null && !district.trim().isEmpty();
     }
 
 

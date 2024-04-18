@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import javax.naming.Name;
 import java.util.regex.Pattern;
 
 public class Collaborator {
@@ -18,14 +19,13 @@ public class Collaborator {
 
     private int idDocNumber;
 
+    private enum NameValidationResults {
+        VALID, EMPTYNULL, CONTAINS_SPECIAL_CHARACTERS
+    }
 
 
     public Collaborator(String name, Date birthdate, Date admissionDate, Address address, Email email, int mobileNumber, IdDocType idDocType, int idDocNumber) {
-        if (validateName(name)) {
-            this.name = name;
-        } else {
-            throw new IllegalArgumentException("Name is empty, please fill in the field!");
-        }
+        setName(name);
         this.birthdate = birthdate;
         this.admissionDate = admissionDate;
         this.address = address;
@@ -40,7 +40,16 @@ public class Collaborator {
     }
 
     public void setName(String name) {
-        this.name = name;
+        NameValidationResults nameValidationResult = validateName(name);
+        switch (nameValidationResult) {
+            case EMPTYNULL:
+                throw new IllegalArgumentException("Name must not be empty");
+            case CONTAINS_SPECIAL_CHARACTERS:
+                throw new IllegalArgumentException("Name must not contain special characters");
+            case VALID:
+                this.name = name;
+                break;
+        }
     }
 
     public Date getBirthdate() {
@@ -127,20 +136,20 @@ public class Collaborator {
      * Validates if name contains special characters.
      *
      * @param name
-     * @return the logical state of the validation. True if name doesn't have special characters.
+     * @return the logical state of the validation. True if name is not null, not empty and the only permited characters are spaces and hifens.
      */
-    private boolean validateName(String name) {
+    private NameValidationResults validateName(String name) {
 
-        if (!validateStringNotNullOrEmpty(name)) {
-            return false;
+        if (name == null || name.trim().isEmpty()) {
+            return NameValidationResults.EMPTYNULL;
         }
 
         Pattern namePattern = Pattern.compile("[a-zA-Z\\\\s-]+");
 
         if (namePattern.matcher(name).matches()) {
-            return true;
+            return NameValidationResults.VALID;
         } else {
-            return false;
+            return NameValidationResults.CONTAINS_SPECIAL_CHARACTERS;
         }
     }
 
