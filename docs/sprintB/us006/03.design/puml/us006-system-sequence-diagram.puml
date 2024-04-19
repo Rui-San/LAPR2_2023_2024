@@ -35,10 +35,13 @@ System --> Employee : Requests vehicle data (plate id, brand, model, type,\ntare
             |||
             |||
             activate ORG
-            ORG->CTRL:Vehicle
+               ORG->Vehicle**: getVehicle
+            ORG->CTRL: Vehicle
             CTRL->System: Vehicle
+            System->System: keepData(plate id, brand, model, type,\ntare, gross weight, current km, register date,\nacquisition date, checkup frequency kms)
         System --> Employee : Displays operation success
     deactivate System
+
 
 
 
