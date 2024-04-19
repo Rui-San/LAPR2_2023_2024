@@ -34,25 +34,32 @@ public class MainKruskal {
                 long executionTime = endTime - startTime;
                 FileInfo fileInfo = new FileInfo(fileName, totalLines, executionTime);
                 FILE_INFO_LIST.add(fileInfo);
+            }
 
+            boolean validAnswer = false;
+            while (!validAnswer) {
                 System.out.println();
                 System.out.println("You wish to insert more csv files?");
                 System.out.println("Yes or No");
                 String answer = read.nextLine();
                 if (answer.equalsIgnoreCase("No")) {
                     continueProgram = false;
+                    validAnswer = true;
+                } else if (answer.equalsIgnoreCase("Yes")) {
+                    validAnswer = true;
+                } else {
+                    System.out.println("Please, answer Yes or No");
                 }
-            } else {
-                continueProgram = false;
+
             }
         }
         System.out.println();
-        System.out.println("PARA EFEITOS DE TESTE (esta lista de objetos FileInfo será usada para gerar gráfico)");
         System.out.println("Ficheiros lidos até ao fecho do programa:");
 
         for (FileInfo fileInfo : FILE_INFO_LIST) {
             System.out.println(fileInfo);
         }
+
 
     }
 
