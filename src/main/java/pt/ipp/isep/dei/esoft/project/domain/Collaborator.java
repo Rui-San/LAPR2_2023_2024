@@ -13,8 +13,11 @@ public class Collaborator {
     private String mobileNumber;
 
     private enum IdDocType {
-        CC, Passport
+        CC, BI, Passport
     }
+
+    private IdDocType idDocType;
+
 
     private enum MobileOperator {
         OPERATOR1('1'),
@@ -32,8 +35,6 @@ public class Collaborator {
         }
     }
 
-    private IdDocType idDocType;
-
     private int idDocNumber;
     private List<Skill> skillList;
 
@@ -41,8 +42,11 @@ public class Collaborator {
         VALID, EMPTYNULL, NOT_ENOUGH_NAMES, TOO_MANY_WORDS, CONTAINS_SPECIAL_CHARACTERS
     }
 
-    private static final int MOBILE_NUMBER_TOTAL_DIGITS = 9;
+    private enum ValidateIdDocNumberResults {
+        VALID, PASSPORT_ERROR, EMPTY, CC_BI_ERROR
+    }
 
+    private static final int MOBILE_NUMBER_TOTAL_DIGITS = 9;
 
     public Collaborator(String name, Date birthdate, Date admissionDate, String street, int streetNumber, String postalCode,
                         String city, String district, String email, String mobileNumber, IdDocType idDocType, int idDocNumber) {
@@ -52,8 +56,8 @@ public class Collaborator {
         this.address = new Address(street, streetNumber, postalCode, city, district);
         this.email = new Email(email);
         setMobileNumber(mobileNumber);
-        this.idDocType = idDocType;
-        this.idDocNumber = idDocNumber;
+        setIdDocType(idDocType);
+        setIdDocNumber(idDocNumber, idDocType);
         this.skillList = new ArrayList<>();
     }
 
@@ -126,15 +130,28 @@ public class Collaborator {
     }
 
     public void setIdDocType(IdDocType idDocType) {
-        this.idDocType = idDocType;
+        if (validateIdDocType(idDocType)) {
+            this.idDocType = idDocType;
+        }
     }
 
     public int getIdDocNumber() {
         return idDocNumber;
     }
 
-    public void setIdDocNumber(int idDocNumber) {
-        this.idDocNumber = idDocNumber;
+    public void setIdDocNumber(int idDocNumber, IdDocType idDocType) {
+        ValidateIdDocNumberResults validateIdDocNumberResults = validateIdDocNumberResults(idDocNumber, idDocType);
+
+        switch (validateIdDocNumberResults) {
+            case EMPTY:
+                throw new IllegalArgumentException("ID Number must not be empty");
+            case PASSPORT_ERROR:
+                throw new IllegalArgumentException("Passport in wrong format. Must be two letters + 6 numeric digits (Example: AB222222");
+            case CC_BI_ERROR:
+                throw new IllegalArgumentException("NIF in wrong format. Must be 9 numeric digits");
+            case VALID:
+                this.idDocNumber = idDocNumber;
+        }
     }
 
     @Override
@@ -211,6 +228,34 @@ public class Collaborator {
         }
     }
 
+    private boolean validateIdDocType(IdDocType idDocType) {
+        return idDocType == IdDocType.CC || idDocType == IdDocType.Passport || idDocType == IdDocType.BI;
+    }
 
+    private ValidateIdDocNumberResults validateIdDocNumberResults(int idDocNumber, IdDocType idDocType) {
+        String nineNumericDigits = "[0-9]{9}";
+        String passportPattern = "[a-z][A-Z]{2}[0-9]{6}";
+
+        String idDocNumberString = String.valueOf(idDocNumber);
+
+        if (!idDocNumberString.isEmpty()) {
+            return ValidateIdDocNumberResults.EMPTY;
+        }
+
+        if (idDocType == IdDocType.Passport) {
+            if (idDocNumberString.matches(passportPattern)) {
+                return ValidateIdDocNumberResults.VALID;
+            } else {
+                return ValidateIdDocNumberResults.PASSPORT_ERROR;
+            }
+
+        } else {
+            if (idDocNumberString.matches(nineNumericDigits)) {
+                return ValidateIdDocNumberResults.VALID;
+            } else {
+                return ValidateIdDocNumberResults.CC_BI_ERROR;
+            }
+        }
+    }
 }
 
