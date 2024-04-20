@@ -22,7 +22,7 @@ public class Collaborator {
     private List<Skill> skillList;
 
     private enum NameValidationResults {
-        VALID, EMPTYNULL, CONTAINS_SPECIAL_CHARACTERS
+        VALID, EMPTYNULL, NOT_ENOUGH_NAMES, TOO_MANY_WORDS, CONTAINS_SPECIAL_CHARACTERS
     }
 
 
@@ -50,6 +50,10 @@ public class Collaborator {
                 throw new IllegalArgumentException("Name must not be empty");
             case CONTAINS_SPECIAL_CHARACTERS:
                 throw new IllegalArgumentException("Name must not contain special characters");
+            case NOT_ENOUGH_NAMES:
+                throw new IllegalArgumentException("name must include at least one first name and one last name.");
+            case TOO_MANY_WORDS:
+                throw new IllegalArgumentException("Name must not contain more than 6 words, according to Portuguese Law");
             case VALID:
                 this.name = name;
                 break;
@@ -136,16 +140,6 @@ public class Collaborator {
     }
 
     /**
-     * Validates if the String is not null or empty
-     *
-     * @param string
-     * @return the logical state of the validation. True if String is not empty/null
-     */
-    private static boolean validateStringNotNullOrEmpty(String string) {
-        return !(string == null) && !(string.isEmpty());
-    }
-
-    /**
      * Validates if name contains special characters.
      *
      * @param name
@@ -155,6 +149,16 @@ public class Collaborator {
 
         if (name == null || name.trim().isEmpty()) {
             return NameValidationResults.EMPTYNULL;
+        }
+
+        //("\\s+") means one or more character space
+        if (name.split("\\s+").length < 2) {
+            return NameValidationResults.NOT_ENOUGH_NAMES;
+        }
+
+        //Name, according to Portuguese law must not contain more than 6 words
+        if (name.split("\\s+").length > 6) {
+            return NameValidationResults.TOO_MANY_WORDS;
         }
 
         Pattern namePattern = Pattern.compile("[a-zA-Z\\\\s-]+");
