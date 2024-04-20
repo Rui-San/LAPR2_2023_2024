@@ -10,10 +10,26 @@ public class Collaborator {
     private Date admissionDate;
     private Address address;
     private Email email;
-    private int mobileNumber;
+    private String mobileNumber;
 
     private enum IdDocType {
         CC, Passport
+    }
+
+    private enum MobileOperator {
+        OPERATOR1('1'),
+        OPERATOR2('2'),
+        OPERATOR3('3');
+
+        private final char operatorCode;
+
+        MobileOperator(char operatorCode) {
+            this.operatorCode = operatorCode;
+        }
+
+        public char getOperatorCode() {
+            return operatorCode;
+        }
     }
 
     private IdDocType idDocType;
@@ -25,15 +41,17 @@ public class Collaborator {
         VALID, EMPTYNULL, NOT_ENOUGH_NAMES, TOO_MANY_WORDS, CONTAINS_SPECIAL_CHARACTERS
     }
 
+    private static final int MOBILE_NUMBER_TOTAL_DIGITS = 9;
+
 
     public Collaborator(String name, Date birthdate, Date admissionDate, String street, int streetNumber, String postalCode,
-                        String city, String district, String email, int mobileNumber, IdDocType idDocType, int idDocNumber) {
+                        String city, String district, String email, String mobileNumber, IdDocType idDocType, int idDocNumber) {
         setName(name);
         this.birthdate = birthdate;
         this.admissionDate = admissionDate;
         this.address = new Address(street, streetNumber, postalCode, city, district);
         this.email = new Email(email);
-        this.mobileNumber = mobileNumber;
+        setMobileNumber(mobileNumber);
         this.idDocType = idDocType;
         this.idDocNumber = idDocNumber;
         this.skillList = new ArrayList<>();
@@ -92,11 +110,14 @@ public class Collaborator {
         this.email.setEmail(email);
     }
 
-    public int getMobileNumber() {
+    public String getMobileNumber() {
         return mobileNumber;
     }
 
-    public void setMobileNumber(int mobileNumber) {
+    public void setMobileNumber(String mobileNumber) {
+        if (!validateMobileNumber(mobileNumber)) {
+            throw new IllegalArgumentException("Mobile Number is not in a correct format");
+        }
         this.mobileNumber = mobileNumber;
     }
 
@@ -167,6 +188,26 @@ public class Collaborator {
             return NameValidationResults.VALID;
         } else {
             return NameValidationResults.CONTAINS_SPECIAL_CHARACTERS;
+        }
+    }
+
+    private boolean validateMobileNumber(String mobileNumber) {
+
+        if (mobileNumber == null || mobileNumber.trim().isEmpty()) {
+            return false;
+        }
+
+        String onlyNumericDigits = "[0-9]+";
+        if (!mobileNumber.matches(onlyNumericDigits)) {
+            return false;
+        }
+
+        char[] mobileNumberChars = mobileNumber.toCharArray();
+
+        if (mobileNumberChars.length != MOBILE_NUMBER_TOTAL_DIGITS || mobileNumberChars[0] != 9 || mobileNumberChars[1] != MobileOperator.OPERATOR1.getOperatorCode() || mobileNumberChars[1] != MobileOperator.OPERATOR2.getOperatorCode() || mobileNumberChars[1] != MobileOperator.OPERATOR3.getOperatorCode()) {
+            return false;
+        } else {
+            return true;
         }
     }
 
