@@ -45,7 +45,7 @@ public class Graph {
 
     public void calculateMST() {
         List<Edge> minimalSpanningTree = new ArrayList<>();
-        Collections.sort(edges);
+        sortEdgesByDistance();
         int size = vertices.size();
         int[] parent = new int[size];
         for (int i = 0; i < size; i++) {
@@ -67,6 +67,23 @@ public class Graph {
             System.out.println(edge.getWaterPointX() + " ---- " + edge.getWaterPointY() + " : " + edge.getDistance());
         }
         System.out.println("Total cost is: " + totalCost);
+    }
+    public void sortEdgesByDistance() {
+        bubbleSort(edges);
+    }
+
+    private void bubbleSort(List<Edge> edges) {
+        int n = edges.size();
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (edges.get(j).getDistance() > edges.get(j + 1).getDistance()) {
+                    // Swap the elements
+                    Edge temp = edges.get(j);
+                    edges.set(j, edges.get(j + 1));
+                    edges.set(j + 1, temp);
+                }
+            }
+        }
     }
 
 
