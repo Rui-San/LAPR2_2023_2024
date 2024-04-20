@@ -3,7 +3,6 @@ package pt.ipp.isep.dei.esoft.project.domain.matdisc;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -25,15 +24,19 @@ public class MainKruskal {
             String fileName = read.nextLine();
 
             startTime = System.currentTimeMillis();
-            List<Edge> edgeList = readCsvFile(fileName);
-            if (edgeList != null) {
-                int totalLines = edgeList.size();
-                List<Edge> minimalSpanningTree = calculateKruskalMST(edgeList);
-                printMinimalSpanningTree(minimalSpanningTree, fileName);
-                endTime = System.currentTimeMillis();
-                long executionTime = endTime - startTime;
-                FileInfo fileInfo = new FileInfo(fileName, totalLines, executionTime);
-                FILE_INFO_LIST.add(fileInfo);
+            Graph graph = readCsvFile(fileName);
+
+            try {
+                if (graph != null && graph.getEdges() != null) {
+                    int totalLines = graph.getEdges().size();
+                    graph.calculateMST();
+                    endTime = System.currentTimeMillis();
+                    long executionTime = endTime - startTime;
+                    FileInfo fileInfo = new FileInfo(fileName, totalLines, executionTime);
+                    FILE_INFO_LIST.add(fileInfo);
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("The file must not be empty");
             }
 
             boolean validAnswer = false;
@@ -63,8 +66,8 @@ public class MainKruskal {
 
     }
 
-    public static List<Edge> readCsvFile(String fileName) {
-        List<Edge> edgeList = new ArrayList<>();
+    public static Graph readCsvFile(String fileName) {
+        Graph graph = new Graph();
         File csv = new File(fileName);
 
         if (!isValidFile(csv)) {
@@ -82,8 +85,7 @@ public class MainKruskal {
                         String waterPointY = parts[1].trim();
                         double distance = Double.parseDouble(parts[2].trim());
 
-                        Edge edge = new Edge(waterPointX, waterPointY, distance);
-                        edgeList.add(edge);
+                        graph.addEdge(waterPointX, waterPointY, distance);
 
                     } catch (NumberFormatException e) {
                         System.out.println("Error: Unable to parse values in line.");
@@ -98,7 +100,7 @@ public class MainKruskal {
             System.out.println("Error: File Not Found.");
             return null;
         }
-        return edgeList;
+        return graph;
     }
 
     public static boolean isValidFile(File fileName) {
@@ -115,68 +117,4 @@ public class MainKruskal {
         return true;
     }
 
-    public static List<Edge> calculateKruskalMST(List<Edge> edgeList) {
-        List<Edge> minimalSpanningTree = new ArrayList<>();
-
-        Collections.sort(edgeList);
-
-        int totalVertex = countUniqueVertices(edgeList);
-        int stopCriteria = totalVertex - 1;
-
-        int acceptedEdges = 0;
-        int edgeIndex = 0;
-
-
-        UnionFind uf = new UnionFind();
-
-
-        while (acceptedEdges < stopCriteria && edgeIndex < edgeList.size()) {
-            Edge nextEdge = edgeList.get(edgeIndex++);
-
-            if (uf.union(nextEdge.getWaterPointX(), nextEdge.getWaterPointY())) { // Se a união não criar um ciclo
-                minimalSpanningTree.add(nextEdge); // Adiciona a aresta à MST
-                acceptedEdges++;
-            }
-        }
-        return minimalSpanningTree;
-    }
-
-    public static int countUniqueVertices(List<Edge> edgeList) {
-        List<String> uniqueVertices = new ArrayList<>();
-
-        for (Edge route : edgeList) {
-            String waterPointX = route.getWaterPointX();
-            String waterPointY = route.getWaterPointY();
-
-            // Adiciona waterPointX ao Array se ainda não estiver na lista de vértices únicos
-            if (!uniqueVertices.contains(waterPointX)) {
-                uniqueVertices.add(waterPointX);
-            }
-
-            // Adiciona waterPointX ao Array se ainda não estiver na lista de vértices únicos
-            if (!uniqueVertices.contains(waterPointY)) {
-                uniqueVertices.add(waterPointY);
-            }
-        }
-        return uniqueVertices.size();
-    }
-
-    public static void printMinimalSpanningTree(List<Edge> minimalSpanningTree, String fileName) {
-        System.out.println();
-        System.out.printf("Minimal Spanning Tree of file : %s%n", fileName);
-        for (Edge edge : minimalSpanningTree) {
-            System.out.println(edge.getWaterPointX() + " ---- " + edge.getWaterPointY() + " : " + edge.getDistance());
-        }
-        System.out.println("Total cost is: " + obtainTotalCost(minimalSpanningTree));
-    }
-
-    public static double obtainTotalCost(List<Edge> minimumSpanningTree) {
-
-        double totalCost = 0;
-
-        for (Edge edge : minimumSpanningTree) {
-            totalCost += edge.getDistance();
-        }
-        return totalCost;
-    }
 }
