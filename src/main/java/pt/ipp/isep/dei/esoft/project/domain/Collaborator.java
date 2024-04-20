@@ -8,6 +8,9 @@ public class Collaborator {
     private String name;
     private Date birthdate;
     private Date admissionDate;
+
+
+    private Job job;
     private Address address;
     private Email email;
     private String mobileNumber;
@@ -49,12 +52,13 @@ public class Collaborator {
     private static final int MOBILE_NUMBER_TOTAL_DIGITS = 9;
 
     public Collaborator(String name, Date birthdate, Date admissionDate, String street, int streetNumber, String postalCode,
-                        String city, String district, String email, String mobileNumber, IdDocType idDocType, int idDocNumber) {
+                        String city, String district, String email, String mobileNumber, IdDocType idDocType, int idDocNumber, Job job) {
         setName(name);
         this.birthdate = birthdate;
         this.admissionDate = admissionDate;
         this.address = new Address(street, streetNumber, postalCode, city, district);
         this.email = new Email(email);
+        this.job = job;
         setMobileNumber(mobileNumber);
         setIdDocType(idDocType);
         setIdDocNumber(idDocNumber, idDocType);
@@ -104,6 +108,14 @@ public class Collaborator {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public Job getJob() {
+        return job;
+    }
+
+    public void setJob(Job job) {
+        this.job = job;
     }
 
     public Email getEmail() {
