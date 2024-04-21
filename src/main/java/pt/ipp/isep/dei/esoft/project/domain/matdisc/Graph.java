@@ -43,7 +43,7 @@ public class Graph {
         }
     }
 
-    public void calculateMST() {
+    public List<Edge> calculateMST() {
         List<Edge> minimalSpanningTree = new ArrayList<>();
         sortEdgesByDistance();
         int size = vertices.size();
@@ -62,11 +62,7 @@ public class Graph {
                 totalCost += edge.getDistance();
             }
         }
-        System.out.println();
-        for (Edge edge : minimalSpanningTree) {
-            System.out.println(edge.getWaterPointX() + " ---- " + edge.getWaterPointY() + " : " + edge.getDistance());
-        }
-        System.out.println("Total cost is: " + totalCost);
+        return minimalSpanningTree;
     }
     public void sortEdgesByDistance() {
         bubbleSort(edges);

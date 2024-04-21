@@ -2,6 +2,8 @@ package pt.ipp.isep.dei.esoft.project.domain.matdisc;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -29,7 +31,8 @@ public class MainKruskal {
             try {
                 if (graph != null && graph.getEdges() != null) {
                     int totalLines = graph.getEdges().size();
-                    graph.calculateMST();
+                    List<Edge> minimalSpanningTree = graph.calculateMST();
+                    printMSTandCost(minimalSpanningTree);
                     endTime = System.currentTimeMillis();
                     long executionTime = endTime - startTime;
                     FileInfo fileInfo = new FileInfo(fileName, totalLines, executionTime);
@@ -115,6 +118,16 @@ public class MainKruskal {
             return false;
         }
         return true;
+    }
+
+    public static void printMSTandCost(List<Edge> minimalSpanningTree) {
+        System.out.println();
+        double totalCost = 0;
+        for (Edge edge : minimalSpanningTree) {
+            System.out.println(edge.getWaterPointX() + " ---- " + edge.getWaterPointY() + " : " + edge.getDistance());
+            totalCost += edge.getDistance();
+        }
+        System.out.println("Total cost is: " + totalCost);
     }
 
 }
