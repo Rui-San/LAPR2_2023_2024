@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.domain.matdisc;
 
+import org.graphstream.graph.implementations.SingleGraph;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -11,7 +13,6 @@ import java.util.Scanner;
 public class MainKruskal {
     public static final String CSV_DIVISOR = ";";
     public static final int TOTAL_NUMBER_OF_COLUMNS = 3;
-
     public static List<FileInfo> FILE_INFO_LIST = new ArrayList<>();
 
     public static void main(String[] args) {
@@ -33,6 +34,7 @@ public class MainKruskal {
                     int totalLines = graph.getEdges().size();
                     List<Edge> minimalSpanningTree = graph.calculateMST();
                     printMSTandCost(minimalSpanningTree);
+                    generateGraphViz(minimalSpanningTree);
                     endTime = System.currentTimeMillis();
                     long executionTime = endTime - startTime;
                     FileInfo fileInfo = new FileInfo(fileName, totalLines, executionTime);
@@ -128,6 +130,26 @@ public class MainKruskal {
             totalCost += edge.getDistance();
         }
         System.out.println("Total cost is: " + totalCost);
+    }
+
+    public static void generateGraphViz(List<Edge> edges) {
+        try {
+            FileWriter writer = new FileWriter("graph.dot");
+
+            writer.write("graph {\n");
+
+            for (Edge edge : edges) {
+                writer.write("    " + edge.getWaterPointX() + " -- " + edge.getWaterPointY() + " [label=\"" + edge.getDistance() + "\"];\n");
+            }
+
+            writer.write("}\n");
+            writer.close();
+
+            System.out.println("Graphviz DOT file generated successfully.");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

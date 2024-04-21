@@ -6,7 +6,6 @@ import java.util.List;
 
 public class Graph {
     private List<Edge> edges = new ArrayList<>();
-    private double totalCost = 0;
     private List<String> vertices = new ArrayList<>();
 
     public void addEdge(String v1, String v2, double dist) {
@@ -59,7 +58,6 @@ public class Graph {
             if (root1 != root2) {
                 union(edge.getWaterPointX(), edge.getWaterPointY(), parent);
                 minimalSpanningTree.add(edge);
-                totalCost += edge.getDistance();
             }
         }
         return minimalSpanningTree;
@@ -80,12 +78,6 @@ public class Graph {
                 }
             }
         }
-    }
-
-
-
-    public double getTotalCost() {
-        return totalCost;
     }
 
 }
