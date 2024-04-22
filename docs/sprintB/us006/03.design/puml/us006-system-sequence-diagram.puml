@@ -13,7 +13,7 @@ participant ":RegisterVehicleController" as CTRL
 participant ":organization \nOrganization" as ORG
 participant ":Repository" as REP
 participant ":repositories \nRepositories" as REPS
-participant ":VehicleRepository \nVehicleRepository" as SR
+participant ":VehicleRepository \nVehicleRepository" as VR
 
 activate Employee
 
@@ -52,6 +52,8 @@ System --> Employee : Requests vehicle data (plate id, brand, model, type,\ntare
             REPS-->ORG: VehicleRepository
 
             deactivate REPS
+
+
 
 
 
