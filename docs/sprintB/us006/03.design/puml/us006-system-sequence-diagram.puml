@@ -10,7 +10,6 @@ autonumber
 actor "Fleet Manager" as Employee
 participant ":RegisterVehicleUI" as System
 participant ":RegisterVehicleController" as CTRL
-participant ":organization \nOrganization" as ORG
 participant ":Repository" as REP
 participant ":repositories \nRepositories" as REPS
 participant ":VehicleRepository \nVehicleRepository" as VR
@@ -34,32 +33,32 @@ System --> Employee : Requests vehicle data (plate id, brand, model, type,\ntare
     activate System
         System->CTRL :RegisterVehicle(plateId,brand,model,\ntype,tare,grossWeight,currentKm,\nregisterDate,acquisitionDate,\ncheckupFrequencyKms)
         activate CTRL
-            CTRL->ORG :RegisterVehicle(plateId,brand,model,\ntype,tare,grossWeight,currentKm,\nregisterDate,acquisitionDate,\ncheckupFrequencyKms)
-            activate ORG
 
-            ORG->REP: getInstance()
+            CTRL->REP: getInstance()
 
             activate REP
 
-            REP-->ORG: repositories
+            REP-->CTRL: repositories
 
             deactivate REP
 
-            ORG->REPS: getVehicleRepository()
+            CTRL->REPS: getVehicleRepository()
 
             activate REPS
 
-            REPS-->ORG: VehicleRepository
+            REPS-->CTRL: VehicleRepository
 
             deactivate REPS
 
+            CTRL->VR: create
 
+            activate VR
 
+            VR-->CTRL: vehicle
 
+            deactivate VR
 
-            ORG-->CTRL: Vehicle
-
-            CTRL-->System: Vehicle
+            CTRL-->System: vehicle
 
             System->System: keepData(plate id, brand, model, type,\ntare, gross weight, current km, register date,\nacquisition date, checkup frequency kms)
 
