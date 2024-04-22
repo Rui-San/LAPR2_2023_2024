@@ -47,9 +47,14 @@ public class MainUS14 {
 
                 FileInfo fileInfo = new FileInfo(csvFile.getName(), totalLines, executionTime);
                 FILE_INFO_LIST.add(fileInfo);
-                System.out.println();
             }
         }
+
+        for (FileInfo fileinfo : FILE_INFO_LIST){
+            System.out.println(fileinfo);
+            System.out.println();
+        }
+
         SwingUtilities.invokeLater(() -> {
             showExecutionTimeGraph(FILE_INFO_LIST);
         });
