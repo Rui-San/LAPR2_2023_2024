@@ -45,6 +45,15 @@ System --> Employee : Requests vehicle data (plate id, brand, model, type,\ntare
 
             deactivate REP
 
+            ORG->REPS: getVehicleRepository()
+
+            activate REPS
+
+            REPS-->ORG: VehicleRepository
+
+            deactivate REPS
+
+
 
             ORG-->CTRL: Vehicle
 
