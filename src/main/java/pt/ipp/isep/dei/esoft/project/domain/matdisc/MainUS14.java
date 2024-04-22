@@ -1,10 +1,17 @@
 package pt.ipp.isep.dei.esoft.project.domain.matdisc;
 
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.xy.XYDataset;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
+
+import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -39,12 +46,58 @@ public class MainUS14 {
                 long executionTime = endTime - startTime;
 
                 FileInfo fileInfo = new FileInfo(csvFile.getName(), totalLines, executionTime);
+                FILE_INFO_LIST.add(fileInfo);
                 System.out.println();
-                System.out.println(fileInfo);
             }
         }
+        SwingUtilities.invokeLater(() -> {
+            showExecutionTimeGraph(FILE_INFO_LIST);
+        });
 
 
+    }
+
+    public static void showExecutionTimeGraph(List<FileInfo> fileInfoList) {
+        // Create dataset
+        XYDataset dataset = createDataset(fileInfoList);
+
+        // Create chart
+        JFreeChart chart = ChartFactory.createScatterPlot(
+                "Execution Time vs Graph Dimension", // Chart title
+                "Graph Dimension", // X-Axis label
+                "Execution Time (ms)", // Y-Axis label
+                dataset,
+                PlotOrientation.VERTICAL,
+                true, true, false
+        );
+
+        // Customize chart...
+        ChartPanel chartPanel = new ChartPanel(chart);
+        chartPanel.setPreferredSize(new Dimension(800, 600));
+
+        // Create a new JFrame to display the chart
+        JFrame frame = new JFrame("Execution Time Graph");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().add(chartPanel);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
+
+    private static XYDataset createDataset(List<FileInfo> fileInfoList) {
+        XYSeriesCollection dataset = new XYSeriesCollection();
+
+        // Create a series for the data
+        XYSeries series = new XYSeries("Execution Time vs Graph Dimension");
+
+        // Populate the series with data from the FileInfo list
+        for (FileInfo fileInfo : fileInfoList) {
+            series.add(fileInfo.getTotalLines(), fileInfo.getExecutionTime());
+        }
+
+        dataset.addSeries(series);
+
+        return dataset;
     }
 
     public static Graph readCsvFile(String fileName) {
