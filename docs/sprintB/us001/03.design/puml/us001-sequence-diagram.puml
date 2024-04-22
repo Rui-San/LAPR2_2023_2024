@@ -32,7 +32,7 @@ activate Employee
 end
     Employee -> System : Confirms data and submits
     activate System
-        System -> RSC : createSkill(skill name)
+        System -> RSC : createSkill(skillName)
         activate RSC
 
                 RSC -> REP : getInstance()
@@ -46,13 +46,19 @@ end
                 REPS --> RSC : skillRepository
                 deactivate REPS
 
-                RSC -> SR : addToSkillList(skill name)
+                RSC -> SR : createSkill(skillName)
                 activate SR
-                SR --> RSC : skill name
+
+                SR -> Skill** : createSkill(skillName)
+                Skill --> Skill : validate(skillName)
+
+                SR --> SR : validate(skillName)
+                SR --> SR : addToSkillList(skillName)
+                SR --> RSC : skillName
                 deactivate SR
 
 
-            RSC --> System : skill name
+            RSC --> System : skillName
 
         deactivate RSC
 
