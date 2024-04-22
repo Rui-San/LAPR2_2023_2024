@@ -11,6 +11,9 @@ actor "Fleet Manager" as Employee
 participant ":RegisterVehicleUI" as System
 participant ":RegisterVehicleController" as CTRL
 participant ":organization \nOrganization" as ORG
+participant ":Repository" as REP
+participant ":repositories \nRepositories" as REPS
+participant ":VehicleRepository \nVehicleRepository" as SR
 
 activate Employee
 
@@ -32,13 +35,23 @@ System --> Employee : Requests vehicle data (plate id, brand, model, type,\ntare
         System->CTRL :RegisterVehicle(plateId,brand,model,\ntype,tare,grossWeight,currentKm,\nregisterDate,acquisitionDate,\ncheckupFrequencyKms)
         activate CTRL
             CTRL->ORG :RegisterVehicle(plateId,brand,model,\ntype,tare,grossWeight,currentKm,\nregisterDate,acquisitionDate,\ncheckupFrequencyKms)
-            |||
-            |||
             activate ORG
-               ORG->Vehicle**: getVehicle
-            ORG->CTRL: Vehicle
-            CTRL->System: Vehicle
+
+            ORG->REP: getInstance()
+
+            activate REP
+
+            REP-->ORG: repositories
+
+            deactivate REP
+
+
+            ORG-->CTRL: Vehicle
+
+            CTRL-->System: Vehicle
+
             System->System: keepData(plate id, brand, model, type,\ntare, gross weight, current km, register date,\nacquisition date, checkup frequency kms)
+
         System --> Employee : Displays operation success
     deactivate System
 
