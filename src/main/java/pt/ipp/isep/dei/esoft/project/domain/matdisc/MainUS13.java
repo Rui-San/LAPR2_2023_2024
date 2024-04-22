@@ -40,6 +40,7 @@ public class MainUS13 {
                 System.out.println();
                 System.out.println(fileInfo);
                 generateGraphViz(minimalSpanningTree);
+
             }
         } catch (NumberFormatException e) {
             System.out.println("The file must not be empty");
@@ -126,8 +127,6 @@ public class MainUS13 {
 
             writer.write("}\n");
             writer.close();
-            System.out.println();
-            System.out.println("Graphviz DOT file generated successfully.");
 
         } catch (IOException e) {
             e.printStackTrace();
