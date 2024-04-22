@@ -101,13 +101,13 @@ activate Employee
                 TPC -> TP : addToTeamRepository(team)
 
                 activate TP
-                TP --> TPC : (team)
+                TP --> TPC : team
                 deactivate TP
 
 
     end loop
     |||
-        TPC --> System : (team)
+        TPC --> System : team
         deactivate TPC
 
 
