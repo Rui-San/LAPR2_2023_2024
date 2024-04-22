@@ -62,11 +62,9 @@ public class Graph {
         }
         return minimalSpanningTree;
     }
-    public void sortEdgesByDistance() {
-        bubbleSort(edges);
-    }
 
-    private void bubbleSort(List<Edge> edges) {
+
+    private void sortEdgesByDistance() {
         int n = edges.size();
         for (int i = 0; i < n - 1; i++) {
             for (int j = 0; j < n - i - 1; j++) {

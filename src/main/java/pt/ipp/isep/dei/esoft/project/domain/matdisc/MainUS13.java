@@ -1,7 +1,5 @@
 package pt.ipp.isep.dei.esoft.project.domain.matdisc;
 
-import org.graphstream.graph.implementations.SingleGraph;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -10,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class MainKruskal {
+public class MainUS13 {
     public static final String CSV_DIVISOR = ";";
     public static final int TOTAL_NUMBER_OF_COLUMNS = 3;
     public static List<FileInfo> FILE_INFO_LIST = new ArrayList<>();
@@ -18,58 +16,36 @@ public class MainKruskal {
     public static void main(String[] args) {
 
         Scanner read = new Scanner(System.in);
-        boolean continueProgram = true;
+
 
         long startTime, endTime;
 
-        while (continueProgram) {
-            System.out.println("What is the path of the file?");
-            String fileName = read.nextLine();
 
-            startTime = System.currentTimeMillis();
-            Graph graph = readCsvFile(fileName);
+        System.out.println("What is the path of the file?");
+        String fileName = read.nextLine();
 
-            try {
-                if (graph != null && graph.getEdges() != null) {
-                    int totalLines = graph.getEdges().size();
-                    List<Edge> minimalSpanningTree = graph.calculateMST();
-                    printMSTandCost(minimalSpanningTree);
-                    generateGraphViz(minimalSpanningTree);
-                    endTime = System.currentTimeMillis();
-                    long executionTime = endTime - startTime;
-                    FileInfo fileInfo = new FileInfo(fileName, totalLines, executionTime);
-                    FILE_INFO_LIST.add(fileInfo);
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("The file must not be empty");
-            }
+        startTime = System.currentTimeMillis();
+        Graph graph = readCsvFile(fileName);
 
-            boolean validAnswer = false;
-            while (!validAnswer) {
+        try {
+            if (graph != null && graph.getEdges() != null) {
+                int totalLines = graph.getEdges().size();
+                List<Edge> minimalSpanningTree = graph.calculateMST();
+                printMST(minimalSpanningTree);
+                double totalCost= obtainTotalCost(minimalSpanningTree);
+
+                endTime = System.currentTimeMillis();
+                long executionTime = endTime - startTime;
+                FileInfo fileInfo = new FileInfo(fileName, totalLines, executionTime, totalCost);
                 System.out.println();
-                System.out.println("You wish to insert more csv files?");
-                System.out.println("Yes or No");
-                String answer = read.nextLine();
-                if (answer.equalsIgnoreCase("No")) {
-                    continueProgram = false;
-                    validAnswer = true;
-                } else if (answer.equalsIgnoreCase("Yes")) {
-                    validAnswer = true;
-                } else {
-                    System.out.println("Please, answer Yes or No");
-                }
-
+                System.out.println(fileInfo);
+                generateGraphViz(minimalSpanningTree);
             }
+        } catch (NumberFormatException e) {
+            System.out.println("The file must not be empty");
         }
-        System.out.println();
-        System.out.println("Ficheiros lidos até ao fecho do programa:");
-
-        for (FileInfo fileInfo : FILE_INFO_LIST) {
-            System.out.println(fileInfo);
-        }
-
-
     }
+
 
     public static Graph readCsvFile(String fileName) {
         Graph graph = new Graph();
@@ -122,14 +98,20 @@ public class MainKruskal {
         return true;
     }
 
-    public static void printMSTandCost(List<Edge> minimalSpanningTree) {
+    public static void printMST(List<Edge> minimalSpanningTree) {
         System.out.println();
+        for (Edge edge : minimalSpanningTree) {
+            System.out.println(edge.getWaterPointX() + " ---- " + edge.getWaterPointY() + " : " + edge.getDistance());
+        }
+    }
+
+    public static double obtainTotalCost(List<Edge> minimalSpanningTree) {
         double totalCost = 0;
         for (Edge edge : minimalSpanningTree) {
             System.out.println(edge.getWaterPointX() + " ---- " + edge.getWaterPointY() + " : " + edge.getDistance());
             totalCost += edge.getDistance();
         }
-        System.out.println("Total cost is: " + totalCost);
+        return totalCost;
     }
 
     public static void generateGraphViz(List<Edge> edges) {
@@ -144,7 +126,7 @@ public class MainKruskal {
 
             writer.write("}\n");
             writer.close();
-
+            System.out.println();
             System.out.println("Graphviz DOT file generated successfully.");
 
         } catch (IOException e) {
