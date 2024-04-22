@@ -3,13 +3,23 @@ package pt.ipp.isep.dei.esoft.project.domain.matdisc;
 public class FileInfo {
     private String fileName;
     private int totalLines;
+    private double totalCost;
+
+
     private long executionTime;
 
+    public FileInfo(String fileName, int totalLines, long executionTime, double totalCost) {
+        this.fileName = fileName;
+        this.totalLines = totalLines;
+        this.executionTime = executionTime;
+        this.totalCost = totalCost;
+    }
     public FileInfo(String fileName, int totalLines, long executionTime) {
         this.fileName = fileName;
         this.totalLines = totalLines;
         this.executionTime = executionTime;
     }
+
 
 
     public String getFileName() {
@@ -28,12 +38,20 @@ public class FileInfo {
         this.totalLines = totalLines;
     }
 
+    public double getTotalCost() {
+        return totalCost;
+    }
+
+    public void setTotalCost(double totalCost) {
+        this.totalCost = totalCost;
+    }
+
     @Override
     public String toString() {
-        return
-                "File Name: '" + fileName + '\'' +
-                        ", Total Lines: " + totalLines +
-                        ", Execution Time: " + executionTime + "ms";
+        return "File Name: " + fileName.substring(fileName.lastIndexOf("\\") + 1) +
+                "\nGraph Dimension: " + totalLines +
+                "\nMinimum Cost: " + totalCost +
+                "\nExecution Time: " + executionTime + "ms";
     }
 
 

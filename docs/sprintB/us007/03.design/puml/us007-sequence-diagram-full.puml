@@ -18,8 +18,7 @@ participant "checkupDate\n:Date" as Date
 'participant "vehicleRepository:\nVehicleRepository" as VehicleRepository
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as PLAT
-participant "organizationRepository\n:OrganizationRepository" as OrganizationRepository
-participant "organization\n:Organization" as Organization
+participant "vehicleRepository\n:VehicleRepository" as VehicleRepository
 participant ":vehicleCheckupRepository\n:VehicleCheckupRepository" as VCRepo
 'participant "organizationRepository:\nOrganizationRepository" as OrganizationRepository
 participant ":Vehicle Checkup" as VCheckup
@@ -38,21 +37,16 @@ activate Employee
 
                 RepositorySingleton --> RCCtrl : repositories
             deactivate RepositorySingleton
-            RCCtrl -> PLAT : getOrganizationRepository()
+            RCCtrl -> PLAT : getVehicleRepository()
             activate PLAT
 
-                PLAT --> RCCtrl : organizationRepository
+                PLAT --> RCCtrl : vehicleRepository
             deactivate PLAT
-            RCCtrl --> OrganizationRepository : getOrganizationByEmail(email)
-            activate OrganizationRepository
+            RCCtrl --> VehicleRepository : getVehicles()
+            activate VehicleRepository
 
-                OrganizationRepository --> RCCtrl : organization
-            deactivate OrganizationRepository
-            RCCtrl --> Organization : getVehicles()
-            activate Organization
-
-                Organization --> RCCtrl : vehiclesList
-            deactivate Organization
+                VehicleRepository --> RCCtrl : vehiclesList
+            deactivate VehicleRepository
             RCCtrl --> UI : vehiclesList
         deactivate RCCtrl
 

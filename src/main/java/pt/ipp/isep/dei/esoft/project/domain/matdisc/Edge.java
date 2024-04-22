@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.domain.matdisc;
 
 
-public class Edge implements Comparable<Edge> {
+public class Edge {
     private String waterPointX;
     private String waterPointY;
     private double distance;
@@ -32,15 +32,7 @@ public class Edge implements Comparable<Edge> {
                 '}';
     }
 
-    public int compareTo(Edge otherEdge) {
-        if (this.distance < otherEdge.distance) {
-            return -1;
-        } else if (this.distance > otherEdge.distance) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
+
 
 
 }

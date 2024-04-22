@@ -27,12 +27,7 @@ class Date {
     - int year
 }
 
-class Organization {
-    - String name
-    - int nif
-    - String website
-    - String phone
-    - String email
+class CollaboratorRepository{
 }
 
 class JobRepository {
@@ -47,7 +42,7 @@ class Repositories {
     + getJobRepository()
 }
 
-note bottom of JobRepository
+note right of JobRepository
     - used for displaying
     the job list
 end note
@@ -75,8 +70,8 @@ class Address{
 }
 
 RegisterCollaboratorUI .right.> RegisterCollaboratorController
-RegisterCollaboratorController ..> "1" Organization : organization
-Organization -down-> Collaborator : employs
+RegisterCollaboratorController ..> "1" CollaboratorRepository : organization
+CollaboratorRepository -down-> Collaborator
 RegisterCollaboratorController ..> JobRepository
 JobRepository "1"-->"*" Job : job
 Collaborator --> Job
@@ -85,6 +80,7 @@ Collaborator --> Address
 Collaborator ..> Date
 RegisterCollaboratorController ..> Repositories
 Repositories --> "1" JobRepository
+Repositories --> "1" CollaboratorRepository
 Repositories -> Repositories : instance
 
 
