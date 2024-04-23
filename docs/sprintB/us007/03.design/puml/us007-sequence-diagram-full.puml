@@ -10,7 +10,6 @@ autonumber
 actor "Fleet Manager" as Employee
 participant ":RegisterCheckupUI" as UI
 participant ":RegisterCheckupController" as RCCtrl
-participant "checkupDate\n:Date" as Date
 'participant "taskCategoryRepository:\nTaskCategoryRepository" as TaskCategoryRepository
 'participant ":ApplicationSession" as _APP
 'participant "appSession\n:ApplicationSession" as APP
@@ -22,14 +21,15 @@ participant "vehicleRepository\n:VehicleRepository" as VehicleRepository
 participant ":vehicleCheckupRepository\n:VehicleCheckupRepository" as VCRepo
 'participant "organizationRepository:\nOrganizationRepository" as OrganizationRepository
 participant ":Vehicle Checkup" as VCheckup
+participant "Date" as Date
 
 activate Employee
 
     Employee -> UI : Asks to register a new vehicle's check-up
     activate UI
 
-        UI --> RCCtrl** : create
-        UI --> RCCtrl : getVehicleList()
+        UI -> RCCtrl** : create
+        UI -> RCCtrl : getVehicleList()
         activate RCCtrl
 
             RCCtrl -> RepositorySingleton : getInstance()
@@ -42,7 +42,7 @@ activate Employee
 
                 PLAT --> RCCtrl : vehicleRepository
             deactivate PLAT
-            RCCtrl --> VehicleRepository : getVehicles()
+            RCCtrl -> VehicleRepository : getVehicles()
             activate VehicleRepository
 
                 VehicleRepository --> RCCtrl : vehiclesList
@@ -56,11 +56,11 @@ activate Employee
     Employee -> UI : Selects a vehicle
     activate UI
 
-        UI --> UI : keepData(vehicle)
+        UI --> UI : keepsData(vehicle)
         UI --> Employee : Requests the date of the check-up\n and the current kilometers
     deactivate UI
 
-    Employee --> UI : Types requested data
+    Employee -> UI : Types requested data
     activate UI
 
         UI --> UI : keepData(checkupDate, currentKms)
@@ -69,18 +69,6 @@ activate Employee
 
     Employee -> UI : Confirms data
     activate UI
-
-        UI --> UI : validateData(currentKms, checkupDate)
-        activate UI
-
-            UI --> UI : currentKms > 0
-            UI --> Date : isPastData(checkupDate)
-            activate Date
-
-                Date --> UI : true
-            deactivate Date
-            UI --> UI : validData
-        deactivate UI
 
         UI --> RCCtrl : registerVehicleCheckup(Vehicle, \nDate of check-up, \nCurrent kilometers)
         activate RCCtrl
@@ -94,11 +82,14 @@ activate Employee
             activate VCRepo
 
                 VCRepo --> VCheckup** : VehicleCheckup(vehicle, checkupDate, currentKms)
+                VCheckup -> Date : validateDate(checkupDate)
+                VCheckup --> VCheckup : validateCurrentKms(currentKms)
                 VCRepo --> VCRepo : addCheckup(vehicleCheckup)
-                VCRepo --> RCCtrl : Operation Success
+                VCRepo --> VCRepo : validateCheckup(vehicleCheckup)
+                VCRepo --> RCCtrl : operation Success
             deactivate VCRepo
 
-            RCCtrl --> UI : Operation Success
+            RCCtrl --> UI : operation Success
         deactivate RCCtrl
 
         UI --> Employee : Displays operation success
