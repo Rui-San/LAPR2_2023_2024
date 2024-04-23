@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.esoft.project.domain.matdisc;
+package pt.ipp.isep.dei.esoft.project.domain.MATDISC_union_find;
 
 public class FileInfo {
     private String fileName;
