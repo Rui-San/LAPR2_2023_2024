@@ -6,6 +6,10 @@ import java.util.List;
 public class Graph {
     private List<Edge> edges;
 
+    public List<Edge> getEdges() {
+        return edges;
+    }
+
     private List<String> vertexes = new ArrayList<>();
 
     public Graph() {
@@ -17,6 +21,10 @@ public class Graph {
         edges.add(edge);
         addUniqueVertex(v1);
         addUniqueVertex(v2);
+    }
+
+    public int getTotalNumberOfVertices(){
+        return vertexes.size();
     }
 
     private void addUniqueVertex(String vertex) {
