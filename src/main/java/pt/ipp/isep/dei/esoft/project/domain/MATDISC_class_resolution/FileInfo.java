@@ -5,7 +5,6 @@ public class FileInfo {
     private int totalLines;
     private double totalCost;
     private int totalNumberOfVertices;
-
     private long executionTime;
 
     public FileInfo(String fileName, int totalLines, long executionTime, double totalCost, int totalNumberOfVertices) {
