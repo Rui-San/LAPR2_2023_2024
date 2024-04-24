@@ -23,7 +23,7 @@ public class MainUS13 {
         if(result== JFileChooser.APPROVE_OPTION){
             File selectedFile = fileChooser.getSelectedFile();
             String fileName = selectedFile.getAbsolutePath();
-            System.out.println("File Selected: " + selectedFile.getName());
+            System.out.println("Selected File: " + selectedFile.getName());
 
             long startTime, endTime;
 
@@ -55,6 +55,15 @@ public class MainUS13 {
 
     }
 
+    /**
+     * Reads a CSV file and constructs a graph based on its contents.
+     * This method have a lot of error preventions such as: only allows .csv files; files that really exist and the
+     * content of the file must have only 3 columns (one for WaterPointX, one for WaterPointY and one for Distance)
+     * otherwise an error message will appear indicating which error has been found.
+     *
+     * @param fileName the name of the CSV file to read
+     * @return the constructed graph
+     */
     public static Graph readCsvFile(String fileName) {
         Graph graph = new Graph();
         File csv = new File(fileName);
@@ -94,6 +103,12 @@ public class MainUS13 {
         return graph;
     }
 
+    /**
+     * Checks if a file is valid for processing.
+     *
+     * @param fileName the file to check
+     * @return true if the file is valid, false otherwise
+     */
     public static boolean isValidFile(File fileName) {
 
         if (!fileName.getName().endsWith(".csv")) {
@@ -108,13 +123,51 @@ public class MainUS13 {
         return true;
     }
 
+    /**
+     * Prints the minimal spanning tree to the console with a specific and organized look.
+     *
+     * @param minimalSpanningTree the minimal spanning tree to print
+     */
     public static void printMinimalSpanningTree(List<Edge> minimalSpanningTree) {
         System.out.println();
+        String title = "Minimal Spanning Tree";
+        int leftPaddingTitle = (65 - title.length()) / 2;
+        int rightPaddingTitle = 65 - title.length() - leftPaddingTitle;
+        System.out.printf("%" + leftPaddingTitle + "s%s%" + rightPaddingTitle + "s%n", "", title, "");
+        System.out.println("-----------------------------------------------------------------");
+
+
+        String edgesTitle = "Edges";
+        String distanceTitle = "Distance";
+        int leftPaddingEdgesTitle = (49 - edgesTitle.length()) / 2;
+        int rightPaddingEdgesTitle = 49 - edgesTitle.length() - leftPaddingEdgesTitle;
+        int leftPaddingDistanceTitle = (19 - distanceTitle.length()) / 2;
+        int rightPaddingDistanceTitle = 19 - distanceTitle.length() - leftPaddingDistanceTitle;
+        System.out.printf("%" + leftPaddingEdgesTitle + "s%s%" + rightPaddingEdgesTitle + "s%" + leftPaddingDistanceTitle + "s%s%" + rightPaddingDistanceTitle + "s%n", "", edgesTitle, "", "", distanceTitle, "");
+        System.out.println("-----------------------------------------------------------------");
+
+
         for (Edge edge : minimalSpanningTree) {
-            System.out.println(edge.getSource() + " ---- " + edge.getDestination() + " : " + edge.getDistance());
+
+            String sourceDest = edge.getSource() + " ---- " + edge.getDestination();
+            int leftPaddingSourceDest = (49 - sourceDest.length()) / 2;
+            int rightPaddingSourceDest = 49 - sourceDest.length() - leftPaddingSourceDest;
+            System.out.printf("%" + leftPaddingSourceDest + "s%s%" + rightPaddingSourceDest + "s", "", sourceDest, "");
+
+            String distance = String.format("%.2f", edge.getDistance());
+            int leftPaddingDistance = (19 - distance.length()) / 2;
+            int rightPaddingDistance = 19 - distance.length() - leftPaddingDistance;
+            System.out.printf("%" + leftPaddingDistance + "s%s%" + rightPaddingDistance + "s%n", "", distance, "");
         }
     }
 
+
+    /**
+     * Calculates the total cost of the minimal spanning tree.
+     *
+     * @param minimalSpanningTree the minimal spanning tree
+     * @return the total cost of the minimal spanning tree
+     */
     public static double obtainTotalCost(List<Edge> minimalSpanningTree) {
         double totalCost = 0;
         for (Edge edge : minimalSpanningTree) {
@@ -123,9 +176,23 @@ public class MainUS13 {
         return totalCost;
     }
 
+    /**
+     * Generates a GraphViz representation of the minimal spanning tree.
+     * Creates a graph.dot file which will be converted into a GraphViz representation using the graphPngGenerator.bat.
+     * All the images produced using this program will be store in "MATDISC_graph_images".
+     *
+     * @param edges the edges of the minimal spanning tree
+     */
     public static void generateGraphViz(List<Edge> edges) {
         try {
-            FileWriter writer = new FileWriter("graph.dot");
+            String directoryPath = "MATDISC_graph_images";
+            File directory = new File(directoryPath);
+
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+
+            FileWriter writer = new FileWriter(directoryPath + "/graph.dot");
 
             writer.write("graph {\n");
 
@@ -135,6 +202,7 @@ public class MainUS13 {
 
             writer.write("}\n");
             writer.close();
+
 
             try {
                 Runtime.getRuntime().exec("graphPngGenerator.bat");

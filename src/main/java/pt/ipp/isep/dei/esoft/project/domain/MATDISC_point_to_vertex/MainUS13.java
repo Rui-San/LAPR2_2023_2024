@@ -32,7 +32,7 @@ public class MainUS13 {
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
             String fileName = selectedFile.getAbsolutePath();
-            System.out.println("Arquivo selecionado: " + selectedFile.getName());
+            System.out.println("Selected File: " + selectedFile.getName());
 
             long startTime, endTime;
 
@@ -162,7 +162,7 @@ public class MainUS13 {
             int rightPaddingSourceDest = 49 - sourceDest.length() - leftPaddingSourceDest;
             System.out.printf("%" + leftPaddingSourceDest + "s%s%" + rightPaddingSourceDest + "s", "", sourceDest, "");
 
-            String distance = String.valueOf(edge.getDistance());
+            String distance = String.format("%.2f", edge.getDistance());
             int leftPaddingDistance = (19 - distance.length()) / 2;
             int rightPaddingDistance = 19 - distance.length() - leftPaddingDistance;
             System.out.printf("%" + leftPaddingDistance + "s%s%" + rightPaddingDistance + "s%n", "", distance, "");
