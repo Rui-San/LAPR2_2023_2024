@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.esoft.project.domain.MATDISC_class_resolution;
+package pt.ipp.isep.dei.esoft.project.domain.MATDISC_point_to_vertex;
 
 import javax.swing.*;
 import java.io.File;
@@ -16,11 +16,13 @@ public class MainUS13 {
     public static void main(String[] args) {
 
         JFileChooser fileChooser = new JFileChooser();
+
         String userHome = System.getProperty("user.home");
         fileChooser.setCurrentDirectory(new File(userHome + File.separator + "Desktop"));
+
         int result = fileChooser.showOpenDialog(null);
 
-        if(result== JFileChooser.APPROVE_OPTION){
+        if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
             String fileName = selectedFile.getAbsolutePath();
             System.out.println("Arquivo selecionado: " + selectedFile.getName());
@@ -49,15 +51,9 @@ public class MainUS13 {
                 System.out.println("The file must not be empty");
             }
 
-
-
-
-        } else{
+        } else {
             System.out.println("Nenhum arquivo foi selecionado.");
         }
-
-
-
     }
 
     public static Graph readCsvFile(String fileName) {
