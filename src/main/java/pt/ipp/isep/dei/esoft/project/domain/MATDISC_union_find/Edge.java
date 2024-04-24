@@ -1,38 +1,27 @@
 package pt.ipp.isep.dei.esoft.project.domain.MATDISC_union_find;
 
-
 public class Edge {
-    private String waterPointX;
-    private String waterPointY;
+    private String source;
+    private String destination;
     private double distance;
 
-    public Edge(String waterPointX, String waterPointY, double distance) {
-        this.waterPointX = waterPointX;
-        this.waterPointY = waterPointY;
-        this.distance = distance;
+    public String getSource() {
+        return source;
     }
 
-    public String getWaterPointX() {
-        return waterPointX;
-    }
-
-    public String getWaterPointY() {
-        return waterPointY;
+    public String getDestination() {
+        return destination;
     }
 
     public double getDistance() {
         return distance;
     }
 
-    @Override
-    public String toString() {
-        return "Water Point X=" + waterPointX +
-                ", Water Point Y=" + waterPointY +
-                ", Distance=" + distance +
-                '}';
+    public Edge(String source, String destination, double distance) {
+        this.source = source;
+        this.destination = destination;
+        this.distance = distance;
     }
-
-
 
 
 }

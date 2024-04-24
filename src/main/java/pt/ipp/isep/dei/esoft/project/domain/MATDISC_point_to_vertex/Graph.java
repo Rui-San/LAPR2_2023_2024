@@ -47,8 +47,6 @@ public class Graph {
         int criterioParagem = numVertices - 1;
         int addedEdges = 0;
 
-        int[] vertexPoints = new int[numVertices];
-
         List<PointToVertex> pointToVertexList = new ArrayList<>();
 
         for (int i = 0; i < numVertices; i++) {
@@ -74,7 +72,7 @@ public class Graph {
             }
 
             if (indexV1 != indexV2) {
-                pointToVertexList.get(indexV2).setPointToVertex(indexV1);
+                pointToVertexList.get(indexV2).setVertexIndex(indexV1);
                 addedEdges++;
                 minimalSpanningTree.add(edge);
             }
