@@ -12,6 +12,11 @@ public class UnionFind {
         }
     }
 
+    /**
+     * dizer o que o método faz em conjunto com o método connected e union
+     * @param p
+     * @return
+     */
     public int find(int p) {
         while (p != parent[p]) {
             parent[p] = parent[parent[p]]; // Otimização de caminho
@@ -20,10 +25,20 @@ public class UnionFind {
         return p;
     }
 
+    /**
+     * dizer o que o método faz em conjunto com o método find e union
+     * @param p
+     * @return
+     */
     public boolean connected(int p, int q) {
         return find(p) == find(q);
     }
 
+    /**
+     * dizer o que o método faz em conjunto com o método connected e find
+     * @param p
+     * @return
+     */
     public void union(int p, int q) {
         int rootP = find(p);
         int rootQ = find(q);

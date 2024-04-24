@@ -7,10 +7,6 @@ import java.util.List;
 public class Graph {
     private List<Edge> edges;
 
-    public List<Edge> getEdges() {
-        return edges;
-    }
-
     private List<String> vertexes = new ArrayList<>();
 
     public Graph() {
@@ -22,6 +18,10 @@ public class Graph {
         edges.add(edge);
         addUniqueVertex(v1);
         addUniqueVertex(v2);
+    }
+
+    public List<Edge> getEdges() {
+        return edges;
     }
 
     public int getTotalNumberOfVertices() {
@@ -38,6 +38,11 @@ public class Graph {
         return vertexes;
     }
 
+    /**
+     * Explica passo a passo o como este algoritmo funciona (incluindo a logica de union find que usa (ver class union find), o que faz e adiciona arestas se nao criar um ciclo)
+     *
+     * @return
+     */
     public List<Edge> getMinimalSpanningTree() {
         List<Edge> minimalSpanningTree = new ArrayList<>();
 
@@ -65,10 +70,10 @@ public class Graph {
     }
 
     public void sortEdgesByDistance() {
-        bubbleSort(edges);
+        bubbleSortByDistance(edges);
     }
 
-    private void bubbleSort(List<Edge> edges) {
+    private void bubbleSortByDistance(List<Edge> edges) {
         int n = edges.size();
         for (int i = 0; i < n - 1; i++) {
             for (int j = 0; j < n - i - 1; j++) {

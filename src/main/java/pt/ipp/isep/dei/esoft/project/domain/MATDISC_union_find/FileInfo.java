@@ -46,6 +46,14 @@ public class FileInfo {
         this.totalCost = totalCost;
     }
 
+    public long getExecutionTime() {
+        return executionTime;
+    }
+
+    public void setExecutionTime(long executionTime) {
+        this.executionTime = executionTime;
+    }
+
     @Override
     public String toString() {
         return "File Name: " + fileName.substring(fileName.lastIndexOf("\\") + 1) +
@@ -56,11 +64,5 @@ public class FileInfo {
     }
 
 
-    public long getExecutionTime() {
-        return executionTime;
-    }
 
-    public void setExecutionTime(long executionTime) {
-        this.executionTime = executionTime;
-    }
 }

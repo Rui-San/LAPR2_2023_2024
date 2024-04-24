@@ -187,7 +187,7 @@ public class MainUS13 {
     /**
      * Generates a GraphViz representation of the minimal spanning tree.
      * Creates a graph.dot file which will be converted into a GraphViz representation using the graphPngGenerator.bat.
-     * All the images produced using this program will be store in "MATDISC_graph_images".
+     * All the images produced using this program will be stored in "MATDISC_graph_images".
      *
      * @param edges the edges of the minimal spanning tree
      */

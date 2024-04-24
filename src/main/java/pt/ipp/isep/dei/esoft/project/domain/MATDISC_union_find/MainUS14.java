@@ -115,13 +115,6 @@ public class MainUS14 {
         return true;
     }
 
-    public static void printMinimalSpanningTree(List<Edge> minimalSpanningTree) {
-        System.out.println();
-        for (Edge edge : minimalSpanningTree) {
-            System.out.println(edge.getSource() + " ---- " + edge.getDestination() + " : " + edge.getDistance());
-        }
-    }
-
     public static double obtainTotalCost(List<Edge> minimalSpanningTree) {
         double totalCost = 0;
         for (Edge edge : minimalSpanningTree) {
@@ -130,35 +123,15 @@ public class MainUS14 {
         return totalCost;
     }
 
-    public static void generateGraphViz(List<Edge> edges) {
-        try {
-            FileWriter writer = new FileWriter("graph.dot");
-
-            writer.write("graph {\n");
-
-            for (Edge edge : edges) {
-                writer.write("    " + edge.getSource() + " -- " + edge.getDestination() + " [label=\"" + edge.getDistance() + "\"];\n");
-            }
-
-            writer.write("}\n");
-            writer.close();
-
-            try {
-                Runtime.getRuntime().exec("graphPngGenerator.bat");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
+    /**
+     * Generates and displays the execution time graph.
+     *
+     * @param fileInfoList list of FileInfo objects containing execution time data
+     */
     public static void showExecutionTimeGraph(List<FileInfo> fileInfoList) {
-        // Create dataset
+
         XYDataset dataset = createDataset(fileInfoList);
 
-        // Create chart
         JFreeChart chart = ChartFactory.createScatterPlot(
                 "Execution Time vs Graph Dimension", // Chart title
                 "Graph Dimension", // X-Axis label
@@ -168,11 +141,9 @@ public class MainUS14 {
                 true, true, false
         );
 
-        // Customize chart...
         ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setPreferredSize(new Dimension(800, 600));
 
-        // Create a new JFrame to display the chart
         JFrame frame = new JFrame("Execution Time Graph");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().add(chartPanel);
@@ -181,13 +152,17 @@ public class MainUS14 {
         frame.setVisible(true);
     }
 
+    /**
+     * Creates a dataset for the execution time graph.
+     *
+     * @param fileInfoList list of FileInfo objects containing execution time data
+     * @return the dataset for the execution time graph
+     */
     private static XYDataset createDataset(List<FileInfo> fileInfoList) {
         XYSeriesCollection dataset = new XYSeriesCollection();
 
-        // Create a series for the data
         XYSeries series = new XYSeries("Execution Time vs Graph Dimension");
 
-        // Populate the series with data from the FileInfo list
         for (FileInfo fileInfo : fileInfoList) {
             series.add(fileInfo.getTotalLines(), fileInfo.getExecutionTime());
         }
