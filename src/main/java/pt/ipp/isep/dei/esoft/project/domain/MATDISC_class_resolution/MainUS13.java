@@ -1,10 +1,10 @@
 package pt.ipp.isep.dei.esoft.project.domain.MATDISC_class_resolution;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Scanner;
 
@@ -15,31 +15,47 @@ public class MainUS13 {
 
     public static void main(String[] args) {
 
-        Scanner read = new Scanner(System.in);
-        long startTime, endTime;
-        System.out.println("What is the path of the file?");
-        String fileName = read.nextLine();
+        JFileChooser fileChooser = new JFileChooser();
+        int result = fileChooser.showOpenDialog(null);
 
-        startTime = System.currentTimeMillis();
-        Graph graph = readCsvFile(fileName);
+        if(result== JFileChooser.APPROVE_OPTION){
+            File selectedFile = fileChooser.getSelectedFile();
+            String fileName = selectedFile.getAbsolutePath();
+            System.out.println("Arquivo selecionado: " + selectedFile.getName());
 
-        try {
-            if (graph != null && graph.getEdges() != null) {
-                int totalLines = graph.getEdges().size();
-                List<Edge> minimalSpanningTree = graph.getMinimalSpanningTree();
-                printMinimalSpanningTree(minimalSpanningTree);
-                double totalCost = obtainTotalCost(minimalSpanningTree);
-                endTime = System.currentTimeMillis();
-                long executionTime = endTime - startTime;
-                int numberOfVertices = graph.getTotalNumberOfVertices();
-                FileInfo fileInfo = new FileInfo(fileName, totalLines, executionTime, totalCost, numberOfVertices);
-                System.out.println();
-                System.out.println(fileInfo);
-                generateGraphViz(minimalSpanningTree);
+            long startTime, endTime;
+
+
+            startTime = System.currentTimeMillis();
+            Graph graph = readCsvFile(fileName);
+
+            try {
+                if (graph != null && graph.getEdges() != null) {
+                    int totalLines = graph.getEdges().size();
+                    List<Edge> minimalSpanningTree = graph.getMinimalSpanningTree();
+                    printMinimalSpanningTree(minimalSpanningTree);
+                    double totalCost = obtainTotalCost(minimalSpanningTree);
+                    endTime = System.currentTimeMillis();
+                    long executionTime = endTime - startTime;
+                    int numberOfVertices = graph.getTotalNumberOfVertices();
+                    FileInfo fileInfo = new FileInfo(fileName, totalLines, executionTime, totalCost, numberOfVertices);
+                    System.out.println();
+                    System.out.println(fileInfo);
+                    generateGraphViz(minimalSpanningTree);
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("The file must not be empty");
             }
-        } catch (NumberFormatException e) {
-            System.out.println("The file must not be empty");
+
+
+
+
+        } else{
+            System.out.println("Nenhum arquivo foi selecionado.");
         }
+
+
+
     }
 
     public static Graph readCsvFile(String fileName) {
