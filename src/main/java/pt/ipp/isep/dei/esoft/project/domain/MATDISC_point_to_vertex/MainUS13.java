@@ -153,7 +153,17 @@ public class MainUS13 {
 
     public static void generateGraphViz(List<Edge> edges) {
         try {
-            FileWriter writer = new FileWriter("graph.dot");
+            // Diretório relativo dentro do projeto
+            String directoryPath = "MATDISC_graph_images";
+            File directory = new File(directoryPath);
+
+            // Verifique se o diretório existe, se não, crie-o dentro do projeto
+            if (!directory.exists()) {
+                directory.mkdirs(); // Cria o diretório e todos os diretórios pai necessários
+            }
+
+            // Crie o FileWriter para o arquivo graph.dot no diretório especificado
+            FileWriter writer = new FileWriter(directoryPath + "/graph.dot");
 
             writer.write("graph {\n");
 
@@ -164,8 +174,9 @@ public class MainUS13 {
             writer.write("}\n");
             writer.close();
 
+
             try {
-                Runtime.getRuntime().exec("batch.bat");
+                Runtime.getRuntime().exec("graphPngGenerator.bat");
             } catch (IOException e) {
                 e.printStackTrace();
             }

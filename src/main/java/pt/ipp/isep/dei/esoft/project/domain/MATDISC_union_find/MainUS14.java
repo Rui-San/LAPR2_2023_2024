@@ -144,7 +144,7 @@ public class MainUS14 {
             writer.close();
 
             try {
-                Runtime.getRuntime().exec("batch.bat");
+                Runtime.getRuntime().exec("graphPngGenerator.bat");
             } catch (IOException e) {
                 e.printStackTrace();
             }

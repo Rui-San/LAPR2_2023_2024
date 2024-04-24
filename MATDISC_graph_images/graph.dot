@@ -1,0 +1,26 @@
+graph {
+    Tilia -- Camelia_e3 [label="3.0"];
+    Carvalho -- Camelia_e1 [label="4.0"];
+    Abrunheiro -- Ginkgo [label="4.0"];
+    Camelia_e1 -- Camelia_e2 [label="4.0"];
+    Camelia_d3 -- Camelia_d2 [label="4.0"];
+    Liquidanbar -- Abrunheiro [label="5.0"];
+    Sobreiro -- Camelia_d1 [label="5.0"];
+    Camelia_e2 -- Camelia_e3 [label="5.0"];
+    Camelia_d4 -- Camelia_d3 [label="5.0"];
+    Camelia_d2 -- Camelia_d1 [label="5.0"];
+    Liquidanbar -- Camelia_e9 [label="6.0"];
+    Folhado -- Camelia_d5 [label="6.0"];
+    Camelia_e3 -- Camelia_e4 [label="6.0"];
+    Camelia_e4 -- Camelia_e6 [label="6.0"];
+    Camelia_e8 -- Camelia_e9 [label="6.0"];
+    Camelia_d7 -- Camelia_d6 [label="6.0"];
+    Camelia_d6 -- Camelia_d5 [label="6.0"];
+    Camelia_d5 -- Camelia_d4 [label="6.0"];
+    Castanheiro_India -- Camelia_e6 [label="7.0"];
+    Olaia -- Liquidanbar [label="7.0"];
+    Camelia_e7 -- Camelia_e8 [label="7.0"];
+    Magnolia -- Camelia_d6 [label="8.0"];
+    Castanheiro_India -- Olaia [label="10.0"];
+    Camelia_e1 -- Camelia_d1 [label="10.0"];
+}
