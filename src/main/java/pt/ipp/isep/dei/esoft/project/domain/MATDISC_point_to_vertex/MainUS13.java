@@ -111,10 +111,37 @@ public class MainUS13 {
 
     public static void printMinimalSpanningTree(List<Edge> minimalSpanningTree) {
         System.out.println();
+        String title = "Minimal Spanning Tree";
+        int leftPaddingTitle = (65 - title.length()) / 2;
+        int rightPaddingTitle = 65 - title.length() - leftPaddingTitle;
+        System.out.printf("%" + leftPaddingTitle + "s%s%" + rightPaddingTitle + "s%n", "", title, "");
+        System.out.println("-----------------------------------------------------------------");
+
+
+        String edgesTitle = "Edges";
+        String distanceTitle = "Distance";
+        int leftPaddingEdgesTitle = (49 - edgesTitle.length()) / 2;
+        int rightPaddingEdgesTitle = 49 - edgesTitle.length() - leftPaddingEdgesTitle;
+        int leftPaddingDistanceTitle = (19 - distanceTitle.length()) / 2;
+        int rightPaddingDistanceTitle = 19 - distanceTitle.length() - leftPaddingDistanceTitle;
+        System.out.printf("%" + leftPaddingEdgesTitle + "s%s%" + rightPaddingEdgesTitle + "s%" + leftPaddingDistanceTitle + "s%s%" + rightPaddingDistanceTitle + "s%n", "", edgesTitle, "", "", distanceTitle, "");
+        System.out.println("-----------------------------------------------------------------");
+
+
         for (Edge edge : minimalSpanningTree) {
-            System.out.println(edge.getSource() + " ---- " + edge.getDestination() + " : " + edge.getDistance());
+
+            String sourceDest = edge.getSource() + " ---- " + edge.getDestination();
+            int leftPaddingSourceDest = (49 - sourceDest.length()) / 2;
+            int rightPaddingSourceDest = 49 - sourceDest.length() - leftPaddingSourceDest;
+            System.out.printf("%" + leftPaddingSourceDest + "s%s%" + rightPaddingSourceDest + "s", "", sourceDest, "");
+
+            String distance = String.valueOf(edge.getDistance());
+            int leftPaddingDistance = (19 - distance.length()) / 2;
+            int rightPaddingDistance = 19 - distance.length() - leftPaddingDistance;
+            System.out.printf("%" + leftPaddingDistance + "s%s%" + rightPaddingDistance + "s%n", "", distance, "");
         }
     }
+
 
     public static double obtainTotalCost(List<Edge> minimalSpanningTree) {
         double totalCost = 0;

@@ -23,7 +23,7 @@ public class MainUS13 {
         if(result== JFileChooser.APPROVE_OPTION){
             File selectedFile = fileChooser.getSelectedFile();
             String fileName = selectedFile.getAbsolutePath();
-            System.out.println("Arquivo selecionado: " + selectedFile.getName());
+            System.out.println("File Selected: " + selectedFile.getName());
 
             long startTime, endTime;
 
