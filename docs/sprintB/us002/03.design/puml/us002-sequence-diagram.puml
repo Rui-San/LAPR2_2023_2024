@@ -10,7 +10,9 @@ autonumber
 actor "HRM" as Employee
 participant ":CreateJobUI" as CJU
 participant ":CreateJobController" as CJC
-participant ":Organization" as ORG
+participant ":Repositories" as REPO
+participant "repositories\n:Repositories" as Repos
+participant "jobRepository\n:JobRepository" as ORG
 participant ":Job" as JOB
 
 activate Employee
@@ -23,7 +25,7 @@ activate Employee
     loop until typed data is validated
     Employee -> CJU : Types requested data
     activate CJU
-    CJU -> CJU : keepData (job name)
+    CJU --> CJU : keepData(jobName)
 
         CJU --> Employee : Shows typed data and requests confirmation
     deactivate CJU
@@ -32,21 +34,34 @@ activate Employee
     Employee -> CJU : Confirms data and submits
     activate CJU
 
-    CJU -> CJC : createJob (job name)
-
+    CJU -> CJC : createJob(jobName)
     activate CJC
 
-    CJC -> ORG : createJob (job name)
+    CJC -> REPO : getInstance()
+    activate REPO
+
+    REPO --> CJC : repositories
+    deactivate REPO
+
+    CJC -> Repos : getJobRepository()
+    activate Repos
+
+    Repos --> CJC : jobRepository
+    deactivate Repos
+
+    CJC -> ORG : createJob(jobName)
 
     activate ORG
 
-    ORG -> JOB** : createJob (job name)
+    ORG -> JOB** : createJob(jobName)
 
-    ORG -> ORG : addToJobList (job name)
+    ORG --> ORG : addToJobList(jobName)
 
-    ORG -> CJC : job name
+    ORG --> ORG : validateJob(jobName)
+
+    ORG --> CJC : operation success
     deactivate ORG
-    CJC -> CJU : job name
+    CJC --> CJU : operation success
     deactivate CJC
 
         CJU --> Employee : Displays operation success and shows the \nlist of all registered jobs

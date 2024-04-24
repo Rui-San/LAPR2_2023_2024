@@ -54,7 +54,7 @@ participant "checkupRepositoty\n:CheckupRepository" as CheckupRepo
                         VRepo -> CheckupRepo : getCheckup(vehicle)
                         activate CheckupRepo
 
-                            CheckupRepo --> VRepo : kmsAtCheckup
+                            CheckupRepo --> VRepo : checkupKms
                         deactivate CheckupRepo
                     VRepo --> VRepo : true/false
                     deactivate VRepo
