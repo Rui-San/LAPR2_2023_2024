@@ -7,13 +7,10 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
-
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -27,7 +24,7 @@ public class MainUS14 {
 
         String currentDirectory = System.getProperty("user.dir");
 
-        File directory = new File(currentDirectory + File.separator + "src" + File.separator + "main" + File.separator + "java" + File.separator + "pt" + File.separator + "ipp" + File.separator + "isep" + File.separator + "dei" + File.separator + "esoft" + File.separator + "project" + File.separator + "domain" + File.separator + "MATDISC_class_resolution" + File.separator + "US14_DataSet");
+        File directory = new File(currentDirectory + File.separator + "src" + File.separator + "main" + File.separator + "java" + File.separator + "pt" + File.separator + "ipp" + File.separator + "isep" + File.separator + "dei" + File.separator + "esoft" + File.separator + "project" + File.separator + "domain" + File.separator + "MATDISC_union_find" + File.separator + "US14_DataSet");
         if (!directory.exists() || !directory.isDirectory()) {
             System.out.println("Directory 'US14_DataSet' not found.");
             return;

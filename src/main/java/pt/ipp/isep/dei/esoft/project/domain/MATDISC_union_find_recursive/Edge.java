@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.esoft.project.domain.MATDISC_union_find_recursvie;
+package pt.ipp.isep.dei.esoft.project.domain.MATDISC_union_find_recursive;
 
 
 public class Edge {

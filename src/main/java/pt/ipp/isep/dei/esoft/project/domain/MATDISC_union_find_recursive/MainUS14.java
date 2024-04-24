@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.esoft.project.domain.MATDISC_union_find_recursvie;
+package pt.ipp.isep.dei.esoft.project.domain.MATDISC_union_find_recursive;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -7,7 +7,6 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
-
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
@@ -24,7 +23,7 @@ public class MainUS14 {
     public static void main(String[] args) {
 
         String currentDirectory = System.getProperty("user.dir");
-        File directory = new File(currentDirectory + File.separator + "src" + File.separator + "main" + File.separator + "java" + File.separator + "pt" + File.separator + "ipp" + File.separator + "isep" + File.separator + "dei" + File.separator + "esoft" + File.separator + "project" + File.separator + "domain" + File.separator + "matdisc" + File.separator + "US14_DataSet");
+        File directory = new File(currentDirectory + File.separator + "src" + File.separator + "main" + File.separator + "java" + File.separator + "pt" + File.separator + "ipp" + File.separator + "isep" + File.separator + "dei" + File.separator + "esoft" + File.separator + "project" + File.separator + "domain" + File.separator + "MATDISC_union_find_recursive" + File.separator + "US14_DataSet");
         if (!directory.exists() || !directory.isDirectory()) {
             System.out.println("Directory 'US14_DataSet' not found.");
             return;
@@ -41,68 +40,22 @@ public class MainUS14 {
 
             if (graph != null && graph.getEdges() != null) {
                 int totalLines = graph.getEdges().size();
-                graph.calculateMST();
+                List<Edge> minimalSpanningTree = graph.calculateMST();
                 long endTime = System.currentTimeMillis();
                 long executionTime = endTime - startTime;
-
-                FileInfo fileInfo = new FileInfo(csvFile.getName(), totalLines, executionTime);
+                int totalNumberOfVertices = graph.getTotalNumberOfVertices();
+                double totalCost = obtainTotalCost(minimalSpanningTree);
+                FileInfo fileInfo = new FileInfo(csvFile.getName(), totalLines, executionTime, totalCost, totalNumberOfVertices);
                 FILE_INFO_LIST.add(fileInfo);
+                System.out.println(fileInfo);
+                System.out.println();
             }
-        }
-
-        for (FileInfo fileinfo : FILE_INFO_LIST){
-            System.out.println(fileinfo);
-            System.out.println();
         }
 
         SwingUtilities.invokeLater(() -> {
             showExecutionTimeGraph(FILE_INFO_LIST);
         });
 
-
-    }
-
-    public static void showExecutionTimeGraph(List<FileInfo> fileInfoList) {
-        // Create dataset
-        XYDataset dataset = createDataset(fileInfoList);
-
-        // Create chart
-        JFreeChart chart = ChartFactory.createScatterPlot(
-                "Execution Time vs Graph Dimension", // Chart title
-                "Graph Dimension", // X-Axis label
-                "Execution Time (ms)", // Y-Axis label
-                dataset,
-                PlotOrientation.VERTICAL,
-                true, true, false
-        );
-
-        // Customize chart...
-        ChartPanel chartPanel = new ChartPanel(chart);
-        chartPanel.setPreferredSize(new Dimension(800, 600));
-
-        // Create a new JFrame to display the chart
-        JFrame frame = new JFrame("Execution Time Graph");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().add(chartPanel);
-        frame.pack();
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-    }
-
-    private static XYDataset createDataset(List<FileInfo> fileInfoList) {
-        XYSeriesCollection dataset = new XYSeriesCollection();
-
-        // Create a series for the data
-        XYSeries series = new XYSeries("Execution Time vs Graph Dimension");
-
-        // Populate the series with data from the FileInfo list
-        for (FileInfo fileInfo : fileInfoList) {
-            series.add(fileInfo.getTotalLines(), fileInfo.getExecutionTime());
-        }
-
-        dataset.addSeries(series);
-
-        return dataset;
     }
 
     public static Graph readCsvFile(String fileName) {
@@ -155,7 +108,68 @@ public class MainUS14 {
         }
         return true;
     }
+    /**
+     * Calculates the total cost of the minimal spanning tree.
+     *
+     * @param minimalSpanningTree the minimal spanning tree
+     * @return the total cost of the minimal spanning tree
+     */
+    public static double obtainTotalCost(List<Edge> minimalSpanningTree) {
+        double totalCost = 0;
+        for (Edge edge : minimalSpanningTree) {
+            totalCost += edge.getDistance();
+        }
+        return totalCost;
+    }
 
+    /**
+     * Generates and displays the execution time graph.
+     *
+     * @param fileInfoList list of FileInfo objects containing execution time data
+     */
+    public static void showExecutionTimeGraph(List<FileInfo> fileInfoList) {
+
+        XYDataset dataset = createDataset(fileInfoList);
+
+        JFreeChart chart = ChartFactory.createScatterPlot(
+                "Execution Time vs Graph Dimension", // Chart title
+                "Graph Dimension", // X-Axis label
+                "Execution Time (ms)", // Y-Axis label
+                dataset,
+                PlotOrientation.VERTICAL,
+                true, true, false
+        );
+
+        ChartPanel chartPanel = new ChartPanel(chart);
+        chartPanel.setPreferredSize(new Dimension(800, 600));
+
+        JFrame frame = new JFrame("Execution Time Graph");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().add(chartPanel);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
+
+    /**
+     * Creates a dataset for the execution time graph.
+     *
+     * @param fileInfoList list of FileInfo objects containing execution time data
+     * @return the dataset for the execution time graph
+     */
+    private static XYDataset createDataset(List<FileInfo> fileInfoList) {
+        XYSeriesCollection dataset = new XYSeriesCollection();
+
+        XYSeries series = new XYSeries("Execution Time vs Graph Dimension");
+
+        for (FileInfo fileInfo : fileInfoList) {
+            series.add(fileInfo.getTotalLines(), fileInfo.getExecutionTime());
+        }
+
+        dataset.addSeries(series);
+
+        return dataset;
+    }
 
 
 

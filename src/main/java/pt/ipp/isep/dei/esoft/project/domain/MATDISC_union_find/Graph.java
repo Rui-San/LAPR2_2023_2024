@@ -1,7 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.domain.MATDISC_union_find;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Graph {

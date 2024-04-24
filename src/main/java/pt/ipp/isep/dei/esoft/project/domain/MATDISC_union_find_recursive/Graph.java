@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.esoft.project.domain.MATDISC_union_find_recursvie;
+package pt.ipp.isep.dei.esoft.project.domain.MATDISC_union_find_recursive;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,11 +19,31 @@ public class Graph {
         }
     }
 
+    /**
+     * Returns the total number of vertices in the graph.
+     *
+     * @return the total number of vertices
+     */
+    public int getTotalNumberOfVertices() {
+        return vertices.size();
+    }
 
     public List<Edge> getEdges() {
         return edges;
     }
 
+    /**
+     *
+     * Tal como o MATDISC_union_find, explica o que faz o método union e find em conjunto.
+     * explicar melhor mas basicamente o intuito é adicionar aresta à arvore se nao formar um ciclo.
+     *
+     * ATENÇÃO este método union + find não é exatamente igual ao do MATDISC_union_find pois é um método recursivo, ele
+     * chama o método find dentro do próprio método find (recursivo ainda não demos o que é)
+     *
+     * @param vertex
+     * @param parent
+     * @return
+     */
     private int find(String vertex, int[] parent) {
         int index = vertices.indexOf(vertex);
         if (parent[index] != index) {
@@ -32,6 +52,13 @@ public class Graph {
         return parent[index];
     }
 
+    /**
+     * explicar aqui o que faz union + find em conjunto
+     *
+     * @param vertex1
+     * @param vertex2
+     * @param parent
+     */
     private void union(String vertex1, String vertex2, int[] parent) {
         int root1 = find(vertex1, parent);
         int root2 = find(vertex2, parent);
@@ -41,6 +68,11 @@ public class Graph {
         }
     }
 
+    /**
+     * Explicar a logica e todos os passos que se fazem neste método
+     *
+     * @return
+     */
     public List<Edge> calculateMST() {
         List<Edge> minimalSpanningTree = new ArrayList<>();
         sortEdgesByDistance();
@@ -63,6 +95,10 @@ public class Graph {
     }
 
 
+    /**
+     * Sorts a list of edges by distance in ascending order using bubble sort.
+     *
+     */
     private void sortEdgesByDistance() {
         int n = edges.size();
         for (int i = 0; i < n - 1; i++) {
