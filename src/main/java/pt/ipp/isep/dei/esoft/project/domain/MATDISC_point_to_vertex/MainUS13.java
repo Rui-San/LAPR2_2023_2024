@@ -8,11 +8,18 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Main class for processing CSV showing the results for US12 and US13.
+ */
 public class MainUS13 {
 
     public static final String CSV_DIVISOR = ";";
     public static final int TOTAL_NUMBER_OF_COLUMNS = 3;
 
+    /**
+     * Main method
+     *
+     */
     public static void main(String[] args) {
 
         JFileChooser fileChooser = new JFileChooser();
@@ -56,6 +63,15 @@ public class MainUS13 {
         }
     }
 
+    /**
+     * Reads a CSV file and constructs a graph based on its contents.
+     * This method have a lot of error preventions such as: only allows .csv files; files that really exist and the
+     * content of the file must have only 3 columns (one for WaterPointX, one for WaterPointY and one for Distance)
+     * otherwise an error message will appear indicating which error has been found.
+     *
+     * @param fileName the name of the CSV file to read
+     * @return the constructed graph
+     */
     public static Graph readCsvFile(String fileName) {
         Graph graph = new Graph();
         File csv = new File(fileName);
@@ -95,6 +111,12 @@ public class MainUS13 {
         return graph;
     }
 
+    /**
+     * Checks if a file is valid for processing.
+     *
+     * @param fileName the file to check
+     * @return true if the file is valid, false otherwise
+     */
     public static boolean isValidFile(File fileName) {
 
         if (!fileName.getName().endsWith(".csv")) {
@@ -109,6 +131,11 @@ public class MainUS13 {
         return true;
     }
 
+    /**
+     * Prints the minimal spanning tree to the console with a specific and organized look.
+     *
+     * @param minimalSpanningTree the minimal spanning tree to print
+     */
     public static void printMinimalSpanningTree(List<Edge> minimalSpanningTree) {
         System.out.println();
         String title = "Minimal Spanning Tree";
@@ -143,6 +170,12 @@ public class MainUS13 {
     }
 
 
+    /**
+     * Calculates the total cost of the minimal spanning tree.
+     *
+     * @param minimalSpanningTree the minimal spanning tree
+     * @return the total cost of the minimal spanning tree
+     */
     public static double obtainTotalCost(List<Edge> minimalSpanningTree) {
         double totalCost = 0;
         for (Edge edge : minimalSpanningTree) {
@@ -151,18 +184,22 @@ public class MainUS13 {
         return totalCost;
     }
 
+    /**
+     * Generates a GraphViz representation of the minimal spanning tree.
+     * Creates a graph.dot file which will be converted into a GraphViz representation using the graphPngGenerator.bat.
+     * All the images produced using this program will be store in "MATDISC_graph_images".
+     *
+     * @param edges the edges of the minimal spanning tree
+     */
     public static void generateGraphViz(List<Edge> edges) {
         try {
-            // Diretório relativo dentro do projeto
             String directoryPath = "MATDISC_graph_images";
             File directory = new File(directoryPath);
 
-            // Verifique se o diretório existe, se não, crie-o dentro do projeto
             if (!directory.exists()) {
-                directory.mkdirs(); // Cria o diretório e todos os diretórios pai necessários
+                directory.mkdirs();
             }
 
-            // Crie o FileWriter para o arquivo graph.dot no diretório especificado
             FileWriter writer = new FileWriter(directoryPath + "/graph.dot");
 
             writer.write("graph {\n");

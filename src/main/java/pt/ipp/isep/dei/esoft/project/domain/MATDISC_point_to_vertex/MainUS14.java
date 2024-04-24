@@ -18,11 +18,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Main class for processing CSV files (US12) and generating execution time graphs for US14.
+ */
 public class MainUS14 {
     public static final String CSV_DIVISOR = ";";
     public static final int TOTAL_NUMBER_OF_COLUMNS = 3;
     public static List<FileInfo> FILE_INFO_LIST = new ArrayList<>();
 
+    /**
+     * Main method
+     *
+     */
     public static void main(String[] args) {
 
         String currentDirectory = System.getProperty("user.dir");
@@ -62,6 +69,15 @@ public class MainUS14 {
 
     }
 
+    /**
+     * Reads a CSV file and constructs a graph based on its contents.
+     * This method have a lot of error preventions such as: only allows .csv files; files that really exist and the
+     * content of the file must have only 3 columns (one for WaterPointX, one for WaterPointY and one for Distance)
+     * otherwise an error message will appear indicating which error has been found.
+     *
+     * @param fileName the name of the CSV file to read
+     * @return the constructed graph
+     */
     public static Graph readCsvFile(String fileName) {
         Graph graph = new Graph();
         File csv = new File(fileName);
@@ -101,6 +117,12 @@ public class MainUS14 {
         return graph;
     }
 
+    /**
+     * Checks if a file is valid for processing.
+     *
+     * @param fileName the file to check
+     * @return true if the file is valid, false otherwise
+     */
     public static boolean isValidFile(File fileName) {
 
         if (!fileName.getName().endsWith(".csv")) {
@@ -115,13 +137,12 @@ public class MainUS14 {
         return true;
     }
 
-    public static void printMinimalSpanningTree(List<Edge> minimalSpanningTree) {
-        System.out.println();
-        for (Edge edge : minimalSpanningTree) {
-            System.out.println(edge.getSource() + " ---- " + edge.getDestination() + " : " + edge.getDistance());
-        }
-    }
-
+    /**
+     * Calculates the total cost of the minimal spanning tree.
+     *
+     * @param minimalSpanningTree the minimal spanning tree
+     * @return the total cost of the minimal spanning tree
+     */
     public static double obtainTotalCost(List<Edge> minimalSpanningTree) {
         double totalCost = 0;
         for (Edge edge : minimalSpanningTree) {
@@ -130,35 +151,15 @@ public class MainUS14 {
         return totalCost;
     }
 
-    public static void generateGraphViz(List<Edge> edges) {
-        try {
-            FileWriter writer = new FileWriter("graph.dot");
-
-            writer.write("graph {\n");
-
-            for (Edge edge : edges) {
-                writer.write("    " + edge.getSource() + " -- " + edge.getDestination() + " [label=\"" + edge.getDistance() + "\"];\n");
-            }
-
-            writer.write("}\n");
-            writer.close();
-
-            try {
-                Runtime.getRuntime().exec("graphPngGenerator.bat");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
+    /**
+     * Generates and displays the execution time graph.
+     *
+     * @param fileInfoList list of FileInfo objects containing execution time data
+     */
     public static void showExecutionTimeGraph(List<FileInfo> fileInfoList) {
-        // Create dataset
+
         XYDataset dataset = createDataset(fileInfoList);
 
-        // Create chart
         JFreeChart chart = ChartFactory.createScatterPlot(
                 "Execution Time vs Graph Dimension", // Chart title
                 "Graph Dimension", // X-Axis label
@@ -168,11 +169,9 @@ public class MainUS14 {
                 true, true, false
         );
 
-        // Customize chart...
         ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setPreferredSize(new Dimension(800, 600));
 
-        // Create a new JFrame to display the chart
         JFrame frame = new JFrame("Execution Time Graph");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().add(chartPanel);
@@ -181,13 +180,17 @@ public class MainUS14 {
         frame.setVisible(true);
     }
 
+    /**
+     * Creates a dataset for the execution time graph.
+     *
+     * @param fileInfoList list of FileInfo objects containing execution time data
+     * @return the dataset for the execution time graph
+     */
     private static XYDataset createDataset(List<FileInfo> fileInfoList) {
         XYSeriesCollection dataset = new XYSeriesCollection();
 
-        // Create a series for the data
         XYSeries series = new XYSeries("Execution Time vs Graph Dimension");
 
-        // Populate the series with data from the FileInfo list
         for (FileInfo fileInfo : fileInfoList) {
             series.add(fileInfo.getTotalLines(), fileInfo.getExecutionTime());
         }
