@@ -1,32 +1,28 @@
 package pt.ipp.isep.dei.esoft.project.domain.MATDISC_point_to_vertex;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class PointToVertex {
     private String vertex;
-    private int pointToVertex;
+    private int vertexIndex;
 
-    public PointToVertex(String vertex, int pointToVertex) {
+    public PointToVertex(String vertex, int vertexIndex) {
         this.vertex = vertex;
-        this.pointToVertex = pointToVertex;
+        this.vertexIndex = vertexIndex;
     }
 
     public void setVertex(String vertex) {
         this.vertex = vertex;
     }
 
-    public void setPointToVertex(int pointToVertex) {
-        this.pointToVertex = pointToVertex;
+    public void setVertexIndex(int vertexIndex) {
+        this.vertexIndex = vertexIndex;
     }
 
     public String getVertex() {
         return vertex;
     }
 
-    public int getPointToVertex() {
-        return pointToVertex;
+    public int getVertexIndex() {
+        return vertexIndex;
     }
-
-
 }
+

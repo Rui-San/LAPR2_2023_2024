@@ -1,25 +1,25 @@
-package pt.ipp.isep.dei.esoft.project.domain.MATDISC_union_find;
+package pt.ipp.isep.dei.esoft.project.domain.MATDISC_union_find_recursvie;
 
 public class FileInfo {
     private String fileName;
     private int totalLines;
     private double totalCost;
-    private int totalNumberOfVertices;
+
+
     private long executionTime;
 
-    public FileInfo(String fileName, int totalLines, long executionTime, double totalCost, int totalNumberOfVertices) {
+    public FileInfo(String fileName, int totalLines, long executionTime, double totalCost) {
         this.fileName = fileName;
         this.totalLines = totalLines;
         this.executionTime = executionTime;
         this.totalCost = totalCost;
-        this.totalNumberOfVertices = totalNumberOfVertices;
     }
-
     public FileInfo(String fileName, int totalLines, long executionTime) {
         this.fileName = fileName;
         this.totalLines = totalLines;
         this.executionTime = executionTime;
     }
+
 
 
     public String getFileName() {
@@ -50,7 +50,6 @@ public class FileInfo {
     public String toString() {
         return "File Name: " + fileName.substring(fileName.lastIndexOf("\\") + 1) +
                 "\nGraph Dimension: " + totalLines +
-                "\nGraph Order: " + totalNumberOfVertices +
                 "\nMinimum Cost: " + totalCost +
                 "\nExecution Time: " + executionTime + "ms";
     }

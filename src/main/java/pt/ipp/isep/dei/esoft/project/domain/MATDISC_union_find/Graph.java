@@ -1,69 +1,74 @@
 package pt.ipp.isep.dei.esoft.project.domain.MATDISC_union_find;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Graph {
-    private List<Edge> edges = new ArrayList<>();
-    private List<String> vertices = new ArrayList<>();
-
-    public void addEdge(String v1, String v2, double dist) {
-        edges.add(new Edge(v1, v2, dist));
-        addUniqueVertex(v1);
-        addUniqueVertex(v2);
-    }
-
-    private void addUniqueVertex(String vertex) {
-        if (!vertices.contains(vertex)) {
-            vertices.add(vertex);
-        }
-    }
-
+    private List<Edge> edges;
 
     public List<Edge> getEdges() {
         return edges;
     }
 
-    private int find(String vertex, int[] parent) {
-        int index = vertices.indexOf(vertex);
-        if (parent[index] != index) {
-            parent[index] = find(vertices.get(parent[index]), parent);
-        }
-        return parent[index];
+    private List<String> vertexes = new ArrayList<>();
+
+    public Graph() {
+        edges = new ArrayList<>();
+        vertexes = new ArrayList<>();
     }
 
-    private void union(String vertex1, String vertex2, int[] parent) {
-        int root1 = find(vertex1, parent);
-        int root2 = find(vertex2, parent);
+    public void addEdge(Edge edge, String v1, String v2) {
+        edges.add(edge);
+        addUniqueVertex(v1);
+        addUniqueVertex(v2);
+    }
 
-        if (root1 != root2) {
-            parent[root1] = root2;
+    public int getTotalNumberOfVertices() {
+        return vertexes.size();
+    }
+
+    private void addUniqueVertex(String vertex) {
+        if (!vertexes.contains(vertex)) {
+            vertexes.add(vertex);
         }
     }
 
-    public List<Edge> calculateMST() {
+    public List<String> getVertices() {
+        return vertexes;
+    }
+
+    public List<Edge> getMinimalSpanningTree() {
         List<Edge> minimalSpanningTree = new ArrayList<>();
+
         sortEdgesByDistance();
-        int size = vertices.size();
-        int[] parent = new int[size];
-        for (int i = 0; i < size; i++) {
-            parent[i] = i;
-        }
+
+        UnionFind unionFind = new UnionFind(vertexes.size());
 
         for (Edge edge : edges) {
-            int root1 = find(edge.getWaterPointX(), parent);
-            int root2 = find(edge.getWaterPointY(), parent);
+            int v1Index = vertexes.indexOf(edge.getSource());
+            int v2Index = vertexes.indexOf(edge.getDestination());
 
-            if (root1 != root2) {
-                union(edge.getWaterPointX(), edge.getWaterPointY(), parent);
-                minimalSpanningTree.add(edge);
+            // Verifica se as arestas conectam vértices em componentes distintas
+            if (!unionFind.connected(v1Index, v2Index)) {
+                unionFind.union(v1Index, v2Index); // Une os componentes
+                minimalSpanningTree.add(edge); // Adiciona a aresta à árvore
+            }
+
+            // Se a árvore já contém arestas suficientes para formar uma árvore geradora mínima
+            if (minimalSpanningTree.size() == vertexes.size() - 1) {
+                break;
             }
         }
+
         return minimalSpanningTree;
     }
 
+    public void sortEdgesByDistance() {
+        bubbleSort(edges);
+    }
 
-    private void sortEdgesByDistance() {
+    private void bubbleSort(List<Edge> edges) {
         int n = edges.size();
         for (int i = 0; i < n - 1; i++) {
             for (int j = 0; j < n - i - 1; j++) {
@@ -76,5 +81,4 @@ public class Graph {
             }
         }
     }
-
 }
