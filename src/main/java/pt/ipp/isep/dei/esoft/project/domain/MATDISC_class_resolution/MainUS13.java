@@ -49,14 +49,9 @@ public class MainUS13 {
                 System.out.println("The file must not be empty");
             }
 
-
-
-
         } else{
             System.out.println("Nenhum arquivo foi selecionado.");
         }
-
-
 
     }
 

@@ -23,7 +23,7 @@ public class Graph {
         addUniqueVertex(v2);
     }
 
-    public int getTotalNumberOfVertices(){
+    public int getTotalNumberOfVertices() {
         return vertexes.size();
     }
 
@@ -47,12 +47,13 @@ public class Graph {
         int criterioParagem = numVertices - 1;
         int addedEdges = 0;
 
-        List<List<String>> arrayDeSacos = new ArrayList<>(numVertices);
+        int[] vertexPoints = new int[numVertices];
+
+        List<PointToVertex> pointToVertexList = new ArrayList<>();
 
         for (int i = 0; i < numVertices; i++) {
-            List<String> saco = new ArrayList<>();
-            saco.add(vertexes.get(i)); // Adiciona a string correspondente ao vértice
-            arrayDeSacos.add(saco);
+            PointToVertex pointToVertex = new PointToVertex(vertexes.get(i), i);
+            pointToVertexList.add(pointToVertex);
         }
 
 
@@ -60,21 +61,20 @@ public class Graph {
             String v1 = edge.getSource();  //nome do vertice1
             String v2 = edge.getDestination(); //nome do vertice2
 
-            int indexSacoV1 = -1;
-            int indexSacoV2 = -1;
+            int indexV1 = -1;
+            int indexV2 = -1;
 
-            for (int i = 0; i < arrayDeSacos.size(); i++) {
-                if (arrayDeSacos.get(i).contains(v1)) {
-                    indexSacoV1 = i;
+            for (int i = 0; i < pointToVertexList.size(); i++) {
+                if (edge.getSource().equalsIgnoreCase(pointToVertexList.get(i).getVertex())) {
+                    indexV1 = i;
                 }
-                if (arrayDeSacos.get(i).contains(v2)) {
-                    indexSacoV2 = i;
+                if (edge.getDestination().equalsIgnoreCase(pointToVertexList.get(i).getVertex())) {
+                    indexV2 = i;
                 }
             }
 
-            if (indexSacoV1 != indexSacoV2) {
-                arrayDeSacos.get(indexSacoV1).addAll(arrayDeSacos.get(indexSacoV2));
-                arrayDeSacos.get(indexSacoV2).clear();
+            if (indexV1 != indexV2) {
+                pointToVertexList.get(indexV2).setPointToVertex(indexV1);
                 addedEdges++;
                 minimalSpanningTree.add(edge);
             }
@@ -87,7 +87,6 @@ public class Graph {
 
         return minimalSpanningTree;
     }
-
 
 
     public void sortEdgesByDistance() {
