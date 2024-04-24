@@ -13,7 +13,7 @@ participant ":RegisterVehicleController" as CTRL
 participant ":Repository" as REP
 participant ":repositories \nRepositories" as REPS
 participant ":VehicleRepository \nVehicleRepository" as VR
-
+participant ":Vehicle \nVehicle"
 activate Employee
 
     Employee -> System : Asks to create a new vehicle
@@ -22,7 +22,7 @@ activate Employee
 System --> Employee : Requests vehicle data (plate id, brand, model, type,\ntare, gross weight, current km, register date,\nacquisition date, checkup frequency kms)
     deactivate System
 
-
+    loop until typed data is validated
     Employee -> System : Types requested data
     activate System
 
@@ -53,6 +53,8 @@ System --> Employee : Requests vehicle data (plate id, brand, model, type,\ntare
             CTRL->VR: create
 
             activate VR
+
+
 
             VR-->CTRL: vehicle
 
