@@ -183,10 +183,10 @@ public class Collaborator {
     /**
      * Assign selected skills to a collaborator (1 or more skills)
      *
-     * @param skillsToAdd
+     * @param chosenSkills
      */
-    public void assignSkills(List<Skill> skillsToAdd) {
-        skillList.addAll(skillsToAdd);
+    public void assignSkills(List<Skill> chosenSkills) {
+        skillList.addAll(chosenSkills);
     }
 
     /**
