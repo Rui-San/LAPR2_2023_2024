@@ -1,13 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
-import pt.ipp.isep.dei.esoft.project._templateFiles.application.controller.CreateTaskController;
-import pt.ipp.isep.dei.esoft.project._templateFiles.domain.Task;
-import pt.ipp.isep.dei.esoft.project._templateFiles.domain.TaskCategory;
-import pt.ipp.isep.dei.esoft.project.application.controller.RegisterSkillController;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.Scanner;
+import pt.ipp.isep.dei.esoft.project.application.RegisterSkillController;
 
 public class RegisterSkillUI implements Runnable{
     private final RegisterSkillController controller;
