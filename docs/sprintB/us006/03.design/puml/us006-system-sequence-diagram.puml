@@ -10,19 +10,18 @@ autonumber
 actor "Fleet Manager" as Employee
 participant ":RegisterVehicleUI" as System
 participant ":RegisterVehicleController" as CTRL
-participant ":Repository" as REP
+participant ":Repositories" as REP
 participant ":repositories \nRepositories" as REPS
 participant ":VehicleRepository \nVehicleRepository" as VR
-participant ":Vehicle \nVehicle"
+
 activate Employee
 
     Employee -> System : Asks to create a new vehicle
     activate System
-
-System --> Employee : Requests vehicle data (plate id, brand, model, type,\ntare, gross weight, current km, register date,\nacquisition date, checkup frequency kms)
+    System->System: keepData(plate id, brand, model, type,\ntare, gross weight, current km, register date,\nacquisition date, checkup frequency kms)
+    System  --> Employee : Requests vehicle data (plate id, brand, model, type,\ntare, gross weight, current km, register date,\nacquisition date, checkup frequency kms)
     deactivate System
 
-    loop until typed data is validated
     Employee -> System : Types requested data
     activate System
 
@@ -50,19 +49,31 @@ System --> Employee : Requests vehicle data (plate id, brand, model, type,\ntare
 
             deactivate REPS
 
-            CTRL->VR: create
+            CTRL->VR: createVehicle (plateId,brand,model,\ntype,tare,grossWeight,currentKm,\nregisterDate,acquisitionDate,\ncheckupFrequencyKms)
 
             activate VR
 
+            VR->Vehicle**: createVehicle (plateId,brand,model,\ntype,tare,grossWeight,currentKm,\nregisterDate,acquisitionDate,\ncheckupFrequencyKms)
+
+            Vehicle->Vehicle: validatePlateId(plateId)
+            Vehicle->Vehicle: validateTare(tare)
+            Vehicle->Vehicle: validateCurrentKm(currentKm)
+            Vehicle->Vehicle: validateRegisterDate(registerDate)
+            Vehicle->Vehicle: validateCheckupFrequencyKms(checkupFrequencyKms)
 
 
-            VR-->CTRL: vehicle
+            VR->VR: addToVehicleList(Vehicle)
+
+            VR->VR: validateVehicle(vehicle)
+
+
+            VR-->CTRL: Operation Success
 
             deactivate VR
 
-            CTRL-->System: vehicle
+            CTRL-->System: Operation success
 
-            System->System: keepData(plate id, brand, model, type,\ntare, gross weight, current km, register date,\nacquisition date, checkup frequency kms)
+
 
         System --> Employee : Displays operation success
     deactivate System
