@@ -10,7 +10,7 @@ autonumber
 actor "HRM" as Employee
 participant ":TeamProposalUI" as System
 participant ":TeamProposalController" as TPC
-participant ":Repository" as REP
+participant ":Repositories" as REP
 participant ":repositories \nRepositories" as REPS
 participant ":skillRepository \nSkillRepository" as SR
 participant ":teamproposal \nTeamProposal" as TP
@@ -21,7 +21,7 @@ activate Employee
     Employee -> System : Asks to generate a new team proposal
     activate System
 
-        System --> Employee : Requests data (max and min team size)
+        System --> Employee : Requests data (maxteamsize, minteamsize)
     deactivate System
 
     loop until input data is validated
@@ -55,15 +55,15 @@ activate Employee
 
                     TPC --> System : skillList
                 deactivate TPC
-                System --> Employee : Shows list of skills and asks to select one
+                System --> Employee : Shows list of skills and asks how many
             deactivate System
 
             Employee -> System : Selects a skill from the list and specifies the \nquantity of that skill.
             activate System
+            System --> System : keepData(amount, skillName)
     |||
         end loop
 
-    System --> System : keepData(skillName)
     |||
 
         end loop
@@ -76,7 +76,7 @@ activate Employee
         end note
 
     loop until the team generated is accepted
-    System --> System: Generate the team proposal\nwith given information
+    System --> System: generateProposal()
 
 
         System --> Employee : Shows team generated and asks for confirmation
@@ -88,6 +88,9 @@ activate Employee
     activate System
         System -> TPC : createTeam(team)
         activate TPC
+
+            TPC -> Team** : createTeam(team)
+            Team --> Team : validateTeam(team)
             TPC -> REP : getInstance()
 
                 activate REP
@@ -101,13 +104,13 @@ activate Employee
                 TPC -> TP : addToTeamRepository(team)
 
                 activate TP
-                TP --> TPC : team
+                TP --> TPC : operation success
                 deactivate TP
 
 
     end loop
     |||
-        TPC --> System : team
+        TPC --> System : operation success
         deactivate TPC
 
 
