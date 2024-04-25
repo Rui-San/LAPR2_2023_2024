@@ -127,7 +127,7 @@ public class Address {
             return PostalCodeValidationResults.EMPTY;
         }
 
-        if (postalCode.length() != POSTAL_CODE_TOTAL_DIGITS || postalCode.charAt(5) != POSTAL_CODE_SEPARATOR) {
+        if (postalCode.length() != POSTAL_CODE_TOTAL_DIGITS || postalCode.charAt(4) != POSTAL_CODE_SEPARATOR) {
             return PostalCodeValidationResults.INVALID_FORMAT;
         }
 
