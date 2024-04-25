@@ -73,7 +73,7 @@ activate HRM
 
     activate UI
 
-        UI --> UI : keepData(jobName)
+        UI --> UI : keepData(Job job)
         UI --> HRM : Shows all data and requests confirmation
     deactivate UI
 
@@ -82,19 +82,10 @@ activate HRM
 
     activate UI
 
-        UI -> CTRL : createCollaborator(name, birthdate, admission\ndate, address, email,mobile number, id doc type,\nid doc number, jobName)
+        UI -> CTRL : createCollaborator(name, birthdate, admission\ndate, address, email,mobile number, id doc type,\nid doc number, job)
         activate CTRL
 
-            CTRL -> JobRepository : getJobByJobName(jobName)
 
-            activate JobRepository
-
-            JobRepository --> CTRL : job
-
-            deactivate JobRepository
-            CTRL --> CTRL : job
-
-            |||
 
             CTRL -> COLREP : createCollaborator(name, birthdate, admission\ndate, address, email,mobile number, id doc type,\nid doc number, job)
             activate COLREP
