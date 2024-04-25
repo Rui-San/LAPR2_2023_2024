@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public class Collaborator {
+public class Collaborator implements Cloneable{
     private String name;
     private Date birthdate;
     private Date admissionDate;
@@ -268,6 +268,30 @@ public class Collaborator {
                 return ValidateIdDocNumberResults.CC_BI_ERROR;
             }
         }
+    }
+
+    public Collaborator clone(){
+        Collaborator clone = new Collaborator(
+                this.name,
+                this.birthdate,
+                this.admissionDate,
+                this.address.getStreet(),
+                this.address.getStreetNumber(),
+                this.address.getPostalCode(),
+                this.address.getCity(),
+                this.address.getDistrict(),
+                this.email.getEmail(),
+                this.mobileNumber,
+                this.idDocType,
+                this.idDocNumber,
+                this.job
+        );
+
+        for (Skill skill : this.skillList) {
+            clone.skillList.add(skill.clone());
+        }
+
+        return clone;
     }
 }
 
