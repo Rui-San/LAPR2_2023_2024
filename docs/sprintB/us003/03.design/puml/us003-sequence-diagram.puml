@@ -22,15 +22,21 @@ activate HRM
     HRM -> UI : Asks to register a collaborator
 
     activate UI
+    loop until typed data is validated
 
         UI --> HRM : Requests data (name, birthdate, admission date, address, \nemail,mobile number, id doc type, id doc number)
     deactivate UI
 
-    loop until typed data is validated
+
 
     HRM -> UI : Types requested data
 
+
     activate UI
+    |||
+
+    end
+    |||
         UI --> UI : keepData(name, birthdate, admission\ndate, address, email,mobile number,\nid doc type, id doc number)
         |||
         UI -> CTRL : getJobList()
@@ -67,10 +73,10 @@ activate HRM
 
     activate UI
 
-        UI --> UI : keepData(job)
+        UI --> UI : keepData(Job job)
         UI --> HRM : Shows all data and requests confirmation
     deactivate UI
-    end
+
 
     HRM -> UI : Confirms data
 
@@ -78,6 +84,8 @@ activate HRM
 
         UI -> CTRL : createCollaborator(name, birthdate, admission\ndate, address, email,mobile number, id doc type,\nid doc number, job)
         activate CTRL
+
+
 
             CTRL -> COLREP : createCollaborator(name, birthdate, admission\ndate, address, email,mobile number, id doc type,\nid doc number, job)
             activate COLREP
@@ -113,13 +121,13 @@ activate HRM
                 |||
                 |||
 
-                COLREP --> COLREP : addToCollaboratorList(collaborator)
                 COLREP --> COLREP : validateCaborator(collaborator)
-                COLREP --> CTRL : collaborator
+                COLREP --> COLREP : addToCollaboratorList(collaborator)
+                COLREP --> CTRL : operation success
 
             deactivate COLREP
 
-            CTRL --> UI : collaborator
+            CTRL --> UI : operation success
         deactivate CTRL
 
         UI --> HRM : Displays operation success

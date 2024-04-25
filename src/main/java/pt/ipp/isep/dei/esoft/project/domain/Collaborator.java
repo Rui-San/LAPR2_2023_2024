@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public class Collaborator {
+public class Collaborator implements Cloneable{
     private String name;
     private Date birthdate;
     private Date admissionDate;
@@ -15,7 +15,7 @@ public class Collaborator {
     private Email email;
     private String mobileNumber;
 
-    private enum IdDocType {
+    public enum IdDocType {
         CC, BI, Passport
     }
 
@@ -183,10 +183,10 @@ public class Collaborator {
     /**
      * Assign selected skills to a collaborator (1 or more skills)
      *
-     * @param skillsToAdd
+     * @param chosenSkills
      */
-    public void assignSkills(List<Skill> skillsToAdd) {
-        skillList.addAll(skillsToAdd);
+    public void assignSkills(List<Skill> chosenSkills) {
+        skillList.addAll(chosenSkills);
     }
 
     /**
@@ -268,6 +268,30 @@ public class Collaborator {
                 return ValidateIdDocNumberResults.CC_BI_ERROR;
             }
         }
+    }
+
+    public Collaborator clone(){
+        Collaborator clone = new Collaborator(
+                this.name,
+                this.birthdate,
+                this.admissionDate,
+                this.address.getStreet(),
+                this.address.getStreetNumber(),
+                this.address.getPostalCode(),
+                this.address.getCity(),
+                this.address.getDistrict(),
+                this.email.getEmail(),
+                this.mobileNumber,
+                this.idDocType,
+                this.idDocNumber,
+                this.job
+        );
+
+        for (Skill skill : this.skillList) {
+            clone.skillList.add(skill.clone());
+        }
+
+        return clone;
     }
 }
 

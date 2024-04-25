@@ -10,8 +10,11 @@ autonumber
 actor "HRM" as HRM
 participant ":AssignSkillUI" as UI
 participant ":AssignSkillController" as CTRL
-participant "organization\n:Organization" as ORG
-
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as rep
+participant "skillRepository:\nSkillRepository" as SkillRepository
+participant ":collaboratorRepository \nCollaboratorRepository" as COLREP
+participant ":collaborator \nCollaborator" as COL
 
 activate HRM
 
@@ -19,42 +22,62 @@ activate HRM
 
     activate UI
 
-        UI -> CTRL : getListOfCollaborators()
+        UI -> CTRL : getCollaboratorList()
 
         activate CTRL
 
-            CTRL -> ORG : getListOfCollaborators()
-            |||
-            activate ORG
+            CTRL -> RepositorySingleton : getInstance()
 
-                ORG -> CTRL : ListOfCollaborators
-            deactivate ORG
-            CTRL -> UI : ListOfCollaborators
+            activate RepositorySingleton
+
+                RepositorySingleton -> CTRL : repositories
+            deactivate RepositorySingleton
+
+            CTRL -> rep : getCollaboratorRepository()
+            activate rep
+
+                rep --> CTRL : collaboratorRepository
+            deactivate rep
+            CTRL -> COLREP : getCollaboratorList()
+
+            activate COLREP
+
+            COLREP --> CTRL : collaboratorList
+            deactivate COLREP
+
+
+            CTRL -> UI : collaboratorList
         deactivate CTRL
         UI --> HRM : Shows a list of Collaborators and asks to select one
+
     deactivate UI
 
     HRM -> UI : Selects a collaborator
-
     activate UI
+
+
+    UI --> UI : keepsData(collaboratorEmail)
+
+    |||
 
         UI -> CTRL : getSkillList()
 
         activate CTRL
 
-            CTRL -> ORG : getSkillList()
-            |||
-            |||
 
-            activate ORG
+            CTRL -> rep : getSkillRepository()
 
-                ORG -> CTRL : skillList
+            activate rep
 
-            deactivate ORG
+                rep --> CTRL : skillRepository
+            deactivate rep
 
-            UI --> UI : keepCollaborator(collaborator)
-            |||
-            |||
+            CTRL -> SkillRepository : getSkillList()
+
+            activate SkillRepository
+
+                SkillRepository --> CTRL : skillList
+            deactivate SkillRepository
 
             CTRL -> UI : skillList
         deactivate CTRL
@@ -65,12 +88,13 @@ activate HRM
     deactivate UI
 
         HRM -> UI : Selects a skill
+        |||
 
     activate UI
 
         end
         |||
-        UI --> UI : keepSelectedSkills(List<Skill> skills)
+        UI --> UI : keepData(List<Skill> chosenSkills)
 
         UI --> HRM : Shows all data (collaborator and his skills) and \nrequests confirmation
     deactivate UI
@@ -78,17 +102,47 @@ activate HRM
     HRM -> UI : Confirms the operation
     activate UI
 
-        UI -> CTRL : addSkillsToCollaborator(collaborator, List<Skill> skills)
+
+        UI -> CTRL : assignSkills(List<Skill> chosenSkills)
 
         activate CTRL
 
-            CTRL -> ORG : addSkillsToCollaborator(collaborator, List<Skill> skills)
-            |||
-            activate ORG
+            CTRL --> CTRL : getCollaboratorByCollaboratorEmail(colaboratorEmail)
 
-                ORG ->CTRL : show Collaborator
-            deactivate ORG
-            CTRL -> UI : show Collaborator
+
+            CTRL -> rep : getCollaboratorRepository()
+
+            activate rep
+
+                rep --> CTRL : collaboratorRepository
+            deactivate rep
+
+            CTRL -> COLREP : getCollaboratorByCollaboratorEmail(colaboratorEmail)
+            activate COLREP
+
+                COLREP --> CTRL : collaborator
+            deactivate COLREP
+
+            CTRL --> CTRL : collaborator
+            |||
+
+            CTRL -> COL : assignSkills(List<Skill> chosenSkills)
+            |||
+            activate COL
+
+            Note right of COL
+                <font color=black><b>Adding skills to the object collaborator:
+
+                assignSkills(List<Skill> chosenSkills) {
+                    skillList.addAll(chosenSkills)
+                }
+            end note
+                COL -->CTRL : operation success
+
+
+
+            deactivate COL
+            CTRL -> UI : operation success
         deactivate CTRL
 
         UI --> HRM : Displays operation success

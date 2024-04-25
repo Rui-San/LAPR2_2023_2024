@@ -33,6 +33,8 @@ public class Vehicle {
 
     public int getCheckupFrequencyKms() { return checkupFrequencyKms; }
 
+    //TODO: validação nos metodos set
+
     public void setPlateId(String plateId) { this.plateId = plateId; }
 
     public void setBrand(String brand) { this.brand = brand; }
@@ -66,5 +68,6 @@ public class Vehicle {
         this.checkupFrequencyKms = checkupFrequencyKms;
     }
 
+    //TODO: metodos de validaçao
 
 }

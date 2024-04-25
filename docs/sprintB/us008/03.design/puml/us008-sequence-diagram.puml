@@ -10,13 +10,10 @@ autonumber
 actor "Fleet Manager" as Employee
 participant ":ListVehiclesNeedingCheckupUI" as UI
 participant ":ListVehiclesNeedingCheckupController" as CTRL
-participant ":Organization" as ORG
 participant ":Repositories" as Repos
 participant "repositories\n:Repositories" as PLAT
-participant "organizationRepository\n:OrganizationRepository" as ORGRepo
+participant "vehicleRepository" as VRepo
 participant "checkupRepositoty\n:CheckupRepository" as CheckupRepo
-
-activate Employee
 
     Employee -> UI : Requests to show the list of \nvehicles needing a check-up
     activate UI
@@ -28,39 +25,43 @@ activate Employee
             CTRL -> Repos : getInstance()
             activate Repos
 
-                Repos -> CTRL : repositories
+                Repos --> CTRL : repositories
             deactivate Repos
-            CTRL -> PLAT : repositories
+            CTRL -> PLAT : getVehicleRepository()
             activate PLAT
 
-                PLAT -> CTRL : organizationRepository
+                PLAT --> CTRL : vehicleRepository
             deactivate PLAT
-            CTRL -> ORGRepo : getOrganizationByEmail(**email**)
-            activate ORGRepo
 
-                ORGRepo -> CTRL : organization
-            deactivate ORGRepo
+            CTRL-> VRepo : getVehiclesNeedingCheckup()
+            activate VRepo
 
-            CTRL-> ORG : getVehiclesNeedingCheckup()
-            activate ORG
+                VRepo --> VRepo : getVehicles()
+                VRepo --> Repos : getInstance()
+                activate Repos
 
-                ORG -> PLAT : repositories
+                    Repos --> VRepo : repositories
+                deactivate Repos
+                VRepo -> PLAT : getCheckupRepository()
                 activate PLAT
 
-                    PLAT -> ORG : checkupRepository
+                    PLAT --> VRepo : checkupRepository
                 deactivate PLAT
-                ORG --> ORG : getVehicleList()
                 loop for each vehicle in vehiclesList
-                    ORG -> CheckupRepo : needsCheckup(Vehicle vehicle)
-                    activate CheckupRepo
+                    VRepo --> VRepo : needsCheckup(Vehicle vehicle)
+                    activate VRepo
 
-                        CheckupRepo -> CheckupRepo : getLastVehicleCheckupKms(Vehicle vehicle)
-                    CheckupRepo -> ORG : needsCheckup
-                    deactivate CheckupRepo
-                    ORG -> ORG : addVehicleToNeedCheckupList(Vehicle vehicle)
+                        VRepo -> CheckupRepo : getCheckup(vehicle)
+                        activate CheckupRepo
+
+                            CheckupRepo --> VRepo : checkupKms
+                        deactivate CheckupRepo
+                    VRepo --> VRepo : true/false
+                    deactivate VRepo
+                    VRepo --> VRepo : addVehicleToNeedCheckupList(vehicle)
                 end loop
-                ORG -> CTRL : vehiclesNeedingCheckupList
-            deactivate ORG
+                VRepo -> CTRL : vehiclesNeedingCheckupList
+            deactivate VRepo
             CTRL -> UI : vehiclesNeedingCheckupList
         deactivate CTRL
 

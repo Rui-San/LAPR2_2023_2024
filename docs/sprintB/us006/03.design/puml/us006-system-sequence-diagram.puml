@@ -10,19 +10,17 @@ autonumber
 actor "Fleet Manager" as Employee
 participant ":RegisterVehicleUI" as System
 participant ":RegisterVehicleController" as CTRL
-participant ":organization \nOrganization" as ORG
-participant ":Repository" as REP
+participant ":Repositories" as REP
 participant ":repositories \nRepositories" as REPS
-participant ":VehicleRepository \nVehicleRepository" as SR
+participant ":VehicleRepository \nVehicleRepository" as VR
 
 activate Employee
 
     Employee -> System : Asks to create a new vehicle
     activate System
-
-System --> Employee : Requests vehicle data (plate id, brand, model, type,\ntare, gross weight, current km, register date,\nacquisition date, checkup frequency kms)
+    System->System: keepData(plate id, brand, model, type,\ntare, gross weight, current km, register date,\nacquisition date, checkup frequency kms)
+    System  --> Employee : Requests vehicle data (plate id, brand, model, type,\ntare, gross weight, current km, register date,\nacquisition date, checkup frequency kms)
     deactivate System
-
 
     Employee -> System : Types requested data
     activate System
@@ -34,32 +32,48 @@ System --> Employee : Requests vehicle data (plate id, brand, model, type,\ntare
     activate System
         System->CTRL :RegisterVehicle(plateId,brand,model,\ntype,tare,grossWeight,currentKm,\nregisterDate,acquisitionDate,\ncheckupFrequencyKms)
         activate CTRL
-            CTRL->ORG :RegisterVehicle(plateId,brand,model,\ntype,tare,grossWeight,currentKm,\nregisterDate,acquisitionDate,\ncheckupFrequencyKms)
-            activate ORG
 
-            ORG->REP: getInstance()
+            CTRL->REP: getInstance()
 
             activate REP
 
-            REP-->ORG: repositories
+            REP-->CTRL: repositories
 
             deactivate REP
 
-            ORG->REPS: getVehicleRepository()
+            CTRL->REPS: getVehicleRepository()
 
             activate REPS
 
-            REPS-->ORG: VehicleRepository
+            REPS-->CTRL: VehicleRepository
 
             deactivate REPS
 
+            CTRL->VR: createVehicle (plateId,brand,model,\ntype,tare,grossWeight,currentKm,\nregisterDate,acquisitionDate,\ncheckupFrequencyKms)
+
+            activate VR
+
+            VR->Vehicle**: createVehicle (plateId,brand,model,\ntype,tare,grossWeight,currentKm,\nregisterDate,acquisitionDate,\ncheckupFrequencyKms)
+
+            Vehicle->Vehicle: validatePlateId(plateId)
+            Vehicle->Vehicle: validateTare(tare)
+            Vehicle->Vehicle: validateCurrentKm(currentKm)
+            Vehicle->Vehicle: validateRegisterDate(registerDate)
+            Vehicle->Vehicle: validateCheckupFrequencyKms(checkupFrequencyKms)
 
 
-            ORG-->CTRL: Vehicle
+            VR->VR: addToVehicleList(Vehicle)
 
-            CTRL-->System: Vehicle
+            VR->VR: validateVehicle(vehicle)
 
-            System->System: keepData(plate id, brand, model, type,\ntare, gross weight, current km, register date,\nacquisition date, checkup frequency kms)
+
+            VR-->CTRL: Operation Success
+
+            deactivate VR
+
+            CTRL-->System: Operation success
+
+
 
         System --> Employee : Displays operation success
     deactivate System
