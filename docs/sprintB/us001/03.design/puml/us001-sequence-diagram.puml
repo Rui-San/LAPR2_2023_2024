@@ -50,15 +50,15 @@ end
                 activate SR
 
                 SR -> Skill** : createSkill(skillName)
-                Skill --> Skill : validate(skillName)
+                Skill --> Skill : validateName(skillName)
 
-                SR --> SR : validate(skillName)
                 SR --> SR : addToSkillList(skillName)
-                SR --> RSC : skillName
+                SR --> SR : validate(skillName)
+                SR --> RSC : operation success
                 deactivate SR
 
 
-            RSC --> System : skillName
+            RSC --> System : operation success
 
         deactivate RSC
 
