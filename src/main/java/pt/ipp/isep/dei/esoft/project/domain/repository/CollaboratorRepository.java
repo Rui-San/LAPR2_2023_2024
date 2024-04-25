@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.esoft.project.domain.repository;
 
-import pt.ipp.isep.dei.esoft.project._templateFiles.domain.Organization;
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.Email;
 

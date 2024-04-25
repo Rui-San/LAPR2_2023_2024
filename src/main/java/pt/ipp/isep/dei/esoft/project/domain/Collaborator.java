@@ -15,7 +15,7 @@ public class Collaborator implements Cloneable{
     private Email email;
     private String mobileNumber;
 
-    private enum IdDocType {
+    public enum IdDocType {
         CC, BI, Passport
     }
 

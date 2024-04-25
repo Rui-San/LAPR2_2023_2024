@@ -1,23 +1,66 @@
 package pt.ipp.isep.dei.esoft.project.ui;
 
-import pt.ipp.isep.dei.esoft.project._templateFiles.application.controller.authorization.AuthenticationController;
-import pt.ipp.isep.dei.esoft.project._templateFiles.domain.Employee;
-import pt.ipp.isep.dei.esoft.project._templateFiles.domain.Organization;
-import pt.ipp.isep.dei.esoft.project._templateFiles.domain.TaskCategory;
-import pt.ipp.isep.dei.esoft.project._templateFiles.domain.repository.AuthenticationRepository;
-import pt.ipp.isep.dei.esoft.project._templateFiles.domain.repository.OrganizationRepository;
-import pt.ipp.isep.dei.esoft.project._templateFiles.domain.repository.Repositories;
-import pt.ipp.isep.dei.esoft.project._templateFiles.domain.repository.TaskCategoryRepository;
+import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
+import pt.ipp.isep.dei.esoft.project.domain.Date;
+import pt.ipp.isep.dei.esoft.project.domain.Job;
+import pt.ipp.isep.dei.esoft.project.domain.Skill;
+import pt.ipp.isep.dei.esoft.project.domain.repository.CollaboratorRepository;
+import pt.ipp.isep.dei.esoft.project.domain.repository.JobRepository;
+import pt.ipp.isep.dei.esoft.project.domain.repository.Repositories;
+import pt.ipp.isep.dei.esoft.project.domain.repository.SkillRepository;
 
 public class Bootstrap implements Runnable {
 
-    //Add some task categories to the repository as bootstrap
     public void run() {
-        addTaskCategories();
-        addOrganization();
-        addUsers();
+        addCollaborator();
+        addSkills();
+        addJobs();
     }
 
+    private void addCollaborator() {
+        CollaboratorRepository collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
+
+        String name = "João Pedro";
+        Date birthdate = new Date(1990, 5, 15);
+        Date admissionDate = new Date(2022, 1, 1);
+        String street = "Rua Principal";
+        int streetNumber = 123;
+        String postalCode = "1235-678";
+        String city = "Porto";
+        String district = "Porto";
+        String email = "joao.pedro@example.com";
+        String mobileNumber = "912345678";
+        Collaborator.IdDocType idDocType = Collaborator.IdDocType.CC;
+        int idDocNumber = 123456789;
+        Job job = new Job("Gardener");
+
+        Collaborator collaborator = new Collaborator(name, birthdate, admissionDate, street, streetNumber, postalCode,
+                city, district, email, mobileNumber, idDocType, idDocNumber, job);
+
+        collaboratorRepository.add(collaborator);
+    }
+
+    public void addSkills() {
+        SkillRepository skillRepository = Repositories.getInstance().getSkillRepository();
+        skillRepository.add(new Skill("Tree Pruning"));
+        skillRepository.add(new Skill("Operator of agriculte machinery"));
+        skillRepository.add(new Skill("Application of Fertilizers and Pesticides"));
+        skillRepository.add(new Skill("Equipment Maintenance"));
+        skillRepository.add(new Skill("Heavy Vehicle Driving License"));
+        skillRepository.add(new Skill("Light Vehicle Driving License"));
+    }
+
+    public void addJobs() {
+        JobRepository jobRepository = Repositories.getInstance().getJobRepository();
+        jobRepository.add(new Job("Gardener"));
+        jobRepository.add(new Job("Landscape Technician"));
+        jobRepository.add(new Job("Farmer"));
+        jobRepository.add(new Job("Electrician"));
+        jobRepository.add(new Job("Forestry Engineer"));
+        jobRepository.add(new Job("Agricultural Engineer"));
+        jobRepository.add(new Job("Bricklayer"));
+    }
+/*
     private void addOrganization() {
         //TODO: add organizations bootstrap here
         //get organization repository
@@ -55,4 +98,6 @@ public class Bootstrap implements Runnable {
         authenticationRepository.addUserWithRole("Employee", "employee@this.app", "pwd",
                 AuthenticationController.ROLE_EMPLOYEE);
     }
+
+    */
 }
