@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
-import pt.ipp.isep.dei.esoft.project.domain.repository.SkillRepository;
-import pt.ipp.isep.dei.esoft.project.domain.repository.TeamRepository;
+import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;
+import pt.ipp.isep.dei.esoft.project.repository.TeamRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +31,7 @@ public class TeamProposal {
         List<Skill> skills = skillRepository.getSkills();
         Scanner scanner = new Scanner(System.in);
         for (Skill skill : skills) {
-            System.out.println("Do you want to add " + skill.getSkillName() + " to the team? (yes/no)");
+            System.out.println("add skill " + skill.getSkillName() + " to team? (yes/no)");
             String response = scanner.nextLine();
             if (response.equalsIgnoreCase("yes")) {
                 selectedSkills.add(skill);
@@ -45,16 +45,14 @@ public class TeamProposal {
     }
 
     public boolean showTeamProposal(List<Skill> team) {
-        System.out.println("The proposed team is: " + team);
+        System.out.println("Proposed team: " + team);
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Do you accept this team? (yes/no)");
+        System.out.println("accept this team? (yes/no)");
         String response = scanner.nextLine();
         return response.equalsIgnoreCase("yes");
     }
 
     public void createTeam(List<Skill> team) {
-        // Here you can implement the logic to add the team to the repository
-        // For simplicity, let's assume that the TeamRepository class has a method addTeam that accepts a list of skills
         boolean isAdded = teamRepository.addTeam(team);
         if (isAdded) {
             System.out.println("Team successfully created and added to the repository.");
