@@ -211,7 +211,7 @@ public class Collaborator implements Cloneable{
             return NameValidationResults.TOO_MANY_WORDS;
         }
 
-        Pattern namePattern = Pattern.compile("[a-zA-Z\\\\s-]+");
+        Pattern namePattern = Pattern.compile("[a-zA-Z\\s-]+");
 
         if (namePattern.matcher(name).matches()) {
             return NameValidationResults.VALID;
@@ -233,7 +233,7 @@ public class Collaborator implements Cloneable{
 
         char[] mobileNumberChars = mobileNumber.toCharArray();
 
-        if (mobileNumberChars.length != MOBILE_NUMBER_TOTAL_DIGITS || mobileNumberChars[0] != 9 || mobileNumberChars[1] != MobileOperator.OPERATOR1.getOperatorCode() || mobileNumberChars[1] != MobileOperator.OPERATOR2.getOperatorCode() || mobileNumberChars[1] != MobileOperator.OPERATOR3.getOperatorCode()) {
+        if (mobileNumberChars.length != MOBILE_NUMBER_TOTAL_DIGITS || mobileNumberChars[0] != '9' || (mobileNumberChars[1] != MobileOperator.OPERATOR1.getOperatorCode() && mobileNumberChars[1] != MobileOperator.OPERATOR2.getOperatorCode() && mobileNumberChars[1] != MobileOperator.OPERATOR3.getOperatorCode())) {
             return false;
         } else {
             return true;
@@ -250,7 +250,7 @@ public class Collaborator implements Cloneable{
 
         String idDocNumberString = String.valueOf(idDocNumber);
 
-        if (!idDocNumberString.isEmpty()) {
+        if (idDocNumberString.isEmpty()) {
             return ValidateIdDocNumberResults.EMPTY;
         }
 

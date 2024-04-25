@@ -1,10 +1,7 @@
-package pt.ipp.isep.dei.esoft.project.domain.repository;
+package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project._templateFiles.domain.repository.AuthenticationRepository;
 import pt.ipp.isep.dei.esoft.project._templateFiles.domain.repository.OrganizationRepository;
-import pt.ipp.isep.dei.esoft.project._templateFiles.domain.repository.TaskCategoryRepository;
-import pt.ipp.isep.dei.esoft.project.domain.Job;
-import pt.ipp.isep.dei.esoft.project.domain.Skill;
 
 public class Repositories {
     private static Repositories instance;

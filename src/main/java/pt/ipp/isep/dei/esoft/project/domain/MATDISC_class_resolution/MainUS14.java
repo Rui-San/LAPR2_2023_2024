@@ -24,7 +24,7 @@ public class MainUS14 {
 
         String currentDirectory = System.getProperty("user.dir");
 
-        File directory = new File(currentDirectory + File.separator + "src" + File.separator + "main" + File.separator + "java" + File.separator + "pt" + File.separator + "ipp" + File.separator + "isep" + File.separator + "dei" + File.separator + "esoft" + File.separator + "project" + File.separator + "domain" + File.separator + "MATDISC_class_resolution" + File.separator + "US14_DataSet");
+        File directory = new File(currentDirectory + File.separator + "src" + File.separator + "main" + File.separator + "java" + File.separator + "pt" + File.separator + "ipp" + File.separator + "isep" + File.separator + "dei" + File.separator + "esoft" + File.separator + "project" + File.separator + "domain" + File.separator + "pt/ipp/isep/dei/esoft/project/MATDISC/MATDISC_class_resolution" + File.separator + "US14_DataSet");
         if (!directory.exists() || !directory.isDirectory()) {
             System.out.println("Directory 'US14_DataSet' not found.");
             return;

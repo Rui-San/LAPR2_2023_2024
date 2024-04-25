@@ -39,7 +39,7 @@ public class Job {
             return Job.JobValidationResults.EMPTYNULL;
         }
 
-        Pattern namePattern = Pattern.compile("[a-zA-Z\\\\s-]+");
+        Pattern namePattern = Pattern.compile("[a-zA-Z\\s-]+");
 
         if (namePattern.matcher(jobName).matches()) {
             return Job.JobValidationResults.VALID;

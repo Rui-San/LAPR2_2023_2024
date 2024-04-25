@@ -4,23 +4,42 @@ import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.Date;
 import pt.ipp.isep.dei.esoft.project.domain.Job;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
-import pt.ipp.isep.dei.esoft.project.domain.repository.CollaboratorRepository;
-import pt.ipp.isep.dei.esoft.project.domain.repository.JobRepository;
-import pt.ipp.isep.dei.esoft.project.domain.repository.Repositories;
-import pt.ipp.isep.dei.esoft.project.domain.repository.SkillRepository;
+import pt.ipp.isep.dei.esoft.project.repository.*;
 
 public class Bootstrap implements Runnable {
 
     public void run() {
-        addCollaborator();
         addSkills();
         addJobs();
+        addVehicle();
+        addCheckup();
+        addCollaborator();
     }
 
+    private void addSkills() {
+        SkillRepository skillRepository = Repositories.getInstance().getSkillRepository();
+        skillRepository.add(new Skill("Tree Pruning"));
+        skillRepository.add(new Skill("Operator of agriculte machinery"));
+        skillRepository.add(new Skill("Application of Fertilizers and Pesticides"));
+        skillRepository.add(new Skill("Equipment Maintenance"));
+        skillRepository.add(new Skill("Heavy Vehicle Driving License"));
+        skillRepository.add(new Skill("Light Vehicle Driving License"));
+    }
+
+    private void addJobs() {
+        JobRepository jobRepository = Repositories.getInstance().getJobRepository();
+        jobRepository.add(new Job("Gardener"));
+        jobRepository.add(new Job("Landscape Technician"));
+        jobRepository.add(new Job("Farmer"));
+        jobRepository.add(new Job("Electrician"));
+        jobRepository.add(new Job("Forestry Engineer"));
+        jobRepository.add(new Job("Agricultural Engineer"));
+        jobRepository.add(new Job("Bricklayer"));
+    }
     private void addCollaborator() {
         CollaboratorRepository collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
 
-        String name = "João Pedro";
+        String name = "joao albert";
         Date birthdate = new Date(1990, 5, 15);
         Date admissionDate = new Date(2022, 1, 1);
         String street = "Rua Principal";
@@ -32,7 +51,7 @@ public class Bootstrap implements Runnable {
         String mobileNumber = "912345678";
         Collaborator.IdDocType idDocType = Collaborator.IdDocType.CC;
         int idDocNumber = 123456789;
-        Job job = new Job("Gardener");
+        Job job = new Job("x");
 
         Collaborator collaborator = new Collaborator(name, birthdate, admissionDate, street, streetNumber, postalCode,
                 city, district, email, mobileNumber, idDocType, idDocNumber, job);
@@ -40,26 +59,15 @@ public class Bootstrap implements Runnable {
         collaboratorRepository.add(collaborator);
     }
 
-    public void addSkills() {
-        SkillRepository skillRepository = Repositories.getInstance().getSkillRepository();
-        skillRepository.add(new Skill("Tree Pruning"));
-        skillRepository.add(new Skill("Operator of agriculte machinery"));
-        skillRepository.add(new Skill("Application of Fertilizers and Pesticides"));
-        skillRepository.add(new Skill("Equipment Maintenance"));
-        skillRepository.add(new Skill("Heavy Vehicle Driving License"));
-        skillRepository.add(new Skill("Light Vehicle Driving License"));
+    private void addVehicle() {
+
+
     }
 
-    public void addJobs() {
-        JobRepository jobRepository = Repositories.getInstance().getJobRepository();
-        jobRepository.add(new Job("Gardener"));
-        jobRepository.add(new Job("Landscape Technician"));
-        jobRepository.add(new Job("Farmer"));
-        jobRepository.add(new Job("Electrician"));
-        jobRepository.add(new Job("Forestry Engineer"));
-        jobRepository.add(new Job("Agricultural Engineer"));
-        jobRepository.add(new Job("Bricklayer"));
+    private void addCheckup() {
     }
+
+
 /*
     private void addOrganization() {
         //TODO: add organizations bootstrap here

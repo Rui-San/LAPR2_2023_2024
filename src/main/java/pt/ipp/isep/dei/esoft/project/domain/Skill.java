@@ -39,7 +39,7 @@ public class Skill {
             return SkillValidationResults.EMPTYNULL;
         }
 
-        Pattern namePattern = Pattern.compile("[a-zA-Z\\\\s-]+");
+        Pattern namePattern = Pattern.compile("[a-zA-Z\\s-]+");
 
         if (namePattern.matcher(skillName).matches()) {
             return SkillValidationResults.VALID;
