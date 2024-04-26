@@ -8,8 +8,6 @@ public class Collaborator implements Cloneable{
     private String name;
     private Date birthdate;
     private Date admissionDate;
-
-
     private Job job;
     private Address address;
     private Email email;
