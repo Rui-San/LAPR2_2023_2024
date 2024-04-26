@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.esoft.project.repository;
 import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class VehicleRepository {
 
@@ -30,8 +31,8 @@ public class VehicleRepository {
      * Gets the list of all vehicles.
      * @return
      */
-    public ArrayList<Vehicle> getVehicles() {
-        return vehicles;
+    public List<Vehicle> getVehicles() {
+        return List.copyOf(vehicles);
     }
 
     /**
