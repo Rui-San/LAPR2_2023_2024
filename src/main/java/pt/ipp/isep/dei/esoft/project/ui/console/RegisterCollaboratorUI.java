@@ -9,7 +9,9 @@ import pt.ipp.isep.dei.esoft.project.domain.Email;
 import pt.ipp.isep.dei.esoft.project.domain.Job;
 
 import java.sql.SQLOutput;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class RegisterCollaboratorUI implements Runnable {
@@ -35,6 +37,11 @@ public class RegisterCollaboratorUI implements Runnable {
         return controller;
     }
 
+    public static void main(String[] args) {
+        RegisterCollaboratorUI ui = new RegisterCollaboratorUI();
+        ui.run();
+    }
+
     @Override
     public void run() {
         System.out.println("\n\n--- Register new Collaborator ------------------------");
@@ -50,7 +57,13 @@ public class RegisterCollaboratorUI implements Runnable {
     }
 
     private Job displayAndSelectJob() {
-        List<Job> jobList = controller.getJobList();
+
+        //List<Job> jobList = controller.getJobList();
+
+        List<Job> jobList = new ArrayList<>();
+        Job randomJob = new Job("Programador");
+        jobList.add(randomJob);
+
         int listSize = jobList.size();
         int answer = 0;
 
@@ -61,9 +74,11 @@ public class RegisterCollaboratorUI implements Runnable {
             System.out.print("Select a job: ");
             answer = input.nextInt();
         }
+
         Job job = jobList.get(answer - 1);
         return job;
     }
+
     private void displayJobOptions(List<Job> jobList) {
         int i = 1;
         for (Job job : jobList) {
