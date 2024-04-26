@@ -44,14 +44,10 @@ public class RegisterCollaboratorController {
         return collaboratorRepository;
     }
 
-    private Job getJobByJobName(String jobName) {
+    public List<Job> getJobList() {
         JobRepository jobRepository = getJobRepository();
-
-        Job job = jobRepository.getJobByJobName(jobName);
-
-        return job;
+        return jobRepository.getJobList();
     }
-
 
     public Optional<Collaborator> createCollaborator(String name, String birthdate, String admissionDate, String street, int streetNumber, String postalCode, String city, String district, String email, String mobileNumber, IdDocType idDocType, int idDocNumber, Job job) {
 
@@ -68,12 +64,15 @@ public class RegisterCollaboratorController {
         // check if this method needs to be Optional<Collaborator>
         // the Optional class, allows null or not null objects. this means less code in variables "=null"
     }
-
-
-    public List<Job> getJobList() {
+    private Job getJobByJobName(String jobName) {
         JobRepository jobRepository = getJobRepository();
-        return jobRepository.getJobList();
+
+        Job job = jobRepository.getJobByJobName(jobName);
+
+        return job;
     }
+
+
 
 
 }

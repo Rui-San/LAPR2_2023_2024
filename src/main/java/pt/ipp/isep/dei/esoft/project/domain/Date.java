@@ -10,36 +10,120 @@ public class Date implements Comparable<Date> {
     private int day;
     private int month;
     private int year;
+    private static final int MIN_ACCEPTED_YEAR = 1900;
+
+    public enum Mes {
+        JANEIRO(1, 31),
+        FEVEREIRO(2, 28),
+        MARCO(3, 31),
+        ABRIL(4, 30),
+        MAIO(5, 31),
+        JUNHO(6, 30),
+        JULHO(7, 31),
+        AGOSTO(8, 31),
+        SETEMBRO(9, 30),
+        OUTUBRO(10, 31),
+        NOVEMBRO(11, 30),
+        DEZEMBRO(12, 31);
+
+        private final int numero;
+        private final int dias;
+
+        Mes(int numero, int dias) {
+            this.numero = numero;
+            this.dias = dias;
+        }
+
+        public int getNumero() {
+            return numero;
+        }
+
+        public int getDias() {
+            return dias;
+        }
+    }
+
+    public enum ValidateDateResults {
+        INVALID_FORMAT, VALID, EMPTY, INVALID_MONTH, INVALID_YEAR, INVALID_DAY
+    }
 
     public Date(String birthdate) {
         setDate(birthdate);
     }
 
-    private boolean validateDate(String date) {
+    public void setDate(String date) {
+
+        ValidateDateResults validateDateResults = validateDate(date);
+
+        switch (validateDateResults){
+            case EMPTY:
+                throw new IllegalArgumentException("Date must not be empty!");
+            case INVALID_FORMAT:
+                throw new IllegalArgumentException("Date must follow the format DD/MM/YYYY");
+            case INVALID_DAY:
+                throw new IllegalArgumentException("The provided day is invalid");
+            case INVALID_MONTH:
+                throw new IllegalArgumentException("The provided month is invalid");
+            case INVALID_YEAR:
+                throw new IllegalArgumentException("The provided year is invalid");
+            case VALID:
+                String[] dateParts = date.trim().split("/");
+                int day = Integer.parseInt(dateParts[0]);
+                int month = Integer.parseInt(dateParts[1]);
+                int year = Integer.parseInt(dateParts[2]);
+                this.day = day;
+                this.month = month;
+                this.year = year;
+        }
+    }
+
+    private ValidateDateResults validateDate(String date) {
+
+        if (date == null || date.trim().isEmpty()) {
+            return ValidateDateResults.EMPTY;
+        }
+
         String[] dateParts = date.trim().split("/");
 
         if (dateParts.length != 3) {
-            return false;
+            return ValidateDateResults.INVALID_FORMAT;
         }
 
-        //TODO: IMPLEMENT VALIDATION
-
-        return true;
-
-    }
-
-    public void setDate(String date) {
-
-        if (validateDate(date)) {
-            String[] dateParts = date.trim().split("/");
-            int day = Integer.parseInt(dateParts[0]);
-            int month = Integer.parseInt(dateParts[1]);
-            int year = Integer.parseInt(dateParts[2]);
-            this.day = day;
-            this.month = month;
-            this.year = year;
+        for (String part : dateParts) {
+            int number = Integer.parseInt(part);
+            if (number <= 0) {
+                return ValidateDateResults.EMPTY;
+            }
         }
+
+        int day = Integer.parseInt(dateParts[0]);
+        int month = Integer.parseInt(dateParts[1]);
+        int year = Integer.parseInt(dateParts[2]);
+
+        Mes mes = Mes.valueOf(String.valueOf(month));
+        if (day < 1 || day > mes.getDias()) {
+            return ValidateDateResults.INVALID_DAY;
+        }
+
+        if (month < 1 || month > 12) {
+            return ValidateDateResults.INVALID_MONTH;
+        }
+
+        if (month == 2 && isLeapYear(year) && day > 29) {
+            return ValidateDateResults.INVALID_DAY;
+        }
+
+        if (year <= MIN_ACCEPTED_YEAR) {
+            return ValidateDateResults.INVALID_YEAR;
+        }
+
+        return ValidateDateResults.VALID;
     }
+
+    private boolean isLeapYear(int year) {
+        return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+    }
+
 
     public int getDay() {
         return day;
