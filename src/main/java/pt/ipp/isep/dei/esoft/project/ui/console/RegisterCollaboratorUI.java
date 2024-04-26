@@ -83,8 +83,6 @@ public class RegisterCollaboratorUI implements Runnable {
         district = requestDistrict();
         email = requestEmail();
         mobileNumber = requestMobileNumber();
-
-
     }
 
     private String requestEmail() {
