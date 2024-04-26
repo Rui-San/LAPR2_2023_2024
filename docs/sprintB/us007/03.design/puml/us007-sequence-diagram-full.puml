@@ -56,11 +56,13 @@ activate Employee
     Employee -> UI : Selects a vehicle
     activate UI
 
-        UI --> UI : keepsData(vehicle)
+        UI --> UI : keepsData(Vehicle vehicle)
+    loop until typed data is validated
         UI --> Employee : Requests the date of the check-up\n and the current kilometers
     deactivate UI
 
     Employee -> UI : Types requested data
+    end loop
     activate UI
 
         UI --> UI : keepData(checkupDate, currentKms)
