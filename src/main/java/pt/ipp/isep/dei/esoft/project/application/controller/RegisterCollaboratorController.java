@@ -1,11 +1,14 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
+import pt.ipp.isep.dei.esoft.project.domain.Collaborator.IdDocType;
 import pt.ipp.isep.dei.esoft.project.domain.Date;
 import pt.ipp.isep.dei.esoft.project.domain.Job;
+import pt.ipp.isep.dei.esoft.project.domain.VehicleCheckup;
 import pt.ipp.isep.dei.esoft.project.repository.CollaboratorRepository;
 import pt.ipp.isep.dei.esoft.project.repository.JobRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -50,15 +53,17 @@ public class RegisterCollaboratorController {
     }
 
 
-    public Collaborator createCollaborator(String name, Date birthdate, Date admissionDate, String street, int streetNumber, String postalCode,
-                                                     String city, String district, String email, String mobileNumber, Collaborator.IdDocType idDocType, int idDocNumber, Job job) {
+    public Optional<Collaborator> createCollaborator(String name, String birthdate, String admissionDate, String street, int streetNumber, String postalCode, String city, String district, String email, String mobileNumber, IdDocType idDocType, int idDocNumber, Job job) {
+
+        Optional<Collaborator> newCollaborator = Optional.empty();
         /*
         Se for necessário ir buscar o objeto pela string já está implementado
         Job job = getJobByJobName(jobName);
         */
-        Collaborator collaborator = new Collaborator(name,birthdate,admissionDate,street,streetNumber,postalCode,city,district,email,mobileNumber,idDocType,idDocNumber,job);
+        newCollaborator = collaboratorRepository.createCollaborator(name, birthdate, admissionDate, street, streetNumber, postalCode, city, district, email, mobileNumber, idDocType, idDocNumber, job);
 
-        return collaborator;
+
+        return newCollaborator;
 
         // check if this method needs to be Optional<Collaborator>
         // the Optional class, allows null or not null objects. this means less code in variables "=null"

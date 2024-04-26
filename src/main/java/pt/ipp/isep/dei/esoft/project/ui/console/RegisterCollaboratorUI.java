@@ -1,14 +1,11 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
-import pt.ipp.isep.dei.esoft.project._templateFiles.domain.TaskCategory;
-import pt.ipp.isep.dei.esoft.project.application.RegisterSkillController;
 import pt.ipp.isep.dei.esoft.project.application.controller.RegisterCollaboratorController;
-import pt.ipp.isep.dei.esoft.project.domain.Address;
-import pt.ipp.isep.dei.esoft.project.domain.Date;
-import pt.ipp.isep.dei.esoft.project.domain.Email;
+import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
+import pt.ipp.isep.dei.esoft.project.domain.Collaborator.IdDocType;
 import pt.ipp.isep.dei.esoft.project.domain.Job;
 
-import java.sql.SQLOutput;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -17,6 +14,7 @@ import java.util.Scanner;
 public class RegisterCollaboratorUI implements Runnable {
 
     private final RegisterCollaboratorController controller;
+
     private String name;
     private String birthdate;
     private String admissionDate;
@@ -27,6 +25,8 @@ public class RegisterCollaboratorUI implements Runnable {
     private String district;
     private String email;
     private String mobileNumber;
+    private IdDocType idDocType;
+    private int idDocNumber;
     private Job job;
 
     public RegisterCollaboratorUI() {
@@ -47,13 +47,12 @@ public class RegisterCollaboratorUI implements Runnable {
         System.out.println("\n\n--- Register new Collaborator ------------------------");
 
         requestData();
-
         job = displayAndSelectJob();
-
         submitData();
     }
 
     private void submitData() {
+        Optional<Collaborator> collaborator = getRegisterCollaboratorController().createCollaborator(name, birthdate, admissionDate, street, streetNumber, postalCode, city, district, email, mobileNumber, idDocType, idDocNumber, job);
     }
 
     private Job displayAndSelectJob() {
@@ -98,6 +97,40 @@ public class RegisterCollaboratorUI implements Runnable {
         district = requestDistrict();
         email = requestEmail();
         mobileNumber = requestMobileNumber();
+        idDocType = requestIdDocType();
+        idDocNumber = requestIdDocNumber();
+    }
+
+    private int requestIdDocNumber() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("ID Doc Number: ");
+        return input.nextInt();
+    }
+
+    private IdDocType requestIdDocType() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Select ID Document Type:");
+        System.out.println("1. CC");
+        System.out.println("2. BI");
+        System.out.println("3. Passport");
+        int choice = input.nextInt();
+
+        boolean inputValid = true;
+        do {
+            switch (choice) {
+                case 1:
+                    return IdDocType.CC;
+                case 2:
+                    return IdDocType.BI;
+                case 3:
+                    return IdDocType.Passport;
+                default:
+                    inputValid = false;
+                    System.out.println("Please select a valid option.");
+            }
+        } while (!inputValid);
+
+        return null;
     }
 
     private String requestEmail() {

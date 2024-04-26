@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
-import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
-import pt.ipp.isep.dei.esoft.project.domain.Email;
+import pt.ipp.isep.dei.esoft.project.domain.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -59,5 +59,28 @@ public class CollaboratorRepository {
             }
         }
         return returnCollaborator;
+    }
+
+    public Optional<Collaborator> createCollaborator(String name, String birthdate, String admissionDate, String street, int streetNumber, String postalCode, String city, String district, String email, String mobileNumber, Collaborator.IdDocType idDocType, int idDocNumber, Job job) {
+
+        Collaborator collaborator = new Collaborator(
+                name,
+                new Date(birthdate),
+                new Date(admissionDate),
+                street,
+                streetNumber,
+                postalCode,
+                city,
+                district,
+                email,
+                mobileNumber,
+                idDocType,
+                idDocNumber,
+                job
+        );
+
+        this.add(collaborator);
+        return Optional.of(collaborator);
+
     }
 }
