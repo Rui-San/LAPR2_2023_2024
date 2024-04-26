@@ -79,12 +79,15 @@ public class CheckupRepository {
     /**
      * This
      * @param vehicle
-     * @param checkupDate
+     * @param checkupDateString
      * @param checkupKms
      */
-    public void registerVehicleCheckup(Vehicle vehicle, Date checkupDate, int checkupKms){
-        VehicleCheckup vc = new VehicleCheckup(vehicle, checkupDate, checkupKms);
-        this.add(vc);
+    public Optional<VehicleCheckup> registerVehicleCheckup(Vehicle vehicle, String checkupDateString, int checkupKms){
+        String[] dateParts = checkupDateString.split("/");
+        Date checkupDate = new Date(Integer.parseInt(dateParts[0]), Integer.parseInt(dateParts[1]), Integer.parseInt(dateParts[2]));
+        VehicleCheckup checkup = new VehicleCheckup(vehicle, checkupDate, checkupKms);
+        this.add(checkup);
+        return Optional.of(checkup);
     }
 
 }
