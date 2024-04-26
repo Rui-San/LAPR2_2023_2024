@@ -27,6 +27,15 @@ public class VehicleCheckup {
     }
 
     @Override
+    public String toString() {
+        return "VehicleCheckup{" +
+                "vehicle=" + vehicle.getPlateId() +
+                ", checkupDate=" + checkupDate +
+                ", checkupKms=" + checkupKms +
+                '}';
+    }
+
+    @Override
     public VehicleCheckup clone() {
         return new VehicleCheckup(this.vehicle, this.checkupDate, this.checkupKms);
     }
