@@ -83,8 +83,7 @@ public class CheckupRepository {
      * @param checkupKms
      */
     public Optional<VehicleCheckup> registerVehicleCheckup(Vehicle vehicle, String checkupDateString, int checkupKms){
-        String[] dateParts = checkupDateString.split("/");
-        Date checkupDate = new Date(Integer.parseInt(dateParts[0]), Integer.parseInt(dateParts[1]), Integer.parseInt(dateParts[2]));
+        Date checkupDate = new Date(checkupDateString);
         VehicleCheckup checkup = new VehicleCheckup(vehicle, checkupDate, checkupKms);
         this.add(checkup);
         return Optional.of(checkup);

@@ -40,8 +40,8 @@ public class Bootstrap implements Runnable {
         CollaboratorRepository collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
 
         String name = "joao albert";
-        Date birthdate = new Date(1990, 5, 15);
-        Date admissionDate = new Date(2022, 1, 1);
+        Date birthdate = new Date("15/5/1990");
+        Date admissionDate = new Date("1/1/2022");
         String street = "Rua Principal";
         int streetNumber = 123;
         String postalCode = "1235-678";

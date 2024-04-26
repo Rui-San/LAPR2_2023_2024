@@ -70,23 +70,9 @@ public class RegisterCheckupUI implements Runnable {
     }
 
     private String requestCheckupDate() {
-        String date;
         Scanner read = new Scanner(System.in);
-        do {
-            System.out.printf("\nCheckup date (DD/MM/YYYY): ");
-            date = read.nextLine();
-        }while (!validDate(date));
-        return date;
-    }
-
-    boolean validDate(String date){
-        LocalDate today = LocalDate.now();
-        String[] dateSplit = date.split("/");
-        if(dateSplit.length != 3){ return false;}
-        if(Integer.parseInt(dateSplit[0]) < 0 || Integer.parseInt(dateSplit[0]) > 31){ return false;}
-        if(Integer.parseInt(dateSplit[1]) < 0 || Integer.parseInt(dateSplit[0]) > 12){ return false;}
-        if(Integer.parseInt(dateSplit[2]) < 0 || Integer.parseInt(dateSplit[1]) > today.getYear()){ return false;}
-        return true;
+        System.out.printf("\nCheckup Date (dd/mm/yyyy): ");
+        return read.nextLine();
     }
 
     private int requestCheckupKm() {
@@ -107,8 +93,8 @@ public class RegisterCheckupUI implements Runnable {
         List<Vehicle> vehicleList = new ArrayList<>();
 
         //This is a mockup
-        Vehicle vehicle1 = new Vehicle("11-11-11", "Car", "Gasoline", "type1", 1000, 1000, 1000, new Date(1,12,2003), new Date(2, 3, 2000), 1000);
-        Vehicle vehicle2 = new Vehicle("22-22-22", "Car", "Gasoline", "type2", 2000, 2000, 2000, new Date(1,12,2003), new Date(2, 3, 2000), 2000);
+        Vehicle vehicle1 = new Vehicle("11-11-11", "Car", "Gasoline", "type1", 1000, 1000, 1000, new Date("1/12/2003"), new Date("2/3/2000  "), 1000);
+        Vehicle vehicle2 = new Vehicle("22-22-22", "Car", "Gasoline", "type2", 2000, 2000, 2000, new Date("1/12/2003"), new Date("2/3/2000"), 2000);
         vehicleList.add(vehicle1);
         vehicleList.add(vehicle2);
 
