@@ -72,6 +72,7 @@ public class RegisterCollaboratorUI implements Runnable {
             displayJobOptions(jobList);
             System.out.print("Select a job: ");
             answer = input.nextInt();
+
         }
 
         Job job = jobList.get(answer - 1);
