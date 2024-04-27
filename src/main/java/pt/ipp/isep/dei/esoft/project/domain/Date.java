@@ -150,11 +150,19 @@ public class Date implements Comparable<Date> {
         this.year = year;
     }
 
+    /**
+     * Returns the date in the format day/month/year.
+     * @return
+     */
     @Override
     public String toString() {
         return day + "/" + month + "/" + year;
     }
 
+    /**
+     * Checks if the date is a past date.
+     * @return true if it is a past date, false otherwise.
+     */
     public boolean isPastDate() {
         LocalDate today = LocalDate.now();
         String todayDateString = (today.getDayOfMonth()) + "/" + today.getMonthValue() + "/" + today.getYear();
@@ -162,17 +170,22 @@ public class Date implements Comparable<Date> {
         return this.compareTo(todayDate) < 0;
     }
 
+    /**
+     * Compares two objects of type date.
+     * @param dateCompare the object to be compared.
+     * @return 0 if they are equal, 1 if dateCompare is smaller, -1 if dateCompare is greater.
+     */
     @Override
-    public int compareTo(Date date) {
-        if (this.getYear() == date.getYear()) {
-            if (this.getMonth() == date.getMonth()) {
-                if (this.getDay() == date.getDay()) {
-                    return 0;
-                }
-            }
+    public int compareTo(Date dateCompare) {
+        if(this.getYear() != dateCompare.getYear()){
+            return this.getYear() > dateCompare.getYear() ? 1 : -1;
         }
-
-        //TODO: IMPLEMENT
+        if(this.getMonth() != dateCompare.getMonth()){
+            return this.getMonth() > dateCompare.getMonth() ? 1 : -1;
+        }
+        if(this.getDay() != dateCompare.getDay()){
+            return this.getDay() > dateCompare.getDay() ? 1 : -1;
+        }
         return 0;
     }
 
