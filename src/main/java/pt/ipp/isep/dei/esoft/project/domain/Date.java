@@ -100,8 +100,8 @@ public class Date implements Comparable<Date> {
         int month = Integer.parseInt(dateParts[1]);
         int year = Integer.parseInt(dateParts[2]);
 
-        Mes mes = Mes.valueOf(String.valueOf(month));
-        if (day < 1 || day > mes.getDias()) {
+        //Mes mes = Mes.valueOf(String.valueOf(month));
+        if (day < 1 || day > 31) {
             return ValidateDateResults.INVALID_DAY;
         }
 
