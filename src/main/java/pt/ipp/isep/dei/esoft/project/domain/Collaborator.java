@@ -37,6 +37,9 @@ public class Collaborator implements Cloneable{
     }
 
     private int idDocNumber;
+
+
+
     private List<Skill> skillList;
 
     private enum NameValidationResults {
@@ -122,6 +125,10 @@ public class Collaborator implements Cloneable{
 
     public void setEmail(String email) {
         this.email.setEmail(email);
+    }
+
+    public List<Skill> getSkillList() {
+        return skillList;
     }
 
     public String getMobileNumber() {
