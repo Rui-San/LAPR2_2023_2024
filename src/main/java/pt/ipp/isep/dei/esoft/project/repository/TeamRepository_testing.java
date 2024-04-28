@@ -22,16 +22,17 @@ public class TeamRepository_testing {
             return null;
         }
 
-        List<Integer> quantityFullfilled = new ArrayList<>(Collections.nCopies(quantityNeeded.size(), 0));
+        // List<Integer> quantityFullfilled = new ArrayList<>(Collections.nCopies(quantityNeeded.size(), 0));
 
-        int betterOption = 0;
+        //  int betterOption = 0;
+
         List<Collaborator> possibleCollaborators = new ArrayList<>();
         List<Integer> totalNumberSkillsCollaboratorHave = new ArrayList<>();
 
         for (Collaborator collaborator : collaboratorList) {
             if (!isAllreadyInOneTeam(collaborator)) {
-                //Se não tiver em nenhuma equipa, verifica.
-                //skills desse colaborador:
+
+                //Se não tiver em nenhuma equipa, verifica as skills desse colaborador:
                 List<Skill> collaboratorSkillList = collaborator.getSkillList();
 
                 int numberOfSkillsHad = 0;
@@ -52,11 +53,35 @@ public class TeamRepository_testing {
         // que tem mais quantidades de skills de uma só vez (para ser um algoritmo mais eficiente)
         // Agora é ordenar a lista de collaborators por quantidade de skill possuida maior e continuar algoritmo
 
+        sortCollaboratorByDescendingQuantity(possibleCollaborators, totalNumberSkillsCollaboratorHave);
+
 
         //TODO: CONTINUE THE IMPLEMENTATION OF THIS ALGORITHM.
 
         return null;
     }
+
+    private void sortCollaboratorByDescendingQuantity(List<Collaborator> possibleCollaborators, List<Integer> totalNumberSkillsCollaboratorHave) {
+
+
+
+        Collaborator[] collaboratorArray = possibleCollaborators.toArray(new Collaborator[0]);
+
+        List<Integer> originalIndexes = new ArrayList<>();
+
+        for (int i = 0; i < totalNumberSkillsCollaboratorHave.size(); i++) {
+            originalIndexes.add(i);
+        }
+
+        Collections.sort(totalNumberSkillsCollaboratorHave, Collections.reverseOrder());
+
+        for (int i = 0; i < totalNumberSkillsCollaboratorHave.size(); i++) {
+            int originalIndex = originalIndexes.get(i);
+            Collaborator collaborator = collaboratorArray[originalIndex];
+            possibleCollaborators.set(i, collaborator);
+        }
+    }
+
 
     private boolean isAllreadyInOneTeam(Collaborator collaborator) {
 
