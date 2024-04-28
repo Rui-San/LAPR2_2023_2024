@@ -1,26 +1,24 @@
-package pt.ipp.isep.dei.esoft.project.ui.console.utils;
+package pt.ipp.isep.dei.esoft.project.ui.console;
 
-import pt.ipp.isep.dei.esoft.project.application.controller.TeamProposalController;
+import pt.ipp.isep.dei.esoft.project.application.controller.TeamProposalController_testing;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
+import pt.ipp.isep.dei.esoft.project.domain.Team_testing;
 
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
-public class TeamProposalUI implements Runnable {
-    private final TeamProposalController controller;
+public class TeamProposalUI_testing implements Runnable {
+    private final TeamProposalController_testing controller;
 
     private int minTeamSize;
     private int maxTeamSize;
     private List<Skill> skillsNeeded;
     private List<Integer> quantityNeeded;
 
-    public TeamProposalUI() {
-        controller = new TeamProposalController();
+    public TeamProposalUI_testing() {
+        controller = new TeamProposalController_testing();
     }
 
-    public TeamProposalController getTeamProposalController() {
+    public TeamProposalController_testing getTeamProposalController() {
         return controller;
     }
 
@@ -28,8 +26,40 @@ public class TeamProposalUI implements Runnable {
         System.out.println("\n\n--- Generate a Team automatically ------------------------");
 
         requestData();
-        skillsNeeded = displayAndSelectSkillsNeeded();
-        quantityNeeded = requestQuantityNeeded(skillsNeeded);
+        generateTeamProposal();
+
+    }
+
+    private void generateTeamProposal() {
+        boolean teamAccepted = false;
+
+        while (!teamAccepted) {
+
+            skillsNeeded = displayAndSelectSkillsNeeded();
+            quantityNeeded = requestQuantityNeeded(skillsNeeded);
+
+            Optional<Team_testing> teamProposal = getTeamProposalController().generateTeamProposal(minTeamSize, maxTeamSize, skillsNeeded, quantityNeeded);
+
+            if (teamProposal != null) {
+                System.out.println("Team proposal generated successfully:");
+                System.out.println(teamProposal);
+                teamAccepted = askManagerResponse();
+                if (teamAccepted) {
+                    controller.acceptTeamProposal(teamProposal);  //Adds the team to the teamList
+                }
+            }else {
+                System.out.println("Could not generate a team proposal with given information");
+                return;
+            }
+
+        }
+    }
+
+    private boolean askManagerResponse() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Do you accept this team proposal? (yes/no)");
+        String response = input.nextLine().trim().toLowerCase();
+        return response.equals("yes");
     }
 
     private List<Integer> requestQuantityNeeded(List<Skill> skillsNeeded) {

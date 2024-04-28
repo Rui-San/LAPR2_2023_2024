@@ -43,7 +43,7 @@ public class SkillRepository {
      *
      * @return The list of task categories.
      */
-    public List<Skill> getSkills() {
+    public List<Skill> getSkillList() {
         //This is a defensive copy, so that the repository cannot be modified from the outside.
         return List.copyOf(skills);
     }
