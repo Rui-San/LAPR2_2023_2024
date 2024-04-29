@@ -10,7 +10,6 @@ import java.util.List;
  * finding the minimal spanning tree, and sorting edges by distance.
  */
 public class Graph {
-
     /**
      * The list of edges in the graph.
      */
@@ -81,15 +80,38 @@ public class Graph {
     }
 
     /**
-     * TO-DO
-     * Explicar aqui o que este método faz e todos os passos no método
-     * (este método é literalmente o que nós fazemos no quadro, em papel)
      *
+     *This method effectively implements Kruskal's algorithm to find the minimal spanning tree of a graph
      *
-     * @return
+     *Here's how Kruskal's algorithm works:
+     *
+     *1 - Initialization:
+     *Initially, each vertex of the graph is considered as a separate component.
+     *
+     *2 - Sort Edges:
+     *Sort all the edges of the graph in non-decreasing order of their weights.
+     *
+     *3 - Iterate Through Edges:
+     *Iterate through the sorted edges.
+     *For each edge, check if including it in the MST forms a cycle or not. This can be done by checking if the two vertices of the edge belong to the same connected component.
+     *If adding the edge does not create a cycle (i.e., the vertices belong to different connected components), include it in the MST.
+     *
+     *4 - Union Find Data Structure:
+     *To efficiently check for cycles and merge connected components, Kruskal's algorithm often employs a disjoint-set data structure (also known as a union-find data structure).
+     *Initially, each vertex is in its own set. When an edge is added to the MST, the two sets containing its vertices are merged.
+     *This data structure enables constant time operations for determining whether adding an edge creates a cycle and for merging sets.
+     *
+     *5 - Repeat Until Spanning Tree Complete:
+     *Repeat step 3 until the MST contains n−1 edges, where n is the number of vertices in the graph. This ensures that the MST spans all vertices without creating cycles.
+     *
+     *Output:
+     *The resulting set of edges forms the minimum spanning tree of the graph.
+     *
+     * @return list of edges representing the minimal spanning tree.
      */
     public List<Edge> getMinimalSpanningTree() {
         List<Edge> minimalSpanningTree = new ArrayList<>();
+
 
         sortEdgesByDistance();
 
