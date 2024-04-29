@@ -185,6 +185,15 @@ public class Collaborator implements Cloneable{
                 '}';
     }
 
+    public boolean hasAtLeastOneSkill(List<Skill> requiredSkills) {
+        for (Skill requiredSkill : requiredSkills) {
+            if (skillList.contains(requiredSkill)) {
+                return true; //
+            }
+        }
+        return false;
+    }
+
     /**
      * Assign selected skills to a collaborator (1 or more skills)
      *
