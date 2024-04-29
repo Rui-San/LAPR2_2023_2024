@@ -28,7 +28,7 @@ public class TeamProposal {
     }
 
     public void selectSkills() {
-        List<Skill> skills = skillRepository.getSkills();
+        List<Skill> skills = skillRepository.getSkillList();
         Scanner scanner = new Scanner(System.in);
         for (Skill skill : skills) {
             System.out.println("add skill " + skill.getSkillName() + " to team? (yes/no)");

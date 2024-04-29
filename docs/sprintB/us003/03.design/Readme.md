@@ -19,16 +19,15 @@ _**Note that SSD - Alternative One is adopted.**_
 | Step 5: Selects a job  		                                                                                               | 	... validating the selected data?                                    | RegisterCollaboratorUI         | Pure Fabrication                                                                                              |
 |                                                                                                                         | ... temporarily keeping the selected job?                             | RegisterCollaboratorUI         | Pure Fabrication                                                                                              |
 | Step 6: Shows all data and requests confirmation  		                                                                    | ... displaying all the information before confirmation?							        | RegisterCollaboratorUI         | PureFabrication                                                                                               |              
-| Step 7: Confirms data  		                                                                                               | 	... creating the Collaborator object?                                | Organization                   | Creator (Rule 1): in the DM Organization has Collaborators.                                                   | 
+| Step 7: Confirms data  		                                                                                               | 	... creating the Collaborator object?                                | CollaboratorRepository         | Information Expert/Pure Creation - CollaboratorRepository contains instances of Collaborator                  | 
 | 			  		                                                                                                                 | 	... validating the data locally (mandatory data)?                    | Collaborator                   | Information Expert: Collaborator has its own data                                                             |                                                                                    | 
-|                                                                                                                         | ... adding to a collection and globally validating duplicate records? | Organization                   | Information Expert: Organization knows all its Collaborator instances.                                        |
+|                                                                                                                         | ... adding to a collection and globally validating duplicate records? | CollaboratorRepository         | Pure Creation/Information Expert: CollaboratorRepository aggregates Collaborator instances.                   |
 | Step 8: Displays operation success  		                                                                                  | 	... informing operation success?                                     | RegisterCollaboratorUI         | Pure Fabrication                                                                                              | 
 
 ### Systematization ##
 
 According to the taken rationale, the conceptual classes promoted to software classes are:
 
-* Organization
 * Job
 * Collaborator
 
@@ -36,6 +35,7 @@ Other software classes (i.e. Pure Fabrication) identified:
 
 * RegisterCollaboratorUI
 * RegisterCollaboratorController
+* CollaboratorRepository
 * JobRepository
 
 ## 3.2. Sequence Diagram (SD)

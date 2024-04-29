@@ -1,0 +1,121 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title US005 - System Sequence Diagram (SSD)
+
+autonumber
+
+actor "HRM" as Employee
+participant ":TeamProposalUI" as System
+participant ":TeamProposalController" as TPC
+participant ":Repositories" as REP
+participant ":repositories \nRepositories" as REPS
+participant ":skillRepository \nSkillRepository" as SR
+participant ":teamproposal \nTeamProposal" as TP
+
+
+activate Employee
+
+    Employee -> System : Asks to generate a new team proposal
+    activate System
+
+        System --> Employee : Requests data (minTeamSize, maxTeamSize)
+    deactivate System
+
+
+
+    Employee -> System : Types requested data
+
+
+    |||
+
+            activate System
+                System --> System : keepData(minTeamSize, maxTeamSize)
+                System -> TPC : getSkillList()
+
+                activate TPC
+
+                    TPC -> REP : getInstance()
+
+                    activate REP
+                        REP --> TPC : repositories
+                    deactivate REP
+                    TPC -> REPS : getSkillRepository()
+
+                    activate REPS
+                        REPS --> TPC : skillRepository
+                    deactivate REPS
+
+                    TPC -> SR : getSkillList()
+
+                    activate SR
+                    SR --> TPC : skillList
+                    deactivate SR
+
+                    TPC --> System : skillList
+                deactivate TPC
+                System --> Employee : Shows list of skills and asks how many
+            deactivate System
+
+            Employee -> System : Selects a skill from the list and specifies the \nquantity of that skill.
+            activate System
+            System --> System : keepData(Object[][] skillamount, skillName)
+    |||
+
+
+    |||
+
+
+
+        note right
+                **(5) NOTE:**
+                **Set of skills:**
+                *Set of skills required for the team proposal;
+                *Includes the skill name and the required quantity.
+        end note
+
+    loop until the team generated is accepted
+    System --> System: generateProposal()
+
+
+        System --> Employee : Shows team generated and asks for confirmation
+
+    deactivate System
+
+
+    Employee -> System : Accepts or rejects the proposal.
+    activate System
+        System -> TPC : createTeam(team)
+        activate TPC
+
+            TPC -> Team** : createTeam(team)
+            Team --> Team : validateTeam(team)
+            TPC -> REP : getInstance()
+
+                activate REP
+                REP --> TPC : repositories
+                deactivate REP
+                TPC -> REPS : getTeamRepository()
+
+                activate REPS
+                REPS --> TPC : teamRepository
+                deactivate REPS
+                TPC -> TP : addToTeamRepository(team)
+
+                activate TP
+                TP --> TPC : operation success
+                deactivate TP
+
+
+    end loop
+    |||
+        TPC --> System : operation success
+        deactivate TPC
+
+
+        System --> Employee : Displays operation success
+    deactivate System
+
+@enduml

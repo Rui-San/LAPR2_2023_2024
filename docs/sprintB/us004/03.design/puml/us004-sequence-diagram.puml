@@ -126,22 +126,26 @@ activate HRM
             CTRL --> CTRL : collaborator
             |||
 
-            CTRL -> COL : assignSkills(List<Skill> chosenSkills)
+            CTRL -> COLREP : assignSkills(List<Skill> chosenSkills)
             |||
-            activate COL
+            activate COLREP
 
-            Note right of COL
+            COLREP -> COL** : assignSkills(List<Skill> chosenSkills)
+Note right of COL
                 <font color=black><b>Adding skills to the object collaborator:
 
                 assignSkills(List<Skill> chosenSkills) {
                     skillList.addAll(chosenSkills)
                 }
             end note
-                COL -->CTRL : operation success
 
+                COLREP --> COLREP : validateDuplicateRecordSkills(List<Skill> chosenSkills)
 
+                COLREP --> COLREP : addChosenSkillsToCollaborator(List<Skill> chosenSkills)
 
-            deactivate COL
+                COLREP -->CTRL : operation success
+
+            deactivate COLREP
             CTRL -> UI : operation success
         deactivate CTRL
 
