@@ -59,7 +59,7 @@ public class Email {
      * Sets the email address for the Email object after validating it.
      * If the email is not validated, throws specific exception based on error that occured
      *
-     * @param email
+     * @param email the email to be set.
      */
     public void setEmail(String email) {
         ValidateEmailResults validateEmailResults = validateEmail(email);
@@ -80,9 +80,10 @@ public class Email {
 
     /**
      * Validates if email is valid or not by returning a ValidateEmailResults enumerate type.
+     * Return enumerated type VALID when the email is valid. Possible results when the email is not valid include: EMPTY, WRONG_FORMAT, INVALID_PREFIX, INVALID_DOMAIN.
      *
-     * @param email
-     * @return the logical state of the validation. Valid if the return is enumerate type VALID.
+     * @param email the email to be validated
+     * @return an enumerate type depending on the result
      */
     private ValidateEmailResults validateEmail(String email) {
         if (email == null || email.trim().isEmpty()) {
