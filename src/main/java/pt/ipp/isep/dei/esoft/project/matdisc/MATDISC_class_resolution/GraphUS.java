@@ -9,7 +9,7 @@ import java.util.List;
  * It contains methods for adding edges, retrieving vertices, getting the total number of vertices,
  * finding the minimal spanning tree, and sorting edges by distance.
  */
-public class Graph {
+public class GraphUS {
     /**
      * The list of edges in the graph.
      */
@@ -23,7 +23,7 @@ public class Graph {
     /**
      * Constructs a new {@code Graph} object with an empty list of edges and vertices.
      */
-    public Graph() {
+    public GraphUS() {
         edges = new ArrayList<>();
         vertexes = new ArrayList<>();
     }

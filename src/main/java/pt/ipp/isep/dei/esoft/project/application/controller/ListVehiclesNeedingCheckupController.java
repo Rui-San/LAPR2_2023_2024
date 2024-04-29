@@ -50,14 +50,24 @@ public class ListVehiclesNeedingCheckupController {
 
     public List<Vehicle> getVehiclesNeedingCheckup(){
 
-        //This is a mockup
-        Vehicle vehicle1 = new Vehicle("11-11-11", "Toyota", "Yaris", "Prime", 1000, 1000, 1000, new Date("1/10/2003"), new Date("2/3/2000"), 1000);
-        Vehicle vehicle2 = new Vehicle("22-22-22", "Honda", "Civic", "1.2", 2000, 2000, 2099, new Date("1/10/2003"), new Date("2/3/2000"), 2000);
-        Vehicle vehicle3 = new Vehicle("33-33-33", "Suzuki", "Shin", "Type 3", 2000, 2000, 3000, new Date("1/10/2003"), new Date("2/3/2000"), 100);
+        //This is for testing purposes
+        Vehicle vehicle1 = new Vehicle("11-11-11", "Toyota", "Yaris", "Prime", 1000, 1000, 2000, new Date("1/10/2003"), new Date("2/3/2000"), 500);
+        VehicleCheckup checkup1 = new VehicleCheckup(vehicle1, new Date("1/10/2003"), 1500); //exceeds
+
+        Vehicle vehicle2 = new Vehicle("22-22-22", "Honda", "Civic", "1.2", 2000, 2000, 1900, new Date("1/10/2003"), new Date("2/3/2000"), 500);
+        VehicleCheckup checkup2 = new VehicleCheckup(vehicle2, new Date("1/10/2003"), 1500); //is close by 5%
+
+        Vehicle vehicle3 = new Vehicle("33-33-33", "Suzuki", "Shin", "Type 3", 2000, 2000, 1500, new Date("1/10/2003"), new Date("2/3/2000"), 100);
+        VehicleCheckup checkup3 = new VehicleCheckup(vehicle3, new Date("1/10/2003"), 1500); //doesn't need checkup
+
         ArrayList<Vehicle> vehiclesTest = new ArrayList<>();
         vehiclesTest.add(vehicle1);
         vehiclesTest.add(vehicle2);
         vehiclesTest.add(vehicle3);
+
+        getCheckupRepository().add(checkup1);
+        getCheckupRepository().add(checkup2);
+        getCheckupRepository().add(checkup3);
         getVehicleRepository().setVehicles(vehiclesTest);
 
         return getVehicleRepository().getVehiclesNeedingCheckup(getCheckupRepository());
