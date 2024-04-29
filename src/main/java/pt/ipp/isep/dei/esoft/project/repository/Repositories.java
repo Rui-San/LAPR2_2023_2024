@@ -1,10 +1,5 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
-import pt.ipp.isep.dei.esoft.project._templateFiles.domain.repository.AuthenticationRepository;
-import pt.ipp.isep.dei.esoft.project._templateFiles.domain.repository.OrganizationRepository;
-
-import java.time.temporal.Temporal;
-
 public class Repositories {
     private static Repositories instance;
     private final CollaboratorRepository collaboratorRepository;
@@ -13,6 +8,7 @@ public class Repositories {
     private final CheckupRepository checkupRepository;
     private final VehicleRepository vehicleRepository;
     private final TeamRepository_testing teamRepository_testing;
+    private final AuthenticationRepository authenticationRepository;
 
     private Repositories() {
         collaboratorRepository = new CollaboratorRepository();
@@ -21,6 +17,7 @@ public class Repositories {
         checkupRepository = new CheckupRepository();
         vehicleRepository = new VehicleRepository();
         teamRepository_testing = new TeamRepository_testing();
+        authenticationRepository = new AuthenticationRepository();
     }
 
     public static Repositories getInstance() {
@@ -56,4 +53,5 @@ public class Repositories {
         return teamRepository_testing;
     }
 
+    public AuthenticationRepository getAuthenticationRepository() { return authenticationRepository; }
 }

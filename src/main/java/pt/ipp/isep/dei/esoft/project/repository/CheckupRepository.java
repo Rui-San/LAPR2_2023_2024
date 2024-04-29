@@ -36,8 +36,8 @@ public class CheckupRepository {
 
     /**
      * This method adds a new checkup to the checkup List
-     * @param vehicleCheckup
-     * @return
+     * @param vehicleCheckup The checkup to add to the list.
+     * @return The checkup added to the list.
      */
     public Optional<VehicleCheckup> add(VehicleCheckup vehicleCheckup) {
 
@@ -58,8 +58,8 @@ public class CheckupRepository {
 
     /**
      * This method validates if the checkup is a duplicate.
-     * @param vehicleCheckup
-     * @return
+     * @param vehicleCheckup The checkup to validate.
+     * @return True if the checkup is not a duplicate, else return false.
      */
     private boolean validateVehicleCheckup(VehicleCheckup vehicleCheckup) {
         boolean isValid = !vehicleCheckupList.contains(vehicleCheckup);
@@ -77,10 +77,10 @@ public class CheckupRepository {
     }
 
     /**
-     * This
-     * @param vehicle
-     * @param checkupDateString
-     * @param checkupKms
+     * This method registers a new checkup for a vehicle.
+     * @param vehicle The vehicle to register the checkup.
+     * @param checkupDateString The date of the checkup.
+     * @param checkupKms The km of the checkup.
      */
     public Optional<VehicleCheckup> registerVehicleCheckup(Vehicle vehicle, String checkupDateString, int checkupKms){
         Date checkupDate = new Date(checkupDateString);
@@ -89,6 +89,11 @@ public class CheckupRepository {
         return Optional.of(checkup);
     }
 
+    /**
+     * This method returns the km of the last checkup of a vehicle.
+     * @param vehicle The vehicle to check the last checkup.
+     * @return The km of the last checkup.
+     */
     public int getLastCheckupKm(Vehicle vehicle){
         int lastCheckupKm = 0;
         Date lastDate = null;
