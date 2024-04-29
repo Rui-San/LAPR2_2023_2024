@@ -20,6 +20,10 @@ public class MainUS14 {
     public static final int TOTAL_NUMBER_OF_COLUMNS = 3;
     public static List<FileInfo> FILE_INFO_LIST = new ArrayList<>();
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
 
         String currentDirectory = System.getProperty("user.dir");
@@ -127,7 +131,12 @@ public class MainUS14 {
         return true;
     }
 
-
+    /**
+     *
+     *
+     * @param minimalSpanningTree
+     * @return
+     */
     public static double obtainTotalCost(List<Edge> minimalSpanningTree) {
         double totalCost = 0;
         for (Edge edge : minimalSpanningTree) {

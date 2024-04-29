@@ -1,19 +1,15 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
-import pt.ipp.isep.dei.esoft.project.application.RegisterSkillController;
+import pt.ipp.isep.dei.esoft.project.application.controller.RegisterSkillController;
+
+import java.util.Scanner;
 
 public class RegisterSkillUI implements Runnable{
     private final RegisterSkillController controller;
-    private String taskReference;
-    private String taskDescription;
-    private String taskInformalDescription;
-    private String taskTechnicalDescription;
-    private int taskDuration;
-    private double taskCost;
-    private String taskCategoryDescription;
-    private String empployeeEmail;
+    private String skillName;
 
     public RegisterSkillUI() {
+
         controller = new RegisterSkillController();
     }
 
@@ -40,6 +36,13 @@ public class RegisterSkillUI implements Runnable{
             System.out.println("\nTask not created!");
         }
          */
+        boolean isRegistered = controller.registerSkill(skillName);
+
+        if (isRegistered) {
+            System.out.println("\nSkill registered!");
+        } else {
+            System.out.println("\nregistration failed!");
+        }
     }
 
     private void requestData() {
@@ -63,6 +66,10 @@ public class RegisterSkillUI implements Runnable{
         taskCost = requestTaskCost();
 
          */
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter skill name:");
+        skillName = scanner.nextLine();
     }
 
 }
