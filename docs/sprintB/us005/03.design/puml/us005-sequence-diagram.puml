@@ -13,7 +13,7 @@ participant ":TeamProposalController" as TPC
 participant ":Repositories" as REP
 participant ":repositories \nRepositories" as REPS
 participant ":skillRepository \nSkillRepository" as SR
-participant ":teamproposal \nTeamProposal" as TP
+participant ":teamRepository \nTeamRepository" as TP
 
 
 activate Employee
