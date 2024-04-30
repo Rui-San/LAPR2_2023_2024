@@ -18,7 +18,7 @@ public class RegisterSkillUI implements Runnable{
     }
 
     public void run() {
-        System.out.println("\n\n--- Create Task ------------------------");
+        System.out.println("\n\n---------- Create Skill ------------------");
 
         requestData();
 
@@ -26,16 +26,7 @@ public class RegisterSkillUI implements Runnable{
     }
 
     private void submitData() {
-        /*
-        Optional<Task> task = getController().createTask(taskReference, taskDescription, taskInformalDescription,
-                taskTechnicalDescription, taskDuration, taskCost, taskCategoryDescription);
 
-        if (task.isPresent()) {
-            System.out.println("\nTask successfully created!");
-        } else {
-            System.out.println("\nTask not created!");
-        }
-         */
         boolean isRegistered = controller.registerSkill(skillName);
 
         if (isRegistered) {
@@ -46,30 +37,14 @@ public class RegisterSkillUI implements Runnable{
     }
 
     private void requestData() {
-        /*
-        //Request the Task Reference from the console
-        taskReference = requestTaskReference();
 
-        //Request the Task Description from the console
-        taskDescription = requestTaskDescription();
-
-        //Request the Task Informal Description from the console
-        taskInformalDescription = requestTaskInformalDescription();
-
-        //Request the Task Technical Description from the console
-        taskTechnicalDescription = requestTaskTechnicalDescription();
-
-        //Request the Task Duration from the console
-        taskDuration = requestTaskDuration();
-
-        //Request the Task Cost from the console
-        taskCost = requestTaskCost();
-
-         */
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Enter skill name:");
         skillName = scanner.nextLine();
     }
-
+    public static void main(String[] args) {
+        RegisterSkillUI registerSkillUI = new RegisterSkillUI();
+        registerSkillUI.run();
+    }
 }
