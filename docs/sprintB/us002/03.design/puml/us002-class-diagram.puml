@@ -1,27 +1,42 @@
 @startuml
-'https://plantuml.com/class-diagram
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+title US002 - Class Diagram
+skinparam classAttributeIconSize 0
 
-abstract class AbstractList
-abstract AbstractCollection
-interface List
-interface Collection
 
-List <|-- AbstractList
-Collection <|-- AbstractCollection
+'left to right direction
 
-Collection <|- List
-AbstractCollection <|- AbstractList
-AbstractList <|-- ArrayList
-
-class ArrayList {
-Object[] elementData
-size()
+Class RegisterJobController{
+    +getJob()
+    +registerJob(jobName)
 }
 
-enum TimeUnit {
-DAYS
-HOURS
-MINUTES
+Class RegisterJobUI {
+
 }
 
+class Organization {
+    -String name
+    -NIF nif
+    -Website
+    -Phonenumber
+    -Email email
+}
+
+class HRM {
+
+}
+
+class Job{
+    -ListOfAllRegisteredJobs
+
+}
+RegisterJobUI --.> RegisterJobController
+HRM --o Organization
+RegisterJobController --.> Job
+HRM -->  RegisterJobUI
 @enduml

@@ -2,12 +2,12 @@ package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
+import pt.ipp.isep.dei.esoft.project.domain.SkillSet;
 import pt.ipp.isep.dei.esoft.project.domain.Team_testing;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
+
 
 public class TeamRepository_testing {
     private final List<Team_testing> teamList;
@@ -16,6 +16,8 @@ public class TeamRepository_testing {
         teamList = new ArrayList<>();
     }
 
+
+    /*
     public Optional<Team_testing> generateTeamPropostal(int minTeamSize, int maxTeamSize, List<Skill> skillsNeeded, List<Integer> quantityNeeded, List<Collaborator> collaboratorList) {
 
         if (!verifyQuantityNeeded(quantityNeeded, maxTeamSize) || minTeamSize < 0 || maxTeamSize < 0 || maxTeamSize < minTeamSize || skillsNeeded.isEmpty() || quantityNeeded.isEmpty()) {
@@ -56,7 +58,7 @@ public class TeamRepository_testing {
         sortCollaboratorByDescendingQuantity(possibleCollaborators, totalNumberSkillsCollaboratorHave);
 
 
-        //TODO: CONTINUE THE IMPLEMENTATION OF THIS ALGORITHM.
+
 
         return null;
     }
@@ -82,6 +84,78 @@ public class TeamRepository_testing {
         }
     }
 
+
+     */
+
+    public List<Team_testing> generateTeams(int minTeamSize, int maxTeamSize, List<Skill> skillsNeeded, List<Integer> quantityNeeded, List<Collaborator> collaboratorList) {
+
+        if (!verifyQuantityNeeded(quantityNeeded, maxTeamSize) || minTeamSize < 0 || maxTeamSize < 0 || maxTeamSize < minTeamSize || skillsNeeded.isEmpty() || quantityNeeded.isEmpty()) {
+            return null;
+        }
+        List<Team_testing> teamsList = new ArrayList<>();
+
+        List<SkillSet> skillSetList = new ArrayList<>();
+        for (int i = 0; i < skillSetList.size(); i++) {
+            SkillSet skillSet = new SkillSet(skillsNeeded.get(i), quantityNeeded.get(i));
+            skillSetList.add(skillSet);
+        }
+
+        List<Collaborator> possibleCollaborators = gatherPossibleCollaborators(collaboratorList, skillSetList);
+
+        //TODO: FALTA IMPLEMENTAR CRITERIOS DE PARAGEM NESTE BLOCO AINDA
+
+        for (int i = 0; i < possibleCollaborators.size(); i++) {
+            Team_testing newTeam = new Team_testing();
+            Collaborator member = possibleCollaborators.get(i);
+            newTeam.addMember(member);
+            updateSkillSet(skillSetList, member);
+            for (int j = 0; j < possibleCollaborators.size(); j++) {
+                if (!collaboratorIsInCurrentTeam(newTeam.getMembers(), possibleCollaborators.get(j))) {
+                    Collaborator newMember = possibleCollaborators.get(j);
+                    newTeam.addMember(newMember);
+                    updateSkillSet(skillSetList, newMember);
+                }
+            }
+            teamsList.add(newTeam);
+        }
+        //TODO: FALTA IMPLEMENTAR CRITERIOS DE PARAGEM NESTE BLOCO AINDA
+
+        return teamsList;
+    }
+
+    private boolean collaboratorIsInCurrentTeam(List<Collaborator> membersInTeam, Collaborator collaborator) {
+
+        if (membersInTeam.contains(collaborator)) {
+            return true;
+        }
+        return false;
+    }
+
+    private void updateSkillSet(List<SkillSet> skillSetList, Collaborator newMember) {
+
+        List<Skill> newMemberSkills = newMember.getSkillList();
+
+        for (Skill skill : newMemberSkills) {
+            for (SkillSet skillSet : skillSetList) {
+                if (skillSet.getSkill().equals(skill)) {
+                    skillSet.setInQuantity(skillSet.getInQuantity() - 1);
+                }
+            }
+
+        }
+    }
+
+    private List<Collaborator> gatherPossibleCollaborators(List<Collaborator> collaboratorList, List<SkillSet> skillSetList) {
+
+        List<Collaborator> possibleCollaborators = new ArrayList<>();
+
+        for (Collaborator collaborator : collaboratorList) {
+            if (!isAllreadyInOneTeam(collaborator) && collaborator.hasAtLeastOneSkill(SkillSet.getAllSkills(skillSetList))) {
+                possibleCollaborators.add(collaborator);
+            }
+        }
+        return possibleCollaborators;
+    }
 
     private boolean isAllreadyInOneTeam(Collaborator collaborator) {
 

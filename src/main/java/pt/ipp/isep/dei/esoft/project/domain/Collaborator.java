@@ -4,54 +4,176 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public class Collaborator implements Cloneable{
+/**
+ * Represents a collaborator containing a name, birthdate, admission date, job, an address, an email, mobile number, type of ID document, ID number and a list of skills.
+ */
+public class Collaborator implements Cloneable {
+
+    /**
+     * The name of the collaborator.
+     */
     private String name;
+
+    /**
+     * The birthdate of the collaborator.
+     */
     private Date birthdate;
+    /**
+     * The admission date of the collaborator.
+     */
     private Date admissionDate;
+
+    /**
+     * The job of the collaborator.
+     */
     private Job job;
+
+    /**
+     * The address of the collaborator.
+     */
     private Address address;
+
+    /**
+     * The email of the collaborator.
+     */
     private Email email;
+
+    /**
+     * The mobile number of the collaborator.
+     */
     private String mobileNumber;
 
+    /**
+     * Type enumerated, representing all the different ID document types that a collaborator can have.
+     */
     public enum IdDocType {
-        CC, BI, Passport
+        CC, BI, PASSPORT
     }
 
+    /**
+     * The type of the ID document of the collaborator.
+     */
     private IdDocType idDocType;
 
-
+    /**
+     * Type enumerated, enumerating all the different mobile operators that a phone number can have.
+     */
     private enum MobileOperator {
         OPERATOR1('1'),
         OPERATOR2('2'),
         OPERATOR3('3');
 
+        /**
+         * The operator code of the mobile phone.
+         */
         private final char operatorCode;
 
+        /**
+         * Constructs a Mobile Operator with the specified operator code.
+         *
+         * @param operatorCode the operator code
+         */
         MobileOperator(char operatorCode) {
             this.operatorCode = operatorCode;
         }
 
+        /**
+         * Gets the operator code.
+         *
+         * @return the operator code
+         */
         public char getOperatorCode() {
             return operatorCode;
         }
     }
 
+    /**
+     * The ID number of the collaborator's document.
+     */
     private int idDocNumber;
 
-
-
+    /**
+     * The list of skills of the collaborator.
+     */
     private List<Skill> skillList;
 
+    /**
+     * Type Enumerated, enumerating all the different results that may occur during the validation of the collaborator's name
+     */
     private enum NameValidationResults {
-        VALID, EMPTYNULL, NOT_ENOUGH_NAMES, TOO_MANY_WORDS, CONTAINS_SPECIAL_CHARACTERS
+        /**
+         * Indicates that the name is valid.
+         */
+        VALID,
+
+        /**
+         * Indicates that the name is empty or null.
+         */
+        EMPTYNULL,
+
+        /**
+         * Indicates that the name does not contain enough names (at least one first name and one last name).
+         */
+        NOT_ENOUGH_NAMES,
+
+        /**
+         * Indicates that the name contains too many words (more than 6 words, according to Portuguese Law).
+         */
+        TOO_MANY_WORDS,
+
+        /**
+         * Indicates that the name contains special characters, which are not allowed.
+         */
+        CONTAINS_SPECIAL_CHARACTERS
     }
 
+    /**
+     * Type Enumerated, enumerating all the different results that may occur during the validation of the collaborator's ID document number.
+     */
     private enum ValidateIdDocNumberResults {
-        VALID, PASSPORT_ERROR, EMPTY, CC_BI_ERROR
+        /**
+         * Indicates that the ID document number is valid.
+         */
+        VALID,
+
+        /**
+         * Indicates that there is an error with the passport format.
+         */
+        PASSPORT_ERROR,
+
+        /**
+         * Indicates that the ID document number is empty.
+         */
+        EMPTY,
+
+        /**
+         * Indicates that there is an error with the CC or BI format.
+         */
+        CC_BI_ERROR
     }
 
+    /**
+     * The total number of digits in a mobile number.
+     */
     private static final int MOBILE_NUMBER_TOTAL_DIGITS = 9;
 
+    /**
+     * Constructs a new Collaborator with the specified attributes.
+     *
+     * @param name          the name of the collaborator
+     * @param birthdate     the birthdate of the collaborator
+     * @param admissionDate the admission date of the collaborator
+     * @param street        the street of the collaborator's address
+     * @param streetNumber  the street number of the collaborator's address
+     * @param postalCode    the postal code of the collaborator's address
+     * @param city          the city of the collaborator's address
+     * @param district      the district of the collaborator's address
+     * @param email         the email of the collaborator
+     * @param mobileNumber  the mobile number of the collaborator
+     * @param idDocType     the type of ID document of the collaborator
+     * @param idDocNumber   the ID number of the collaborator's document
+     * @param job           the job of the collaborator
+     */
     public Collaborator(String name, Date birthdate, Date admissionDate, String street, int streetNumber, String postalCode,
                         String city, String district, String email, String mobileNumber, IdDocType idDocType, int idDocNumber, Job job) {
         setName(name);
@@ -66,10 +188,22 @@ public class Collaborator implements Cloneable{
         this.skillList = new ArrayList<>();
     }
 
+    /**
+     * Returns the name of the collaborator.
+     *
+     * @return the name of the collaborator
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Sets the name of the collaborator after validating name.
+     * If the name to be set is not valid, throws exception based on the specific error that occured.
+     *
+     * @param name the name to set
+     * @throws IllegalArgumentException if the name is empty, contains special characters, does not include at least one first name and one last name, or contains more than 6 words
+     */
     public void setName(String name) {
         NameValidationResults nameValidationResult = validateName(name);
         switch (nameValidationResult) {
@@ -87,54 +221,124 @@ public class Collaborator implements Cloneable{
         }
     }
 
+    /**
+     * Returns the birthdate of the collaborator.
+     *
+     * @return the birthdate of the collaborator
+     */
     public Date getBirthdate() {
         return birthdate;
     }
 
+    /**
+     * Sets the birthdate of the collaborator.
+     *
+     * @param birthdate the birthdate to set
+     */
     public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;
     }
 
+    /**
+     * Returns the admission date of the collaborator.
+     *
+     * @return the admission date of the collaborator
+     */
     public Date getAdmissionDate() {
         return admissionDate;
     }
 
+    /**
+     * Sets the admission date of the collaborator.
+     *
+     * @param admissionDate the admission date to set
+     */
     public void setAdmissionDate(Date admissionDate) {
         this.admissionDate = admissionDate;
     }
 
+    /**
+     * Returns the address of the collaborator.
+     *
+     * @return the address of the collaborator
+     */
     public Address getAddress() {
         return address;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    /**
+     * Sets the address of the collaborator.
+     *
+     * @param street       the street of the collaborator's address
+     * @param streetNumber the street number of the collaborator's address
+     * @param postalCode   the postal code of the collaborator's address
+     * @param city         the city of the collaborator's address
+     * @param district     the district of the collaborator's address
+     */
+    public void setAddress(String street, int streetNumber, String postalCode, String city, String district) {
+        this.address = new Address(street, streetNumber, postalCode, city, district);
     }
 
+    /**
+     * Returns the job of the collaborator.
+     *
+     * @return the job of the collaborator
+     */
     public Job getJob() {
         return job;
     }
 
+    /**
+     * Sets the job of the collaborator.
+     *
+     * @param job the job to set
+     */
     public void setJob(Job job) {
         this.job = job;
     }
 
+    /**
+     * Returns the email of the collaborator.
+     *
+     * @return the email of the collaborator
+     */
     public Email getEmail() {
         return email;
     }
 
+    /**
+     * Sets the email of the collaborator.
+     *
+     * @param email the email to set
+     */
     public void setEmail(String email) {
-        this.email.setEmail(email);
+        this.email = new Email(email);
     }
 
+    /**
+     * Returns the list of skills of the collaborator.
+     *
+     * @return the list of skills of the collaborator
+     */
     public List<Skill> getSkillList() {
         return skillList;
     }
 
+    /**
+     * Returns the mobile number of the collaborator.
+     *
+     * @return the mobile number of the collaborator
+     */
     public String getMobileNumber() {
         return mobileNumber;
     }
 
+    /**
+     * Sets the mobile number of the collaborator after validating it.
+     *
+     * @param mobileNumber the mobile number to set
+     * @throws IllegalArgumentException if the mobile number is not in the correct format
+     */
     public void setMobileNumber(String mobileNumber) {
         if (!validateMobileNumber(mobileNumber)) {
             throw new IllegalArgumentException("Mobile Number is not in a correct format");
@@ -142,20 +346,43 @@ public class Collaborator implements Cloneable{
         this.mobileNumber = mobileNumber;
     }
 
+    /**
+     * Returns the ID document type of the collaborator.
+     *
+     * @return the ID document type of the collaborator.
+     */
     public IdDocType getIdDocType() {
         return idDocType;
     }
 
+    /**
+     * Sets the type of ID document of the collaborator after validation.
+     *
+     * @param idDocType the type of ID document to set
+     */
     public void setIdDocType(IdDocType idDocType) {
         if (validateIdDocType(idDocType)) {
             this.idDocType = idDocType;
         }
     }
 
+    /**
+     * Returns the ID number of the collaborator.
+     *
+     * @return the ID number of the collaborator
+     */
     public int getIdDocNumber() {
         return idDocNumber;
     }
 
+    /**
+     * Sets the ID number of the collaborator after validation.
+     * Depending on the type of document, returns a different enumerated result.
+     *
+     * @param idDocNumber the ID number to set
+     * @param idDocType   the type of ID document
+     * @throws IllegalArgumentException if the ID number is not valid (empty, or in the wrong format for the specified ID document type)
+     */
     public void setIdDocNumber(int idDocNumber, IdDocType idDocType) {
         ValidateIdDocNumberResults validateIdDocNumberResults = validateIdDocNumberResults(idDocNumber, idDocType);
 
@@ -171,6 +398,11 @@ public class Collaborator implements Cloneable{
         }
     }
 
+    /**
+     * Generates a string representation of the collaborator.
+     *
+     * @return the string representation of the collaborator
+     */
     @Override
     public String toString() {
         return "Collaborator{" +
@@ -186,19 +418,35 @@ public class Collaborator implements Cloneable{
     }
 
     /**
-     * Assign selected skills to a collaborator (1 or more skills)
+     * Checks if the collaborator has at least one of the required skills list.
      *
-     * @param chosenSkills
+     * @param requiredSkills the list of required skills
+     * @return true if the collaborator has at least one of the required skills, otherwise false
+     */
+    public boolean hasAtLeastOneSkill(List<Skill> requiredSkills) {
+        for (Skill requiredSkill : requiredSkills) {
+            if (skillList.contains(requiredSkill)) {
+                return true; //
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Assigns selected skills to a collaborator.
+     *
+     * @param chosenSkills the list of chosen skills
      */
     public void assignSkills(List<Skill> chosenSkills) {
         skillList.addAll(chosenSkills);
     }
 
     /**
-     * Validates if name contains special characters.
+     * Validates if the name of the collaborator is valid.
+     * Return enumerated type VALID when the name is valid. Possible results when the name is not valid include: EMPTYNULL, NOT_ENOUGH_NAMES, TOO_MANY_WORDS and CONTAINS_SPECIAL_CHARACTERS.
      *
-     * @param name
-     * @return the logical state of the validation. True if name is not null, not empty and the only permited characters are spaces and hifens.
+     * @param name the name to validate
+     * @return the validation result
      */
     private NameValidationResults validateName(String name) {
 
@@ -225,6 +473,12 @@ public class Collaborator implements Cloneable{
         }
     }
 
+    /**
+     * Validates the mobile number format.
+     *
+     * @param mobileNumber the mobile number to validate
+     * @return true if the mobile number is in the correct format, otherwise false
+     */
     private boolean validateMobileNumber(String mobileNumber) {
 
         if (mobileNumber == null || mobileNumber.trim().isEmpty()) {
@@ -245,10 +499,26 @@ public class Collaborator implements Cloneable{
         }
     }
 
+    /**
+     * Validates the ID document type.
+     * The valid types are the ones in enumerated IdDocType (CC, PASSPORT, BI)
+     *
+     * @param idDocType the ID document type to validate
+     * @return true if the ID document type is valid, otherwise false
+     */
     private boolean validateIdDocType(IdDocType idDocType) {
-        return idDocType == IdDocType.CC || idDocType == IdDocType.Passport || idDocType == IdDocType.BI;
+        return idDocType == IdDocType.CC || idDocType == IdDocType.PASSPORT || idDocType == IdDocType.BI;
     }
 
+    /**
+     * Validates the ID document number.
+     * Return enumerated type VALID when the ID document number is valid based on ID document type of collaborator.
+     * Possible results when the Id document number is not valid include: EMPTY, PASSPORT_ERROR and CC_BI_ERROR.
+     *
+     * @param idDocNumber the ID document number to validate
+     * @param idDocType   the type of ID document
+     * @return the validation result
+     */
     private ValidateIdDocNumberResults validateIdDocNumberResults(int idDocNumber, IdDocType idDocType) {
         String nineNumericDigits = "[0-9]{9}";
         String passportPattern = "[a-z][A-Z]{2}[0-9]{6}";
@@ -259,7 +529,7 @@ public class Collaborator implements Cloneable{
             return ValidateIdDocNumberResults.EMPTY;
         }
 
-        if (idDocType == IdDocType.Passport) {
+        if (idDocType == IdDocType.PASSPORT) {
             if (idDocNumberString.matches(passportPattern)) {
                 return ValidateIdDocNumberResults.VALID;
             } else {
@@ -275,7 +545,12 @@ public class Collaborator implements Cloneable{
         }
     }
 
-    public Collaborator clone(){
+    /**
+     * Creates a deep copy of the collaborator.
+     *
+     * @return the cloned collaborator
+     */
+    public Collaborator clone() {
         Collaborator clone = new Collaborator(
                 this.name,
                 this.birthdate,

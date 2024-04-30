@@ -9,6 +9,7 @@ import java.util.List;
 public class MainMenuUI implements Runnable {
 
     public MainMenuUI() {
+
     }
 
     public void run() {

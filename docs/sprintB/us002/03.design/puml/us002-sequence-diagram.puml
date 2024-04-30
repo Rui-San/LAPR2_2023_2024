@@ -8,8 +8,8 @@ title US002 - System Sequence Diagram (SSD)
 autonumber
 
 actor "HRM" as Employee
-participant ":CreateJobUI" as CJU
-participant ":CreateJobController" as CJC
+participant ":RegisterJobUI" as CJU
+participant ":RegisterJobController" as CJC
 participant ":Repositories" as REPO
 participant "repositories\n:Repositories" as Repos
 participant "jobRepository\n:JobRepository" as ORG

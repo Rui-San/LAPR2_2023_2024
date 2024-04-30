@@ -1,20 +1,66 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+/**
+ * Represents an Email object.
+ * This class provides functionality to validate an email address.
+ */
 public class Email {
+
+    /**
+     * The email address.
+     */
     private String email;
 
+    /**
+     * Type Enumerated, enumerating all the different results that may occur during an email validation.
+     */
     private enum ValidateEmailResults {
-        EMPTY, VALID, INVALID_PREFIX, INVALID_DOMAIN, WRONG_FORMAT
+        /**
+         * Email is empty.
+         */
+        EMPTY,
+        /**
+         * Email is valid.
+         */
+        VALID,
+        /**
+         * Prefix of email is invalid.
+         */
+        INVALID_PREFIX,
+        /**
+         * Domain of email is invalid.
+         */
+        INVALID_DOMAIN,
+        /**
+         * Email has wrong format.
+         */
+        WRONG_FORMAT
     }
 
+    /**
+     * Constructs an Email object with the given email address.
+     *
+     * @param email the email address
+     */
     public Email(String email) {
         setEmail(email);
     }
 
+    /**
+     * Returns the email string
+     *
+     * @return the email string
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * Sets the email address for the Email object after validating it.
+     * If the email is not validated, throws specific exception based on error that occured
+     *
+     * @param email the email to be set.
+     */
     public void setEmail(String email) {
         ValidateEmailResults validateEmailResults = validateEmail(email);
         switch (validateEmailResults) {
@@ -33,10 +79,11 @@ public class Email {
     }
 
     /**
-     * Validates if email format is validated
+     * Validates if email is valid or not by returning a ValidateEmailResults enumerate type.
+     * Return enumerated type VALID when the email is valid. Possible results when the email is not valid include: EMPTY, WRONG_FORMAT, INVALID_PREFIX, INVALID_DOMAIN.
      *
-     * @param email
-     * @return the logical state of the validation. True if email format is valid
+     * @param email the email to be validated
+     * @return an enumerate type depending on the result
      */
     private ValidateEmailResults validateEmail(String email) {
         if (email == null || email.trim().isEmpty()) {
