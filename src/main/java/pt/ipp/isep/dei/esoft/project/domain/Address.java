@@ -121,7 +121,7 @@ public class Address {
         if (validateStreetNumber(streetNumber)) {
             this.streetNumber = streetNumber;
         } else {
-            throw new IllegalArgumentException("Street number must be a positive number!");
+            throw new IllegalArgumentException("Street number must be a positive integer!");
         }
     }
 
@@ -208,7 +208,7 @@ public class Address {
      * Returns a string representation of the address.
      *
      * @return a string representation of the address in the format:
-     *         "Address{street='[street]', streetNumber=[streetNumber], postalCode='[postalCode]', city='[city]', district='[district]'}"
+     * "Address{street='[street]', streetNumber=[streetNumber], postalCode='[postalCode]', city='[city]', district='[district]'}"
      */
     @Override
     public String toString() {
@@ -237,7 +237,7 @@ public class Address {
      * @param number the street number to be validated
      * @return true if the street number is a positive intefer, false otherwise
      */
-    private static boolean validateStreetNumber(int number) {
+    private static boolean validateStreetNumber(Integer number) {
         return number > 0;
     }
 
@@ -281,6 +281,7 @@ public class Address {
      * @return true if the city is not null or empty, false otherwise
      */
     private static boolean validateCity(String city) {
+
         return city != null && !city.trim().isEmpty();
     }
 

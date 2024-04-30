@@ -38,14 +38,14 @@ public class TeamProposalUI_testing implements Runnable {
             skillsNeeded = displayAndSelectSkillsNeeded();
             quantityNeeded = requestQuantityNeeded(skillsNeeded);
 
-            Optional<Team_testing> teamProposal = getTeamProposalController().generateTeamProposal(minTeamSize, maxTeamSize, skillsNeeded, quantityNeeded);
+            List<Team_testing> teamProposal = getTeamProposalController().generateTeamProposal(minTeamSize, maxTeamSize, skillsNeeded, quantityNeeded);
 
             if (teamProposal != null) {
                 System.out.println("Team proposal generated successfully:");
                 System.out.println(teamProposal);
                 teamAccepted = askManagerResponse();
                 if (teamAccepted) {
-                    controller.acceptTeamProposal(teamProposal);  //Adds the team to the teamList
+                   // controller.acceptTeamProposal(teamProposal);  //Adds the team to the teamList
                 }
             }else {
                 System.out.println("Could not generate a team proposal with given information");
