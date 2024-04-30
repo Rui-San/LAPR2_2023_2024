@@ -269,10 +269,14 @@ public class Collaborator implements Cloneable {
     /**
      * Sets the address of the collaborator.
      *
-     * @param address the address to set
+     * @param street       the street of the collaborator's address
+     * @param streetNumber the street number of the collaborator's address
+     * @param postalCode   the postal code of the collaborator's address
+     * @param city         the city of the collaborator's address
+     * @param district     the district of the collaborator's address
      */
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setAddress(String street, int streetNumber, String postalCode, String city, String district) {
+        this.address = new Address(street, streetNumber, postalCode, city, district);
     }
 
     /**
