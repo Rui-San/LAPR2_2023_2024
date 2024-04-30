@@ -12,7 +12,7 @@ class AddressTest {
 
         for (String street : invalidStreets) {
             IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-                new Address(street, 123, "4450-123", "City", "District");
+                new Address(street, 123, "4450-123", "Matosinhos", "Porto");
             });
             assertTrue(exception.getMessage().contains("Street must not be empty!"));
         }
@@ -24,7 +24,7 @@ class AddressTest {
 
         for (String postalCode : invalidPostalCodes) {
             IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-                new Address("Main St", 123, postalCode, "City", "District");
+                new Address("Rua das travessas", 123, postalCode, "Matosinhos", "Porto");
             });
             assertTrue(exception.getMessage().contains("Postal code must not be empty"));
         }
@@ -33,13 +33,13 @@ class AddressTest {
     @Test
     public void ensurePostalCodeDoesNotContainLettersTest() {
         IllegalArgumentException exceptionCONTAIN_LETTERS1 = assertThrows(IllegalArgumentException.class, () -> {
-            new Address("Main St", 123, "123A-567", "City", "District");
+            new Address("Rua das travessas", 123, "123A-567", "Matosinhos", "Porto");
         });
 
         assertTrue(exceptionCONTAIN_LETTERS1.getMessage().contains("Postal code must not contain letters"));
 
         IllegalArgumentException exceptionCONTAIN_LETTERS2 = assertThrows(IllegalArgumentException.class, () -> {
-            new Address("Main St", 123, "1j3A-5bC", "City", "District");
+            new Address("Rua das travessas", 123, "1j3A-5bC", "Matosinhos", "Porto");
         });
 
         assertTrue(exceptionCONTAIN_LETTERS2.getMessage().contains("Postal code must not contain letters"));
@@ -47,7 +47,7 @@ class AddressTest {
 
     @Test
     public void ensurePostalCodeIsValidTest() {
-        Address address = new Address("Main St", 123, "1234-678", "City", "District");
+        Address address = new Address("Rua das travessas", 123, "1234-678", "Matosinhos", "Porto");
 
         assertNotNull(address);
     }
@@ -58,7 +58,7 @@ class AddressTest {
 
         for (String postalCode : invalidPostalCodes) {
             IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-                new Address("Main St", 123, postalCode, "City", "District");
+                new Address("Rua das travessas", 123, postalCode, "Matosinhos", "Porto");
             });
             assertTrue(exception.getMessage().contains("Postal code must follow the format XXXX-XXX"));
         }
@@ -66,7 +66,7 @@ class AddressTest {
 
     @Test
     public void ensureUpdatingFieldWithInvalidValueTest() {
-        Address address = new Address("Main St", 123, "1235-678", "City", "District");
+        Address address = new Address("Rua das travessas", 123, "1235-678", "Matosinhos", "Porto");
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
             address.setPostalCode("2234-2343");
         });
@@ -79,7 +79,7 @@ class AddressTest {
 
         for (String city : invalidCitys) {
             IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-                new Address("Main St", 123, "1223-111", city, "District");
+                new Address("Rua das travessas", 123, "1223-111", city, "Porto");
             });
             assertTrue(exception.getMessage().contains("City must not be empty"));
         }
@@ -91,7 +91,7 @@ class AddressTest {
 
         for (String district : invalidDistricts) {
             IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-                new Address("Main St", 123, "1223-111", "S.M.Feira", district);
+                new Address("Rua das travessas", 123, "1223-111", "S.M.Feira", district);
             });
             assertTrue(exception.getMessage().contains("District must not be empty"));
         }
@@ -103,7 +103,7 @@ class AddressTest {
 
         for (Integer streetNumber : invalidStreetNumbers) {
             IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-                new Address("Main St", streetNumber, "1223-111", "S.M.Feira", "district");
+                new Address("Rua das travessas", streetNumber, "1223-111", "S.M.Feira", "Porto");
             });
             assertTrue(exception.getMessage().contains("Street number must be a positive integer!"));
         }
@@ -111,13 +111,38 @@ class AddressTest {
 
     @Test
     public void ensureAllFieldsAreValidTest() {
-        Address address = new Address("Main St", 123, "1345-678", "City", "District");
+        Address address = new Address("Rua das travessas", 123, "1345-678", "Matosinhos", "Porto");
         assertNotNull(address);
     }
 
+    @Test
+    public void ensureGetStreetReturnsCorrectValue() {
+        Address address = new Address("Rua das travessas", 123, "1223-111", "Matosinhos", "Porto");
+        assertEquals("Rua das travessas", address.getStreet());
+    }
 
+    @Test
+    public void ensureGetStreetNumberReturnsCorrectValue() {
+        Address address = new Address("Rua das travessas", 123, "1223-111", "Matosinhos", "Porto");
+        assertEquals(123, address.getStreetNumber());
+    }
 
+    @Test
+    public void ensureGetPostalCodeReturnsCorrectValue() {
+        Address address = new Address("Rua das travessas", 123, "1223-111", "Matosinhos", "Porto");
+        assertEquals("1223-111", address.getPostalCode());
+    }
 
+    @Test
+    public void ensureGetCityReturnsCorrectValue() {
+        Address address = new Address("Rua das travessas", 123, "1223-111", "Matosinhos", "Porto");
+        assertEquals("Matosinhos", address.getCity());
+    }
 
+    @Test
+    public void ensureGetDistrictReturnsCorrectValue() {
+        Address address = new Address("Rua das travessas", 123, "1223-111", "Matosinhos", "Porto");
+        assertEquals("Porto", address.getDistrict());
+    }
 
 }

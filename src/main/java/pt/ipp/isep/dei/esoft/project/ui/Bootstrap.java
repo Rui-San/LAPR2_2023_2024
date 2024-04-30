@@ -47,8 +47,8 @@ public class Bootstrap implements Runnable {
         String street = "Rua Principal";
         int streetNumber = 123;
         String postalCode = "1235-678";
-        String city = "Porto";
-        String district = "Porto";
+        String city = "Matosinhos";
+        String district = "Matosinhos";
         String email = "joao.pedro@example.com";
         String mobileNumber = "912345678";
         Collaborator.IdDocType idDocType = Collaborator.IdDocType.CC;
