@@ -124,7 +124,7 @@ public class RegisterCollaboratorUI implements Runnable {
                 case 2:
                     return IdDocType.BI;
                 case 3:
-                    return IdDocType.Passport;
+                    return IdDocType.PASSPORT;
                 default:
                     inputValid = false;
                     System.out.println("Please select a valid option.");
