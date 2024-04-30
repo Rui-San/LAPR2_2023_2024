@@ -65,6 +65,15 @@ class AddressTest {
     }
 
     @Test
+    public void ensureUpdatingFieldWithInvalidValueTest() {
+        Address address = new Address("Main St", 123, "1235-678", "City", "District");
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            address.setPostalCode("2234-2343");
+        });
+        assertTrue(exception.getMessage().contains("Postal code must follow the format XXXX-XXX"));
+    }
+
+    @Test
     public void ensureCityCantBeNullOrEmptyTest() {
         String[] invalidCitys = {"", null};
 
@@ -99,5 +108,16 @@ class AddressTest {
             assertTrue(exception.getMessage().contains("Street number must be a positive integer!"));
         }
     }
+
+    @Test
+    public void ensureAllFieldsAreValidTest() {
+        Address address = new Address("Main St", 123, "1345-678", "City", "District");
+        assertNotNull(address);
+    }
+
+
+
+
+
 
 }
