@@ -24,7 +24,7 @@ public class AssignSkillUI implements Runnable {
 
         CollaboratorRepository collaboratorRepository = new CollaboratorRepository();
         List<Collaborator> collaborators = collaboratorRepository.getCollaboratorList();
-        // Display the collaborators and ask the user to select one
+
         System.out.println("Select the collaborator:");
         for (int i = 0; i < collaborators.size(); i++) {
             System.out.println(i + 1 + ". " + collaborators.get(i).getName());
@@ -34,10 +34,10 @@ public class AssignSkillUI implements Runnable {
 
         SkillRepository skillRepository = new SkillRepository();
         List<Skill> skills = skillRepository.getSkillList();
-        // Display the skills and ask the user to select one or more
+
         System.out.println("Select the skills:");
         for (int i = 0; i < skills.size(); i++) {
-            System.out.println(i + 1 + ". " + skills.get(i).getName());
+            System.out.println(i + 1 + ". " + skills.get(i).getSkillName());
         }
         selectedSkills = new ArrayList<>();
         while (true){
