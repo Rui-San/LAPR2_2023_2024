@@ -68,6 +68,29 @@ public class Vehicle {
         this.checkupFrequencyKms = checkupFrequencyKms;
     }
 
+    /**
+     * Creates a deep copy of the Vehicle.
+     *
+     * @return the cloned Vehicle
+     */
+    @Override
+    public Vehicle clone() {
+        Vehicle clone = new Vehicle(
+                this.plateId,
+                this.brand,
+                this.model,
+                this.type,
+                this.tare,
+                this.grossWeight,
+                this.currentKm,
+                this.registerDate.clone(),
+                this.acquisitionDate.clone(),
+                this.checkupFrequencyKms
+        );
+
+        return clone;
+    }
+
     //TODO: metodos de validaçao
 
 }

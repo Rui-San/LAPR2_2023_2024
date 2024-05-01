@@ -47,8 +47,8 @@ public class Date implements Comparable<Date> {
         INVALID_FORMAT, VALID, EMPTY, INVALID_MONTH, INVALID_YEAR, INVALID_DAY
     }
 
-    public Date(String birthdate) {
-        setDate(birthdate);
+    public Date(String dateString) {
+        setDate(dateString);
     }
 
     public void setDate(String date) {
@@ -187,6 +187,19 @@ public class Date implements Comparable<Date> {
             return this.getDay() > dateCompare.getDay() ? 1 : -1;
         }
         return 0;
+    }
+
+    /**
+     * Creates a deep copy of the Date.
+     *
+     * @return the cloned Date
+     */
+    public Date clone() {
+        Date clone = new Date(
+                this.toString()
+        );
+
+        return clone;
     }
 
 }

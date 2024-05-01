@@ -1,11 +1,11 @@
 package pt.ipp.isep.dei.esoft.project.ui;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.AuthenticationController;
-import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
-import pt.ipp.isep.dei.esoft.project.domain.Date;
-import pt.ipp.isep.dei.esoft.project.domain.Job;
-import pt.ipp.isep.dei.esoft.project.domain.Skill;
+import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.repository.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Bootstrap implements Runnable {
 
@@ -82,11 +82,32 @@ public class Bootstrap implements Runnable {
 
     private void addVehicle() {
 
+        VehicleRepository vehicleRepository = Repositories.getInstance().getVehicleRepository();
+
+        Vehicle vehicle1 = new Vehicle("11-11-11", "Toyota", "Corolla", "1", 1300, 1700, 10000, new Date("15/3/2023"), new Date("1/4/2023"), 10000);
+        vehicleRepository.add(vehicle1);
+        Vehicle vehicle2 = new Vehicle("22-22-22", "Ford", "Mustang", "2", 1700, 2000, 7500, new Date("20/11/2022"), new Date("5/12/2022"), 7500);
+        vehicleRepository.add(vehicle2);
+        Vehicle vehicle3 = new Vehicle("33-33-33", "BMW", "X5", "3", 2100, 2600, 12000, new Date("10/6/2023"), new Date("1/7/2023"), 12000);
+        vehicleRepository.add(vehicle3);
+        Vehicle vehicle4 = new Vehicle("44-44-44", "Volkswagen", "Golf", "1", 1400, 1800, 8000, new Date("5/1/2024"), new Date("20/1/2024"), 8000);
+        vehicleRepository.add(vehicle4);
+        Vehicle vehicle5 = new Vehicle("55-55-55", "Mercedes-Benz", "E-Class", "1", 1900, 2300, 15000, new Date("30/9/2023"), new Date("15/10/2023"), 15000);
+        vehicleRepository.add(vehicle5);
 
     }
 
     private void addCheckup() {
+
+        CheckupRepository checkupRepository = Repositories.getInstance().getCheckupRepository();
+        List<Vehicle> vehicles = Repositories.getInstance().getVehicleRepository().getVehicles();
+
+        for (Vehicle vehicle : vehicles){
+            VehicleCheckup checkup = new VehicleCheckup(vehicle, new Date("1/5/2024"), 11000);
+        }
+
     }
+
     /*
         private void addOrganization() {
             //TODO: add organizations bootstrap here

@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
+import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
 
 import java.util.ArrayList;
@@ -11,21 +12,21 @@ public class VehicleRepository {
     /**
      * List of all vehicles.
      */
-    private ArrayList<Vehicle> vehicles;
+    private ArrayList<Vehicle> vehicleList;
 
     /**
      * Creates an instance of VehicleRepository with the specified list of vehicles.
      * @param vehicles
      */
     public VehicleRepository(ArrayList<Vehicle> vehicles) {
-        this.vehicles = vehicles;
+        this.vehicleList = vehicles;
     }
 
     /**
      * Creates an instance of VehicleRepository with an empty list of vehicles.
      */
     public VehicleRepository() {
-        this.vehicles = new ArrayList<>();
+        this.vehicleList = new ArrayList<>();
     }
 
     /**
@@ -33,7 +34,7 @@ public class VehicleRepository {
      * @return
      */
     public List<Vehicle> getVehicles() {
-        return List.copyOf(vehicles);
+        return List.copyOf(vehicleList);
     }
 
     /**
@@ -41,7 +42,7 @@ public class VehicleRepository {
      * @param vehicles
      */
     public void setVehicles(ArrayList<Vehicle> vehicles) {
-        this.vehicles = vehicles;
+        this.vehicleList = vehicles;
     }
 
     public ArrayList<Vehicle> getVehiclesNeedingCheckup(CheckupRepository checkupRepository){
@@ -56,6 +57,28 @@ public class VehicleRepository {
         }
 
         return vehiclesNeedingCheckup;
+    }
+
+    public Optional<Vehicle> add(Vehicle vehicle) {
+        Optional<Vehicle> newVehicle = Optional.empty();
+        boolean operationSuccess = false;
+
+        if (validateVehicle(newVehicle)) {
+            newVehicle = Optional.of(vehicle.clone());
+            operationSuccess = vehicleList.add(newVehicle.get());
+        }
+
+        if (!operationSuccess) {
+            newVehicle = Optional.empty();
+        }
+
+        return newVehicle;
+    }
+
+    private boolean validateVehicle(Optional<Vehicle> vehicle) {
+        boolean isValid = true; //TODO: this is here to avoid compilation errors, but it should be implemented
+
+        return isValid;
     }
 
     /**
