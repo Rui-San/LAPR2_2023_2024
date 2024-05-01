@@ -9,8 +9,8 @@ class EmailTest {
     @Test
     public void ensureGetEmailReturnsCorrectValue() {
 
-        Email email = new Email("pedro_teste@gmail.com");
-        assertEquals("pedro_teste@gmail.com", email.getEmail());
+        Email email = new Email("pedroteste@gmail.com");
+        assertEquals("pedroteste@gmail.com", email.getEmail());
     }
 
     @Test
@@ -42,20 +42,63 @@ class EmailTest {
      */
     @Test
     public void ensureDetectsInvalidPrefixEmailTest() {
-        String[] invalidPrefixEmails = {"''@gmail.com", "!@gmail.com", "+@gmail.com", "´@gmail.com", "~@gmail.com"
-                , "*@gmail.com", "`@gmail.com", "^@gmail.com", "ª@gmail.com", "º@gmail.com", ":@gmail.com", ";@gmail.com", ",@gmail.com",
-                "#@gmail.com", "$@gmail.com", "%@gmail.com", "&@gmail.com", "/@gmail.com", "(@gmail.com", ")@gmail.com", "=@gmail.com",
-                "?@gmail.com", "»@gmail.com", "«@gmail.com", "€@gmail.com", "£@gmail.com", "§@gmail.com", "{@gmail.com", "[@gmail.com",
-                "]@gmail.com", "}@gmail.com"};
 
+        String invalidPrefixSymbols = "!#$%^&*()+=<>?/,;:'\"[]{}\\|`~";
 
-        for (String email : invalidPrefixEmails) {
+        for (char symbol : invalidPrefixSymbols.toCharArray()) {
+            String emailTest = symbol + "prefix@gmail.com";
             IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-                new Email(email);
+                new Email(emailTest);
             });
             assertTrue(exception.getMessage().contains("Email prefix not valid. Only letters, numbers and _ . - are accepted"));
+            ;
         }
     }
 
+    /**
+     * Ensure that email domain may only contain letters, numeric digits and symbols allowed are: "_", "." and "-".
+     */
+    @Test
+    public void ensureDetectsInvalidDomainEmailTest() {
 
+        String invalidDomainSymbols = "!#$%^&*()+_.=<>?/,;:'\"[]{}\\|`~";
+
+        for (char symbol : invalidDomainSymbols.toCharArray()) {
+            String emailTest = "test@" + symbol + ".com";
+
+            IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+                new Email(emailTest);
+            });
+            assertTrue(exception.getMessage().contains("Email domain not valid."));
+        }
+    }
+
+    @Test
+    public void ensureDetectsInvalidExtensionEmailTest() {
+
+        String invalidExtensionSymbols = "0123456789!#$%^&*()+_.=<>?/,;:'\"[]{}\\|`~-";
+
+        for (char symbol : invalidExtensionSymbols.toCharArray()) {
+            String emailTest = "test@gmail." + symbol + "com";
+
+            IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+                new Email(emailTest);
+            });
+            assertTrue(exception.getMessage().contains("Email domain not valid."));
+        }
+    }
+
+    @Test
+    public void ensureDetectsInvalidDomainLengthEmailTest() {
+
+        String[] invalidDomainLengthEmails = {"pedro@gmail.c", "pedro@gmail.comcomco"};
+
+        for (String email : invalidDomainLengthEmails) {
+
+            IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+                new Email(email);
+            });
+            assertTrue(exception.getMessage().contains("Email domain not valid."));
+        }
+    }
 }
