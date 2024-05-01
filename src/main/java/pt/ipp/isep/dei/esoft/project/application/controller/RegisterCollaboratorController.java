@@ -46,7 +46,7 @@ public class RegisterCollaboratorController {
         return jobRepository.getJobList();
     }
 
-    public Optional<Collaborator> createCollaborator(String name, String birthdate, String admissionDate, String street, int streetNumber, String postalCode, String city, String district, String email, String mobileNumber, IdDocType idDocType, int idDocNumber, Job job) {
+    public Optional<Collaborator> createCollaborator(String name, String birthdate, String admissionDate, String street, int streetNumber, String postalCode, String city, String district, String email, String mobileNumber, IdDocType idDocType, String idDocNumber, Job job) {
 
         Optional<Collaborator> newCollaborator = Optional.empty();
         /*

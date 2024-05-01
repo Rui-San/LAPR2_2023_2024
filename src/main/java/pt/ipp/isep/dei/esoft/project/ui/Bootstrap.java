@@ -52,7 +52,7 @@ public class Bootstrap implements Runnable {
         String email = "joao.pedro@example.com";
         String mobileNumber = "912345678";
         Collaborator.IdDocType idDocType = Collaborator.IdDocType.CC;
-        int idDocNumber = 123456789;
+        String idDocNumber = "123456789";
         Job job = new Job("x");
 
         Collaborator collaborator = new Collaborator(name, birthdate, admissionDate, street, streetNumber, postalCode,

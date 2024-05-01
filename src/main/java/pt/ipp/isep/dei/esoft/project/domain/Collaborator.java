@@ -90,7 +90,7 @@ public class Collaborator implements Cloneable {
     /**
      * The ID number of the collaborator's document.
      */
-    private int idDocNumber;
+    private String idDocNumber;
 
     /**
      * The list of skills of the collaborator.
@@ -175,7 +175,7 @@ public class Collaborator implements Cloneable {
      * @param job           the job of the collaborator
      */
     public Collaborator(String name, Date birthdate, Date admissionDate, String street, int streetNumber, String postalCode,
-                        String city, String district, String email, String mobileNumber, IdDocType idDocType, int idDocNumber, Job job) {
+                        String city, String district, String email, String mobileNumber, IdDocType idDocType, String idDocNumber, Job job) {
         setName(name);
         this.birthdate = birthdate;
         this.admissionDate = admissionDate;
@@ -212,7 +212,7 @@ public class Collaborator implements Cloneable {
             case CONTAINS_SPECIAL_CHARACTERS:
                 throw new IllegalArgumentException("Name must not contain special characters");
             case NOT_ENOUGH_NAMES:
-                throw new IllegalArgumentException("name must include at least one first name and one last name.");
+                throw new IllegalArgumentException("Name must include at least one first name and one last name.");
             case TOO_MANY_WORDS:
                 throw new IllegalArgumentException("Name must not contain more than 6 words, according to Portuguese Law");
             case VALID:
@@ -363,6 +363,8 @@ public class Collaborator implements Cloneable {
     public void setIdDocType(IdDocType idDocType) {
         if (validateIdDocType(idDocType)) {
             this.idDocType = idDocType;
+        } else{
+            throw new IllegalArgumentException("Document Type is invalid");
         }
     }
 
@@ -371,7 +373,7 @@ public class Collaborator implements Cloneable {
      *
      * @return the ID number of the collaborator
      */
-    public int getIdDocNumber() {
+    public String getIdDocNumber() {
         return idDocNumber;
     }
 
@@ -383,14 +385,14 @@ public class Collaborator implements Cloneable {
      * @param idDocType   the type of ID document
      * @throws IllegalArgumentException if the ID number is not valid (empty, or in the wrong format for the specified ID document type)
      */
-    public void setIdDocNumber(int idDocNumber, IdDocType idDocType) {
+    public void setIdDocNumber(String idDocNumber, IdDocType idDocType) {
         ValidateIdDocNumberResults validateIdDocNumberResults = validateIdDocNumberResults(idDocNumber, idDocType);
 
         switch (validateIdDocNumberResults) {
             case EMPTY:
                 throw new IllegalArgumentException("ID Number must not be empty");
             case PASSPORT_ERROR:
-                throw new IllegalArgumentException("Passport in wrong format. Must be two letters + 6 numeric digits (Example: AB222222");
+                throw new IllegalArgumentException("Passport in wrong format. Must be two letters + 6 numeric digits (Example: AB222222)");
             case CC_BI_ERROR:
                 throw new IllegalArgumentException("NIF in wrong format. Must be 9 numeric digits");
             case VALID:
@@ -519,31 +521,31 @@ public class Collaborator implements Cloneable {
      * @param idDocType   the type of ID document
      * @return the validation result
      */
-    private ValidateIdDocNumberResults validateIdDocNumberResults(int idDocNumber, IdDocType idDocType) {
+    private ValidateIdDocNumberResults validateIdDocNumberResults(String idDocNumber, IdDocType idDocType) {
         String nineNumericDigits = "[0-9]{9}";
-        String passportPattern = "[a-z][A-Z]{2}[0-9]{6}";
+        String passportPattern = "\\p{Alpha}{2}\\d{6}";
 
-        String idDocNumberString = String.valueOf(idDocNumber);
-
-        if (idDocNumberString.isEmpty()) {
+        if (idDocNumber.isEmpty()) {
             return ValidateIdDocNumberResults.EMPTY;
         }
 
         if (idDocType == IdDocType.PASSPORT) {
-            if (idDocNumberString.matches(passportPattern)) {
+            if (idDocNumber.matches(passportPattern)) {
                 return ValidateIdDocNumberResults.VALID;
             } else {
                 return ValidateIdDocNumberResults.PASSPORT_ERROR;
             }
 
         } else {
-            if (idDocNumberString.matches(nineNumericDigits)) {
+            if (idDocNumber.matches(nineNumericDigits)) {
                 return ValidateIdDocNumberResults.VALID;
             } else {
                 return ValidateIdDocNumberResults.CC_BI_ERROR;
             }
         }
     }
+
+
 
     /**
      * Creates a deep copy of the collaborator.
