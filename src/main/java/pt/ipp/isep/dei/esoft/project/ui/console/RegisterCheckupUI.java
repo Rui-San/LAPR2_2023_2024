@@ -14,11 +14,6 @@ import java.util.Scanner;
 
 public class RegisterCheckupUI implements Runnable {
 
-    public static void main(String[] args) {
-        RegisterCheckupUI ui = new RegisterCheckupUI();
-        ui.run();
-    }
-
     private final RegisterCheckupController controller;
     private Vehicle vehicle;
     private String checkupDate;
@@ -41,12 +36,6 @@ public class RegisterCheckupUI implements Runnable {
 
         submitData();
 
-        ArrayList<VehicleCheckup> checkupList = getController().getCheckupRepository().getVehicleCheckupList();
-
-        System.out.println("\nCheckup list:");
-        for (VehicleCheckup checkup : checkupList) {
-            System.out.println(checkup.toString());
-        }
     }
 
     private void submitData() {
@@ -87,16 +76,7 @@ public class RegisterCheckupUI implements Runnable {
 
     private Vehicle displayAndSelectVehicle() {
 
-        //this is the correct way of doing it. This list in unmodifiable
-        //List<Vehicle> vehicleList = controller.getVehicles();
-
-        List<Vehicle> vehicleList = new ArrayList<>();
-
-        //This is a mockup
-        Vehicle vehicle1 = new Vehicle("11-11-11", "Car", "Gasoline", "type1", 1000, 1000, 1000, new Date("1/12/2003"), new Date("2/3/2000  "), 1000);
-        Vehicle vehicle2 = new Vehicle("22-22-22", "Car", "Gasoline", "type2", 2000, 2000, 2000, new Date("1/12/2003"), new Date("2/3/2000"), 2000);
-        vehicleList.add(vehicle1);
-        vehicleList.add(vehicle2);
+        List<Vehicle> vehicleList = controller.getVehicles();
 
         int numberOfVehicles = vehicleList.size();
         int answer = -1;
