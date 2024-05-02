@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.util.Objects;
+
 /**
  * Represents an Email object.
  * This class provides functionality to validate an email address.
@@ -78,6 +80,7 @@ public class Email {
         }
     }
 
+
     /**
      * Validates if email is valid or not by returning a ValidateEmailResults enumerate type.
      * Return enumerated type VALID when the email is valid. Possible results when the email is not valid include: EMPTY, WRONG_FORMAT, INVALID_PREFIX, INVALID_DOMAIN.
@@ -114,5 +117,10 @@ public class Email {
             return ValidateEmailResults.INVALID_DOMAIN;
         }
         return ValidateEmailResults.VALID;
+    }
+
+    @Override
+    public Email clone() {
+        return new Email(this.email);
     }
 }

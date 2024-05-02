@@ -26,7 +26,7 @@ public class RegisterCollaboratorUI implements Runnable {
     private String email;
     private String mobileNumber;
     private IdDocType idDocType;
-    private int idDocNumber;
+    private String idDocNumber;
     private Job job;
 
     public RegisterCollaboratorUI() {
@@ -102,10 +102,10 @@ public class RegisterCollaboratorUI implements Runnable {
         idDocNumber = requestIdDocNumber();
     }
 
-    private int requestIdDocNumber() {
+    private String requestIdDocNumber() {
         Scanner input = new Scanner(System.in);
         System.out.println("ID Doc Number: ");
-        return input.nextInt();
+        return input.nextLine();
     }
 
     private IdDocType requestIdDocType() {
