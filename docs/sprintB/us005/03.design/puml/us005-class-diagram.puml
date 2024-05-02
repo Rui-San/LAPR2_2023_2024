@@ -1,0 +1,49 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+skinparam classAttributeIconSize 0
+'left to right direction
+
+Repositories -> Repositories : instance
+
+
+Repositories --> "1" SkillRepository
+Repositories --> "1" TeamRepository
+
+TeamRepository ..> Skill : createTeam()
+TeamProposalController ..> Repositories : repositories
+TeamProposalUI ..> TeamProposalController
+
+class TeamProposalUI {
+
+}
+
+class TeamProposalController {
+    + getSkillList()
+    + getTeamRepository()
+}
+
+class Repositories {
+    + getInstance()
+    + getSkillRepository()
+    + getTeamRepository()
+}
+
+class SkillRepository {
+    + getSkillList()
+}
+
+class TeamRepository {
+    + createTeam(team)
+    + addToTeamRepository(team)
+    + validateTeam(team)
+}
+
+class Skill {
+    + validateTeam(team)
+}
+
+@enduml
