@@ -36,7 +36,7 @@ public class MainUS14 {
         }
         for (File csvFile : csvFiles) {
             long startTime = System.currentTimeMillis();
-            Graph graph = readCsvFile(csvFile.getAbsolutePath());
+            GraphUF graph = readCsvFile(csvFile.getAbsolutePath());
 
             if (graph != null && graph.getEdges() != null) {
                 int totalLines = graph.getEdges().size();
@@ -59,8 +59,8 @@ public class MainUS14 {
 
     }
 
-    public static Graph readCsvFile(String fileName) {
-        Graph graph = new Graph();
+    public static GraphUF readCsvFile(String fileName) {
+        GraphUF graph = new GraphUF();
         File csv = new File(fileName);
 
         if (!isValidFile(csv)) {

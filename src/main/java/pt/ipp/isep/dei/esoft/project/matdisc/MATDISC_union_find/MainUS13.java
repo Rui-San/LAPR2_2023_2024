@@ -64,7 +64,7 @@ public class MainUS13 {
         }
     }
 
-    public static Graph drawGraph(ArrayList<pt.ipp.isep.dei.esoft.project.matdisc.MATDISC_union_find.Edge> edges, String graphTitle){
+    public static Graph drawGraph(ArrayList<Edge> edges, String graphTitle){
         System.setProperty("org.graphstream.ui", "swing");
         org.graphstream.graph.Graph graph = new SingleGraph(graphTitle);
         graph.setAttribute("ui.stylesheet", CSS);
@@ -84,8 +84,8 @@ public class MainUS13 {
         return graph;
     }
 
-    public static void highlightGraph(Graph g, ArrayList<pt.ipp.isep.dei.esoft.project.matdisc.MATDISC_class_resolution.Edge> result){
-        for(pt.ipp.isep.dei.esoft.project.matdisc.MATDISC_class_resolution.Edge edge : result){
+    public static void highlightGraph(Graph g, ArrayList<Edge> result){
+        for(Edge edge : result){
             g.getEdge((edge.getSource()+edge.getDestination())).setAttribute("ui.style", "fill-color: red; " +
                     "size: 3px;");
         }
