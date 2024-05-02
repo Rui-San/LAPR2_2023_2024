@@ -1,10 +1,16 @@
 package pt.ipp.isep.dei.esoft.project.matdisc.MATDISC_union_find;
 
+import org.graphstream.graph.Graph;
+import org.graphstream.graph.Node;
+import org.graphstream.graph.implementations.*;
+import org.graphstream.ui.view.Viewer;
+
 import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -12,6 +18,7 @@ public class MainUS13 {
 
     public static final String CSV_DIVISOR = ";";
     public static final int TOTAL_NUMBER_OF_COLUMNS = 3;
+    static final String CSS = "graph {padding: 75px;} node {text-alignment: under;} edge {text-size: 15px; text-color: #000000;}";
 
     public static void main(String[] args) {
 
@@ -31,7 +38,7 @@ public class MainUS13 {
 
 
             startTime = System.currentTimeMillis();
-            Graph graph = readCsvFile(fileName);
+            GraphUF graph = readCsvFile(fileName);
 
             try {
                 if (graph != null && graph.getEdges() != null) {
@@ -45,7 +52,8 @@ public class MainUS13 {
                     FileInfo fileInfo = new FileInfo(fileName, totalLines, executionTime, totalCost, numberOfVertices);
                     System.out.println();
                     System.out.println(fileInfo);
-                    generateGraphViz(minimalSpanningTree);
+                    //generateGraphViz(minimalSpanningTree);
+                    highlightGraph(drawGraph((ArrayList<Edge>)graph.getEdges(), "Minimum Spanning Tree"), (ArrayList<Edge>)minimalSpanningTree);
                 }
             } catch (NumberFormatException e) {
                 System.out.println("The file must not be empty");
@@ -56,8 +64,30 @@ public class MainUS13 {
         }
     }
 
-    public static Graph readCsvFile(String fileName) {
-        Graph graph = new Graph();
+    public static Graph drawGraph(ArrayList<pt.ipp.isep.dei.esoft.project.matdisc.MATDISC_union_find.Edge> edges, String graphTitle){
+        System.setProperty("org.graphstream.ui", "swing");
+        org.graphstream.graph.Graph graph = new SingleGraph(graphTitle);
+        graph.setAttribute("ui.stylesheet", CSS);
+        graph.setStrict(false);
+        graph.setAutoCreate( true );
+        for(pt.ipp.isep.dei.esoft.project.matdisc.MATDISC_union_find.Edge edge : edges){
+            graph.addEdge((edge.getSource()+edge.getDestination()),edge.getSource(),edge.getDestination()).setAttribute("ui.label", edge.getDistance());
+        }
+        for (Node node : graph) {
+            node.setAttribute("ui.label", node.getId());
+            node.setAttribute("ui.style", "size: 14px;");
+            node.setAttribute("ui.style", "text-size: 20px;");
+        }
+        graph.setAttribute("ui.title", "Minimum Spanning Tree");
+        graph.setAttribute("ui.quality");
+        graph.setAttribute("ui.antialias");
+        return graph;
+    }
+
+
+
+    public static GraphUF readCsvFile(String fileName) {
+        GraphUF graph = new GraphUF();
         File csv = new File(fileName);
 
         if (!isValidFile(csv)) {
