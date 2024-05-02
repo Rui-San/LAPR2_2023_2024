@@ -6,13 +6,11 @@ import org.graphstream.graph.implementations.*;
 import org.graphstream.ui.view.Viewer;
 
 import javax.swing.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.io.PrintWriter;
 
 public class MainUS13 {
 
@@ -49,6 +47,9 @@ public class MainUS13 {
                     endTime = System.currentTimeMillis();
                     long executionTime = endTime - startTime;
                     int numberOfVertices = graph.getTotalNumberOfVertices();
+
+                    exportDataToCsv(minimalSpanningTree, fileName, totalCost);
+
                     FileInfo fileInfo = new FileInfo(fileName, totalLines, executionTime, totalCost, numberOfVertices);
                     System.out.println();
                     System.out.println(fileInfo);
@@ -220,6 +221,50 @@ public class MainUS13 {
                 e.printStackTrace();
             }
 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void saveResultsToCSV(List<Edge> minimalSpanningTree, String fileName) {
+        try (FileWriter writer = new FileWriter(fileName)) {
+            writer.append("Source;Destination;Distance\n");
+            for (Edge edge : minimalSpanningTree) {
+                writer.append(edge.getSource())
+                        .append(";")
+                        .append(edge.getDestination())
+                        .append(";")
+                        .append(String.valueOf(edge.getDistance()))
+                        .append("\n");
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while writing to the CSV file.");
+            e.printStackTrace();
+        }
+    }
+    private static void exportDataToCsv(List<Edge> minimalSpanningTree, String fileName, double totalCost) {
+        String csvName = fileName.substring(fileName.lastIndexOf(File.separator) + 1);
+        if (csvName.toLowerCase().endsWith(".csv")) {
+            csvName = csvName.substring(0, csvName.length() - 4); // Remove a extensão .csv
+        }
+
+        String userHome = System.getProperty("user.home");
+
+        String directory = userHome + File.separator + "Documents" + File.separator + "Idea Project" + File.separator + "lei-24-s2-1dc-g034" + File.separator + "MATDISC_graph_images";
+        String fileN = directory + File.separator + csvName + "_MST.csv";
+
+        try (PrintWriter writer = new PrintWriter(fileN)) {
+
+            writer.println("ORIGINAL FILE: " + csvName);
+            writer.println();
+            writer.println("MINIMAL SPANNING TREE:");
+            writer.println("VERTEX1" + CSV_DIVISOR + "VERTEX2" + CSV_DIVISOR + "COST");
+            writer.println();
+
+            for (Edge edge : minimalSpanningTree) {
+                writer.println(edge.getSource() + CSV_DIVISOR + edge.getDestination() + CSV_DIVISOR + edge.getDistance());
+            }
+            writer.println();
+            writer.println("Total cost: " + totalCost);
         } catch (IOException e) {
             e.printStackTrace();
         }
