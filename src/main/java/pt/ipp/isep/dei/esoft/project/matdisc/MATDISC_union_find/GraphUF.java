@@ -1,14 +1,15 @@
 package pt.ipp.isep.dei.esoft.project.matdisc.MATDISC_union_find;
 
+import pt.ipp.isep.dei.esoft.project.matdisc.MATDISC_union_find.Edge;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Graph {
+public class GraphUF {
     private List<Edge> edges;
 
     private List<String> vertexes = new ArrayList<>();
 
-    public Graph() {
+    public GraphUF() {
         edges = new ArrayList<>();
         vertexes = new ArrayList<>();
     }
