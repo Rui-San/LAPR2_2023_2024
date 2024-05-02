@@ -84,7 +84,13 @@ public class MainUS13 {
         return graph;
     }
 
-
+    public static void highlightGraph(Graph g, ArrayList<pt.ipp.isep.dei.esoft.project.matdisc.MATDISC_class_resolution.Edge> result){
+        for(pt.ipp.isep.dei.esoft.project.matdisc.MATDISC_class_resolution.Edge edge : result){
+            g.getEdge((edge.getSource()+edge.getDestination())).setAttribute("ui.style", "fill-color: red; " +
+                    "size: 3px;");
+        }
+        g.display();
+    }
 
     public static GraphUF readCsvFile(String fileName) {
         GraphUF graph = new GraphUF();
