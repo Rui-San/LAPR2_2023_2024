@@ -55,11 +55,7 @@ activate Employee
 
             VR->Vehicle**: createVehicle(plateId,brand,model,\ntype,tare,grossWeight,currentKm,\nregisterDate,acquisitionDate,\ncheckupFrequencyKms)
 
-            Vehicle->Vehicle: validatePlateId(plateId)
-            Vehicle->Vehicle: validateTare(tare)
-            Vehicle->Vehicle: validateCurrentKm(currentKm)
-            Vehicle->Vehicle: validateRegisterDate(registerDate)
-            Vehicle->Vehicle: validateCheckupFrequencyKms(checkupFrequencyKms)
+            Vehicle->Vehicle: validateVeichle(plateId, tare, currentKm, registerDate, checkupFrequencyKms)
 
 
             VR->VR: addToVehicleList(Vehicle)
