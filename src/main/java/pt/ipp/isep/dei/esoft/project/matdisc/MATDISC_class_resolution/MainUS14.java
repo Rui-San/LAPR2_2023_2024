@@ -50,11 +50,7 @@ public class MainUS14 {
                 long endTime = System.currentTimeMillis();
                 long executionTime = endTime - startTime;
                 int totalNumberOfVertices = graph.getTotalNumberOfVertices();
-                String fileName = csvFile.getName();
                 double totalCost = obtainTotalCost(minimalSpanningTree);
-
-                exportDataToCsv(minimalSpanningTree, fileName, totalCost);
-
                 FileInfo fileInfo = new FileInfo(csvFile.getName(), totalLines, executionTime, totalCost, totalNumberOfVertices);
                 FILE_INFO_LIST.add(fileInfo);
                 System.out.println(fileInfo);
@@ -62,6 +58,9 @@ public class MainUS14 {
             }
 
         }
+
+        exportAllFilesDataToCsv(FILE_INFO_LIST);
+
         SwingUtilities.invokeLater(() -> {
             showExecutionTimeGraph(FILE_INFO_LIST);
         });
@@ -196,32 +195,28 @@ public class MainUS14 {
         return dataset;
     }
 
-    private static void exportDataToCsv(List<Edge> minimalSpanningTree, String fileName, double totalCost) {
-        String csvName = fileName.substring(fileName.lastIndexOf(File.separator) + 1);
-        String csvNameOriginal = csvName;
+    /**
 
-        if (csvName.toLowerCase().endsWith(".csv")) {
-            csvName = csvName.substring(0, csvName.length() - 4); // Remove a extensão .csv
-        }
-
-
+     This method exports all the files data analysed with MST algorithm.
+     The list contains, for each file analysied, the file name, the graph dimension, the graph order, the minimal spanning tree total cost and the execution time of the algorithm for US13.*
+     @param fileInfoList the list with each file data.*/
+    private static void exportAllFilesDataToCsv(List<FileInfo> fileInfoList) {
         String currentDirectory = System.getProperty("user.dir");
         String directory = currentDirectory + File.separator + "MATDISC_graph_images";
-        String fileN = directory + File.separator + csvName + "_MST.csv";
+        String fileN = directory + File.separator + "US14_DataSet_output.csv";
 
         try (PrintWriter writer = new PrintWriter(fileN)) {
-
-            writer.println("ORIGINAL FILE: " + csvName);
-            writer.println();
-            writer.println("MINIMAL SPANNING TREE:");
-            writer.println("VERTEX1" + CSV_DIVISOR + "VERTEX2" + CSV_DIVISOR + "COST");
+            writer.println("Asymptotic behavior of the execution time of the US13 algorithm");
             writer.println();
 
-            for (Edge edge : minimalSpanningTree) {
-                writer.println(edge.getSource() + CSV_DIVISOR + edge.getDestination() + CSV_DIVISOR + edge.getDistance());
+            for (FileInfo fileInfo : fileInfoList) {
+                writer.println("FILE NAME: " + fileInfo.getFileName());
+                writer.println("GRAPH DIMENSION: " + fileInfo.getTotalLines());
+                writer.println("GRAPH ORDER: " + fileInfo.getTotalNumberOfVertices());
+                writer.println("TOTAL COST OF MST: " + fileInfo.getTotalCost());
+                writer.println("EXECUTION TIME: " + fileInfo.getExecutionTime());
+                writer.println();
             }
-            writer.println();
-            writer.println("Total cost: " + totalCost);
         } catch (IOException e) {
             e.printStackTrace();
         }
