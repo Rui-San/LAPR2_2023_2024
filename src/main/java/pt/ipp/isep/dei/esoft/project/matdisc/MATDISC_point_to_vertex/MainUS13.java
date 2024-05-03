@@ -1,10 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.matdisc.MATDISC_point_to_vertex;
 
 import javax.swing.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 import java.util.Scanner;
 
@@ -40,6 +37,8 @@ public class MainUS13 {
             startTime = System.currentTimeMillis();
             Graph graph = readCsvFile(fileName);
 
+
+
             try {
                 if (graph != null && graph.getEdges() != null) {
                     int totalLines = graph.getEdges().size();
@@ -50,6 +49,9 @@ public class MainUS13 {
                     long executionTime = endTime - startTime;
                     int numberOfVertices = graph.getTotalNumberOfVertices();
                     FileInfo fileInfo = new FileInfo(fileName, totalLines, executionTime, totalCost, numberOfVertices);
+
+
+
                     System.out.println();
                     System.out.println(fileInfo);
                     generateGraphViz(minimalSpanningTree);
@@ -222,4 +224,6 @@ public class MainUS13 {
             e.printStackTrace();
         }
     }
+
+
 }

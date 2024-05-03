@@ -75,6 +75,15 @@ public class FileInfo {
     }
 
     /**
+     * Returns the total number of vertices of the file.
+     *
+     * @return the total number of vertices of the file.
+     */
+    public int getTotalNumberOfVertices() {
+        return totalNumberOfVertices;
+    }
+
+    /**
      * Sets the name of the file.
      *
      * @param fileName the name of the file
