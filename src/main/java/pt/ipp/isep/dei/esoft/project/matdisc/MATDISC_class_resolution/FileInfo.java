@@ -35,6 +35,12 @@ public class FileInfo {
      */
     private long executionTime;
 
+
+
+    public void setTotalNumberOfVertices(int totalNumberOfVertices) {
+        this.totalNumberOfVertices = totalNumberOfVertices;
+    }
+
     /**
      * Constructs a new {@code FileInfo} object with the specified file name, total lines, execution time, total cost, and total number of vertices.
      *
@@ -72,6 +78,15 @@ public class FileInfo {
      */
     public String getFileName() {
         return fileName;
+    }
+
+    /**
+     * Returns the total number of vertices of the file.
+     *
+     * @return the total number of vertices of the file.
+     */
+    public int getTotalNumberOfVertices() {
+        return totalNumberOfVertices;
     }
 
     /**
