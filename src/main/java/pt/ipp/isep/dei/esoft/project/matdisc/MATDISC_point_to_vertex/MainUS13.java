@@ -1,10 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.matdisc.MATDISC_point_to_vertex;
 
 import javax.swing.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 import java.util.Scanner;
 
@@ -40,6 +37,8 @@ public class MainUS13 {
             startTime = System.currentTimeMillis();
             Graph graph = readCsvFile(fileName);
 
+
+
             try {
                 if (graph != null && graph.getEdges() != null) {
                     int totalLines = graph.getEdges().size();
@@ -50,6 +49,9 @@ public class MainUS13 {
                     long executionTime = endTime - startTime;
                     int numberOfVertices = graph.getTotalNumberOfVertices();
                     FileInfo fileInfo = new FileInfo(fileName, totalLines, executionTime, totalCost, numberOfVertices);
+
+                    exportDataToCsv(minimalSpanningTree, fileName, totalCost);
+
                     System.out.println();
                     System.out.println(fileInfo);
                     generateGraphViz(minimalSpanningTree);
@@ -222,4 +224,36 @@ public class MainUS13 {
             e.printStackTrace();
         }
     }
+
+    private static void exportDataToCsv(List<Edge> minimalSpanningTree, String fileName, double totalCost) {
+        String csvName = fileName.substring(fileName.lastIndexOf(File.separator) + 1);
+        String csvNameOriginal = csvName;
+
+        if (csvName.toLowerCase().endsWith(".csv")) {
+            csvName = csvName.substring(0, csvName.length() - 4);
+        }
+
+        String currentDirectory = System.getProperty("user.dir");
+        String directory = currentDirectory + File.separator + "MATDISC_graph_images";
+        String fileN = directory + File.separator + csvName + "_MST.csv";
+
+        try (PrintWriter writer = new PrintWriter(fileN)) {
+
+            writer.println("ORIGINAL FILE: " + csvNameOriginal);
+            writer.println();
+            writer.println("MINIMAL SPANNING TREE:");
+            writer.println();
+            writer.println("VERTEX1" + CSV_DIVISOR + "VERTEX2" + CSV_DIVISOR + "COST");
+
+            for (Edge edge : minimalSpanningTree) {
+                writer.println(edge.getSource() + CSV_DIVISOR + edge.getDestination() + CSV_DIVISOR + edge.getDistance());
+            }
+            writer.println();
+            writer.println("Total cost of the Minimal Spanning Tree: " + totalCost);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

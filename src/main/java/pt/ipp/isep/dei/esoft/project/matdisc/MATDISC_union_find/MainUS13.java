@@ -48,7 +48,7 @@ public class MainUS13 {
                     long executionTime = endTime - startTime;
                     int numberOfVertices = graph.getTotalNumberOfVertices();
 
-                    exportDataToCsv( minimalSpanningTree, fileName, totalCost);
+                    exportDataToCsv(minimalSpanningTree, fileName, totalCost);
 
                     FileInfo fileInfo = new FileInfo(fileName, totalLines, executionTime, totalCost, numberOfVertices);
                     System.out.println();
