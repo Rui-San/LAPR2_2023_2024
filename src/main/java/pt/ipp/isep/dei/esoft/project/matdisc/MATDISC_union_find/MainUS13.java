@@ -48,7 +48,7 @@ public class MainUS13 {
                     long executionTime = endTime - startTime;
                     int numberOfVertices = graph.getTotalNumberOfVertices();
 
-                    exportDataToCsv(minimalSpanningTree, fileName, totalCost);
+                    exportDataToCsv( minimalSpanningTree, fileName, totalCost);
 
                     FileInfo fileInfo = new FileInfo(fileName, totalLines, executionTime, totalCost, numberOfVertices);
                     System.out.println();
@@ -243,28 +243,29 @@ public class MainUS13 {
     }
     private static void exportDataToCsv(List<Edge> minimalSpanningTree, String fileName, double totalCost) {
         String csvName = fileName.substring(fileName.lastIndexOf(File.separator) + 1);
+        String csvNameOriginal = csvName;
+
         if (csvName.toLowerCase().endsWith(".csv")) {
-            csvName = csvName.substring(0, csvName.length() - 4); // Remove a extensão .csv
+            csvName = csvName.substring(0, csvName.length() - 4);
         }
 
-        String userHome = System.getProperty("user.home");
-
-        String directory = userHome + File.separator + "Documents" + File.separator + "Idea Project" + File.separator + "lei-24-s2-1dc-g034" + File.separator + "MATDISC_graph_images";
+        String currentDirectory = System.getProperty("user.dir");
+        String directory = currentDirectory + File.separator + "MATDISC_graph_images";
         String fileN = directory + File.separator + csvName + "_MST.csv";
 
         try (PrintWriter writer = new PrintWriter(fileN)) {
 
-            writer.println("ORIGINAL FILE: " + csvName);
+            writer.println("ORIGINAL FILE: " + csvNameOriginal);
             writer.println();
             writer.println("MINIMAL SPANNING TREE:");
-            writer.println("VERTEX1" + CSV_DIVISOR + "VERTEX2" + CSV_DIVISOR + "COST");
             writer.println();
+            writer.println("VERTEX1" + CSV_DIVISOR + "VERTEX2" + CSV_DIVISOR + "COST");
 
             for (Edge edge : minimalSpanningTree) {
                 writer.println(edge.getSource() + CSV_DIVISOR + edge.getDestination() + CSV_DIVISOR + edge.getDistance());
             }
             writer.println();
-            writer.println("Total cost: " + totalCost);
+            writer.println("Total cost of the Minimal Spanning Tree: " + totalCost);
         } catch (IOException e) {
             e.printStackTrace();
         }
