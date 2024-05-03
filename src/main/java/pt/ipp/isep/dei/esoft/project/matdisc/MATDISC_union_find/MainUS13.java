@@ -225,22 +225,6 @@ public class MainUS13 {
             e.printStackTrace();
         }
     }
-    public static void saveResultsToCSV(List<Edge> minimalSpanningTree, String fileName) {
-        try (FileWriter writer = new FileWriter(fileName)) {
-            writer.append("Source;Destination;Distance\n");
-            for (Edge edge : minimalSpanningTree) {
-                writer.append(edge.getSource())
-                        .append(";")
-                        .append(edge.getDestination())
-                        .append(";")
-                        .append(String.valueOf(edge.getDistance()))
-                        .append("\n");
-            }
-        } catch (IOException e) {
-            System.out.println("An error occurred while writing to the CSV file.");
-            e.printStackTrace();
-        }
-    }
     private static void exportDataToCsv(List<Edge> minimalSpanningTree, String fileName, double totalCost) {
         String csvName = fileName.substring(fileName.lastIndexOf(File.separator) + 1);
         String csvNameOriginal = csvName;
