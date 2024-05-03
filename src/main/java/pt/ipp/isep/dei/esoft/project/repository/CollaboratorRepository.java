@@ -83,4 +83,8 @@ public class CollaboratorRepository {
         return Optional.of(collaborator);
 
     }
+
+    public boolean updateCollaboratorSkills(Collaborator collaborator, List<Skill> skills) {
+        return false;
+    }
 }
