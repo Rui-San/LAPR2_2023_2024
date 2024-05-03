@@ -15,8 +15,6 @@ import java.util.List;
 import java.util.Scanner;
 import java.io.PrintWriter;
 
-import static pt.ipp.isep.dei.esoft.project.matdisc.MATDISC_union_find.MainUS13.saveResultsToCSV;
-
 public class MainUS13 {
 
     public static final String CSV_DIVISOR = ";";
@@ -270,7 +268,6 @@ public class MainUS13 {
         String fileN = directory + File.separator + csvName + "_MST.csv";
 
         try (PrintWriter writer = new PrintWriter(fileN)) {
-
             writer.println("ORIGINAL FILE: " + csvNameOriginal);
             writer.println();
             writer.println("MINIMAL SPANNING TREE:");
