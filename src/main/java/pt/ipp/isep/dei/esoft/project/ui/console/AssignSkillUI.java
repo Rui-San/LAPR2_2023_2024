@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
+import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
 import pt.ipp.isep.dei.esoft.project.repository.CollaboratorRepository;
 import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;
 import pt.ipp.isep.dei.esoft.project.application.controller.AssignSkillController;
@@ -22,15 +23,6 @@ public class AssignSkillUI implements Runnable {
     private void requestData() {
         Scanner scanner = new Scanner(System.in);
 
-        CollaboratorRepository collaboratorRepository = new CollaboratorRepository();
-        List<Collaborator> collaborators = collaboratorRepository.getCollaboratorList();
-
-        System.out.println("Select the collaborator:");
-        for (int i = 0; i < collaborators.size(); i++) {
-            System.out.println(i + 1 + ". " + collaborators.get(i).getName());
-        }
-        int collaboratorIndex = scanner.nextInt() - 1;
-        selectedCollaborator = collaborators.get(collaboratorIndex);
 
         SkillRepository skillRepository = new SkillRepository();
         List<Skill> skills = skillRepository.getSkillList();
@@ -61,12 +53,38 @@ public class AssignSkillUI implements Runnable {
 
     @Override
     public void run() {
+        System.out.println("\nAssign skill to collaborator\n");
+        selectedCollaborator = displayAndSelectCollaborator();
+
         requestData();
         submitData();
     }
 
-    public static void main(String[] args) {
-        AssignSkillUI assignSkillUI = new AssignSkillUI();
-        assignSkillUI.run();
+    private Collaborator displayAndSelectCollaborator() {
+
+        List<Collaborator> collaboratorList = controller.getCollaborators();
+
+        int numberOfCollaborator = collaboratorList.size();
+        int answer = -1;
+
+        Scanner input = new Scanner(System.in);
+
+        while (answer < 1 || answer > numberOfCollaborator) {
+            displayCollaboratorOptions(collaboratorList);
+            System.out.print("Select collaborator: ");
+            answer = input.nextInt();
+        }
+
+        Collaborator collaborator = collaboratorList.get(answer-1);
+        return collaborator;
+    }
+
+    private void displayCollaboratorOptions(List<Collaborator> collaboratorList) {
+        //display the task categories as a menu with number options to select
+        int i = 1;
+        for (Collaborator collaborator : collaboratorList) {
+            System.out.println("  " + i + " - " + collaborator.getName());
+            i++;
+        }
     }
 }
