@@ -4,8 +4,10 @@ import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.*;
 import org.graphstream.ui.view.Viewer;
+import org.graphstream.ui.view.ViewerPipe;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -56,7 +58,8 @@ public class MainUS13 {
                     System.out.println();
                     System.out.println(fileInfo);
                     //generateGraphViz(minimalSpanningTree);
-                    highlightGraph(drawGraph( (ArrayList<Edge>)graph.getEdges(), "Minimum Spanning Tree"), (ArrayList<Edge>)minimalSpanningTree);
+                    Graph g = highlightGraph(drawGraph( (ArrayList<Edge>)graph.getEdges(), "Minimum Spanning Tree"), (ArrayList<Edge>)minimalSpanningTree);
+                    addTextToGraph(g, fileName, totalCost);
                 }
             } catch (NumberFormatException e) {
                 System.out.println("The file must not be empty");
@@ -88,12 +91,30 @@ public class MainUS13 {
         return graph;
     }
 
-    public static void highlightGraph(Graph g, ArrayList<Edge> result){
+    public static Graph highlightGraph(Graph g, ArrayList<Edge> result){
         for(Edge edge : result){
             g.getEdge((edge.getSource()+edge.getDestination())).setAttribute("ui.style", "fill-color: red; " +
-                    "size: 3px;");
+                    "size: 5px;");
         }
-        g.display();
+        return g;
+    }
+
+    public static void addTextToGraph(Graph graph, String text, double cost) {
+        // Adiciona o texto à visualização do grafo
+        Viewer viewer = graph.display();
+        ViewerPipe pipe = viewer.newViewerPipe();
+
+        // Adiciona o texto na parte superior da visualização
+        JPanel panel = (JPanel) viewer.getDefaultView();
+        JLabel title = new JLabel(text);
+        JLabel label = new JLabel("Total cost: " + cost);
+        title.setHorizontalAlignment(SwingConstants.CENTER);
+        title.setFont(new Font("Arial", Font.BOLD, 20));
+        panel.add(title, BorderLayout.NORTH);
+        panel.add(label, BorderLayout.WEST);
+
+        // Atualiza a visualização para exibir o texto adicionado
+        panel.revalidate();
     }
 
 
