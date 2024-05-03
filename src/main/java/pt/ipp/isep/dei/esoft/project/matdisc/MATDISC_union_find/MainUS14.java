@@ -59,6 +59,8 @@ public class MainUS14 {
             }
 
         }
+        exportAllFilesDataToCsv(FILE_INFO_LIST);
+
         SwingUtilities.invokeLater(() -> {
             showExecutionTimeGraph(FILE_INFO_LIST);
         });
@@ -176,4 +178,25 @@ public class MainUS14 {
         return dataset;
     }
 
+    private static void exportAllFilesDataToCsv(List<FileInfo> fileInfoList) {
+        String currentDirectory = System.getProperty("user.dir");
+        String directory = currentDirectory + File.separator + "MATDISC_graph_images";
+        String fileN = directory + File.separator + "US14_DataSet_output.csv";
+
+        try (PrintWriter writer = new PrintWriter(fileN)) {
+            writer.println("Asymptotic behavior of the execution time of the US13 algorithm");
+            writer.println();
+
+            for (FileInfo fileInfo : fileInfoList) {
+                writer.println("FILE NAME: " + fileInfo.getFileName());
+                writer.println("GRAPH DIMENSION: " + fileInfo.getTotalLines());
+                writer.println("GRAPH ORDER: " + fileInfo.getTotalNumberOfVertices());
+                writer.println("TOTAL COST OF MST: " + fileInfo.getTotalCost());
+                writer.println("EXECUTION TIME: " + fileInfo.getExecutionTime());
+                writer.println();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
