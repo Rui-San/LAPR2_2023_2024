@@ -260,14 +260,12 @@ public class MainUS13 {
     private static void exportDataToCsv(List<Edge> minimalSpanningTree, String fileName, double totalCost) {
         String csvName = fileName.substring(fileName.lastIndexOf(File.separator) + 1);
         String csvNameOriginal = csvName;
+
         if (csvName.toLowerCase().endsWith(".csv")) {
             csvName = csvName.substring(0, csvName.length() - 4);
         }
 
         String currentDirectory = System.getProperty("user.dir");
-
-        String userHome = System.getProperty("user.home");
-
         String directory = currentDirectory + File.separator + "MATDISC_graph_images";
         String fileN = directory + File.separator + csvName + "_MST.csv";
 
