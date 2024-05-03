@@ -9,38 +9,53 @@ public class GraphUF {
 
     private List<String> vertexes = new ArrayList<>();
 
+    // Constructor initializes the edges and vertexes lists
     public GraphUF() {
         edges = new ArrayList<>();
         vertexes = new ArrayList<>();
     }
 
+    // Adds an edge to the graph and adds the vertices to the vertexes list
     public void addEdge(Edge edge, String v1, String v2) {
         edges.add(edge);
         addUniqueVertex(v1);
         addUniqueVertex(v2);
     }
 
+    // Returns the edges list
     public List<Edge> getEdges() {
+
         return edges;
     }
 
+    // Returns the total number of vertices
     public int getTotalNumberOfVertices() {
+
         return vertexes.size();
     }
 
+    // Adds a vertex to the vertexes list if it is not already in the list
     private void addUniqueVertex(String vertex) {
         if (!vertexes.contains(vertex)) {
             vertexes.add(vertex);
         }
     }
 
+    // Returns the vertexes list
     public List<String> getVertices() {
+
         return vertexes;
     }
 
     /**
      * Explica passo a passo o como este algoritmo funciona (incluindo a logica de union find que usa (ver class union find), o que faz e adiciona arestas se nao criar um ciclo)
      *
+     * @return
+     */
+    /** Uses a union find algorithm to find the minimal spanning tree of the graph.
+     * The algorithm sorts the edges by distance and then iterates through the edges,
+     * adding an edge to the minimal spanning tree if it connects vertices in different components.
+     * The algorithm stops when the minimal spanning tree has the same number of edges as the number of vertices minus one.
      * @return
      */
     public List<Edge> getMinimalSpanningTree() {
@@ -69,10 +84,13 @@ public class GraphUF {
         return minimalSpanningTree;
     }
 
+    // Sorts the edges by distance
     public void sortEdgesByDistance() {
         bubbleSortByDistance(edges);
     }
 
+    // Sorts the edges by distance using the bubble sort algorithm.
+    // It swaps the elements if the distance of the current edge is greater than the distance of the next edge.
     private void bubbleSortByDistance(List<Edge> edges) {
         int n = edges.size();
         for (int i = 0; i < n - 1; i++) {

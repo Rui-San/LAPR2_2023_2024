@@ -47,6 +47,7 @@ public class CollaboratorRepository {
     }
 
     public List<Collaborator> getCollaboratorList() {
+
         return List.copyOf(collaboratorList);
     }
 
@@ -83,8 +84,18 @@ public class CollaboratorRepository {
         return Optional.of(collaborator);
 
     }
-
     public boolean updateCollaboratorSkills(Collaborator collaborator, List<Skill> skills) {
-        return false;
+        Optional<Collaborator> existingCollaborator = getCollaboratorByCollaboratorEmail(collaborator.getEmail());
+
+        if (existingCollaborator.isPresent()) {
+            existingCollaborator.get().assignSkills(skills);
+            return true;
+        } else {
+            return false;
+        }
     }
+
+    //public boolean updateCollaboratorSkills(Collaborator collaborator, List<Skill> skills) {
+      //  return false;
+    //}
 }
