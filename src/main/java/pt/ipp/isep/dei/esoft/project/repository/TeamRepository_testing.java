@@ -102,9 +102,17 @@ public class TeamRepository_testing {
 
         List<Collaborator> possibleCollaborators = gatherPossibleCollaborators(collaboratorList, skillSetList);
 
-        //TODO: FALTA IMPLEMENTAR CRITERIOS DE PARAGEM NESTE BLOCO AINDA
+        teamsList = criarEquipas(possibleCollaborators, minTeamSize, maxTeamSize);
 
-        for (int i = 0; i < possibleCollaborators.size(); i++) {
+
+        //TODO: Agora que já temos a lista com todas as equipas possiveis desde o minteamsize ate ao max
+        //TODO: Ver qual equipa dentro da lista de equipas satisfaz os requisitos de skill/quantidade
+        //TODO: adiciona essa team a lista final
+        //TODO: ordena a lista final pelo numero de colaboradores(mais eficaz)
+
+        /*
+
+               for (int i = 0; i < possibleCollaborators.size(); i++) {
             Team_testing newTeam = new Team_testing();
             Collaborator member = possibleCollaborators.get(i);
             newTeam.addMember(member);
@@ -118,10 +126,54 @@ public class TeamRepository_testing {
             }
             teamsList.add(newTeam);
         }
-        //TODO: FALTA IMPLEMENTAR CRITERIOS DE PARAGEM NESTE BLOCO AINDA
 
+*/
         return teamsList;
     }
+
+    private List<Team_testing> criarEquipas(List<Collaborator> possibleCollaborators, int minTeamSize, int maxTeamSize) {
+
+        List<Team_testing> todasAsEquipas = new ArrayList<>();
+
+        for (int teamSize = minTeamSize; teamSize < maxTeamSize && teamSize <= possibleCollaborators.size(); teamSize++) {
+            List<Team_testing> equipasPorTamanho = criarEquipasPorTamanho(possibleCollaborators, teamSize);
+            todasAsEquipas.addAll(equipasPorTamanho);
+        }
+        return todasAsEquipas;
+    }
+
+    private List<Team_testing> criarEquipasPorTamanho(List<Collaborator> possibleCollaborators, int teamSize) {
+        List<Team_testing> equipas = new ArrayList<>();
+
+        int n = possibleCollaborators.size();
+
+        int[] indices = new int[teamSize];
+        for (int i = 0; i < teamSize; i++) {
+            indices[i] = i;
+        }
+
+        while (indices[0] < n - teamSize + 1) {
+            List<Collaborator> equipeAtual = new ArrayList<>();
+            for (int i = 0; i < teamSize; i++) {
+                equipeAtual.add(possibleCollaborators.get(indices[i]));
+            }
+            equipas.add(new Team_testing(equipeAtual));
+
+            int j = teamSize - 1;
+            while (j >= 0 && indices[j] == n - teamSize + j) {
+                j--;
+            }
+            if (j < 0) {
+                break;
+            }
+            indices[j]++;
+            for (int k = j + 1; k < teamSize; k++) {
+                indices[k] = indices[k - 1] + 1;
+            }
+        }
+        return equipas;
+    }
+
 
     private boolean collaboratorIsInCurrentTeam(List<Collaborator> membersInTeam, Collaborator collaborator) {
 
@@ -179,3 +231,4 @@ public class TeamRepository_testing {
         return quantityCorrect;
     }
 }
+
