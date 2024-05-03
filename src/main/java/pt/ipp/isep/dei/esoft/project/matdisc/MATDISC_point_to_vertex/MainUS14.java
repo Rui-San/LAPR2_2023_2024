@@ -11,6 +11,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -59,6 +61,9 @@ public class MainUS14 {
             }
 
         }
+
+        exportAllFilesDataToCsv(FILE_INFO_LIST);
+
         SwingUtilities.invokeLater(() -> {
             showExecutionTimeGraph(FILE_INFO_LIST);
         });
@@ -197,4 +202,30 @@ public class MainUS14 {
         return dataset;
     }
 
+    /**
+
+     This method exports all the files data analysed with MST algorithm.
+     The list contains, for each file analysied, the file name, the graph dimension, the graph order, the minimal spanning tree total cost and the execution time of the algorithm for US13.*
+     @param fileInfoList the list with each file data.*/
+    private static void exportAllFilesDataToCsv(List<FileInfo> fileInfoList) {
+        String currentDirectory = System.getProperty("user.dir");
+        String directory = currentDirectory + File.separator + "MATDISC_graph_images";
+        String fileN = directory + File.separator + "US14_DataSet_output.csv";
+
+        try (PrintWriter writer = new PrintWriter(fileN)) {
+            writer.println("Asymptotic behavior of the execution time of the US13 algorithm");
+            writer.println();
+
+            for (FileInfo fileInfo : fileInfoList) {
+                writer.println("FILE NAME: " + fileInfo.getFileName());
+                writer.println("GRAPH DIMENSION: " + fileInfo.getTotalLines());
+                writer.println("GRAPH ORDER: " + fileInfo.getTotalNumberOfVertices());
+                writer.println("TOTAL COST OF MST: " + fileInfo.getTotalCost());
+                writer.println("EXECUTION TIME: " + fileInfo.getExecutionTime());
+                writer.println();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
