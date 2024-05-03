@@ -177,13 +177,15 @@ public class MainUS14 {
     }
     private static void exportDataToCsv(List<Edge> minimalSpanningTree, String fileName, double totalCost) {
         String csvName = fileName.substring(fileName.lastIndexOf(File.separator) + 1);
+        String csvNameOriginal = csvName;
+
         if (csvName.toLowerCase().endsWith(".csv")) {
             csvName = csvName.substring(0, csvName.length() - 4); // Remove a extensão .csv
         }
 
-        String userHome = System.getProperty("user.home");
 
-        String directory = userHome + File.separator + "Documents" + File.separator + "Idea Project" + File.separator + "lei-24-s2-1dc-g034" + File.separator + "MATDISC_graph_images";
+        String currentDirectory = System.getProperty("user.dir");
+        String directory = currentDirectory + File.separator + "MATDISC_graph_images";
         String fileN = directory + File.separator + csvName + "_MST.csv";
 
         try (PrintWriter writer = new PrintWriter(fileN)) {
