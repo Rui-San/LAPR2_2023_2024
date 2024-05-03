@@ -10,9 +10,14 @@ public class AssignSkillController {
     private final CollaboratorRepository collaboratorRepository;
 
     public AssignSkillController() {
+
         this.collaboratorRepository = new CollaboratorRepository();
     }
     public boolean assignSkillsToCollaborator(Collaborator collaborator, List<Skill> skills) {
         return collaboratorRepository.updateCollaboratorSkills(collaborator, skills);
+    }
+
+    public List<Collaborator> getCollaborators() {
+        return collaboratorRepository.getCollaboratorList();
     }
 }
