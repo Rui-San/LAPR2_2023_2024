@@ -26,6 +26,9 @@ public class FileInfo {
 
         return fileName;
     }
+    public int getTotalNumberOfVertices() {
+        return totalNumberOfVertices;
+    }
 
     public void setFileName(String fileName) {
 
