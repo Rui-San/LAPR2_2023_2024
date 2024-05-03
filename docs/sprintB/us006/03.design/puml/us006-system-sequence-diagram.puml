@@ -49,11 +49,11 @@ activate Employee
 
             deactivate REPS
 
-            CTRL->VR: createVehicle (plateId,brand,model,\ntype,tare,grossWeight,currentKm,\nregisterDate,acquisitionDate,\ncheckupFrequencyKms)
+            CTRL->VR: createVehicle(plateId,brand,model,\ntype,tare,grossWeight,currentKm,\nregisterDate,acquisitionDate,\ncheckupFrequencyKms)
 
             activate VR
 
-            VR->Vehicle**: createVehicle (plateId,brand,model,\ntype,tare,grossWeight,currentKm,\nregisterDate,acquisitionDate,\ncheckupFrequencyKms)
+            VR->Vehicle**: createVehicle(plateId,brand,model,\ntype,tare,grossWeight,currentKm,\nregisterDate,acquisitionDate,\ncheckupFrequencyKms)
 
             Vehicle->Vehicle: validatePlateId(plateId)
             Vehicle->Vehicle: validateTare(tare)
