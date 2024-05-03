@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Scanner;
 import java.io.PrintWriter;
 
-import static pt.ipp.isep.dei.esoft.project.matdisc.MATDISC_union_find.MainUS13.saveResultsToCSV;
 
 public class MainUS13 {
 
