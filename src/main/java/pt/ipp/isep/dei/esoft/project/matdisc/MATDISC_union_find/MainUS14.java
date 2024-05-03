@@ -50,7 +50,7 @@ public class MainUS14 {
 
                 String fileName = csvFile.getName();
                 double totalCost = obtainTotalCost(minimalSpanningTree);
-                exportDataToCsv(minimalSpanningTree, fileName, totalCost);
+
 
                 FileInfo fileInfo = new FileInfo(csvFile.getName(), totalLines, executionTime, totalCost, totalNumberOfVertices);
                 FILE_INFO_LIST.add(fileInfo);
@@ -175,34 +175,5 @@ public class MainUS14 {
 
         return dataset;
     }
-    private static void exportDataToCsv(List<Edge> minimalSpanningTree, String fileName, double totalCost) {
-        String csvName = fileName.substring(fileName.lastIndexOf(File.separator) + 1);
-        String csvNameOriginal = csvName;
 
-        if (csvName.toLowerCase().endsWith(".csv")) {
-            csvName = csvName.substring(0, csvName.length() - 4); // Remove a extensão .csv
-        }
-
-
-        String currentDirectory = System.getProperty("user.dir");
-        String directory = currentDirectory + File.separator + "MATDISC_graph_images";
-        String fileN = directory + File.separator + csvName + "_MST.csv";
-
-        try (PrintWriter writer = new PrintWriter(fileN)) {
-
-            writer.println("ORIGINAL FILE: " + csvName);
-            writer.println();
-            writer.println("MINIMAL SPANNING TREE:");
-            writer.println("VERTEX1" + CSV_DIVISOR + "VERTEX2" + CSV_DIVISOR + "COST");
-            writer.println();
-
-            for (Edge edge : minimalSpanningTree) {
-                writer.println(edge.getSource() + CSV_DIVISOR + edge.getDestination() + CSV_DIVISOR + edge.getDistance());
-            }
-            writer.println();
-            writer.println("Total cost: " + totalCost);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }
