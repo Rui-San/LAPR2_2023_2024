@@ -1,10 +1,9 @@
 package pt.ipp.isep.dei.esoft.project.ui;
 
-import pt.ipp.isep.dei.esoft.project.application.controller.AuthenticationController;
+import pt.ipp.isep.dei.esoft.project.controller.AuthenticationController;
 import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Bootstrap implements Runnable {
@@ -41,7 +40,7 @@ public class Bootstrap implements Runnable {
     private void addCollaborator() {
         CollaboratorRepository collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
 
-        String name = "joao albert";
+        String name = "joao alberto";
         Date birthdate = new Date("15/5/1990");
         Date admissionDate = new Date("1/1/2022");
         String street = "Rua Principal";
@@ -55,7 +54,7 @@ public class Bootstrap implements Runnable {
         String idDocNumber = "123456789";
         Job job = new Job("x");
 
-        Collaborator collaborator = new Collaborator(name, birthdate, admissionDate, street, streetNumber, postalCode,
+        Collaborator collaborator = new Collaborator(name, "15/5/1990", "1/1/2022", street, streetNumber, postalCode,
                 city, district, email, mobileNumber, idDocType, idDocNumber, job);
 
         collaboratorRepository.add(collaborator);

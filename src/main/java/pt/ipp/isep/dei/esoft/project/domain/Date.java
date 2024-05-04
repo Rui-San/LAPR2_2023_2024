@@ -5,7 +5,7 @@ import java.time.LocalDate;
 /**
  * to create variables that represent a date in day/month/year
  */
-public class Date implements Comparable<Date> {
+public class Date implements Comparable<Date>,Cloneable {
 
     private int day;
     private int month;
@@ -201,5 +201,6 @@ public class Date implements Comparable<Date> {
 
         return clone;
     }
+
 
 }

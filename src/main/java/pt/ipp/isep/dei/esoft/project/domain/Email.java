@@ -6,12 +6,13 @@ import java.util.Objects;
  * Represents an Email object.
  * This class provides functionality to validate an email address.
  */
-public class Email {
+public class Email implements Cloneable {
 
     /**
      * The email address.
      */
     private String email;
+
 
     /**
      * Type Enumerated, enumerating all the different results that may occur during an email validation.
@@ -117,6 +118,11 @@ public class Email {
             return ValidateEmailResults.INVALID_DOMAIN;
         }
         return ValidateEmailResults.VALID;
+    }
+
+    @Override
+    public String toString() {
+        return "Email= " + email;
     }
 
     @Override

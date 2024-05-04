@@ -3,7 +3,7 @@ package pt.ipp.isep.dei.esoft.project.domain;
 /**
  * Represents an Address object containing street, street number, postal code, city, and district.
  */
-public class Address {
+public class Address implements Cloneable{
 
     /**
      * The street of the address.
@@ -293,6 +293,11 @@ public class Address {
      */
     private static boolean validateDistrict(String district) {
         return district != null && !district.trim().isEmpty();
+    }
+
+    @Override
+    public Address clone() {
+        return new Address(this.street,this.streetNumber,this.postalCode,this.city,this.district);
     }
 
 

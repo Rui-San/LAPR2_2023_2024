@@ -1,6 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
-import pt.ipp.isep.dei.esoft.project.application.controller.RegisterSkillController;
+import pt.ipp.isep.dei.esoft.project.controller.RegisterSkillController;
 
 import java.util.Scanner;
 

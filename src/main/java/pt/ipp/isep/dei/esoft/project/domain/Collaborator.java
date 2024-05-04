@@ -174,13 +174,40 @@ public class Collaborator implements Cloneable {
      * @param idDocNumber   the ID number of the collaborator's document
      * @param job           the job of the collaborator
      */
-    public Collaborator(String name, Date birthdate, Date admissionDate, String street, int streetNumber, String postalCode,
+    public Collaborator(String name, String birthdate, String admissionDate, String street, int streetNumber, String postalCode,
                         String city, String district, String email, String mobileNumber, IdDocType idDocType, String idDocNumber, Job job) {
+        setName(name);
+        setBirthdate(birthdate);
+        setAdmissionDate(admissionDate);
+        setAddress(street, streetNumber, postalCode, city, district);
+        setEmail(email);
+        this.job = job;
+        setMobileNumber(mobileNumber);
+        setIdDocType(idDocType);
+        setIdDocNumber(idDocNumber, idDocType);
+        this.skillList = new ArrayList<>();
+    }
+
+    /**
+     * Constructs a new Collaborator with the specified attributes.
+     * Used for the clone method, in order to be a successful clone.
+     *
+     * @param name          the name of the collaborator
+     * @param birthdate     the birthdate of the collaborator
+     * @param admissionDate the admission date of the collaborator
+     * @param address       the address of the collaborator
+     * @param email         the email of the collaborator
+     * @param mobileNumber  the mobile number of the collaborator
+     * @param idDocType     the type of ID document of the collaborator
+     * @param idDocNumber   the ID number of the collaborator's document
+     * @param job           the job of the collaborator
+     */
+    public Collaborator(String name, Date birthdate, Date admissionDate, Address address, Email email, String mobileNumber, IdDocType idDocType, String idDocNumber, Job job) {
         setName(name);
         this.birthdate = birthdate;
         this.admissionDate = admissionDate;
-        this.address = new Address(street, streetNumber, postalCode, city, district);
-        this.email = new Email(email);
+        this.address = address;
+        this.email = email;
         this.job = job;
         setMobileNumber(mobileNumber);
         setIdDocType(idDocType);
@@ -235,8 +262,8 @@ public class Collaborator implements Cloneable {
      *
      * @param birthdate the birthdate to set
      */
-    public void setBirthdate(Date birthdate) {
-        this.birthdate = birthdate;
+    public void setBirthdate(String birthdate) {
+        this.birthdate = new Date(birthdate);
     }
 
     /**
@@ -253,8 +280,8 @@ public class Collaborator implements Cloneable {
      *
      * @param admissionDate the admission date to set
      */
-    public void setAdmissionDate(Date admissionDate) {
-        this.admissionDate = admissionDate;
+    public void setAdmissionDate(String admissionDate) {
+        this.admissionDate = new Date(admissionDate);
     }
 
     /**
@@ -363,7 +390,7 @@ public class Collaborator implements Cloneable {
     public void setIdDocType(IdDocType idDocType) {
         if (validateIdDocType(idDocType)) {
             this.idDocType = idDocType;
-        } else{
+        } else {
             throw new IllegalArgumentException("Document Type is invalid");
         }
     }
@@ -412,7 +439,7 @@ public class Collaborator implements Cloneable {
                 ", birthdate=" + birthdate +
                 ", admissionDate=" + admissionDate +
                 ", address=" + address +
-                ", email=" + email +
+                ", email=" + email.toString() +
                 ", mobileNumber=" + mobileNumber +
                 ", idDocType='" + idDocType + '\'' +
                 ", idDocNumber=" + idDocNumber +
@@ -546,6 +573,37 @@ public class Collaborator implements Cloneable {
     }
 
 
+    /**
+     * Creates a deep copy of the collaborator with object atributes in parameter.
+     *
+     * @return the cloned collaborator
+     */
+    public Collaborator clone2() {
+
+        Date birthdateClone = this.birthdate.clone();
+        Date admissionDateClone = this.admissionDate.clone();
+        Address adresssClone = this.address.clone();
+        Email emailClone = this.email.clone();
+
+        Collaborator clone = new Collaborator(
+                this.name,
+                birthdateClone,
+                admissionDateClone,
+                adresssClone,
+                emailClone,
+                this.mobileNumber,
+                this.idDocType,
+                this.idDocNumber,
+                this.job
+        );
+
+        for (Skill skill : this.skillList) {
+            clone.skillList.add(skill.clone());
+        }
+
+        return clone;
+    }
+
 
     /**
      * Creates a deep copy of the collaborator.
@@ -555,8 +613,8 @@ public class Collaborator implements Cloneable {
     public Collaborator clone() {
         Collaborator clone = new Collaborator(
                 this.name,
-                this.birthdate,
-                this.admissionDate,
+                this.birthdate.toString(),
+                this.admissionDate.toString(),
                 this.address.getStreet(),
                 this.address.getStreetNumber(),
                 this.address.getPostalCode(),
@@ -575,5 +633,6 @@ public class Collaborator implements Cloneable {
 
         return clone;
     }
+
 }
 

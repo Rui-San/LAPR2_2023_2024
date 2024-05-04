@@ -1,6 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
-import pt.ipp.isep.dei.esoft.project.application.controller.RegisterJobController;
+import pt.ipp.isep.dei.esoft.project.controller.RegisterJobController;
 
 import java.util.Scanner;
 

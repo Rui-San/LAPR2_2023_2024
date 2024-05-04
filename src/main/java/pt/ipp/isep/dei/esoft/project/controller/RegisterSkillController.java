@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.esoft.project.application.controller;
+package pt.ipp.isep.dei.esoft.project.controller;
 
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;

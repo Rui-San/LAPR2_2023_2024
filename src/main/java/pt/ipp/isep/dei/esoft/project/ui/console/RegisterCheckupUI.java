@@ -1,13 +1,9 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
-import jdk.jshell.ImportSnippet;
-import pt.ipp.isep.dei.esoft.project.application.controller.RegisterCheckupController;
-import pt.ipp.isep.dei.esoft.project.domain.Date;
+import pt.ipp.isep.dei.esoft.project.controller.RegisterCheckupController;
 import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
 import pt.ipp.isep.dei.esoft.project.domain.VehicleCheckup;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;

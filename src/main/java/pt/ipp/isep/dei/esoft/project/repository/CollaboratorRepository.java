@@ -66,8 +66,8 @@ public class CollaboratorRepository {
 
         Collaborator collaborator = new Collaborator(
                 name,
-                new Date(birthdate),
-                new Date(admissionDate),
+                birthdate,
+                admissionDate,
                 street,
                 streetNumber,
                 postalCode,

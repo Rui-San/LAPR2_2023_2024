@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.esoft.project.domain;
 
 import java.util.regex.Pattern;
 
-public class Skill {
+public class Skill implements Cloneable{
     private String skillName;
 
     private enum SkillValidationResults {

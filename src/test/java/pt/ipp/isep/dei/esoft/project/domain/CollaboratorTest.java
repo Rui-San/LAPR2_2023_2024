@@ -12,24 +12,19 @@ class CollaboratorTest {
 
     @Test
     public void ensureValidNameAcceptedTest() {
-        Date birthdate = new Date("07/10/1995");
-        Date admissionDate = new Date("20/03/2024");
         Job job = new Job("Gestor");
 
-        Collaborator collaborator = new Collaborator("Pedro Costa", birthdate, admissionDate, "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", Collaborator.IdDocType.CC, "234324235", job);
+        Collaborator collaborator = new Collaborator("Pedro Costa", "07/10/1995", "20/03/2024", "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", Collaborator.IdDocType.CC, "234324235", job);
         assertEquals("Pedro Costa", collaborator.getName());
     }
 
     @Test
     public void ensureNameHasAtLeastTwoNamesTest() {
-
-        Date birthdate = new Date("07/10/1995");
-        Date admissionDate = new Date("20/03/2024");
         Job job = new Job("Gestor");
 
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            new Collaborator("Pedro", birthdate, admissionDate, "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", Collaborator.IdDocType.CC, "234324235", job);
+            new Collaborator("Pedro", "07/10/1995", "20/03/2024", "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", Collaborator.IdDocType.CC, "234324235", job);
 
         });
         assertTrue(exception.getMessage().contains("Name must include at least one first name and one last name."));
@@ -37,13 +32,10 @@ class CollaboratorTest {
 
     @Test
     public void ensureNameDontHaveMoreThanSixWordsTest() {
-
-        Date birthdate = new Date("07/10/1995");
-        Date admissionDate = new Date("20/03/2024");
         Job job = new Job("Gestor");
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            new Collaborator("Pedro Miguel Santos Costa Costa Costa Costa", birthdate, admissionDate, "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", Collaborator.IdDocType.CC, "234324235", job);
+            new Collaborator("Pedro Miguel Santos Costa Costa Costa Costa", "07/10/1995", "20/03/2024", "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", Collaborator.IdDocType.CC, "234324235", job);
 
         });
         assertTrue(exception.getMessage().contains("Name must not contain more than 6 words, according to Portuguese Law"));
@@ -51,15 +43,13 @@ class CollaboratorTest {
 
     @Test
     public void ensureNameCantBeEmptyOrNullTest() {
-        Date birthdate = new Date("07/10/1995");
-        Date admissionDate = new Date("20/03/2024");
         Job job = new Job("Gestor");
 
         String[] invalidNames = {"", " ", null};
 
         for (String invalidName : invalidNames) {
             IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-                new Collaborator(invalidName, birthdate, admissionDate, "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", Collaborator.IdDocType.CC, "234324235", job);
+                new Collaborator(invalidName, "07/10/1995", "20/03/2024", "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", Collaborator.IdDocType.CC, "234324235", job);
 
             });
             assertTrue(exception.getMessage().contains("Name must not be empty"));
@@ -71,8 +61,6 @@ class CollaboratorTest {
      */
     @Test
     public void ensureNameCantContainSpecialCharactersTest() {
-        Date birthdate = new Date("07/10/1995");
-        Date admissionDate = new Date("20/03/2024");
         Job job = new Job("Gestor");
 
         String invalidNameSymbols = "0123456789!#$%^&*()+_.=<>?/,;:'\\\"[]{}\\\\|`~";
@@ -80,7 +68,7 @@ class CollaboratorTest {
         for (char invalidSymbol : invalidNameSymbols.toCharArray()) {
             String name = "Pedro Costa" + invalidSymbol;
             IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-                new Collaborator(name, birthdate, admissionDate, "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", Collaborator.IdDocType.CC, "234324235", job);
+                new Collaborator(name, "07/10/1995", "20/03/2024", "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", Collaborator.IdDocType.CC, "234324235", job);
 
             });
             assertTrue(exception.getMessage().contains("Name must not contain special characters"));
@@ -89,15 +77,13 @@ class CollaboratorTest {
 
     @Test
     public void ensureMobileNumberIsntEmptyOrNullTest() {
-        Date birthdate = new Date("07/10/1995");
-        Date admissionDate = new Date("20/03/2024");
         Job job = new Job("Gestor");
 
         String[] invalidMobileNumber = {"", " ", null};
 
         for (String invalidMobile : invalidMobileNumber) {
             IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-                new Collaborator("Pedro Costa", birthdate, admissionDate, "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", invalidMobile, Collaborator.IdDocType.CC, "234324235", job);
+                new Collaborator("Pedro Costa", "07/10/1995", "20/03/2024", "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", invalidMobile, Collaborator.IdDocType.CC, "234324235", job);
 
             });
             assertTrue(exception.getMessage().contains("Mobile Number is not in a correct format"));
@@ -106,15 +92,13 @@ class CollaboratorTest {
 
     @Test
     public void ensureMobileNumberHaveNineDigitsTest() {
-        Date birthdate = new Date("07/10/1995");
-        Date admissionDate = new Date("20/03/2024");
         Job job = new Job("Gestor");
 
         String invalidMobile = "91234548a";
 
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            new Collaborator("Pedro Costa", birthdate, admissionDate, "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", invalidMobile, Collaborator.IdDocType.CC, "234324235", job);
+            new Collaborator("Pedro Costa", "07/10/1995", "20/03/2024", "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", invalidMobile, Collaborator.IdDocType.CC, "234324235", job);
 
         });
         assertTrue(exception.getMessage().contains("Mobile Number is not in a correct format"));
@@ -122,8 +106,6 @@ class CollaboratorTest {
 
     @Test
     public void ensureMobileNumberDontHaveSpecialCharactersTest() {
-        Date birthdate = new Date("07/10/1995");
-        Date admissionDate = new Date("20/03/2024");
         Job job = new Job("Gestor");
 
         String invalidNameSymbols = "!#$%^&*()+_.=<>?/,;:'\\\"[]{}\\\\|`~";
@@ -132,62 +114,64 @@ class CollaboratorTest {
         for (char symbol : invalidNameSymbols.toCharArray()) {
             String invalidMobile = "91234548" + symbol;
             IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-                new Collaborator("Pedro Costa", birthdate, admissionDate, "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", invalidMobile, Collaborator.IdDocType.CC, "234324235", job);
+                new Collaborator("Pedro Costa", "07/10/1995", "20/03/2024", "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", invalidMobile, Collaborator.IdDocType.CC, "234324235", job);
 
             });
             assertTrue(exception.getMessage().contains("Mobile Number is not in a correct format"));
         }
     }
 
-    /*
-    Verificar a questão de como se criar address e email no construtor do collaborador, devido ao clone
+
+    @Test
+    void ensureClone2Works() {
+        Date birthdate = new Date("7/10/1995");
+        Date admissionDate = new Date("20/3/2024");
+        Address address = new Address("Rua das travessas",123,"1234-123","Matosinhos", "Porto");
+        Email email = new Email("1221790@isep.ipp.pt");
+        Job job = new Job("Gestor");
+
+        Collaborator collaborator = new Collaborator("Pedro Costa", birthdate, admissionDate, address, email, "931231234", Collaborator.IdDocType.CC, "234324235", job);
+        Collaborator clone = collaborator.clone();
+        assertEquals(collaborator.toString(), clone.toString());
+    }
 
     @Test
     void ensureCloneWorks() {
-        Date birthdate = new Date("07/10/1995");
-        Date admissionDate = new Date("20/03/2024");
         Job job = new Job("Gestor");
 
-        Collaborator collaborator = new Collaborator("Pedro Costa", birthdate, admissionDate, "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", Collaborator.IdDocType.CC, "234324235", job);
-        Collaborator clone = collaborator.clone();
-        assertEquals(collaborator, clone);
+        Collaborator collaborator = new Collaborator("Pedro Costa", "7/10/1995", "20/3/2024","Rua das travessas",123,"1234-123","Matosinhos", "Porto","1221790@isep.ipp.pt", "931231234", Collaborator.IdDocType.CC, "234324235", job);
+        Collaborator clone2 = collaborator.clone2();
+        assertEquals(collaborator.toString(), clone2.toString());
     }
-    */
+
 
     @Test
     void ensureTheSameObjectIsEqual() {
-        Date birthdate = new Date("07/10/1995");
-        Date admissionDate = new Date("20/03/2024");
         Job job = new Job("Gestor");
 
-        Collaborator collaborator = new Collaborator("Pedro Costa", birthdate, admissionDate, "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", Collaborator.IdDocType.CC, "234324235", job);
+        Collaborator collaborator = new Collaborator("Pedro Costa", "07/10/1995", "20/03/2024", "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", Collaborator.IdDocType.CC, "234324235", job);
         assertEquals(collaborator, collaborator);
     }
 
     @Test
     public void testSetIdDocType_ValidIdDocType() {
-        Date birthdate = new Date("07/10/1995");
-        Date admissionDate = new Date("20/03/2024");
         Job job = new Job("Gestor");
 
-        Collaborator collaborator1 = new Collaborator("Pedro Costa", birthdate, admissionDate, "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", IdDocType.BI, "234324235", job);
+        Collaborator collaborator1 = new Collaborator("Pedro Costa", "07/10/1995", "20/03/2024", "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", IdDocType.BI, "234324235", job);
         assertEquals(IdDocType.BI, collaborator1.getIdDocType());
 
-        Collaborator collaborator2 = new Collaborator("Pedro Costa", birthdate, admissionDate, "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", IdDocType.CC, "234324235", job);
+        Collaborator collaborator2 = new Collaborator("Pedro Costa", "07/10/1995", "20/03/2024", "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", IdDocType.CC, "234324235", job);
         assertEquals(IdDocType.CC, collaborator2.getIdDocType());
 
-        Collaborator collaborator3 = new Collaborator("Pedro Costa", birthdate, admissionDate, "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", IdDocType.PASSPORT, "AB222222", job);
+        Collaborator collaborator3 = new Collaborator("Pedro Costa", "07/10/1995", "20/03/2024", "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", IdDocType.PASSPORT, "AB222222", job);
         assertEquals(IdDocType.PASSPORT, collaborator3.getIdDocType());
     }
 
     @Test
     public void ensureAssignSkillsTest() {
-
-        Date birthdate = new Date("07/10/1995");
-        Date admissionDate = new Date("20/03/2024");
         Job job = new Job("Gestor");
 
-        Collaborator collaborator = new Collaborator("Pedro Costa", birthdate, admissionDate, "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", Collaborator.IdDocType.BI, "234324235", job);
+        Collaborator collaborator = new Collaborator("Pedro Costa", "07/10/1995", "20/03/2024", "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", Collaborator.IdDocType.BI, "234324235", job);
 
 
         Skill skill1 = new Skill("Java");
@@ -208,8 +192,6 @@ class CollaboratorTest {
 
     @Test
     public void ensureCCBInumberDontAllowWrongFormatTest() {
-        Date birthdate = new Date("07/10/1995");
-        Date admissionDate = new Date("20/03/2024");
         Job job = new Job("Gestor");
 
         String[] invalidCCformats = {"12345678", "1234567890", "12345655f"};
@@ -217,7 +199,7 @@ class CollaboratorTest {
 
         for (String ccFormat : invalidCCformats) {
             IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-                new Collaborator("Pedro Costa", birthdate, admissionDate, "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", Collaborator.IdDocType.CC, ccFormat, job);
+                new Collaborator("Pedro Costa", "07/10/1995", "20/03/2024", "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", Collaborator.IdDocType.CC, ccFormat, job);
 
             });
             assertTrue(exception.getMessage().contains("NIF in wrong format. Must be 9 numeric digits"));
@@ -226,15 +208,13 @@ class CollaboratorTest {
 
     @Test
     public void ensurePassportNumberDontAllowWrongFormatTest() {
-        Date birthdate = new Date("07/10/1995");
-        Date admissionDate = new Date("20/03/2024");
         Job job = new Job("Gestor");
 
         String[] invalidPassportFormats = {"12345678", "1234567890", "12345655f", "AB1234567", "AB123456789", "AB12345"};
 
         for (String passportFormat : invalidPassportFormats) {
             IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-                new Collaborator("Pedro Costa", birthdate, admissionDate, "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", Collaborator.IdDocType.PASSPORT, passportFormat, job);
+                new Collaborator("Pedro Costa", "07/10/1995", "20/03/2024", "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", Collaborator.IdDocType.PASSPORT, passportFormat, job);
             });
             assertTrue(exception.getMessage().contains("Passport in wrong format. Must be two letters + 6 numeric digits"));
         }
@@ -261,11 +241,9 @@ class CollaboratorTest {
         otherSkillList.add(skillCollaboratorDontHave2);
         otherSkillList.add(skillCollaboratorDontHave3);
 
-        Date birthdate = new Date("07/10/1995");
-        Date admissionDate = new Date("20/03/2024");
         Job job = new Job("Gestor");
 
-        Collaborator collaborator = new Collaborator("Pedro Costa", birthdate, admissionDate, "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", IdDocType.BI, "234324235", job);
+        Collaborator collaborator = new Collaborator("Pedro Costa", "07/10/1995", "20/03/2024", "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", IdDocType.BI, "234324235", job);
 
         collaborator.assignSkills(fullList);
 
@@ -279,11 +257,9 @@ class CollaboratorTest {
 
         String name = "Pedro Costa";
 
-        Date birthdate = new Date("07/10/1995");
-        Date admissionDate = new Date("20/03/2024");
         Job job = new Job("Gestor");
 
-        Collaborator collaborator = new Collaborator("Pedro Costa", birthdate, admissionDate, "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", IdDocType.BI, "234324235", job);
+        Collaborator collaborator = new Collaborator("Pedro Costa", "07/10/1995", "20/03/2024", "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", IdDocType.BI, "234324235", job);
 
         String retrievedName = collaborator.getName();
 
@@ -293,28 +269,27 @@ class CollaboratorTest {
     @Test
     public void testGetBirthdate() {
 
-        Date birthdate = new Date("07/10/1995");
-        Date admissionDate = new Date("20/03/2024");
         Job job = new Job("Gestor");
 
-        Collaborator collaborator = new Collaborator("Pedro Costa", birthdate, admissionDate, "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", IdDocType.BI, "234324235", job);
+        Collaborator collaborator = new Collaborator("Pedro Costa", "07/10/1995", "20/03/2024", "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", IdDocType.BI, "234324235", job);
 
-        Date retrievedBirthdate = collaborator.getBirthdate();
+        String retrievedBirthdate = collaborator.getBirthdate().toString();
 
-        assertEquals(birthdate, retrievedBirthdate);
+        assertEquals("7/10/1995", retrievedBirthdate);
     }
 
     @Test
     public void testGetAdmissionDate() {
-        Date birthdate = new Date("07/10/1995");
-        Date admissionDate = new Date("20/03/2024");
+
         Job job = new Job("Gestor");
 
-        Collaborator collaborator = new Collaborator("Pedro Costa", birthdate, admissionDate, "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", IdDocType.BI, "234324235", job);
+        Collaborator collaborator = new Collaborator("Pedro Costa", "07/10/1995", "20/3/2024", "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", IdDocType.BI, "234324235", job);
 
-        Date retrievedAdmissionDate = collaborator.getAdmissionDate();
+        String actualAdmissionDate = collaborator.getAdmissionDate().toString();
 
-        assertEquals(admissionDate, retrievedAdmissionDate);
+        String expectedAdmissionDate = "20/3/2024";
+
+        assertEquals(expectedAdmissionDate, actualAdmissionDate);
     }
 
     @Test
@@ -326,11 +301,10 @@ class CollaboratorTest {
         String district = "Porto";
         Address expectedAddress = new Address(street, streetNumber, postalCode, city, district);
 
-        Date birthdate = new Date("07/10/1995");
-        Date admissionDate = new Date("20/03/2024");
+
         Job job = new Job("Gestor");
 
-        Collaborator collaborator = new Collaborator("Pedro Costa", birthdate, admissionDate, street, streetNumber, postalCode, city, district, "1221790@isep.ipp.pt", "931231234", IdDocType.BI, "234324235", job);
+        Collaborator collaborator = new Collaborator("Pedro Costa", "07/10/1995", "20/03/2024", street, streetNumber, postalCode, city, district, "1221790@isep.ipp.pt", "931231234", IdDocType.BI, "234324235", job);
 
         Address retrievedAddress = collaborator.getAddress();
 
@@ -344,11 +318,10 @@ class CollaboratorTest {
     @Test
     public void testGetEmail() {
         String email = "1221790@isep.ipp.pt";
-        Date birthdate = new Date("07/10/1995");
-        Date admissionDate = new Date("20/03/2024");
+
         Job job = new Job("Gestor");
 
-        Collaborator collaborator = new Collaborator("Pedro Costa", birthdate, admissionDate, "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", email, "931231234", IdDocType.BI, "234324235", job);
+        Collaborator collaborator = new Collaborator("Pedro Costa", "07/10/1995", "20/03/2024", "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", email, "931231234", IdDocType.BI, "234324235", job);
 
         Email retrievedEmail = collaborator.getEmail();
 
@@ -359,11 +332,10 @@ class CollaboratorTest {
     public void testGetMobileNumber() {
 
         String mobileNumber = "931231234";
-        Date birthdate = new Date("07/10/1995");
-        Date admissionDate = new Date("20/03/2024");
+
         Job job = new Job("Gestor");
 
-        Collaborator collaborator = new Collaborator("Pedro Costa", birthdate, admissionDate, "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", IdDocType.BI, "234324235", job);
+        Collaborator collaborator = new Collaborator("Pedro Costa", "07/10/1995", "20/03/2024", "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", IdDocType.BI, "234324235", job);
 
         String retrievedMobileNumber = collaborator.getMobileNumber();
 
@@ -373,11 +345,10 @@ class CollaboratorTest {
     @Test
     public void testGetIdDocType() {
         IdDocType idDocType = Collaborator.IdDocType.CC;
-        Date birthdate = new Date("07/10/1995");
-        Date admissionDate = new Date("20/03/2024");
+
         Job job = new Job("Gestor");
 
-        Collaborator collaborator = new Collaborator("Pedro Costa", birthdate, admissionDate, "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", idDocType, "234324235", job);
+        Collaborator collaborator = new Collaborator("Pedro Costa", "07/10/1995", "20/03/2024", "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", idDocType, "234324235", job);
 
         IdDocType retrievedIdDocType = collaborator.getIdDocType();
 
@@ -387,11 +358,10 @@ class CollaboratorTest {
     @Test
     public void testGetIdDocNumber() {
         String idDocNumber = "234324235";
-        Date birthdate = new Date("07/10/1995");
-        Date admissionDate = new Date("20/03/2024");
+
         Job job = new Job("Gestor");
 
-        Collaborator collaborator = new Collaborator("Pedro Costa", birthdate, admissionDate, "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", IdDocType.CC, "234324235", job);
+        Collaborator collaborator = new Collaborator("Pedro Costa", "07/10/1995", "20/03/2024", "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", IdDocType.CC, "234324235", job);
 
         String retrievedIdDocNumber = collaborator.getIdDocNumber();
 
@@ -401,11 +371,10 @@ class CollaboratorTest {
     @Test
     public void testGetJob() {
         String jobName = "Gestor";
-        Date birthdate = new Date("07/10/1995");
-        Date admissionDate = new Date("20/03/2024");
+
         Job job = new Job(jobName);
 
-        Collaborator collaborator = new Collaborator("Pedro Costa", birthdate, admissionDate, "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", Collaborator.IdDocType.CC, "234324235", job);
+        Collaborator collaborator = new Collaborator("Pedro Costa", "07/10/1995", "20/03/2024", "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", Collaborator.IdDocType.CC, "234324235", job);
 
         Job retrievedJob = collaborator.getJob();
 
@@ -416,13 +385,12 @@ class CollaboratorTest {
 
     @Test
     public void testToString() {
-        Date birthdate = new Date("07/10/1995");
-        Date admissionDate = new Date("20/03/2024");
+
         Job job = new Job("Gestor");
 
-        Collaborator collaborator = new Collaborator("Pedro Costa", birthdate, admissionDate, "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", Collaborator.IdDocType.CC, "234324235", job);
+        Collaborator collaborator = new Collaborator("Pedro Costa", "07/10/1995", "20/03/2024", "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", Collaborator.IdDocType.CC, "234324235", job);
 
-        String expectedString = "Collaborator{name='Pedro Costa', birthdate=7/10/1995, admissionDate=20/3/2024, address=Address{street='Rua das travessas', streetNumber=123, postalCode='1234-123', city='Matosinhos', district='Porto'}, email=pt.ipp.isep.dei.esoft.project.domain.Email@3745e5c6, mobileNumber=931231234, idDocType='CC', idDocNumber=234324235}";
+        String expectedString = "Collaborator{name='Pedro Costa', birthdate=7/10/1995, admissionDate=20/3/2024, address=Address{street='Rua das travessas', streetNumber=123, postalCode='1234-123', city='Matosinhos', district='Porto'}, email=Email= 1221790@isep.ipp.pt, mobileNumber=931231234, idDocType='CC', idDocNumber=234324235}";
         assertEquals(expectedString, collaborator.toString());
     }
 
