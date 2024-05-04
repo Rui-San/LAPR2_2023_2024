@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import pt.ipp.isep.dei.esoft.project.tools.ValidationAttributeResults;
+
 /**
  * Represents an Address object containing street, street number, postal code, city, and district.
  */
@@ -25,29 +27,6 @@ public class Address implements Cloneable{
      * The district of the address.
      */
     private String district;
-
-    /**
-     * Type Enumerated, enumerating all the different results that may occur during an Address validation.
-     */
-
-    private enum PostalCodeValidationResults {
-        /**
-         * Postal code is empty.
-         */
-        EMPTY,
-        /**
-         * Postal code is valid.
-         */
-        VALID,
-        /**
-         * Postal code contains letters.
-         */
-        CONTAIN_LETTERS,
-        /**
-         * Postal code has invalid format.
-         */
-        INVALID_FORMAT
-    }
 
     /**
      * Total digits that a postal code contain.
@@ -142,9 +121,9 @@ public class Address implements Cloneable{
      * @throws IllegalArgumentException if the postal code is invalid
      */
     public void setPostalCode(String postalCode) {
-        PostalCodeValidationResults postalCodeValidationResults = validatePostalCode(postalCode);
+        ValidationAttributeResults postalCodeValidationResults = validatePostalCode(postalCode);
         switch (postalCodeValidationResults) {
-            case EMPTY:
+            case EMPTYNULL:
                 throw new IllegalArgumentException("Postal code must not be empty");
             case INVALID_FORMAT:
                 throw new IllegalArgumentException("Postal code must follow the format XXXX-XXX");
@@ -248,30 +227,30 @@ public class Address implements Cloneable{
      * @param postalCode the postal code to be validated
      * @return an enumerate type depending on the result
      */
-    private static PostalCodeValidationResults validatePostalCode(String postalCode) {
+    private static ValidationAttributeResults validatePostalCode(String postalCode) {
 
         if (postalCode == null || postalCode.trim().isEmpty()) {
-            return PostalCodeValidationResults.EMPTY;
+            return ValidationAttributeResults.EMPTYNULL;
         }
 
         if (postalCode.length() != POSTAL_CODE_TOTAL_DIGITS || postalCode.charAt(4) != POSTAL_CODE_SEPARATOR) {
-            return PostalCodeValidationResults.INVALID_FORMAT;
+            return ValidationAttributeResults.INVALID_FORMAT;
         }
 
         char[] postalCodeByLetters = postalCode.toCharArray();
 
         for (int i = 0; i < 4; i++) {
             if (!Character.isDigit(postalCodeByLetters[i])) {
-                return PostalCodeValidationResults.CONTAIN_LETTERS;
+                return ValidationAttributeResults.CONTAIN_LETTERS;
             }
         }
 
         for (int i = 5; i < postalCodeByLetters.length; i++) {
             if (!Character.isDigit(postalCodeByLetters[i])) {
-                return PostalCodeValidationResults.CONTAIN_LETTERS;
+                return ValidationAttributeResults.CONTAIN_LETTERS;
             }
         }
-        return PostalCodeValidationResults.VALID;
+        return ValidationAttributeResults.VALID;
     }
 
     /**

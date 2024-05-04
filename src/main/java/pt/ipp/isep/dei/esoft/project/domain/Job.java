@@ -1,13 +1,11 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import pt.ipp.isep.dei.esoft.project.tools.ValidationAttributeResults;
+
 import java.util.regex.Pattern;
 
 public class Job implements Cloneable{
     private String jobName;
-
-    private enum JobValidationResults {
-        EMPTYNULL, VALID, CONTAINS_SPECIAL_CHARACTERS,
-    }
 
     public Job(String jobName) {
         setJobName(jobName);
@@ -18,7 +16,7 @@ public class Job implements Cloneable{
     }
 
     public void setJobName(String jobName) {
-        Job.JobValidationResults jobValidationResults = validateJob(jobName);
+        ValidationAttributeResults jobValidationResults = validateJob(jobName);
         switch (jobValidationResults) {
             case EMPTYNULL:
                 throw new IllegalArgumentException("Job name must not be empty");
@@ -34,17 +32,17 @@ public class Job implements Cloneable{
         return new Job(this.jobName);
     }
 
-    private Job.JobValidationResults validateJob(String jobName) {
+    private ValidationAttributeResults validateJob(String jobName) {
         if (jobName == null || jobName.trim().isEmpty()) {
-            return Job.JobValidationResults.EMPTYNULL;
+            return ValidationAttributeResults.EMPTYNULL;
         }
 
         Pattern namePattern = Pattern.compile("[a-zA-Z\\s-]+");
 
         if (namePattern.matcher(jobName).matches()) {
-            return Job.JobValidationResults.VALID;
+            return ValidationAttributeResults.VALID;
         } else {
-            return Job.JobValidationResults.CONTAINS_SPECIAL_CHARACTERS;
+            return ValidationAttributeResults.CONTAINS_SPECIAL_CHARACTERS;
         }
     }
 

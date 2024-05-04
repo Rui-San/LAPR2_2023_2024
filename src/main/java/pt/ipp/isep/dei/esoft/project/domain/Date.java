@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import pt.ipp.isep.dei.esoft.project.tools.ValidationAttributeResults;
+
 import java.time.LocalDate;
 
 /**
@@ -53,10 +55,10 @@ public class Date implements Comparable<Date>,Cloneable {
 
     public void setDate(String date) {
 
-        ValidateDateResults validateDateResults = validateDate(date);
+        ValidationAttributeResults validateDateResults = validateDate(date);
 
         switch (validateDateResults){
-            case EMPTY:
+            case EMPTYNULL:
                 throw new IllegalArgumentException("Date must not be empty!");
             case INVALID_FORMAT:
                 throw new IllegalArgumentException("Date must follow the format DD/MM/YYYY");
@@ -77,22 +79,22 @@ public class Date implements Comparable<Date>,Cloneable {
         }
     }
 
-    private ValidateDateResults validateDate(String date) {
+    private ValidationAttributeResults validateDate(String date) {
 
         if (date == null || date.trim().isEmpty()) {
-            return ValidateDateResults.EMPTY;
+            return ValidationAttributeResults.EMPTYNULL;
         }
 
         String[] dateParts = date.trim().split("/");
 
         if (dateParts.length != 3) {
-            return ValidateDateResults.INVALID_FORMAT;
+            return ValidationAttributeResults.INVALID_FORMAT;
         }
 
         for (String part : dateParts) {
             int number = Integer.parseInt(part);
             if (number <= 0) {
-                return ValidateDateResults.EMPTY;
+                return ValidationAttributeResults.EMPTYNULL;
             }
         }
 
@@ -102,22 +104,22 @@ public class Date implements Comparable<Date>,Cloneable {
 
         //Mes mes = Mes.valueOf(String.valueOf(month));
         if (day < 1 || day > 31) {
-            return ValidateDateResults.INVALID_DAY;
+            return ValidationAttributeResults.INVALID_DAY;
         }
 
         if (month < 1 || month > 12) {
-            return ValidateDateResults.INVALID_MONTH;
+            return ValidationAttributeResults.INVALID_MONTH;
         }
 
         if (month == 2 && isLeapYear(year) && day > 29) {
-            return ValidateDateResults.INVALID_DAY;
+            return ValidationAttributeResults.INVALID_DAY;
         }
 
         if (year <= MIN_ACCEPTED_YEAR) {
-            return ValidateDateResults.INVALID_YEAR;
+            return ValidationAttributeResults.INVALID_YEAR;
         }
 
-        return ValidateDateResults.VALID;
+        return ValidationAttributeResults.VALID;
     }
 
     private boolean isLeapYear(int year) {

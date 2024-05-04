@@ -191,6 +191,8 @@ public class RegisterCollaboratorUI implements Runnable {
 
     private String requestName() {
         Scanner input = new Scanner(System.in);
+        boolean validInput = true;
+
         System.out.println("Name: ");
         return input.nextLine();
     }

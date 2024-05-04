@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
-import java.util.Objects;
+import pt.ipp.isep.dei.esoft.project.tools.ValidationAttributeResults;
+
 
 /**
  * Represents an Email object.
@@ -13,32 +14,6 @@ public class Email implements Cloneable {
      */
     private String email;
 
-
-    /**
-     * Type Enumerated, enumerating all the different results that may occur during an email validation.
-     */
-    private enum ValidateEmailResults {
-        /**
-         * Email is empty.
-         */
-        EMPTY,
-        /**
-         * Email is valid.
-         */
-        VALID,
-        /**
-         * Prefix of email is invalid.
-         */
-        INVALID_PREFIX,
-        /**
-         * Domain of email is invalid.
-         */
-        INVALID_DOMAIN,
-        /**
-         * Email has wrong format.
-         */
-        WRONG_FORMAT
-    }
 
     /**
      * Constructs an Email object with the given email address.
@@ -65,9 +40,9 @@ public class Email implements Cloneable {
      * @param email the email to be set.
      */
     public void setEmail(String email) {
-        ValidateEmailResults validateEmailResults = validateEmail(email);
+        ValidationAttributeResults validateEmailResults = validateEmail(email);
         switch (validateEmailResults) {
-            case EMPTY:
+            case EMPTYNULL:
                 throw new IllegalArgumentException("Email must not be empty");
             case WRONG_FORMAT:
                 throw new IllegalArgumentException("Email format must follow the pattern prefix@domain");
@@ -89,35 +64,35 @@ public class Email implements Cloneable {
      * @param email the email to be validated
      * @return an enumerate type depending on the result
      */
-    private ValidateEmailResults validateEmail(String email) {
+    private ValidationAttributeResults validateEmail(String email) {
         if (email == null || email.trim().isEmpty()) {
-            return ValidateEmailResults.EMPTY;
+            return ValidationAttributeResults.EMPTYNULL;
         }
 
         String[] parts = email.split("@");
 
         if (parts.length != 2) {
-            return ValidateEmailResults.WRONG_FORMAT;
+            return ValidationAttributeResults.WRONG_FORMAT;
         }
 
         String prefix = parts[0];
         String domain = parts[1];
 
         if (prefix.isEmpty() || domain.isEmpty()) {
-            return ValidateEmailResults.WRONG_FORMAT;
+            return ValidationAttributeResults.WRONG_FORMAT;
         }
 
         String prefixPattern = "^[a-zA-Z0-9_.-]+$";
         String domainPattern = "^(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
 
         if (!prefix.matches(prefixPattern)) {
-            return ValidateEmailResults.INVALID_PREFIX;
+            return ValidationAttributeResults.INVALID_PREFIX;
         }
 
         if (!domain.matches(domainPattern)) {
-            return ValidateEmailResults.INVALID_DOMAIN;
+            return ValidationAttributeResults.INVALID_DOMAIN;
         }
-        return ValidateEmailResults.VALID;
+        return ValidationAttributeResults.VALID;
     }
 
     @Override

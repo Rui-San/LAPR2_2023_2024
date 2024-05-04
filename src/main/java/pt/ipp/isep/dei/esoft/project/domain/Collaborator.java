@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import pt.ipp.isep.dei.esoft.project.tools.ValidationAttributeResults;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -98,61 +99,6 @@ public class Collaborator implements Cloneable {
     private List<Skill> skillList;
 
     /**
-     * Type Enumerated, enumerating all the different results that may occur during the validation of the collaborator's name
-     */
-    private enum NameValidationResults {
-        /**
-         * Indicates that the name is valid.
-         */
-        VALID,
-
-        /**
-         * Indicates that the name is empty or null.
-         */
-        EMPTYNULL,
-
-        /**
-         * Indicates that the name does not contain enough names (at least one first name and one last name).
-         */
-        NOT_ENOUGH_NAMES,
-
-        /**
-         * Indicates that the name contains too many words (more than 6 words, according to Portuguese Law).
-         */
-        TOO_MANY_WORDS,
-
-        /**
-         * Indicates that the name contains special characters, which are not allowed.
-         */
-        CONTAINS_SPECIAL_CHARACTERS
-    }
-
-    /**
-     * Type Enumerated, enumerating all the different results that may occur during the validation of the collaborator's ID document number.
-     */
-    private enum ValidateIdDocNumberResults {
-        /**
-         * Indicates that the ID document number is valid.
-         */
-        VALID,
-
-        /**
-         * Indicates that there is an error with the passport format.
-         */
-        PASSPORT_ERROR,
-
-        /**
-         * Indicates that the ID document number is empty.
-         */
-        EMPTY,
-
-        /**
-         * Indicates that there is an error with the CC or BI format.
-         */
-        CC_BI_ERROR
-    }
-
-    /**
      * The total number of digits in a mobile number.
      */
     private static final int MOBILE_NUMBER_TOTAL_DIGITS = 9;
@@ -232,7 +178,7 @@ public class Collaborator implements Cloneable {
      * @throws IllegalArgumentException if the name is empty, contains special characters, does not include at least one first name and one last name, or contains more than 6 words
      */
     public void setName(String name) {
-        NameValidationResults nameValidationResult = validateName(name);
+        ValidationAttributeResults nameValidationResult = validateName(name);
         switch (nameValidationResult) {
             case EMPTYNULL:
                 throw new IllegalArgumentException("Name must not be empty");
@@ -413,10 +359,10 @@ public class Collaborator implements Cloneable {
      * @throws IllegalArgumentException if the ID number is not valid (empty, or in the wrong format for the specified ID document type)
      */
     public void setIdDocNumber(String idDocNumber, IdDocType idDocType) {
-        ValidateIdDocNumberResults validateIdDocNumberResults = validateIdDocNumberResults(idDocNumber, idDocType);
+        ValidationAttributeResults validateIdDocNumberResults = validateIdDocNumber(idDocNumber, idDocType);
 
         switch (validateIdDocNumberResults) {
-            case EMPTY:
+            case EMPTYNULL:
                 throw new IllegalArgumentException("ID Number must not be empty");
             case PASSPORT_ERROR:
                 throw new IllegalArgumentException("Passport in wrong format. Must be two letters + 6 numeric digits (Example: AB222222)");
@@ -477,28 +423,28 @@ public class Collaborator implements Cloneable {
      * @param name the name to validate
      * @return the validation result
      */
-    private NameValidationResults validateName(String name) {
+    private ValidationAttributeResults validateName(String name) {
 
         if (name == null || name.trim().isEmpty()) {
-            return NameValidationResults.EMPTYNULL;
+            return ValidationAttributeResults.EMPTYNULL;
         }
 
         //("\\s+") means one or more character space
         if (name.split("\\s+").length < 2) {
-            return NameValidationResults.NOT_ENOUGH_NAMES;
+            return ValidationAttributeResults.NOT_ENOUGH_NAMES;
         }
 
         //Name, according to Portuguese law must not contain more than 6 words
         if (name.split("\\s+").length > 6) {
-            return NameValidationResults.TOO_MANY_WORDS;
+            return ValidationAttributeResults.TOO_MANY_WORDS;
         }
 
         Pattern namePattern = Pattern.compile("[a-zA-Z\\s-]+");
 
         if (namePattern.matcher(name).matches()) {
-            return NameValidationResults.VALID;
+            return ValidationAttributeResults.VALID;
         } else {
-            return NameValidationResults.CONTAINS_SPECIAL_CHARACTERS;
+            return ValidationAttributeResults.CONTAINS_SPECIAL_CHARACTERS;
         }
     }
 
@@ -548,26 +494,26 @@ public class Collaborator implements Cloneable {
      * @param idDocType   the type of ID document
      * @return the validation result
      */
-    private ValidateIdDocNumberResults validateIdDocNumberResults(String idDocNumber, IdDocType idDocType) {
+    private ValidationAttributeResults validateIdDocNumber(String idDocNumber, IdDocType idDocType) {
         String nineNumericDigits = "[0-9]{9}";
         String passportPattern = "\\p{Alpha}{2}\\d{6}";
 
         if (idDocNumber.isEmpty()) {
-            return ValidateIdDocNumberResults.EMPTY;
+            return ValidationAttributeResults.EMPTYNULL;
         }
 
         if (idDocType == IdDocType.PASSPORT) {
             if (idDocNumber.matches(passportPattern)) {
-                return ValidateIdDocNumberResults.VALID;
+                return ValidationAttributeResults.VALID;
             } else {
-                return ValidateIdDocNumberResults.PASSPORT_ERROR;
+                return ValidationAttributeResults.PASSPORT_ERROR;
             }
 
         } else {
             if (idDocNumber.matches(nineNumericDigits)) {
-                return ValidateIdDocNumberResults.VALID;
+                return ValidationAttributeResults.VALID;
             } else {
-                return ValidateIdDocNumberResults.CC_BI_ERROR;
+                return ValidationAttributeResults.CC_BI_ERROR;
             }
         }
     }

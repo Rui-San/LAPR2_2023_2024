@@ -1,13 +1,11 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import pt.ipp.isep.dei.esoft.project.tools.ValidationAttributeResults;
+
 import java.util.regex.Pattern;
 
 public class Skill implements Cloneable{
     private String skillName;
-
-    private enum SkillValidationResults {
-        EMPTYNULL, VALID, CONTAINS_SPECIAL_CHARACTERS,
-    }
 
     public Skill(String skillName) {
         setSkillName(skillName);
@@ -18,7 +16,7 @@ public class Skill implements Cloneable{
     }
 
     public void setSkillName(String skillName) {
-        SkillValidationResults skillValidationResults = validateSkill(skillName);
+        ValidationAttributeResults skillValidationResults = validateSkill(skillName);
         switch (skillValidationResults) {
             case EMPTYNULL:
                 throw new IllegalArgumentException("Skill name must not be empty");
@@ -34,17 +32,17 @@ public class Skill implements Cloneable{
         return new Skill(this.skillName);
     }
 
-    private SkillValidationResults validateSkill(String skillName) {
+    private ValidationAttributeResults validateSkill(String skillName) {
         if (skillName == null || skillName.trim().isEmpty()) {
-            return SkillValidationResults.EMPTYNULL;
+            return ValidationAttributeResults.EMPTYNULL;
         }
 
         Pattern namePattern = Pattern.compile("[a-zA-Z\\s-]+");
 
         if (namePattern.matcher(skillName).matches()) {
-            return SkillValidationResults.VALID;
+            return ValidationAttributeResults.VALID;
         } else {
-            return SkillValidationResults.CONTAINS_SPECIAL_CHARACTERS;
+            return ValidationAttributeResults.CONTAINS_SPECIAL_CHARACTERS;
         }
     }
 }
