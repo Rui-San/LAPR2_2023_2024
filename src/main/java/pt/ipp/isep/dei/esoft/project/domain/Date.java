@@ -35,18 +35,6 @@ public class Date implements Comparable<Date>,Cloneable {
             this.numero = numero;
             this.dias = dias;
         }
-
-        public int getNumero() {
-            return numero;
-        }
-
-        public int getDias() {
-            return dias;
-        }
-    }
-
-    public enum ValidateDateResults {
-        INVALID_FORMAT, VALID, EMPTY, INVALID_MONTH, INVALID_YEAR, INVALID_DAY
     }
 
     public Date(String dateString) {
@@ -91,13 +79,6 @@ public class Date implements Comparable<Date>,Cloneable {
             return ValidationAttributeResults.INVALID_FORMAT;
         }
 
-        for (String part : dateParts) {
-            int number = Integer.parseInt(part);
-            if (number <= 0) {
-                return ValidationAttributeResults.EMPTYNULL;
-            }
-        }
-
         int day = Integer.parseInt(dateParts[0]);
         int month = Integer.parseInt(dateParts[1]);
         int year = Integer.parseInt(dateParts[2]);
@@ -114,6 +95,10 @@ public class Date implements Comparable<Date>,Cloneable {
         if (month == 2 && isLeapYear(year) && day > 29) {
             return ValidationAttributeResults.INVALID_DAY;
         }
+        if (month == 2 && !isLeapYear(year) && day >= 29) {
+            return ValidationAttributeResults.INVALID_DAY;
+        }
+
 
         if (year <= MIN_ACCEPTED_YEAR) {
             return ValidationAttributeResults.INVALID_YEAR;
@@ -140,7 +125,6 @@ public class Date implements Comparable<Date>,Cloneable {
     }
 
     public void setDay(int day) {
-
         this.day = day;
     }
 

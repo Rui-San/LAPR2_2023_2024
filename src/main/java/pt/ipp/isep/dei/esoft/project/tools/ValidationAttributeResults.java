@@ -79,7 +79,7 @@ public enum ValidationAttributeResults {
     /**
      * The email domain is not valid.
      */
-    INVALID_DOMAIN
+    INVALID_DOMAIN,
 
 
 }
