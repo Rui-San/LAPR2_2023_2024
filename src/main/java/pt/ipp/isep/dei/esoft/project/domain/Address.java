@@ -206,7 +206,7 @@ public class Address implements Cloneable{
      * @param street the street to be validated
      * @return the logical state of the validation. True if street is validated (not null and not empty), false otherwise
      */
-    private static boolean validateStreet(String street) {
+    private boolean validateStreet(String street) {
         return street != null && !street.trim().isEmpty();
     }
 
@@ -216,7 +216,7 @@ public class Address implements Cloneable{
      * @param number the street number to be validated
      * @return true if the street number is a positive intefer, false otherwise
      */
-    private static boolean validateStreetNumber(Integer number) {
+    private boolean validateStreetNumber(Integer number) {
         return number > 0;
     }
 
@@ -227,7 +227,7 @@ public class Address implements Cloneable{
      * @param postalCode the postal code to be validated
      * @return an enumerate type depending on the result
      */
-    private static ValidationAttributeResults validatePostalCode(String postalCode) {
+    private ValidationAttributeResults validatePostalCode(String postalCode) {
 
         if (postalCode == null || postalCode.trim().isEmpty()) {
             return ValidationAttributeResults.EMPTYNULL;
@@ -259,7 +259,7 @@ public class Address implements Cloneable{
      * @param city the city to be validated
      * @return true if the city is not null or empty, false otherwise
      */
-    private static boolean validateCity(String city) {
+    private boolean validateCity(String city) {
 
         return city != null && !city.trim().isEmpty();
     }
@@ -270,7 +270,7 @@ public class Address implements Cloneable{
      * @param district the district to be validated
      * @return true if the district is not null or empty, false otherwise
      */
-    private static boolean validateDistrict(String district) {
+    private boolean validateDistrict(String district) {
         return district != null && !district.trim().isEmpty();
     }
 
