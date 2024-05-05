@@ -41,8 +41,8 @@ public class Bootstrap implements Runnable {
         CollaboratorRepository collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
 
         String name = "joao alberto";
-        Date birthdate = new Date("15/5/1990");
-        Date admissionDate = new Date("1/1/2022");
+        String birthdate = "15/5/1990";
+        String admissionDate = "1/2/2022";
         String street = "Rua Principal";
         int streetNumber = 123;
         String postalCode = "1235-678";
@@ -54,7 +54,7 @@ public class Bootstrap implements Runnable {
         String idDocNumber = "123456789";
         Job job = new Job("x");
 
-        Collaborator collaborator = new Collaborator(name, "15/5/1990", "1/1/2022", street, streetNumber, postalCode,
+        Collaborator collaborator = new Collaborator(name, birthdate, admissionDate, street, streetNumber, postalCode,
                 city, district, email, mobileNumber, idDocType, idDocNumber, job);
 
         collaboratorRepository.add(collaborator);
@@ -102,7 +102,10 @@ public class Bootstrap implements Runnable {
         List<Vehicle> vehicles = Repositories.getInstance().getVehicleRepository().getVehicles();
 
         for (Vehicle vehicle : vehicles){
-            VehicleCheckup checkup = new VehicleCheckup(vehicle, new Date("1/5/2024"), 11000);
+            if(vehicle.getCurrentKm() >= 5000){
+                int kmsForCheckupBootstrap = vehicle.getCurrentKm() - 1000;
+                VehicleCheckup checkup = new VehicleCheckup(vehicle, new Date(), kmsForCheckupBootstrap);
+            }
         }
 
     }
