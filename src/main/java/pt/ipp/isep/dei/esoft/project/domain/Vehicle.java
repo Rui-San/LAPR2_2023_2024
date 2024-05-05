@@ -1,5 +1,8 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import pt.ipp.isep.dei.esoft.project._templateFiles.domain.Task;
+
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 public class Vehicle {
@@ -118,6 +121,23 @@ public class Vehicle {
         this.setCheckupFrequencyKms(checkupFrequencyKms);
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Vehicle)) {
+            return false;
+        }
+        Vehicle vehicle = (Vehicle) obj;
+        return getPlateId().equals(vehicle.getPlateId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash( getPlateId() );
+    }
+
     /**
      * Creates a deep copy of the Vehicle.
      *
@@ -138,4 +158,5 @@ public class Vehicle {
                 this.checkupFrequencyKms
         );
     }
+
 }
