@@ -41,6 +41,14 @@ public class Date implements Comparable<Date>,Cloneable {
         setDate(dateString);
     }
 
+    public Date(){
+        //set date as today's date
+        LocalDate today = LocalDate.now();
+        this.day = today.getDayOfMonth();
+        this.month = today.getMonthValue();
+        this.year = today.getYear();
+    }
+
     public void setDate(String date) {
 
         ValidationAttributeResults validateDateResults = validateDate(date);
