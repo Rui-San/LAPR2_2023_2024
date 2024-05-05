@@ -206,7 +206,7 @@ public class Collaborator implements Cloneable {
     public void setAdmissionDate(String admissionDate) {
         Date date = new Date(admissionDate);
 
-        if (!date.isAtLeast18YearsOld()) {
+        if (date.getDateDifferenceInDays(this.getBirthdate()) < 6574.5) {
             throw new IllegalArgumentException("Collaborator must be 18 years old");
         } else {
             this.admissionDate = date;
