@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Scanner;
 import java.io.PrintWriter;
 
-
 public class MainUS13 {
 
     public static final String CSV_DIVISOR = ";";
@@ -60,6 +59,7 @@ public class MainUS13 {
                     //generateGraphViz(minimalSpanningTree);
                     Graph g = highlightGraph(drawGraph( (ArrayList<Edge>)graph.getEdges(), "Minimum Spanning Tree"), (ArrayList<Edge>)minimalSpanningTree);
                     addTextToGraph(g, fileName, totalCost);
+
                 }
             } catch (NumberFormatException e) {
                 System.out.println("The file must not be empty");
@@ -100,13 +100,16 @@ public class MainUS13 {
     }
 
     public static void addTextToGraph(Graph graph, String text, double cost) {
+
+        String csvName = text.substring(text.lastIndexOf(File.separator) + 1);
+
         // Adiciona o texto à visualização do grafo
         Viewer viewer = graph.display();
         ViewerPipe pipe = viewer.newViewerPipe();
 
         // Adiciona o texto na parte superior da visualização
         JPanel panel = (JPanel) viewer.getDefaultView();
-        JLabel title = new JLabel(text);
+        JLabel title = new JLabel(csvName);
         JLabel label = new JLabel("Total cost: " + cost);
         title.setHorizontalAlignment(SwingConstants.CENTER);
         title.setFont(new Font("Arial", Font.BOLD, 20));
@@ -306,4 +309,5 @@ public class MainUS13 {
             e.printStackTrace();
         }
     }
+
 }
