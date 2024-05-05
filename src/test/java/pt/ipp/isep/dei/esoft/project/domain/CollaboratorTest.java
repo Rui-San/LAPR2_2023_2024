@@ -275,7 +275,7 @@ class CollaboratorTest {
 
         String retrievedBirthdate = collaborator.getBirthdate().toString();
 
-        assertEquals("7/10/1995", retrievedBirthdate);
+        assertEquals("07/10/1995", retrievedBirthdate);
     }
 
     @Test
@@ -287,7 +287,7 @@ class CollaboratorTest {
 
         String actualAdmissionDate = collaborator.getAdmissionDate().toString();
 
-        String expectedAdmissionDate = "20/3/2024";
+        String expectedAdmissionDate = "20/03/2024";
 
         assertEquals(expectedAdmissionDate, actualAdmissionDate);
     }
@@ -390,8 +390,33 @@ class CollaboratorTest {
 
         Collaborator collaborator = new Collaborator("Pedro Costa", "07/10/1995", "20/03/2024", "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", Collaborator.IdDocType.CC, "234324235", job);
 
-        String expectedString = "Collaborator{name='Pedro Costa', birthdate=7/10/1995, admissionDate=20/3/2024, address=Address{street='Rua das travessas', streetNumber=123, postalCode='1234-123', city='Matosinhos', district='Porto'}, email=Email= 1221790@isep.ipp.pt, mobileNumber=931231234, idDocType='CC', idDocNumber=234324235}";
+        String expectedString = "Collaborator{name='Pedro Costa', birthdate=07/10/1995, admissionDate=20/03/2024, address=Address{street='Rua das travessas', streetNumber=123, postalCode='1234-123', city='Matosinhos', district='Porto'}, email=Email= 1221790@isep.ipp.pt, mobileNumber=931231234, idDocType='CC', idDocNumber=234324235}";
         assertEquals(expectedString, collaborator.toString());
+    }
+
+    @Test
+    public void ensureBirthdateNotInFuture(){
+        Job job = new Job("Gestor");
+
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Collaborator("Pedro Costa", "07/10/2025", "20/03/2024", "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "930123452", Collaborator.IdDocType.CC, "234324235", job);
+
+        });
+        assertTrue(exception.getMessage().contains("Birthdate cannot be in the future."));
+    }
+
+    @Test
+    public void ensureCollaboratorMustBe18YearsOld(){
+        Job job = new Job("Gestor");
+
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Collaborator("Pedro Costa", "07/10/2010", "20/03/2024", "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "930123452", Collaborator.IdDocType.CC, "234324235", job);
+
+        });
+        assertTrue(exception.getMessage().contains("Collaborator must be 18 years old"));
+
     }
 
 }
