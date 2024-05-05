@@ -99,7 +99,6 @@ public class Date implements Comparable<Date>,Cloneable {
             return ValidationAttributeResults.INVALID_DAY;
         }
 
-
         if (year <= MIN_ACCEPTED_YEAR) {
             return ValidationAttributeResults.INVALID_YEAR;
         }
@@ -109,6 +108,20 @@ public class Date implements Comparable<Date>,Cloneable {
 
     private boolean isLeapYear(int year) {
         return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+    }
+
+    public boolean isAtLeast18YearsOld() {
+        int currentYear = LocalDate.now().getYear();
+        int currentMonth = LocalDate.now().getMonthValue();
+        int currentDay = LocalDate.now().getDayOfMonth();
+
+        int diffYears = currentYear - this.year;
+
+        if (currentMonth < this.month || (currentMonth == this.month && currentDay < this.day)) {
+            diffYears--;
+        }
+
+        return diffYears >= 18;
     }
 
 

@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.esoft.project.domain;
 
 import pt.ipp.isep.dei.esoft.project.tools.MobileOperator;
 import pt.ipp.isep.dei.esoft.project.tools.ValidationAttributeResults;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -56,7 +57,6 @@ public class Collaborator implements Cloneable {
      * The type of the ID document of the collaborator.
      */
     private IdDocType idDocType;
-
 
 
     /**
@@ -180,7 +180,13 @@ public class Collaborator implements Cloneable {
      * @param birthdate the birthdate to set
      */
     public void setBirthdate(String birthdate) {
-        this.birthdate = new Date(birthdate);
+        Date date = new Date(birthdate);
+
+        if (!date.isPastDate()) {
+            throw new IllegalArgumentException("Birthdate cannot be in the future.");
+        } else {
+            this.birthdate = date;
+        }
     }
 
     /**
@@ -198,7 +204,13 @@ public class Collaborator implements Cloneable {
      * @param admissionDate the admission date to set
      */
     public void setAdmissionDate(String admissionDate) {
-        this.admissionDate = new Date(admissionDate);
+        Date date = new Date(admissionDate);
+
+        if (!date.isAtLeast18YearsOld()) {
+            throw new IllegalArgumentException("Collaborator must be 18 years old");
+        } else {
+            this.admissionDate = date;
+        }
     }
 
     /**
