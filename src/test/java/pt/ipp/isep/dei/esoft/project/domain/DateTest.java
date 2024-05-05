@@ -223,4 +223,12 @@ public class DateTest {
         assertFalse(currentDate.isPastDate());
     }
 
+    @Test
+    public void testGetDateDifferenceInDays(){
+        Date date1 = new Date("09/12/2022");
+        Date date2 = new Date("05/05/2024");
+        int days = 513;
+        assertEquals(days, date1.getDateDifferenceInDays(date2));
+    }
+
 }

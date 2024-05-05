@@ -118,20 +118,6 @@ public class Date implements Comparable<Date>,Cloneable {
         return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
     }
 
-    public boolean isAtLeast18YearsOld() {
-        int currentYear = LocalDate.now().getYear();
-        int currentMonth = LocalDate.now().getMonthValue();
-        int currentDay = LocalDate.now().getDayOfMonth();
-
-        int diffYears = currentYear - this.year;
-
-        if (currentMonth < this.month || (currentMonth == this.month && currentDay < this.day)) {
-            diffYears--;
-        }
-
-        return diffYears >= 18;
-    }
-
 
     public int getDay() {
         return day;
@@ -175,6 +161,43 @@ public class Date implements Comparable<Date>,Cloneable {
         String todayDateString = (today.getDayOfMonth()) + "/" + today.getMonthValue() + "/" + today.getYear();
         Date todayDate = new Date(todayDateString);
         return this.compareTo(todayDate) < 0;
+    }
+
+    public int getDateDifferenceInDays(Date date) {
+        int days = 0;
+        int byear, syear;
+        if(date.getYear() > this.getYear()){
+            byear = date.getYear() -1;
+            syear = this.getYear();
+        }else{
+            byear = this.getYear() -1;
+            syear = date.getYear();
+        }
+        for( int i = byear; i > syear; i--){
+            days += 365;
+            if(isLeapYear(i)){
+                days++;
+            }
+        }
+        for( int month = 1; month < date.getMonth(); month++){
+            days += getDaysInMonth(month, date.getYear());
+        }
+        days += date.getDay();
+        for (int month = 12; month > this.getMonth(); month--){
+            days += getDaysInMonth(month, this.getYear());
+        }
+        days += getDaysInMonth(this.getMonth(), this.getYear()) - this.getDay();
+        return days;
+    }
+
+    private int getDaysInMonth(int month, int year) {
+        if (month == Mes.FEVEREIRO.numero) {
+            return isLeapYear(year) ? 29 : 28;
+        } else if (month == Mes.ABRIL.numero || month == Mes.JUNHO.numero || month == Mes.SETEMBRO.numero || month == Mes.NOVEMBRO.numero) {
+            return 30;
+        } else {
+            return 31;
+        }
     }
 
     /**
