@@ -7,6 +7,9 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
+import org.jfree.graphics2d.svg.SVGGraphics2D;
+import org.jfree.graphics2d.svg.SVGUtils;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
@@ -45,14 +48,14 @@ public class MainUS14 {
         }
         for (File csvFile : csvFiles) {
             long startTime = System.currentTimeMillis();
-            Graph graph = readCsvFile(csvFile.getAbsolutePath());
+            GraphPV graphPV = readCsvFile(csvFile.getAbsolutePath());
 
-            if (graph != null && graph.getEdges() != null) {
-                int totalLines = graph.getEdges().size();
-                List<Edge> minimalSpanningTree = graph.getMinimalSpanningTree();
+            if (graphPV != null && graphPV.getEdges() != null) {
+                int totalLines = graphPV.getEdges().size();
+                List<Edge> minimalSpanningTree = graphPV.getMinimalSpanningTree();
                 long endTime = System.currentTimeMillis();
                 long executionTime = endTime - startTime;
-                int totalNumberOfVertices = graph.getTotalNumberOfVertices();
+                int totalNumberOfVertices = graphPV.getTotalNumberOfVertices();
                 double totalCost = obtainTotalCost(minimalSpanningTree);
                 FileInfo fileInfo = new FileInfo(csvFile.getName(), totalLines, executionTime, totalCost, totalNumberOfVertices);
                 FILE_INFO_LIST.add(fileInfo);
@@ -80,8 +83,8 @@ public class MainUS14 {
      * @param fileName the name of the CSV file to read
      * @return the constructed graph
      */
-    public static Graph readCsvFile(String fileName) {
-        Graph graph = new Graph();
+    public static GraphPV readCsvFile(String fileName) {
+        GraphPV graphPV = new GraphPV();
         File csv = new File(fileName);
 
         if (!isValidFile(csv)) {
@@ -101,7 +104,7 @@ public class MainUS14 {
 
                         Edge edge = new Edge(vertex1, vertex2, distance);
 
-                        graph.addEdge(edge, vertex1, vertex2);
+                        graphPV.addEdge(edge, vertex1, vertex2);
 
                     } catch (NumberFormatException e) {
                         System.out.println("Error: Unable to parse values in line.");
@@ -116,7 +119,7 @@ public class MainUS14 {
             System.out.println("Error: File Not Found.");
             return null;
         }
-        return graph;
+        return graphPV;
     }
 
     /**
@@ -180,6 +183,23 @@ public class MainUS14 {
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+
+        // usar o JFreeSVG para exportar o gráfico para um ficheiro SVG
+        SVGGraphics2D g2 = new SVGGraphics2D(800, 600);
+        Rectangle r = new Rectangle(0, 0, 800, 600);
+        chart.draw(g2, r);
+        String directory = "MATDISC_graph_images";
+
+        if (!new File(directory).exists()) {
+            new File(directory).mkdir();
+        }
+
+        File svgFile = new File(directory + "/US14_DataSet_output.svg");
+        try {
+            SVGUtils.writeToSVG(svgFile, g2.getSVGElement());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

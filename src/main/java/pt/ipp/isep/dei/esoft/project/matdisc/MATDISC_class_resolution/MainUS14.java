@@ -7,6 +7,9 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
+import org.jfree.graphics2d.svg.SVGGraphics2D;
+import org.jfree.graphics2d.svg.SVGUtils;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
@@ -173,6 +176,23 @@ public class MainUS14 {
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+
+        // usar o JFreeSVG para exportar o gráfico para um ficheiro SVG
+        SVGGraphics2D g2 = new SVGGraphics2D(800, 600);
+        Rectangle r = new Rectangle(0, 0, 800, 600);
+        chart.draw(g2, r);
+        String directory = "MATDISC_graph_images";
+
+        if (!new File(directory).exists()) {
+            new File(directory).mkdir();
+        }
+
+        File svgFile = new File(directory + "/US14_DataSet_output.svg");
+        try {
+            SVGUtils.writeToSVG(svgFile, g2.getSVGElement());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

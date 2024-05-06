@@ -11,4 +11,4 @@ if exist MATDISC_graph_images\%base_name%%counter%%extension% (
     goto check_file_existence
 )
 
-dot -Tpng MATDISC_graph_images\graph.dot -o MATDISC_graph_images\%base_name%%counter%%extension%
+dot -Tpng MATDISC_graph_images\graphPV.dot -o MATDISC_graph_images\%base_name%%counter%%extension%

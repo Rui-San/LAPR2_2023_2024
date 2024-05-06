@@ -1,9 +1,24 @@
 package pt.ipp.isep.dei.esoft.project.matdisc.MATDISC_point_to_vertex;
 
+import org.graphstream.graph.Graph;
+import org.graphstream.graph.Node;
+import org.graphstream.graph.implementations.*;
+import org.graphstream.ui.view.Viewer;
+import org.graphstream.ui.view.ViewerPipe;
+
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 import javax.swing.*;
-import java.io.*;
+import java.awt.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.io.PrintWriter;
 
 /**
  * Main class for processing CSV showing the results for US12 and US13.
@@ -12,6 +27,7 @@ public class MainUS13 {
 
     public static final String CSV_DIVISOR = ";";
     public static final int TOTAL_NUMBER_OF_COLUMNS = 3;
+    static final String CSS = "graph {padding: 75px;} node {text-alignment: under;} edge {text-size: 15px; text-color: #000000;}";
 
     /**
      * Main method
@@ -35,9 +51,7 @@ public class MainUS13 {
 
 
             startTime = System.currentTimeMillis();
-            Graph graph = readCsvFile(fileName);
-
-
+            GraphPV graph = readCsvFile(fileName);
 
             try {
                 if (graph != null && graph.getEdges() != null) {
@@ -54,7 +68,11 @@ public class MainUS13 {
 
                     System.out.println();
                     System.out.println(fileInfo);
-                    generateGraphViz(minimalSpanningTree);
+                    String csvName = fileName.substring(fileName.lastIndexOf(File.separator) + 1);
+
+                    org.graphstream.graph.Graph g = highlightGraph(drawGraph( (ArrayList<Edge>)graph.getEdges(), "Minimum Spanning Tree"), (ArrayList<Edge>)minimalSpanningTree);
+                    addTextToGraph(g, fileName, totalCost);
+                    generateGraphViz( graph.getEdges(), minimalSpanningTree, csvName, totalCost);
                 }
             } catch (NumberFormatException e) {
                 System.out.println("The file must not be empty");
@@ -63,6 +81,53 @@ public class MainUS13 {
         } else {
             System.out.println("Nenhum arquivo foi selecionado.");
         }
+    }
+
+    public static org.graphstream.graph.Graph drawGraph(ArrayList<Edge> edges, String graphTitle){
+        System.setProperty("org.graphstream.ui", "swing");
+        org.graphstream.graph.Graph graph = new SingleGraph(graphTitle);
+        graph.setAttribute("ui.stylesheet", CSS);
+        graph.setStrict(false);
+        graph.setAutoCreate( true );
+        for(Edge edge : edges){
+            graph.addEdge((edge.getSource()+edge.getDestination()),edge.getSource(),edge.getDestination()).setAttribute("ui.label", edge.getDistance());
+        }
+        for (Node node : graph) {
+            node.setAttribute("ui.label", node.getId());
+            node.setAttribute("ui.style", "size: 14px;");
+            node.setAttribute("ui.style", "text-size: 20px;");
+        }
+        graph.setAttribute("ui.title", "Minimum Spanning Tree");
+        graph.setAttribute("ui.quality");
+        graph.setAttribute("ui.antialias");
+        return graph;
+    }
+
+    public static org.graphstream.graph.Graph highlightGraph(Graph g, ArrayList<Edge> result){
+        for(Edge edge : result){
+            g.getEdge((edge.getSource()+edge.getDestination())).setAttribute("ui.style", "fill-color: red; " +
+                    "size: 5px;");
+        }
+        return g;
+    }
+
+    public static void addTextToGraph(Graph graph, String csvName, double cost) {
+
+        // Adiciona o texto à visualização do grafo
+        Viewer viewer = graph.display();
+        ViewerPipe pipe = viewer.newViewerPipe();
+
+        // Adiciona o texto na parte superior da visualização
+        JPanel panel = (JPanel) viewer.getDefaultView();
+        JLabel title = new JLabel(csvName);
+        JLabel label = new JLabel("Total cost: " + cost);
+        title.setHorizontalAlignment(SwingConstants.CENTER);
+        title.setFont(new Font("Arial", Font.BOLD, 20));
+        panel.add(title, BorderLayout.NORTH);
+        panel.add(label, BorderLayout.WEST);
+
+        // Atualiza a visualização para exibir o texto adicionado
+        panel.revalidate();
     }
 
     /**
@@ -74,8 +139,8 @@ public class MainUS13 {
      * @param fileName the name of the CSV file to read
      * @return the constructed graph
      */
-    public static Graph readCsvFile(String fileName) {
-        Graph graph = new Graph();
+    public static GraphPV readCsvFile(String fileName) {
+        GraphPV graph = new GraphPV();
         File csv = new File(fileName);
 
         if (!isValidFile(csv)) {
@@ -187,13 +252,13 @@ public class MainUS13 {
     }
 
     /**
-     * Generates a GraphViz representation of the minimal spanning tree.
-     * Creates a graph.dot file which will be converted into a GraphViz representation using the graphPngGenerator.bat.
-     * All the images produced using this program will be stored in "MATDISC_graph_images".
-     *
-     * @param edges the edges of the minimal spanning tree
+     * Cria uma representação visual do grafo com o GraphViz. O grafo é exportado para um ficheiro .CSV
+     * @param initialGraphEdges O grafo inicial com todos os vertices e arestas
+     * @param minimalSpanningTreeEdges O grafo com a árvore geradora mínima
+     * @param title o título do grafo
+     * @param cost o custo total da árvore geradora mínima
      */
-    public static void generateGraphViz(List<Edge> edges) {
+    public static void generateGraphViz(List<Edge> initialGraphEdges, List<Edge> minimalSpanningTreeEdges, String title, double cost) {
         try {
             String directoryPath = "MATDISC_graph_images";
             File directory = new File(directoryPath);
@@ -205,21 +270,28 @@ public class MainUS13 {
             FileWriter writer = new FileWriter(directoryPath + "/graph.dot");
 
             writer.write("graph {\n");
+            writer.write("labelloc=\"t\";\n"); // Position the label at the top
+            writer.write("label=\"" + title + " (total cost:" + cost + ")\";\n"); // Set the label
+            writer.write("fontsize=25;\n"); // Set the font size of the title
+            writer.write("fontweight=bold;\n"); // Set the font weight of the title
 
-            for (Edge edge : edges) {
-                writer.write("    " + edge.getSource() + " -- " + edge.getDestination() + " [label=\"" + edge.getDistance() + "\"];\n");
+            for (Edge edge : initialGraphEdges) {
+                String color = minimalSpanningTreeEdges.contains(edge) ? "red" : "black";
+                String penwidth = minimalSpanningTreeEdges.contains(edge) ? "4.0" : "1.0";
+                writer.write("    " + edge.getSource() + " -- " + edge.getDestination() + " [label=\"" + edge.getDistance() + "\", color=\"" + color + "\", len=2, penwidth=" + penwidth + "];\n");
             }
 
             writer.write("}\n");
             writer.close();
 
-
             try {
-                Runtime.getRuntime().exec("graphPngGenerator.bat");
+                // Use neato layout engine
+                Runtime.getRuntime().exec("neato -Tsvg " + directoryPath + "/graph.dot -o " + directoryPath + "/" + title + "_MST.svg");
+                // Or use fdp layout engine
+                // Runtime.getRuntime().exec("fdp -Tpng " + directoryPath + "/graph.dot -o " + directoryPath + "/graph.png");
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
