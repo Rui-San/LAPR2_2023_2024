@@ -36,4 +36,12 @@ class VehicleCheckupTest {
         }
     }
 
+    @Test
+    void testGetVehicle() {
+        Vehicle vehicle = new Vehicle("AA-00-00", "Vehicle Brand", "Vehicle Model", "1", 10, 10, 1000, new Date("10/12/2003"), new Date("10/12/2012"), 100 );
+        VehicleCheckup checkup = new VehicleCheckup(vehicle, new Date("10/12/2012"), 100);
+        assertEquals(vehicle, checkup.getVehicle());
+    }
+
+
 }
