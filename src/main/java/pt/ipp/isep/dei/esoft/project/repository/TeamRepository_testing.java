@@ -4,7 +4,6 @@ import pt.ipp.isep.dei.esoft.project.domain.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 
 public class TeamRepository_testing {
@@ -110,6 +109,16 @@ public class TeamRepository_testing {
 
      */
 
+    /**
+     * Generates a list with all possible teams with the given inputs.
+     *
+     * @param minTeamSize the minimum size of the team
+     * @param maxTeamSize the maximum size of the team
+     * @param skillsNeeded the list of skills needed in the team
+     * @param quantityNeeded the quantity of each skill needed in the team
+     * @param collaboratorList the list of collaborators of the organization
+     * @return the list of all teams generated
+     */
     public List<Team_testing> generateTeams(int minTeamSize, int maxTeamSize, List<Skill> skillsNeeded, List<Integer> quantityNeeded, List<Collaborator> collaboratorList) {
 
         List<Team_testing> definitiveTeamList = new ArrayList<>();
@@ -129,7 +138,7 @@ public class TeamRepository_testing {
 
         List<Collaborator> possibleCollaborators = gatherPossibleCollaborators(collaboratorList, skillSetList);
 
-        teamsList = criarEquipas(possibleCollaborators, minTeamSize, maxTeamSize);
+        teamsList = createTeams(possibleCollaborators, minTeamSize, maxTeamSize);
 
 
         for (Team_testing team : teamsList) {
@@ -147,7 +156,7 @@ public class TeamRepository_testing {
                     }
                 }
             }
-            if (verifyIfSkillSetIsFullfilled(skillSetListCopy)) {
+            if (verifyIfSkillSetIsFulfilled(skillSetListCopy)) {
                 definitiveTeamList.add(team);
             }
         }
@@ -159,7 +168,13 @@ public class TeamRepository_testing {
         return definitiveTeamList;
     }
 
-    private boolean verifyIfSkillSetIsFullfilled(List<SkillSet> skillSetListCopy) {
+    /**
+     * Verifies if all skills needed are fulfilled according to their quantity.
+     *
+     * @param skillSetListCopy the list of object skillSet, containing the skill needed and its quantity
+     * @return true if all skills/quantities are fulfilled for the team. False, otherwise.
+     */
+    private boolean verifyIfSkillSetIsFulfilled(List<SkillSet> skillSetListCopy) {
         boolean isFullfilled = true;
 
         for (SkillSet skillSet : skillSetListCopy) {
@@ -171,62 +186,90 @@ public class TeamRepository_testing {
         return isFullfilled;
     }
 
-    private List<Team_testing> criarEquipas(List<Collaborator> possibleCollaborators, int minTeamSize, int maxTeamSize) {
-        List<Team_testing> todasAsEquipas = new ArrayList<>();
+    /**
+     * Create all possible teams (from minimum size to maximum size).
+     *
+     * @param possibleCollaborators the collaborators able to join the team
+     * @param minTeamSize the minimum size of the team
+     * @param maxTeamSize the maximum size of the team
+     * @return the list of all teams created
+     */
+    private List<Team_testing> createTeams(List<Collaborator> possibleCollaborators, int minTeamSize, int maxTeamSize) {
+        List<Team_testing> allTeams = new ArrayList<>();
 
         for (int teamSize = minTeamSize; teamSize <= maxTeamSize && teamSize <= possibleCollaborators.size(); teamSize++) {
-            List<Team_testing> equipasPorTamanho = criarEquipasPorTamanho(possibleCollaborators, teamSize);
-            todasAsEquipas.addAll(equipasPorTamanho);
+            List<Team_testing> teamsBySize = createTeamsBySize(possibleCollaborators, teamSize);
+            allTeams.addAll(teamsBySize);
         }
-        return todasAsEquipas;
+        return allTeams;
     }
 
-    private List<Team_testing> criarEquipasPorTamanho(List<Collaborator> possibleCollaborators, int teamSize) {
-        List<Team_testing> equipas = new ArrayList<>();
+    /**
+     * By receiving the current team size in parameter (from the minimum to the maximum team size) creates all the teams for that specific size.
+     *
+     * @param possibleCollaborators the collaborators able to join the team
+     * @param teamSize the team size
+     * @return the list of teams of that specific size
+     */
+    private List<Team_testing> createTeamsBySize(List<Collaborator> possibleCollaborators, int teamSize) {
+        List<Team_testing> teams = new ArrayList<>();
 
         int n = possibleCollaborators.size();
 
-        int[] indices = new int[teamSize];
+        int[] index = new int[teamSize];
         for (int i = 0; i < teamSize; i++) {
-            indices[i] = i;
+            index[i] = i;
         }
 
-        while (indices[0] < n - teamSize + 1) {
-            List<Collaborator> equipeAtual = new ArrayList<>();
+        while (index[0] < n - teamSize + 1) {
+            List<Collaborator> actualTeam = new ArrayList<>();
             for (int i = 0; i < teamSize; i++) {
-                equipeAtual.add(possibleCollaborators.get(indices[i]));
+                actualTeam.add(possibleCollaborators.get(index[i]));
             }
-            equipas.add(new Team_testing(equipeAtual));
+            teams.add(new Team_testing(actualTeam));
 
             int j = teamSize - 1;
-            while (j >= 0 && indices[j] == n - teamSize + j) {
+            while (j >= 0 && index[j] == n - teamSize + j) {
                 j--;
             }
             if (j < 0) {
                 break;
             }
-            indices[j]++;
+            index[j]++;
             for (int k = j + 1; k < teamSize; k++) {
-                indices[k] = indices[k - 1] + 1;
+                index[k] = index[k - 1] + 1;
             }
         }
-        return equipas;
+        return teams;
     }
 
 
+    /**
+     * Verifies which collaborators of the company are not currently in a team and have at least one skill required to join the team.
+     *
+     * @param collaboratorList the list of collaborators of the organization
+     * @param skillSetList the set of skills needed in the team
+     * @return the possible collaborators that can be integrated in the specific team
+     */
     private List<Collaborator> gatherPossibleCollaborators(List<Collaborator> collaboratorList, List<SkillSet> skillSetList) {
 
         List<Collaborator> possibleCollaborators = new ArrayList<>();
 
         for (Collaborator collaborator : collaboratorList) {
-            if (!isAllreadyInOneTeam(collaborator) && collaborator.hasAtLeastOneSkill(SkillSet.getAllSkills(skillSetList))) {
+            if (!isAlreadyInOneTeam(collaborator) && collaborator.hasAtLeastOneSkill(SkillSet.getAllSkills(skillSetList))) {
                 possibleCollaborators.add(collaborator);
             }
         }
         return possibleCollaborators;
     }
 
-    private boolean isAllreadyInOneTeam(Collaborator collaborator) {
+    /**
+     * Verifies if a specific collaborator is already in one team at the moment.
+     *
+     * @param collaborator the collaborator
+     * @return true if the collaborator is already in one team. False, otherwise.
+     */
+    private boolean isAlreadyInOneTeam(Collaborator collaborator) {
 
         boolean isInOneTeam = false;
         for (Team_testing team : teamList) {
@@ -238,6 +281,13 @@ public class TeamRepository_testing {
         return isInOneTeam;
     }
 
+    /**
+     * Verifies if the quantity of a specific skill is superior to the maximum team size.
+     *
+     * @param quantityNeeded the quantity needed of each skill
+     * @param maxTeamSize the maximum size of the team
+     * @return true if the quantity of any skill is lower than the team size. False, otherwise.
+     */
     private boolean verifyQuantityNeeded(List<Integer> quantityNeeded, int maxTeamSize) {
         boolean quantityCorrect = true;
         for (Integer quantity : quantityNeeded) {
@@ -248,6 +298,11 @@ public class TeamRepository_testing {
         return quantityCorrect;
     }
 
+    /**
+     * Adds the selected team to the list of teams in the repository.
+     *
+     * @param teamAccepted
+     */
     public void saveTeamProposal(Team_testing teamAccepted) {
         teamList.add(teamAccepted);
     }
