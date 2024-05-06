@@ -59,7 +59,7 @@ public class RegisterCheckupController {
     //return the list of vehicles
     public List<Vehicle> getVehicles() {
         VehicleRepository vehicleRepository = getVehicleRepository();
-        return vehicleRepository.getVehicles();
+        return vehicleRepository.getVehicleList();
     }
 
 }

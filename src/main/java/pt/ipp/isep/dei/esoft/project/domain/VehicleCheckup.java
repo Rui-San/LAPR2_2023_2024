@@ -44,13 +44,22 @@ public class VehicleCheckup {
      * Sets the vehicle of a checkup.
      * @param vehicle the vehicle that was checked
      */
-    public void setVehicle(Vehicle vehicle) { this.vehicle = vehicle; }
+    public void setVehicle(Vehicle vehicle) {
+        if (vehicle == null) {
+            throw new IllegalArgumentException("Vehicle does not exist.");
+        } else {
+            this.vehicle = vehicle;
+        }
+    }
 
     /**
      * Sets the date of a checkup.
      * @param checkupDate the date of the checkup
      */
-    public void setCheckupDate(Date checkupDate) { this.checkupDate = checkupDate; }
+    public void setCheckupDate(Date checkupDate) {
+        validateCheckupDate(checkupDate);
+        this.checkupDate = checkupDate;
+    }
 
     /**
      * Sets the kilometers of a checkup.
@@ -83,6 +92,16 @@ public class VehicleCheckup {
             throw new IllegalArgumentException("Checkup kilometers must be a positive number.");
         }else if(checkupKms > vehicle.getCurrentKm()){
             throw new IllegalArgumentException("Checkup kilometers must be less than the current kilometers of the vehicle.");
+        }
+    }
+
+    /**
+     * Validates the checkup date.
+     * @param checkupDate the checkup date
+     */
+    private void validateCheckupDate(Date checkupDate) {
+        if (checkupDate.compareTo(getVehicle().getRegisterDate()) > 0) {
+            throw new IllegalArgumentException("Checkup must cannot have been done before the register date.");
         }
     }
 

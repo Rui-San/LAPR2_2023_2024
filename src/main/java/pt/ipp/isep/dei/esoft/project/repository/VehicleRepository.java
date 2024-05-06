@@ -1,6 +1,8 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
+import pt.ipp.isep.dei.esoft.project.domain.Date;
+import pt.ipp.isep.dei.esoft.project.domain.Job;
 import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
 
 import java.util.ArrayList;
@@ -33,7 +35,7 @@ public class VehicleRepository {
      * Gets the list of all vehicles.
      * @return
      */
-    public List<Vehicle> getVehicles() {
+    public List<Vehicle> getVehicleList() {
         return List.copyOf(vehicleList);
     }
 
@@ -45,9 +47,14 @@ public class VehicleRepository {
         this.vehicleList = vehicles;
     }
 
+    /**
+     * Gets the vehicles in the repository that need a checkup.
+     * @param checkupRepository The checkup repository.
+     * @return The list of vehicles that need a checkup.
+     */
     public ArrayList<Vehicle> getVehiclesNeedingCheckup(CheckupRepository checkupRepository){
 
-        List<Vehicle> vehicleList = getVehicles();
+        List<Vehicle> vehicleList = getVehicleList();
         ArrayList<Vehicle> vehiclesNeedingCheckup = new ArrayList<>();
 
         for(Vehicle vehicle : vehicleList){
@@ -59,6 +66,45 @@ public class VehicleRepository {
         return vehiclesNeedingCheckup;
     }
 
+    /**
+     * Creates a new vehicle and adds it to the list of vehicles.
+     * @param plateId The plate ID of the vehicle.
+     * @param brand The brand of the vehicle.
+     * @param model The model of the vehicle.
+     * @param type The type of the vehicle.
+     * @param tare The tare of the vehicle.
+     * @param grossWeight The gross weight of the vehicle.
+     * @param currentKm The current kilometers of the vehicle.
+     * @param registerDate The registration date of the vehicle.
+     * @param acquisitionDate The acquisition date of the vehicle.
+     * @param checkupFrequencyKms The checkup frequency of the vehicle in KMs.
+     * @return An optional with the created vehicle if the operation was successful, an empty optional otherwise.
+     */
+    public Optional<Vehicle> createVehicle(String plateId, String brand, String model, String type, double tare, double grossWeight, int currentKm, Date registerDate, Date acquisitionDate, int checkupFrequencyKms) {
+
+        Vehicle vehicle = new Vehicle(
+                plateId,
+                brand,
+                model,
+                type,
+                tare,
+                grossWeight,
+                currentKm,
+                registerDate,
+                acquisitionDate,
+                checkupFrequencyKms
+        );
+
+        this.add(vehicle);
+        return Optional.of(vehicle);
+
+    }
+
+    /**
+     * Adds a vehicle to the list of vehicles.
+     * @param vehicle The vehicle to be added.
+     * @return An optional with the added vehicle if the operation was successful, an empty optional otherwise.
+     */
     public Optional<Vehicle> add(Vehicle vehicle) {
         Optional<Vehicle> newVehicle = Optional.empty();
         boolean operationSuccess = false;
@@ -75,6 +121,11 @@ public class VehicleRepository {
         return newVehicle;
     }
 
+    /**
+     * Validates a vehicle.
+     * @param vehicle
+     * @return
+     */
     private boolean validateVehicle(Optional<Vehicle> vehicle) {
         boolean isValid = true; //TODO: this is here to avoid compilation errors, but it should be implemented
 
@@ -94,6 +145,20 @@ public class VehicleRepository {
         checkUpThresholdKm -= (int) (checkUpThresholdKm * 0.05);
 
         return vehicle.getCurrentKm() >= checkUpThresholdKm;
+    }
+
+    /**
+     * Gets a vehicle by its plate ID.
+     * @param plateID The plate ID of the vehicle.
+     * @return The vehicle with the specified plate ID if it exists, null otherwise.
+     */
+    public Vehicle getVehicleByPlateId(String plateID) {
+        for (Vehicle vehicle : vehicleList) {
+            if (vehicle.getPlateId().equals(plateID)) {
+                return vehicle;
+            }
+        }
+        return null;
     }
 
 }
