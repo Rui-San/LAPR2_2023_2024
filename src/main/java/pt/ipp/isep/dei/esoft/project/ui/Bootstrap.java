@@ -99,7 +99,7 @@ public class Bootstrap implements Runnable {
     private void addCheckup() {
 
         CheckupRepository checkupRepository = Repositories.getInstance().getCheckupRepository();
-        List<Vehicle> vehicles = Repositories.getInstance().getVehicleRepository().getVehicles();
+        List<Vehicle> vehicles = Repositories.getInstance().getVehicleRepository().getVehicleList();
 
         for (Vehicle vehicle : vehicles){
             if(vehicle.getCurrentKm() >= 5000){

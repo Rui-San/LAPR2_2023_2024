@@ -84,6 +84,7 @@ public class CollaboratorRepository {
         return Optional.of(collaborator);
 
     }
+
     public boolean updateCollaboratorSkills(Collaborator collaborator, List<Skill> skills) {
         Optional<Collaborator> existingCollaborator = getCollaboratorByCollaboratorEmail(collaborator.getEmail());
 
