@@ -4,11 +4,11 @@
 
 - Jardim dos Sentimentos:
 
-![Jardim dos Sentimentos](US13_JardimDosSentimentos.csv_MST.svg)
+![Jardim dos Sentimentos](US13_JardimDosSentimentos_MST.svg)
 
 - Jardim Especies Núcleo Rural:
 
-![Jardim Especies Núcleo Rural](US13_JardimEspeciesNucleoRural.csv_MST.svg)
+![Jardim Especies Núcleo Rural](US13_JardimEspeciesNucleoRural_MST.svg)
 
 ## US14:
 

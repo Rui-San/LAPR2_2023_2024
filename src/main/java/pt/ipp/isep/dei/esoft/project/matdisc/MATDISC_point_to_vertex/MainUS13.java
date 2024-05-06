@@ -283,12 +283,10 @@ public class MainUS13 {
 
             writer.write("}\n");
             writer.close();
-
+            title = title.substring(0, title.length() - 4);
             try {
                 // Use neato layout engine
                 Runtime.getRuntime().exec("neato -Tsvg " + directoryPath + "/graph.dot -o " + directoryPath + "/" + title + "_MST.svg");
-                // Or use fdp layout engine
-                // Runtime.getRuntime().exec("fdp -Tpng " + directoryPath + "/graph.dot -o " + directoryPath + "/graph.png");
             } catch (IOException e) {
                 e.printStackTrace();
             }
