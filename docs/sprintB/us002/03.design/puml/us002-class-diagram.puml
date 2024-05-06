@@ -11,32 +11,31 @@ skinparam classAttributeIconSize 0
 'left to right direction
 
 Class RegisterJobController{
-    +getJob()
-    +registerJob(jobName)
+    +createJob()
 }
 
 Class RegisterJobUI {
 
 }
 
-class Organization {
-    -String name
-    -NIF nif
-    -Website
-    -Phonenumber
-    -Email email
+class Repositories {
+    +getInstance()
+    +getJobRepository()
 }
 
-class HRM {
-
+class jobRepository{
+    +createJob(String jobName)
 }
 
 class Job{
-    -ListOfAllRegisteredJobs
-
+    -jobName
+    +Job(jobName)
 }
-RegisterJobUI --.> RegisterJobController
-HRM --o Organization
-RegisterJobController --.> Job
-HRM -->  RegisterJobUI
+
+Repositories --> Repositories : "instance"
+Repositories --> "1" jobRepository
+RegisterJobUI ..> RegisterJobController
+RegisterJobController ..> Repositories : repositories
+jobRepository ..> Job : "Job"
+
 @enduml
