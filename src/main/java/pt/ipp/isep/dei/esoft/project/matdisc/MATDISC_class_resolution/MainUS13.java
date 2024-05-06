@@ -6,6 +6,9 @@ import org.graphstream.graph.implementations.*;
 import org.graphstream.ui.view.Viewer;
 import org.graphstream.ui.view.ViewerPipe;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
@@ -56,9 +59,11 @@ public class MainUS13 {
                     FileInfo fileInfo = new FileInfo(fileName, totalLines, executionTime, totalCost, numberOfVertices);
                     System.out.println();
                     System.out.println(fileInfo);
-                    //generateGraphViz(minimalSpanningTree);
+                    String csvName = fileName.substring(fileName.lastIndexOf(File.separator) + 1);
+
                     Graph g = highlightGraph(drawGraph( (ArrayList<Edge>)graph.getEdges(), "Minimum Spanning Tree"), (ArrayList<Edge>)minimalSpanningTree);
                     addTextToGraph(g, fileName, totalCost);
+                    generateGraphViz( graph.getEdges(), minimalSpanningTree, csvName, totalCost);
 
                 }
             } catch (NumberFormatException e) {
@@ -99,9 +104,7 @@ public class MainUS13 {
         return g;
     }
 
-    public static void addTextToGraph(Graph graph, String text, double cost) {
-
-        String csvName = text.substring(text.lastIndexOf(File.separator) + 1);
+    public static void addTextToGraph(Graph graph, String csvName, double cost) {
 
         // Adiciona o texto à visualização do grafo
         Viewer viewer = graph.display();
@@ -243,13 +246,13 @@ public class MainUS13 {
     }
 
     /**
-     * Generates a GraphViz representation of the minimal spanning tree.
-     * Creates a graph.dot file which will be converted into a GraphViz representation using the graphPngGenerator.bat.
-     * All the images produced using this program will be stored in "MATDISC_graph_images".
-     *
-     * @param edges the edges of the minimal spanning tree
+     * Cria uma representação visual do grafo com o GraphViz. O grafo é exportado para um ficheiro .CSV
+     * @param initialGraphEdges O grafo inicial com todos os vertices e arestas
+     * @param minimalSpanningTreeEdges O grafo com a árvore geradora mínima
+     * @param title o título do grafo
+     * @param cost o custo total da árvore geradora mínima
      */
-    public static void generateGraphViz(List<Edge> edges) {
+    public static void generateGraphViz(List<Edge> initialGraphEdges, List<Edge> minimalSpanningTreeEdges, String title, double cost) {
         try {
             String directoryPath = "MATDISC_graph_images";
             File directory = new File(directoryPath);
@@ -261,25 +264,33 @@ public class MainUS13 {
             FileWriter writer = new FileWriter(directoryPath + "/graph.dot");
 
             writer.write("graph {\n");
+            writer.write("labelloc=\"t\";\n"); // Position the label at the top
+            writer.write("label=\"" + title + " (total cost:" + cost + ")\";\n"); // Set the label
+            writer.write("fontsize=25;\n"); // Set the font size of the title
+            writer.write("fontweight=bold;\n"); // Set the font weight of the title
 
-            for (Edge edge : edges) {
-                writer.write("    " + edge.getSource() + " -- " + edge.getDestination() + " [label=\"" + edge.getDistance() + "\"];\n");
+            for (Edge edge : initialGraphEdges) {
+                String color = minimalSpanningTreeEdges.contains(edge) ? "red" : "black";
+                String penwidth = minimalSpanningTreeEdges.contains(edge) ? "4.0" : "1.0";
+                writer.write("    " + edge.getSource() + " -- " + edge.getDestination() + " [label=\"" + edge.getDistance() + "\", color=\"" + color + "\", len=2, penwidth=" + penwidth + "];\n");
             }
 
             writer.write("}\n");
             writer.close();
 
-
             try {
-                Runtime.getRuntime().exec("graphPngGenerator.bat");
+                // Use neato layout engine
+                Runtime.getRuntime().exec("neato -Tsvg " + directoryPath + "/graph.dot -o " + directoryPath + "/" + title + "_MST.svg");
+                // Or use fdp layout engine
+                // Runtime.getRuntime().exec("fdp -Tpng " + directoryPath + "/graph.dot -o " + directoryPath + "/graph.png");
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     private static void exportDataToCsv(List<Edge> minimalSpanningTree, String fileName, double totalCost) {
         String csvName = fileName.substring(fileName.lastIndexOf(File.separator) + 1);
         String csvNameOriginal = csvName;

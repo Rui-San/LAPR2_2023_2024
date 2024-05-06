@@ -1,0 +1,31 @@
+ORIGINAL FILE: US13_JardimEspeciesNucleoRural.csv
+
+MINIMAL SPANNING TREE:
+
+VERTEX1;VERTEX2;COST
+Tilia;Camelia_e3;3.0
+Carvalho;Camelia_e1;4.0
+Abrunheiro;Ginkgo;4.0
+Camelia_e1;Camelia_e2;4.0
+Camelia_d3;Camelia_d2;4.0
+Liquidanbar;Abrunheiro;5.0
+Sobreiro;Camelia_d1;5.0
+Camelia_e2;Camelia_e3;5.0
+Camelia_d4;Camelia_d3;5.0
+Camelia_d2;Camelia_d1;5.0
+Liquidanbar;Camelia_e9;6.0
+Folhado;Camelia_d5;6.0
+Camelia_e3;Camelia_e4;6.0
+Camelia_e4;Camelia_e6;6.0
+Camelia_e8;Camelia_e9;6.0
+Camelia_d7;Camelia_d6;6.0
+Camelia_d6;Camelia_d5;6.0
+Camelia_d5;Camelia_d4;6.0
+Castanheiro_India;Camelia_e6;7.0
+Olaia;Liquidanbar;7.0
+Camelia_e7;Camelia_e8;7.0
+Magnolia;Camelia_d6;8.0
+Castanheiro_India;Olaia;10.0
+Camelia_e1;Camelia_d1;10.0
+
+Total cost of the Minimal Spanning Tree: 141.0
