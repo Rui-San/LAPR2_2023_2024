@@ -1,36 +1,33 @@
 # US006 - Register a Vehicle
 
-## 6. Design - User Story Realization 
+## 6. Design - User Story Realization
 
 ### 6.1. Rationale
 
 _**Note that SSD - Alternative One is adopted.**_
 
-| Interaction ID                                                                                                                                         | Question: Which class is responsible for... | Answer                    | Justification (with patterns)                                                                                 |
-|:-------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------- |:--------------------------|:--------------------------------------------------------------------------------------------------------------|
-| Step 1: Asks to create a new vehicle	                                                                                                                  |	... interacting with the actor? | RegisterVehicleUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
-| 			  		                                                                                                                                                |	... coordinating the US? | RegisterVehicleController | Controller                                                                                                    |
-| Step 2: Requests vehicle data (plate id, brand, model, type,\ntare, gross weight, current km, register date,\nacquisition date, checkup frequency kms) |	... instantiating a new Task? | RegisterVehicleUI         | Creator (Rule 1): in the DM Organization has a Task.                                                          |
-| Step 3: Types requested data	                                                                                                                          |	...saving the inputted data? | RegisterVehicleUI         | IE: object created in step 1 has its own data.                                                                |
-| Step 4: Validating data                                                                                                                                |	...knowing the task categories to show? | RegisterVehicleUI         | IE: Task Categories are defined by the Administrators.                                                        |
-| Step 5: Shows all data and requests confirmation	                                                                                                      |	... saving the selected category? | RegisterVehicleUI         | IE: object created in step 1 is classified in one Category.                                                   | |							 |                           |                                                                                                               |              
-| Step 6: Confirms data and submits    	                                                                                                                 |	... validating all data (local validation)? | RegisterVehicleController | IE: owns its data.                                                                                            | 
-| 			  		                                                                                                                                                |	... validating all data (global validation)? | Organization              | IE: knows all its tasks.                                                                                      | 
-| Step 7: Keep data	  		                                                                                                                                 |	... saving the created task? | Organization              | IE: owns all its tasks.                                                                                       | 
-| Step 8: Displays operation success  		                                                                                                                 |	... informing operation success?| RegisterVehicleUI         | IE: is responsible for user interactions.                                                                     | 
+| Interaction ID                                                                                                                                         | Question: Which class is responsible for...   | Answer                    | Justification (with patterns) |
+|:-------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------------------------------|:--------------------------|:------------------------------|
+| Step 1: Asks to create a new vehicle	                                                                                                                  | 	... interacting with the actor?              | RegisterVehicleUI         | Pure Fabrication              |
+| 			  		                                                                                                                                                | 	... coordinating the US?                     | RegisterVehicleController | Controller                    |
+| Step 2: Requests vehicle data (plate id, brand, model, type,\ntare, gross weight, current km, register date,\nacquisition date, checkup frequency kms) | 	... instantiating a new Vehicle?             | VehicleRepository         | Creator                       |
+| Step 3: Types requested data	                                                                                                                          | 	...saving the inputted data?                 | RegisterVehicleUI         | Information Expert            |
+| Step 4: Confirms data and submits    	                                                                                                                 | 	... validating all data (local validation)?  | RegisterVehicleController | Information Expert            | 
+| 			  		                                                                                                                                                | 	... validating all data (global validation)? | Vehicle                   | Information Expert            | 
+| Step 5: Keep data	  		                                                                                                                                 | 	... saving the created Vehicle?              | VehicleRepository         | Information Expert            | 
+| Step 6: Displays operation success  		                                                                                                                 | 	... informing operation success?             | RegisterVehicleUI         | Information Expert            | 
 
 ### Systematization ##
 
-According to the taken rationale, the conceptual classes promoted to software classes are: 
+According to the taken rationale, the conceptual classes promoted to software classes are:
 
-* Organization
-* Task
+* Vehicle
 
-Other software classes (i.e. Pure Fabrication) identified: 
+Other software classes (i.e. Pure Fabrication) identified:
 
-* CreateTaskUI  
-* CreateTaskController
-
+* RegisterVehicleUI
+* RegisterVehicleController
+* VehicleRepository
 
 ## 6.2. Sequence Diagram (SD)
 
@@ -41,30 +38,6 @@ _**Note that SSD - Alternative Two is adopted.**_
 This diagram shows the full sequence of interactions between the classes involved in the realization of this user story.
 
 ![System Sequence Diagram](svg/us006-system-sequence-diagram.svg)
-
-### Split Diagrams
-
-The following diagram shows the same sequence of interactions between the classes involved in the realization of this user story, but it is split in partial diagrams to better illustrate the interactions between the classes.
-
-It uses Interaction Occurrence (a.k.a. Interaction Use).
-
-![Sequence Diagram - split](svg/us006-sequence-diagram-split.svg)
-
-**Get Task Category List Partial SD**
-
-![Sequence Diagram - Partial - Get Task Category List](svg/us006-sequence-diagram-partial-get-task-category-list.svg)
-
-**Get Task Category Object**
-
-![Sequence Diagram - Partial - Get Task Category Object](svg/us006-sequence-diagram-partial-get-task-category.svg)
-
-**Get Employee**
-
-![Sequence Diagram - Partial - Get Employee](svg/us006-sequence-diagram-partial-get-employee.svg)
-
-**Create Task**
-
-![Sequence Diagram - Partial - Create Task](svg/us006-sequence-diagram-partial-create-task.svg)
 
 ## 3.3. Class Diagram (CD)
 

@@ -18,13 +18,15 @@ activate Employee
 
     Employee -> System : Asks to create a new vehicle
     activate System
-    System->System: keepData(plate id, brand, model, type,\ntare, gross weight, current km, register date,\nacquisition date, checkup frequency kms)
+    loop until typed data is valid
     System  --> Employee : Requests vehicle data (plate id, brand, model, type,\ntare, gross weight, current km, register date,\nacquisition date, checkup frequency kms)
     deactivate System
 
     Employee -> System : Types requested data
     activate System
+    end loop
 
+        System --> System : keepData(plate id, brand, model, type,\ntare, gross weight, current km, register date,\nacquisition date, checkup frequency kms)
         System --> Employee : Shows all data and requests confirmation
     deactivate System
 
