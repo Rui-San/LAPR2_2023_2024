@@ -1,9 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
-import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
-import pt.ipp.isep.dei.esoft.project.domain.Skill;
-import pt.ipp.isep.dei.esoft.project.domain.SkillSet;
-import pt.ipp.isep.dei.esoft.project.domain.Team_testing;
+import pt.ipp.isep.dei.esoft.project.domain.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +11,47 @@ public class TeamRepository_testing {
 
     public TeamRepository_testing() {
         teamList = new ArrayList<>();
+    }
+
+    public static void main(String[] args) {
+
+        Job job = new Job("Gestor");
+
+        Collaborator collaborator1 = new Collaborator("a a", "07/10/1995", "20/03/2024", "Rua das travessas", 123,
+                "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", Collaborator.IdDocType.CC, "234324235", job);
+        Collaborator collaborator2 = new Collaborator("b b", "07/10/1995", "20/03/2024", "Rua das travessas", 123,
+                "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", Collaborator.IdDocType.CC, "234324235", job);
+        Collaborator collaborator3 = new Collaborator("c c", "07/10/1995", "20/03/2024", "Rua das travessas", 123,
+                "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", Collaborator.IdDocType.CC, "234324235", job);
+
+        Collaborator collaborator4 = new Collaborator("d d", "07/10/1995", "20/03/2024", "Rua das travessas", 123,
+                "1234-123", "Matosinhos", "e e", "1221790@isep.ipp.pt", "931231234", Collaborator.IdDocType.CC, "234324235", job);
+
+        Collaborator collaborator5 = new Collaborator("e e", "07/10/1995", "20/03/2024", "Rua das travessas", 123,
+                "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", Collaborator.IdDocType.CC, "234324235", job);
+
+        Collaborator collaborator6 = new Collaborator("f f", "07/10/1995", "20/03/2024", "Rua das travessas", 123,
+                "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", Collaborator.IdDocType.CC, "234324235", job);
+
+        Collaborator collaborator7 = new Collaborator("g g", "07/10/1995", "20/03/2024", "Rua das travessas", 123,
+                "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", Collaborator.IdDocType.CC, "234324235", job);
+        Collaborator collaborator8 = new Collaborator("h h", "07/10/1995", "20/03/2024", "Rua das travessas", 123,
+                "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", Collaborator.IdDocType.CC, "234324235", job);
+        Collaborator collaborator9 = new Collaborator("i i", "07/10/1995", "20/03/2024", "Rua das travessas", 123,
+                "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", Collaborator.IdDocType.CC, "234324235", job);
+        Collaborator collaborator10 = new Collaborator("j j", "07/10/1995", "20/03/2024", "Rua das travessas", 123,
+                "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", Collaborator.IdDocType.CC, "234324235", job);
+
+
+        Skill skill1 = new Skill("license drive");
+        Skill skill2 = new Skill("tree pruning");
+
+        List<Skill> skillsNeeded = new ArrayList<>();
+        skillsNeeded.add(skill1);
+        skillsNeeded.add(skill2);
+
+
+
     }
 
 
@@ -95,7 +133,8 @@ public class TeamRepository_testing {
         List<Team_testing> teamsList = new ArrayList<>();
 
         List<SkillSet> skillSetList = new ArrayList<>();
-        for (int i = 0; i < skillSetList.size(); i++) {
+
+        for (int i = 0; i < skillsNeeded.size(); i++) {
             SkillSet skillSet = new SkillSet(skillsNeeded.get(i), quantityNeeded.get(i));
             skillSetList.add(skillSet);
         }
@@ -104,10 +143,26 @@ public class TeamRepository_testing {
 
         teamsList = criarEquipas(possibleCollaborators, minTeamSize, maxTeamSize);
 
+        List<Team_testing> definitiveTeamList = new ArrayList<>();
 
-        //TODO: Agora que já temos a lista com todas as equipas possiveis desde o minteamsize ate ao max
-        //TODO: Ver qual equipa dentro da lista de equipas satisfaz os requisitos de skill/quantidade
-        //TODO: adiciona essa team a lista final
+        for (Team_testing team : teamsList) {
+            List<SkillSet> skillSetListCopy = List.copyOf(skillSetList);
+            for (Collaborator collaborator : team.getMembers()) {
+                List<Skill> skillsOfThisCollaborator = collaborator.getSkillList();
+                for (Skill collaboratorSkill : skillsOfThisCollaborator) {
+                    for (SkillSet skillSet : skillSetListCopy) {
+                        if (skillSet.getSkill().equals(collaboratorSkill)) {
+                            skillSet.setInQuantity(skillSet.getInQuantity() - 1);
+                        }
+                    }
+                }
+            }
+            if (verifyIfSkillSetIsFullfilled(skillSetListCopy)) {
+                definitiveTeamList.add(team);
+            }
+        }
+
+
         //TODO: ordena a lista final pelo numero de colaboradores(mais eficaz)
 
         /*
@@ -128,7 +183,19 @@ public class TeamRepository_testing {
         }
 
 */
-        return teamsList;
+        return definitiveTeamList;
+    }
+
+    private boolean verifyIfSkillSetIsFullfilled(List<SkillSet> skillSetListCopy) {
+        boolean isFullfilled = true;
+
+        for (SkillSet skillSet : skillSetListCopy) {
+            if (skillSet.getInQuantity() > 0) {
+                isFullfilled = false;
+                return isFullfilled;
+            }
+        }
+        return isFullfilled;
     }
 
     private List<Team_testing> criarEquipas(List<Collaborator> possibleCollaborators, int minTeamSize, int maxTeamSize) {
