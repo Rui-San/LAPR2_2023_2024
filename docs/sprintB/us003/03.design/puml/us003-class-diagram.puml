@@ -28,32 +28,58 @@ class Date {
 }
 
 class CollaboratorRepository{
+    - List<Collaborator> collaboratorList
+
+    + CollaboratorRepository()
+    + add(Collaborator)
+    - validateCollaborator(collaborator)
+    + getCollaboratorList()
+    + getCollaboratorByCollaboratorEmail(email)
 }
 
 class JobRepository {
+    - List<Job> jobList
+
     + add(job)
-    + validateJob(job)
-    + getJob()
+    - validateJob(job)
+    + getJobList()
 }
 
 class Repositories {
     - Repositories()
     + getInstance() : Repositories
     + getJobRepository()
+    + getCollaboratorRepository()
 }
 
-note right of JobRepository
+note left of JobRepository
     - used for displaying
     the job list
 end note
 
 class RegisterCollaboratorController {
-    + RegisterCollaboratorController("Fill in this field later")
+    - JobRepository jobRepository
+    - CollaboratorRepository collaboratorRepository
+
+    + RegisterCollaboratorController(jobRepository, collaboratorRepository)
+    + RegisterCollaboratorController()
+    - getJobRepository()
+    - getCollaboratorRepository()
     + getJobList()
-    + createCollaborator(name, birthdate, admission date, address, email,\nmobile number, id doc type, id doc number, jobName)
+    + createCollaborator(name, birthdate, admissionDate, street, streetNumber,\npostalCode, city, district, email, mobileNumber, idDocType, idDocNumber, job)}
+
 }
 
 class RegisterCollaboratorUI {
+    - RegisterCollaboratorController controller
+    - String name
+    - String birthdate
+    ...
+
+    + requestData()
+    + displayAndSelectJob()
+    + submitData()
+    ...()
 }
 
 class Email{
@@ -70,7 +96,7 @@ class Address{
 }
 
 RegisterCollaboratorUI .right.> RegisterCollaboratorController
-RegisterCollaboratorController ..> "1" CollaboratorRepository : organization
+RegisterCollaboratorController ..> "1" CollaboratorRepository
 CollaboratorRepository -down-> Collaborator
 RegisterCollaboratorController ..> JobRepository
 JobRepository "1"-->"*" Job : job

@@ -15,7 +15,6 @@ import java.util.regex.Pattern;
 public class RegisterCollaboratorUI implements Runnable {
 
     private final RegisterCollaboratorController controller;
-
     private String name;
     private String birthdate;
     private String admissionDate;
