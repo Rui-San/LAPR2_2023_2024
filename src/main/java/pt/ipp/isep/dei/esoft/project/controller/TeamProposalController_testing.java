@@ -69,16 +69,17 @@ public class TeamProposalController_testing {
 
     public List<Team_testing> generateTeamProposal(int minTeamSize, int maxTeamSize, List<Skill> skillsNeeded, List<Integer> quantityNeeded) {
 
-        List<Team_testing> newTeamProposal;
+        List<Team_testing> teamsGenerated;
 
         List<Collaborator> collaboratorList = getCollaboratorList();
 
-        newTeamProposal = teamRepository_testing.generateTeams(minTeamSize, maxTeamSize, skillsNeeded, quantityNeeded, collaboratorList);
+        teamsGenerated = teamRepository_testing.generateTeams(minTeamSize, maxTeamSize, skillsNeeded, quantityNeeded, collaboratorList);
 
-        return newTeamProposal;
+        return teamsGenerated;
 
     }
 
-    public void acceptTeamProposal(Optional<Team_testing> teamProposal) {
+    public void saveTeamProposal(Team_testing teamAccepted) {
+        getTeamRepository_testing().saveTeamProposal(teamAccepted);
     }
 }

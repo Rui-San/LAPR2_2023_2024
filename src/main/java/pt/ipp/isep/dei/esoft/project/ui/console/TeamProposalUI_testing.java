@@ -13,6 +13,7 @@ public class TeamProposalUI_testing implements Runnable {
     private int maxTeamSize;
     private List<Skill> skillsNeeded;
     private List<Integer> quantityNeeded;
+    private Team_testing teamAccepted;
 
     public TeamProposalUI_testing() {
         controller = new TeamProposalController_testing();
@@ -26,34 +27,67 @@ public class TeamProposalUI_testing implements Runnable {
         System.out.println("\n\n--- Generate a Team automatically ------------------------");
 
         requestData();
-        generateTeamProposal();
+        List<Team_testing> generatedTeams = generateAllTeamProposals();
+        teamAccepted = displayAndSelectTeamForApproval(generatedTeams);
+
+        if (teamAccepted != null) {
+            submitSelectedTeam(teamAccepted);
+            System.out.println("Team selected successfully saved.");
+        } else {
+            System.out.println("No team selected. Process canceled.");
+        }
 
     }
 
-    private void generateTeamProposal() {
-        boolean teamAccepted = false;
+    private void submitSelectedTeam(Team_testing teamAccepted) {
+        getTeamProposalController().saveTeamProposal(teamAccepted);
 
-        while (!teamAccepted) {
+    }
 
-            skillsNeeded = displayAndSelectSkillsNeeded();
-            quantityNeeded = requestQuantityNeeded(skillsNeeded);
+    private Team_testing displayAndSelectTeamForApproval(List<Team_testing> generatedTeams) {
+        if (generatedTeams.isEmpty()) {
+            throw new IllegalArgumentException("No teams have been generated with given inputs");
+        } else {
+            boolean teamAccepted = false;
 
-            List<Team_testing> teamProposal = getTeamProposalController().generateTeamProposal(minTeamSize, maxTeamSize, skillsNeeded, quantityNeeded);
-
-            if (teamProposal != null) {
-                System.out.println("Team proposal generated successfully:");
-                System.out.println(teamProposal);
-                teamAccepted = askManagerResponse();
-                if (teamAccepted) {
-                   // controller.acceptTeamProposal(teamProposal);  //Adds the team to the teamList
+            while (!teamAccepted) {
+                for (Team_testing generatedTeam : generatedTeams) {
+                    System.out.println("Team Generated:");
+                    System.out.println(generatedTeam.toString());
+                    teamAccepted = askManagerResponse();
+                    if(teamAccepted){
+                        return generatedTeam;
+                    }
                 }
-            }else {
-                System.out.println("Could not generate a team proposal with given information");
-                return;
-            }
 
+                boolean validResponse = false;
+                System.out.println("Do you want to view the options again or proceed without selecting any team? (view/proceed)");
+                while (!validResponse) {
+                    Scanner scanner = new Scanner(System.in);
+                    String response = scanner.nextLine().trim().toLowerCase();
+                    if (response.equals("proceed")) {
+                        return null;
+                    } else if (response.equals("view")) {
+                        validResponse = true;
+                    } else {
+                        System.out.println("Invalid option. Please select 'view' or 'proceed'.");
+                    }
+                }
+            }
+            return null;
         }
     }
+
+    private List<Team_testing> generateAllTeamProposals() {
+
+        skillsNeeded = displayAndSelectSkillsNeeded();
+        quantityNeeded = requestQuantityNeeded(skillsNeeded);
+
+        List<Team_testing> teamsGenerated = getTeamProposalController().generateTeamProposal(minTeamSize, maxTeamSize, skillsNeeded, quantityNeeded);
+
+        return teamsGenerated;
+    }
+
 
     private boolean askManagerResponse() {
         Scanner input = new Scanner(System.in);

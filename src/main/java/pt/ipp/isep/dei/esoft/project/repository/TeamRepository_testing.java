@@ -4,6 +4,7 @@ import pt.ipp.isep.dei.esoft.project.domain.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 public class TeamRepository_testing {
@@ -13,6 +14,7 @@ public class TeamRepository_testing {
         teamList = new ArrayList<>();
     }
 
+    /*
     public static void main(String[] args) {
 
         TeamRepository_testing teamRepository = new TeamRepository_testing();
@@ -54,18 +56,29 @@ public class TeamRepository_testing {
 
         List<Integer> quantityNeeded = new ArrayList<>();
         quantityNeeded.add(1);
-        quantityNeeded.add(3);
+        quantityNeeded.add(1);
+        quantityNeeded.add(1);
 
         collaborator1.assignSkills(skillsNeeded);
-        collaborator2.assignSkills(skillsNeeded);
         collaborator3.assignSkills(skillsNeeded);
         collaborator4.assignSkills(skillsNeeded);
         collaborator5.assignSkills(skillsNeeded);
         collaborator6.assignSkills(skillsNeeded);
-        collaborator7.assignSkills(skillsNeeded);
         collaborator8.assignSkills(skillsNeeded);
         collaborator9.assignSkills(skillsNeeded);
         collaborator10.assignSkills(skillsNeeded);
+
+
+
+        Skill skillDontHave = new Skill("Cortador");
+
+        List<Skill> skillsNeeded2 = new ArrayList<>();
+        skillsNeeded2.add(skill1);
+        skillsNeeded2.add(skill2);
+        skillsNeeded2.add(skillDontHave);
+
+        collaborator2.assignSkills(skillsNeeded2);
+        collaborator7.assignSkills(skillsNeeded2);
 
         List<Collaborator> collaboratorList = new ArrayList<>();
         collaboratorList.add(collaborator1);
@@ -79,22 +92,23 @@ public class TeamRepository_testing {
         collaboratorList.add(collaborator9);
         collaboratorList.add(collaborator10);
 
-        Skill skillDontHave = new Skill("Cortador");
 
+        List<Team_testing> definitiveTeamList = teamRepository.generateTeams(2, 3, skillsNeeded2, quantityNeeded, collaboratorList);
 
-
-        List<Team_testing> definitiveTeamList = teamRepository.generateTeams(2, 4, skillsNeeded, quantityNeeded, collaboratorList);
-
-        if(definitiveTeamList.isEmpty()){
+        if (definitiveTeamList.isEmpty()) {
             System.out.println("Not possible to create teams with given information");
-        }else {
+        } else {
             for (Team_testing team : definitiveTeamList) {
                 System.out.println("TEAM GENERATE:");
                 System.out.println(team.toString());
             }
+            int totalAccTeams=definitiveTeamList.size();
+            System.out.println("Total teams generated: " + totalAccTeams);
         }
 
     }
+
+     */
 
     public List<Team_testing> generateTeams(int minTeamSize, int maxTeamSize, List<Skill> skillsNeeded, List<Integer> quantityNeeded, List<Collaborator> collaboratorList) {
 
@@ -116,7 +130,6 @@ public class TeamRepository_testing {
         List<Collaborator> possibleCollaborators = gatherPossibleCollaborators(collaboratorList, skillSetList);
 
         teamsList = criarEquipas(possibleCollaborators, minTeamSize, maxTeamSize);
-
 
 
         for (Team_testing team : teamsList) {
@@ -235,6 +248,10 @@ public class TeamRepository_testing {
         return quantityCorrect;
     }
 
+    public void saveTeamProposal(Team_testing teamAccepted) {
+        teamList.add(teamAccepted);
+    }
+
     private boolean collaboratorIsInCurrentTeam(List<Collaborator> membersInTeam, Collaborator collaborator) {
 
         if (membersInTeam.contains(collaborator)) {
@@ -256,6 +273,8 @@ public class TeamRepository_testing {
 
         }
     }
+
+
 }
 /*
     public Optional<Team_testing> generateTeamPropostal(int minTeamSize, int maxTeamSize, List<Skill> skillsNeeded, List<Integer> quantityNeeded, List<Collaborator> collaboratorList) {
