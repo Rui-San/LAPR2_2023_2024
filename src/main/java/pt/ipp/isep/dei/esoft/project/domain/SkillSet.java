@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Represents a combination of a skill with a quantity needed of that skill.
  */
-public class SkillSet {
+public class SkillSet implements Cloneable {
 
     /**
      * The object skill.
@@ -77,5 +77,11 @@ public class SkillSet {
             skillsList.add(skillSet.getSkill());
         }
         return skillsList;
+    }
+    @Override
+    public SkillSet clone(){
+        Skill clonedSkill = this.getSkill().clone();
+        SkillSet clone = new SkillSet(clonedSkill, this.getInQuantity());
+        return clone;
     }
 }

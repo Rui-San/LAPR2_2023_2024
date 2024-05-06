@@ -53,7 +53,7 @@ public class TeamRepository_testing {
         skillsNeeded.add(skill2);
 
         List<Integer> quantityNeeded = new ArrayList<>();
-        quantityNeeded.add(2);
+        quantityNeeded.add(1);
         quantityNeeded.add(3);
 
         collaborator1.assignSkills(skillsNeeded);
@@ -81,8 +81,7 @@ public class TeamRepository_testing {
 
         Skill skillDontHave = new Skill("Cortador");
 
-        List<Skill> skillsneeded2 = new ArrayList<>();
-        skillsneeded2.add(skillDontHave);
+
 
         List<Team_testing> definitiveTeamList = teamRepository.generateTeams(2, 4, skillsNeeded, quantityNeeded, collaboratorList);
 
@@ -121,12 +120,15 @@ public class TeamRepository_testing {
 
 
         for (Team_testing team : teamsList) {
-            List<SkillSet> skillSetListCopy = List.copyOf(skillSetList);
+            List<SkillSet> skillSetListCopy = new ArrayList<>();
+            for (SkillSet skillSet : skillSetList) {
+                skillSetListCopy.add(skillSet.clone());
+            }
             for (Collaborator collaborator : team.getMembers()) {
                 List<Skill> skillsOfThisCollaborator = collaborator.getSkillList();
                 for (Skill collaboratorSkill : skillsOfThisCollaborator) {
                     for (SkillSet skillSet : skillSetListCopy) {
-                        if (skillSet.getSkill().equals(collaboratorSkill)) {
+                        if (skillSet.getSkill().getSkillName().equals(collaboratorSkill.getSkillName())) {
                             skillSet.setInQuantity(skillSet.getInQuantity() - 1);
                         }
                     }
