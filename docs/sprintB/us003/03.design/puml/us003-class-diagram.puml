@@ -124,10 +124,10 @@ RegisterCollaboratorController ..> "1" CollaboratorRepository : collaboratorRepo
 CollaboratorRepository "1"-down-> "*" Collaborator : collaborator
 RegisterCollaboratorController ..> JobRepository : jobRepository
 JobRepository "1"-->"*" Job : job
-Collaborator "*"--> "1"Job : job
-Collaborator "*" --> "1" Email : email
-Collaborator "*"--> "1"Address : address
-Collaborator "*" -->"1" Date : birthdate /\nadmissionDate
+Collaborator o-- "1" Job : job
+Collaborator *--"1" Email : email
+Collaborator *--"1" Address : address
+Collaborator *--"1" Date : birthdate /\nadmissionDate
 RegisterCollaboratorController ..> Repositories : repositories
 Repositories --> "1" JobRepository
 Repositories --> "1" CollaboratorRepository
