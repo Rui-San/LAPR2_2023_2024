@@ -80,27 +80,26 @@ public class GraphUS {
     }
 
     /**
-     *
-     *This method effectively implements Kruskal's algorithm to find the minimal spanning tree of a graph
-     *
-     *Here's how Kruskal's algorithm works:
-     *
-     *1 - Initialization:
-     *Initially, each vertex of the graph is considered as a separate component.
-     *
-     *2 - Sort Edges:
-     *Sort all the edges of the graph in non-decreasing order of their weights.
-     *
-     *3 - Iterate Through Edges:
-     *Iterate through the sorted edges.
-     *For each edge, check if including it in the MST forms a cycle or not. This can be done by checking if the two vertices of the edge belong to the same connected component.
-     *If adding the edge does not create a cycle (i.e., the vertices belong to different connected components), include it in the MST.
-     *
-     *4 - Repeat Until Spanning Tree Complete:
-     *Repeat step 3 until the MST contains n−1 edges, where n is the number of vertices in the graph. This ensures that the MST spans all vertices without creating cycles.
-     *
-     *Output:
-     *The resulting set of edges forms the minimum spanning tree of the graph.
+     * This method effectively implements Kruskal's algorithm to find the minimal spanning tree of a graph
+     * <p>
+     * Here's how Kruskal's algorithm works:
+     * <p>
+     * 1 - Initialization:
+     * Initially, each vertex of the graph is considered as a separate component.
+     * <p>
+     * 2 - Sort Edges:
+     * Sort all the edges of the graph in non-decreasing order of their weights.
+     * <p>
+     * 3 - Iterate Through Edges:
+     * Iterate through the sorted edges.
+     * For each edge, check if including it in the MST forms a cycle or not. This can be done by checking if the two vertices of the edge belong to the same connected component.
+     * If adding the edge does not create a cycle (i.e., the vertices belong to different connected components), include it in the MST.
+     * <p>
+     * 4 - Repeat Until Spanning Tree Complete:
+     * Repeat step 3 until the MST contains n−1 edges, where n is the number of vertices in the graph. This ensures that the MST spans all vertices without creating cycles.
+     * <p>
+     * Output:
+     * The resulting set of edges forms the minimum spanning tree of the graph.
      *
      * @return list of edges representing the minimal spanning tree.
      */
@@ -123,7 +122,8 @@ public class GraphUS {
             arrayDeSacos.add(saco);
         }
 
-        for (Edge edge : edges) {
+        for (int j = 0; j < edges.size() && addedEdges <= criterioParagem; j++) {
+            Edge edge = edges.get(j);
             String v1 = edge.getSource();
             String v2 = edge.getDestination();
 
@@ -145,9 +145,7 @@ public class GraphUS {
                 addedEdges++;
                 minimalSpanningTree.add(edge);
             }
-            if (addedEdges == criterioParagem) {
-                break;
-            }
+
         }
         return minimalSpanningTree;
     }
