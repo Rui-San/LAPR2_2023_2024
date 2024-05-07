@@ -181,61 +181,77 @@ else current team does not satisfy all requirements
 end
 
 end
+|||
+note right of TR
+The way this entire algorithm works,at this point, the
+List<Team> definitiveTeamList is sorted by efficiency,
+meaning that the first team of the list has the smallest
+possible number of collaborators, and the last team has
+the largest number of members.
+end note
+
 TR --> CTRL : List<Team> definitiveTeamList
 deactivate TR
 
 
 
-CTRL --> UI : List<Team> definitiveTeamList
+CTRL --> UI : List<Team> teamsGenerated
 
 deactivate CTRL
+|||
+
+
+
+    loop until team generated is accepted
+ UI --> HRM : Shows team generated and asks for confirmation
+ |||
+ deactivate UI
+HRM -> UI : Accepts or rejects the proposal.
+|||
+activate UI
+
+
+    end
+    note right
+    If the user rejects the displayed team,
+    the next team in the list "teamsGenerated"
+    will be showed.
+    end note
 
 
 
 
 
-
-
-    loop until the team generated is accepted
-    UI --> UI: generateProposal()
-
-
-        UI --> HRM : Shows team generated and asks for confirmation
-
-    deactivate UI
-
-
-    HRM -> UI : Accepts or rejects the proposal.
     activate UI
-        UI -> CTRL : createTeam(team)
+        UI -> CTRL : saveTeamProposal(teamAccepted)
         activate CTRL
 
-            CTRL -> Team** : createTeam(team)
-            Team --> Team : validateTeam(team)
-            CTRL -> REP : getInstance()
+        CTRL -> REP : getInstance()
+        activate REP
+        REP --> CTRL : repositories
+        deactivate REP
+        CTRL -> REPS : getTeamRepository
+        activate REPS
+        REPS --> CTRL : teamRepository
+        deactivate REPS
+        CTRL -> TR : saveTeamProposal(teamAccepted)
+        activate TR
+        |||
+        TR --> TR : teamList.add(teamAccepted);
+        |||
+        TR --> CTRL : operation success
+        deactivate TR
 
-                activate REP
-                REP --> CTRL : repositories
-                deactivate REP
-                CTRL -> REPS : getTeamRepository()
-
-                activate REPS
-                REPS --> CTRL : teamRepository
-                deactivate REPS
-                CTRL -> TR : addToTeamRepository(team)
-
-                activate TR
-                TR --> CTRL : operation success
-                deactivate TR
-
-
-    end loop
-    |||
         CTRL --> UI : operation success
         deactivate CTRL
 
+        UI --> HRM : operation success
+        deactivate UI
+        deactivate HRM
 
-        UI --> HRM : Displays operation success
-    deactivate UI
+
+
+
+
 
 @enduml
