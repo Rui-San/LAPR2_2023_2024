@@ -37,7 +37,7 @@ public class Skill implements Cloneable{
             return ValidationAttributeResults.EMPTYNULL;
         }
 
-        Pattern namePattern = Pattern.compile("[a-zA-Z\\s-]+");
+        Pattern namePattern = Pattern.compile("[a-zA-Z\\s-\\p{L}]+");
 
         if (namePattern.matcher(skillName).matches()) {
             return ValidationAttributeResults.VALID;

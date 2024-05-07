@@ -37,7 +37,7 @@ public class Job implements Cloneable{
             return ValidationAttributeResults.EMPTYNULL;
         }
 
-        Pattern namePattern = Pattern.compile("[a-zA-Z\\s-]+");
+        Pattern namePattern = Pattern.compile("[a-zA-Z\\s-\\p{L}]+");
 
         if (namePattern.matcher(jobName).matches()) {
             return ValidationAttributeResults.VALID;
