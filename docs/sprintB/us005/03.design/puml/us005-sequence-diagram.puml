@@ -26,232 +26,211 @@ activate HRM
         UI --> HRM : Requests data (maxteamsize, minteamsize)
     deactivate UI
 
-
-
     HRM -> UI : Types requested data
 
-
     |||
+    activate UI
+        UI --> UI : keepData(max and min team size)
+        UI -> CTRL : getSkillList()
+        activate CTRL
 
-            activate UI
-                UI --> UI : keepData(max and min team size)
-                UI -> CTRL : getSkillList()
+            CTRL -> REP : getInstance()
+            activate REP
 
-                activate CTRL
+                REP --> CTRL : repositories
+            deactivate REP
+            CTRL -> REPS : getSkillRepository()
 
-                    CTRL -> REP : getInstance()
+            activate REPS
 
-                    activate REP
+                REPS --> CTRL : skillRepository
+            deactivate REPS
 
-                        REP --> CTRL : repositories
-                    deactivate REP
-                    CTRL -> REPS : getSkillRepository()
+            CTRL -> SR : getSkillList()
 
-                    activate REPS
+            activate SR
 
-                        REPS --> CTRL : skillRepository
-                    deactivate REPS
+                SR --> CTRL : skillList
+            deactivate SR
 
-                    CTRL -> SR : getSkillList()
+            CTRL --> UI : skillList
+        deactivate CTRL
 
-                    activate SR
+        loop until no longer want to select skills
+            |||
 
-                    SR --> CTRL : skillList
-                    deactivate SR
+            UI --> HRM : Shows list of skills and asks to select the skills needed
 
-                    CTRL --> UI : skillList
-                deactivate CTRL
-                loop until no longer want to select skills
-                |||
-                UI --> HRM : Shows list of skills and asks to select the skills needed
+    deactivate UI
 
-            deactivate UI
+    HRM -> UI : Select skills from the list
 
-            HRM -> UI : Select skills from the list
-            activate UI
-            UI --> UI : keepData(List<Skill> skillsNeeded)
-
-
+    activate UI
+        UI --> UI : keepData(List<Skill> skillsNeeded)
 
         end loop
-
-  |||
+        |||
 
         loop for each skill selected
 
         activate UI
 
-        UI --> HRM : Asks to specify the quantity needed of the selected skill
-|||
-HRM -> UI : Types the quantity needed for that skill
+            UI --> HRM : Asks to specify the quantity needed of the selected skill
+            |||
+            HRM -> UI : Types the quantity needed for that skill
+            UI --> UI : keepData(List<Integer> quantityNeeded)
 
-UI --> UI : keepData(List<Integer> quantityNeeded)
+            end loop
 
-end loop
-note right
-                **(5) NOTE:**
-                **Set of skills:**
-                *Set of skills required for the team proposal;
-                *Includes the skill name and the required quantity.
-        end note
+            note right
+            **NOTE:**
+            **Set of skills:**
+            *Set of skills required for the team proposal;
+            *Includes the skill name and the required quantity.
+            end note
 
-|||
-UI -> CTRL : generateAllTeamProposals(minTeamSize,\n maxTeamSize, skillsNeeded, quantityNeeded)
+            |||
+            UI -> CTRL : generateAllTeamProposals(minTeamSize,\n maxTeamSize, skillsNeeded, quantityNeeded)
 
-activate CTRL
+            activate CTRL
 
-CTRL -> REP : getInstance()
-activate REP
-REP --> CTRL : repositories
-deactivate REP
-CTRL -> REPS : getCollaboratorRepository
-activate REPS
-REPS --> CTRL : collaboratorRepository
-deactivate REPS
-CTRL -> CR : getCollaboratorList()
-activate CR
-CR --> CTRL : collaboratorList
-deactivate CR
-|||
-|||
-CTRL -> REP : getInstance()
-activate REP
-REP --> CTRL : repositories
-deactivate REP
-CTRL -> REPS : getTeamRepository
-activate REPS
-REPS --> CTRL : teamRepository
-deactivate REPS
-CTRL -> TR : generateAllTeamProposals(minTeamSize, maxTeamSize,skillsNeeded, quantityNeeded, collaboratorList)
-activate TR
+                CTRL -> REP : getInstance()
+                activate REP
 
-group Verifies if the quantity of a specific skill is\n superior to the maximum team size
-    TR --> TR : verifyQuantityNeeded(List<Integer> \nquantityNeeded, int maxTeamSize)
-    alt quantityCorrect is true
+                    REP --> CTRL : repositories
+                deactivate REP
+                CTRL -> REPS : getCollaboratorRepository
+                activate REPS
 
-    TR -> TR : continues with the algorithm
+                    REPS --> CTRL : collaboratorRepository
+                deactivate REPS
+                CTRL -> CR : getCollaboratorList()
+                activate CR
 
-else quantityCorrect is false
+                    CR --> CTRL : collaboratorList
+                deactivate CR
+                |||
+                |||
+                CTRL -> REP : getInstance()
+                activate REP
 
-    TR --> TR : Returns an empty List<Team> definitiveTeamList
-end
+                    REP --> CTRL : repositories
+                deactivate REP
+                CTRL -> REPS : getTeamRepository
+                activate REPS
 
-end
+                    REPS --> CTRL : teamRepository
+                deactivate REPS
+                CTRL -> TR : generateAllTeamProposals(minTeamSize, maxTeamSize,skillsNeeded, quantityNeeded, collaboratorList)
+                activate TR
 
-|||
+                    group Verifies if the quantity of a specific skill is\n superior to the maximum team size
+                    TR --> TR : verifyQuantityNeeded(List<Integer> \nquantityNeeded, int maxTeamSize)
+                    alt quantityCorrect is true
 
-loop for each skill selected/quantity
-TR -> SkillSet** : createSkillSet(skillsNeeded, quantityNeeded)
-TR --> TR : skillSetList.add(skillSet)
-end
+                    TR -> TR : continues with the algorithm
 
-TR --> TR : gatherPossibleCollaborators(collaboratorList, skillSetList);
+                    else quantityCorrect is false
 
-note left
- **Possible Collaborators to join the team:**
-*Collaborator is not in a team yet
-*Collaborator has at least 1 skill needed for the team
-end note
+                    TR --> TR : Returns an empty List<Team> definitiveTeamList
+                    end
 
-|||
+                    end
 
-loop for each team size (from min to max)
-TR --> TR : createTeams(possibleCollaborators, minTeamSize, maxTeamSize);
-|||
-TR --> TR: createTeamsBySize(List<Collaborator> possibleCollaborators, int teamSize)
-end
-|||
-TR -> TR: List<Team> teamsList
-note right
-all possible teams for each
-size are now on the teamsList
-end note
-|||
-loop for each team from the teamsList
+                       |||
+                    loop for each skill selected/quantity
+                    TR -> SkillSet** : createSkillSet(skillsNeeded, quantityNeeded)
+                    TR --> TR : skillSetList.add(skillSet)
+                    end
 
-TR --> TR: verifyIfSkillSetIsFulfilled(skillSetList)
-alt current team satisfies all requirements and is complete
+                    TR --> TR : gatherPossibleCollaborators(collaboratorList, skillSetList);
 
-    TR -> TR : definitiveTeamList.add(team);
+                    note left
+                    **Possible Collaborators to join the team:**
+                    *Collaborator is not in a team yet
+                    *Collaborator has at least 1 skill needed for the team
+                    end note
+                    |||
 
-else current team does not satisfy all requirements
-|||
+                    loop for each team size (from min to max)
+                    TR --> TR : createTeams(possibleCollaborators, minTeamSize, maxTeamSize);
+                    |||
+                    TR --> TR: createTeamsBySize(List<Collaborator> possibleCollaborators, int teamSize)
+                    end
+                    |||
+                    TR -> TR: List<Team> teamsList
+                    note right
+                    all possible teams for each
+                    size are now on the teamsList
+                    end note
+                    |||
+                    loop for each team from the teamsList
 
+                    TR --> TR: verifyIfSkillSetIsFulfilled(skillSetList)
+                    alt current team satisfies all requirements and is complete
+                    TR -> TR : definitiveTeamList.add(team);
+                    else current team does not satisfy all requirements
+                    |||
+                    end
 
-end
+                    end
+                    |||
+                    note right of TR
+                    The way this entire algorithm works,at this point, the
+                    List<Team> definitiveTeamList is sorted by efficiency,
+                    meaning that the first team of the list has the smallest
+                    possible number of collaborators, and the last team has
+                    the largest number of members.
+                    end note
+                    TR --> CTRL : List<Team> definitiveTeamList
+                deactivate TR
 
-end
-|||
-note right of TR
-The way this entire algorithm works,at this point, the
-List<Team> definitiveTeamList is sorted by efficiency,
-meaning that the first team of the list has the smallest
-possible number of collaborators, and the last team has
-the largest number of members.
-end note
+                CTRL --> UI : List<Team> teamsGenerated
+            deactivate CTRL
+           |||
 
-TR --> CTRL : List<Team> definitiveTeamList
-deactivate TR
-
-
-
-CTRL --> UI : List<Team> teamsGenerated
-
-deactivate CTRL
-|||
-
-
-
-    loop until team generated is accepted
- UI --> HRM : Shows team generated and asks for confirmation
- |||
- deactivate UI
-HRM -> UI : Accepts or rejects the proposal.
-|||
-activate UI
-
-
-    end
-    note right
-    If the user rejects the displayed team,
-    the next team in the list "teamsGenerated"
-    will be showed.
-    end note
-
-
-
-
-
-    activate UI
-        UI -> CTRL : saveTeamProposal(teamAccepted)
-        activate CTRL
-
-        CTRL -> REP : getInstance()
-        activate REP
-        REP --> CTRL : repositories
-        deactivate REP
-        CTRL -> REPS : getTeamRepository
-        activate REPS
-        REPS --> CTRL : teamRepository
-        deactivate REPS
-        CTRL -> TR : saveTeamProposal(teamAccepted)
-        activate TR
-        |||
-        TR --> TR : teamList.add(teamAccepted);
-        |||
-        TR --> CTRL : operation success
-        deactivate TR
-
-        CTRL --> UI : operation success
-        deactivate CTRL
-
-        UI --> HRM : operation success
+            loop until team generated is accepted
+            UI --> HRM : Shows team generated and asks for confirmation
+            |||
         deactivate UI
-        deactivate HRM
+        HRM -> UI : Accepts or rejects the proposal.
+        |||
+        activate UI
+            end
+            note right
+            If the user rejects the displayed team,
+            the next team in the list "teamsGenerated"
+            will be showed.
+            end note
+
+            UI -> CTRL : saveTeamProposal(teamAccepted)
+            activate CTRL
+
+                CTRL -> REP : getInstance()
+                activate REP
+
+                    REP --> CTRL : repositories
+                deactivate REP
+                CTRL -> REPS : getTeamRepository
+                activate REPS
+
+                    REPS --> CTRL : teamRepository
+                deactivate REPS
+                CTRL -> TR : saveTeamProposal(teamAccepted)
+                activate TR
+                    |||
+                    TR --> TR : teamList.add(teamAccepted);
+                    |||
+                    TR --> CTRL : operation success
+                deactivate TR
+
+                CTRL --> UI : operation success
+            deactivate CTRL
+            UI --> HRM : operation success
+        deactivate UI
 
 
 
-
-
+deactivate HRM
 
 @enduml
