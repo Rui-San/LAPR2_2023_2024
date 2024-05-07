@@ -100,8 +100,8 @@ public class VehicleCheckup {
      * @param checkupDate the checkup date
      */
     private void validateCheckupDate(Date checkupDate) {
-        if (checkupDate.compareTo(getVehicle().getRegisterDate()) > 0) {
-            throw new IllegalArgumentException("Checkup must cannot have been done before the register date.");
+        if (checkupDate.compareTo(getVehicle().getRegisterDate()) < 0) {
+            throw new IllegalArgumentException("Checkup cannot have been done before the register date.");
         }
     }
 
