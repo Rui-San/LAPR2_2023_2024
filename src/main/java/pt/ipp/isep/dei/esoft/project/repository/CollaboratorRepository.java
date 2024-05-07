@@ -62,7 +62,7 @@ public class CollaboratorRepository {
         return returnCollaborator;
     }
 
-    public Optional<Collaborator> createCollaborator(String name, String birthdate, String admissionDate, String street, int streetNumber, String postalCode, String city, String district, String email, String mobileNumber, Collaborator.IdDocType idDocType, String idDocNumber, Job job) {
+    public Optional<Collaborator> createCollaborator(String name, String birthdate, String admissionDate, String street, int streetNumber,String postalCode, String city, String district, String email, String mobileNumber, Collaborator.IdDocType idDocType, String idDocNumber, Job job) {
 
         Collaborator collaborator = new Collaborator(
                 name,
