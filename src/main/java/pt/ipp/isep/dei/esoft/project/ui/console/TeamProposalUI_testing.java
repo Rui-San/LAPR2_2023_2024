@@ -83,7 +83,7 @@ public class TeamProposalUI_testing implements Runnable {
         skillsNeeded = displayAndSelectSkillsNeeded();
         quantityNeeded = requestQuantityNeeded(skillsNeeded);
 
-        List<Team_testing> teamsGenerated = getTeamProposalController().generateTeamProposal(minTeamSize, maxTeamSize, skillsNeeded, quantityNeeded);
+        List<Team_testing> teamsGenerated = getTeamProposalController().generateAllTeamProposal(minTeamSize, maxTeamSize, skillsNeeded, quantityNeeded);
 
         return teamsGenerated;
     }

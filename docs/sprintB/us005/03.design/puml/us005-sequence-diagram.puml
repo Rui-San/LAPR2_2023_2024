@@ -7,114 +7,235 @@ title US005 - System Sequence Diagram (SSD)
 
 autonumber
 
-actor "HRM" as Employee
-participant ":TeamProposalUI" as System
-participant ":TeamProposalController" as TPC
+actor "HRM" as HRM
+participant ":TeamProposalUI" as UI
+participant ":TeamProposalController" as CTRL
 participant ":Repositories" as REP
 participant ":repositories \nRepositories" as REPS
 participant ":skillRepository \nSkillRepository" as SR
-participant ":teamRepository \nTeamRepository" as TP
+participant ":collaboratorRepository \nCollaboratorRepository" as CR
+participant ":teamRepository \nTeamRepository" as TR
 
 
-activate Employee
 
-    Employee -> System : Asks to generate a new team proposal
-    activate System
+activate HRM
 
-        System --> Employee : Requests data (maxteamsize, minteamsize)
-    deactivate System
+    HRM -> UI : Asks to generate a new team proposal
+    activate UI
 
-    loop until input data is validated
+        UI --> HRM : Requests data (maxteamsize, minteamsize)
+    deactivate UI
 
-    Employee -> System : Types requested data
+
+
+    HRM -> UI : Types requested data
 
 
     |||
-        loop until no longer want to select skills
-            activate System
-                System --> System : keepData(max and min team size)
-                System -> TPC : getSkillList()
 
-                activate TPC
-                    TPC -> REP : getInstance()
+            activate UI
+                UI --> UI : keepData(max and min team size)
+                UI -> CTRL : getSkillList()
+
+                activate CTRL
+
+                    CTRL -> REP : getInstance()
 
                     activate REP
-                        REP --> TPC : repositories
+
+                        REP --> CTRL : repositories
                     deactivate REP
-                    TPC -> REPS : getSkillRepository()
+                    CTRL -> REPS : getSkillRepository()
 
                     activate REPS
-                        REPS --> TPC : skillRepository
+
+                        REPS --> CTRL : skillRepository
                     deactivate REPS
 
-                    TPC -> SR : getSkillList()
+                    CTRL -> SR : getSkillList()
 
                     activate SR
-                    SR --> TPC : skillList
+
+                    SR --> CTRL : skillList
                     deactivate SR
 
-                    TPC --> System : skillList
-                deactivate TPC
-                System --> Employee : Shows list of skills and asks how many
-            deactivate System
+                    CTRL --> UI : skillList
+                deactivate CTRL
+                loop until no longer want to select skills
+                |||
+                UI --> HRM : Shows list of skills and asks to select the skills needed
 
-            Employee -> System : Selects a skill from the list and specifies the \nquantity of that skill.
-            activate System
-            System --> System : keepData(amount, skillName)
-    |||
+            deactivate UI
+
+            HRM -> UI : Select skills from the list
+            activate UI
+            UI --> UI : keepData(List<Skill> skillsNeeded)
+
+
+
         end loop
 
-    |||
+  |||
 
-        end loop
+        loop for each skill selected
 
-        note right
+        activate UI
+
+        UI --> HRM : Asks to specify the quantity needed of the selected skill
+|||
+HRM -> UI : Types the quantity needed for that skill
+
+UI --> UI : keepData(List<Integer> quantityNeeded)
+
+end loop
+note right
                 **(5) NOTE:**
                 **Set of skills:**
                 *Set of skills required for the team proposal;
                 *Includes the skill name and the required quantity.
         end note
 
+|||
+UI -> CTRL : generateAllTeamProposals(minTeamSize,\n maxTeamSize, skillsNeeded, quantityNeeded)
+
+activate CTRL
+
+CTRL -> REP : getInstance()
+activate REP
+REP --> CTRL : repositories
+deactivate REP
+CTRL -> REPS : getCollaboratorRepository
+activate REPS
+REPS --> CTRL : collaboratorRepository
+deactivate REPS
+CTRL -> CR : getCollaboratorList()
+activate CR
+CR --> CTRL : collaboratorList
+deactivate CR
+|||
+|||
+CTRL -> REP : getInstance()
+activate REP
+REP --> CTRL : repositories
+deactivate REP
+CTRL -> REPS : getTeamRepository
+activate REPS
+REPS --> CTRL : teamRepository
+deactivate REPS
+CTRL -> TR : generateAllTeamProposals(minTeamSize, maxTeamSize,skillsNeeded, quantityNeeded, collaboratorList)
+activate TR
+
+group Verifies if the quantity of a specific skill is\n superior to the maximum team size
+    TR --> TR : verifyQuantityNeeded(List<Integer> \nquantityNeeded, int maxTeamSize)
+    alt quantityCorrect is true
+
+    TR -> TR : continues with the algorithm
+
+else quantityCorrect is false
+
+    TR --> TR : Returns an empty List<Team> definitiveTeamList
+end
+
+end
+
+|||
+
+loop for each skill selected/quantity
+TR -> SkillSet** : createSkillSet(skillsNeeded, quantityNeeded)
+TR --> TR : skillSetList.add(skillSet)
+end
+
+TR --> TR : gatherPossibleCollaborators(collaboratorList, skillSetList);
+
+note left
+ **Possible Collaborators to join the team:**
+*Collaborator is not in a team yet
+*Collaborator has at least 1 skill needed for the team
+end note
+
+|||
+
+loop for each team size (from min to max)
+TR --> TR : createTeams(possibleCollaborators, minTeamSize, maxTeamSize);
+|||
+TR --> TR: createTeamsBySize(List<Collaborator> possibleCollaborators, int teamSize)
+end
+|||
+TR -> TR: List<Team> teamsList
+note right
+all possible teams for each
+size are now on the teamsList
+end note
+|||
+loop for each team from the teamsList
+
+TR --> TR: verifyIfSkillSetIsFulfilled(skillSetList)
+alt current team satisfies all requirements and is complete
+
+    TR -> TR : definitiveTeamList.add(team);
+
+else current team does not satisfy all requirements
+|||
+
+
+end
+
+end
+TR --> CTRL : List<Team> definitiveTeamList
+deactivate TR
+
+
+
+CTRL --> UI : List<Team> definitiveTeamList
+
+deactivate CTRL
+
+
+
+
+
+
+
     loop until the team generated is accepted
-    System --> System: generateProposal()
+    UI --> UI: generateProposal()
 
 
-        System --> Employee : Shows team generated and asks for confirmation
+        UI --> HRM : Shows team generated and asks for confirmation
 
-    deactivate System
+    deactivate UI
 
 
-    Employee -> System : Accepts or rejects the proposal.
-    activate System
-        System -> TPC : createTeam(team)
-        activate TPC
+    HRM -> UI : Accepts or rejects the proposal.
+    activate UI
+        UI -> CTRL : createTeam(team)
+        activate CTRL
 
-            TPC -> Team** : createTeam(team)
+            CTRL -> Team** : createTeam(team)
             Team --> Team : validateTeam(team)
-            TPC -> REP : getInstance()
+            CTRL -> REP : getInstance()
 
                 activate REP
-                REP --> TPC : repositories
+                REP --> CTRL : repositories
                 deactivate REP
-                TPC -> REPS : getTeamRepository()
+                CTRL -> REPS : getTeamRepository()
 
                 activate REPS
-                REPS --> TPC : teamRepository
+                REPS --> CTRL : teamRepository
                 deactivate REPS
-                TPC -> TP : addToTeamRepository(team)
+                CTRL -> TR : addToTeamRepository(team)
 
-                activate TP
-                TP --> TPC : operation success
-                deactivate TP
+                activate TR
+                TR --> CTRL : operation success
+                deactivate TR
 
 
     end loop
     |||
-        TPC --> System : operation success
-        deactivate TPC
+        CTRL --> UI : operation success
+        deactivate CTRL
 
 
-        System --> Employee : Displays operation success
-    deactivate System
+        UI --> HRM : Displays operation success
+    deactivate UI
 
 @enduml

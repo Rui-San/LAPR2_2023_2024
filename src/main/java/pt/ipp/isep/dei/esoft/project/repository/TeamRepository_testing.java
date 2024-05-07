@@ -119,7 +119,7 @@ public class TeamRepository_testing {
      * @param collaboratorList the list of collaborators of the organization
      * @return the list of all teams generated
      */
-    public List<Team_testing> generateTeams(int minTeamSize, int maxTeamSize, List<Skill> skillsNeeded, List<Integer> quantityNeeded, List<Collaborator> collaboratorList) {
+    public List<Team_testing> generateAllTeamProposals(int minTeamSize, int maxTeamSize, List<Skill> skillsNeeded, List<Integer> quantityNeeded, List<Collaborator> collaboratorList) {
 
         List<Team_testing> definitiveTeamList = new ArrayList<>();
 
