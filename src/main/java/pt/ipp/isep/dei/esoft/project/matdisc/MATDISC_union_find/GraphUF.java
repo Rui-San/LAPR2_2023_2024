@@ -59,28 +59,30 @@ public class GraphUF {
      * @return
      */
     public List<Edge> getMinimalSpanningTree() {
+        // Inicializa uma lista para armazenar a árvore geradora mínima
         List<Edge> minimalSpanningTree = new ArrayList<>();
 
+        //Ordena as arestas por ordem crescente de custo conforme método bubbleSortByDistance anteriormente explicado
         sortEdgesByDistance();
 
+        //Cria uma estrutura Union-Find para controlar a conexão entre vértices
         UnionFind unionFind = new UnionFind(vertexes.size());
 
-        for (Edge edge : edges) {
+        //Itera sobre as arestas ordenadas
+        for (int j = 0; j < edges.size() && minimalSpanningTree.size() < vertexes.size() - 1; j++) {
+            Edge edge = edges.get(j);
+            //Obtém os índices dos vértices da aresta
             int v1Index = vertexes.indexOf(edge.getSource());
             int v2Index = vertexes.indexOf(edge.getDestination());
 
-            // Verifica se as arestas conectam vértices em componentes distintas
+            //Verifica se os vértices da aresta não estão no mesmo conjunto, se não estiverem une os
+            //conjuntos dos vértices e adiciona a aresta à árvore de custo mínimo.
             if (!unionFind.connected(v1Index, v2Index)) {
-                unionFind.union(v1Index, v2Index); // Une os componentes
-                minimalSpanningTree.add(edge); // Adiciona a aresta à árvore
-            }
-
-            // Se a árvore já contém arestas suficientes para formar uma árvore geradora mínima
-            if (minimalSpanningTree.size() == vertexes.size() - 1) {
-                break;
+                unionFind.union(v1Index, v2Index);
+                minimalSpanningTree.add(edge);
             }
         }
-
+        //Retorna a árvore geradora mínima
         return minimalSpanningTree;
     }
 

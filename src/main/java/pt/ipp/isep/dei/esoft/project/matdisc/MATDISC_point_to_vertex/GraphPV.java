@@ -111,7 +111,8 @@ public class GraphPV {
             pointToVertexList.add(pointToVertex);
         }
 
-        for (Edge edge : edges) {
+        for (int j = 0; j < edges.size() && addedEdges <= criterioParagem; j++) {
+            Edge edge = edges.get(j);
             String v1 = edge.getSource();
             String v2 = edge.getDestination();
 
@@ -133,9 +134,6 @@ public class GraphPV {
                 minimalSpanningTree.add(edge);
             }
 
-            if (addedEdges == criterioParagem) {
-                break;
-            }
         }
 
         return minimalSpanningTree;
