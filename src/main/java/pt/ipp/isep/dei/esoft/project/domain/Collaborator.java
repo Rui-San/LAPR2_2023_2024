@@ -422,7 +422,7 @@ public class Collaborator implements Cloneable {
             return ValidationAttributeResults.TOO_MANY_WORDS;
         }
 
-        Pattern namePattern = Pattern.compile("[a-zA-Z\\s-]+");
+        Pattern namePattern = Pattern.compile("[a-zA-Z\\s-\\p{L}]+");
 
         if (namePattern.matcher(name).matches()) {
             return ValidationAttributeResults.VALID;
