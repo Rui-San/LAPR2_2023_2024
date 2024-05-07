@@ -16,6 +16,8 @@ participant "jobRepository:\nJobRepository" as JobRepository
 participant ":collaboratorRepository \nCollaboratorRepository" as COLREP
 participant ":collaborator \nCollaborator" as COL
 participant ":Address" as Address
+participant ":Date" as Date
+participant ":Email" as Email
 
 activate HRM
 
@@ -110,8 +112,7 @@ activate HRM
 
                |||
                COL -> Address** : new Address(street, streetNumber, postalCode, city, district)
-                note right of Address: The Address object constructor is composed by:\n- street, streetNumber, postalCode, city and district
-                |||
+
                 Address --> Address : validateStreet(street)
                 Address --> Address : validateStreetNumber(number)
                 Address --> Address : validatePostalCode(postalCode)
