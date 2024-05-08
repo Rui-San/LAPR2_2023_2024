@@ -52,7 +52,12 @@ public class Bootstrap implements Runnable {
         Collaborator collaborator9 = new Collaborator("Carla Ferreira", "17/04/1985", "04/05/2024", "Rua da Praia", 25, "4900-302", "Viana do Castelo", "Viana do Castelo", "cferreira@this.app", "912345678", Collaborator.IdDocType.CC, "123456789", new Job("Bricklayer") );
         Collaborator collaborator10 = new Collaborator("António Pereira", "10/02/1980", "06/05/2024", "Rua do Campo", 40, "8000-302", "Faro", "Faro", "apereira@this.app", "912345678", Collaborator.IdDocType.CC, "123456789", new Job("VFM") );
 
-        collaboratorRepository.add(collaborator);
+        List<Collaborator> collaboratorsToAdd = List.of(collaborator, collaborator2, collaborator3, collaborator4, collaborator5, collaborator6, collaborator7, collaborator8, collaborator9, collaborator10);
+
+        for (Collaborator collaboratorToAdd : collaboratorsToAdd) {
+            collaboratorRepository.add(collaboratorToAdd);
+        }
+
     }
 
     private void addUsers() {
