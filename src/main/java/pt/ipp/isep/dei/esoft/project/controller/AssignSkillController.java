@@ -3,21 +3,47 @@ package pt.ipp.isep.dei.esoft.project.controller;
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import pt.ipp.isep.dei.esoft.project.repository.CollaboratorRepository;
+import pt.ipp.isep.dei.esoft.project.repository.Repositories;
+import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;
 
 import java.util.List;
 
 public class AssignSkillController {
-    private final CollaboratorRepository collaboratorRepository;
+    private CollaboratorRepository collaboratorRepository;
+    private SkillRepository skillRepository;
+
+    private CollaboratorRepository getCollaboratorRepository() {
+        if (collaboratorRepository == null) {
+            Repositories repositories = Repositories.getInstance();
+
+            collaboratorRepository = repositories.getCollaboratorRepository();
+        }
+        return collaboratorRepository;
+    }
+
+    private SkillRepository getSkillRepository() {
+        if (skillRepository == null) {
+            Repositories repositories = Repositories.getInstance();
+
+            skillRepository = repositories.getSkillRepository();
+        }
+        return skillRepository;
+    }
 
     public AssignSkillController() {
-
-        this.collaboratorRepository = new CollaboratorRepository();
+        getCollaboratorRepository();
     }
-    public boolean assignSkillsToCollaborator(Collaborator collaborator, List<Skill> skills) {
-        return collaboratorRepository.updateCollaboratorSkills(collaborator, skills);
+
+    public void assignSkillsToCollaborator(Collaborator collaborator, List<Skill> skills) {
+        getCollaboratorRepository().updateCollaboratorSkills(collaborator, skills);
     }
 
     public List<Collaborator> getCollaborators() {
-        return collaboratorRepository.getCollaboratorList();
+        return getCollaboratorRepository().getCollaboratorList();
     }
+
+    public List<Skill> getSkills() {
+        return getSkillRepository().getSkillList();
+    }
+
 }
