@@ -1,4 +1,5 @@
 package pt.ipp.isep.dei.esoft.project.repository;
+
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 
 import java.util.ArrayList;
@@ -6,10 +7,10 @@ import java.util.List;
 import java.util.Optional;
 
 public class SkillRepository {
-    private final List<Skill> skills;
+    private final List<Skill> skillList;
 
     public SkillRepository() {
-        skills = new ArrayList<>();
+        skillList = new ArrayList<>();
     }
 
     public Optional<Skill> add(Skill skill) {
@@ -19,7 +20,7 @@ public class SkillRepository {
 
         if (validateSkill(skill)) {
             newSkill = Optional.of(skill.clone());
-            operationSuccess = skills.add(newSkill.get());
+            operationSuccess = skillList.add(newSkill.get());
         }
 
         if (!operationSuccess) {
@@ -34,7 +35,15 @@ public class SkillRepository {
      * @return the logical state of the validation. True if the list of skills doesn't contain that skill.
      */
     private boolean validateSkill(Skill skill) {
-        boolean isValid = !skills.contains(skill);
+        boolean isValid = true;
+        String skillName = skill.getSkillName().trim().toLowerCase();
+
+        for (Skill registeredSkill : skillList) {
+            if (registeredSkill.getSkillName().trim().toLowerCase().equals(skillName)) {
+                isValid = false;
+                return isValid;
+            }
+        }
         return isValid;
     }
 
@@ -45,8 +54,12 @@ public class SkillRepository {
      */
     public List<Skill> getSkillList() {
         //This is a defensive copy, so that the repository cannot be modified from the outside.
-        return List.copyOf(skills);
+        return List.copyOf(skillList);
     }
 
-
+    public Optional<Skill> registerSkill(String skillName) {
+        Skill newSkill = new Skill(skillName);
+        Optional<Skill> addedSkill = add(newSkill);
+        return addedSkill;
+    }
 }

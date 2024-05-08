@@ -38,9 +38,7 @@ public class RegisterJobController {
     public Optional<Job> registerJob(String jobName) {
 
         Optional<Job> newJob = Optional.empty();
-
         newJob = jobRepository.registerJob(jobName);
-
         return newJob;
     }
 }
