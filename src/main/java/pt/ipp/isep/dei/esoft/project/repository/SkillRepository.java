@@ -13,7 +13,7 @@ public class SkillRepository {
         skillList = new ArrayList<>();
     }
 
-    private Optional<Skill> add(Skill skill) {
+    public Optional<Skill> add(Skill skill) {
 
         Optional<Skill> newSkill = Optional.empty();
         boolean operationSuccess = false;

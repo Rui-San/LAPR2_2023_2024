@@ -14,7 +14,7 @@ public class CollaboratorRepository {
         collaboratorList = new ArrayList<>();
     }
 
-    private Optional<Collaborator> add(Collaborator collaborator) {
+    public Optional<Collaborator> add(Collaborator collaborator) {
         Optional<Collaborator> newCollaborator = Optional.empty();
         boolean operationSuccess = false;
 

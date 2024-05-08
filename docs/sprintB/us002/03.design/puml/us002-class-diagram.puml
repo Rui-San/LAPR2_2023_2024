@@ -42,7 +42,7 @@ class jobRepository{
     - List<Job> jobList
 
     + JobRepository()
-    - add(job)
+    + add(job)
     - validateJob(job)
     + registerJob(jobName)
 }

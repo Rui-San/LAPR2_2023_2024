@@ -46,7 +46,7 @@ class CollaboratorRepository{
     - List<Collaborator> collaboratorList
 
     + CollaboratorRepository()
-    - add(collaborator)
+    + add(collaborator)
     - validateCollaborator(collaborator)
     + createCollaborator(name, birthdate, admissionDate, street,\nstreetNumber, postalCode, city, district, email, mobileNumber,\nidDocType, idDocNumber, job)
 }

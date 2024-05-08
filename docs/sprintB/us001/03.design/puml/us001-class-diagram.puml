@@ -38,7 +38,7 @@ class SkillRepository {
     - List<Skill> skillList
 
     + SkillRepository()
-    - add(skill)
+    + add(skill)
     - validateSkill(skill)
     + registerSkill(skillName)
 }
