@@ -8,7 +8,6 @@ skinparam linetype polyline
 skinparam classAttributeIconSize 0
 
 class RegisterCollaboratorUI {
-    - RegisterCollaboratorController controller
     - String name;
     - String birthdate;
     - String admissionDate;

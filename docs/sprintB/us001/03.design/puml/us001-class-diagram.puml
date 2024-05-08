@@ -7,34 +7,57 @@ skinparam linetype polyline
 skinparam classAttributeIconSize 0
 'left to right direction
 
-Repositories -> Repositories : instance
 
-
-Repositories --> "1" SkillRepository
-
-SkillRepository ..> Skill : createSkill(skillName)
-RegisterSkillController ..> Repositories : repositories
-RegisterSkillUI ..> RegisterSkillController
 
 class RegisterSkillUI {
+    - String skillName
 
+    + RegisterSkillUI()
+    - getController()
+    + run()
+    - submitData()
+    - requestData()
+    - requestSkillName()
+    - validateSkill(skillName)
 }
 
 class RegisterSkillController {
-    + getSkillRepository()
+    + RegisterSkillController()
+    + RegisterSkillController(skillRepository)
+    - getSkillRepository()
+    + registerSkill(skillName)
 }
 
 class Repositories {
-    + getInstance()
+    - Repositories()
+    + getInstance() : Repositories
     + getSkillRepository()
 }
 
 class SkillRepository {
-    + getSkillList()
+    - List<Skill> skillList
+
+    + SkillRepository()
+    + add(skill)
+    - validateSkill(skill)
+    + registerSkill(skillName)
 }
 
 class Skill {
-    + validateName(skillName)
+    - String skillName
+
+    + Skill(skillName)
+    + getSkillName()
+    + setSkillName(skillName)
+    - validateSkill(skillName)
+    + clone()
 }
+
+Repositories -> Repositories : instance
+Repositories --> "1" SkillRepository
+RegisterSkillController ..> SkillRepository : skillRepository
+SkillRepository "1" --> "*" Skill : skill
+RegisterSkillController ..> Repositories : repositories
+RegisterSkillUI ..> RegisterSkillController
 
 @enduml

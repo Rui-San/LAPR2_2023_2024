@@ -13,26 +13,31 @@ participant ":RegisterSkillController" as RSC
 participant ":Repository" as REP
 participant ":repositories \nRepositories" as REPS
 participant ":skillRepository \nSkillRepository" as SR
+participant ":Skill" as Skill
 
 activate Employee
 
     Employee -> System : Asks to register a new skill
     activate System
-
+loop until typed data is validated
         System --> Employee : Requests data (skill name)
     deactivate System
-    loop until typed data is validated
+
     Employee -> System : Types requested data
     activate System
+    |||
+    end
+
         System --> System : keepData(skillName)
+        |||
 
         System --> Employee : Shows typed data and requests confirmation
 
     deactivate System
-end
+
     Employee -> System : Confirms data and submits
     activate System
-        System -> RSC : createSkill(skillName)
+        System -> RSC : registerSkill(skillName)
         activate RSC
 
                 RSC -> REP : getInstance()
@@ -46,23 +51,39 @@ end
                 REPS --> RSC : skillRepository
                 deactivate REPS
 
-                RSC -> SR : createSkill(skillName)
+                RSC -> SR : registerSkill(skillName)
                 activate SR
 
-                SR -> Skill** : createSkill(skillName)
-                Skill --> Skill : validateName(skillName)
+                SR -> Skill** : new Skill(skillName)
+                Skill --> Skill : validateSkill(skillName)
 
-                SR --> SR : addToSkillList(skillName)
-                SR --> SR : validate(skillName)
+                |||
+                |||
+
+
+                SR --> SR : validateSkill(skill)
+
+
+
+note right
+Validate if this skill is
+already in the skillList.
+
+adds the skill if not.
+end note
+
+                SR --> SR : add(skill)
+                |||
+
                 SR --> RSC : operation success
                 deactivate SR
 
-
             RSC --> System : operation success
+
 
         deactivate RSC
 
-
         System --> Employee : Displays operation success
+        deactivate System
 
 @enduml

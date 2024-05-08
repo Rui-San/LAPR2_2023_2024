@@ -6,7 +6,7 @@ skinparam linetype polyline
 'skinparam linetype orto
 
 skinparam classAttributeIconSize 0
-
+title US003 - Class Diagram
 
 class Collaborator {
      - String name
@@ -70,8 +70,6 @@ note left of JobRepository
 end note
 
 class RegisterCollaboratorController {
-    - JobRepository jobRepository
-    - CollaboratorRepository collaboratorRepository
 
     + RegisterCollaboratorController(jobRepository, collaboratorRepository)
     + RegisterCollaboratorController()
@@ -83,14 +81,13 @@ class RegisterCollaboratorController {
 }
 
 class RegisterCollaboratorUI {
-    - RegisterCollaboratorController controller
     - String name
     - String birthdate
     ...
 
-    + requestData()
-    + displayAndSelectJob()
-    + submitData()
+    - requestData()
+    - displayAndSelectJob()
+    - submitData()
     ...()
 }
 

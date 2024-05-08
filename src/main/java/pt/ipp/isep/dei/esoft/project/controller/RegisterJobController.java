@@ -12,7 +12,6 @@ public class RegisterJobController {
 
     public RegisterJobController() {
         jobRepository = getJobRepository();
-
     }
 
     public RegisterJobController(JobRepository jobRepository) {

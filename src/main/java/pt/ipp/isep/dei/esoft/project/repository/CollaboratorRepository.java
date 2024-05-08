@@ -42,8 +42,20 @@ public class CollaboratorRepository {
      */
 
     private boolean validateCollaborator(Collaborator collaborator) {
-        boolean isValid = !collaboratorList.contains(collaborator);
-        return isValid;
+
+        String collaboratorEmail = collaborator.getEmail().getEmail().trim().toLowerCase();
+        String collaboratorIdDocNumber = collaborator.getIdDocNumber().trim().toLowerCase();
+
+        for (Collaborator registeredCollaborator : collaboratorList) {
+
+            String registeredCollaboratorEmail = registeredCollaborator.getEmail().getEmail().trim().toLowerCase();
+            String registeredCollaboratorIdDocNumber = registeredCollaborator.getIdDocNumber().trim().toLowerCase();
+            if (registeredCollaboratorEmail.equals(collaboratorEmail) || registeredCollaboratorIdDocNumber.equals(collaboratorIdDocNumber)) {
+
+                return false;
+            }
+        }
+        return true;
     }
 
     public List<Collaborator> getCollaboratorList() {
@@ -80,9 +92,8 @@ public class CollaboratorRepository {
                 job
         );
 
-        this.add(collaborator);
-        return Optional.of(collaborator);
-
+        Optional<Collaborator> addedCollaborator = add(collaborator);
+        return addedCollaborator;
     }
 
     public boolean updateCollaboratorSkills(Collaborator collaborator, List<Skill> skills) {
