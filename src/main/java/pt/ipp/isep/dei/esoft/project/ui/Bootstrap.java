@@ -20,7 +20,7 @@ public class Bootstrap implements Runnable {
     private void addSkills() {
         SkillRepository skillRepository = Repositories.getInstance().getSkillRepository();
         skillRepository.add(new Skill("Tree Pruning"));
-        skillRepository.add(new Skill("Operator of agriculte machinery"));
+        skillRepository.add(new Skill("Operator of agriculture machinery"));
         skillRepository.add(new Skill("Application of Fertilizers and Pesticides"));
         skillRepository.add(new Skill("Equipment Maintenance"));
         skillRepository.add(new Skill("Heavy Vehicle Driving License"));

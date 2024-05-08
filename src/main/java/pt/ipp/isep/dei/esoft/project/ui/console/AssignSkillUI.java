@@ -19,7 +19,9 @@ public class AssignSkillUI implements Runnable {
     private Collaborator selectedCollaborator;
     private List<Skill> selectedSkills;
 
-    public AssignSkillController getController() { return this.controller; }
+    public AssignSkillController getController() {
+        return this.controller;
+    }
 
     public AssignSkillUI() {
         controller = new AssignSkillController();
@@ -38,13 +40,13 @@ public class AssignSkillUI implements Runnable {
 
     private void submitData() {
         showSkills(selectedSkills, "You're about to assign the following skills to the collaborator:");
-        if( Utils.confirm("Do you want to proceed? (y/n)") ){
+        if (Utils.confirm("Do you want to proceed? (y/n)")) {
 
             getController().assignSkillsToCollaborator(selectedCollaborator, selectedSkills);
 
-            if(selectedCollaborator.getSkillList().containsAll(selectedSkills)){
+            if (selectedCollaborator.getSkillList().containsAll(selectedSkills)) {
                 System.out.println("All selected skills were successfully added to the collaborator.");
-            }else{
+            } else {
                 System.out.println("An error occurred while adding the skills to the collaborator.");
             }
         }
@@ -56,18 +58,18 @@ public class AssignSkillUI implements Runnable {
 
         int counter = 1;
         for (Collaborator collaborator : collaboratorList) {
-            System.out.println(counter + " - " + collaborator.getName() + " (" + collaborator.getEmail()+ ")");
+            System.out.println(counter + " - " + collaborator.getName() + " (" + collaborator.getEmail() + ")");
             counter += 1;
         }
 
         int option;
-        do{
+        do {
             option = Utils.readIntegerFromConsole("Select a collaborator to assign a skill to: ") - 1;
 
-            if (option < 0 || option >= collaboratorList.size()){
+            if (option < 0 || option >= collaboratorList.size()) {
                 System.out.println("Please select an option from the list.");
             }
-        }while (option < 0 || option >= collaboratorList.size() );
+        } while (option < 0 || option >= collaboratorList.size());
         return collaboratorList.get(option);
     }
 
@@ -83,21 +85,26 @@ public class AssignSkillUI implements Runnable {
         }
 
         int option;
-        do{
+        do {
             do {
-                option = Utils.readIntegerFromConsole("Select a skill to add to the collaborator: ") - 1;
+                do {
+                    option = Utils.readIntegerFromConsole("Select a skill to add to the collaborator: ") - 1;
 
-                if(option < 0 || option >= skillList.size()){
-                    System.out.println("Please select an option from the list.");
-                }
+                    if (option < 0 || option >= skillList.size()) {
+                        System.out.println("Please select an option from the list.");
+                    }
+                } while (option < 0 || option >= skillList.size());
+
                 if(selectedSkills.contains(skillList.get(option)) || selectedCollaborator.getSkillList().contains(skillList.get(option))){
-                    System.out.println("The selected collaborator already have this skill. Please select another skill.");
+                    System.out.println("This skill has already been chosen, please select a different one.");
                 }
-            }while (option < 0 || option >= skillList.size() || selectedSkills.contains(skillList.get(option)) || selectedCollaborator.getSkillList().contains(skillList.get(option)) );
+
+            } while (selectedSkills.contains(skillList.get(option)) || selectedCollaborator.getSkillList().contains(skillList.get(option)));
             selectedSkills.add(skillList.get(option));
-        }while ( Utils.confirm("Do you want to add another skill? (y/n)") );
+        } while (Utils.confirm("Do you want to add another skill? (y/n)"));
 
     }
+
 
     private void showSkills(List<Skill> skills, String header) {
         System.out.println();
