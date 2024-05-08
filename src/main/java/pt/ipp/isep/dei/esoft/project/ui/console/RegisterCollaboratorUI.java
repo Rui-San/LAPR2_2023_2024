@@ -92,6 +92,9 @@ public class RegisterCollaboratorUI implements Runnable {
                 System.out.println("Error: Please enter a valid Option.");
                 input.next();
             }
+            if (answer < 1 || answer > listSize){
+                System.out.println("Select an option from the list.");
+            }
 
         }
 

@@ -63,6 +63,10 @@ public class AssignSkillUI implements Runnable {
         int option;
         do{
             option = Utils.readIntegerFromConsole("Select a collaborator to assign a skill to: ") - 1;
+
+            if (option < 0 || option >= collaboratorList.size()){
+                System.out.println("Please select an option from the list.");
+            }
         }while (option < 0 || option >= collaboratorList.size() );
         return collaboratorList.get(option);
     }
@@ -82,6 +86,13 @@ public class AssignSkillUI implements Runnable {
         do{
             do {
                 option = Utils.readIntegerFromConsole("Select a skill to add to the collaborator: ") - 1;
+
+                if(option < 0 || option >= skillList.size()){
+                    System.out.println("Please select an option from the list.");
+                }
+                if(selectedSkills.contains(skillList.get(option)) || selectedCollaborator.getSkillList().contains(skillList.get(option))){
+                    System.out.println("The selected collaborator already have this skill. Please select another skill.");
+                }
             }while (option < 0 || option >= skillList.size() || selectedSkills.contains(skillList.get(option)) || selectedCollaborator.getSkillList().contains(skillList.get(option)) );
             selectedSkills.add(skillList.get(option));
         }while ( Utils.confirm("Do you want to add another skill? (y/n)") );
