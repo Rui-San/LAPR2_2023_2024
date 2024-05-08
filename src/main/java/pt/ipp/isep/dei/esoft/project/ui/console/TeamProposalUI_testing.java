@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.esoft.project.ui.console;
 import pt.ipp.isep.dei.esoft.project.controller.TeamProposalController_testing;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import pt.ipp.isep.dei.esoft.project.domain.Team_testing;
+import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
 import java.util.*;
 
@@ -30,7 +31,7 @@ public class TeamProposalUI_testing implements Runnable {
         List<Team_testing> generatedTeams = generateAllTeamProposals();
         try {
             teamAccepted = displayAndSelectTeamForApproval(generatedTeams);
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             System.out.println("Error: " + e.getMessage());
         }
 
@@ -59,7 +60,7 @@ public class TeamProposalUI_testing implements Runnable {
                     System.out.println("Team Generated:");
                     System.out.println(generatedTeam.toString());
                     teamAccepted = askManagerResponse();
-                    if(teamAccepted){
+                    if (teamAccepted) {
                         return generatedTeam;
                     }
                 }
@@ -102,84 +103,91 @@ public class TeamProposalUI_testing implements Runnable {
 
     private List<Integer> requestQuantityNeeded(List<Skill> skillsNeeded) {
         List<Integer> quantityNeeded = new ArrayList<>();
-        Scanner input = new Scanner(System.in);
 
         System.out.println("Enter the quantity needed for each selected Skill:");
+        System.out.println();
 
         for (Skill skill : skillsNeeded) {
-            System.out.print("Quantity needed for skill " + skill.getSkillName() + ": ");
-            try {
-                int quantity = input.nextInt();
-                quantityNeeded.add(quantity);
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid input! Please select an Integer.");
-                input.nextLine();
-                System.out.print("Quantity needed for skill " + skill.getSkillName() + ": ");
-                int quantity = input.nextInt();
-                quantityNeeded.add(quantity);
-            }
+            int quantity;
+            do {
+                quantity = Utils.readIntegerFromConsole("Quantity needed for skill " + skill.getSkillName() + ": ");
+                if(quantity <= 0){
+                    System.out.println("The quantity must be higher than zero.");
+                }
+            } while (quantity <= 0);
+            quantityNeeded.add(quantity);
         }
         System.out.println();
         return quantityNeeded;
-    }
+}
 
-    private List<Skill> displayAndSelectSkillsNeeded() {
-        List<Skill> skillList = controller.getSkillList();
-        List<Skill> skillsNeeded = new ArrayList<>();
+private List<Skill> displayAndSelectSkillsNeeded() {
+    List<Skill> skillList = controller.getSkillList();
+    List<Skill> skillsNeeded = new ArrayList<>();
 
-        int listSize = skillList.size();
+    int listSize = skillList.size();
 
-        Scanner input = new Scanner(System.in);
-        boolean chooseSkill = true;
-        displaySkillOptions(skillList);
-        System.out.println("Which skills are needed for the team?");
+    Scanner input = new Scanner(System.in);
+    boolean chooseSkill = true;
+    displaySkillOptions(skillList);
+    System.out.println("Which skills are needed for the team?");
 
-        while (chooseSkill) {
-            System.out.print("Skill: ");
+    while (chooseSkill) {
+        System.out.print("Skill: ");
 
-            try {
-                int answer = input.nextInt();
+        try {
+            int answer = input.nextInt();
 
-                if (answer == 0) {
-                    chooseSkill = false;
-                } else if (answer > 0 && answer <= listSize) {
-                    Skill selectedSkill = skillList.get(answer - 1);
-                    skillsNeeded.add(selectedSkill);
-                } else {
-                    System.out.println("Invalid option! Please select a valid number.");
-                }
-            } catch (InputMismatchException e) {
-                input.nextLine();
-                System.out.println("Invalid input! Please select a valid number.");
+            if (answer == 0) {
+                chooseSkill = false;
+            } else if (answer > 0 && answer <= listSize) {
+                Skill selectedSkill = skillList.get(answer - 1);
+                skillsNeeded.add(selectedSkill);
+            } else {
+                System.out.println("Invalid option! Please select a valid number.");
             }
+        } catch (InputMismatchException e) {
+            input.nextLine();
+            System.out.println("Invalid input! Please select a valid number.");
         }
-        return skillsNeeded;
     }
+    return skillsNeeded;
+}
 
-    private void displaySkillOptions(List<Skill> skillList) {
-        int i = 1;
-        for (Skill skill : skillList) {
-            System.out.println("  " + i + " - " + skill.getSkillName());
-            i++;
+private void displaySkillOptions(List<Skill> skillList) {
+    int i = 1;
+    for (Skill skill : skillList) {
+        System.out.println("  " + i + " - " + skill.getSkillName());
+        i++;
+    }
+    System.out.println("  0 - Finish selecting skills");
+}
+
+private void requestData() {
+    minTeamSize = requestMinTeamSize();
+    maxTeamSize = requestMaxTeamSize();
+}
+
+private int requestMaxTeamSize() {
+    int input = -1;
+    while (input < minTeamSize) {
+        input = Utils.readIntegerFromConsole("Maximum size of team: ");
+        if (input < minTeamSize) {
+            System.out.println("Maximum team size must be equal or higher than Minimum team size (" + minTeamSize + ").");
         }
-        System.out.println("  0 - Finish selecting skills");
     }
+    return input;
+}
 
-    private void requestData() {
-        minTeamSize = requestMinTeamSize();
-        maxTeamSize = requestMaxTeamSize();
+private int requestMinTeamSize() {
+    int input = -1;
+    while (input < 2) {
+        input = Utils.readIntegerFromConsole("Minimum size of team: ");
+        if (input < 2) {
+            System.out.println("A team must have at least 2 members.");
+        }
     }
-
-    private int requestMaxTeamSize() {
-        Scanner input = new Scanner(System.in);
-        System.out.println("Maximum size of team: ");
-        return input.nextInt();
-    }
-
-    private int requestMinTeamSize() {
-        Scanner input = new Scanner(System.in);
-        System.out.println("Minimum size of team: ");
-        return input.nextInt();
-    }
+    return input;
+}
 
 }

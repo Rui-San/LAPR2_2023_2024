@@ -37,7 +37,7 @@ public class Utils {
 
                 return value;
             } catch (NumberFormatException ex) {
-                Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Please selected a valid Integer.");
             }
         } while (true);
     }
