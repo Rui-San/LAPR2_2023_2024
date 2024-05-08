@@ -22,7 +22,7 @@ class RegisterCollaboratorUI {
     - IdDocType idDocType;
     - String idDocNumber;
     - Job job;
-    == Methods ==
+    -- Methods --
     + RegisterCollaboratorUI()
     + getRegisterCollaboratorController()
     + run()
