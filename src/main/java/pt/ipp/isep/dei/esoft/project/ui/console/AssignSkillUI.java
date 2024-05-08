@@ -82,7 +82,7 @@ public class AssignSkillUI implements Runnable {
         do{
             do {
                 option = Utils.readIntegerFromConsole("Select a skill to add to the collaborator: ") - 1;
-            }while (option < 0 || option >= skillList.size() || selectedSkills.contains(skillList.get(option)));
+            }while (option < 0 || option >= skillList.size() || selectedSkills.contains(skillList.get(option)) || selectedCollaborator.getSkillList().contains(skillList.get(option)) );
             selectedSkills.add(skillList.get(option));
         }while ( Utils.confirm("Do you want to add another skill? (y/n)") );
 
