@@ -1,8 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
-import pt.ipp.isep.dei.esoft.project._templateFiles.domain.TaskCategory;
 import pt.ipp.isep.dei.esoft.project.domain.Job;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +36,15 @@ public class JobRepository {
      * @return the logical state of the validation. True if the list of jobs doesn't contain that job.
      */
     private boolean validateJob(Job job) {
-        boolean isValid = !jobList.contains(job);
+        boolean isValid = true;
+        String jobName = job.getJobName().trim().toLowerCase();
+
+        for (Job registeredJobs : jobList) {
+            if (registeredJobs.getJobName().trim().toLowerCase().equals(jobName)) {
+                isValid = false;
+                return isValid;
+            }
+        }
         return isValid;
     }
 
@@ -66,5 +72,11 @@ public class JobRepository {
         return job;
     }
 
+    public Optional<Job> registerJob(String jobName) {
+
+        Job newJob = new Job(jobName);
+        Optional<Job> addedJob = add(newJob);
+        return addedJob;
+    }
 }
 

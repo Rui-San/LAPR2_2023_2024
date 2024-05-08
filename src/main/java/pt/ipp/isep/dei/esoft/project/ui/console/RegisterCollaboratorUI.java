@@ -37,10 +37,13 @@ public class RegisterCollaboratorUI implements Runnable {
         return controller;
     }
 
+    /*
     public static void main(String[] args) {
         RegisterCollaboratorUI ui = new RegisterCollaboratorUI();
         ui.run();
     }
+    */
+
 
     @Override
     public void run() {
@@ -57,11 +60,11 @@ public class RegisterCollaboratorUI implements Runnable {
 
     private Job displayAndSelectJob() {
         System.out.println("List of available jobs:");
-        //List<Job> jobList = controller.getJobList();
+        List<Job> jobList = controller.getJobList();
 
-        List<Job> jobList = new ArrayList<>();
+        /*List<Job> jobList = new ArrayList<>();
         Job randomJob = new Job("Programador");
-        jobList.add(randomJob);
+        jobList.add(randomJob);*/
 
         int listSize = jobList.size();
         int answer = 0;

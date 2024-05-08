@@ -1,10 +1,14 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
 import pt.ipp.isep.dei.esoft.project.controller.RegisterJobController;
+import pt.ipp.isep.dei.esoft.project.domain.Job;
+import pt.ipp.isep.dei.esoft.project.tools.ValidationAttributeResults;
 
+import java.util.Optional;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
-public class RegisterJobUI implements Runnable{
+public class RegisterJobUI implements Runnable {
     private final RegisterJobController controller;
     private String jobName;
 
@@ -18,10 +22,9 @@ public class RegisterJobUI implements Runnable{
     }
 
     public void run() {
-        System.out.println("\n\n--- Create Task ------------------------");
+        System.out.println("\n\n--- Register new Job ------------------------");
 
         requestData();
-
         submitData();
     }
 
@@ -36,40 +39,69 @@ public class RegisterJobUI implements Runnable{
             System.out.println("\nTask not created!");
         }
          */
+
+        /*
         boolean isRegistered = controller.registerJob(jobName);
 
         if (isRegistered) {
             System.out.println("\nJob registered!");
         } else {
             System.out.println("\nregistration failed!");
+        }*/
+
+        Optional<Job> job = getController().registerJob(jobName);
+
+        if (job.isPresent()) {
+            System.out.println("\nJob successfully registered!");
+        } else {
+            System.out.println("\nJob not registered!");
         }
     }
 
     private void requestData() {
-        /*
-        //Request the Task Reference from the console
-        taskReference = requestTaskReference();
+        jobName = requestJobName();
+    }
 
-        //Request the Task Description from the console
-        taskDescription = requestTaskDescription();
+    private String requestJobName() {
+        Scanner input = new Scanner(System.in);
+        boolean validInput = false;
+        String response = "";
 
-        //Request the Task Informal Description from the console
-        taskInformalDescription = requestTaskInformalDescription();
+        while (!validInput) {
+            try {
+                System.out.println("Enter job name: ");
+                response = input.nextLine();
 
-        //Request the Task Technical Description from the console
-        taskTechnicalDescription = requestTaskTechnicalDescription();
+                ValidationAttributeResults validateJobNameResults = validateJob(response);
 
-        //Request the Task Duration from the console
-        taskDuration = requestTaskDuration();
+                switch (validateJobNameResults) {
+                    case EMPTYNULL:
+                        throw new IllegalArgumentException("Job name must not be empty");
+                    case CONTAINS_SPECIAL_CHARACTERS:
+                        throw new IllegalArgumentException("Job name must not contain special characters or numbers");
+                    case VALID:
+                        validInput = true;
+                        break;
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+        }
+        return response;
+    }
 
-        //Request the Task Cost from the console
-        taskCost = requestTaskCost();
+    private ValidationAttributeResults validateJob(String jobName) {
+        if (jobName == null || jobName.trim().isEmpty()) {
+            return ValidationAttributeResults.EMPTYNULL;
+        }
 
-         */
-        Scanner scanner = new Scanner(System.in);
+        Pattern namePattern = Pattern.compile("[a-zA-Z\\s-\\p{L}]+");
 
-        System.out.println("Enter job name:");
-        jobName = scanner.nextLine();
+        if (namePattern.matcher(jobName).matches()) {
+            return ValidationAttributeResults.VALID;
+        } else {
+            return ValidationAttributeResults.CONTAINS_SPECIAL_CHARACTERS;
+        }
     }
 
 }
