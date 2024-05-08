@@ -14,7 +14,7 @@ public class JobRepository {
         jobList = new ArrayList<>();
     }
 
-    public Optional<Job> add(Job job) {
+    private Optional<Job> add(Job job) {
 
         Optional<Job> newJob = Optional.empty();
         boolean operationSuccess = false;

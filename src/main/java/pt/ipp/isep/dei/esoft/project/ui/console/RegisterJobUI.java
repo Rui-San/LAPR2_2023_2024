@@ -17,7 +17,7 @@ public class RegisterJobUI implements Runnable {
         controller = new RegisterJobController();
     }
 
-    private RegisterJobController getController() {
+    public RegisterJobController getController() {
         return controller;
     }
 

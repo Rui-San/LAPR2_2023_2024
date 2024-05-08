@@ -11,31 +11,58 @@ skinparam classAttributeIconSize 0
 'left to right direction
 
 Class RegisterJobController{
-    +createJob()
+
+
+    + RegisterJobController()
+    + RegisterJobController(jobRepository)
+    - getJobRepository()
+    + registerJob(jobName)
 }
 
 Class RegisterJobUI {
+    - String jobName;
+
+    + RegisterJobUI()
+    + getController()
+    + run()
+    - submitData()
+    - requestData()
+    - requestJobName()
+    - validateJob(jobName)
 
 }
 
 class Repositories {
-    +getInstance()
-    +getJobRepository()
+    - Repositories()
+    + getInstance() : Repositories
+    + getJobRepository()
 }
 
 class jobRepository{
-    +createJob(String jobName)
+    - List<Job> jobList
+
+    + JobRepository()
+    - add(job)
+    - validateJob(job)
+    + registerJob(jobName)
 }
 
 class Job{
-    -jobName
-    +Job(jobName)
+    - String jobName
+
+    + Job(jobName)
+    + getJobName()
+    + setJobName(jobName)
+    + clone()
+    - validateJob(jobName)
+
 }
 
 Repositories --> Repositories : "instance"
 Repositories --> "1" jobRepository
 RegisterJobUI ..> RegisterJobController
 RegisterJobController ..> Repositories : repositories
-jobRepository ..> Job : "Job"
+jobRepository "1" --> "*" Job : "job"
+RegisterJobController ..> jobRepository : jobRepository
 
 @enduml

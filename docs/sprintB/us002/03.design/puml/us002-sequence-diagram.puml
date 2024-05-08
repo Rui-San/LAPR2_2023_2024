@@ -3,38 +3,41 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title US002 - System Sequence Diagram (SSD)
+title US002 - Sequence Diagram
 
 autonumber
 
-actor "HRM" as Employee
-participant ":RegisterJobUI" as CJU
+actor "HRM" as HRM
+participant ":RegisterJobUI" as UI
 participant ":RegisterJobController" as CJC
 participant ":Repositories" as REPO
 participant "repositories\n:Repositories" as Repos
 participant "jobRepository\n:JobRepository" as ORG
 participant ":Job" as JOB
 
-activate Employee
+activate HRM
 
-    Employee -> CJU : Asks to register a new job
-    activate CJU
-
-        CJU --> Employee : Requests job data (job name)
-    deactivate CJU
+    HRM -> UI : Asks to register a new job
+    activate UI
     loop until typed data is validated
-    Employee -> CJU : Types requested data
-    activate CJU
-    CJU --> CJU : keepData(jobName)
+        UI --> HRM : Requests data (job name)
+    deactivate UI
 
-        CJU --> Employee : Shows typed data and requests confirmation
-    deactivate CJU
+    HRM -> UI : Types requested data
+    activate UI
+    |||
     end
+    UI --> UI : keepData(jobName)
+    |||
 
-    Employee -> CJU : Confirms data and submits
-    activate CJU
+        UI --> HRM : Shows typed data and requests confirmation
+    deactivate UI
 
-    CJU -> CJC : createJob(jobName)
+
+    HRM -> UI : Confirms data and submits
+    activate UI
+
+    UI -> CJC : registerJob(jobName)
     activate CJC
 
     CJC -> REPO : getInstance()
@@ -49,22 +52,33 @@ activate Employee
     Repos --> CJC : jobRepository
     deactivate Repos
 
-    CJC -> ORG : createJob(jobName)
+    CJC -> ORG : registerJob(jobName)
 
     activate ORG
 
-    ORG -> JOB** : createJob(jobName)
+    ORG -> JOB** : new Job(jobName)
 
-    ORG --> ORG : addToJobList(jobName)
+    JOB --> JOB : validateJob(jobName)
 
+    |||
+    |||
     ORG --> ORG : validateJob(jobName)
+    note right
+    Validate if this job is
+    already in the jobList.
+
+    adds the job if not.
+    end note
+    ORG --> ORG : add(jobName)
+
+
 
     ORG --> CJC : operation success
     deactivate ORG
-    CJC --> CJU : operation success
+    CJC --> UI : operation success
     deactivate CJC
 
-        CJU --> Employee : Displays operation success and shows the \nlist of all registered jobs
-    deactivate CJU
+        UI --> HRM : Displays operation success
+    deactivate UI
 
 @enduml
