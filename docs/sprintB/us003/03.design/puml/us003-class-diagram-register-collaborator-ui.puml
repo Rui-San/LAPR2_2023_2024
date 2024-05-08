@@ -28,6 +28,7 @@ class RegisterCollaboratorUI {
     - submitData()
     - displayAndSelectJob()
     - displayJobOptions(jobList)
+    - showAllDataForConfirmation(name, birthdate, admissionDate,\nstreet, streetNumber, postalCode, city, district, email,\nmobileNumber, idDocType, idDocNumber, job, header)
     .. Request Data Methods: ..
     - requestData()
     - requestName()

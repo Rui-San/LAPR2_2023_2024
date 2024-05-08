@@ -110,6 +110,7 @@ public class RegisterJobUI implements Runnable {
     }
 
     private void showAllDataForConfirmation(String typedJob, String header){
+        System.out.println();
         System.out.println(header);
         System.out.println(typedJob);
 

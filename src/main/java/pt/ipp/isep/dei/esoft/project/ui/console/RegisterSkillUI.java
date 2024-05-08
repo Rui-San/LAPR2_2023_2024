@@ -108,6 +108,7 @@ public class RegisterSkillUI implements Runnable {
     }
 
     public void showAllDataForConfirmation(String typedSkill, String header) {
+        System.out.println();
         System.out.println(header);
         System.out.println(typedSkill);
     }

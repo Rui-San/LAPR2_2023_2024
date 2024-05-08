@@ -89,6 +89,7 @@ public class AssignSkillUI implements Runnable {
     }
 
     private void showSkills(List<Skill> skills, String header) {
+        System.out.println();
         System.out.println(header);
 
         for (Skill skill : skills) {

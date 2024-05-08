@@ -6,6 +6,7 @@ import pt.ipp.isep.dei.esoft.project.domain.Collaborator.IdDocType;
 import pt.ipp.isep.dei.esoft.project.domain.Job;
 import pt.ipp.isep.dei.esoft.project.tools.ValidationAttributeResults;
 import pt.ipp.isep.dei.esoft.project.tools.MobileOperator;
+import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
 
 import java.util.*;
@@ -55,12 +56,17 @@ public class RegisterCollaboratorUI implements Runnable {
     }
 
     private void submitData() {
-        Optional<Collaborator> collaborator = getRegisterCollaboratorController().createCollaborator(name, birthdate, admissionDate, street, streetNumber, postalCode, city, district, email, mobileNumber, idDocType, idDocNumber, job);
 
-        if (collaborator.isPresent()) {
-            System.out.println("\nCollaborator successfully registered!");
-        } else {
-            System.out.println("\nCollaborator not registered!");
+        showAllDataForConfirmation(name, birthdate, admissionDate, street, streetNumber, postalCode, city, district, email, mobileNumber, idDocType, idDocNumber, job, "You're about to register the following collaborator:");
+        if (Utils.confirm("Do you want to proceed? (y/n)")) {
+
+            Optional<Collaborator> collaborator = getRegisterCollaboratorController().createCollaborator(name, birthdate, admissionDate, street, streetNumber, postalCode, city, district, email, mobileNumber, idDocType, idDocNumber, job);
+
+            if (collaborator.isPresent()) {
+                System.out.println("\nCollaborator successfully registered!");
+            } else {
+                System.out.println("\nThis collaborator is already in the system!");
+            }
         }
     }
 
@@ -582,6 +588,25 @@ public class RegisterCollaboratorUI implements Runnable {
         } else {
             return true;
         }
+    }
+
+    private void showAllDataForConfirmation(String name, String birthdate, String admissionDate, String street, int streetNumber, String postalCode, String city, String district, String email, String mobileNumber, IdDocType idDocType, String idDocNumber, Job job, String header) {
+        System.out.println();
+        System.out.println(header);
+        System.out.println();
+        System.out.println("Name: " + name);
+        System.out.println("Birthdate: " + birthdate);
+        System.out.println("Admission Date: " + admissionDate);
+        System.out.println("Street: " + street);
+        System.out.println("Street Number: " + streetNumber);
+        System.out.println("Postal Code: " + postalCode);
+        System.out.println("City: " + city);
+        System.out.println("District: " + district);
+        System.out.println("Email: " + email);
+        System.out.println("Mobile Number: " + mobileNumber);
+        System.out.println("ID Document Type: " + idDocType);
+        System.out.println("ID Document Number: " + idDocNumber);
+        System.out.println("Job: " + job.getJobName());
     }
 }
 
