@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.esoft.project.ui.console;
 import pt.ipp.isep.dei.esoft.project.controller.RegisterJobController;
 import pt.ipp.isep.dei.esoft.project.domain.Job;
 import pt.ipp.isep.dei.esoft.project.tools.ValidationAttributeResults;
+import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
 import java.util.Optional;
 import java.util.Scanner;
@@ -49,12 +50,16 @@ public class RegisterJobUI implements Runnable {
             System.out.println("\nregistration failed!");
         }*/
 
-        Optional<Job> job = getController().registerJob(jobName);
+        showAllDataForConfirmation(jobName,"You're about to register the following job:");
+        if( Utils.confirm("Do you want to proceed? (y/n)") ) {
 
-        if (job.isPresent()) {
-            System.out.println("\nJob successfully registered!");
-        } else {
-            System.out.println("\nJob not registered!");
+            Optional<Job> job = getController().registerJob(jobName);
+
+            if (job.isPresent()) {
+                System.out.println("\nJob successfully registered!");
+            } else {
+                System.out.println("\nThis job is already registered!");
+            }
         }
     }
 
@@ -102,6 +107,12 @@ public class RegisterJobUI implements Runnable {
         } else {
             return ValidationAttributeResults.CONTAINS_SPECIAL_CHARACTERS;
         }
+    }
+
+    private void showAllDataForConfirmation(String typedJob, String header){
+        System.out.println(header);
+        System.out.println(typedJob);
+
     }
 
 }

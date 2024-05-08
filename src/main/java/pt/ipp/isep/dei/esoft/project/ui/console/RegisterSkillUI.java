@@ -4,12 +4,13 @@ import pt.ipp.isep.dei.esoft.project.controller.RegisterSkillController;
 import pt.ipp.isep.dei.esoft.project.domain.Job;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import pt.ipp.isep.dei.esoft.project.tools.ValidationAttributeResults;
+import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
 import java.util.Optional;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-public class RegisterSkillUI implements Runnable{
+public class RegisterSkillUI implements Runnable {
     private final RegisterSkillController controller;
     private String skillName;
 
@@ -40,16 +41,20 @@ public class RegisterSkillUI implements Runnable{
             System.out.println("\nregistration failed!");
         }
 */
-        Optional<Skill> skill = getController().registerSkill(skillName);
+        showAllDataForConfirmation(skillName, "You're about to register the following Skill:");
+        if (Utils.confirm("Do you want to proceed? (y/n)")) {
 
-        if (skill.isPresent()) {
-            System.out.println("\nSkill successfully registered!");
-        } else {
-            System.out.println("\nSkill not registered!");
+
+            Optional<Skill> skill = getController().registerSkill(skillName);
+
+            if (skill.isPresent()) {
+                System.out.println("\nSkill successfully registered!");
+            } else {
+                System.out.println("\nThis Skill is already registered!");
+            }
         }
-
-
     }
+
 
     private void requestData() {
 /*
@@ -100,6 +105,11 @@ public class RegisterSkillUI implements Runnable{
         } else {
             return ValidationAttributeResults.CONTAINS_SPECIAL_CHARACTERS;
         }
+    }
+
+    public void showAllDataForConfirmation(String typedSkill, String header) {
+        System.out.println(header);
+        System.out.println(typedSkill);
     }
 
     /*

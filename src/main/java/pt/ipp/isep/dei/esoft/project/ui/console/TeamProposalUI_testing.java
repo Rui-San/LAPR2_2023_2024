@@ -28,7 +28,11 @@ public class TeamProposalUI_testing implements Runnable {
 
         requestData();
         List<Team_testing> generatedTeams = generateAllTeamProposals();
-        teamAccepted = displayAndSelectTeamForApproval(generatedTeams);
+        try {
+            teamAccepted = displayAndSelectTeamForApproval(generatedTeams);
+        }catch (IllegalArgumentException e){
+            System.out.println("Error: " + e.getMessage());
+        }
 
         if (teamAccepted != null) {
             submitSelectedTeam(teamAccepted);
@@ -46,7 +50,7 @@ public class TeamProposalUI_testing implements Runnable {
 
     private Team_testing displayAndSelectTeamForApproval(List<Team_testing> generatedTeams) {
         if (generatedTeams.isEmpty()) {
-            throw new IllegalArgumentException("No teams have been generated with given inputs");
+            throw new IllegalArgumentException("Theres no possible teams with given inputs");
         } else {
             boolean teamAccepted = false;
 
@@ -115,6 +119,7 @@ public class TeamProposalUI_testing implements Runnable {
                 quantityNeeded.add(quantity);
             }
         }
+        System.out.println();
         return quantityNeeded;
     }
 
@@ -157,6 +162,7 @@ public class TeamProposalUI_testing implements Runnable {
             System.out.println("  " + i + " - " + skill.getSkillName());
             i++;
         }
+        System.out.println("  0 - Finish selecting skills");
     }
 
     private void requestData() {
@@ -166,13 +172,13 @@ public class TeamProposalUI_testing implements Runnable {
 
     private int requestMaxTeamSize() {
         Scanner input = new Scanner(System.in);
-        System.out.println("Minimum size of team: ");
+        System.out.println("Maximum size of team: ");
         return input.nextInt();
     }
 
     private int requestMinTeamSize() {
         Scanner input = new Scanner(System.in);
-        System.out.println("Maximum size of team: ");
+        System.out.println("Minimum size of team: ");
         return input.nextInt();
     }
 

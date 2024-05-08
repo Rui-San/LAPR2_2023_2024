@@ -29,6 +29,7 @@ Class RegisterJobUI {
     - requestData()
     - requestJobName()
     - validateJob(jobName)
+    - showAllDataForConfirmation(typedJob, header)
 
 }
 
