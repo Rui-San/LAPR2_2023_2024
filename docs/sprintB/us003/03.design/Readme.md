@@ -48,31 +48,27 @@ This diagram shows the full sequence of interactions between the classes involve
 
 ![Sequence Diagram - Full](svg/us003-sequence-diagram.svg)
 
-### Split Diagrams
+## 3.3. Class Diagram (CD)
+
+### Full Class Diagram
 
 The following diagram shows the same sequence of interactions between the classes involved in the realization of this
 user story, but it is split in partial diagrams to better illustrate the interactions between the classes.
 
-It uses Interaction Occurrence (a.k.a. Interaction Use).
+![Class Diagram - Full](svg/us003-class-diagram.svg)
 
-![Sequence Diagram - split](svg/us006-sequence-diagram-split.svg)
+### Partial RegisterCollaboratorUI Class Diagram
 
-**Get Task Category List Partial SD**
+![Class Diagram - RegisterCollaboratorUI](svg/us003-class-diagram-register-collaborator-ui.svg)
 
-![Sequence Diagram - Partial - Get Task Category List](svg/us006-sequence-diagram-partial-get-task-category-list.svg)
+### Partial Collaborator Class Diagram
 
-**Get Task Category Object**
+![Class Diagram - Collaborator](svg/us003-class-diagram-collaborator.svg)
 
-![Sequence Diagram - Partial - Get Task Category Object](svg/us006-sequence-diagram-partial-get-task-category.svg)
+### Partial Address Class Diagram
 
-**Get Employee**
+![Class Diagram - Address](svg/us003-class-diagram-address.svg)
 
-![Sequence Diagram - Partial - Get Employee](svg/us006-sequence-diagram-partial-get-employee.svg)
+### Partial Date Class Diagram
 
-**Create Task**
-
-![Sequence Diagram - Partial - Create Task](svg/us006-sequence-diagram-partial-create-task.svg)
-
-## 3.3. Class Diagram (CD)
-
-![Class Diagram](svg/us003-class-diagram.svg)
+![Class Diagram - Date](svg/us003-class-diagram-date.svg)
