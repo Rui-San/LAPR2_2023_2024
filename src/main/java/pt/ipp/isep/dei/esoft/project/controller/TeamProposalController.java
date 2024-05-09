@@ -12,13 +12,13 @@ public class TeamProposalController {
 
     private SkillRepository skillRepository;
     private CollaboratorRepository collaboratorRepository;
-    private TeamRepository teamRepository_;
+    private TeamRepository teamRepository;
 
 
     public TeamProposalController(SkillRepository skillRepository, CollaboratorRepository collaboratorRepository, TeamRepository teamRepository_) {
         this.skillRepository = skillRepository;
         this.collaboratorRepository = collaboratorRepository;
-        this.teamRepository_ = teamRepository_;
+        this.teamRepository = teamRepository_;
     }
 
     public TeamProposalController() {
@@ -46,12 +46,12 @@ public class TeamProposalController {
     }
 
     private TeamRepository getTeamRepository_testing() {
-        if (teamRepository_ == null) {
+        if (teamRepository == null) {
             Repositories repositories = Repositories.getInstance();
 
-            teamRepository_ = repositories.getTeamRepository_testing();
+            teamRepository = repositories.getTeamRepository_testing();
         }
-        return teamRepository_;
+        return teamRepository;
     }
 
 
@@ -72,7 +72,7 @@ public class TeamProposalController {
 
         List<Collaborator> collaboratorList = getCollaboratorList();
 
-        teamsGenerated = teamRepository_.generateAllTeamProposals(minTeamSize, maxTeamSize, skillsNeeded, quantityNeeded, collaboratorList);
+        teamsGenerated = teamRepository.generateAllTeamProposals(minTeamSize, maxTeamSize, skillsNeeded, quantityNeeded, collaboratorList);
 
         return teamsGenerated;
 
