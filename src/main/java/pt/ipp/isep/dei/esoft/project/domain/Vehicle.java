@@ -7,15 +7,6 @@ import java.util.regex.Pattern;
 
 public class Vehicle {
 
-    private enum VehicleValidationResult {
-        EMPTY_NULL,
-        VALID,
-        INVALID_INPUT,
-        INVALID_DATE,
-        INVALID_PLATE_ID_FORMAT,
-        TARE_NOT_LESS_THAN_GROSS_WEIGHT
-    }
-
     private String plateId;
     private String brand;
     private String model;
