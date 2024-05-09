@@ -44,15 +44,6 @@ public class RegisterVehicleController {
     }
 
     /**
-     * Method that calls the method of the VehicleRepository to get the VehicleList
-     * @return List of Vehicles
-     */
-    public List<Vehicle> getVehicleList() {
-        VehicleRepository vehicleRepository = getVehicleRepository();
-        return vehicleRepository.getVehicleList();
-    }
-
-    /**
      * Method that calls the creation of a new Vehicle
      * @param plateId plateId of the Vehicle
      * @param brand brand of the Vehicle

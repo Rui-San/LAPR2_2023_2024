@@ -127,9 +127,7 @@ public class VehicleRepository {
      * @return
      */
     private boolean validateVehicle(Optional<Vehicle> vehicle) {
-        boolean isValid = true; //TODO: this is here to avoid compilation errors, but it should be implemented
-
-        return isValid;
+        return !getVehicleList().contains(vehicle);
     }
 
     /**

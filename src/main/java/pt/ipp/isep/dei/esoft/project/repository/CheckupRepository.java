@@ -18,20 +18,18 @@ public class CheckupRepository {
     }
 
     /**
-     * This method returns the  list with all the checkups.
+     * This method returns the list with all the checkups.
      * @return
      */
-    public ArrayList<VehicleCheckup> getVehicleCheckupList() {
-        return this.vehicleCheckupList;
-    }
+    public ArrayList<VehicleCheckup> getVehicleCheckupList() { return this.vehicleCheckupList; }
 
     /**
      * This method sets the checkup list to a specific list.
      * @param vehicleCheckupList
      */
     public void setVehicleCheckupList(ArrayList<VehicleCheckup> vehicleCheckupList) {
-        this.vehicleCheckupList.clear();
-        this.vehicleCheckupList.addAll(vehicleCheckupList);
+        this.getVehicleCheckupList().clear();
+        this.getVehicleCheckupList().addAll(vehicleCheckupList);
     }
 
     /**
@@ -46,7 +44,7 @@ public class CheckupRepository {
 
         if (validateVehicleCheckup(vehicleCheckup)) {
             newVehicleCheckup = Optional.of(vehicleCheckup.clone());
-            operationSuccess = vehicleCheckupList.add(newVehicleCheckup.get());
+            operationSuccess = getVehicleCheckupList().add(newVehicleCheckup.get());
         }
 
         if (!operationSuccess) {
@@ -62,7 +60,7 @@ public class CheckupRepository {
      * @return True if the checkup is not a duplicate, else return false.
      */
     private boolean validateVehicleCheckup(VehicleCheckup vehicleCheckup) {
-        boolean isValid = !vehicleCheckupList.contains(vehicleCheckup);
+        boolean isValid = !getVehicleCheckupList().contains(vehicleCheckup);
         return isValid;
     }
 
@@ -73,7 +71,7 @@ public class CheckupRepository {
      */
     public List<VehicleCheckup> getVehicleCheckups() {
         //This is a defensive copy, so that the repository cannot be modified from the outside.
-        return List.copyOf(vehicleCheckupList);
+        return List.copyOf(getVehicleCheckupList());
     }
 
     /**

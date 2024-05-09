@@ -9,14 +9,24 @@ public class ListVehiclesNeedingCheckupUI implements Runnable{
 
     private final ListVehiclesNeedingCheckupController controller;
 
+    /**
+     * Creates an instance of ListVehiclesNeedingCheckupUI.
+     */
     public ListVehiclesNeedingCheckupUI() {
         controller = new ListVehiclesNeedingCheckupController();
     }
 
+    /**
+     * Gets the controller.
+     * @return controller
+     */
     private ListVehiclesNeedingCheckupController getController() {
         return controller;
     }
 
+    /**
+     * Method that runs the ListVehiclesNeedingCheckupUI.
+     */
     public void run() {
         System.out.println("\n ----------LIST VEHICLES NEEDING CHECKUP ----------------\n");
 
@@ -24,6 +34,9 @@ public class ListVehiclesNeedingCheckupUI implements Runnable{
 
     }
 
+    /**
+     * Method that shows the data.
+     */
     private void showData() {
 
         List<Vehicle> vehiclesNeedingCheckupList = getController().getVehiclesNeedingCheckup();

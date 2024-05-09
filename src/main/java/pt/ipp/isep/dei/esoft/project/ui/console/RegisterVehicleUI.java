@@ -4,10 +4,7 @@ import pt.ipp.isep.dei.esoft.project.controller.RegisterVehicleController;
 import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
 import pt.ipp.isep.dei.esoft.project.domain.Date;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
-
-
 import java.util.*;
-import java.util.regex.Pattern;
 
 public class RegisterVehicleUI implements Runnable{
 
@@ -23,14 +20,24 @@ public class RegisterVehicleUI implements Runnable{
     private Date acquisitionDate;
     private int checkupFrequencyKms;
 
+    /**
+     * Creates an instance of RegisterVehicleUI
+     */
     public RegisterVehicleUI() {
         controller = new RegisterVehicleController();
     }
 
+    /**
+     * Get the RegisterVehicleController
+     * @return RegisterVehicleController
+     */
     public RegisterVehicleController getRegisterVehicleController() {
         return controller;
     }
 
+    /**
+     * Run method of RegisterVehicleUI
+     */
     @Override
     public void run() {
         System.out.println("\n\n----------- Register new Vehicle ---------------");
@@ -39,6 +46,9 @@ public class RegisterVehicleUI implements Runnable{
         submitData();
     }
 
+    /**
+     * Method that submits the data to the controller
+     */
     private void submitData() {
         showAllDataForConfirmation("You're about to register the following vehicle:", plateID, brand, model, type, tare, grossWeight, currentKm, registerDate, acquisitionDate, checkupFrequencyKms);
         if (Utils.confirm("Do you want to proceed? (y/n)")) {
@@ -55,6 +65,20 @@ public class RegisterVehicleUI implements Runnable{
 
     }
 
+    /**
+     * Method that shows all the data for confirmation
+     * @param message the message to show
+     * @param plateID the plate ID
+     * @param brand the brand
+     * @param model the model
+     * @param type the type
+     * @param tare the tare
+     * @param grossWeight the gross weight
+     * @param currentKm the current kilometers
+     * @param registerDate the register date
+     * @param acquisitionDate the acquisition date
+     * @param checkupFrequencyKms the checkup frequency in kilometers
+     */
     private void showAllDataForConfirmation(String message, String plateID, String brand, String model, String type, double tare, double grossWeight, int currentKm, Date registerDate, Date acquisitionDate, int checkupFrequencyKms) {
         System.out.println(message);
         System.out.println("Plate ID: " + plateID);
@@ -69,7 +93,9 @@ public class RegisterVehicleUI implements Runnable{
         System.out.println("Checkup Frequency Kms: " + checkupFrequencyKms);
     }
 
-
+    /**
+     * Method that requests all the data needed to register a vehicle
+     */
     private void requestData() {
         plateID = requestPlateID();
         model = requestModel();
@@ -84,6 +110,10 @@ public class RegisterVehicleUI implements Runnable{
 
     }
 
+    /**
+     * Method that requests the plate ID
+     * @return the plate ID
+     */
     private String requestPlateID() {
         Scanner input = new Scanner(System.in);
         boolean validInput = false;
@@ -106,6 +136,11 @@ public class RegisterVehicleUI implements Runnable{
         return response;
     }
 
+    /**
+     * Method that validates the plate ID
+     * @param plateID the plate ID
+     * @return true if the plate ID is valid
+     */
     private boolean validatePlateID(String plateID) {
         if (plateID == null || plateID.trim().isEmpty()) {
             return false;
@@ -116,6 +151,10 @@ public class RegisterVehicleUI implements Runnable{
         return plateID.matches(plateIDPattern);
     }
 
+    /**
+     * Method that requests the model
+     * @return the model
+     */
     private String requestModel() {
         Scanner input = new Scanner(System.in);
         boolean validInput = false;
@@ -138,6 +177,10 @@ public class RegisterVehicleUI implements Runnable{
         return response;
     }
 
+    /**
+     * Method that requests the brand
+     * @return the brand
+     */
     private String requestBrand() {
         Scanner input = new Scanner(System.in);
         boolean validInput = false;
@@ -160,6 +203,10 @@ public class RegisterVehicleUI implements Runnable{
         return response;
     }
 
+    /**
+     * Method that requests the type
+     * @return the type
+     */
     private String requestType() {
         Scanner input = new Scanner(System.in);
         boolean validInput = false;
@@ -182,10 +229,19 @@ public class RegisterVehicleUI implements Runnable{
         return response;
     }
 
-    private boolean validateNotNullorEmpty(String model) {
-        return model != null && !model.trim().isEmpty();
+    /**
+     * Method that validates if a string is not null or empty
+     * @param string the string to validate
+     * @return true if the string is not null nor empty
+     */
+    private boolean validateNotNullorEmpty(String string) {
+        return string != null && !string.trim().isEmpty();
     }
 
+    /**
+     * Method that requests the tare
+     * @return the tare
+     */
     private double requestTare() {
         Scanner input = new Scanner(System.in);
         boolean validInput = false;
@@ -211,10 +267,20 @@ public class RegisterVehicleUI implements Runnable{
         return response;
     }
 
+    /**
+     * Method that validates the tare
+     * @param tare the tare
+     * @return true if the tare is valid
+     */
     private boolean validateTare(double tare) {
         return tare > 0;
     }
 
+    /**
+     * Method that requests the gross weight
+     * @param tare the tare
+     * @return the gross weight
+     */
     private double requestGrossWeight(double tare) {
         Scanner input = new Scanner(System.in);
         boolean validInput = false;
@@ -240,6 +306,12 @@ public class RegisterVehicleUI implements Runnable{
         return response;
     }
 
+    /**
+     * Method that validates the gross weight
+     * @param grossWeight the gross weight
+     * @param tare the tare
+     * @return true if the gross weight is valid
+     */
     private boolean validateGrossWeight(double grossWeight, double tare) {
         return grossWeight > 0 && grossWeight > tare;
     }
@@ -269,10 +341,19 @@ public class RegisterVehicleUI implements Runnable{
         return response;
     }
 
+    /**
+     * Method that validates the current kilometers
+     * @param currentKm the current kilometers
+     * @return true if the current kilometers are valid
+     */
     private boolean validateCurrentKm(int currentKm) {
         return currentKm > 0;
     }
 
+    /**
+     * Method that requests the register date
+     * @return the register date
+     */
     private Date requestRegisterDate() {
         Scanner input = new Scanner(System.in);
         boolean validInput = false;
@@ -296,10 +377,20 @@ public class RegisterVehicleUI implements Runnable{
         return response;
     }
 
+    /**
+     * Method that validates a date
+     * @param date the date
+     * @return true if the date is valid
+     */
     private boolean validateDate(Date date) {
         return date != null;
     }
 
+    /**
+     * Method that requests the acquisition date
+     * @param registerDate the register date
+     * @return the acquisition date
+     */
     private Date requestAcquisitionDate(Date registerDate) {
         Scanner input = new Scanner(System.in);
         boolean validInput = false;
@@ -323,10 +414,20 @@ public class RegisterVehicleUI implements Runnable{
         return response;
     }
 
+    /**
+     * Method that validates the acquisition date
+     * @param acquisitionDate the acquisition date
+     * @param registerDate the register date
+     * @return true if the acquisition date is valid
+     */
     private boolean validateAcquisitionDate(Date acquisitionDate, Date registerDate) {
         return acquisitionDate != null && acquisitionDate.compareTo(registerDate) > 0;
     }
 
+    /**
+     * Method that requests the checkup frequency in kilometers
+     * @return the checkup frequency in kilometers
+     */
     private int requestCheckupFrequencyKms() {
         Scanner input = new Scanner(System.in);
         boolean validInput = false;
@@ -351,4 +452,5 @@ public class RegisterVehicleUI implements Runnable{
         }
         return response;
     }
+
 }
