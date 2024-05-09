@@ -47,11 +47,12 @@ public class MainUS14 {
             return;
         }
         for (File csvFile : csvFiles) {
-            long startTime = System.currentTimeMillis();
+
             GraphPV graphPV = readCsvFile(csvFile.getAbsolutePath());
 
             if (graphPV != null && graphPV.getEdges() != null) {
                 int totalLines = graphPV.getEdges().size();
+                long startTime = System.currentTimeMillis();
                 List<Edge> minimalSpanningTree = graphPV.getMinimalSpanningTree();
                 long endTime = System.currentTimeMillis();
                 long executionTime = endTime - startTime;
