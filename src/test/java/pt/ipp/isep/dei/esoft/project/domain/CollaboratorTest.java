@@ -22,7 +22,6 @@ class CollaboratorTest {
     public void ensureNameHasAtLeastTwoNamesTest() {
         Job job = new Job("Gestor");
 
-
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
             new Collaborator("Pedro", "07/10/1995", "20/03/2024", "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", Collaborator.IdDocType.CC, "234324235", job);
 
