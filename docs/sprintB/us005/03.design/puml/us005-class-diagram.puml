@@ -6,44 +6,114 @@ skinparam linetype polyline
 'skinparam linetype orto
 skinparam classAttributeIconSize 0
 'left to right direction
+title US005 - Class Diagram
 
-Repositories -> Repositories : instance
-
-
-Repositories --> "1" SkillRepository
-Repositories --> "1" TeamRepository
-
-TeamRepository ..> Skill : createTeam()
-TeamProposalController ..> Repositories : repositories
-TeamProposalUI ..> TeamProposalController
 
 class TeamProposalUI {
+    - int minTeamSize
+    - int maxTeamSize
+    - List<Skill> skillsNeeded
+    - List<Integer> quantityNeeded
+    - Team teamAccepted
+
+    + TeamProposalUI_testing()
+    + getTeamProposalController()
+    + run()
+    - generateAllTeamProposals()
+    - askManagerResponse()
+    - requestQuantityNeeded(skillsNeeded)
+    - displayAndSelectSkillsNeeded()
+    - saveTeamProposal(teamAccepted)
+    - displaySkillOptions(skillList)
+    - displayAndSelectTeamForApproval(generatedTeams)
+    - requestData()
+    - requestMaxTeamSize()
+    - requestMinTeamSize()
 
 }
 
 class TeamProposalController {
+    + TeamProposalController()
+    - getSkillRepository()
+    - getCollaboratorRepository()
+    - getTeamRepository()
     + getSkillList()
-    + getTeamRepository()
+    + getCollaboratorList()
+    + generateAllTeamProposal(minTeamSize,\nmaxTeamSize, skillsNeeded, quantityNeeded)
+    + saveTeamProposal(teamAccepted)
 }
 
 class Repositories {
-    + getInstance()
+    - Repositories()
+    + getInstance() : Repositories
     + getSkillRepository()
+    + getCollaboratorRepository()
     + getTeamRepository()
 }
 
-class SkillRepository {
+Class SkillRepository {
+    - List<Skill> skillList
+
     + getSkillList()
 }
 
+Class CollaboratorRepository {
+    - List<Collaborator> collaboratorList
+
+    + getCollaboratorList()
+
+}
+
 class TeamRepository {
-    + createTeam(team)
-    + addToTeamRepository(team)
-    + validateTeam(team)
+    - List<Team> teamList
+
+    + TeamRepository()
+    + generateAllTeamProposals(minTeamSize, maxTeamSize,\nskillsNeeded, quantityNeeded, collaboratorList)
+    - verifyIfSkillSetIsFulfilled(skillSetListCopy)
+    - createTeams(possibleCollaborators, minTeamSize, maxTeamSize)
+    - createTeamsBySize(possibleCollaborators, teamSize)
+    - gatherPossibleCollaborators(collaboratorList, skillSetList)
+    - isAlreadyInOneTeam(collaborator)
+    - verifyQuantityNeeded(quantityNeeded, maxTeamSize)
+    - saveTeamProposal(teamAccepted)
+}
+
+class Team {
+    - List<Collaborator> members
+
+    + Team(members)
+    + getMembers()
+    + toString()
 }
 
 class Skill {
-    + validateTeam(team)
+    - String skillName
+
+    + Skill(skillName)
 }
+
+class Collaborator {
+    - List<Skill> skillList
+
+    + getSkillList()
+    + getSkillName()
+    + hasAtLeastOneSkill(requiredSkills)
+}
+
+
+TeamProposalUI .right.> TeamProposalController
+
+TeamProposalController ..> Repositories
+
+Repositories ----> "1" SkillRepository
+Repositories ---> "1" CollaboratorRepository
+Repositories ----> "1" TeamRepository
+TeamProposalController ...> SkillRepository : skillRepository
+TeamProposalController ...> CollaboratorRepository : collaboratorRepository
+TeamProposalController ...> TeamRepository : teamRepository
+Repositories -> Repositories : instance
+TeamRepository "1" ---> "*" Team :team
+SkillRepository "1" --> "*" Skill : skill
+CollaboratorRepository "1" --> "*" Collaborator : collaborator
 
 @enduml
