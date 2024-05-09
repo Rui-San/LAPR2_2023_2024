@@ -1,6 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.controller;
 
-import pt.ipp.isep.dei.esoft.project.domain.Date;
+
 import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
 import pt.ipp.isep.dei.esoft.project.domain.VehicleCheckup;
 import pt.ipp.isep.dei.esoft.project.repository.CheckupRepository;
