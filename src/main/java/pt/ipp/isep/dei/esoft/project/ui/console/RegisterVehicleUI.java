@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.esoft.project.ui.console;
 import pt.ipp.isep.dei.esoft.project.controller.RegisterVehicleController;
 import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
 import pt.ipp.isep.dei.esoft.project.domain.Date;
+import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
 
 import java.util.*;
@@ -39,8 +40,35 @@ public class RegisterVehicleUI implements Runnable{
     }
 
     private void submitData() {
-        Optional<Vehicle> vehicle = getRegisterVehicleController().createVehicle(plateID, brand, model, type, tare, grossWeight, currentKm, registerDate, acquisitionDate, checkupFrequencyKms);
+        showAllDataForConfirmation("You're about to register the following vehicle:", plateID, brand, model, type, tare, grossWeight, currentKm, registerDate, acquisitionDate, checkupFrequencyKms);
+        if (Utils.confirm("Do you want to proceed? (y/n)")) {
+
+            Optional<Vehicle> vehicle = getRegisterVehicleController().createVehicle(plateID, brand, model, type, tare, grossWeight, currentKm, registerDate, acquisitionDate, checkupFrequencyKms);
+
+            if (vehicle.isEmpty()) {
+                System.out.println("An error occurred while registering the vehicle.");
+            }else {
+                System.out.println("Vehicle registered successfully.");
+            }
+
+        }
+
     }
+
+    private void showAllDataForConfirmation(String message, String plateID, String brand, String model, String type, double tare, double grossWeight, int currentKm, Date registerDate, Date acquisitionDate, int checkupFrequencyKms) {
+        System.out.println(message);
+        System.out.println("Plate ID: " + plateID);
+        System.out.println("Brand: " + brand);
+        System.out.println("Model: " + model);
+        System.out.println("Type: " + type);
+        System.out.println("Tare: " + tare);
+        System.out.println("Gross Weight: " + grossWeight);
+        System.out.println("Current Km: " + currentKm);
+        System.out.println("Register Date: " + registerDate);
+        System.out.println("Acquisition Date: " + acquisitionDate);
+        System.out.println("Checkup Frequency Kms: " + checkupFrequencyKms);
+    }
+
 
     private void requestData() {
         plateID = requestPlateID();
@@ -51,7 +79,7 @@ public class RegisterVehicleUI implements Runnable{
         grossWeight = requestGrossWeight(tare);
         currentKm = requestCurrentKm();
         registerDate = requestRegisterDate();
-        acquisitionDate = requestAcquisitionDate(acquisitionDate);
+        acquisitionDate = requestAcquisitionDate(registerDate);
         checkupFrequencyKms = requestCheckupFrequencyKms();
 
     }
@@ -63,7 +91,7 @@ public class RegisterVehicleUI implements Runnable{
 
         while (!validInput) {
             try {
-                System.out.println("Plate ID: ");
+                System.out.print("\nPlate ID: ");
                 response = input.nextLine();
 
                 if (validatePlateID(response)) {
@@ -95,7 +123,7 @@ public class RegisterVehicleUI implements Runnable{
 
         while (!validInput) {
             try {
-                System.out.println("Model: ");
+                System.out.print("\nModel: ");
                 response = input.nextLine();
 
                 if (validateNotNullorEmpty(response)) {
@@ -117,7 +145,7 @@ public class RegisterVehicleUI implements Runnable{
 
         while (!validInput) {
             try {
-                System.out.println("Brand: ");
+                System.out.print("\nBrand: ");
                 response = input.nextLine();
 
                 if (validateNotNullorEmpty(response)) {
@@ -139,7 +167,7 @@ public class RegisterVehicleUI implements Runnable{
 
         while (!validInput) {
             try {
-                System.out.println("Type: ");
+                System.out.print("\nType: ");
                 response = input.nextLine();
 
                 if (validateNotNullorEmpty(response)) {
@@ -165,7 +193,7 @@ public class RegisterVehicleUI implements Runnable{
 
         while (!validInput) {
             try {
-                System.out.println("Tare: ");
+                System.out.print("\nTare: ");
                 response = input.nextDouble();
 
                 if (validateTare(response)) {
@@ -194,7 +222,7 @@ public class RegisterVehicleUI implements Runnable{
 
         while (!validInput) {
             try {
-                System.out.println("Gross Weight: ");
+                System.out.print("\nGross Weight: ");
                 response = input.nextDouble();
 
                 if (validateGrossWeight(response, tare)) {
@@ -223,7 +251,7 @@ public class RegisterVehicleUI implements Runnable{
 
         while (!validInput) {
             try {
-                System.out.println("Current Km: ");
+                System.out.print("\nCurrent Km: ");
                 response = input.nextInt();
 
                 if (validateCurrentKm(response)) {
@@ -252,7 +280,7 @@ public class RegisterVehicleUI implements Runnable{
 
         while (!validInput) {
             try {
-                System.out.println("Register Date (format: dd/mm/yyyy): ");
+                System.out.print("\nRegister Date (format: dd/mm/yyyy): ");
                 String registerDate = input.nextLine();
                 response = new Date(registerDate);
 
@@ -279,7 +307,7 @@ public class RegisterVehicleUI implements Runnable{
 
         while (!validInput) {
             try {
-                System.out.println("Acquisition Date (format: dd/mm/yyyy): ");
+                System.out.print("\nAcquisition Date (format: dd/mm/yyyy): ");
                 String acquisitionDate = input.nextLine();
                 response = new Date(acquisitionDate);
 
@@ -306,7 +334,7 @@ public class RegisterVehicleUI implements Runnable{
 
         while (!validInput) {
             try {
-                System.out.println("Checkup Frequency Kms: ");
+                System.out.print("\nCheckup Frequency Kms: ");
                 response = input.nextInt();
 
                 if (validateCurrentKm(response)) {

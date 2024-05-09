@@ -1,9 +1,13 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
 import pt.ipp.isep.dei.esoft.project.controller.RegisterCheckupController;
+import pt.ipp.isep.dei.esoft.project.domain.Date;
 import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
 import pt.ipp.isep.dei.esoft.project.domain.VehicleCheckup;
+import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
+import java.sql.SQLOutput;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
@@ -35,13 +39,25 @@ public class RegisterCheckupUI implements Runnable {
     }
 
     private void submitData() {
-        Optional<VehicleCheckup> checkup = getController().registerVehicleCheckup(vehicle, checkupDate, checkupKm);
 
-        if (checkup.isPresent()) {
-            System.out.println("\nCheckup successfully created!");
-        } else {
-            System.out.println("\nCheckup not created!");
+        showAllDataForConfirmation( vehicle, checkupDate, checkupKm);
+        if (Utils.confirm("Do you want to proceed? (y/n)")) {
+
+            Optional<VehicleCheckup> checkup = getController().registerVehicleCheckup(vehicle, checkupDate, checkupKm);
+
+            if (checkup.isPresent()) {
+                System.out.println("\nCheckup successfully created!");
+            } else {
+                System.out.println("\nCheckup not created!");
+            }
         }
+    }
+
+    private void showAllDataForConfirmation(Vehicle vehicle, String checkupDate, int checkupKm) {
+        System.out.println("\nYou're about to register the following checkup:");
+        System.out.println("Vehicle: " + vehicle.getPlateId());
+        System.out.println("Checkup Date: " + checkupDate);
+        System.out.println("Checkup Km: " + checkupKm);
     }
 
     private void requestData() {
@@ -55,19 +71,61 @@ public class RegisterCheckupUI implements Runnable {
     }
 
     private String requestCheckupDate() {
-        Scanner read = new Scanner(System.in);
-        System.out.printf("\nCheckup Date (dd/mm/yyyy): ");
-        return read.nextLine();
+        Scanner input = new Scanner(System.in);
+        boolean validInput = false;
+        Date response = null;
+        String checkupDate = "";
+
+        while (!validInput) {
+            try {
+                System.out.print("\nRegister Date (format: dd/mm/yyyy): ");
+                checkupDate = input.nextLine();
+                response = new Date(checkupDate);
+
+                if (validateDate(response)) {
+                    validInput = true;
+                } else {
+                    throw new IllegalArgumentException("Date must be in the format dd/mm/yyyy");
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+        }
+
+        return checkupDate;
+    }
+
+    private boolean validateDate(Date date) {
+        return date != null;
     }
 
     private int requestCheckupKm() {
-        int checkupKm = -1;
-        Scanner read = new Scanner(System.in);
-        do {
-            System.out.printf("\nCheckup Km: ");
-            checkupKm = read.nextInt();
-        }while (checkupKm < 0 || checkupKm > vehicle.getCurrentKm());
-        return checkupKm;
+        Scanner input = new Scanner(System.in);
+        boolean validInput = false;
+        int response = 0;
+
+        while (!validInput) {
+            try {
+                System.out.print("\nKm at Checkup: ");
+                response = input.nextInt();
+
+                if (validateCheckupKms(response)) {
+                    validInput = true;
+                } else {
+                    throw new IllegalArgumentException("Checkup Kms must be a positive number");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Error: Checkup Kms must be a positive number");
+                input.next();
+            } catch (IllegalArgumentException e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+        }
+        return response;
+    }
+
+    private boolean validateCheckupKms(int checkupKm) {
+        return checkupKm > 0;
     }
 
     private Vehicle displayAndSelectVehicle() {
@@ -81,7 +139,7 @@ public class RegisterCheckupUI implements Runnable {
 
         while (answer < 1 || answer > numberOfVehicles) {
             displayVehicleOptions(vehicleList);
-            System.out.print("Vehicle to register checkup: ");
+            System.out.print("\nVehicle to register checkup: ");
             answer = input.nextInt();
         }
 
