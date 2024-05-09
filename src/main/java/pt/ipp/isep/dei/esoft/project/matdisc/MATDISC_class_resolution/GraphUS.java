@@ -65,13 +65,6 @@ public class GraphUS {
      *
      * @param vertex the vertex to be added
      */
-    /*
-    private void addUniqueVertex(String vertex) {
-        if (!vertexes.contains(vertex)) {
-            vertexes.add(vertex);
-        }
-    }
-    */
     private void addUniqueVertex(String vertex) {
         boolean isUnique = true;
         int index = 0;
@@ -85,6 +78,14 @@ public class GraphUS {
             vertexes.add(vertex);
         }
     }
+    /*
+    private void addUniqueVertex(String vertex) {
+        if (!vertexes.contains(vertex)) {
+            vertexes.add(vertex);
+        }
+    }
+    */
+
 
     /**
      * Returns the list of vertices in the graph.
