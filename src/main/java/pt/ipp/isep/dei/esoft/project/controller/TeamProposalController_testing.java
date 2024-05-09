@@ -2,12 +2,11 @@ package pt.ipp.isep.dei.esoft.project.controller;
 
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
-import pt.ipp.isep.dei.esoft.project.domain.Team_testing;
+import pt.ipp.isep.dei.esoft.project.domain.Team;
 
 import pt.ipp.isep.dei.esoft.project.repository.*;
 
 import java.util.List;
-import java.util.Optional;
 
 public class TeamProposalController_testing {
 
@@ -67,9 +66,9 @@ public class TeamProposalController_testing {
     }
 
 
-    public List<Team_testing> generateAllTeamProposal(int minTeamSize, int maxTeamSize, List<Skill> skillsNeeded, List<Integer> quantityNeeded) {
+    public List<Team> generateAllTeamProposal(int minTeamSize, int maxTeamSize, List<Skill> skillsNeeded, List<Integer> quantityNeeded) {
 
-        List<Team_testing> teamsGenerated;
+        List<Team> teamsGenerated;
 
         List<Collaborator> collaboratorList = getCollaboratorList();
 
@@ -79,7 +78,7 @@ public class TeamProposalController_testing {
 
     }
 
-    public void saveTeamProposal(Team_testing teamAccepted) {
+    public void saveTeamProposal(Team teamAccepted) {
         getTeamRepository_testing().saveTeamProposal(teamAccepted);
     }
 }

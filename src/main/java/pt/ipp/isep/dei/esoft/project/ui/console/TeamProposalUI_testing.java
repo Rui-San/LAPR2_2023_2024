@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.esoft.project.ui.console;
 
 import pt.ipp.isep.dei.esoft.project.controller.TeamProposalController_testing;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
-import pt.ipp.isep.dei.esoft.project.domain.Team_testing;
+import pt.ipp.isep.dei.esoft.project.domain.Team;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
 import java.util.*;
@@ -14,7 +14,7 @@ public class TeamProposalUI_testing implements Runnable {
     private int maxTeamSize;
     private List<Skill> skillsNeeded;
     private List<Integer> quantityNeeded;
-    private Team_testing teamAccepted;
+    private Team teamAccepted;
 
     public TeamProposalUI_testing() {
         controller = new TeamProposalController_testing();
@@ -28,7 +28,7 @@ public class TeamProposalUI_testing implements Runnable {
         System.out.println("\n\n--- Generate a Team automatically ------------------------");
 
         requestData();
-        List<Team_testing> generatedTeams = generateAllTeamProposals();
+        List<Team> generatedTeams = generateAllTeamProposals();
         try {
             teamAccepted = displayAndSelectTeamForApproval(generatedTeams);
         } catch (IllegalArgumentException e) {
@@ -44,19 +44,19 @@ public class TeamProposalUI_testing implements Runnable {
 
     }
 
-    private void saveTeamProposal(Team_testing teamAccepted) {
+    private void saveTeamProposal(Team teamAccepted) {
         getTeamProposalController().saveTeamProposal(teamAccepted);
 
     }
 
-    private Team_testing displayAndSelectTeamForApproval(List<Team_testing> generatedTeams) {
+    private Team displayAndSelectTeamForApproval(List<Team> generatedTeams) {
         if (generatedTeams.isEmpty()) {
             throw new IllegalArgumentException("Theres no possible teams with given inputs");
         } else {
             boolean teamAccepted = false;
 
             while (!teamAccepted) {
-                for (Team_testing generatedTeam : generatedTeams) {
+                for (Team generatedTeam : generatedTeams) {
                     System.out.println("Team Generated:");
                     System.out.println(generatedTeam.toString());
                     teamAccepted = askManagerResponse();
@@ -83,12 +83,12 @@ public class TeamProposalUI_testing implements Runnable {
         }
     }
 
-    private List<Team_testing> generateAllTeamProposals() {
+    private List<Team> generateAllTeamProposals() {
 
         skillsNeeded = displayAndSelectSkillsNeeded();
         quantityNeeded = requestQuantityNeeded(skillsNeeded);
 
-        List<Team_testing> teamsGenerated = getTeamProposalController().generateAllTeamProposal(minTeamSize, maxTeamSize, skillsNeeded, quantityNeeded);
+        List<Team> teamsGenerated = getTeamProposalController().generateAllTeamProposal(minTeamSize, maxTeamSize, skillsNeeded, quantityNeeded);
 
         return teamsGenerated;
     }

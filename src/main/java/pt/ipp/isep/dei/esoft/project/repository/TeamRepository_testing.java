@@ -7,7 +7,7 @@ import java.util.List;
 
 
 public class TeamRepository_testing {
-    private final List<Team_testing> teamList;
+    private final List<Team> teamList;
 
     public TeamRepository_testing() {
         teamList = new ArrayList<>();
@@ -119,15 +119,15 @@ public class TeamRepository_testing {
      * @param collaboratorList the list of collaborators of the organization
      * @return the list of all teams generated
      */
-    public List<Team_testing> generateAllTeamProposals(int minTeamSize, int maxTeamSize, List<Skill> skillsNeeded, List<Integer> quantityNeeded, List<Collaborator> collaboratorList) {
+    public List<Team> generateAllTeamProposals(int minTeamSize, int maxTeamSize, List<Skill> skillsNeeded, List<Integer> quantityNeeded, List<Collaborator> collaboratorList) {
 
-        List<Team_testing> definitiveTeamList = new ArrayList<>();
+        List<Team> definitiveTeamList = new ArrayList<>();
 
         if (!verifyQuantityNeeded(quantityNeeded, maxTeamSize) || minTeamSize < 2 || maxTeamSize < 2 || maxTeamSize < minTeamSize || skillsNeeded.isEmpty() || quantityNeeded.isEmpty()) {
             return definitiveTeamList;
         }
 
-        List<Team_testing> teamsList = new ArrayList<>();
+        List<Team> teamsList = new ArrayList<>();
 
         List<SkillSet> skillSetList = new ArrayList<>();
 
@@ -141,7 +141,7 @@ public class TeamRepository_testing {
         teamsList = createTeams(possibleCollaborators, minTeamSize, maxTeamSize);
 
 
-        for (Team_testing team : teamsList) {
+        for (Team team : teamsList) {
             List<SkillSet> skillSetListCopy = new ArrayList<>();
             for (SkillSet skillSet : skillSetList) {
                 skillSetListCopy.add(skillSet.clone());
@@ -194,11 +194,11 @@ public class TeamRepository_testing {
      * @param maxTeamSize the maximum size of the team
      * @return the list of all teams created
      */
-    private List<Team_testing> createTeams(List<Collaborator> possibleCollaborators, int minTeamSize, int maxTeamSize) {
-        List<Team_testing> allTeams = new ArrayList<>();
+    private List<Team> createTeams(List<Collaborator> possibleCollaborators, int minTeamSize, int maxTeamSize) {
+        List<Team> allTeams = new ArrayList<>();
 
         for (int teamSize = minTeamSize; teamSize <= maxTeamSize && teamSize <= possibleCollaborators.size(); teamSize++) {
-            List<Team_testing> teamsBySize = createTeamsBySize(possibleCollaborators, teamSize);
+            List<Team> teamsBySize = createTeamsBySize(possibleCollaborators, teamSize);
             allTeams.addAll(teamsBySize);
         }
         return allTeams;
@@ -211,8 +211,8 @@ public class TeamRepository_testing {
      * @param teamSize the team size
      * @return the list of teams of that specific size
      */
-    private List<Team_testing> createTeamsBySize(List<Collaborator> possibleCollaborators, int teamSize) {
-        List<Team_testing> teams = new ArrayList<>();
+    private List<Team> createTeamsBySize(List<Collaborator> possibleCollaborators, int teamSize) {
+        List<Team> teams = new ArrayList<>();
 
         int n = possibleCollaborators.size();
 
@@ -226,7 +226,7 @@ public class TeamRepository_testing {
             for (int i = 0; i < teamSize; i++) {
                 actualTeam.add(possibleCollaborators.get(index[i]));
             }
-            teams.add(new Team_testing(actualTeam));
+            teams.add(new Team(actualTeam));
 
             int j = teamSize - 1;
             while (j >= 0 && index[j] == n - teamSize + j) {
@@ -272,7 +272,7 @@ public class TeamRepository_testing {
     private boolean isAlreadyInOneTeam(Collaborator collaborator) {
 
         boolean isInOneTeam = false;
-        for (Team_testing team : teamList) {
+        for (Team team : teamList) {
             List<Collaborator> members = team.getMembers();
             if (members.contains(collaborator)) {
                 isInOneTeam = true;
@@ -303,7 +303,7 @@ public class TeamRepository_testing {
      *
      * @param teamAccepted
      */
-    public void saveTeamProposal(Team_testing teamAccepted) {
+    public void saveTeamProposal(Team teamAccepted) {
         teamList.add(teamAccepted);
     }
 
