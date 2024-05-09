@@ -393,10 +393,10 @@ public class Collaborator implements Cloneable {
     /**
      * Assigns selected skills to a collaborator.
      *
-     * @param chosenSkills the list of chosen skills
+     * @param selectedSkills the list of chosen skills
      */
-    public void assignSkills(List<Skill> chosenSkills) {
-        skillList.addAll(chosenSkills);
+    public void assignSkills(List<Skill> selectedSkills) {
+        skillList.addAll(selectedSkills);
     }
 
     /**

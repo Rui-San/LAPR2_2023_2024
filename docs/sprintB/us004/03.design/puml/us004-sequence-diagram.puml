@@ -56,7 +56,7 @@ activate HRM
     activate UI
 
 
-    UI --> UI : keepsData(collaboratorEmail)
+    UI --> UI : keepsData(collaborator)
 
     |||
 
@@ -64,6 +64,12 @@ activate HRM
 
         activate CTRL
 
+            CTRL -> RepositorySingleton : getInstance()
+
+            activate RepositorySingleton
+
+                RepositorySingleton -> CTRL : repositories
+            deactivate RepositorySingleton
 
             CTRL -> rep : getSkillRepository()
 
@@ -94,62 +100,56 @@ activate HRM
 
         end
         |||
-        UI --> UI : keepData(List<Skill> chosenSkills)
+        UI --> UI : keepData(List<Skill> selectedSkills)
 
-        UI --> HRM : Shows all data (collaborator and his skills) and \nrequests confirmation
+        UI --> HRM : Shows all data and requests confirmation
     deactivate UI
 
     HRM -> UI : Confirms the operation
     activate UI
 
 
-        UI -> CTRL : assignSkills(List<Skill> chosenSkills)
+        UI -> CTRL : assignSkillsToCollaborator(collaborator, selectedSkills)
 
         activate CTRL
 
-            CTRL --> CTRL : getCollaboratorByCollaboratorEmail(colaboratorEmail)
+            CTRL -> RepositorySingleton : getInstance()
+
+                    activate RepositorySingleton
+
+                        RepositorySingleton -> CTRL : repositories
+                    deactivate RepositorySingleton
+
+                    CTRL -> rep : getCollaboratorRepository()
+                    activate rep
+
+                        rep --> CTRL : collaboratorRepository
+                    deactivate rep
+                    CTRL -> COLREP : assignSkillsToCollaborator(collaborator, selectedSkills)
+
+                    activate COLREP
+
+                    COLREP -> COLREP : getCollaboratorByCollaboratorEmail(collaboratorEmail)
 
 
-            CTRL -> rep : getCollaboratorRepository()
+                    |||
 
-            activate rep
+                    COLREP -> COL** : assignSkills(selectedSkills)
+                   Note right
+                   <font color=black><b>Adding skills to the object collaborator:
 
-                rep --> CTRL : collaboratorRepository
-            deactivate rep
+                   assignSkills(List<Skill> selectedSkills)) {
+                       skillList.addAll(selectedSkills)
+                   }
+                   end note
 
-            CTRL -> COLREP : getCollaboratorByCollaboratorEmail(colaboratorEmail)
-            activate COLREP
+                    COLREP -> COLREP : assignSkillsToCollaborator(collaborator, selectedSkills)
+                    COLREP --> CTRL : operation success
+                deactivate COLREP
+                CTRL --> UI : operation
+                deactivate CTRL
+                UI --> HRM : Display operation success
+                deactivate UI
 
-                COLREP --> CTRL : collaborator
-            deactivate COLREP
-
-            CTRL --> CTRL : collaborator
-            |||
-
-            CTRL -> COLREP : assignSkills(List<Skill> chosenSkills)
-            |||
-            activate COLREP
-
-            COLREP -> COL** : assignSkills(List<Skill> chosenSkills)
-Note right of COL
-                <font color=black><b>Adding skills to the object collaborator:
-
-                assignSkills(List<Skill> chosenSkills) {
-                    skillList.addAll(chosenSkills)
-                }
-            end note
-
-                COLREP --> COLREP : validateDuplicateRecordSkills(List<Skill> chosenSkills)
-
-                COLREP --> COLREP : addChosenSkillsToCollaborator(List<Skill> chosenSkills)
-
-                COLREP -->CTRL : operation success
-
-            deactivate COLREP
-            CTRL -> UI : operation success
-        deactivate CTRL
-
-        UI --> HRM : Displays operation success
-    deactivate UI
 
 @enduml

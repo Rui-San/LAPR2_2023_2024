@@ -96,7 +96,7 @@ public class CollaboratorRepository {
         return addedCollaborator;
     }
 
-    public boolean updateCollaboratorSkills(Collaborator collaborator, List<Skill> skills) {
+    public boolean assignSkillsToCollaborator(Collaborator collaborator, List<Skill> skills) {
         Optional<Collaborator> existingCollaborator = getCollaboratorByCollaboratorEmail(collaborator.getEmail());
 
         if (existingCollaborator.isPresent()) {

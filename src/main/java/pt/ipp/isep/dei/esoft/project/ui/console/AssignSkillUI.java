@@ -39,7 +39,7 @@ public class AssignSkillUI implements Runnable {
     }
 
     private void submitData() {
-        showSkills(selectedSkills, "You're about to assign the following skills to the collaborator:");
+        showAllDataForConfirmation(selectedSkills, "You're about to assign the following skills to the collaborator:");
         if (Utils.confirm("Do you want to proceed? (y/n)")) {
 
             getController().assignSkillsToCollaborator(selectedCollaborator, selectedSkills);
@@ -54,7 +54,7 @@ public class AssignSkillUI implements Runnable {
 
     private Collaborator displayAndSelectCollaborator() {
 
-        List<Collaborator> collaboratorList = getController().getCollaborators();
+        List<Collaborator> collaboratorList = getController().getCollaboratorList();
 
         int counter = 1;
         for (Collaborator collaborator : collaboratorList) {
@@ -75,7 +75,7 @@ public class AssignSkillUI implements Runnable {
 
     private void displayAndSelectSkills() {
 
-        List<Skill> skillList = getController().getSkills();
+        List<Skill> skillList = getController().getSkillList();
         selectedSkills = new ArrayList<>();
 
         int counter = 1;
@@ -106,7 +106,7 @@ public class AssignSkillUI implements Runnable {
     }
 
 
-    private void showSkills(List<Skill> skills, String header) {
+    private void showAllDataForConfirmation(List<Skill> skills, String header) {
         System.out.println();
         System.out.println(header);
 

@@ -35,14 +35,14 @@ public class AssignSkillController {
     }
 
     public void assignSkillsToCollaborator(Collaborator collaborator, List<Skill> skills) {
-        getCollaboratorRepository().updateCollaboratorSkills(collaborator, skills);
+        getCollaboratorRepository().assignSkillsToCollaborator(collaborator, skills);
     }
 
-    public List<Collaborator> getCollaborators() {
+    public List<Collaborator> getCollaboratorList() {
         return getCollaboratorRepository().getCollaboratorList();
     }
 
-    public List<Skill> getSkills() {
+    public List<Skill> getSkillList() {
         return getSkillRepository().getSkillList();
     }
 
