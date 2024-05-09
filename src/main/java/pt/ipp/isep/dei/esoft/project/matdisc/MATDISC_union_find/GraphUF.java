@@ -36,10 +36,25 @@ public class GraphUF {
 
     // Adds a vertex to the vertexes list if it is not already in the list
     private void addUniqueVertex(String vertex) {
+        boolean isUnique = true;
+        int index = 0;
+        while (isUnique && index < vertexes.size()) {
+            if (vertexes.get(index).equals(vertex)) {
+                isUnique = false;
+            }
+            index++;
+        }
+        if (isUnique) {
+            vertexes.add(vertex);
+        }
+    }
+    /*
+    private void addUniqueVertex(String vertex) {
         if (!vertexes.contains(vertex)) {
             vertexes.add(vertex);
         }
     }
+    */
 
     // Returns the vertexes list
     public List<String> getVertices() {
