@@ -65,6 +65,12 @@ public class SkillSet implements Cloneable {
         this.inQuantity = inQuantity;
     }
 
+    @Override
+    public String toString() {
+        return "Skill : " + skill.getSkillName() +
+                "\nQuantity : " + inQuantity;
+    }
+
     /**
      * Retrieves a list of all skills from a list of SkillSets.
      *
