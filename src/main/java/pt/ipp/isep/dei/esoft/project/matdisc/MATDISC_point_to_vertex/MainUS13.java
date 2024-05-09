@@ -50,12 +50,13 @@ public class MainUS13 {
             long startTime, endTime;
 
 
-            startTime = System.currentTimeMillis();
+
             GraphPV graph = readCsvFile(fileName);
 
             try {
                 if (graph != null && graph.getEdges() != null) {
                     int totalLines = graph.getEdges().size();
+                    startTime = System.currentTimeMillis();
                     List<Edge> minimalSpanningTree = graph.getMinimalSpanningTree();
                     printMinimalSpanningTree(minimalSpanningTree);
                     double totalCost = obtainTotalCost(minimalSpanningTree);

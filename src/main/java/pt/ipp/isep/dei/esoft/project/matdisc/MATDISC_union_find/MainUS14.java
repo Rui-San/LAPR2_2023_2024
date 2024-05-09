@@ -40,11 +40,12 @@ public class MainUS14 {
             return;
         }
         for (File csvFile : csvFiles) {
-            long startTime = System.currentTimeMillis();
+
             GraphUF graph = readCsvFile(csvFile.getAbsolutePath());
 
             if (graph != null && graph.getEdges() != null) {
                 int totalLines = graph.getEdges().size();
+                long startTime = System.currentTimeMillis();
                 List<Edge> minimalSpanningTree = graph.getMinimalSpanningTree();
                 long endTime = System.currentTimeMillis();
                 long executionTime = endTime - startTime;
