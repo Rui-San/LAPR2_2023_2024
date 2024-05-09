@@ -66,10 +66,25 @@ public class GraphPV {
      * @param vertex the vertex to be added
      */
     private void addUniqueVertex(String vertex) {
+        boolean isUnique = true;
+        int index = 0;
+        while (isUnique && index < vertexes.size()) {
+            if (vertexes.get(index).equals(vertex)) {
+                isUnique = false;
+            }
+            index++;
+        }
+        if (isUnique) {
+            vertexes.add(vertex);
+        }
+    }
+    /*
+    private void addUniqueVertex(String vertex) {
         if (!vertexes.contains(vertex)) {
             vertexes.add(vertex);
         }
     }
+    */
 
     /**
      * Returns the list of vertices in the graph.

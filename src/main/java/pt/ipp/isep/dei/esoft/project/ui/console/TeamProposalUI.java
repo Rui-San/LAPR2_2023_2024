@@ -1,14 +1,14 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
-import pt.ipp.isep.dei.esoft.project.controller.TeamProposalController_testing;
+import pt.ipp.isep.dei.esoft.project.controller.TeamProposalController;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import pt.ipp.isep.dei.esoft.project.domain.Team;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
 import java.util.*;
 
-public class TeamProposalUI_testing implements Runnable {
-    private final TeamProposalController_testing controller;
+public class TeamProposalUI implements Runnable {
+    private final TeamProposalController controller;
 
     private int minTeamSize;
     private int maxTeamSize;
@@ -16,11 +16,11 @@ public class TeamProposalUI_testing implements Runnable {
     private List<Integer> quantityNeeded;
     private Team teamAccepted;
 
-    public TeamProposalUI_testing() {
-        controller = new TeamProposalController_testing();
+    public TeamProposalUI() {
+        controller = new TeamProposalController();
     }
 
-    public TeamProposalController_testing getTeamProposalController() {
+    public TeamProposalController getTeamProposalController() {
         return controller;
     }
 

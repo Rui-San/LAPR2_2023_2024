@@ -59,16 +59,33 @@ public class GraphUS {
         return vertexes.size();
     }
 
+
     /**
      * Adds a vertex to the list of vertices if it is unique (not already present).
      *
      * @param vertex the vertex to be added
      */
     private void addUniqueVertex(String vertex) {
+        boolean isUnique = true;
+        int index = 0;
+        while (isUnique && index < vertexes.size()) {
+            if (vertexes.get(index).equals(vertex)) {
+                isUnique = false;
+            }
+            index++;
+        }
+        if (isUnique) {
+            vertexes.add(vertex);
+        }
+    }
+    /*
+    private void addUniqueVertex(String vertex) {
         if (!vertexes.contains(vertex)) {
             vertexes.add(vertex);
         }
     }
+    */
+
 
     /**
      * Returns the list of vertices in the graph.
@@ -103,6 +120,7 @@ public class GraphUS {
      *
      * @return list of edges representing the minimal spanning tree.
      */
+    /*
     public List<Edge> getMinimalSpanningTree() {
         List<Edge> minimalSpanningTree = new ArrayList<>();
 
@@ -148,6 +166,72 @@ public class GraphUS {
 
         }
         return minimalSpanningTree;
+    }
+
+     */
+
+    public List<Edge> getMinimalSpanningTree() {
+        List<Edge> minimalSpanningTree = new ArrayList<>();
+
+
+        sortEdgesByDistance();
+
+        int numVertices = vertexes.size();
+
+        int criterioParagem = numVertices - 1;
+        int addedEdges = 0;
+
+        List<List<String>> arrayDeSacos = new ArrayList<>(numVertices);
+
+        for (int i = 0; i < numVertices; i++) {
+            List<String> saco = new ArrayList<>();
+            saco.add(vertexes.get(i));
+            arrayDeSacos.add(saco);
+        }
+
+        for (int j = 0; j < edges.size() && addedEdges <= criterioParagem; j++) {
+            Edge edge = edges.get(j);
+            String v1 = edge.getSource();
+            String v2 = edge.getDestination();
+
+            int indexSacoV1 = -1;
+            int indexSacoV2 = -1;
+
+            for (int i = 0; i < arrayDeSacos.size(); i++) {
+                if (isVertexInSet(arrayDeSacos.get(i), v1)) {
+                    indexSacoV1 = i;
+                }
+                if (isVertexInSet(arrayDeSacos.get(i), v2)) {
+                    indexSacoV2 = i;
+                }
+            }
+
+            if (indexSacoV1 != indexSacoV2) {
+                arrayDeSacos.get(indexSacoV1).addAll(arrayDeSacos.get(indexSacoV2));
+                arrayDeSacos.get(indexSacoV2).clear();
+                addedEdges++;
+                minimalSpanningTree.add(edge);
+            }
+
+        }
+        return minimalSpanningTree;
+    }
+
+    /**
+     * Verifies if one vertex is present in a set of vertexes.
+     * This method substitutes the .contains method, since we can't use it
+     *
+     * @param set      the set of vertexes
+     * @param vertex   the vertex to verify
+     * @return true if vertex is present, false otherwise
+     */
+    private boolean isVertexInSet(List<String> set, String vertex) {
+        for (String v : set) {
+            if (v.equals(vertex)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

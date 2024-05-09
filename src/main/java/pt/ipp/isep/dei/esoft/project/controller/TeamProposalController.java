@@ -8,20 +8,20 @@ import pt.ipp.isep.dei.esoft.project.repository.*;
 
 import java.util.List;
 
-public class TeamProposalController_testing {
+public class TeamProposalController {
 
     private SkillRepository skillRepository;
     private CollaboratorRepository collaboratorRepository;
-    private TeamRepository_testing teamRepository_testing;
+    private TeamRepository teamRepository;
 
 
-    public TeamProposalController_testing(SkillRepository skillRepository, CollaboratorRepository collaboratorRepository, TeamRepository_testing teamRepository_testing) {
+    public TeamProposalController(SkillRepository skillRepository, CollaboratorRepository collaboratorRepository, TeamRepository teamRepository_) {
         this.skillRepository = skillRepository;
         this.collaboratorRepository = collaboratorRepository;
-        this.teamRepository_testing = teamRepository_testing;
+        this.teamRepository = teamRepository_;
     }
 
-    public TeamProposalController_testing() {
+    public TeamProposalController() {
         getSkillRepository();
         getCollaboratorRepository();
         getTeamRepository_testing();
@@ -45,13 +45,13 @@ public class TeamProposalController_testing {
         return collaboratorRepository;
     }
 
-    private TeamRepository_testing getTeamRepository_testing() {
-        if (teamRepository_testing == null) {
+    private TeamRepository getTeamRepository_testing() {
+        if (teamRepository == null) {
             Repositories repositories = Repositories.getInstance();
 
-            teamRepository_testing = repositories.getTeamRepository_testing();
+            teamRepository = repositories.getTeamRepository_testing();
         }
-        return teamRepository_testing;
+        return teamRepository;
     }
 
 
@@ -72,7 +72,7 @@ public class TeamProposalController_testing {
 
         List<Collaborator> collaboratorList = getCollaboratorList();
 
-        teamsGenerated = teamRepository_testing.generateAllTeamProposals(minTeamSize, maxTeamSize, skillsNeeded, quantityNeeded, collaboratorList);
+        teamsGenerated = teamRepository.generateAllTeamProposals(minTeamSize, maxTeamSize, skillsNeeded, quantityNeeded, collaboratorList);
 
         return teamsGenerated;
 

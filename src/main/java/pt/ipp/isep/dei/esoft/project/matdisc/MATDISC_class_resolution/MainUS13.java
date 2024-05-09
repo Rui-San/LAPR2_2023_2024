@@ -104,8 +104,8 @@ public class MainUS13 {
         return g;
     }
 
-    public static void addTextToGraph(Graph graph, String csvName, double cost) {
-
+    public static void addTextToGraph(Graph graph, String fileName, double cost) {
+        String csvName = fileName.substring(fileName.lastIndexOf(File.separator) + 1);
         // Adiciona o texto à visualização do grafo
         Viewer viewer = graph.display();
         ViewerPipe pipe = viewer.newViewerPipe();

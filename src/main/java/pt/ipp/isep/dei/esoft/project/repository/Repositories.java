@@ -7,7 +7,7 @@ public class Repositories {
     private final SkillRepository skillRepository;
     private final CheckupRepository checkupRepository;
     private final VehicleRepository vehicleRepository;
-    private final TeamRepository_testing teamRepository_testing;
+    private final TeamRepository teamRepository_;
     private final AuthenticationRepository authenticationRepository;
 
     private Repositories() {
@@ -16,7 +16,7 @@ public class Repositories {
         skillRepository = new SkillRepository();
         checkupRepository = new CheckupRepository();
         vehicleRepository = new VehicleRepository();
-        teamRepository_testing = new TeamRepository_testing();
+        teamRepository_ = new TeamRepository();
         authenticationRepository = new AuthenticationRepository();
     }
 
@@ -49,8 +49,8 @@ public class Repositories {
         return vehicleRepository;
     }
 
-    public TeamRepository_testing getTeamRepository_testing() {
-        return teamRepository_testing;
+    public TeamRepository getTeamRepository_testing() {
+        return teamRepository_;
     }
 
     public AuthenticationRepository getAuthenticationRepository() { return authenticationRepository; }
