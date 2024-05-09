@@ -503,7 +503,7 @@ public class Collaborator implements Cloneable {
 
 
     /**
-     * Creates a deep copy of the collaborator with object atributes in parameter.
+     * Creates a deep copy of the collaborator with object attributes in parameter.
      *
      * @return the cloned collaborator
      */

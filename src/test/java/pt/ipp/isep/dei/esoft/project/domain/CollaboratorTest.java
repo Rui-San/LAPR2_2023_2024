@@ -122,7 +122,7 @@ class CollaboratorTest {
 
 
     @Test
-    void ensureClone2Works() {
+    void ensureCloneWorks() {
         Date birthdate = new Date("7/10/1995");
         Date admissionDate = new Date("20/3/2024");
         Address address = new Address("Rua das travessas",123,"1234-123","Matosinhos", "Porto");
@@ -135,7 +135,7 @@ class CollaboratorTest {
     }
 
     @Test
-    void ensureCloneWorks() {
+    void ensureClone2Works() {
         Job job = new Job("Gestor");
 
         Collaborator collaborator = new Collaborator("Pedro Costa", "7/10/1995", "20/3/2024","Rua das travessas",123,"1234-123","Matosinhos", "Porto","1221790@isep.ipp.pt", "931231234", Collaborator.IdDocType.CC, "234324235", job);

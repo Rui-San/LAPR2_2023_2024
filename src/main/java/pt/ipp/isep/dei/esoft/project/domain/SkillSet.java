@@ -65,6 +65,11 @@ public class SkillSet implements Cloneable {
         this.inQuantity = inQuantity;
     }
 
+    /**
+     * Returns a string representation of the object SkillSet
+     *
+     * @return a string representation of the object SkillSet with the skill name and the quantity needed of that skill
+     */
     @Override
     public String toString() {
         return "Skill : " + skill.getSkillName() +
@@ -84,6 +89,12 @@ public class SkillSet implements Cloneable {
         }
         return skillsList;
     }
+
+    /**
+     * Creates a deep copy of the SkillSet.
+     *
+     * @return the cloned SkillSet
+     */
     @Override
     public SkillSet clone(){
         Skill clonedSkill = this.getSkill().clone();

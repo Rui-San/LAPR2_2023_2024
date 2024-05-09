@@ -95,11 +95,21 @@ public class Email implements Cloneable {
         return ValidationAttributeResults.VALID;
     }
 
+    /**
+     * Returns a string representation of the Email
+     *
+     * @return Returns a string representation of the Email
+     */
     @Override
     public String toString() {
         return "Email: " + email;
     }
 
+    /**
+     * Creates a deep copy of the Email.
+     *
+     * @return the cloned Email
+     */
     @Override
     public Email clone() {
         return new Email(this.email);
