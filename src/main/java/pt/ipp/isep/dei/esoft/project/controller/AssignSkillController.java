@@ -12,6 +12,10 @@ public class AssignSkillController {
     private CollaboratorRepository collaboratorRepository;
     private SkillRepository skillRepository;
 
+    public AssignSkillController() {
+        getCollaboratorRepository();
+    }
+
     private CollaboratorRepository getCollaboratorRepository() {
         if (collaboratorRepository == null) {
             Repositories repositories = Repositories.getInstance();
@@ -30,9 +34,7 @@ public class AssignSkillController {
         return skillRepository;
     }
 
-    public AssignSkillController() {
-        getCollaboratorRepository();
-    }
+
 
     public void assignSkillsToCollaborator(Collaborator collaborator, List<Skill> skills) {
         getCollaboratorRepository().assignSkillsToCollaborator(collaborator, skills);

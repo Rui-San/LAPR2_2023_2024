@@ -19,12 +19,12 @@ public class AssignSkillUI implements Runnable {
     private Collaborator selectedCollaborator;
     private List<Skill> selectedSkills;
 
-    public AssignSkillController getController() {
-        return this.controller;
-    }
-
     public AssignSkillUI() {
         controller = new AssignSkillController();
+    }
+
+    public AssignSkillController getController() {
+        return this.controller;
     }
 
     @Override
