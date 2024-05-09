@@ -3,7 +3,7 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title US005 - System Sequence Diagram (SSD)
+title US005 - Sequence Diagram
 
 autonumber
 
@@ -22,7 +22,7 @@ activate HRM
 
     HRM -> UI : Asks to generate a new team proposal
     activate UI
-
+    loop until typed data is validated
         UI --> HRM : Requests data (maxteamsize, minteamsize)
     deactivate UI
 
@@ -30,7 +30,10 @@ activate HRM
 
     |||
     activate UI
+    end loop
+    |||
         UI --> UI : keepData(max and min team size)
+        |||
         UI -> CTRL : getSkillList()
         activate CTRL
 
@@ -60,7 +63,7 @@ activate HRM
             |||
 
             UI --> HRM : Shows list of skills and asks to select the skills needed
-
+|||
     deactivate UI
 
     HRM -> UI : Select skills from the list
@@ -76,8 +79,10 @@ activate HRM
         activate UI
 
             UI --> HRM : Asks to specify the quantity needed of the selected skill
+            deactivate UI
             |||
             HRM -> UI : Types the quantity needed for that skill
+            activate UI
             UI --> UI : keepData(List<Integer> quantityNeeded)
 
             end loop
@@ -108,7 +113,9 @@ activate HRM
                 activate CR
 
                     CR --> CTRL : collaboratorList
+
                 deactivate CR
+                    CTRL --> CTRL : collaboratorList
                 |||
                 |||
                 CTRL -> REP : getInstance()
