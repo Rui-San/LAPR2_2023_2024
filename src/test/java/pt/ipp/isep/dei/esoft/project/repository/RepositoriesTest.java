@@ -37,13 +37,13 @@ class RepositoriesTest {
         assertNotNull(instance.getCheckupRepository());
     }
 
-    /*
+
     @Test
     void testGetTeamRepository() {
         Repositories instance = Repositories.getInstance();
         assertNotNull(instance.getTeamRepository());
     }
-         */
+
 
     @Test
     void testGetVehicleRepository() {

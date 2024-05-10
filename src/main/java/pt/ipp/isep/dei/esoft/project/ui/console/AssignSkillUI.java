@@ -95,7 +95,7 @@ public class AssignSkillUI implements Runnable {
                     }
                 } while (option < 0 || option >= skillList.size());
 
-                if(selectedSkills.contains(skillList.get(option)) || selectedCollaborator.getSkillList().contains(skillList.get(option))){
+                if (selectedSkills.contains(skillList.get(option)) || selectedCollaborator.getSkillList().contains(skillList.get(option))) {
                     System.out.println("This skill has already been chosen, please select a different one.");
                 }
 
