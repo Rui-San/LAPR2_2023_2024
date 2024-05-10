@@ -69,7 +69,7 @@ public class SkillRepositoryTest {
         assertEquals(skillName, addedSkill.get().getSkillName());
 
         List<Skill> skills = skillRepository.getSkillList();
-        assertTrue(skills.contains(addedSkill.get())); // Verifica se a lista contém a habilidade registrada
+        assertTrue(skills.contains(addedSkill.get()));
     }
 
 }
