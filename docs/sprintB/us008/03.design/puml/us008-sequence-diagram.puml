@@ -12,8 +12,8 @@ participant ":ListVehiclesNeedingCheckupUI" as UI
 participant ":ListVehiclesNeedingCheckupController" as CTRL
 participant ":Repositories" as Repos
 participant "repositories\n:Repositories" as PLAT
-participant "vehicleRepository" as VRepo
 participant "checkupRepositoty\n:CheckupRepository" as CheckupRepo
+participant "vehicleRepository" as VRepo
 
     Employee -> UI : Requests to show the list of \nvehicles needing a check-up
     activate UI
@@ -27,36 +27,46 @@ participant "checkupRepositoty\n:CheckupRepository" as CheckupRepo
 
                 Repos --> CTRL : repositories
             deactivate Repos
+
+            CTRL -> PLAT : getCheckupRepository()
+            activate PLAT
+
+                PLAT --> CTRL : checkupRepository
+            deactivate PLAT
+
+            CTRL -> CheckupRepo : getCheckupsList()
+            activate CheckupRepo
+
+                CheckupRepo --> CTRL : checkupsList
+            deactivate CheckupRepo
+
+            note right of CTRL
+                the controller saves the checkupsList in list:
+                List<Checkup> checkupsList
+            end note
+
+
             CTRL -> PLAT : getVehicleRepository()
             activate PLAT
 
                 PLAT --> CTRL : vehicleRepository
             deactivate PLAT
 
-            CTRL-> VRepo : getVehiclesNeedingCheckup()
+            CTRL-> VRepo : getVehiclesNeedingCheckup( List<Checkup> checkupsList )
             activate VRepo
 
                 VRepo --> VRepo : getVehicles()
-                VRepo --> Repos : getInstance()
-                activate Repos
 
-                    Repos --> VRepo : repositories
-                deactivate Repos
-                VRepo -> PLAT : getCheckupRepository()
-                activate PLAT
-
-                    PLAT --> VRepo : checkupRepository
-                deactivate PLAT
                 loop for each vehicle in vehiclesList
                     VRepo --> VRepo : needsCheckup(Vehicle vehicle)
                     activate VRepo
 
-                        VRepo -> CheckupRepo : getCheckup(vehicle)
-                        activate CheckupRepo
-
-                            CheckupRepo --> VRepo : checkupKms
-                        deactivate CheckupRepo
-                    VRepo --> VRepo : true/false
+                        VRepo --> VRepo : getLastCheckupKms( List<Checkup> checkupsList,\n Vehicle vehicle )
+                        note right of VRepo
+                            here, the method checks if the difference of the kms since the last checkup
+                            is close to 5% of the checkup frequency; if it is, return true, else false
+                        end note
+                        VRepo --> VRepo : true/false
                     deactivate VRepo
                     VRepo --> VRepo : addVehicleToNeedCheckupList(vehicle)
                 end loop

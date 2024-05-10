@@ -1,9 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
-import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
-import pt.ipp.isep.dei.esoft.project.domain.Date;
-import pt.ipp.isep.dei.esoft.project.domain.Job;
-import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
+import pt.ipp.isep.dei.esoft.project.domain.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,16 +46,16 @@ public class VehicleRepository {
 
     /**
      * Gets the vehicles in the repository that need a checkup.
-     * @param checkupRepository The checkup repository.
+     * @param checkupsList All checkups in the system.
      * @return The list of vehicles that need a checkup.
      */
-    public ArrayList<Vehicle> getVehiclesNeedingCheckup(CheckupRepository checkupRepository){
+    public ArrayList<Vehicle> getVehiclesNeedingCheckup(List<VehicleCheckup> checkupsList){
 
         List<Vehicle> vehicleList = getVehicleList();
         ArrayList<Vehicle> vehiclesNeedingCheckup = new ArrayList<>();
 
         for(Vehicle vehicle : vehicleList){
-            if(needsCheckup(vehicle, checkupRepository)){
+            if(needsCheckup(vehicle, checkupsList)){
                 vehiclesNeedingCheckup.add(vehicle);
             }
         }
@@ -132,17 +129,40 @@ public class VehicleRepository {
 
     /**
      * Checks if a vehicle needs a checkup. Making sure that it excedes the checkup frequency since last checkup or is close to it by 5%.
-     * @param vehicle
-     * @param checkupRepository
+     * @param vehicle The vehicle to check.
+     * @param checkupsList All checkups in the system.
      * @return true if the vehicle needs a checkup, false if it doesn't.
      */
-    public boolean needsCheckup(Vehicle vehicle, CheckupRepository checkupRepository){
+    public boolean needsCheckup(Vehicle vehicle, List<VehicleCheckup> checkupsList){
 
-        int lastCheckupKm = checkupRepository.getLastCheckupKm(vehicle);
+        int lastCheckupKm = getLastCheckupKm(vehicle, checkupsList);
         int checkUpThresholdKm = lastCheckupKm + vehicle.getCheckupFrequencyKms();
         checkUpThresholdKm -= (int) (checkUpThresholdKm * 0.05);
 
         return vehicle.getCurrentKm() >= checkUpThresholdKm;
+    }
+
+    /**
+     * Gets the last checkup kilometers of a vehicle.
+     * @param vehicle The vehicle to get the last checkup kilometers from.
+     * @param checkupsList All checkups in the system.
+     * @return The last checkup kilometers of the vehicle.
+     */
+    public int getLastCheckupKm(Vehicle vehicle, List<VehicleCheckup> checkupsList){
+        int lastCheckupKm = 0;
+        Date lastDate = null;
+        for (VehicleCheckup checkup : checkupsList){
+            if(checkup.getVehicle().equals(vehicle)){
+                if(lastDate == null){
+                    lastDate = checkup.getCheckupDate();
+                    lastCheckupKm = checkup.getCheckupKms();
+                }else if(lastDate.compareTo(checkup.getCheckupDate()) < 0){
+                    lastDate = checkup.getCheckupDate();
+                    lastCheckupKm = checkup.getCheckupKms();
+                }
+            }
+        }
+        return lastCheckupKm;
     }
 
     /**

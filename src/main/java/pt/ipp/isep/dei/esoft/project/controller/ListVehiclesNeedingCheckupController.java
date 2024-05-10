@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.esoft.project.controller;
 
 
 import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
+import pt.ipp.isep.dei.esoft.project.domain.VehicleCheckup;
 import pt.ipp.isep.dei.esoft.project.repository.CheckupRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.repository.VehicleRepository;
@@ -65,7 +66,9 @@ public class ListVehiclesNeedingCheckupController {
      */
     public List<Vehicle> getVehiclesNeedingCheckup(){
 
-        return getVehicleRepository().getVehiclesNeedingCheckup(getCheckupRepository());
+        List<VehicleCheckup> checkupsList = getCheckupRepository().getVehicleCheckupList();
+
+        return getVehicleRepository().getVehiclesNeedingCheckup(checkupsList);
 
     }
 
