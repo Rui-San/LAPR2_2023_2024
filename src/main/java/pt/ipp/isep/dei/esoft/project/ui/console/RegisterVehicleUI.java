@@ -146,9 +146,11 @@ public class RegisterVehicleUI implements Runnable{
             return false;
         }
 
-        Pattern pattern = Pattern.compile("^[A-Z]{2}-\\d{2}-[A-Z]{2}$|^[0-9]{2}-[A-Z]{2}-[0-9]{2}$");
+        Pattern pattern1 = Pattern.compile("^[0-9]{2}-[0-9]{2}-[A-Z]{2}$");
+        Pattern pattern2 = Pattern.compile("^[0-9]{2}-[A-Z]{2}-[0-9]{2}$");
+        Pattern pattern3 = Pattern.compile("^[A-Z]{2}-[0-9]{2}-[A-Z]{2}$");
 
-        return pattern.matcher(plateID).matches();
+        return pattern1.matcher(plateID).matches() || pattern2.matcher(plateID).matches() || pattern3.matcher(plateID).matches();
     }
 
     /**
@@ -378,14 +380,29 @@ public class RegisterVehicleUI implements Runnable{
 
     /**
      * Method that validates a date
-     * @param date the date
+     * @param registerDate the register date
      * @return true if the date is valid
      */
-    private boolean validateDate(String date) {
-        // Check if the date is in the format dd/mm/yyyy or yyy/mm/dd
+    private boolean validateDate(String registerDate) {
         Pattern pattern = Pattern.compile("^\\d{2}/\\d{2}/\\d{4}$|^\\d{4}/\\d{2}/\\d{2}$");
 
-        return pattern.matcher(date).matches();
+        Pattern pattern1 = Pattern.compile("^[0-9]{2}-[0-9]{2}-[A-Z]{2}$");
+        Pattern pattern2 = Pattern.compile("^[0-9]{2}-[A-Z]{2}-[0-9]{2}$");
+        Pattern pattern3 = Pattern.compile("^[A-Z]{2}-[0-9]{2}-[A-Z]{2}$");
+        String[] registerDateParts = registerDate.split("/");
+        int registerDateYear = Integer.parseInt(registerDateParts[2]);
+
+        if (registerDate == null) {
+            throw new IllegalArgumentException("Register date cannot be null.");
+        }else if(registerDateYear > 2005 && pattern1.matcher(plateID).matches()){
+            throw new IllegalArgumentException("Invalid date, with the plateID format 00-00-AA, the register date must be before 2005");
+        }else if ( (registerDateYear <= 2005 || registerDateYear > 2020) && pattern2.matcher(plateID).matches()) {
+            throw new IllegalArgumentException("Invalid date, with the plateID format 00-AA-00, the register date must be between 2005 and 2020");
+        }else if(registerDateYear <= 2020 && pattern3.matcher(plateID).matches()){
+            throw new IllegalArgumentException("Invalid date, with the plateID format AA-00-AA, the register date must be after 2020");
+        }
+
+        return pattern.matcher(registerDate).matches();
     }
 
     /**
