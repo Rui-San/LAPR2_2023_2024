@@ -190,13 +190,14 @@ public class Address implements Cloneable {
      */
     @Override
     public String toString() {
-        return "Address{" +
-                "street='" + street + '\'' +
-                ", streetNumber=" + streetNumber +
-                ", postalCode='" + postalCode + '\'' +
-                ", city='" + city + '\'' +
-                ", district='" + district + '\'' +
-                '}';
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("  Street: ").append(street).append("\n");
+        stringBuilder.append("  Street Number: ").append(streetNumber).append("\n");
+        stringBuilder.append("  Postal Code: ").append(postalCode).append("\n");
+        stringBuilder.append("  City: ").append(city).append("\n");
+        stringBuilder.append("  District: ").append(district);
+
+        return stringBuilder.toString();
     }
 
     /**

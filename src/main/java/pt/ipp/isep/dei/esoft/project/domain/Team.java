@@ -50,8 +50,8 @@ public class Team {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         for (Collaborator member : members) {
-            stringBuilder.append("Name: ").append(member.getName()).append(" | ")
-                    .append("Email: ").append(member.getEmail()).append(" | ")
+            stringBuilder.append("Name: ").append(member.getName()).append(" |")
+                    .append(member.getEmail()).append(" | ")
                     .append("Skills: ");
 
             List<Skill> memberSkills = member.getSkillList();

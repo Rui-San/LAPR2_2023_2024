@@ -363,16 +363,26 @@ public class Collaborator implements Cloneable {
      */
     @Override
     public String toString() {
-        return "Collaborator{" +
-                "name='" + name + '\'' +
-                ", birthdate=" + birthdate +
-                ", admissionDate=" + admissionDate +
-                ", address=" + address +
-                ", email=" + email.toString() +
-                ", mobileNumber=" + mobileNumber +
-                ", idDocType='" + idDocType + '\'' +
-                ", idDocNumber=" + idDocNumber +
-                '}';
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Collaborator:\n");
+        stringBuilder.append("  Name: ").append(name).append("\n");
+        stringBuilder.append("  Birthdate: ").append(birthdate).append("\n");
+        stringBuilder.append("  Admission Date: ").append(admissionDate).append("\n");
+        stringBuilder.append(address.toString()).append("\n");
+        stringBuilder.append(email.toString()).append("\n");
+        stringBuilder.append("  Mobile Number: ").append(mobileNumber).append("\n");
+        stringBuilder.append("  ID Doc Type: ").append(idDocType).append("\n");
+        stringBuilder.append("  ID Doc Number: ").append(idDocNumber).append("\n");
+        if (job != null) {
+            stringBuilder.append("  Job: ").append(job.getJobName());
+        }
+        if (!skillList.isEmpty()) {
+            stringBuilder.append("  List of skills: \n");
+            for (Skill skill : skillList) {
+                stringBuilder.append("    ").append(skill.getSkillName()).append("\n");
+            }
+        }
+        return stringBuilder.toString();
     }
 
     /**

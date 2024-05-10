@@ -388,8 +388,21 @@ class CollaboratorTest {
         Job job = new Job("Gestor");
 
         Collaborator collaborator = new Collaborator("Pedro Costa", "07/10/1995", "20/03/2024", "Rua das travessas", 123, "1234-123", "Matosinhos", "Porto", "1221790@isep.ipp.pt", "931231234", Collaborator.IdDocType.CC, "234324235", job);
+        String expectedString = "Collaborator:\n" +
+                "  Name: Pedro Costa\n" +
+                "  Birthdate: 07/10/1995\n" +
+                "  Admission Date: 20/03/2024\n" +
+                "  Street: Rua das travessas\n" +
+                "  Street Number: 123\n" +
+                "  Postal Code: 1234-123\n" +
+                "  City: Matosinhos\n" +
+                "  District: Porto\n" +
+                "  Email: 1221790@isep.ipp.pt\n" +
+                "  Mobile Number: 931231234\n" +
+                "  ID Doc Type: CC\n" +
+                "  ID Doc Number: 234324235\n" +
+                "  Job: Gestor";
 
-        String expectedString = "Collaborator{name='Pedro Costa', birthdate=07/10/1995, admissionDate=20/03/2024, address=Address{street='Rua das travessas', streetNumber=123, postalCode='1234-123', city='Matosinhos', district='Porto'}, email=Email= 1221790@isep.ipp.pt, mobileNumber=931231234, idDocType='CC', idDocNumber=234324235}";
         assertEquals(expectedString, collaborator.toString());
     }
 

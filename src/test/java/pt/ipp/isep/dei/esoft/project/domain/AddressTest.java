@@ -145,4 +145,18 @@ class AddressTest {
         assertEquals("Porto", address.getDistrict());
     }
 
+    @Test
+    public void testToString() {
+
+        Address address = new Address("Rua das travessas", 123, "1223-111", "Matosinhos", "Porto");
+
+        String expectedString = "  Street: Rua das travessas\n" +
+                "  Street Number: 123\n" +
+                "  Postal Code: 1223-111\n" +
+                "  City: Matosinhos\n" +
+                "  District: Porto";
+
+        assertEquals(expectedString, address.toString());
+    }
+
 }

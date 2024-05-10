@@ -55,6 +55,15 @@ class EmailTest {
         }
     }
 
+    @Test
+    public void testToString() {
+        Email email = new Email("1221790@isep.ipp.pt");
+
+        String expectedString = "  Email: 1221790@isep.ipp.pt";
+
+        assertEquals(expectedString, email.toString());
+    }
+
     /**
      * Ensure that email domain may only contain letters, numeric digits and symbols allowed are: "_", "." and "-".
      */

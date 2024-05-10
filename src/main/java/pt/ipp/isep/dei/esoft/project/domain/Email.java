@@ -102,7 +102,7 @@ public class Email implements Cloneable {
      */
     @Override
     public String toString() {
-        return "Email: " + email;
+        return "  Email: " + email;
     }
 
     /**
