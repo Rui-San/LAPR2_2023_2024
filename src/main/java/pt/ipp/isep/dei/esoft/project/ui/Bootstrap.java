@@ -109,30 +109,4 @@ public class Bootstrap implements Runnable {
 
     }
 
-    /*
-        private void addOrganization() {
-            //TODO: add organizations bootstrap here
-            //get organization repository
-            OrganizationRepository organizationRepository = Repositories.getInstance().getOrganizationRepository();
-            Organization organization = new Organization("This Company");
-            organization.addEmployee(new Employee("admin@this.app"));
-            organization.addEmployee(new Employee("employee@this.app"));
-            organizationRepository.add(organization);
-        }
-
-        private void addTaskCategories() {
-            //TODO: add bootstrap Task Categories here
-
-            //get task category repository
-            TaskCategoryRepository taskCategoryRepository = Repositories.getInstance().getTaskCategoryRepository();
-            taskCategoryRepository.add(new TaskCategory("Analysis"));
-            taskCategoryRepository.add(new TaskCategory("Design"));
-            taskCategoryRepository.add(new TaskCategory("Implementation"));
-            taskCategoryRepository.add(new TaskCategory("Development"));
-            taskCategoryRepository.add(new TaskCategory("Testing"));
-            taskCategoryRepository.add(new TaskCategory("Deployment"));
-            taskCategoryRepository.add(new TaskCategory("Maintenance"));
-        }
-    */
-
 }

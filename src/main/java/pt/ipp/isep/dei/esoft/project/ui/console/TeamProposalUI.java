@@ -25,7 +25,7 @@ public class TeamProposalUI implements Runnable {
     }
 
     public void run() {
-        System.out.println("\n\n--- Generate a Team automatically ------------------------");
+        System.out.println("\n\n--- Generate team proposal ------------------------");
 
         requestData();
         List<Team> generatedTeams = generateAllTeamProposals();
@@ -39,7 +39,7 @@ public class TeamProposalUI implements Runnable {
             saveTeamProposal(teamAccepted);
             System.out.println("Team selected successfully saved.");
         } else {
-            System.out.println("No team selected. Process canceled.");
+            System.out.println("Process canceled.");
         }
 
     }
@@ -104,8 +104,7 @@ public class TeamProposalUI implements Runnable {
     private List<Integer> requestQuantityNeeded(List<Skill> skillsNeeded) {
         List<Integer> quantityNeeded = new ArrayList<>();
 
-        System.out.println("Enter the quantity needed for each selected Skill:");
-        System.out.println();
+        System.out.println("\nEnter the quantity needed for each selected Skill:");
 
         for (Skill skill : skillsNeeded) {
             int quantity;
@@ -129,8 +128,9 @@ public class TeamProposalUI implements Runnable {
 
         Scanner input = new Scanner(System.in);
         boolean chooseSkill = true;
+        System.out.println("\nAvailable skills:");
         displaySkillOptions(skillList);
-        System.out.println("Which skills are needed for the team?");
+        System.out.println("\nWhich skills are needed for the team?");
 
         while (chooseSkill) {
             System.out.print("Skill: ");

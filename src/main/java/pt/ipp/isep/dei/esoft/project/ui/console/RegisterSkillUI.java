@@ -24,7 +24,7 @@ public class RegisterSkillUI implements Runnable {
     }
 
     public void run() {
-        System.out.println("\n\n---------- Register new Skill ------------------");
+        System.out.println("\n\n--- Register new Skill -------------------------");
 
         requestData();
 
@@ -32,15 +32,7 @@ public class RegisterSkillUI implements Runnable {
     }
 
     private void submitData() {
-/*
-        boolean isRegistered = controller.registerSkill(skillName);
 
-        if (isRegistered) {
-            System.out.println("\nSkill registered!");
-        } else {
-            System.out.println("\nregistration failed!");
-        }
-*/
         showAllDataForConfirmation(skillName, "You're about to register the following Skill:");
         if (Utils.confirm("Do you want to proceed? (y/n)")) {
 
@@ -57,11 +49,7 @@ public class RegisterSkillUI implements Runnable {
 
 
     private void requestData() {
-/*
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter skill name:");
-        String skillname = scanner.nextLine();
-        */
+
         skillName = requestSkillName();
     }
 
@@ -72,7 +60,7 @@ public class RegisterSkillUI implements Runnable {
 
         while (!validInput) {
             try {
-                System.out.println("Enter skill name: ");
+                System.out.print("\nEnter skill name: ");
                 response = input.nextLine();
 
                 ValidationAttributeResults validateSkillNameResults = validateSkill(response);
