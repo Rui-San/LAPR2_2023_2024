@@ -10,13 +10,7 @@ hide methods
 
 title US006 - Domain Model
 
-class Organization {
-    name
-    nif
-    website
-    phoneNumber
-    email
-}
+
 
 class Vehicle{
     plateId
@@ -31,7 +25,7 @@ class Vehicle{
     checkupFrequencyKms
 }
 
-Organization "1" -- "*" Vehicle : "owns >"
+
 FM "1" -- "*" Vehicle : "registers >"
 
 @enduml

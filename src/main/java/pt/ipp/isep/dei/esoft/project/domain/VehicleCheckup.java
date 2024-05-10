@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
-import pt.ipp.isep.dei.esoft.project._templateFiles.domain.TaskCategory;
 
 /**
  * Represents a Vehicle Checkup, through its Vehicle, checkup date and checkup kilometers.

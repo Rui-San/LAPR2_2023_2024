@@ -11,13 +11,6 @@ hide methods
 
 title US005 - Domain Model
 
-class Organization {
-    name
-    nif
-    website
-    phoneNumber
-    email
-}
 
 class Team{
     name
@@ -36,7 +29,6 @@ class Collaborator{
     idNumber
 }
 
-Organization "1" -- "*" Collaborator : "has >"
 Team "1" --left "*" Collaborator : "has >"
 HRM "1" -- "*" Team : "generates >"
 @enduml

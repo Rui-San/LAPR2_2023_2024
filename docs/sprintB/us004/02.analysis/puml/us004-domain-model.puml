@@ -12,13 +12,7 @@ hide methods
 
 title US004 - Domain Model
 
-class Organization {
-    name
-    nif
-    website
-    phoneNumber
-    email
-}
+
 
 class Skill{
     name
@@ -39,7 +33,7 @@ class Collaborator{
     idDocNumber
 }
 
-Organization "1" -- "*" Collaborator : "has >"
+
 HRM "1" -- "*" Collaborator : "assigns skills to >"
 Collaborator "1" -- "*" Skill : "has >"
 

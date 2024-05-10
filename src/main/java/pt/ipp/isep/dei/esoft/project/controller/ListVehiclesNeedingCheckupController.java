@@ -1,15 +1,12 @@
 package pt.ipp.isep.dei.esoft.project.controller;
 
-import pt.ipp.isep.dei.esoft.project.domain.Date;
+
 import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
-import pt.ipp.isep.dei.esoft.project.domain.VehicleCheckup;
 import pt.ipp.isep.dei.esoft.project.repository.CheckupRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.repository.VehicleRepository;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class ListVehiclesNeedingCheckupController {
 

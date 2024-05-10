@@ -14,20 +14,27 @@ activate Employee
 
     Employee -> System : Asks to register a new skill
     activate System
-
+loop until typed data is validated
         System --> Employee : Requests data (skill name)
     deactivate System
-    loop until typed data is validated
+
     Employee -> System : Types requested data
     activate System
-        System --> System : validatesData
+    |||
+    end
+
+        System --> System : keepData(skillName)
+        |||
+
         System --> Employee : Shows typed data and requests confirmation
+
     deactivate System
-end
+
     Employee -> System : Confirms data and submits
     activate System
-        System --> System : keepsData(skillName)
+
+
         System --> Employee : Displays operation success
-    deactivate System
+        deactivate System
 
 @enduml

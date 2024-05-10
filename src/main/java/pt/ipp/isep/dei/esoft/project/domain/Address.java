@@ -5,7 +5,7 @@ import pt.ipp.isep.dei.esoft.project.tools.ValidationAttributeResults;
 /**
  * Represents an Address object containing street, street number, postal code, city, and district.
  */
-public class Address implements Cloneable{
+public class Address implements Cloneable {
 
     /**
      * The street of the address.
@@ -186,8 +186,7 @@ public class Address implements Cloneable{
     /**
      * Returns a string representation of the address.
      *
-     * @return a string representation of the address in the format:
-     * "Address{street='[street]', streetNumber=[streetNumber], postalCode='[postalCode]', city='[city]', district='[district]'}"
+     * @return a string representation of the address
      */
     @Override
     public String toString() {
@@ -274,9 +273,14 @@ public class Address implements Cloneable{
         return district != null && !district.trim().isEmpty();
     }
 
+    /**
+     * Creates a deep copy of the Address.
+     *
+     * @return the cloned Address
+     */
     @Override
     public Address clone() {
-        return new Address(this.street,this.streetNumber,this.postalCode,this.city,this.district);
+        return new Address(this.street, this.streetNumber, this.postalCode, this.city, this.district);
     }
 
 
