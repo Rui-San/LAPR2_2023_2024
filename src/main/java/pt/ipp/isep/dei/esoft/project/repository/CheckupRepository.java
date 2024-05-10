@@ -87,28 +87,4 @@ public class CheckupRepository {
         return Optional.of(checkup);
     }
 
-    /**
-     * This method returns the km of the last checkup of a vehicle.
-     * @param vehicle The vehicle to check the last checkup.
-     * @return The km of the last checkup.
-     */
-    public int getLastCheckupKm(Vehicle vehicle){
-        int lastCheckupKm = 0;
-        Date lastDate = null;
-        List<VehicleCheckup> checkups = getVehicleCheckups();
-        for (VehicleCheckup checkup : checkups){
-            if(checkup.getVehicle().equals(vehicle)){
-                if(lastDate == null){
-                    lastDate = checkup.getCheckupDate();
-                    lastCheckupKm = checkup.getCheckupKms();
-                }else if(lastDate.compareTo(checkup.getCheckupDate()) < 0){
-                    lastDate = checkup.getCheckupDate();
-                    lastCheckupKm = checkup.getCheckupKms();
-                }
-            }
-        }
-        return lastCheckupKm;
-
-    }
-
 }
