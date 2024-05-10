@@ -6,13 +6,28 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Skill Repository class
+ */
 public class SkillRepository {
+    /**
+     * List to store all the skills.
+     */
     private final List<Skill> skillList;
 
+    /**
+     * Constructs a SkillRepository object.
+     */
     public SkillRepository() {
         skillList = new ArrayList<>();
     }
 
+    /**
+     * Adds a new skill to the repository after validation.
+     *
+     * @param skill the skill to add
+     * @return an Optional containing the newly added skill if successful, empty otherwise
+     */
     public Optional<Skill> add(Skill skill) {
 
         Optional<Skill> newSkill = Optional.empty();
@@ -31,8 +46,11 @@ public class SkillRepository {
     }
 
     /**
-     * @param skill
-     * @return the logical state of the validation. True if the list of skills doesn't contain that skill.
+     * Validates if a skill can be added based on its uniqueness.
+     * Validates the specific skill is already on the list.
+     *
+     * @param skill the skill to validate
+     * @return true if the skill can be added, false otherwise
      */
     private boolean validateSkill(Skill skill) {
         boolean isValid = true;
@@ -53,10 +71,15 @@ public class SkillRepository {
      * @return The list of task categories.
      */
     public List<Skill> getSkillList() {
-        //This is a defensive copy, so that the repository cannot be modified from the outside.
         return List.copyOf(skillList);
     }
 
+    /**
+     * Registers a new skill and adds to the list of skills if validated
+     *
+     * @param skillName the name of the skill to register
+     * @return an Optional containing the newly registered skill if successful, empty otherwise
+     */
     public Optional<Skill> registerSkill(String skillName) {
         Skill newSkill = new Skill(skillName);
         Optional<Skill> addedSkill = add(newSkill);

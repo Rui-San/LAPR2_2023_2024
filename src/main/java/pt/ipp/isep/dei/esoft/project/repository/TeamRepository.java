@@ -5,14 +5,27 @@ import pt.ipp.isep.dei.esoft.project.domain.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Team Repository class
+ */
 public class TeamRepository {
+    /**
+     * List to store all the accepted teams.
+     */
     private final List<Team> teamList;
 
+    /**
+     * Constructs a TeamRepository object.
+     */
     public TeamRepository() {
         teamList = new ArrayList<>();
     }
 
+    /**
+     * Retrieves the list of teams.
+     *
+     * @return The list of teams.
+     */
     public List<Team> getTeamList() {
         return teamList;
     }
@@ -148,7 +161,8 @@ public class TeamRepository {
 
 
     /**
-     * Verifies which collaborators of the company are not currently in a team and have at least one skill required to join the team.
+     * Check which collaborators of the company can join a new team.
+     * In order to join a new team, this method verifies if the collaborator is already in a team (by calling method isAlreadyInOneTeam) and if the collaborator has at least one needed skill.
      *
      * @param collaboratorList the list of collaborators of the organization
      * @param skillSetList     the set of skills needed in the team
@@ -204,7 +218,7 @@ public class TeamRepository {
     /**
      * Adds the selected team to the list of teams in the repository.
      *
-     * @param teamAccepted
+     * @param teamAccepted the team accepted
      */
     public void saveTeamProposal(Team teamAccepted) {
         teamList.add(teamAccepted);
