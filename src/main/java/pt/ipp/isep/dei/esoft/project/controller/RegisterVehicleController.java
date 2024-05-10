@@ -57,10 +57,10 @@ public class RegisterVehicleController {
      * @param checkupFrequencyKms checkupFrequencyKms of the Vehicle
      * @return Vehicle created
      */
-    public Optional<Vehicle> createVehicle(String plateId, String brand, String model, String type, double tare, double grossWeight, int currentKm, Date registerDate, Date acquisitionDate, int checkupFrequencyKms) {
+    public Optional<Vehicle> createVehicle(String plateId, String brand, String model, String type, double tare, double grossWeight, int currentKm, String registerDate, String acquisitionDate, int checkupFrequencyKms) {
         Optional<Vehicle> newVehicle = Optional.empty();
 
-        newVehicle = vehicleRepository.createVehicle(plateId, brand, model, type, tare, grossWeight, currentKm, registerDate, acquisitionDate, checkupFrequencyKms);
+        newVehicle = getVehicleRepository().createVehicle(plateId, brand, model, type, tare, grossWeight, currentKm, registerDate, acquisitionDate, checkupFrequencyKms);
 
         return newVehicle;
     }
