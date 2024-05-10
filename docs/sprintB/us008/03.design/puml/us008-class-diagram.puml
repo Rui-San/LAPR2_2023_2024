@@ -34,12 +34,20 @@ Class CheckupRepository {
     -getCheckups(Vehicle vehicle)
 }
 
+Class VehicleNeedingCheckup{
+    -Vehicle vehicle
+    -int lastCheckupKm
+    -int optimalNextCheckupKm
+    +VehicleNeedingCheckup(Vehicle vehicle, int lastCheckupKm, int optimalNextCheckupKm)
+}
+
 ListVehiclesNeedingCheckupUI ..> ListVehiclesNeedingCheckupController
 ListVehiclesNeedingCheckupController ..> Repositories : "repositories"
 ListVehiclesNeedingCheckupController ..> VehicleRepository : vehicleRepository
 VehicleRepository ..> CheckupRepository : checkupRepository
 Repositories --> "1" VehicleRepository
 Repositories --> "1" CheckupRepository
+VehicleRepository ..> VehicleNeedingCheckup : vehicleNeedingCheckup
 Repositories -> Repositories : "instance"
 
 
