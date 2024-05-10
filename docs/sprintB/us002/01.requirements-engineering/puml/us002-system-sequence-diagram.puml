@@ -7,27 +7,34 @@ title US002 - System Sequence Diagram (SSD)
 
 autonumber
 
-actor "HRM" as Employee
-participant ":RegisterJobUI" as System
+actor "HRM" as HRM
+participant ":RegisterJobUI" as UI
 
-activate Employee
+activate HRM
 
-    Employee -> System : Asks to register a new job
-    activate System
-
-        System --> Employee : Requests job data (job name)
-    deactivate System
+    HRM -> UI : Asks to register a new job
+    activate UI
     loop until typed data is validated
-    Employee -> System : Types requested data
-    activate System
-        System --> System : validatesData
-        System --> Employee : Shows typed data and requests confirmation
-    deactivate System
+        UI --> HRM : Requests data (job name)
+    deactivate UI
+
+    HRM -> UI : Types requested data
+    activate UI
+    |||
     end
-    Employee -> System : Confirms data and submits
-    activate System
-        System --> System : keepsData(jobName)
-        System --> Employee : Displays operation success
-    deactivate System
+    UI --> UI : keepData(jobName)
+    |||
+
+        UI --> HRM : Shows typed data and requests confirmation
+    deactivate UI
+
+
+    HRM -> UI : Confirms data and submits
+    activate UI
+
+
+
+        UI --> HRM : Displays operation success
+    deactivate UI
 
 @enduml
