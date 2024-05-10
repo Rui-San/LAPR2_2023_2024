@@ -6,29 +6,27 @@
 
 _**Note that SSD - Alternative One is adopted.**_
 
-| Interaction ID                                                                                                          | Question: Which class is responsible for...                           | Answer                         | Justification (with patterns)                                                                                 |
-|:------------------------------------------------------------------------------------------------------------------------|:----------------------------------------------------------------------|:-------------------------------|:--------------------------------------------------------------------------------------------------------------|
-| Step 1: Asks to register a collaborator 		                                                                              | 	... interacting with the actor?                                      | RegisterCollaboratorUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
-| 			  		                                                                                                                 | 	... coordinating the US?                                             | RegisterCollaboratorController | Controller                                                                                                    |
-| 			  		                                                                                                                 | ... knowing the user using the system?                                | UserSession                    | IE: cf. A&A component documentation.                                                                          |
-| Step 2: Requests data (name, birthdate, admission date, address, \nemail,mobile number, id doc type, id doc number)  		 | 	... displaying the form for the actor to input data?						           | RegisterCollaboratorUI         | Pure Fabrication: User will insert data on the User Interface.                                                |
-| Step 3: Types requested data  		                                                                                        | 	... validating input data?                                           | RegisterCollaboratorUI         | Pure Fabrication                                                                                              |
-|                                                                                                                         | ... temporarily keeping input data?                                   | RegisterCollaboratorUI         | Pure Fabrication                                                                                              |
-| Step 4: Shows job list and asks to select one  		                                                                       | 	... obtaining the list of jobs?                                      | JobRepository                  | Pure Fabrication                                                                                              |
-|                                                                                                                         | ... displaying the list of jobs?                                      | RegisterCollaboratorUI         | Pure Fabrication                                                                                              |
-| Step 5: Selects a job  		                                                                                               | 	... validating the selected data?                                    | RegisterCollaboratorUI         | Pure Fabrication                                                                                              |
-|                                                                                                                         | ... temporarily keeping the selected job?                             | RegisterCollaboratorUI         | Pure Fabrication                                                                                              |
-| Step 6: Shows all data and requests confirmation  		                                                                    | ... displaying all the information before confirmation?							        | RegisterCollaboratorUI         | PureFabrication                                                                                               |              
-| Step 7: Confirms data  		                                                                                               | 	... creating the Collaborator object?                                | CollaboratorRepository         | Information Expert/Pure Creation - CollaboratorRepository contains instances of Collaborator                  | 
-| 			  		                                                                                                                 | 	... validating the data locally (mandatory data)?                    | Collaborator                   | Information Expert: Collaborator has its own data                                                             |                                                                                    | 
-|                                                                                                                         | ... adding to a collection and globally validating duplicate records? | CollaboratorRepository         | Pure Creation/Information Expert: CollaboratorRepository aggregates Collaborator instances.                   |
-| Step 8: Displays operation success  		                                                                                  | 	... informing operation success?                                     | RegisterCollaboratorUI         | Pure Fabrication                                                                                              | 
+| Interaction ID                                                                                                                                            | Question: Which class is responsible for...                           | Answer                         | Justification (with patterns)                                                                                              |
+|:----------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------------------------------------------------------|:-------------------------------|:---------------------------------------------------------------------------------------------------------------------------|
+| Step 1: Asks to register a collaborator 		                                                                                                                | 	... interacting with the actor?                                      | RegisterCollaboratorUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model.              |
+| 			  		                                                                                                                                                   | 	... coordinating the US?                                             | RegisterCollaboratorController | Controller                                                                                                                 |
+| Step 2: Requests data (name, birthdate, admissionDate, street, streetNumber, postalCode, city, district, email, mobileNumber, idDocType, idDocNumber)  		 | 	... displaying the form for the actor to input data?						           | RegisterCollaboratorUI         | Pure Fabrication: User will insert data on the User Interface.                                                             |
+| Step 3: Types requested data  		                                                                                                                          | 	... validating input data?                                           | RegisterCollaboratorUI         | Pure Fabrication                                                                                                           |
+|                                                                                                                                                           | ... temporarily keeping input data?                                   | RegisterCollaboratorUI         | Pure Fabrication                                                                                                           |
+| Step 4: Shows job list and asks to select one  		                                                                                                         | 	... obtaining the list of jobs?                                      | JobRepository                  | Pure Fabrication                                                                                                           |
+|                                                                                                                                                           | ... displaying the list of jobs?                                      | RegisterCollaboratorUI         | Pure Fabrication                                                                                                           |
+| Step 5: Selects a job  		                                                                                                                                 | 	... validating the selected data?                                    | RegisterCollaboratorUI         | Pure Fabrication                                                                                                           |
+|                                                                                                                                                           | ... temporarily keeping the selected job?                             | RegisterCollaboratorUI         | Pure Fabrication                                                                                                           |
+| Step 6: Shows all data and requests confirmation  		                                                                                                      | ... displaying all the information before confirmation?							        | RegisterCollaboratorUI         | PureFabrication                                                                                                            |              
+| Step 7: Confirms data  		                                                                                                                                 | 	... creating the Collaborator object?                                | CollaboratorRepository         | Information Expert/Pure Fabrication - CollaboratorRepository contains instances of Collaborator                            | 
+| 			  		                                                                                                                                                   | 	... validating the data locally (mandatory data)?                    | Collaborator                   | Information Expert: Collaborator has its own data and collaborator constructor validates data                              |                                                                                    | 
+|                                                                                                                                                           | ... adding to a collection and globally validating duplicate records? | CollaboratorRepository         | Pure Creation/Information Expert: CollaboratorRepository aggregates Collaborator instances and validates duplicate records |
+| Step 8: Displays operation success  		                                                                                                                    | 	... informing operation success?                                     | RegisterCollaboratorUI         | Pure Fabrication                                                                                                           | 
 
 ### Systematization ##
 
 According to the taken rationale, the conceptual classes promoted to software classes are:
 
-* Job
 * Collaborator
 
 Other software classes (i.e. Pure Fabrication) identified:
@@ -39,8 +37,6 @@ Other software classes (i.e. Pure Fabrication) identified:
 * JobRepository
 
 ## 3.2. Sequence Diagram (SD)
-
-_**Note that SSD - Alternative Two is adopted.**_
 
 ### Full Diagram
 
@@ -57,18 +53,18 @@ user story, but it is split in partial diagrams to better illustrate the interac
 
 ![Class Diagram - Full](svg/us003-class-diagram.svg)
 
-### Partial RegisterCollaboratorUI Class Diagram
+### RegisterCollaboratorUI Class Diagram
 
 ![Class Diagram - RegisterCollaboratorUI](svg/us003-class-diagram-register-collaborator-ui.svg)
 
-### Partial Collaborator Class Diagram
+### Collaborator Class Diagram
 
 ![Class Diagram - Collaborator](svg/us003-class-diagram-collaborator.svg)
 
-### Partial Address Class Diagram
+### Address Class Diagram
 
 ![Class Diagram - Address](svg/us003-class-diagram-address.svg)
 
-### Partial Date Class Diagram
+### Date Class Diagram
 
 ![Class Diagram - Date](svg/us003-class-diagram-date.svg)
