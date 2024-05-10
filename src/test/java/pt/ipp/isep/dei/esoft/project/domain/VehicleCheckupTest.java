@@ -8,7 +8,7 @@ class VehicleCheckupTest {
 
     @Test
     void ensureCheckupIsCreatedSuccessfully() {
-        Vehicle vehicle = new Vehicle("AA-00-00", "Vehicle Brand", "Vehicle Model", "1", 10, 10, 1000, new Date("10/12/2003"), new Date("10/12/2012"), 100 );
+        Vehicle vehicle = new Vehicle("00-00-AA", "Vehicle Brand", "Vehicle Model", "1", 10, 10, 1000, "10/12/2003", "10/12/2012", 100 );
         VehicleCheckup checkup = new VehicleCheckup(vehicle, new Date("10/12/2012"), 100);
     }
 
@@ -26,7 +26,7 @@ class VehicleCheckupTest {
 
     @Test
     void ensureCheckupkmsAreLessThanVehicleKms() {
-        Vehicle vehicle = new Vehicle("AA-00-00", "Vehicle Brand", "Vehicle Model", "1", 10, 10, 1000, new Date("10/12/2003"), new Date("10/12/2012"), 100 );
+        Vehicle vehicle = new Vehicle("00-00-AA", "Vehicle Brand", "Vehicle Model", "1", 10, 10, 1000, "10/12/2003", "10/12/2012", 100 );
         VehicleCheckup checkup = null;
         try {
             checkup = new VehicleCheckup(vehicle, new Date("10/12/2012"), 1100);
@@ -38,29 +38,29 @@ class VehicleCheckupTest {
 
     @Test
     void testGetVehicle() {
-        Vehicle vehicle = new Vehicle("AA-00-00", "Vehicle Brand", "Vehicle Model", "1", 10, 10, 1000, new Date("10/12/2003"), new Date("10/12/2012"), 100 );
+        Vehicle vehicle = new Vehicle("00-00-AA", "Vehicle Brand", "Vehicle Model", "1", 10, 10, 1000, "10/12/2003", "10/12/2012", 100 );
         VehicleCheckup checkup = new VehicleCheckup(vehicle, new Date("10/12/2012"), 100);
         assertEquals(vehicle, checkup.getVehicle());
     }
 
     @Test
     void testGetCheckupkms(){
-        Vehicle vehicle = new Vehicle("AA-00-00", "Vehicle Brand", "Vehicle Model", "1", 10, 10, 1000, new Date("10/12/2003"), new Date("10/12/2012"), 100 );
+        Vehicle vehicle = new Vehicle("00-00-AA", "Vehicle Brand", "Vehicle Model", "1", 10, 10, 1000, "10/12/2003", "10/12/2012", 100 );
         VehicleCheckup checkup = new VehicleCheckup(vehicle, new Date("10/12/2012"), 100);
         assertEquals(100, checkup.getCheckupKms());
     }
 
     @Test
     void testGetCheckupDate(){
-        Vehicle vehicle = new Vehicle("AA-00-00", "Vehicle Brand", "Vehicle Model", "1", 10, 10, 1000, new Date("10/12/2003"), new Date("10/12/2012"), 100 );
+        Vehicle vehicle = new Vehicle("00-00-AA", "Vehicle Brand", "Vehicle Model", "1", 10, 10, 1000, "10/12/2003", "10/12/2012", 100 );
         VehicleCheckup checkup = new VehicleCheckup(vehicle, new Date("10/12/2012"), 100);
-        assertEquals(new Date("10/12/2012"), checkup.getCheckupDate());
+        assertEquals(new Date("10/12/2012").toString(), checkup.getCheckupDate().toString());
     }
 
     @Test
     void testSetVehicle(){
-        Vehicle vehicle = new Vehicle("AA-00-00", "Vehicle Brand", "Vehicle Model", "1", 10, 10, 1000, new Date("10/12/2003"), new Date("10/12/2012"), 100 );
-        Vehicle vehicle2 = new Vehicle("BB-00-00", "Vehicle Brand", "Vehicle Model", "1", 10, 10, 1000, new Date("10/12/2003"), new Date("10/12/2012"), 100 );
+        Vehicle vehicle = new Vehicle("00-00-AA", "Vehicle Brand", "Vehicle Model", "1", 10, 10, 1000, "10/12/2003", "10/12/2012", 100 );
+        Vehicle vehicle2 = new Vehicle("00-00-BB", "Vehicle Brand", "Vehicle Model", "1", 10, 10, 1000, "10/12/2003", "10/12/2012", 100 );
         VehicleCheckup checkup = new VehicleCheckup(vehicle, new Date("10/12/2012"), 100);
         checkup.setVehicle(vehicle2);
         assertEquals(vehicle2, checkup.getVehicle());
@@ -68,7 +68,7 @@ class VehicleCheckupTest {
 
     @Test
     void testSetCheckupkms(){
-        Vehicle vehicle = new Vehicle("AA-00-00", "Vehicle Brand", "Vehicle Model", "1", 10, 10, 1000, new Date("10/12/2003"), new Date("10/12/2012"), 100 );
+        Vehicle vehicle = new Vehicle("00-00-AA", "Vehicle Brand", "Vehicle Model", "1", 10, 10, 1000, "10/12/2003", "10/12/2012", 100 );
         VehicleCheckup checkup = new VehicleCheckup(vehicle, new Date("10/12/2012"), 100);
         checkup.setCheckupKms(200);
         assertEquals(200, checkup.getCheckupKms());
@@ -76,10 +76,10 @@ class VehicleCheckupTest {
 
     @Test
     void testSetCheckupDate(){
-        Vehicle vehicle = new Vehicle("AA-00-00", "Vehicle Brand", "Vehicle Model", "1", 10, 10, 1000, new Date("10/12/2003"), new Date("10/12/2012"), 100 );
+        Vehicle vehicle = new Vehicle("00-00-AA", "Vehicle Brand", "Vehicle Model", "1", 10, 10, 1000, "10/12/2003", "10/12/2012", 100 );
         VehicleCheckup checkup = new VehicleCheckup(vehicle, new Date("10/12/2012"), 100);
         checkup.setCheckupDate(new Date("10/12/2013"));
-        assertEquals(new Date("10/12/2013"), checkup.getCheckupDate());
+        assertEquals(new Date("10/12/2013").toString(), checkup.getCheckupDate().toString());
     }
 
 
