@@ -122,8 +122,13 @@ public class Vehicle {
      * @param plateId the plate ID of the vehicle
      */
     public void setPlateId(String plateId) {
+
+        Pattern pattern = Pattern.compile("^[A-Z]{2}-\\d{2}-[A-Z]{2}$|^[0-9]{2}-[A-Z]{2}-[0-9]{2}$");
+
         if (plateId == null || plateId.trim().isEmpty()) {
             throw new IllegalArgumentException("Plate ID cannot be null or empty.");
+        }else if (!pattern.matcher(plateId).matches()) {
+            throw new IllegalArgumentException("Plate ID must be in the format AA-00-AA or 00-AA-00.");
         }
         this.plateId = plateId;
     }
@@ -135,7 +140,10 @@ public class Vehicle {
     public void setBrand(String brand) {
         if (brand == null || brand.trim().isEmpty()) {
             throw new IllegalArgumentException("Brand cannot be null or empty.");
+        }else if (!brand.matches("^[a-zA-Z0-9 ]+$")) {
+            throw new IllegalArgumentException("Brand cannot contain special characters.");
         }
+
         this.brand = brand;
     }
 
@@ -146,7 +154,10 @@ public class Vehicle {
     public void setModel(String model) {
         if (model == null || model.trim().isEmpty()) {
             throw new IllegalArgumentException("Model cannot be null or empty.");
+        }else if (!model.matches("^[a-zA-Z0-9 ]+$")) {
+            throw new IllegalArgumentException("Model cannot contain special characters.");
         }
+
         this.model = model;
     }
 
@@ -157,7 +168,10 @@ public class Vehicle {
     public void setType(String type) {
         if (type == null || type.trim().isEmpty()) {
             throw new IllegalArgumentException("Type cannot be null or empty.");
+        }else if (!type.matches("^[a-zA-Z0-9 ]+$")) {
+            throw new IllegalArgumentException("Type cannot contain special characters.");
         }
+
         this.type = type;
     }
 
@@ -179,6 +193,8 @@ public class Vehicle {
     public void setGrossWeight(double grossWeight) {
         if (grossWeight <= 0) {
             throw new IllegalArgumentException("Gross weight must be a positive number.");
+        }else if (grossWeight < this.tare) {
+            throw new IllegalArgumentException("Gross weight must be greater than tare.");
         }
         this.grossWeight = grossWeight;
     }
@@ -222,7 +238,7 @@ public class Vehicle {
      */
     public void setCheckupFrequencyKms(int checkupFrequencyKms) {
         if (checkupFrequencyKms <= 0) {
-            throw new IllegalArgumentException("Checkup frequency kilometers must be a positive number.");
+            throw new IllegalArgumentException("Checkup frequency kilometers must be a positive number bigger than zero.");
         }
         this.checkupFrequencyKms = checkupFrequencyKms;
     }
