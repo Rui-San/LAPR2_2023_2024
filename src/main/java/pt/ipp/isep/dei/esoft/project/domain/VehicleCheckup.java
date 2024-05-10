@@ -44,10 +44,13 @@ public class VehicleCheckup {
      * @param vehicle the vehicle that was checked
      */
     public void setVehicle(Vehicle vehicle) {
+        validateVehicle(vehicle);
+        this.vehicle = vehicle;
+    }
+
+    public void validateVehicle(Vehicle vehicle){
         if (vehicle == null) {
             throw new IllegalArgumentException("Vehicle does not exist.");
-        } else {
-            this.vehicle = vehicle;
         }
     }
 

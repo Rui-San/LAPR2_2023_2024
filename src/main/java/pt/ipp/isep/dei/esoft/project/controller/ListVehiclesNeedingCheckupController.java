@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.esoft.project.controller;
 
 import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
 import pt.ipp.isep.dei.esoft.project.domain.VehicleCheckup;
+import pt.ipp.isep.dei.esoft.project.domain.VehicleNeedingCheckup;
 import pt.ipp.isep.dei.esoft.project.repository.CheckupRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.repository.VehicleRepository;
@@ -40,8 +41,6 @@ public class ListVehiclesNeedingCheckupController {
     public CheckupRepository getCheckupRepository() {
         if (checkupRepository == null) {
             Repositories repositories = Repositories.getInstance();
-
-            //Get the TaskCategoryRepository
             checkupRepository = repositories.getCheckupRepository();
         }
         return checkupRepository;
@@ -64,7 +63,7 @@ public class ListVehiclesNeedingCheckupController {
      * Gets the vehicles needing checkup
      * @return the vehicles needing checkup
      */
-    public List<Vehicle> getVehiclesNeedingCheckup(){
+    public List<VehicleNeedingCheckup> getVehiclesNeedingCheckup(){
 
         List<VehicleCheckup> checkupsList = getCheckupRepository().getVehicleCheckupList();
 

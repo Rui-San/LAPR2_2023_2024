@@ -34,23 +34,23 @@ public class RegisterCheckupUI implements Runnable {
 
         requestData();
 
-        submitData();
+        showAllDataForConfirmation( vehicle, checkupDate, checkupKm);
+        if (Utils.confirm("Do you want to proceed? (y/n)")) {
+            submitData();
+        }
 
     }
 
     private void submitData() {
 
-        showAllDataForConfirmation( vehicle, checkupDate, checkupKm);
-        if (Utils.confirm("Do you want to proceed? (y/n)")) {
+        Optional<VehicleCheckup> checkup = getController().registerVehicleCheckup(vehicle, checkupDate, checkupKm);
 
-            Optional<VehicleCheckup> checkup = getController().registerVehicleCheckup(vehicle, checkupDate, checkupKm);
-
-            if (checkup.isPresent()) {
-                System.out.println("\nCheckup successfully created!");
-            } else {
-                System.out.println("\nCheckup not created!");
-            }
+        if (checkup.isPresent()) {
+            System.out.println("\nCheckup successfully created!");
+        } else {
+            System.out.println("\nCheckup not created!");
         }
+
     }
 
     private void showAllDataForConfirmation(Vehicle vehicle, String checkupDate, int checkupKm) {
@@ -130,25 +130,31 @@ public class RegisterCheckupUI implements Runnable {
 
     private Vehicle displayAndSelectVehicle() {
 
-        List<Vehicle> vehicleList = controller.getVehicles();
+        List<Vehicle> vehicleList = getController().getVehicles();
 
         int numberOfVehicles = vehicleList.size();
         int answer = -1;
 
-        Scanner input = new Scanner(System.in);
-
-        while (answer < 1 || answer > numberOfVehicles) {
+        do{
             displayVehicleOptions(vehicleList);
+            Scanner input = new Scanner(System.in);
             System.out.print("\nVehicle to register checkup: ");
             answer = input.nextInt();
-        }
+        }while (!validateIndex(answer, numberOfVehicles));
 
         Vehicle vehicle = vehicleList.get(answer - 1);
         return vehicle;
     }
 
+    public boolean validateIndex(int answer, int numberOfVehicles){
+        if(answer < 1 || answer > numberOfVehicles){
+            System.out.println("Error: Please select the number of the vehicle from the list");
+            return false;
+        }
+        return true;
+    }
+
     private void displayVehicleOptions(List<Vehicle> vehicleList) {
-        //display the task categories as a menu with number options to select
         int i = 1;
         for (Vehicle vehicle : vehicleList) {
             System.out.println("  " + i + " - " + vehicle.getPlateId());

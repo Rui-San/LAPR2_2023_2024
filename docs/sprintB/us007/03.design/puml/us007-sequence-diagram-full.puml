@@ -7,94 +7,109 @@ title US007 - System Sequence Diagram (SSD)
 
 autonumber
 
-actor "Fleet Manager" as Employee
+actor "Vehicle Fleet\n Manager" as VFM
 participant ":RegisterCheckupUI" as UI
-participant ":RegisterCheckupController" as RCCtrl
-'participant "taskCategoryRepository:\nTaskCategoryRepository" as TaskCategoryRepository
-'participant ":ApplicationSession" as _APP
-'participant "appSession\n:ApplicationSession" as APP
-'participant "currentSession\n:UserSession" as SESSAO
-'participant "vehicleRepository:\nVehicleRepository" as VehicleRepository
-participant ":Repositories" as RepositorySingleton
-participant "repositories\n:Repositories" as PLAT
-participant "vehicleRepository\n:VehicleRepository" as VehicleRepository
-participant ":vehicleCheckupRepository\n:VehicleCheckupRepository" as VCRepo
-'participant "organizationRepository:\nOrganizationRepository" as OrganizationRepository
-participant ":Vehicle Checkup" as VCheckup
-participant "Date" as Date
+participant ":RegisterCheckupController" as CTRL
+participant ":Repositories" as REPOS
+participant "repositories\n:Repositories" as REPOSInstance
+participant "vehicleRepository\n:VehicleRepository" as VehicleREPO
+participant "checkupRepository\n:CheckupRepository" as CheckupREPO
+participant ":Date" as Date
+participant ":VehicleCheckup" as Checkup
 
-activate Employee
+activate VFM
 
-    Employee -> UI : Asks to register a new vehicle's check-up
+    VFM -> UI : aks to register a new vehicle checkup
     activate UI
 
-        UI -> RCCtrl** : create
-        UI -> RCCtrl : getVehicleList()
-        activate RCCtrl
+        UI -> CTRL** : create
+        UI -> CTRL : getVehicles()
+        activate CTRL
 
-            RCCtrl -> RepositorySingleton : getInstance()
-            activate RepositorySingleton
+            CTRL -> REPOS : getInstance()
+            activate REPOS
 
-                RepositorySingleton --> RCCtrl : repositories
-            deactivate RepositorySingleton
-            RCCtrl -> PLAT : getVehicleRepository()
-            activate PLAT
+                REPOS --> CTRL : repositories
+            deactivate REPOS
 
-                PLAT --> RCCtrl : vehicleRepository
-            deactivate PLAT
-            RCCtrl -> VehicleRepository : getVehicles()
-            activate VehicleRepository
+            CTRL -> REPOSInstance : getVehicleRepository
+            activate REPOSInstance
 
-                VehicleRepository --> RCCtrl : vehiclesList
-            deactivate VehicleRepository
-            RCCtrl --> UI : vehiclesList
-        deactivate RCCtrl
+                REPOSInstance --> CTRL : vehicleRepository
+            deactivate REPOSInstance
 
-        UI --> Employee : Shows the list of vehicles and asks to select one
+            CTRL -> VehicleREPO : getVehicleList()
+            activate VehicleREPO
+
+                VehicleREPO --> CTRL : vehicleList
+            deactivate VehicleREPO
+            CTRL --> UI : vehicleList
+        deactivate CTRL
+loop until typed index is valid
+        UI --> VFM : displays all vehicles and asks to\n select one by index
     deactivate UI
 
-    Employee -> UI : Selects a vehicle
+    VFM -> UI : types the index of the vehicle\n to register checkup
+    activate UI
+        UI --> UI : validateIndex(answer, numerOfVehicles)
+end loop
+        note right of UI
+            saves the vehicle from vehicleList that
+            is located in the typed index
+        end note
+        UI --> UI : KeepData(vehicle)
+loop until typed data is valid
+        UI --> VFM : requests data (checkupData, checkupKm)
+    deactivate UI
+
+    VFM -> UI : types requested data
     activate UI
 
-        UI --> UI : keepsData(Vehicle vehicle)
-    loop until typed data is validated
-        UI --> Employee : Requests the date of the check-up\n and the current kilometers
+        UI --> UI : validateDate(checkupDate)
+        UI --> UI : validateCheckupKm(checkupKm)
+end loop
+        UI --> UI : KeepData(checkupDate, checkupKm)
+        UI --> VFM : show all data and request confirmation
     deactivate UI
 
-    Employee -> UI : Types requested data
-    end loop
+    VFM -> UI : confirms data
     activate UI
 
-        UI --> UI : keepData(checkupDate, currentKms)
-        UI --> Employee : Shows all data and requests confirmation
+        UI -> CTRL : registerVehicleCheckup(vehicle, checkupDate, checkupKm)
+        activate CTRL
+
+            CTRL -> REPOS : getInstance()
+            activate REPOS
+
+                REPOS --> CTRL : repositories
+            deactivate REPOS
+
+            CTRL -> REPOSInstance : getCheckupRepository()
+            activate REPOSInstance
+
+                REPOSInstance --> CTRL : checkupRepository
+            deactivate REPOSInstance
+
+            CTRL -> CheckupREPO : registerVehicleCheckup(vehicle, checkupDate, checkupKm)
+            activate CheckupREPO
+
+                CheckupREPO -> Date** : new Date(checkupDate)
+                    Date --> Date : validateDate(checkupDate)
+                CheckupREPO -> Checkup** : new VehicleCheckup(vehicle, checkupDate, checkupKm)
+                    Checkup --> Checkup : validateVehicle(vehicle)
+                    Checkup --> Checkup : validateCheckupDate(checkupDate)
+                    Checkup --> Checkup : validateCheckupKms(checkupKm)
+                CheckupREPO --> CheckupREPO : add(checkup)
+                CheckupREPO --> CheckupREPO : validateVehicleCheckup(checkup)
+                CheckupREPO --> CTRL : checkup
+            deactivate CheckupREPO
+
+            CTRL --> UI : checkup
+        deactivate CTRL
+
+        UI --> VFM : display operation success
     deactivate UI
 
-    Employee -> UI : Confirms data
-    activate UI
-
-        UI --> RCCtrl : registerVehicleCheckup(Vehicle, \nDate of check-up, \nCurrent kilometers)
-        activate RCCtrl
-
-            RCCtrl --> PLAT : getVehicleCheckupRepository()
-            activate PLAT
-
-                PLAT -> RCCtrl : VehicleCheckupRepository
-            deactivate PLAT
-            RCCtrl --> VCRepo : registerVehicleCheckup(vehicle, \checkupDate, \ncurrentKms)
-            activate VCRepo
-
-                VCRepo --> VCheckup** : VehicleCheckup(vehicle, checkupDate, currentKms)
-                VCheckup -> Date : validateDate(checkupDate)
-                VCheckup --> VCheckup : validateCurrentKms(currentKms)
-                VCRepo --> VCRepo : addCheckup(vehicleCheckup)
-                VCRepo --> VCRepo : validateCheckup(vehicleCheckup)
-                VCRepo --> RCCtrl : operation Success
-            deactivate VCRepo
-
-            RCCtrl --> UI : operation Success
-        deactivate RCCtrl
-
-        UI --> Employee : Displays operation success
-    deactivate UI
+deactivate VFM
 
 @enduml

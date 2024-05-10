@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.esoft.project.ui.console;
 
 import pt.ipp.isep.dei.esoft.project.controller.ListVehiclesNeedingCheckupController;
 import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
+import pt.ipp.isep.dei.esoft.project.domain.VehicleNeedingCheckup;
 
 import java.util.List;
 
@@ -39,10 +40,10 @@ public class ListVehiclesNeedingCheckupUI implements Runnable{
      */
     private void showData() {
 
-        List<Vehicle> vehiclesNeedingCheckupList = getController().getVehiclesNeedingCheckup();
+        List<VehicleNeedingCheckup> vehiclesNeedingCheckupList = getController().getVehiclesNeedingCheckup();
 
-        for (Vehicle vehicle : vehiclesNeedingCheckupList){
-            System.out.printf("> " + vehicle.getPlateId() + " (" + vehicle.getBrand() + " " + vehicle.getModel() + ")\n");
+        for (VehicleNeedingCheckup vehicleNeedingCheckup : vehiclesNeedingCheckupList){
+            System.out.printf("%s\n", vehicleNeedingCheckup);
         }
     }
 
