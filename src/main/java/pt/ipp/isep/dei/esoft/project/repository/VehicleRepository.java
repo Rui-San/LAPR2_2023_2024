@@ -49,14 +49,17 @@ public class VehicleRepository {
      * @param checkupsList All checkups in the system.
      * @return The list of vehicles that need a checkup.
      */
-    public ArrayList<Vehicle> getVehiclesNeedingCheckup(List<VehicleCheckup> checkupsList){
+    public ArrayList<VehicleNeedingCheckup> getVehiclesNeedingCheckup(List<VehicleCheckup> checkupsList){
 
         List<Vehicle> vehicleList = getVehicleList();
-        ArrayList<Vehicle> vehiclesNeedingCheckup = new ArrayList<>();
+        ArrayList<VehicleNeedingCheckup> vehiclesNeedingCheckup = new ArrayList<>();
 
         for(Vehicle vehicle : vehicleList){
-            if(needsCheckup(vehicle, checkupsList)){
-                vehiclesNeedingCheckup.add(vehicle);
+            int lastCheckupKm = getLastCheckupKm(vehicle, checkupsList);
+            int optimalNextCheckupKms = lastCheckupKm + vehicle.getCheckupFrequencyKms();
+            if(needsCheckup(vehicle, lastCheckupKm, optimalNextCheckupKms)){
+                VehicleNeedingCheckup vehicleNeedingCheckup = new VehicleNeedingCheckup(vehicle, lastCheckupKm, optimalNextCheckupKms);
+                vehiclesNeedingCheckup.add(vehicleNeedingCheckup);
             }
         }
 
@@ -77,7 +80,7 @@ public class VehicleRepository {
      * @param checkupFrequencyKms The checkup frequency of the vehicle in KMs.
      * @return An optional with the created vehicle if the operation was successful, an empty optional otherwise.
      */
-    public Optional<Vehicle> createVehicle(String plateId, String brand, String model, String type, double tare, double grossWeight, int currentKm, Date registerDate, Date acquisitionDate, int checkupFrequencyKms) {
+    public Optional<Vehicle> createVehicle(String plateId, String brand, String model, String type, double tare, double grossWeight, int currentKm, String registerDate, String acquisitionDate, int checkupFrequencyKms) {
 
         Vehicle vehicle = new Vehicle(
                 plateId,
@@ -130,15 +133,12 @@ public class VehicleRepository {
     /**
      * Checks if a vehicle needs a checkup. Making sure that it excedes the checkup frequency since last checkup or is close to it by 5%.
      * @param vehicle The vehicle to check.
-     * @param checkupsList All checkups in the system.
+     * @param lastCheckupKm The kms at the last checkup.
+     * @param optimalNextCheckupKms the optimal Kms for next checkup.
      * @return true if the vehicle needs a checkup, false if it doesn't.
      */
-    public boolean needsCheckup(Vehicle vehicle, List<VehicleCheckup> checkupsList){
-
-        int lastCheckupKm = getLastCheckupKm(vehicle, checkupsList);
-        int checkUpThresholdKm = lastCheckupKm + vehicle.getCheckupFrequencyKms();
-        checkUpThresholdKm -= (int) (checkUpThresholdKm * 0.05);
-
+    public boolean needsCheckup(Vehicle vehicle, int lastCheckupKm, int optimalNextCheckupKms){
+        int checkUpThresholdKm = optimalNextCheckupKms - (int) (optimalNextCheckupKms * 0.05);
         return vehicle.getCurrentKm() >= checkUpThresholdKm;
     }
 
