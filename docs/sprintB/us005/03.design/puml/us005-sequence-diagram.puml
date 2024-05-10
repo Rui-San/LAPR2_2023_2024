@@ -15,6 +15,7 @@ participant ":repositories \nRepositories" as REPS
 participant ":skillRepository \nSkillRepository" as SR
 participant ":collaboratorRepository \nCollaboratorRepository" as CR
 participant ":teamRepository \nTeamRepository" as TR
+participant ":Team" as Team
 
 
 
@@ -167,6 +168,14 @@ activate HRM
                     loop for each team size (from min to max)
                     TR --> TR : createTeams(possibleCollaborators, minTeamSize, maxTeamSize);
                     |||
+                    TR -> Team** : new Team(List<Collaborator> actualTeam)
+                    note right
+                    Has the constructor
+                    for the team
+                    end note
+                    Team --> Team :Team(List<Collaborator> actualTeam)
+                    |||
+
                     TR --> TR: createTeamsBySize(List<Collaborator> possibleCollaborators, int teamSize)
                     end
                     |||
