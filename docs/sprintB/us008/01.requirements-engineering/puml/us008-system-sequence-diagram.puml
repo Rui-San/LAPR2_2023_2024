@@ -21,16 +21,6 @@ activate Employee
 
     deactivate System
 
-note right
-**(3) NOTE:**
-* **Vehicle details:**
-Plate, brand, model
-
-* **Data used to generate the list:**
-Current kilometers, check-up frequency
-last check-up done
-end note
-
     deactivate System
 
 @enduml
