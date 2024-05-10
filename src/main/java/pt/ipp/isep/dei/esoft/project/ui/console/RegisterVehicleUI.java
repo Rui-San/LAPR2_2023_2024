@@ -5,6 +5,7 @@ import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
 import pt.ipp.isep.dei.esoft.project.domain.Date;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 import java.util.*;
+import java.util.regex.Pattern;
 
 public class RegisterVehicleUI implements Runnable{
 
@@ -121,7 +122,7 @@ public class RegisterVehicleUI implements Runnable{
 
         while (!validInput) {
             try {
-                System.out.print("\nPlate ID: ");
+                System.out.print("\nPlate ID (licence plate): ");
                 response = input.nextLine();
 
                 if (validatePlateID(response)) {
@@ -146,9 +147,9 @@ public class RegisterVehicleUI implements Runnable{
             return false;
         }
 
-        String plateIDPattern = "[A-Z]{2}-[0-9]{2}-[A-Z]{2}";
+        Pattern pattern = Pattern.compile("^[A-Z]{2}-\\d{2}-[A-Z]{2}$|^[0-9]{2}-[A-Z]{2}-[0-9]{2}$");
 
-        return plateID.matches(plateIDPattern);
+        return pattern.matcher(plateID).matches();
     }
 
     /**
