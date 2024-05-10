@@ -67,13 +67,15 @@ activate HRM
 
             CTRL --> UI : jobList
         deactivate CTRL
-
+        loop until doesn't select a valid option
         UI --> HRM : Shows job list and asks to select one
     deactivate UI
 
     HRM -> UI : Selects a job
 
     activate UI
+    |||
+    end loop
 
         UI --> UI : keepData(Job job)
         UI --> HRM : Shows all data and requests confirmation
