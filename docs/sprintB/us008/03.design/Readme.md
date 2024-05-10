@@ -6,24 +6,26 @@
 
 _**Note that SSD - Alternative One is adopted.**_
 
-| Interaction ID                                                                              | Question: Which class is responsible for...      | Answer                              | Justification (with patterns)                        |
-|:--------------------------------------------------------------------------------------------|:-------------------------------------------------|:------------------------------------|:-----------------------------------------------------|
-| Step 1: Requests to show the list of vehicles needing inspection                            | ...instantiating the class that handles the UI ? | ListVehiclesNeedingCheckupUI        | Pure Fabrication                                     |
-|                                                                                             | ... obtaining the vehicles that need checkup?    | ListVehicleNeedingCheckupController | Information Expert (knows all the vehicle instances) |
-|                                                                                             | ... ensuring the vehicle needs checkup?          | Vehicle Repository                  | Information Expert                                   |
-| Step 2: Shows the list of vehicles needing check-up with vehicle details and the data used. | ... displaying the vehicles that need checkup?   | ListVehiclesNeedingCheckupUI        | Pure Fabrication                                     |
+| Interaction ID                                                                              | Question: Which class is responsible for...                                                                | Answer                              | Justification (with patterns)                                           |
+|:--------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------|:------------------------------------|:------------------------------------------------------------------------|
+| Step 1: Requests to show the list of vehicles needing inspection                            | ...instantiating the class that handles the UI ?                                                           | ListVehiclesNeedingCheckupUI        | Pure Fabrication                                                        |
+|                                                                                             | ... obtaining the vehicles that need checkup?                                                              | ListVehicleNeedingCheckupController | Information Expert (knows all the vehicle instances)                    |
+|                                                                                             | ... ensuring the vehicle needs checkup?                                                                    | Vehicle Repository                  | Information Expert                                                      |
+|                                                                                             | ... saving all the data needed to show the user the vehicle, last checkup km and optimal next checkup km ? | VehiclesNeedingCheckup              | Creator                                                                 |
+|                                                                                             | .. creating a list of all the objects of VehicleNeedingCheckup                                             | ListVehicleNeedingCheckupController | Information Expert (creates the list of all vehicles that need checkup) 
+| Step 2: Shows the list of vehicles needing check-up with vehicle details and the data used. | ... displaying the vehicles that need checkup?                                                             | ListVehiclesNeedingCheckupUI        | Pure Fabrication                                                        |
 
 ### Systematization ##
 
 According to the taken rationale, the conceptual classes promoted to software classes are:
 
-* none
+* VehiclesNeedingCheckup
+* VehicleRepository
 
 Other software classes (i.e. Pure Fabrication) identified:
 
 * ListVehiclesNeedingCheckupUI
 * ListVehicleNeedingCheckupController
-* VehicleRepository
 
 ## 3.2. Sequence Diagram (SD)
 
