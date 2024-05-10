@@ -83,16 +83,12 @@ public class JobRepository {
      * @throws IllegalArgumentException if the job does not exist
      */
     public Job getJobByJobName(String jobName) {
-        Job newJob = new Job(jobName);
-        Job job = null;
-        if (jobList.contains(newJob)) {
-            job = jobList.get(jobList.indexOf(newJob));
+        for (Job job : jobList) {
+            if (job.getJobName().equals(jobName)) {
+                return job;
+            }
         }
-        if (job == null) {
-            throw new IllegalArgumentException(
-                    "Job requested for [" + jobName + "] does not exist.");
-        }
-        return job;
+        return null;
     }
 
     /**

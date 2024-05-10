@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.esoft.project.domain;
+package pt.ipp.isep.dei.esoft.project.templateTests;
 
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.esoft.project._templateFiles.domain.TaskCategory;
