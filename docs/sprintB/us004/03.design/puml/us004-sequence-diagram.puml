@@ -47,14 +47,18 @@ activate HRM
 
 
             CTRL -> UI : collaboratorList
+            loop until doesn't choose a valid option
         deactivate CTRL
         UI --> HRM : Shows a list of Collaborators and asks to select one
 
     deactivate UI
 
+
     HRM -> UI : Selects a collaborator
     activate UI
-
+    |||
+    end
+|||
 
     UI --> UI : keepsData(collaborator)
 

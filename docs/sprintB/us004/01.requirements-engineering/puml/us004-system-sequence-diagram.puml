@@ -7,39 +7,54 @@ title US004 - System Sequence Diagram (SSD)
 
 autonumber
 
-actor "HRM" as Employee
-participant ":AssignSkillUI" as System
-
-activate Employee
-
-    Employee -> System : Asks to assign one or more skills to a collaborator
-    activate System
-
-        System --> Employee : Shows a list of Collaborators and asks to select one
-    deactivate System
-
-    Employee -> System : Selects a collaborator
-
-    loop until no longer want to select skills
-
-    activate System
-
-        System --> Employee : Displays a list of available skills and asks to \nselect one.
-    deactivate System
-
-    Employee -> System : Selects a skill
+actor "HRM" as HRM
+participant ":AssignSkillUI" as UI
 
 
-    activate System
+activate HRM
+
+    HRM -> UI : Asks to assign one or more skills to a collaborator
+
+    activate UI
+
+            loop until doesn't choose a valid option
+
+        UI --> HRM : Shows a list of Collaborators and asks to select one
+
+    deactivate UI
+
+
+    HRM -> UI : Selects a collaborator
+    activate UI
+    |||
     end
+|||
 
-        System --> Employee : Shows all data (collaborator and his skills) and \nrequests confirmation
-    deactivate System
+    UI --> UI : keepsData(collaborator)
 
-    Employee -> System : Confirms the operation
-    activate System
-        System --> System : keepData(collaborator,\nList<Skill> skills)
-        System --> Employee : Displays operation success
-    deactivate System
+    |||
+
+        loop while doesn't choose to advance
+
+            UI --> HRM : Displays a list of available skills and asks to \nselect one.
+    deactivate UI
+
+        HRM -> UI : Selects a skill
+        |||
+
+    activate UI
+
+        end
+        |||
+        UI --> UI : keepData(List<Skill> selectedSkills)
+
+        UI --> HRM : Shows all data and requests confirmation
+    deactivate UI
+
+    HRM -> UI : Confirms the operation
+    activate UI
+
+     UI --> HRM : Display operation success
+     deactivate UI
 
 @enduml
