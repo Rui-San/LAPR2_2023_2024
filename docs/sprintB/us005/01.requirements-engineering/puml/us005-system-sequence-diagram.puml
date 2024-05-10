@@ -7,63 +7,96 @@ title US005 - System Sequence Diagram (SSD)
 
 autonumber
 
-actor "HRM" as Employee
-participant ":TeamProposalUI" as System
+actor "HRM" as HRM
+participant ":TeamProposalUI" as UI
 
 
-activate Employee
 
-    Employee -> System : Asks to generate a new team proposal
-    activate System
 
-        System --> Employee : Requests data (max and min team size)
-    deactivate System
+activate HRM
 
-    loop until input data is validated
+    HRM -> UI : Asks to generate a new team proposal
+    activate UI
+    loop until typed data is validated
+        UI --> HRM : Requests data (maxteamsize, minteamsize)
+    deactivate UI
 
-    Employee -> System : Types requested data
+    HRM -> UI : Types requested data
 
     |||
+    activate UI
+    end loop
+    |||
+        UI --> UI : keepData(max and min team size)
+        |||
+
+
         loop until no longer want to select skills
-            activate System
+            |||
 
-                System --> Employee : Shows list of skills and asks to select one
-            deactivate System
+            UI --> HRM : Shows list of skills and asks to select the skills needed
+            |||
+    deactivate UI
 
-            Employee -> System : Selects a skill from the list and specifies the \nquantity of that skill.
-            activate System
+    HRM -> UI : Select skills from the list
+    activate UI
     |||
     end loop
 
-    System --> System : validatesData
-    |||
 
-        end loop
-
-        note right
-                **(5) NOTE:**
-                **Set of skills:**
-                *Set of skills required for the team proposal;
-                *Includes the skill name and the required quantity.
-        end note
-
-    loop until the team generated is accepted
-    System --> System: Generate the team proposal\nwith given information
+        UI --> UI : keepData(List<Skill> skillsNeeded)
 
 
-        System --> Employee : Shows team generated and asks for confirmation
+        |||
 
-    deactivate System
-    Employee -> System : Accepts or rejects the proposal.
-    activate System
-
-    end loop
-    |||
+        loop for each skill selected
 
 
-    activate System
-        System --> System : keepData(team)
-        System --> Employee : Displays operation success
-    deactivate System
+
+            UI --> HRM : Asks to specify the quantity needed of the selected skill
+            deactivate UI
+            |||
+            HRM -> UI : Types the quantity needed for that skill
+            activate UI
+            |||
+            end loop
+            UI --> UI : keepData(List<Integer> quantityNeeded)
+
+
+            note right
+            **NOTE:**
+            **Set of skills:**
+            *Set of skills required for the team proposal;
+            *Includes the skill name and the required quantity.
+            end note
+            |||
+            UI -> UI : generates the list of team proposal \n (List<Team> teamsGenerated)
+            |||
+
+
+            loop until team generated is accepted
+            UI --> HRM : Shows team generated and asks for confirmation
+            |||
+        deactivate UI
+        HRM -> UI : Accepts or rejects the proposal.
+        |||
+        activate UI
+            end
+            note right
+            If the user rejects the displayed team,
+            the next team in the list "teamsGenerated"
+            will be showed.
+            end note
+        |||
+        |||
+        UI -> UI : saves accepted team
+        |||
+
+            UI --> HRM : operation success
+        deactivate UI
+
+
+
+deactivate HRM
 
 @enduml

@@ -63,29 +63,34 @@ activate HRM
             |||
 
             UI --> HRM : Shows list of skills and asks to select the skills needed
-|||
+            |||
     deactivate UI
 
     HRM -> UI : Select skills from the list
-
     activate UI
+    |||
+    end loop
+
+
         UI --> UI : keepData(List<Skill> skillsNeeded)
 
-        end loop
+
         |||
 
         loop for each skill selected
 
-        activate UI
+
 
             UI --> HRM : Asks to specify the quantity needed of the selected skill
             deactivate UI
             |||
             HRM -> UI : Types the quantity needed for that skill
             activate UI
+            |||
+            end loop
             UI --> UI : keepData(List<Integer> quantityNeeded)
 
-            end loop
+
 
             note right
             **NOTE:**
