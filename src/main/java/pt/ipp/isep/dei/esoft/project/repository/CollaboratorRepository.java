@@ -87,7 +87,7 @@ public class CollaboratorRepository {
         Optional<Collaborator> returnCollaborator = Optional.empty();
 
         for (Collaborator collaborator : collaboratorList) {
-            if (collaborator.getEmail().equals(email)) {
+            if (collaborator.getEmail().getEmail().equals(email.getEmail())) {
                 returnCollaborator = Optional.of(collaborator);
             }
         }
