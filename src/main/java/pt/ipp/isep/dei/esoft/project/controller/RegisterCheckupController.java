@@ -71,7 +71,7 @@ public class RegisterCheckupController {
 
         Optional<VehicleCheckup> newCheckup = Optional.empty();
 
-        newCheckup = checkupRepository.registerVehicleCheckup(vehicle, checkupDate, checkupKm);
+        newCheckup = getCheckupRepository().registerVehicleCheckup(vehicle, checkupDate, checkupKm);
 
         return newCheckup;
     }
