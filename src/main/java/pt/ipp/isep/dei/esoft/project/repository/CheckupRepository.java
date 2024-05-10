@@ -78,11 +78,11 @@ public class CheckupRepository {
      * This method registers a new checkup for a vehicle.
      * @param vehicle The vehicle to register the checkup.
      * @param checkupDateString The date of the checkup.
-     * @param checkupKms The km of the checkup.
+     * @param checkupKm The km of the checkup.
      */
-    public Optional<VehicleCheckup> registerVehicleCheckup(Vehicle vehicle, String checkupDateString, int checkupKms){
+    public Optional<VehicleCheckup> registerVehicleCheckup(Vehicle vehicle, String checkupDateString, int checkupKm){
         Date checkupDate = new Date(checkupDateString);
-        VehicleCheckup checkup = new VehicleCheckup(vehicle, checkupDate, checkupKms);
+        VehicleCheckup checkup = new VehicleCheckup(vehicle, checkupDate, checkupKm);
         this.add(checkup);
         return Optional.of(checkup);
     }
