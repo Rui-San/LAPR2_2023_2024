@@ -17,8 +17,8 @@ public class RegisterVehicleUI implements Runnable{
     private double tare;
     private double grossWeight;
     private int currentKm;
-    private Date registerDate;
-    private Date acquisitionDate;
+    private String registerDate;
+    private String acquisitionDate;
     private int checkupFrequencyKms;
 
     /**
@@ -44,24 +44,23 @@ public class RegisterVehicleUI implements Runnable{
         System.out.println("\n\n----------- Register new Vehicle ---------------");
 
         requestData();
-        submitData();
+        showAllDataForConfirmation("You're about to register the following vehicle:", plateID, brand, model, type, tare, grossWeight, currentKm, registerDate, acquisitionDate, checkupFrequencyKms);
+        if (Utils.confirm("Do you want to proceed? (y/n)")) {
+            submitData();
+        }
     }
 
     /**
      * Method that submits the data to the controller
      */
     private void submitData() {
-        showAllDataForConfirmation("You're about to register the following vehicle:", plateID, brand, model, type, tare, grossWeight, currentKm, registerDate, acquisitionDate, checkupFrequencyKms);
-        if (Utils.confirm("Do you want to proceed? (y/n)")) {
 
-            Optional<Vehicle> vehicle = getRegisterVehicleController().createVehicle(plateID, brand, model, type, tare, grossWeight, currentKm, registerDate, acquisitionDate, checkupFrequencyKms);
+        Optional<Vehicle> vehicle = getRegisterVehicleController().createVehicle(plateID, brand, model, type, tare, grossWeight, currentKm, registerDate, acquisitionDate, checkupFrequencyKms);
 
-            if (vehicle.isEmpty()) {
-                System.out.println("An error occurred while registering the vehicle.");
-            }else {
-                System.out.println("Vehicle registered successfully.");
-            }
-
+        if (vehicle.isEmpty()) {
+            System.out.println("An error occurred while registering the vehicle.");
+        }else {
+            System.out.println("Vehicle registered successfully.");
         }
 
     }
@@ -80,7 +79,7 @@ public class RegisterVehicleUI implements Runnable{
      * @param acquisitionDate the acquisition date
      * @param checkupFrequencyKms the checkup frequency in kilometers
      */
-    private void showAllDataForConfirmation(String message, String plateID, String brand, String model, String type, double tare, double grossWeight, int currentKm, Date registerDate, Date acquisitionDate, int checkupFrequencyKms) {
+    private void showAllDataForConfirmation(String message, String plateID, String brand, String model, String type, double tare, double grossWeight, int currentKm, String registerDate, String acquisitionDate, int checkupFrequencyKms) {
         System.out.println(message);
         System.out.println("Plate ID: " + plateID);
         System.out.println("Brand: " + brand);
@@ -355,16 +354,15 @@ public class RegisterVehicleUI implements Runnable{
      * Method that requests the register date
      * @return the register date
      */
-    private Date requestRegisterDate() {
+    private String requestRegisterDate() {
         Scanner input = new Scanner(System.in);
         boolean validInput = false;
-        Date response = null;
+        String response = null;
 
         while (!validInput) {
             try {
                 System.out.print("\nRegister Date (format: dd/mm/yyyy): ");
-                String registerDate = input.nextLine();
-                response = new Date(registerDate);
+                response = input.nextLine();
 
                 if (validateDate(response)) {
                     validInput = true;
@@ -383,8 +381,11 @@ public class RegisterVehicleUI implements Runnable{
      * @param date the date
      * @return true if the date is valid
      */
-    private boolean validateDate(Date date) {
-        return date != null;
+    private boolean validateDate(String date) {
+        // Check if the date is in the format dd/mm/yyyy or yyy/mm/dd
+        Pattern pattern = Pattern.compile("^\\d{2}/\\d{2}/\\d{4}$|^\\d{4}/\\d{2}/\\d{2}$");
+
+        return pattern.matcher(date).matches();
     }
 
     /**
@@ -392,16 +393,15 @@ public class RegisterVehicleUI implements Runnable{
      * @param registerDate the register date
      * @return the acquisition date
      */
-    private Date requestAcquisitionDate(Date registerDate) {
+    private String requestAcquisitionDate(String registerDate) {
         Scanner input = new Scanner(System.in);
         boolean validInput = false;
-        Date response = null;
+        String response = null;
 
         while (!validInput) {
             try {
                 System.out.print("\nAcquisition Date (format: dd/mm/yyyy): ");
-                String acquisitionDate = input.nextLine();
-                response = new Date(acquisitionDate);
+                response = input.nextLine();
 
                 if (validateAcquisitionDate(response, registerDate)) {
                     validInput = true;
@@ -421,8 +421,25 @@ public class RegisterVehicleUI implements Runnable{
      * @param registerDate the register date
      * @return true if the acquisition date is valid
      */
-    private boolean validateAcquisitionDate(Date acquisitionDate, Date registerDate) {
-        return acquisitionDate != null && acquisitionDate.compareTo(registerDate) > 0;
+    private boolean validateAcquisitionDate(String acquisitionDate, String registerDate) {
+        Pattern pattern = Pattern.compile("^\\d{2}/\\d{2}/\\d{4}$|^\\d{4}/\\d{2}/\\d{2}$");
+
+        if (!pattern.matcher(acquisitionDate).matches()) {
+            return false;
+        }
+
+        int[] registerDateParts = Arrays.stream(registerDate.split("/")).mapToInt(Integer::parseInt).toArray();
+        int[] acquisitionDateParts = Arrays.stream(acquisitionDate.split("/")).mapToInt(Integer::parseInt).toArray();
+
+        if( registerDateParts[2] != acquisitionDateParts[2] ) {
+            return registerDateParts[2] < acquisitionDateParts[2];
+        }else if( registerDateParts[1] != acquisitionDateParts[1] ) {
+            return registerDateParts[1] < acquisitionDateParts[1];
+        }else if( registerDateParts[0] != acquisitionDateParts[0] ) {
+            return registerDateParts[0] < acquisitionDateParts[0];
+        }
+
+        return false;
     }
 
     /**
