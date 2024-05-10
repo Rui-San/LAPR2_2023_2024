@@ -30,25 +30,6 @@ public class RegisterJobUI implements Runnable {
     }
 
     private void submitData() {
-        /*
-        Optional<Task> task = getController().createTask(taskReference, taskDescription, taskInformalDescription,
-                taskTechnicalDescription, taskDuration, taskCost, taskCategoryDescription);
-
-        if (task.isPresent()) {
-            System.out.println("\nTask successfully created!");
-        } else {
-            System.out.println("\nTask not created!");
-        }
-         */
-
-        /*
-        boolean isRegistered = controller.registerJob(jobName);
-
-        if (isRegistered) {
-            System.out.println("\nJob registered!");
-        } else {
-            System.out.println("\nregistration failed!");
-        }*/
 
         showAllDataForConfirmation(jobName,"You're about to register the following job:");
         if( Utils.confirm("Do you want to proceed? (y/n)") ) {
@@ -74,7 +55,7 @@ public class RegisterJobUI implements Runnable {
 
         while (!validInput) {
             try {
-                System.out.println("Enter job name: ");
+                System.out.print("\nEnter job name: ");
                 response = input.nextLine();
 
                 ValidationAttributeResults validateJobNameResults = validateJob(response);

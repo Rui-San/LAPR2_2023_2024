@@ -29,7 +29,7 @@ public class AssignSkillUI implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("\nAssign skill to collaborator\n");
+        System.out.println("\n\n--- Assign skills to Collaborator -------------------------\n");
 
         selectedCollaborator = displayAndSelectCollaborator();
 
@@ -45,6 +45,7 @@ public class AssignSkillUI implements Runnable {
             getController().assignSkillsToCollaborator(selectedCollaborator, selectedSkills);
 
             if (selectedCollaborator.getSkillList().containsAll(selectedSkills)) {
+                System.out.println();
                 System.out.println("All selected skills were successfully added to the collaborator.");
             } else {
                 System.out.println("An error occurred while adding the skills to the collaborator.");
@@ -57,6 +58,7 @@ public class AssignSkillUI implements Runnable {
         List<Collaborator> collaboratorList = getController().getCollaboratorList();
 
         int counter = 1;
+        System.out.println("\nAvailable collaborators:");
         for (Collaborator collaborator : collaboratorList) {
             System.out.println(counter + " - " + collaborator.getName() + " (" + collaborator.getEmail() + ")");
             counter += 1;
@@ -79,6 +81,7 @@ public class AssignSkillUI implements Runnable {
         selectedSkills = new ArrayList<>();
 
         int counter = 1;
+        System.out.println("\nAvailable skills:");
         for (Skill skill : skillList) {
             System.out.println(counter + " - " + skill.getSkillName());
             counter += 1;

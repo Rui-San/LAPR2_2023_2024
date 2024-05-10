@@ -71,21 +71,16 @@ public class RegisterCollaboratorUI implements Runnable {
     }
 
     private Job displayAndSelectJob() {
-        System.out.println("List of available jobs:");
+        System.out.println("\nList of available jobs:");
         List<Job> jobList = controller.getJobList();
-
-        /*List<Job> jobList = new ArrayList<>();
-        Job randomJob = new Job("Programador");
-        jobList.add(randomJob);*/
 
         int listSize = jobList.size();
         int answer = 0;
 
         Scanner input = new Scanner(System.in);
-
+        displayJobOptions(jobList);
         while (answer < 1 || answer > listSize) {
-            displayJobOptions(jobList);
-            System.out.print("Select a job: ");
+            System.out.print("\nSelect a job: ");
             try {
                 answer = input.nextInt();
             } catch (InputMismatchException e) {
@@ -132,7 +127,7 @@ public class RegisterCollaboratorUI implements Runnable {
 
         while (!validInput) {
             try {
-                System.out.println("ID document number: ");
+                System.out.print("\nID document number: ");
                 response = input.nextLine();
 
                 ValidationAttributeResults validateIdDocNumberResults = validateIdDocNumber(response, idDocType);
@@ -193,15 +188,17 @@ public class RegisterCollaboratorUI implements Runnable {
         Scanner input = new Scanner(System.in);
         int choice = 0;
 
-        System.out.println("Select ID Document Type:");
+        System.out.println("\nAvailable document types:");
         System.out.println("1. CC");
         System.out.println("2. BI");
         System.out.println("3. Passport");
 
 
+
         boolean inputValid = false;
         while (!inputValid) {
             try {
+                System.out.print("\nSelect ID Document Type: ");
                 choice = input.nextInt();
                 switch (choice) {
                     case 1:
@@ -232,7 +229,7 @@ public class RegisterCollaboratorUI implements Runnable {
 
         while (!validInput) {
             try {
-                System.out.println("Email: ");
+                System.out.print("\nEmail: ");
                 response = input.nextLine();
 
                 ValidationAttributeResults validateEmailResults = validateEmail(response);
@@ -303,7 +300,7 @@ public class RegisterCollaboratorUI implements Runnable {
 
         while (!validInput) {
             try {
-                System.out.println("Mobile Number: ");
+                System.out.print("\nMobile Number: ");
                 response = input.nextLine();
 
                 if (validateMobileNumber(response)) {
@@ -325,7 +322,7 @@ public class RegisterCollaboratorUI implements Runnable {
 
         while (!validInput) {
             try {
-                System.out.println("City: ");
+                System.out.print("\nCity: ");
                 response = input.nextLine();
 
                 if (validateCity(response)) {
@@ -353,7 +350,7 @@ public class RegisterCollaboratorUI implements Runnable {
 
         while (!validInput) {
             try {
-                System.out.println("District: ");
+                System.out.print("\nDistrict: ");
                 response = input.nextLine();
 
                 if (validateDistrict(response)) {
@@ -379,7 +376,7 @@ public class RegisterCollaboratorUI implements Runnable {
 
         while (!validInput) {
             try {
-                System.out.println("Postal Code: ");
+                System.out.print("\nPostal Code: ");
                 response = input.nextLine();
 
                 ValidationAttributeResults postalCodeValidationResults = validatePostalCode(response);
@@ -446,7 +443,7 @@ public class RegisterCollaboratorUI implements Runnable {
 
         while (!validInput) {
             try {
-                System.out.println("Street Number: ");
+                System.out.print("\nStreet Number: ");
                 response = input.nextInt();
 
                 if (validateStreetNumber(response)) {
@@ -477,7 +474,7 @@ public class RegisterCollaboratorUI implements Runnable {
 
         while (!validInput) {
             try {
-                System.out.println("Street: ");
+                System.out.print("\nStreet: ");
                 response = input.nextLine();
 
                 if (validateStreet(response)) {
@@ -504,13 +501,13 @@ public class RegisterCollaboratorUI implements Runnable {
 
     private String requestAdmissionDate() {
         Scanner input = new Scanner(System.in);
-        System.out.println("Admission date (format: dd/mm/yyyy): ");
+        System.out.print("\nAdmission date (format: dd/mm/yyyy): ");
         return input.nextLine();
     }
 
     private String requestBirthdate() {
         Scanner input = new Scanner(System.in);
-        System.out.println("Birthdate (format: dd/mm/yyyy): ");
+        System.out.print("\nBirthdate (format: dd/mm/yyyy): ");
         return input.nextLine();
     }
 
@@ -521,7 +518,7 @@ public class RegisterCollaboratorUI implements Runnable {
 
         while (!validInput) {
             try {
-                System.out.println("Name: ");
+                System.out.print("\nName: ");
                 response = input.nextLine();
 
                 ValidationAttributeResults nameValidationResult = validateName(response);
