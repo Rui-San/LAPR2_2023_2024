@@ -28,13 +28,13 @@ public class RegisterCheckupUI implements Runnable {
     }
 
     public void run() {
-        System.out.println("\n ----------REGISTER VEHICLE CHECKUP ----------------\n");
+        System.out.println("\n=== REGISTER VEHICLE CHECKUP ===\n");
 
         vehicle = displayAndSelectVehicle();
 
         requestData();
 
-        showAllDataForConfirmation( vehicle, checkupDate, checkupKm);
+        showAllDataForConfirmation(vehicle, checkupDate, checkupKm);
         if (Utils.confirm("Do you want to proceed? (y/n)")) {
             submitData();
         }
@@ -112,7 +112,12 @@ public class RegisterCheckupUI implements Runnable {
                 if (validateCheckupKms(response)) {
                     validInput = true;
                 } else {
-                    throw new IllegalArgumentException("Checkup Kms must be a positive number");
+                    if (response <= 0) {
+                        throw new IllegalArgumentException("Checkup Kms must be a positive number");
+                    } else {
+                        throw new IllegalArgumentException("Checkup kilometers must be less than the current kilometers of the vehicle.");
+                    }
+
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Error: Checkup Kms must be a positive number");
@@ -125,7 +130,8 @@ public class RegisterCheckupUI implements Runnable {
     }
 
     private boolean validateCheckupKms(int checkupKm) {
-        return checkupKm > 0;
+        return (checkupKm <= vehicle.getCurrentKm() && checkupKm > 0);
+
     }
 
     private Vehicle displayAndSelectVehicle() {
@@ -135,19 +141,19 @@ public class RegisterCheckupUI implements Runnable {
         int numberOfVehicles = vehicleList.size();
         int answer = -1;
 
-        do{
+        do {
             displayVehicleOptions(vehicleList);
             Scanner input = new Scanner(System.in);
             System.out.print("\nVehicle to register checkup: ");
             answer = input.nextInt();
-        }while (!validateIndex(answer, numberOfVehicles));
+        } while (!validateIndex(answer, numberOfVehicles));
 
         Vehicle vehicle = vehicleList.get(answer - 1);
         return vehicle;
     }
 
-    public boolean validateIndex(int answer, int numberOfVehicles){
-        if(answer < 1 || answer > numberOfVehicles){
+    public boolean validateIndex(int answer, int numberOfVehicles) {
+        if (answer < 1 || answer > numberOfVehicles) {
             System.out.println("Error: Please select the number of the vehicle from the list");
             return false;
         }

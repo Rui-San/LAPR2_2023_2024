@@ -29,7 +29,7 @@ public class AssignSkillUI implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("\n\n--- Assign skills to Collaborator -------------------------\n");
+        System.out.println("\n\n=== ASSIGN SKILLS TO COLLABORATOR ===");
 
         selectedCollaborator = displayAndSelectCollaborator();
 

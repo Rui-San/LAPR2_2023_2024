@@ -41,7 +41,7 @@ public class RegisterCollaboratorUI implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("\n\n--- Register new Collaborator ------------------------");
+        System.out.println("\n\n=== REGISTER NEW COLLABORATOR ===");
 
         requestData();
         job = displayAndSelectJob();  //done

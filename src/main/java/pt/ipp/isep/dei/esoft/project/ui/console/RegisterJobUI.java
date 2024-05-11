@@ -23,7 +23,7 @@ public class RegisterJobUI implements Runnable {
     }
 
     public void run() {
-        System.out.println("\n\n--- Register new Job ------------------------");
+        System.out.println("\n\n=== REGISTER NEW JOB ===");
 
         requestData();
         submitData();

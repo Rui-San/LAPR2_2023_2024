@@ -25,7 +25,7 @@ public class TeamProposalUI implements Runnable {
     }
 
     public void run() {
-        System.out.println("\n\n--- Generate team proposal ------------------------");
+        System.out.println("\n\n=== GENERATE TEAM PROPOSAL ===");
 
         requestData();
         List<Team> generatedTeams = generateAllTeamProposals();
