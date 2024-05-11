@@ -3,7 +3,7 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title US008 - System Sequence Diagram (SSD)
+title US008 - Sequence Diagram (SSD)
 
 autonumber
 
@@ -16,6 +16,7 @@ participant "checkupRepositoty\n:CheckupRepository" as CheckupRepo
 participant "vehicleRepository\n:VehicleRepository" as VRepo
 participant ":VehicleNeedingCheckup" as VehicleNeedCheckup
 
+activate Employee
     Employee -> UI : Requests to show the list of \nvehicles needing a check-up
     activate UI
 
@@ -41,11 +42,6 @@ participant ":VehicleNeedingCheckup" as VehicleNeedCheckup
                 CheckupRepo --> CTRL : checkupsList
             deactivate CheckupRepo
 
-            note right of CTRL
-                the controller saves the checkupsList in list:
-                List<Checkup> checkupsList
-            end note
-
             CTRL -> Repos : getInstance()
             activate Repos
 
@@ -68,11 +64,6 @@ participant ":VehicleNeedingCheckup" as VehicleNeedCheckup
                     activate VRepo
 
                         VRepo --> VRepo : getLastCheckupKms(vehicle, checkupsList)
-                        note right of VRepo
-                            in this method we check if the difference of the kms
-                            since the last checkup is close to 5% of the checkup
-                            frequency; if it is, return true, else false
-                        end note
                         VRepo --> VRepo : true
                     deactivate VRepo
 
