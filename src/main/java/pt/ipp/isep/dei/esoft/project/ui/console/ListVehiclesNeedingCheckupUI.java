@@ -29,7 +29,7 @@ public class ListVehiclesNeedingCheckupUI implements Runnable{
      * Method that runs the ListVehiclesNeedingCheckupUI.
      */
     public void run() {
-        System.out.println("\n ----------LIST VEHICLES NEEDING CHECKUP ----------------\n");
+        System.out.println("\n=== LIST VEHICLES NEEDING CHECKUP ===\n");
 
         showData();
 

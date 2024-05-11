@@ -127,6 +127,43 @@ public class TeamRepository {
      * @param teamSize              the team size
      * @return the list of teams of that specific size
      */
+
+    private List<Team> createTeamsBySize(List<Collaborator> possibleCollaborators, int teamSize) {
+        List<Team> teams = new ArrayList<>();
+
+        int n = possibleCollaborators.size();
+
+        int[] index = new int[teamSize];
+        for (int i = 0; i < teamSize; i++) {
+            index[i] = i;
+        }
+
+        boolean done = false;
+        while (!done) {
+            List<Collaborator> actualTeam = new ArrayList<>();
+            for (int i = 0; i < teamSize; i++) {
+                actualTeam.add(possibleCollaborators.get(index[i]));
+            }
+            teams.add(new Team(actualTeam));
+
+            int j = teamSize - 1;
+            while (j >= 0 && index[j] == n - teamSize + j) {
+                j--;
+            }
+            if (j < 0) {
+                done = true;
+            } else {
+                index[j]++;
+                for (int k = j + 1; k < teamSize; k++) {
+                    index[k] = index[k - 1] + 1;
+                }
+            }
+        }
+        return teams;
+    }
+
+
+/*
     private List<Team> createTeamsBySize(List<Collaborator> possibleCollaborators, int teamSize) {
         List<Team> teams = new ArrayList<>();
 
@@ -159,6 +196,7 @@ public class TeamRepository {
         return teams;
     }
 
+ */
 
     /**
      * Check which collaborators of the company can join a new team.

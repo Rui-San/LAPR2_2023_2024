@@ -41,7 +41,7 @@ public class RegisterVehicleUI implements Runnable{
      */
     @Override
     public void run() {
-        System.out.println("\n\n----------- Register new Vehicle ---------------");
+        System.out.println("\n\n=== REGISTER NEW VEHICLE ===");
 
         requestData();
         showAllDataForConfirmation("You're about to register the following vehicle:", plateID, brand, model, type, tare, grossWeight, currentKm, registerDate, acquisitionDate, checkupFrequencyKms);

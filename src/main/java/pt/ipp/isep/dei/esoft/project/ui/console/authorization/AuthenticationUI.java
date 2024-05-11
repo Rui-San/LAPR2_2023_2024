@@ -49,7 +49,7 @@ public class AuthenticationUI implements Runnable {
     }
 
     private boolean doLogin() {
-        System.out.println("\n\n--- LOGIN UI ---------------------------");
+        System.out.println("\n\n=== LOGIN UI ===");
 
         int maxAttempts = 3;
         boolean success = false;

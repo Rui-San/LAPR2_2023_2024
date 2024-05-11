@@ -18,7 +18,7 @@ public class MainMenuUI implements Runnable {
         options.add(new MenuItem("Know the Development Team", new DevelopmentTeamUI()));
         int option = 0;
         do {
-            option = Utils.showAndSelectIndex(options, "\n\n--- MAIN MENU --------------------------");
+            option = Utils.showAndSelectIndex(options, "\n\n=== MAIN MENU ===");
 
             if ((option >= 0) && (option < options.size())) {
                 options.get(option).run();

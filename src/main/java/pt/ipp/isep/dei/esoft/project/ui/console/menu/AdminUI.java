@@ -24,7 +24,7 @@ public class AdminUI implements Runnable {
 
         int option = 0;
         do {
-            option = Utils.showAndSelectIndex(options, "\n\n--- ADMIN MENU -------------------------");
+            option = Utils.showAndSelectIndex(options, "\n\n=== ADMIN MENU ===");
 
             if ((option >= 0) && (option < options.size())) {
                 options.get(option).run();

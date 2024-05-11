@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.esoft.project.ui.console;
 import pt.ipp.isep.dei.esoft.project.controller.RegisterCollaboratorController;
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator.IdDocType;
+import pt.ipp.isep.dei.esoft.project.domain.Date;
 import pt.ipp.isep.dei.esoft.project.domain.Job;
 import pt.ipp.isep.dei.esoft.project.tools.ValidationAttributeResults;
 import pt.ipp.isep.dei.esoft.project.tools.MobileOperator;
@@ -38,17 +39,9 @@ public class RegisterCollaboratorUI implements Runnable {
         return controller;
     }
 
-    /*
-    public static void main(String[] args) {
-        RegisterCollaboratorUI ui = new RegisterCollaboratorUI();
-        ui.run();
-    }
-    */
-
-
     @Override
     public void run() {
-        System.out.println("\n\n--- Register new Collaborator ------------------------");
+        System.out.println("\n\n=== REGISTER NEW COLLABORATOR ===");
 
         requestData();
         job = displayAndSelectJob();  //done
@@ -87,7 +80,7 @@ public class RegisterCollaboratorUI implements Runnable {
                 System.out.println("Error: Please enter a valid Option.");
                 input.next();
             }
-            if (answer < 1 || answer > listSize){
+            if (answer < 1 || answer > listSize) {
                 System.out.println("Select an option from the list.");
             }
 
@@ -192,7 +185,6 @@ public class RegisterCollaboratorUI implements Runnable {
         System.out.println("1. CC");
         System.out.println("2. BI");
         System.out.println("3. Passport");
-
 
 
         boolean inputValid = false;
@@ -501,14 +493,69 @@ public class RegisterCollaboratorUI implements Runnable {
 
     private String requestAdmissionDate() {
         Scanner input = new Scanner(System.in);
-        System.out.print("\nAdmission date (format: dd/mm/yyyy): ");
-        return input.nextLine();
+        boolean validInput = false;
+        String response = "";
+
+        while (!validInput) {
+            try {
+                System.out.print("\nAdmission date (format: dd/mm/yyyy): ");
+                response = input.nextLine();
+
+                if (validateAdmissionDate(response)) {
+                    validInput = true;
+                } else {
+                    throw new IllegalArgumentException("Collaborator must be 18 years old.");
+                }
+
+            } catch (IllegalArgumentException e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+
+        }
+        return response;
+    }
+
+    private boolean validateAdmissionDate(String response) {
+        Date date = new Date(response);
+        if (date.getDateDifferenceInDays(new Date(birthdate)) < 6574.5) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     private String requestBirthdate() {
         Scanner input = new Scanner(System.in);
-        System.out.print("\nBirthdate (format: dd/mm/yyyy): ");
-        return input.nextLine();
+        boolean validInput = false;
+        String response = "";
+
+        while (!validInput) {
+            try {
+                System.out.print("\nBirthdate (format: dd/mm/yyyy): ");
+                response = input.nextLine();
+
+                if (validateBirthdate(response)) {
+                    validInput = true;
+                } else {
+                    throw new IllegalArgumentException("Birthdate cannot be in the future.");
+                }
+
+            } catch (IllegalArgumentException e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+
+        }
+        return response;
+    }
+
+    public boolean validateBirthdate(String birthdate) {
+        Date date = new Date(birthdate);
+
+        if (date.isPastDate()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private String requestName() {

@@ -45,8 +45,8 @@ class RegisterCollaboratorUI {
     - requestIdDocNumber()
     .. Validate Input Data Methods: ..
     - validateName(name)
-    - validateBirthdate(birthdate) - not implemented yet
-    - validateAdmissionDate(admissionDate) - not implemented yet
+    - validateBirthdate(birthdate)
+    - validateAdmissionDate(admissionDate)
     - validateStreet(street)
     - validateStreetNumber(number)
     - validatePostalCode(postalCode)

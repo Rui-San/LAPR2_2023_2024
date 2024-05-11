@@ -24,7 +24,7 @@ public class RegisterSkillUI implements Runnable {
     }
 
     public void run() {
-        System.out.println("\n\n--- Register new Skill -------------------------");
+        System.out.println("\n\n=== REGISTER NEW SKILL ===");
 
         requestData();
 

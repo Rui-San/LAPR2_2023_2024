@@ -25,21 +25,22 @@ public class TeamProposalUI implements Runnable {
     }
 
     public void run() {
-        System.out.println("\n\n--- Generate team proposal ------------------------");
+        System.out.println("\n\n=== GENERATE TEAM PROPOSAL ===");
 
         requestData();
         List<Team> generatedTeams = generateAllTeamProposals();
         try {
             teamAccepted = displayAndSelectTeamForApproval(generatedTeams);
+
+
+            if (teamAccepted != null) {
+                saveTeamProposal(teamAccepted);
+                System.out.println("\nTeam selected successfully saved.");
+            } else {
+                System.out.println("Process canceled.");
+            }
         } catch (IllegalArgumentException e) {
             System.out.println("Error: " + e.getMessage());
-        }
-
-        if (teamAccepted != null) {
-            saveTeamProposal(teamAccepted);
-            System.out.println("Team selected successfully saved.");
-        } else {
-            System.out.println("Process canceled.");
         }
 
     }
@@ -54,10 +55,10 @@ public class TeamProposalUI implements Runnable {
             throw new IllegalArgumentException("Theres no possible teams with given inputs");
         } else {
             boolean teamAccepted = false;
-
+            Scanner scanner = new Scanner(System.in);
             while (!teamAccepted) {
                 for (Team generatedTeam : generatedTeams) {
-                    System.out.println("Team Generated:");
+                    System.out.println("\nTeam Generated:");
                     System.out.println(generatedTeam.toString());
                     teamAccepted = askManagerResponse();
                     if (teamAccepted) {
@@ -66,9 +67,9 @@ public class TeamProposalUI implements Runnable {
                 }
 
                 boolean validResponse = false;
-                System.out.println("Do you want to view the options again or proceed without selecting any team? (view/proceed)");
+                System.out.println("\nDo you want to view the options again or proceed without selecting any team? (view/proceed)");
                 while (!validResponse) {
-                    Scanner scanner = new Scanner(System.in);
+
                     String response = scanner.nextLine().trim().toLowerCase();
                     if (response.equals("proceed")) {
                         return null;
@@ -116,7 +117,6 @@ public class TeamProposalUI implements Runnable {
             } while (quantity <= 0);
             quantityNeeded.add(quantity);
         }
-        System.out.println();
         return quantityNeeded;
     }
 
