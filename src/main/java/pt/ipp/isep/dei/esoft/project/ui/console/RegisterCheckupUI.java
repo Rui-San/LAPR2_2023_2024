@@ -96,6 +96,10 @@ public class RegisterCheckupUI implements Runnable {
     }
 
     private boolean validateDate(Date date) {
+
+        if (date.compareTo(vehicle.getRegisterDate()) < 0) {
+            throw new IllegalArgumentException("Checkup date must not be earlier than register date.");
+        }
         return date != null;
     }
 

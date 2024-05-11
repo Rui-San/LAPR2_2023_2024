@@ -4,10 +4,11 @@ import pt.ipp.isep.dei.esoft.project.controller.RegisterVehicleController;
 import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
 import pt.ipp.isep.dei.esoft.project.domain.Date;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
+
 import java.util.*;
 import java.util.regex.Pattern;
 
-public class RegisterVehicleUI implements Runnable{
+public class RegisterVehicleUI implements Runnable {
 
     private final RegisterVehicleController controller;
     private String plateID;
@@ -30,6 +31,7 @@ public class RegisterVehicleUI implements Runnable{
 
     /**
      * Get the RegisterVehicleController
+     *
      * @return RegisterVehicleController
      */
     public RegisterVehicleController getRegisterVehicleController() {
@@ -59,7 +61,7 @@ public class RegisterVehicleUI implements Runnable{
 
         if (vehicle.isEmpty()) {
             System.out.println("An error occurred while registering the vehicle.");
-        }else {
+        } else {
             System.out.println("Vehicle registered successfully.");
         }
 
@@ -67,16 +69,17 @@ public class RegisterVehicleUI implements Runnable{
 
     /**
      * Method that shows all the data for confirmation
-     * @param message the message to show
-     * @param plateID the plate ID
-     * @param brand the brand
-     * @param model the model
-     * @param type the type
-     * @param tare the tare
-     * @param grossWeight the gross weight
-     * @param currentKm the current kilometers
-     * @param registerDate the register date
-     * @param acquisitionDate the acquisition date
+     *
+     * @param message             the message to show
+     * @param plateID             the plate ID
+     * @param brand               the brand
+     * @param model               the model
+     * @param type                the type
+     * @param tare                the tare
+     * @param grossWeight         the gross weight
+     * @param currentKm           the current kilometers
+     * @param registerDate        the register date
+     * @param acquisitionDate     the acquisition date
      * @param checkupFrequencyKms the checkup frequency in kilometers
      */
     private void showAllDataForConfirmation(String message, String plateID, String brand, String model, String type, double tare, double grossWeight, int currentKm, String registerDate, String acquisitionDate, int checkupFrequencyKms) {
@@ -112,6 +115,7 @@ public class RegisterVehicleUI implements Runnable{
 
     /**
      * Method that requests the plate ID
+     *
      * @return the plate ID
      */
     private String requestPlateID() {
@@ -138,6 +142,7 @@ public class RegisterVehicleUI implements Runnable{
 
     /**
      * Method that validates the plate ID
+     *
      * @param plateID the plate ID
      * @return true if the plate ID is valid
      */
@@ -155,6 +160,7 @@ public class RegisterVehicleUI implements Runnable{
 
     /**
      * Method that requests the model
+     *
      * @return the model
      */
     private String requestModel() {
@@ -181,6 +187,7 @@ public class RegisterVehicleUI implements Runnable{
 
     /**
      * Method that requests the brand
+     *
      * @return the brand
      */
     private String requestBrand() {
@@ -207,6 +214,7 @@ public class RegisterVehicleUI implements Runnable{
 
     /**
      * Method that requests the type
+     *
      * @return the type
      */
     private String requestType() {
@@ -233,6 +241,7 @@ public class RegisterVehicleUI implements Runnable{
 
     /**
      * Method that validates if a string is not null or empty
+     *
      * @param string the string to validate
      * @return true if the string is not null nor empty
      */
@@ -242,6 +251,7 @@ public class RegisterVehicleUI implements Runnable{
 
     /**
      * Method that requests the tare
+     *
      * @return the tare
      */
     private double requestTare() {
@@ -271,6 +281,7 @@ public class RegisterVehicleUI implements Runnable{
 
     /**
      * Method that validates the tare
+     *
      * @param tare the tare
      * @return true if the tare is valid
      */
@@ -280,6 +291,7 @@ public class RegisterVehicleUI implements Runnable{
 
     /**
      * Method that requests the gross weight
+     *
      * @param tare the tare
      * @return the gross weight
      */
@@ -310,8 +322,9 @@ public class RegisterVehicleUI implements Runnable{
 
     /**
      * Method that validates the gross weight
+     *
      * @param grossWeight the gross weight
-     * @param tare the tare
+     * @param tare        the tare
      * @return true if the gross weight is valid
      */
     private boolean validateGrossWeight(double grossWeight, double tare) {
@@ -345,6 +358,7 @@ public class RegisterVehicleUI implements Runnable{
 
     /**
      * Method that validates the current kilometers
+     *
      * @param currentKm the current kilometers
      * @return true if the current kilometers are valid
      */
@@ -354,6 +368,7 @@ public class RegisterVehicleUI implements Runnable{
 
     /**
      * Method that requests the register date
+     *
      * @return the register date
      */
     private String requestRegisterDate() {
@@ -380,26 +395,35 @@ public class RegisterVehicleUI implements Runnable{
 
     /**
      * Method that validates a date
+     *
      * @param registerDate the register date
      * @return true if the date is valid
      */
     private boolean validateDate(String registerDate) {
+
+
         Pattern pattern = Pattern.compile("^\\d{2}/\\d{2}/\\d{4}$|^\\d{4}/\\d{2}/\\d{2}$");
 
         Pattern pattern1 = Pattern.compile("^[0-9]{2}-[0-9]{2}-[A-Z]{2}$");
         Pattern pattern2 = Pattern.compile("^[0-9]{2}-[A-Z]{2}-[0-9]{2}$");
         Pattern pattern3 = Pattern.compile("^[A-Z]{2}-[0-9]{2}-[A-Z]{2}$");
-        String[] registerDateParts = registerDate.split("/");
-        int registerDateYear = Integer.parseInt(registerDateParts[2]);
+        try {
+            Date date = new Date(registerDate);
+            String[] registerDateParts = registerDate.split("/");
+            int registerDateYear = Integer.parseInt(registerDateParts[2]);
 
-        if (registerDate == null) {
-            throw new IllegalArgumentException("Register date cannot be null.");
-        }else if(registerDateYear > 2005 && pattern1.matcher(plateID).matches()){
-            throw new IllegalArgumentException("Invalid date, with the plateID format 00-00-AA, the register date must be before 2005");
-        }else if ( (registerDateYear <= 2005 || registerDateYear > 2020) && pattern2.matcher(plateID).matches()) {
-            throw new IllegalArgumentException("Invalid date, with the plateID format 00-AA-00, the register date must be between 2005 and 2020");
-        }else if(registerDateYear <= 2020 && pattern3.matcher(plateID).matches()){
-            throw new IllegalArgumentException("Invalid date, with the plateID format AA-00-AA, the register date must be after 2020");
+
+            if (registerDate == null) {
+                throw new IllegalArgumentException("Register date cannot be null.");
+            } else if (registerDateYear > 2005 && pattern1.matcher(plateID).matches()) {
+                throw new IllegalArgumentException("Invalid date, with the plateID format 00-00-AA, the register date must be before 2005");
+            } else if ((registerDateYear <= 2005 || registerDateYear > 2020) && pattern2.matcher(plateID).matches()) {
+                throw new IllegalArgumentException("Invalid date, with the plateID format 00-AA-00, the register date must be between 2005 and 2020");
+            } else if (registerDateYear <= 2020 && pattern3.matcher(plateID).matches()) {
+                throw new IllegalArgumentException("Invalid date, with the plateID format AA-00-AA, the register date must be after 2020");
+            }
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            throw new IllegalArgumentException("Date must follow the format DD/MM/YYYY");
         }
 
         return pattern.matcher(registerDate).matches();
@@ -407,6 +431,7 @@ public class RegisterVehicleUI implements Runnable{
 
     /**
      * Method that requests the acquisition date
+     *
      * @param registerDate the register date
      * @return the acquisition date
      */
@@ -434,33 +459,40 @@ public class RegisterVehicleUI implements Runnable{
 
     /**
      * Method that validates the acquisition date
+     *
      * @param acquisitionDate the acquisition date
-     * @param registerDate the register date
+     * @param registerDate    the register date
      * @return true if the acquisition date is valid
      */
     private boolean validateAcquisitionDate(String acquisitionDate, String registerDate) {
         Pattern pattern = Pattern.compile("^\\d{2}/\\d{2}/\\d{4}$|^\\d{4}/\\d{2}/\\d{2}$");
 
-        if (!pattern.matcher(acquisitionDate).matches()) {
-            return false;
+        try {
+
+            Date date = new Date(acquisitionDate);
+            if (!pattern.matcher(acquisitionDate).matches()) {
+                return false;
+            }
+
+            int[] registerDateParts = Arrays.stream(registerDate.split("/")).mapToInt(Integer::parseInt).toArray();
+            int[] acquisitionDateParts = Arrays.stream(acquisitionDate.split("/")).mapToInt(Integer::parseInt).toArray();
+
+            if (registerDateParts[2] != acquisitionDateParts[2]) {
+                return registerDateParts[2] < acquisitionDateParts[2];
+            } else if (registerDateParts[1] != acquisitionDateParts[1]) {
+                return registerDateParts[1] < acquisitionDateParts[1];
+            } else if (registerDateParts[0] != acquisitionDateParts[0]) {
+                return registerDateParts[0] < acquisitionDateParts[0];
+            }
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            throw new IllegalArgumentException("Date must follow the format DD/MM/YYYY");
         }
-
-        int[] registerDateParts = Arrays.stream(registerDate.split("/")).mapToInt(Integer::parseInt).toArray();
-        int[] acquisitionDateParts = Arrays.stream(acquisitionDate.split("/")).mapToInt(Integer::parseInt).toArray();
-
-        if( registerDateParts[2] != acquisitionDateParts[2] ) {
-            return registerDateParts[2] < acquisitionDateParts[2];
-        }else if( registerDateParts[1] != acquisitionDateParts[1] ) {
-            return registerDateParts[1] < acquisitionDateParts[1];
-        }else if( registerDateParts[0] != acquisitionDateParts[0] ) {
-            return registerDateParts[0] < acquisitionDateParts[0];
-        }
-
         return false;
     }
 
     /**
      * Method that requests the checkup frequency in kilometers
+     *
      * @return the checkup frequency in kilometers
      */
     private int requestCheckupFrequencyKms() {
