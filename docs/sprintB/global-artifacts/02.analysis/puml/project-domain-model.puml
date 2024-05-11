@@ -106,17 +106,17 @@ class Comment{
     author
 }
 
-Organization "1" -- "*" Task : "owns >"
-Organization "1" -- "1" Agenda : "owns >"
-Organization "1" -- "1" Address : "has an >"
-Organization "1" -- "1..*" UserPortal : "owns >"
-Organization "1" -- "*" GreenSpace : "manages >"
+Organization "1" --- "*" Task : "owns >"
+Organization "1" --- "1" Agenda : "owns >"
+Organization "1" --- "1" Address : "has an >"
+Organization "1" --- "1..*" UserPortal : "owns >"
+Organization "1" --- "*" GreenSpace : "is maintained by <"
 'Organization "1" -- "*" Skill : "owns >"
 'Organization "1" -- "*" Job : "owns >"
-Organization "1" -- "*" Collaborator : "has >"
-Organization "1" -- "*" Vehicle : "owns >"
-Collaborator "1" -- "*" Skill : "has >"
-Collaborator "1" -- "1" Address : "has an >"
+Organization "1" --- "*" Collaborator : "works for <"
+Organization "1" --- "*" Vehicle : "is an asset of <"
+Collaborator "1" --- "*" Skill : "has >"
+Collaborator "1" --- "1" Address : "has an >"
 Collaborator "1" -- "1" Job : "has >"
 HRM "1" -- "*" Skill : "register >"
 HRM "1" -- "*" Job : "register >"
@@ -132,8 +132,12 @@ Agenda "1" -- "*" Task : "has >"
 Task "*" -- "1" Team : "is carried out by >"
 GreenSpace "1" -- "1" Address : "has an >"
 Team "1" -- "*" Collaborator : "has >"
-Vehicle "1" -- "*" Checkup : "does >"
+Vehicle "1" --right "*" Checkup : "does >"
 CheckupList "1" -- "1..*" Vehicle : "has >"
 FM "1" -- "*" CheckupList : "requests to show >"
+GSU "*" -up- "*" Comment : "makes a >"
+GSM "1" -up- "1..*" GreenSpace : "manages >"
+GSM "1" --|> "1" Collaborator
+GSU "1" --|> "1" Collaborator
 
 @enduml
