@@ -6,24 +6,33 @@ skinparam linetype polyline
 'skinparam linetype orto
 
 skinparam classAttributeIconSize 0
+Title US08 - Class Diagram
 
 'left to right direction
 
 Class ListVehiclesNeedingCheckupUI {
-
+    -ListVehiclesNeedingCheckupController controller
+    +ListVehiclesNeedingCheckupUI()
+    +getController(): ListVehiclesNeedingCheckupController
 }
 
 Class ListVehiclesNeedingCheckupController {
+    -CheckupRepository checkupRepository
+    -VehicleRepository vehicleRepository
     +getVehiclesNeedingCheckup()
+    +getCheckupRepository()
+    +getVehicleRepository()
 }
 
 Class Repositories{
+    -Repositories()
     +getInstance()
     +getVehicleRepository()
     +getCheckupRepository()
 }
 
 Class VehicleRepository {
+    -List<Vehicle> vehicleList
     -getVehiclesNeedingCheckup()
     -getVehicles()
     -needsCheckup()
@@ -31,6 +40,7 @@ Class VehicleRepository {
 }
 
 Class CheckupRepository {
+    -List<Checkup> checkupList
     -getCheckups(Vehicle vehicle)
 }
 
