@@ -135,9 +135,9 @@ Team "1" -- "*" Collaborator : "has >"
 Vehicle "1" --right "*" Checkup : "does >"
 CheckupList "1" -- "1..*" Vehicle : "has >"
 FM "1" -- "*" CheckupList : "requests to show >"
-GSU "*" -up- "*" Comment : "makes a >"
+GSU "*" -- "*" Comment : "makes a >"
 GSM "1" -up- "1..*" GreenSpace : "manages >"
 GSM "1" --|> "1" Collaborator
-GSU "1" --|> "1" Collaborator
+
 
 @enduml
