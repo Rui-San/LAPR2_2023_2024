@@ -10,19 +10,32 @@ import java.util.Optional;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+/**
+ * Register Skill UI class
+ */
 public class RegisterSkillUI implements Runnable {
     private final RegisterSkillController controller;
     private String skillName;
 
+    /**
+     * Constructor for the RegisterSkillUI class
+     */
     public RegisterSkillUI() {
 
         controller = new RegisterSkillController();
     }
 
+    /**
+     * Returns the controller
+     * @return the controller
+     */
     private RegisterSkillController getController() {
         return controller;
     }
 
+    /**
+     * Runs the Register Skill UI
+     */
     public void run() {
         System.out.println("\n\n=== REGISTER NEW SKILL ===");
 
@@ -31,6 +44,9 @@ public class RegisterSkillUI implements Runnable {
         submitData();
     }
 
+    /**
+     * Submits the data
+     */
     private void submitData() {
 
         showAllDataForConfirmation(skillName, "You're about to register the following Skill:");
@@ -47,12 +63,18 @@ public class RegisterSkillUI implements Runnable {
         }
     }
 
-
+    /**
+     * Request data from the user
+     */
     private void requestData() {
 
         skillName = requestSkillName();
     }
 
+    /**
+     * Requests the skill name
+     * @return the skill name
+     */
     private String requestSkillName() {
         Scanner input = new Scanner(System.in);
         boolean validInput = false;
@@ -81,6 +103,11 @@ public class RegisterSkillUI implements Runnable {
         return response;
     }
 
+    /**
+     * Validates the skill
+     * @param skillName the skill name
+     * @return the validation attribute results
+     */
     private ValidationAttributeResults validateSkill(String skillName) {
         if (skillName == null || skillName.trim().isEmpty()) {
             return ValidationAttributeResults.EMPTYNULL;
@@ -95,6 +122,11 @@ public class RegisterSkillUI implements Runnable {
         }
     }
 
+    /**
+     * Shows all data for confirmation
+     * @param typedSkill the typed skill
+     * @param header the header displays a custom message
+     */
     public void showAllDataForConfirmation(String typedSkill, String header) {
         System.out.println();
         System.out.println(header);
