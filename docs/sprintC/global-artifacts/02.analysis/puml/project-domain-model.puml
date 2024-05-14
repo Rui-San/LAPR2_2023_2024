@@ -1,0 +1,143 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+'skinparam linetype ortho
+left to right direction
+skinparam classAttributeIconSize 0
+hide circle
+hide methods
+
+title Domain Model
+
+class Organization {
+    name
+    nif
+    website
+    phoneNumber
+    email
+}
+
+class Skill{
+    name
+
+}
+
+class Collaborator{
+    name
+    admissionDate
+    birthDate
+    phoneNumber
+    email
+    idDocType
+    idDocNumber
+}
+
+class Job{
+    name
+}
+
+class HRM{
+
+}
+
+class FM{
+
+}
+
+class Team{
+    name
+    description
+    members
+    status
+}
+
+class Vehicle{
+    plateId
+    brand
+    model
+    type
+    tare
+    grossWeight
+    currentKm
+    registerDate
+    acquisitionDate
+    checkupFrequencyKms
+}
+
+class Checkup{
+    date
+    checkupKms
+}
+class CheckupList{
+
+}
+
+class GreenSpace{
+    name
+    type
+    description
+}
+
+
+class Address{
+    street
+    streetNumber
+    postalCode
+    city
+    district
+}
+
+class Task{
+    title
+    duration
+    status
+    priority
+}
+
+class UserPortal{
+    name
+    url
+}
+
+class Comment{
+    text
+    date
+    author
+}
+
+Organization "1" --- "*" Task : "owns >"
+Organization "1" --- "1" Agenda : "owns >"
+Organization "1" --- "1" Address : "has an >"
+Organization "1" --- "1..*" UserPortal : "owns >"
+Organization "1" --- "*" GreenSpace : "is maintained by <"
+'Organization "1" -- "*" Skill : "owns >"
+'Organization "1" -- "*" Job : "owns >"
+Organization "1" --- "*" Collaborator : "works for <"
+Organization "1" --- "*" Vehicle : "is an asset of <"
+Collaborator "1" --- "*" Skill : "has >"
+Collaborator "1" --- "1" Address : "has an >"
+Collaborator "1" -- "1" Job : "has >"
+HRM "1" -- "*" Skill : "register >"
+HRM "1" -- "*" Job : "register >"
+HRM "1" --|> "1" Collaborator
+HRM "1" -- "*" Collaborator : "register >"
+HRM "1" -- "*" Collaborator : "assigns skills to >"
+HRM "1" -- "*" Team : "generates >"
+FM "1" --|> "1" Collaborator
+FM "1" -- "*" Vehicle : "registers >"
+FM "1" -- "*" Checkup : "registers >"
+UserPortal "1" -- "*" Comment : "has >"
+Agenda "1" -- "*" Task : "has >"
+Task "*" -- "1" Team : "is carried out by >"
+GreenSpace "1" -- "1" Address : "has an >"
+Team "1" -- "*" Collaborator : "has >"
+Vehicle "1" --right "*" Checkup : "does >"
+CheckupList "1" -- "1..*" Vehicle : "has >"
+FM "1" -- "*" CheckupList : "requests to show >"
+GSU "*" -- "*" Comment : "makes a >"
+GSM "1" -up- "1..*" GreenSpace : "manages >"
+GSM "1" --|> "1" Collaborator
+
+
+@enduml
