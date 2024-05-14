@@ -1,0 +1,71 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title US008 - System Sequence Diagram (SSD)
+
+autonumber
+
+actor "Fleet Manager" as Employee
+participant ":ListVehiclesNeedingCheckupUI" as UI
+participant ":ListVehiclesNeedingCheckupController" as CTRL
+participant ":Organization" as ORG
+participant ":Repositories" as Repos
+participant "repositories\n:Repositories" as PLAT
+participant "organizationRepository\n:OrganizationRepository" as ORGRepo
+participant "checkupRepositoty\n:CheckupRepository" as CheckupRepo
+
+activate Employee
+
+    Employee -> UI : Requests to show the list of \nvehicles needing a check-up
+    activate UI
+
+        UI -> CTRL** : create
+        UI -> CTRL : getVehiclesNeedingCheckup()
+        activate CTRL
+
+            CTRL -> Repos : getInstance()
+            activate Repos
+
+                Repos -> CTRL : repositories
+            deactivate Repos
+            CTRL -> PLAT : repositories
+            activate PLAT
+
+                PLAT -> CTRL : organizationRepository
+            deactivate PLAT
+            CTRL -> ORGRepo : getOrganizationByEmail(**email**)
+            activate ORGRepo
+
+                ORGRepo -> CTRL : organization
+            deactivate ORGRepo
+
+            CTRL-> ORG : getVehiclesNeedingCheckup()
+            activate ORG
+
+                ORG -> PLAT : repositories
+                activate PLAT
+
+                    PLAT -> ORG : checkupRepository
+                deactivate PLAT
+                ORG --> ORG : getVehicleList()
+                loop for each vehicle in vehiclesList
+                    ORG -> CheckupRepo : needsCheckup(Vehicle vehicle)
+                    activate CheckupRepo
+
+                        CheckupRepo -> CheckupRepo : getLastVehicleCheckupKms(Vehicle vehicle)
+                    CheckupRepo -> ORG : needsCheckup
+                    deactivate CheckupRepo
+                    ORG -> ORG : addVehicleToNeedCheckupList(Vehicle vehicle)
+                end loop
+                ORG -> CTRL : vehiclesNeedingCheckupList
+            deactivate ORG
+            CTRL -> UI : vehiclesNeedingCheckupList
+        deactivate CTRL
+
+        UI -> Employee : Shows the list of vehicles needing check-up with \nvehicle details and the data used.
+
+    deactivate UI
+
+@enduml

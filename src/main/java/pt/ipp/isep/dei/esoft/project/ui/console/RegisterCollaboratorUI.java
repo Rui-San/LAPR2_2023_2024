@@ -13,7 +13,9 @@ import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 import java.util.*;
 import java.util.regex.Pattern;
 
-
+/**
+ * Register Collaborator UI class
+ */
 public class RegisterCollaboratorUI implements Runnable {
 
     private final RegisterCollaboratorController controller;
@@ -31,14 +33,24 @@ public class RegisterCollaboratorUI implements Runnable {
     private String idDocNumber;
     private Job job;
 
+    /**
+     * Constructor for the RegisterCollaboratorUI class
+     */
     public RegisterCollaboratorUI() {
         controller = new RegisterCollaboratorController();
     }
 
+    /**
+     * Returns the controller
+     * @return the controller
+     */
     public RegisterCollaboratorController getRegisterCollaboratorController() {
         return controller;
     }
 
+    /**
+     * Runs the Register Collaborator UI
+     */
     @Override
     public void run() {
         System.out.println("\n\n=== REGISTER NEW COLLABORATOR ===");
@@ -48,6 +60,9 @@ public class RegisterCollaboratorUI implements Runnable {
         submitData();
     }
 
+    /**
+     * Submits the data
+     */
     private void submitData() {
 
         showAllDataForConfirmation(name, birthdate, admissionDate, street, streetNumber, postalCode, city, district, email, mobileNumber, idDocType, idDocNumber, job, "You're about to register the following collaborator:");
@@ -63,6 +78,10 @@ public class RegisterCollaboratorUI implements Runnable {
         }
     }
 
+    /**
+     * Displays and selects a job
+     * @return the selected job
+     */
     private Job displayAndSelectJob() {
         System.out.println("\nList of available jobs:");
         List<Job> jobList = controller.getJobList();
@@ -90,6 +109,10 @@ public class RegisterCollaboratorUI implements Runnable {
         return job;
     }
 
+    /**
+     * Displays the job options
+     * @param jobList the list of jobs
+     */
     private void displayJobOptions(List<Job> jobList) {
         int i = 1;
         for (Job job : jobList) {
@@ -98,6 +121,9 @@ public class RegisterCollaboratorUI implements Runnable {
         }
     }
 
+    /**
+     * Requests data from the user
+     */
     private void requestData() {
         name = requestName();  //done
         birthdate = requestBirthdate();
@@ -113,6 +139,10 @@ public class RegisterCollaboratorUI implements Runnable {
         idDocNumber = requestIdDocNumber();  //done
     }
 
+    /**
+     * Requests the ID document number
+     * @return the ID document number
+     */
     private String requestIdDocNumber() {
         Scanner input = new Scanner(System.in);
         boolean validInput = false;
@@ -177,6 +207,10 @@ public class RegisterCollaboratorUI implements Runnable {
         }
     }
 
+    /**
+     * Requests the ID document type
+     * @return the ID document type
+     */
     private IdDocType requestIdDocType() {
         Scanner input = new Scanner(System.in);
         int choice = 0;
@@ -214,6 +248,10 @@ public class RegisterCollaboratorUI implements Runnable {
         return null;
     }
 
+    /**
+     * Requests the email
+     * @return the email
+     */
     private String requestEmail() {
         Scanner input = new Scanner(System.in);
         boolean validInput = false;
@@ -285,6 +323,10 @@ public class RegisterCollaboratorUI implements Runnable {
         return ValidationAttributeResults.VALID;
     }
 
+    /**
+     * Requests the mobile number
+     * @return the mobile number
+     */
     private String requestMobileNumber() {
         Scanner input = new Scanner(System.in);
         boolean validInput = false;
@@ -307,6 +349,10 @@ public class RegisterCollaboratorUI implements Runnable {
         return response;
     }
 
+    /**
+     * Requests the city
+     * @return the city
+     */
     private String requestCity() {
         Scanner input = new Scanner(System.in);
         boolean validInput = false;
@@ -329,12 +375,20 @@ public class RegisterCollaboratorUI implements Runnable {
         return response;
     }
 
+    /**
+     * Validates if the city is not null
+     * @param city the city to be validated
+     * @return the logical state of the validation. True if city is validated (not null), false otherwise
+     */
     private boolean validateCity(String city) {
 
         return city != null && !city.trim().isEmpty();
     }
 
-
+    /**
+     * Requests the district
+     * @return the district
+     */
     private String requestDistrict() {
         Scanner input = new Scanner(System.in);
         boolean validInput = false;
@@ -357,10 +411,19 @@ public class RegisterCollaboratorUI implements Runnable {
         return response;
     }
 
+    /**
+     * Validates if the district is not null
+     * @param district the district to be validated
+     * @return the logical state of the validation. True if district is validated (not null), false otherwise
+     */
     private boolean validateDistrict(String district) {
         return district != null && !district.trim().isEmpty();
     }
 
+    /**
+     * Requests the postal code
+     * @return the postal code
+     */
     private String requestPostalCode() {
         Scanner input = new Scanner(System.in);
         boolean validInput = false;
@@ -428,6 +491,10 @@ public class RegisterCollaboratorUI implements Runnable {
         return ValidationAttributeResults.VALID;
     }
 
+    /**
+     * Requests the street number
+     * @return the street number
+     */
     private int requestStreetNumber() {
         Scanner input = new Scanner(System.in);
         boolean validInput = false;
@@ -455,10 +522,19 @@ public class RegisterCollaboratorUI implements Runnable {
         return response;
     }
 
+    /**
+     * Validates if the street number is a positive integer
+     * @param number the street number to be validated
+     * @return the logical state of the validation. True if street number is validated (positive integer), false otherwise
+     */
     private boolean validateStreetNumber(Integer number) {
         return number > 0;
     }
 
+    /**
+     * Requests the street
+     * @return the street
+     */
     private String requestStreet() {
         Scanner input = new Scanner(System.in);
         boolean validInput = false;
@@ -515,6 +591,11 @@ public class RegisterCollaboratorUI implements Runnable {
         return response;
     }
 
+    /**
+     * Validates if the admission date is valid
+     * @param response the admission date to be validated
+     * @return the logical state of the validation. True if admission date is validated, false otherwise
+     */
     private boolean validateAdmissionDate(String response) {
         Date date = new Date(response);
         if (date.getDateDifferenceInDays(new Date(birthdate)) < 6574.5) {
@@ -524,6 +605,10 @@ public class RegisterCollaboratorUI implements Runnable {
         }
     }
 
+    /**
+     * Requests the birthdate
+     * @return the birthdate
+     */
     private String requestBirthdate() {
         Scanner input = new Scanner(System.in);
         boolean validInput = false;
@@ -548,6 +633,11 @@ public class RegisterCollaboratorUI implements Runnable {
         return response;
     }
 
+    /**
+     * Validates if the birthdate is valid
+     * @param birthdate the birthdate to be validated
+     * @return the logical state of the validation. True if birthdate is validated, false otherwise
+     */
     public boolean validateBirthdate(String birthdate) {
         Date date = new Date(birthdate);
 
@@ -558,6 +648,10 @@ public class RegisterCollaboratorUI implements Runnable {
         }
     }
 
+    /**
+     * Requests the name
+     * @return the name
+     */
     private String requestName() {
         Scanner input = new Scanner(System.in);
         boolean validInput = false;
@@ -592,6 +686,11 @@ public class RegisterCollaboratorUI implements Runnable {
         return response;
     }
 
+    /**
+     * Validates if the name is valid
+     * @param name the name to be validated
+     * @return the validation result
+     */
     private ValidationAttributeResults validateName(String name) {
 
         if (name == null || name.trim().isEmpty()) {
@@ -617,6 +716,11 @@ public class RegisterCollaboratorUI implements Runnable {
         }
     }
 
+    /**
+     * Validates if the mobile number is valid
+     * @param mobileNumber the mobile number to be validated
+     * @return the logical state of the validation. True if mobile number is validated, false otherwise
+     */
     private boolean validateMobileNumber(String mobileNumber) {
 
         if (mobileNumber == null || mobileNumber.trim().isEmpty()) {
@@ -637,6 +741,23 @@ public class RegisterCollaboratorUI implements Runnable {
         }
     }
 
+    /**
+     * Shows all data for confirmation
+     * @param name the name
+     * @param birthdate the birthdate
+     * @param admissionDate the admission date
+     * @param street the street
+     * @param streetNumber the street number
+     * @param postalCode the postal code
+     * @param city the city
+     * @param district the district
+     * @param email the email
+     * @param mobileNumber the mobile number
+     * @param idDocType the ID document type
+     * @param idDocNumber the ID document number
+     * @param job the job
+     * @param header the header displays a custom message
+     */
     private void showAllDataForConfirmation(String name, String birthdate, String admissionDate, String street, int streetNumber, String postalCode, String city, String district, String email, String mobileNumber, IdDocType idDocType, String idDocNumber, Job job, String header) {
         System.out.println();
         System.out.println(header);

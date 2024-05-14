@@ -1,0 +1,50 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+'skinparam linetype ortho
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+title US009 - Domain Model
+
+class Organization {
+    name
+    nif
+    website
+    phoneNumber
+    email
+}
+
+class GreenSpace {
+    name
+    location
+    size
+    description
+}
+
+class GSM{
+
+}
+
+class WaterConsumption{
+    ParkID
+    date
+    consumption
+}
+
+class StatisticalAnalysis{
+
+}
+
+Organization "1" --> "*" GreenSpace : "owns >"
+GreenSpace "1" --> "*" WaterConsumption : "has >"
+GSM "1" --> "*" StatisticalAnalysis : "lists >"
+Organization "1" --> "*" StatisticalAnalysis : "analyses >"
+StatisticalAnalysis "1" --> "*" WaterConsumption : "uses >"
+
+@enduml

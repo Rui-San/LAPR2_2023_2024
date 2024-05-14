@@ -1,0 +1,28 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title US009 - System Sequence Diagram (SSD)
+
+autonumber
+
+actor "Fleet Manager" as Employee
+participant ":NeedCheckupUI" as System
+
+activate Employee
+
+    Employee -> System: provides waterConsumption.csv file
+    activate System
+
+        System -> System: reads and stores \nwaterConsumption.csv file
+        System -> Employee: asks to select desired analysis\n (Barplot, Average Monthly costs,\n Statistical Indicators)
+    deactivate System
+    Employee -> System: selects statistical indicators
+    activate System
+            System -> System : get park with lowest and \nhighest consumption
+            System -> System : calculate statistical indicators
+            System -> Employee: shows statistical indicators
+    deactivate System
+
+@enduml

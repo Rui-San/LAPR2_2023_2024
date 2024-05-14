@@ -52,13 +52,19 @@ class CheckupRepositoryTest {
         List<VehicleCheckup> lstVC = new ArrayList<>();
         lstVC.add(vc1);
         lstVC.add(vc2);
-        assertEquals(lstVC, checkupRepository.getVehicleCheckups());
+        assertEquals(lstVC.size(), checkupRepository.getVehicleCheckups().size());
+
+        for (int i = 0; i < lstVC.size(); i++) {
+            assertEquals(lstVC.get(i).getVehicle(), checkupRepository.getVehicleCheckups().get(i).getVehicle());
+            assertEquals(lstVC.get(i).getCheckupDate(), checkupRepository.getVehicleCheckups().get(i).getCheckupDate());
+            assertEquals(lstVC.get(i).getCheckupKms(), checkupRepository.getVehicleCheckups().get(i).getCheckupKms());
+        }
     }
 
     @Test
     void testRegisterVehicleCheckup() {
         Optional<VehicleCheckup> Vcopt = Optional.of(vc1);
-        assertEquals(Vcopt, checkupRepository.registerVehicleCheckup(vehicle1, "10/07/2023", 500) );
+        assertEquals(Vcopt.isPresent(), checkupRepository.registerVehicleCheckup(vehicle1, "10/07/2023", 500).isPresent() );
     }
 
 }

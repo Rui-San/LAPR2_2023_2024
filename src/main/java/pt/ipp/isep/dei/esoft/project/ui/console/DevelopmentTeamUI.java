@@ -1,10 +1,20 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
+/**
+ * Development Team UI class
+ */
 public class DevelopmentTeamUI implements Runnable {
 
+    /**
+     * Constructor for the DevelopmentTeamUI class
+     */
     public DevelopmentTeamUI() {
 
     }
+
+    /**
+     * Runs the Development Team UI
+     */
     @Override
     public void run() {
         System.out.println("\n");
