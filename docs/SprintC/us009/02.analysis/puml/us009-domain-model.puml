@@ -1,0 +1,64 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+'skinparam linetype ortho
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+title US009 - Domain Model
+
+class WaterConsumptionFile{
+    year
+    month
+    day
+    consumption
+}
+
+class WaterConsumptionBarplot{
+    startMonth
+    endMonth
+    parkID
+}
+
+class AverageMonthlyWaterCosts{
+    numberOfParks
+    parkIDs
+}
+
+class WaterConsumptionStatisticalIndicators{
+    mean
+    median
+    standardDeviation
+    coeficientOfSkewness
+    outliers
+}
+
+class HistogramTable{
+
+}
+
+class FrequencyTables{
+    absoluteFrequency
+    relativeFrequency
+}
+
+class GSM{
+
+}
+
+WaterConsumptionBarplot "1" -- "1" WaterConsumptionFile : "uses >"
+WaterConsumptionStatisticalIndicators "1" -- "1" WaterConsumptionFile : "uses >"
+AverageMonthlyWaterCosts "1" -- "1" WaterConsumptionFile : "uses >"
+AverageMonthlyWaterCosts "1" -- "1" FrequencyTables : "generates >"
+AverageMonthlyWaterCosts "1" -- "1" HistogramTable : "generates >"
+GSM "1" -- "*" WaterConsumptionFile : "provides >"
+GSM "1" -- "1" WaterConsumptionBarplot : "requests to \nshow >"
+GSM "1" -- "1" WaterConsumptionStatisticalIndicators : "requests to \nshow >"
+GSM "1" -- "1" AverageMonthlyWaterCosts : "requests to show >"
+
+@enduml

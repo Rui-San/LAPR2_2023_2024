@@ -1,0 +1,90 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+skinparam classAttributeIconSize 0
+'left to right direction
+
+Title US07 - Class Diagram
+
+Repositories -> Repositories : instance
+
+
+Repositories --> "1" VehicleRepository
+Repositories --> "1" VehicleCheckupRepository
+
+VehicleRepository --> "*" VehicleCheckup
+
+VehicleCheckup ..> Date : checkupDate
+RegisterCheckupController ..> Repositories : repositories
+RegisterCheckupUI ..> RegisterCheckupController
+RegisterCheckupController ..> VehicleRepository : vehicleRepository
+RegisterCheckupController ..> VehicleCheckupRepository : vehicleCheckupRepository
+
+class RegisterCheckupUI {
+    -RegisterCheckupController controller
+    -Vehicle vehicle
+    -String checkupDate
+    -int checkupKm
+    +RegisterCheckupUI()
+    +getController(): RegisterCheckupController
+    +submitData()
+    +showAllDataForConfirmation(Vehicle vehicle, String checkupDate, int checkupKm)
+    +requestData()
+    +requestCheckupDate(): String
+    +validateDate(Date date): boolean
+    +requestCheckupKm(): int
+    +validateCheckupKms(int checkupKm): boolean
+    +displayAndSelectVehicle(): Vehicle
+    +validateIndex(int answer, int numberOfVehicles): boolean
+    +displayVehicleOptions(List<Vehicle> vehicleList)
+}
+
+class RegisterCheckupController {
+    -CheckupRepository checkupRepository
+    -VehicleRepository vehicleRepository
+    +RegisterCheckupController()
+    +RegisterCheckupController(CheckupRepository checkupRepository, VehicleRepository vehicleRepository)
+    +getCheckupRepository(): CheckupRepository
+    +getVehicleRepository(): VehicleRepository
+    +registerVehicleCheckup(Vehicle vehicle, String checkupDate, int checkupKm): Optional<VehicleCheckup>
+    +getVehicles(): List<Vehicle>
+}
+
+class Repositories {
+    -Repositories()
+    + getInstance()
+    + getVehicleRepository()
+    + getVehicleCheckupRepository()
+}
+
+class VehicleRepository {
+    - List<Vehicle> vehicles
+    + registerVehicle(vehicle)
+    + getVehicles()
+}
+
+class VehicleCheckupRepository {
+    + registerVehicleCheckup(vehicle, checkupDate, checkupKm)
+    + addCheckup(vehicleCheckup)
+    + validateCheckup(vehicleCheckup)
+}
+
+class VehicleCheckup {
+    - Vehicle vehicle
+    - Date checkupDate
+    - int checkupKm
+    + VehicleCheckup(vehicle, checkupDate, checkupKm)
+    + validateCheckupKm()
+}
+
+class Date {
+    - int day
+    - int month
+    - int year
+    + validateDate(checkupDate)
+}
+
+@enduml
