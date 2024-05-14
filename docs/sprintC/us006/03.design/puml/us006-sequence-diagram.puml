@@ -3,7 +3,7 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title US006 - Sequence Diagram
+title US006 - Sequence Diagram (SSD)
 
 autonumber
 

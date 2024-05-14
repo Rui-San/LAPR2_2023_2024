@@ -7,15 +7,13 @@
 #### Laboratory/Project II - LEI
 #### 1DCDD - GROUP 034 – CODEFLOW
 
-
 - PEDRO COSTA (1221790)
 - RUI SANTIAGO (1221402)
 - DIÓGENES DE JESUS (1210879)
 - ALEXANDRE MOURA (1231193)
 - FRANCISCO TROCADO (1230608)
 
-#### Sprint 2
-#### **Date:** May 12th, 2024
+#### **Date:** April 9th, 2024
 
 ---
 
@@ -23,17 +21,8 @@
 
 - [Glossary](#glossary)
 - [Introduction](#introduction)
-- [System Requirements](#system-requirements)
 - [System Overview](#system-overview)
-- [Features](#features)
-  - [Register a Skill | Human Resources Manager](#1-register-a-skill--human-resources-manager)
-  - [Register a Job | Human Resources Manager](#2-register-a-job--human-resources-manager)
-  - [Register a Collaborator | Human Resources Manager](#3-register-a-collaborator--human-resources-manager)
-  - [Assign skills to a Collaborator | Human Resources Manager](#4-assign-skills-to-a-collaborator--human-resources-manager)
-  - [Generate a team proposal | Human Resources Manager](#5-generate-a-team-proposal--human-resources-manager)
-  - [Register a Vehicle | Fleet Manager](#6-register-a-vehicle--fleet-manager)
-  - [Register a Vehicle's Check-up | Fleet Manager](#7-register-a-vehicles-check-up--fleet-manager)
-  - [List Vehicles needing check-up | Fleet Manager](#8-list-vehicles-needing-check-up--fleet-manager)
+- [System Features](#features)
 - [Troubleshooting](#troubleshooting)
 - [Frequently Asked Questions](#frequently-asked-questions)
 - [References](#references)
@@ -136,9 +125,6 @@ for this sprint are as listed:
   story in software development terminology, it means one “action” the user may perform on the application.
 
 ---
-## System Requirements
-
----
 
 ## System Overview
 
@@ -167,162 +153,120 @@ functionalities and the dependencies that exist between them.
 
 ## Features
 
-Firstly, upon opening the application, a menu will be presented where the user can choose one of the 3 options:
-
-![Initial Menu](user_manual_resources/menu1.png)
-
-The option 0 (Cancel) is used to quit the application.
-
-The option 2 (Know the Development Team) display information about the individuals who contributed to the development of the application.
-
-![Initial Menu](user_manual_resources/menu2.png)
-
-Then, if the user decides to login (option 1), he will be taken to another interface where he must enter the email and password to authenticate.
-
-The login screen will give the user three tries to login if he can’t enter after three tries, he will be sent back to the main menu.
-
-![Initial Menu](user_manual_resources/menu3.png)
-
-Now that the user is logged in, we can access features of the role that his account contains through the designed menu for that role, specifically, contents related to the Human Resources Manager (HRM) and the Vehicle Fleet Manager (VFM).
-
-![Initial Menu](user_manual_resources/menu4.png)
-
-![Initial Menu](user_manual_resources/menu5.png)
-
 ### 1. Register a Skill | Human Resources Manager
 
-After selecting option 1 in HRM’s menu (Register new skill), the user will be redirected to an interface where he will need to enter the name of the skill he wishes to register. After introducing the skill name, the system will ask for user confirmation before saving.
+Refers to the feature that allows the Human Resources Manager to register a skill that a collaborator might have.
 
-After confirming the operation, the new skill will be saved, and the system will show a message of success. If the HRM tries to register a skill that already exists in the system, a notification will be displayed indicating that “This Skill is already registered!”.
+Instructions:
 
-![Register new skill](user_manual_resources/us001.1.png)
+In order to register a skill, the Human Resources Manager must select the option "Register a Skill" from the menu. After that,
+the system will ask the user to fill in the skill's information. These fields are:
+- Skill name: refers to the skill's name.
 
-There are additional controls considering the inputs that are entered, such as checking if its field is empty, if it contains not allowed characters, or even numbers.
-
-![Register new skill](user_manual_resources/us001.2.png)
+![Register a Skill](user_manual_rersources/us001/01.png)
 
 
 ### 2. Register a Job | Human Resources Manager
 
-Very similar to the register a new skill, after selecting option 2 in HRM’s menu (Register new job), the user will be redirected to an interface where he will need to enter the name of the job he wishes to register. After introducing the job name, the system will ask for user confirmation before saving.
+Refers to the feature that allows the Human Resources Manager to register a job that a collaborator might have.
 
-After confirming the operation, the new skill will be saved, and the system will show a message of success. If the HRM tries to register a job that already exists in the system, a notification will be displayed indicating that “This job is already registered!”.
+Instructions:
 
-![Register new Job](user_manual_resources/us002.1.png)
+In order to register a job, the Human Resources Manager must select the option "Register a Job" from the menu. After that,
+the system will ask the user to fill in the job's information. These fields are:
+- Job name: refers to the job's name.
 
-There are also additional controls considering the inputs that are entered, such as checking if its field is empty, if it contains not allowed characters, or even numbers.
-
-![Register new Job](user_manual_resources/us002.2.png)
+![Register a Job](user_manual_rersources/us002/01.png)
 
 ### 3. Register a Collaborator | Human Resources Manager
 
-This feature is used to add new collaborators to the system. Upon choosing option 3 of HRM’s menu (Register new collaborator), the user will be asked to fill all the collaborator’s attributes.
+Refers to the feature that allows the Human Resources Manager to register a collaborator.
 
-![Register new Collaborator](user_manual_resources/us003.1.png)
+Instructions:
 
-![Register new Collaborator](user_manual_resources/us003.2.png)
+In order to register a collaborator, the Human Resources Manager must select the option "Register a Collaborator" from
+the menu. After that, the system will ask the user to fill in the collaborator's information. These fields are:
+- Name: refers to the collaborator's name.
+- Birthdate: refers to the collaborator's birthdate.
+- Admission Date: refers to the collaborator's admission date.
+- Address: refers to the collaborator's address.
+- Email: refers to the collaborator's email.
+- Mobile Number: refers to the collaborator's mobile number.
+- ID Doc Type: refers to the collaborator's identification document type.
+- ID Doc: refers to the collaborator's identification document.
 
-When registering a new employee, all personal information must be filled in before submission. Additionally, all fields have input control, generating a specific error message indicating the error of the specific field.
-
-Some error messages that can be displayed when inputs are incorrect are:
-
-* “Name must not contain special characters”.
-* “Birthdate cannot be in the future.”
-* “Collaborator must be 18 years old.”
-* “Street number must be a positive integer!”
-* “Postal code must follow the format XXXX-XXX”.
-* “Email format must follow the pattern prefix domain”.
-* “Mobile Number is not in a correct format”.
-* “NIF in wrong format. Must be 9 numeric digits”.
-* “Passport in wrong format. Must be two letters + 6 numeric digits (Example: AB222222)”
-
-Among other specific errors that may show when input data is not valid.
-
-![Register new Collaborator](user_manual_resources/us003.3.png)
-
-After correctly inputting all necessary information, the filled data will be showed for confirmation. Upon confirmation, the new collaborator will be saved, and a success message will be sent.
-
-![Register new Collaborator](user_manual_resources/us003.4.png)
-
-After confirmation/submitting the data, if the employee already exists in the system, an error message will be displayed indicating that “This collaborator is already in the system!”
-
+![Register a Collaborator](user_manual_rersources/us003/01.png)
 
 ### 4. Assign skills to a Collaborator | Human Resources Manager
 
-The option 4 (Assign skills to collaborator) from the HRM’s menu, will bring the interface for Assigning skills to a Collaborator. In this interface, the list of available collaborators in the system will be displayed and the user must select which collaborator want to assign new skills to.
+Refers to the feature that allows the Human Resources Manager to assign skills to a collaborator.
 
-![Assign skills to a Collaborator](user_manual_resources/us004.1.png)
+Instructions:
 
-After selecting the collaborator, the list of available skills will appear, and the user can select one or more skills to assign to the collaborator.
+In order to assign skills to a collaborator, the Human Resources Manager must select the option "Assign skills to a
+Collaborator" from the menu. After that, the system will ask the user to select the collaborator to whom the skills will
+be assigned. The system will then display a list of skills that can be assigned to the collaborator. The user must then select
+the skills that will be assigned to the collaborator.
 
-After selecting a skill, the application will ask the user if he wants to submit or choose more skills before submitting.
-
-When the user no longer wishes to select additional skills, the selected information is displayed for confirmation before being saved.
-
-![Assign skills to a Collaborator](user_manual_resources/us004.2.png)
-
-If the user selects a skill that has already been chosen before, an error message will be displayed saying “This skill has already been chosen, please select a different one.”
-
-![Assign skills to a Collaborator](user_manual_resources/us004.3.png)
+![Assign skills to a Collaborator](user_manual_rersources/us004/01.png)
 
 ### 5. Generate a team proposal | Human Resources Manager
 
-Generate team proposal is the last option of HRM’s menu (option 5). To use this feature, the user needs to type the desired team size, including both the minimum and maximum team size.
+Refers to the feature that allows the Human Resources Manager to generate a team proposal.
 
-![Generate a team proposal](user_manual_resources/us005.1.png)
+Instructions:
 
-Next, user must select the necessary skills the team members may have and the quantity of collaborators with that specific skill.
+In order to generate a team proposal, the Human Resources Manager must select the option "Generate a team proposal" from
+the menu.
+After that, the system will ask the user the minimum and maximum team size.
+The system will then prompt the user for the jobs that the team members should have and how many of each job the team must have.
+Finally, the user will be able to accept or reject randomly generated teams based on the criteria previously defined.
 
-![Generate a team proposal](user_manual_resources/us005.2.png)
-
-Upon submission of the information, the system generates all possible teams based on the input and displays the most efficient team first.
-
-![Generate a team proposal](user_manual_resources/us005.3.png)
-
-The user can either accept or reject the proposed team. If accepted, the team will be saved in the system. If the user rejects the displayed team, the next most efficient team (if available) will be shown.
-
-In case the user views all possible teams without selecting any, the program will prompt whether he wants to cancel the process or view the teams again.
-
-![Generate a team proposal](user_manual_resources/us005.4.png)
-
-If, based on the provided information, it was not possible to generate any team, an error message will be displayed indicating the error.
-
-![Generate a team proposal](user_manual_resources/us005.5.png)
+![Generate a team proposal](user_manual_rersources/us005/01.png)
 
 ### 6. Register a Vehicle | Fleet Manager
 
-When choosing option 1 in the VFM’s menu (Register new vehicle), the system will display the user interface for registering a new vehicle where the user needs to fill in all the vehicle-related data before submitting.
+Refers to the feature that allows the Fleet Manager to register a vehicle.
 
-![Register a Vehicle](user_manual_resources/us006.1.png)
+Instructions:
 
-Like the other interfaces, there are input controls that display errors if the entered information does not meet the acceptance criteria, some of the errors that user may encounter are:
+In order to add a vehicle, the Fleet Manager must select the option "Register a Vehicle's Check-up" from the menu,
+after that he will be prompted to fill the camps with the vehicle's information.
+These camps are:
+- PlateID: refers to the vehicle's plate identification.
+- Brand: refers to the vehicle's brand.
+- Model: refers to the vehicle's model.
+- Type: refers to the vehicle's type.
+- Tare: refers to the vehicle's tare.
+- Gross Weight: refers to the vehicle's gross weight.
+- Current Km: refers to the vehicle's current kilometers.
+- Register Date: refers to the vehicle's registration date.
+- Acquisition Date: refers to the vehicle's acquisition date.
+- Check-up Frequency Km: refers to the vehicle's check-up frequency in kilometers.
 
-![Register a Vehicle](user_manual_resources/us006.2.png)
-
-After submission, the data will be shown to the user for confirmation and will be saved, displaying a success message. If the vehicle is already in the system, a message will be displayed, indicating the error.
-
-![Register a Vehicle](user_manual_resources/us006.3.png)
+![Register a Vehicle](user_manual_rersources/us006/01.png)
 
 ### 7. Register a Vehicle's Check-up | Fleet Manager
 
-The option 4 of VFM’s menu (Register new vehicle’s check-up), allows the registration of a new vehicle’s check-up. To use this feature, first the user must select a vehicle from the list.
+Refers to the feature that allows the Fleet Manager to register a vehicle's check-up.
 
-For the chosen vehicle, the user now needs to type the check-up data, which is the check-up date and the kilometers. In the end of process, all data will be displayed for confirmation and the user may proceed or not.
+Instructions:
 
-![Register a Vehicle's Check-up](user_manual_resources/us007.1.png)
+After selecting the option, the system will prompt the Fleet Manager to select the vehicle that will be checked-up.
+After selecting the vehicle, the system will ask the user to type the kilometers at checkup and the date of checkup.
 
-The check-up kilometers cannot be less than zero or superior to the current kilometers of the vehicle, otherwise an error will be showed.
-
-![Register a Vehicle's Check-up](user_manual_resources/us007.2.png)
-
+![Register a Vehicle's Check-up](user_manual_rersources/us007/01.png)
 
 ### 8. List Vehicles needing check-up | Fleet Manager
 
-This menu generates a list of the vehicles needing check-up. After selecting the option 3 on VFM’s menu, the list will be displayed with all vehicles needing check-up.
+Refers to the feature that allows the Fleet Manager to list vehicles needing check-up.
 
-If there are no vehicles needing check-up, the list will be empty.
+Instructions:
 
-![List Vehicles needing check-up](user_manual_resources/us008.1.png)
+After selecting the option, the system will display a list of vehicles that need a check-up.
+There's no need for any user input as the system will automatically calculate the vehicles that need a check-up and display them.
+
+![List Vehicles needing check-up](user_manual_rersources/us008/01.png)
 
 
 ## Troubleshooting

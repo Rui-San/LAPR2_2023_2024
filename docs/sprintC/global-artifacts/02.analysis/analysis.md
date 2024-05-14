@@ -171,10 +171,12 @@ remembering, or it is derivable from the List of Common Associations:
 | Organization   |       owns        |       Agenda |
 | Organization   |      has an       |      Address |
 | Organization   |       owns        |   UserPortal |
+| Organization   |      manages      |   GreenSpace |
+| Organization   |        has        | Collaborator |
+| Organization   |       owns        |      Vehicle |
 | Collaborator   |        has        |        Skill |
 | Collaborator   |      has an       |      Address |
 | Collaborator   |        has        |          Job |
-| HRM            |     works for     | Organization |
 | HRM            |       is a        | Collaborator |
 | HRM            |     register      |        Skill |
 | HRM            |     register      |          Job |
@@ -189,13 +191,9 @@ remembering, or it is derivable from the List of Common Associations:
 | Agenda         |        has        |         Task |
 | Task           | is carried out by |         Team |
 | GreenSpace     |      has an       |      Address |
-| GreenSpace     | is maintained by  | Organization |
 | Team           |        has        | Collaborator |
 | Vehicle        |       does        |      Checkup |
-| Vehicle        |  is an asset of   | Organization |
 | CheckupList    |        has        |      Vehicle |
-| GSM            |       is a        | Collaborator |
-| GSM            |      manages      |   GreenSpace |
 
 ## Domain Model
 
