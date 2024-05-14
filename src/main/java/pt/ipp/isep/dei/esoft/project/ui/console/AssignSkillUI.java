@@ -14,19 +14,32 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
+/**
+ * Assign Skill UI class
+ */
 public class AssignSkillUI implements Runnable {
     private final AssignSkillController controller;
     private Collaborator selectedCollaborator;
     private List<Skill> selectedSkills;
 
+    /**
+     * Constructor for the AssignSkillUI class
+     */
     public AssignSkillUI() {
         controller = new AssignSkillController();
     }
 
+    /**
+     * Returns the controller
+     * @return the controller
+     */
     public AssignSkillController getController() {
         return this.controller;
     }
 
+    /**
+     * Runs the Assign Skill UI
+     */
     @Override
     public void run() {
         System.out.println("\n\n=== ASSIGN SKILLS TO COLLABORATOR ===");
@@ -38,6 +51,9 @@ public class AssignSkillUI implements Runnable {
         submitData();
     }
 
+    /**
+     * Submits the data
+     */
     private void submitData() {
         showAllDataForConfirmation(selectedSkills, "You're about to assign the following skills to the collaborator:");
         if (Utils.confirm("Do you want to proceed? (y/n)")) {
@@ -53,6 +69,10 @@ public class AssignSkillUI implements Runnable {
         }
     }
 
+    /**
+     * Displays the list of collaborators and selects a collaborator
+     * @return the collaborator
+     */
     private Collaborator displayAndSelectCollaborator() {
 
         List<Collaborator> collaboratorList = getController().getCollaboratorList();
@@ -75,6 +95,9 @@ public class AssignSkillUI implements Runnable {
         return collaboratorList.get(option);
     }
 
+    /**
+     * Displays the list of skills and selects skills
+     */
     private void displayAndSelectSkills() {
 
         List<Skill> skillList = getController().getSkillList();
@@ -108,7 +131,11 @@ public class AssignSkillUI implements Runnable {
 
     }
 
-
+    /**
+     * Shows all data for confirmation
+     * @param skills the skills to add
+     * @param header the header displays a custom message
+     */
     private void showAllDataForConfirmation(List<Skill> skills, String header) {
         System.out.println();
         System.out.println(header);

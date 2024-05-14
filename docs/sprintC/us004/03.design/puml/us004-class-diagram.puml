@@ -1,0 +1,97 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+title US004 - Class Diagram
+'left to right direction
+
+Class AssignSkillUI{
+    - List<Skill> selectedSkills
+    - Collaborator selectedCollaborator
+
+    + AssignSkillUI()
+    + getController()
+    + run()
+    - submitData()
+    - displayAndSelectCollaborator()
+    - displayAndSelectSkills()
+    - showAllDataForConfirmation(selectedSkills, header)
+}
+
+Class AssignSkillController{
+    + AssignSkillController()
+    - getCollaboratorRepository()
+    - getSkillRepository()
+    + getCollaboratorList()
+    + getSkillList()
+    + assignSkillsToCollaborator(collaborator, selectedSkills)
+}
+
+Class CollaboratorRepository{
+    - List<Collaborator> collaboratorList
+
+    + getCollaboratorList()
+    + getCollaboratorByCollaboratorEmail(email)
+    + assignSkillsToCollaborator(collaborator, selectedSkills)
+}
+
+Class SkillRepository{
+    - List<Skill> skillList
+
+    + getSkillList()
+}
+
+Class Collaborator{
+    - List<Skill> skillList;
+
+    + assignSkills(selectedSkills)
+}
+
+class Repositories {
+    - Repositories()
+    + getInstance() : Repositories
+    + getJobRepository()
+    + getCollaboratorRepository()
+}
+
+Class Skill{
+    - String skillName
+
+    + Skill(skillName)
+    + getSkillName()
+    + setSkillName(skillName)
+    - validateSkill(skillName)
+    + clone()
+}
+
+note left of SkillRepository
+    - used for displaying
+    the skill list
+end note
+
+note right of Collaborator
+    - has the responsability to implement
+    the method to assignSkills
+end note
+
+AssignSkillUI .right.> AssignSkillController
+
+AssignSkillController ..> Repositories : repositories
+
+Repositories ---> "1" CollaboratorRepository
+Repositories ---> "1" SkillRepository
+AssignSkillController ..> CollaboratorRepository : CollaboratorRepository
+
+AssignSkillController ..> SkillRepository : skillRepository
+
+SkillRepository "1"----> "*"Skill : skill
+CollaboratorRepository "1"---> "*"Collaborator : collaborator
+Collaborator "1" --> "*" Skill : skill
+
+
+
+@enduml
