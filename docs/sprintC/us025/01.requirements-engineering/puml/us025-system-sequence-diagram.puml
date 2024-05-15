@@ -1,0 +1,53 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title US025 - System Sequence Diagram (SSD)
+
+autonumber
+
+actor "GSM" as GSM
+participant ":CancelEntryAgendaUI" as UI
+
+
+activate GSM
+
+    GSM -> UI : Asks to cancel an entry on Agenda
+
+    activate UI
+        loop until doesn't select a valid option
+        UI --> GSM : Shows the tasks of the Agenda and asks to\nselect the task to be canceled
+    deactivate UI
+
+    GSM -> UI : Selects a task
+    activate UI
+        |||
+        end
+
+        UI --> UI : keepData(task)
+        |||
+
+        UI --> GSM : Shows all data and requests confirmation
+    deactivate UI
+
+    GSM -> UI: Confirms data
+
+    activate UI
+        |||
+        UI --> UI : set the status of the\nselected task to "Canceled"
+        |||
+        UI --> GSM : Display operation success
+
+
+    deactivate UI
+
+
+
+
+
+
+deactivate GSM
+
+
+@enduml
