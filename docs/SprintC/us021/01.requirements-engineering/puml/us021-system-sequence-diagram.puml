@@ -42,17 +42,7 @@ activate GSM
         UI --> UI : keepData(taskType,\ntaskDuration)
         |||
 
-                loop until doesn't select a valid option
-                            UI --> GSM : Shows list of available teams and asks to select one
-                        deactivate UI
 
-                        GSM -> UI : Selects a team
-
-                        activate UI
-                        |||
-                        end
-
-                        UI --> UI : keepData(team)
                 UI --> GSM : Shows all data and requests confirmation
 deactivate UI
     GSM -> UI : Confirms data

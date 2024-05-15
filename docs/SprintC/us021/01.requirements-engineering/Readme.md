@@ -22,25 +22,24 @@ of the task can vary from a few minutes (e.g. replacing a light bulb) to weeks
 
 **From the client clarifications:**
 
-> **Question:** Which is the unit of measurement used to estimate duration?
+> **Question:** 
 >
-> **Answer:** Duration is estimated in days.
+> **Answer:** 
 
-> **Question:** Monetary data is expressed in any particular currency?
+> **Question:** 
 >
-> **Answer:** Monetary data (e.g. estimated cost of a task) is indicated in POT (virtual currency internal to the platform).
-
+> **Answer:** 
+> 
 ### 1.3. Acceptance Criteria
 
 * **AC1:** All required fields must be filled in.
 * **AC2:** The new entry must be associated with a green space managed by the GSM.
 * **AC3:** The green space for the new entry should be chosen from a
   list presented to the GSM.
-* **AC4:** The team assigned to the new entry must be selected by GSM.
+
 ### 1.4. Found out Dependencies
 
 * There is a dependency on "US020 - Register a greenspace" as there must be at least one green space registered to be selected by GSM.
-* There is a dependency on "US005 - Generate a team proposal" as there must be at least one team registered to be selected by GSM.
 
 ### 1.5 Input and Output Data
 
@@ -52,7 +51,7 @@ of the task can vary from a few minutes (e.g. replacing a light bulb) to weeks
 	
 * Selected data:
     * a green space
-    * a team
+
 
 **Output Data:**
 
