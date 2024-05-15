@@ -1,0 +1,52 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title US022 - System Sequence Diagram (SSD)
+
+autonumber
+
+actor "GSM" as GSM
+participant ":AddNewEntryAgendaUI" as UI
+
+activate GSM
+
+    GSM -> UI : Asks to add a new entry on Agenda
+
+    activate UI
+        loop until doesn't select a valid option
+        UI --> GSM : Shows the To-Do list and asks to select the task
+    deactivate UI
+
+    GSM -> UI : Selects a task
+    activate UI
+        |||
+        end
+
+        UI --> UI : keepData(task)
+        |||
+
+        UI --> GSM : Shows all data and requests confirmation
+    deactivate UI
+
+    GSM -> UI: Confirms data
+
+    activate UI
+        |||
+        UI --> UI : add task to agenda and set the status\nof the selected task to "planned"
+        |||
+        UI --> GSM : Display operation success
+
+
+    deactivate UI
+
+
+
+
+
+
+deactivate GSM
+
+
+@enduml

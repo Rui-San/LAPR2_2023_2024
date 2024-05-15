@@ -13,8 +13,8 @@ participant ":AddNewEntryToDoController" as CTRL
 participant ":Repositories" as REPO
 participant "repositories\n:Repositories" as REPOInstance
 participant "greenSpaceRepository\n:GreenSpaceRepository" as GreenSpaceREPO
-participant ":Task" as Task
 participant "toDo\n:ToDo" as Todo
+participant ":Task" as Task
 
 activate GSM
 
@@ -67,7 +67,7 @@ CTRL --> UI : greenSpaceList
 
     loop until typed data is validated
 
-        UI --> GSM : Requests data (taskType, taskDuration)
+        UI --> GSM : Requests data (description, duration, urgency)
     deactivate UI
 
     GSM -> UI : Types requested data
@@ -77,7 +77,7 @@ CTRL --> UI : greenSpaceList
 
     end
 
-        UI --> UI : keepData(taskType,\ntaskDuration)
+        UI --> UI : keepData(description, duration, urgency)
         |||
 
 
@@ -87,24 +87,28 @@ deactivate UI
 
     activate UI
 
-    UI -> CTRL : createNewTask(taskType, taskDuration, greespace)
+    UI -> CTRL : createNewTask(description, duration, urgency, greenSpace)
     activate CTRL
 
-        CTRL -> Todo : createNewTask(taskType, taskDuration, greespace)
+        CTRL -> Todo : createNewTask(description, duration, urgency, greenSpace)
 
-        activate GreenSpaceREPO
+        activate Todo
 
-            Todo -> Task** : new Task (taskType, taskDuration, greenSpace)
+            Todo -> Task** : new Task (description, duration, urgency, greenSpace)
 
-            Task --> Task : validateTaskType(taskType)
+            Task --> Task : validateDescription(description)
 
-            Task --> Task : validateTaskDuration(taskDuration)
+            Task --> Task : validateDuration(duration)
+
+            Task --> Task : validateUrgency(urgency)
+
+           |||
 
             Todo --> Todo : validateTask(task)
 
             Todo --> Todo : addTask(task)
 
-            GreenSpaceREPO --> CTRL : operation success
+            Todo --> CTRL : operation success
             deactivate GreenSpaceREPO
             CTRL --> UI : operation success
             deactivate CTRL

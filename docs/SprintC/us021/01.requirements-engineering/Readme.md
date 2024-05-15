@@ -36,6 +36,7 @@ of the task can vary from a few minutes (e.g. replacing a light bulb) to weeks
 * **AC2:** The new entry must be associated with a green space managed by the GSM.
 * **AC3:** The green space for the new entry should be chosen from a
   list presented to the GSM.
+* **AC4:** The urgency must be one of the 3 options: High, Medium and Low
 
 ### 1.4. Found out Dependencies
 
@@ -46,7 +47,8 @@ of the task can vary from a few minutes (e.g. replacing a light bulb) to weeks
 **Input Data:**
 
 * Typed data:
-    * Task type
+    * Description
+    * Urgency
     * Task duration
 	
 * Selected data:
