@@ -48,7 +48,9 @@ deactivate UI
     GSM -> UI : Confirms data
 
     activate UI
-
+        |||
+        UI --> UI : add the new task\nto the To-Do list
+        |||
         UI --> GSM : Displays operation success
     deactivate UI
 
