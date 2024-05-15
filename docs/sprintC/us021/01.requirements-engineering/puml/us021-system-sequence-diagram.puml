@@ -1,0 +1,57 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title US021 - System Sequence Diagram (SSD)
+
+autonumber
+
+actor "GSM" as GSM
+participant ":AddNewEntryToDoUI" as UI
+
+activate GSM
+
+    GSM -> UI : Asks to add a new entry on To-Do List
+    activate UI
+    loop until doesn't select a valid option
+                    UI --> GSM : Shows list of green spaces and asks to select one
+                deactivate UI
+
+                GSM -> UI : Selects a green space
+
+                activate UI
+                |||
+                end
+
+            UI --> UI : keepData(greenspace)
+
+
+    loop until typed data is validated
+
+        UI --> GSM : Requests data (taskType, taskDuration)
+    deactivate UI
+
+    GSM -> UI : Types requested data
+
+    activate UI
+    |||
+
+    end
+
+        UI --> UI : keepData(taskType,\ntaskDuration)
+        |||
+
+
+                UI --> GSM : Shows all data and requests confirmation
+deactivate UI
+    GSM -> UI : Confirms data
+
+    activate UI
+        |||
+        UI --> UI : add the new task\nto the To-Do list
+        |||
+        UI --> GSM : Displays operation success
+    deactivate UI
+
+@enduml
