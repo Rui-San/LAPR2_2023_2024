@@ -1,0 +1,90 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+
+Title US006 - Class Diagram
+
+'left to right direction
+
+class RegisterVehicleUI {
+    -RegisterVehicleController controller
+    -String plateID
+    -String brand
+    -String model
+    -String type
+    -double tare
+    -double grossWeight
+    -int currentKm
+    -String registerDate
+    -String acquisitionDate
+    -int checkupFrequencyKms
+    +getRegisterVehicleController(): RegisterVehicleController
+    +submitData()
+    -showAllDataForConfirmation(String message, String plateID, \nString brand, String model, String type, double tare, double grossWeight, \nint currentKm, String registerDate, String acquisitionDate, int checkupFrequencyKms)
+    -requestData()
+    -requestPlateID(): String
+    -validatePlateID(String plateID): boolean
+    -requestModel(): String
+    -requestBrand(): String
+    -requestType(): String
+    -validateNotNullorEmpty(String string): boolean
+    -requestTare(): double
+    -validateTare(double tare): boolean
+    -requestGrossWeight(double tare): double
+    -validateGrossWeight(double grossWeight, double tare): boolean
+    -requestCurrentKm(): int
+    -validateCurrentKm(int currentKm): boolean
+    -requestRegisterDate(): String
+    -validateDate(String registerDate): boolean
+    -requestAcquisitionDate(String registerDate): String
+    -validateAcquisitionDate(String acquisitionDate, String registerDate): boolean
+    -requestCheckupFrequencyKms(): int
+}
+
+class RegisterVehicleController {
+    -VehicleRepository vehicleRepository
+    +RegisterVehicleController()
+    +RegisterVehicleController(VehicleRepository vehicleRepository)
+    -getVehicleRepository(): VehicleRepository
+    +createVehicle(String plateId, String brand, String model, String type, \ndouble tare, double grossWeight, int currentKm, \nString registerDate, String acquisitionDate, int checkupFrequencyKms): Optional<Vehicle>
+    -getVehicleByPlateId(String plateId): Vehicle
+}
+
+class Repositories{
+    -Repositories()
+    +getInstance()
+    +getVehicleRepository()
+}
+
+class VehicleRepository{
+    - List<Vehicle> vehicles
+    +createVehicle(plate id, brand, model, type,\ntare, gross weight, current km, register date,\nacquisition date, checkup frequency kms)
+}
+
+class Vehicle{
+    -plate id
+    -brand
+    -model
+    -type
+    -tare
+    -gross weight
+    -current km
+    -register date
+    -acquisition date
+    -checkup frequency kms
+    +Vehicle(plate id, brand, model, type,\ntare, gross weight, current km, register date,\nacquisition date, checkup frequency kms)
+}
+
+RegisterVehicleUI ..> RegisterVehicleController
+RegisterVehicleController ..> Repositories : repositories
+Repositories --> Repositories : repositories
+Repositories --> "1" VehicleRepository
+VehicleRepository ..> Vehicle : Vehicle
+RegisterVehicleController ..> VehicleRepository : vehicleRepository
+
+@enduml

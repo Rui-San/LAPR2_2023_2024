@@ -1,0 +1,162 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title US003 - Sequence Diagram
+
+autonumber
+
+actor "HRM" as HRM
+participant ":RegisterCollaboratorUI" as UI
+participant ":RegisterCollaboratorController" as CTRL
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as PLAT
+participant "jobRepository:\nJobRepository" as JobRepository
+participant ":collaboratorRepository \nCollaboratorRepository" as COLREP
+participant ":collaborator \nCollaborator" as COL
+participant ":Address" as Address
+participant ":Date" as Date
+participant ":Email" as Email
+
+activate HRM
+
+    HRM -> UI : Asks to register a collaborator
+
+    activate UI
+    loop until typed data is validated
+
+        UI --> HRM : Requests data (name, birthdate, admissionDate,\n street, streetNumber, postalCode, city, district,\n email, mobileNumber, idDocType, idDocNumber)
+    deactivate UI
+
+
+
+    HRM -> UI : Types requested data
+
+
+    activate UI
+    |||
+
+    end
+    |||
+        UI --> UI : keepData(name, birthdate, admissionDate,\n street, streetNumber, postalCode, city, district,\n email, mobileNumber, idDocType, idDocNumber)
+        |||
+        UI -> CTRL : getJobList()
+
+
+        activate CTRL
+
+            CTRL -> RepositorySingleton : getInstance()
+
+            activate RepositorySingleton
+
+            RepositorySingleton --> CTRL : repositories
+            deactivate RepositorySingleton
+
+            CTRL -> PLAT : getJobRepository()
+            activate PLAT
+
+            PLAT --> CTRL : jobRepository
+            deactivate PLAT
+
+            CTRL -> JobRepository : getJobList()
+            activate JobRepository
+
+            JobRepository --> CTRL : jobList
+            deactivate JobRepository
+
+            CTRL --> UI : jobList
+        deactivate CTRL
+        loop until doesn't select a valid option
+        UI --> HRM : Shows job list and asks to select one
+    deactivate UI
+
+    HRM -> UI : Selects a job
+
+    activate UI
+    |||
+    end loop
+
+        UI --> UI : keepData(Job job)
+        UI --> HRM : Shows all data and requests confirmation
+    deactivate UI
+
+
+    HRM -> UI : Confirms data
+
+    activate UI
+
+        UI -> CTRL : createCollaborator(name, birthdate, admissionDate,\nstreet, streetNumber, postalCode, city, district, email,\n mobileNumber, idDocType, idDocNumber, job)
+        activate CTRL
+
+
+
+            CTRL -> COLREP : createCollaborator(name, birthdate, admissionDate, street, streetNumber,\n postalCode, city, district, email, mobileNumber, idDocType, idDocNumber, job)
+            activate COLREP
+
+                COLREP -> COL** : createCollaborator(name, birthdate, admissionDate,\nstreet, streetNumber, postalCode, city, district, email,\n mobileNumber, idDocType, idDocNumber, job)
+                note right of COL : When creating a collaborator it uses class Email,\nAddress and Date to create the object for that attribute.
+
+              |||
+
+               COL -> Date** : new Date(birthdate) \nnew Date(admissionate)
+
+               Date --> Date : validateDate(birthdate)
+
+               Date --> Date : validateDate(admissionDate)
+               note right
+               **NOTE**
+               validates if date is correct format
+               end note
+
+
+
+
+               |||
+               COL -> Address** : new Address(street, streetNumber, postalCode, city, district)
+
+                Address --> Address : validateStreet(street)
+                Address --> Address : validateStreetNumber(number)
+                Address --> Address : validatePostalCode(postalCode)
+                Address --> Address : validateCity(city)
+                Address --> Address : validateDistrict(district)
+
+                |||
+                |||
+
+
+
+                COL -> Email** : new Email(email)
+
+                Email --> Email : validateEmail(email)
+
+                COL --> COL : validate birthdate with \nsetBirthdate(birthdate)
+                COL --> COL : validate admissionDate with \nsetAdmissionDate(birthdate)
+                               note right
+                                              **NOTE**
+                                              validates AC for that collaborator
+                                              end note
+                COL --> COL : validateName(name)
+                COL --> COL : validateMobileNumber(mobileNumber)
+                COL --> COL : validateIdDocType(idDocType)
+                COL --> COL : validateIdDocNumber(idDocNumber, idDocType)
+
+
+                |||
+                |||
+
+                COLREP --> COLREP : validateCaborator(collaborator)
+                COLREP --> COLREP : addToCollaboratorList(collaborator)
+                COLREP --> CTRL : operation success
+
+            deactivate COLREP
+
+            CTRL --> UI : operation success
+        deactivate CTRL
+
+        UI --> HRM : Displays operation success
+    deactivate UI
+
+
+
+@enduml
