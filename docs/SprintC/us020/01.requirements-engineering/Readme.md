@@ -39,13 +39,21 @@ da Cidade).
 
 **From the client clarifications:**
 
-> **Question:** 
+> **Question:** What are the required fields for registering a green space?
+>
+> **Answer:**  The required fields are the name of the park, the address of the park, the area of the park in square meters, and the park type.
+
+> **Question:** What is the minimum area for a greenspace?
 >
 > **Answer:** 
 
-> **Question:** 
->
+> **Question:** At how much meters squared is a Green Space considered a medium-sized park?
+> 
 > **Answer:** 
+
+> **Question:** At how much meters squared is a Green Space considered a large-sized park?
+> 
+> **Answer:**
 
 ### 1.3. Acceptance Criteria
 
@@ -63,7 +71,6 @@ da Cidade).
     * name of the park
     * address of the park
     * area of the park in square meters
-    * a list of amenities (e.g., benches, playgrounds, toilets) depending on the park type ?
 	
 * Selected data:
     * the park type
