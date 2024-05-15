@@ -14,6 +14,7 @@ participant ":Repositories" as REPO
 participant "repositories\n:Repositories" as REPOInstance
 participant "greenSpaceRepository\n:GreenSpaceRepository" as GreenSpaceREPO
 participant ":Task" as Task
+participant "toDo\n:ToDo" as Todo
 
 activate GSM
 
@@ -89,19 +90,19 @@ deactivate UI
     UI -> CTRL : createNewTask(taskType, taskDuration, greespace)
     activate CTRL
 
-        CTRL -> GreenSpaceREPO : createNewTask(taskType, taskDuration, greespace)
+        CTRL -> Todo : createNewTask(taskType, taskDuration, greespace)
 
         activate GreenSpaceREPO
 
-            GreenSpaceREPO -> Task** : new Task (taskType, taskDuration, greenSpace)
+            Todo -> Task** : new Task (taskType, taskDuration, greenSpace)
 
             Task --> Task : validateTaskType(taskType)
 
             Task --> Task : validateTaskDuration(taskDuration)
 
-            GreenSpaceREPO --> GreenSpaceREPO : validateTask(task)
+            Todo --> Todo : validateTask(task)
 
-            GreenSpaceREPO --> GreenSpaceREPO : addTask(task)
+            Todo --> Todo : addTask(task)
 
             GreenSpaceREPO --> CTRL : operation success
             deactivate GreenSpaceREPO
