@@ -1,0 +1,39 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD)
+
+autonumber
+
+actor "Green Space\nManager" as GSM
+participant ":System" as System
+
+activate GSM
+
+    GSM -> System : asks to create a new Green Space
+    activate System
+
+        System --> GSM : shows all types of green spaces and asks\nto select one (garden, medium, large)
+    deactivate System
+
+    GSM -> System : selects type of green space
+    activate System
+
+        System --> GSM : requests data (name of the green space, address, size in m2, ... )
+    deactivate System
+
+    GSM -> System : types requested data
+    activate System
+
+        System --> GSM : shows all data and requests confirmation
+    deactivate System
+
+    GSM -> System : confirms data
+    activate System
+
+        System --> GSM : displays operation success
+    deactivate GSM
+
+@enduml
