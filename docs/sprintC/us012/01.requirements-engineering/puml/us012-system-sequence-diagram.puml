@@ -1,0 +1,40 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title US012 - System Sequence Diagram (SSD)
+
+autonumber
+
+actor "GSM" as GSM
+participant ":ImportCsvUI" as UI
+
+activate GSM
+
+    GSM -> UI : Requests to import a .csv file
+    activate UI
+
+    UI --> GSM : Displays list of files
+    deactivate UI
+
+    GSM -> UI : Selects the indended .csv file
+
+    activate UI
+
+    alt the file is valid
+
+    UI --> GSM : Displays operation success
+    |||
+    else the file is not valid
+    |||
+    UI --> GSM : Displays operation insucess
+
+    end alt
+
+
+
+
+
+
+@enduml

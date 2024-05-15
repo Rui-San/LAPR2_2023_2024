@@ -1,0 +1,61 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+
+class RegisterCollaboratorUI {
+    - String name;
+    - String birthdate;
+    - String admissionDate;
+    - String street;
+    - int streetNumber;
+    - String postalCode;
+    - String city;
+    - String district;
+    - String email;
+    - String mobileNumber;
+    - IdDocType idDocType;
+    - String idDocNumber;
+    - Job job;
+    -- Methods --
+    + RegisterCollaboratorUI()
+    + getRegisterCollaboratorController()
+    + run()
+    - submitData()
+    - displayAndSelectJob()
+    - displayJobOptions(jobList)
+    - showAllDataForConfirmation(name, birthdate, admissionDate,\nstreet, streetNumber, postalCode, city, district, email,\nmobileNumber, idDocType, idDocNumber, job, header)
+    .. Request Data Methods: ..
+    - requestData()
+    - requestName()
+    - requestBirthdate()
+    - requestAdmissionDate()
+    - requestStreet()
+    - requestStreetNumber()
+    - requestPostalCode()
+    - requestCity()
+    - requestDistrict()
+    - requestEmail()
+    - requestMobileNumber()
+    - requestIdDocType()
+    - requestIdDocNumber()
+    .. Validate Input Data Methods: ..
+    - validateName(name)
+    - validateBirthdate(birthdate)
+    - validateAdmissionDate(admissionDate)
+    - validateStreet(street)
+    - validateStreetNumber(number)
+    - validatePostalCode(postalCode)
+    - validateCity(city)
+    - validateDistrict(district)
+    - validateEmail(email)
+    - validateMobileNumber(mobileNumber)
+    - validateIdDocNumber(idDocNumber, idDocType)
+
+}
+
+@enduml

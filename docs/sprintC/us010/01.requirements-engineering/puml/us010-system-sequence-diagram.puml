@@ -1,0 +1,34 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title US010 - System Sequence Diagram (SSD)
+
+autonumber
+
+actor "GSM" as Employee
+participant ":UsedEquipmentUI" as System
+
+activate Employee
+
+    Employee -> System : Asks to see the chart of the machines that were used in a certain day
+    activate System
+
+    System -> Employee : Requests day date
+
+    deactivate System
+
+
+
+    Employee -> System : Types requested data (day date)
+
+    activate System
+
+    System -> System : keepData (day date)
+
+    System -> Employee : Displays pie chart of the machines that were used in the requested day
+
+    deactivate System
+
+@enduml
