@@ -22,14 +22,26 @@ of the task can vary from a few minutes (e.g. replacing a light bulb) to weeks
 
 **From the client clarifications:**
 
-> **Question:** 
+> **Question:** If there are multiple GSM in the system, can a GSM create an entry for a Green Space managed by another GSM?
 >
-> **Answer:** 
+> **Answer:** No
 
-> **Question:** 
+> **Question:** Should the to-do entries be unique or can a GSM repeat the same to-do entry, for the same Green Space, multiple times
 >
-> **Answer:** 
+> **Answer:** Yes; Assuming the previous task with same description was previously processed and is not open anymore.
+
+> **Question:** If the To-Do entry is assigned to the Agenda, should it be removed for the To-Do entry, if it only occasional?
 > 
+> **Answer:** Should change the status to processed.
+
+> **Question:** What are the details the GSM needs to input, other than the Green Space, frequency, estimated duration?Title and description are required?
+> 
+> **Answer:** Title and description could be useful.
+
+> **Question:** Should the GSM define the skills needed for a To-Do entry?
+> 
+> **Answer:** No but maybe it should be done for type of task (or similar)
+ 
 ### 1.3. Acceptance Criteria
 
 * **AC1:** All required fields must be filled in.
@@ -47,7 +59,9 @@ of the task can vary from a few minutes (e.g. replacing a light bulb) to weeks
 **Input Data:**
 
 * Typed data:
+    * Title
     * Description
+    * Type
     * Urgency
     * Task duration
 	

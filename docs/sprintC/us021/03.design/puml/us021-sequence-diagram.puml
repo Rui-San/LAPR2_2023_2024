@@ -67,7 +67,7 @@ CTRL --> UI : greenSpaceList
 
     loop until typed data is validated
 
-        UI --> GSM : Requests data (description, duration, urgency)
+        UI --> GSM : Requests data (title, description, type, duration, urgency)
     deactivate UI
 
     GSM -> UI : Types requested data
@@ -77,7 +77,7 @@ CTRL --> UI : greenSpaceList
 
     end
 
-        UI --> UI : keepData(description, duration, urgency)
+        UI --> UI : keepData(title, description, type, duration, urgency)
         |||
 
 
@@ -87,16 +87,20 @@ deactivate UI
 
     activate UI
 
-    UI -> CTRL : createNewTask(description, duration, urgency, greenSpace)
+    UI -> CTRL : createNewTask(title, description, type, duration, urgency, greenSpace)
     activate CTRL
 
-        CTRL -> Todo : createNewTask(description, duration, urgency, greenSpace)
+        CTRL -> Todo : createNewTask(title, description, type, duration, urgency, greenSpace)
 
         activate Todo
 
-            Todo -> Task** : new Task (description, duration, urgency, greenSpace)
+            Todo -> Task** : new Task (title, description, type, duration, urgency, greenSpace)
+
+            Task --> Task : validateTitle(title)
 
             Task --> Task : validateDescription(description)
+
+            Task --> Task : validateType(type)
 
             Task --> Task : validateDuration(duration)
 
