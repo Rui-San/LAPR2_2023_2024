@@ -4,7 +4,7 @@ skinparam packageStyle rectangle
 skinparam shadowing false
 
 'left to right direction
-title US021 - Domain Model
+title US022 - Domain Model
 skinparam classAttributeIconSize 0
 
 hide circle
@@ -19,16 +19,13 @@ hide methods
 class GSM {
 
 }
-class ToDo {
+
+class Agenda {
 
 }
 
-class Task{
-    type
-    duration
-}
+class ToDo
 
-GSM "1" -- "*" ToDo : Add new entry
-ToDo "1" -- "*" Task : contains
-
+GSM "1" -- "1" Agenda : adds new entry
+Agenda "1" -- "*" ToDo : previously included in
 @enduml
