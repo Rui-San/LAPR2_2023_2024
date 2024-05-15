@@ -8,32 +8,34 @@ title System Sequence Diagram (SSD)
 autonumber
 
 actor "Green Space\nManager" as GSM
-participant ":System" as System
+participant ":registerGreenSpaceUI" as UI
 
 activate GSM
 
-    GSM -> System : asks to create a new Green Space
-    activate System
+    GSM -> UI : asks to create a new Green Space
+    activate UI
 
-        System --> GSM : shows all types of green spaces and asks\nto select one (garden, medium, large)
-    deactivate System
+        UI --> GSM : Displays the types of green spaces and asks\nto select one (garden, medium, large)
+    deactivate UI
 
-    GSM -> System : selects type of green space
-    activate System
+    GSM -> UI : selects type of green space
+    activate UI
+        UI --> UI : keepData(type)
+loop until typed data is validated
+        UI --> GSM : requests data (name, streetNumber,\npostalCode, city, district, totalArea)
+    deactivate UI
 
-        System --> GSM : requests data (name of the green space, address, size in m2, ... )
-    deactivate System
+    GSM -> UI : types requested data
+    activate UI
+end loop
+        UI --> UI : keepData(name,streetNumber,\npostalCode,city,district,totalArea)
+        UI --> GSM : shows all data and requests confirmation
+    deactivate UI
 
-    GSM -> System : types requested data
-    activate System
+    GSM -> UI : confirms data
+    activate UI
 
-        System --> GSM : shows all data and requests confirmation
-    deactivate System
-
-    GSM -> System : confirms data
-    activate System
-
-        System --> GSM : displays operation success
+        UI --> GSM : displays operation success
     deactivate GSM
 
 @enduml

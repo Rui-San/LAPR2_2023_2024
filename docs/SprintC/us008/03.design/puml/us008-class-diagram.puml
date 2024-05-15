@@ -6,7 +6,7 @@ skinparam linetype polyline
 'skinparam linetype orto
 
 skinparam classAttributeIconSize 0
-Title US08 - Class Diagram
+Title US008 - Class Diagram
 
 'left to right direction
 
@@ -14,6 +14,7 @@ Class ListVehiclesNeedingCheckupUI {
     -ListVehiclesNeedingCheckupController controller
     +ListVehiclesNeedingCheckupUI()
     +getController(): ListVehiclesNeedingCheckupController
+    -showData()
 }
 
 Class ListVehiclesNeedingCheckupController {
@@ -41,20 +42,20 @@ Class VehicleRepository {
 
 Class CheckupRepository {
     -List<Checkup> checkupList
-    -getCheckups(Vehicle vehicle)
+    +getVehicleCheckupList()
 }
 
 Class VehicleNeedingCheckup{
     -Vehicle vehicle
     -int lastCheckupKm
     -int optimalNextCheckupKm
-    +VehicleNeedingCheckup(Vehicle vehicle, int lastCheckupKm, int optimalNextCheckupKm)
+    +VehicleNeedingCheckup(Vehicle vehicle,\nint lastCheckupKm, int optimalNextCheckupKm)
 }
 
 ListVehiclesNeedingCheckupUI ..> ListVehiclesNeedingCheckupController
 ListVehiclesNeedingCheckupController ..> Repositories : "repositories"
 ListVehiclesNeedingCheckupController ..> VehicleRepository : vehicleRepository
-VehicleRepository ..> CheckupRepository : checkupRepository
+ListVehiclesNeedingCheckupController ..> CheckupRepository : checkupRepository
 Repositories --> "1" VehicleRepository
 Repositories --> "1" CheckupRepository
 VehicleRepository ..> VehicleNeedingCheckup : vehicleNeedingCheckup
