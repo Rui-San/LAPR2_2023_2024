@@ -4,17 +4,12 @@ skinparam packageStyle rectangle
 skinparam shadowing false
 
 'left to right direction
-title US022 - Domain Model
+title US025 - Domain Model
 skinparam classAttributeIconSize 0
 
 hide circle
 hide methods
 
-'title Domain Model
-
-'class Platform {
-'  -description
-'}
 
 class GSM {
 
@@ -24,8 +19,8 @@ class Agenda {
 
 }
 
-class ToDo
 
-GSM "1" -- "1" Agenda : adds new entry
-Agenda "1" -- "*" ToDo : previously included in
+
+GSM "1" -- "1" Agenda : cancels an entry
+
 @enduml

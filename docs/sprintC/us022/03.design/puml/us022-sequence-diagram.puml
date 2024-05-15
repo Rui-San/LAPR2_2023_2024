@@ -58,7 +58,7 @@ activate GSM
 
             activate Agenda
 
-                Agenda -> Task** : setTaskStatus(status)
+                Agenda -> Task** : setStatusToPlanned()
 
                 note right of Task
                     The task was pending on ToDo list by default
