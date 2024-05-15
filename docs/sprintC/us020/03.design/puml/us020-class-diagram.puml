@@ -1,0 +1,73 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+title US020 - Class Diagram
+
+class GreenSpace {
+    - GreenSpaceType type
+    - String name
+    - Address address
+    - float totalArea
+    + GreenSpace(type,name,streetNumber,\npostalCode,city,district,totalArea)
+}
+
+class GreenSpaceRepository{
+    - List<GreenSpace> greenSpaceList
+
+    + GreenSpaceRepository()
+    + add(newGreenSpace)
+    - validateGreenSpace(newGreenSpace)
+    + createGreenSpace(type,name,streetNumber,postalCode,city,district,totalArea)
+}
+
+class Repositories {
+    - Repositories()
+    + getInstance() : Repositories
+    + getGreenSpaceRepository()
+}
+
+class RegisterGreenSpaceController {
+
+    + RegisterGreenSpaceController(greenSpaceRepository)
+    + RegisterGreenSpaceController()
+    - getGreenSpaceRepository()
+    + createGreenSpace(type,name,streetNumber,postalCode,city,district,totalArea)
+}
+
+class RegisterGreenSpaceUI {
+    - string type
+    - string name
+    - string street
+    - int streetNumber
+    - string postalCode
+    - string city
+    - string district
+    - float totalArea
+    - requestData()
+    - submitData()
+}
+
+class Address{
+    - String street
+    - int streetNumber
+    - String postalCode
+    - String city
+    - String district
+    + Address(street, streetNumber, postalCode, city, district)
+}
+
+RegisterGreenSpaceUI .right.> RegisterGreenSpaceController
+RegisterGreenSpaceController ..> "1" GreenSpaceRepository : greenSpaceRepository
+GreenSpaceRepository "1"-down-> "*" GreenSpace : greenSpace
+GreenSpace *--"1" Address : address
+RegisterGreenSpaceController ..> Repositories : repositories
+Repositories --> "1" GreenSpaceRepository
+Repositories -> Repositories : instance
+
+
+@enduml
