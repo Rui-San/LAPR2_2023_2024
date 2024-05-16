@@ -9,7 +9,7 @@ autonumber
 
 actor "Green Space\nManager" as GSM
 participant ":AssignTeamToTaskUI" as UI
-participant ":AssignTeamToTaskController" as CTRL
+participant "controller\n:AssignTeamToTaskController" as CTRL
 participant "task:\nTask" as Task
 participant ":Repository" as REPO
 participant "repositories\n:Repository" as REPOInstance
@@ -21,9 +21,11 @@ participant ":TeamMapper" as TeamMapper
 participant ":TeamDTO" as TeamDTO
 
 activate GSM
+
     GSM -> UI: asks to assign team to an entry in the agenda
     activate UI
 
+        UI -> CTRL** : create
         UI -> CTRL: getTaskList()
         activate CTRL
 
