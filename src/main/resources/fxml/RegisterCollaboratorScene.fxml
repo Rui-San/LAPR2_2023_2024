@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="446.0" prefWidth="634.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <AnchorPane prefHeight="465.0" prefWidth="675.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextField layoutX="126.0" layoutY="62.0" prefHeight="27.0" prefWidth="175.0" promptText="Name" />
+            <DatePicker layoutX="329.0" layoutY="62.0" promptText="Birthdate" />
+            <Button layoutX="436.0" layoutY="235.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="67.0" text="Submit" />
+            <ChoiceBox layoutX="126.0" layoutY="107.0" prefHeight="25.0" prefWidth="176.0" />
+            <DatePicker layoutX="329.0" layoutY="106.0" promptText="Admission Date" />
+            <ChoiceBox layoutX="126.0" layoutY="152.0" prefHeight="25.0" prefWidth="174.0" />
+            <TextField layoutX="329.0" layoutY="150.0" prefHeight="27.0" prefWidth="174.0" promptText="Document Number" />
+            <TextField layoutX="126.0" layoutY="196.0" prefHeight="27.0" prefWidth="174.0" promptText="Email" />
+            <TextField layoutX="329.0" layoutY="195.0" prefHeight="27.0" prefWidth="174.0" promptText="Phone Number" />
+         </children>
+      </AnchorPane>
+   </center>
+   <top>
+      <MenuBar prefHeight="0.0" prefWidth="566.0" BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+</BorderPane>
