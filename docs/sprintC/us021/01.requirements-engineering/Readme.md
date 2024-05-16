@@ -41,6 +41,11 @@ of the task can vary from a few minutes (e.g. replacing a light bulb) to weeks
 > **Question:** Should the GSM define the skills needed for a To-Do entry?
 > 
 > **Answer:** No but maybe it should be done for type of task (or similar)
+
+> **Question:** When a new entry is added to the ToDo list, the default status of that task will be "pending" or no status at all is considered on ToDo list?
+Similarly, when a new entry is added to the Agenda, the status of that task will be, by default, set to "planned", right?
+> 
+> **Answer:** "Pending" as default for to-do list entries and "Planned" as default for Agenda entries, sounds good.
  
 ### 1.3. Acceptance Criteria
 
