@@ -1,0 +1,39 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD) - Alternative One
+
+autonumber
+
+actor "Green Space\nManager" as GSM
+participant ":AssignTeamToTaskUI" as UI
+
+GSM -> UI: asks to assign team to an entry in the agenda
+activate UI
+
+    UI --> GSM: shows the list of taks in the agenda and\nasks to select one
+deactivate UI
+
+GSM -> UI : selects a task
+activate UI
+
+    UI --> UI : keepData(task)
+    UI --> GSM: shows the list of teams and asks to select one
+deactivate UI
+
+GSM -> UI : selects a team
+activate UI
+
+    UI --> UI : keepData(team)
+    UI --> GSM: shows the task and the team about to be assigned to\nthat ask and asks for confirmation
+deactivate UI
+
+GSM -> UI: confirms operation
+activate UI
+    UI --> UI : assigns the team to the task
+    UI --> GSM: shows operation success
+deactivate UI
+
+@enduml
