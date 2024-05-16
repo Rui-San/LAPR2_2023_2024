@@ -1,0 +1,20 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title US023 - System Sequence Diagram (SSD)
+
+autonumber
+
+actor "GSM" as GSM
+participant "AssignTeamUI" as UI
+activate GSM
+
+    GSM -> UI: asks to assign new team to entry
+    activate UI
+
+
+
+
+@enduml

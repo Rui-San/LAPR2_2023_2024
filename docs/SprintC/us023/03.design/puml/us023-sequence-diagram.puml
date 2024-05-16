@@ -1,0 +1,33 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title US023 - System Sequence Diagram (SSD)
+
+autonumber
+
+actor "GSM" as GSM
+participant "AssignTeamUI" as UI
+participant "Agenda" as Agenda
+participant "Team" as Team
+participant "Email Service" as EmailService
+
+activate GSM
+
+    GSM -> UI: asks to assign new team to entry
+    activate UI
+    UI -> Agenda: assignTeam to Entry
+    activate Agenda
+    Agenda -> Team: Assign Team
+    activate Team
+    Team -> EmailService: Send Assignment Message
+    activate EmailService
+    EmailService --> Team: Acknowledgment
+    deactivate EmailService
+    deactivate Team
+    Agenda --> UI: Assignment Complete
+    deactivate Agenda
+    deactivate UI
+
+@enduml

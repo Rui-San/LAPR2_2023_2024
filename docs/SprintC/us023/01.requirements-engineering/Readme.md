@@ -1,11 +1,11 @@
-# US006 - Create a Task 
+# US023 - Assign a team to an entry in the Agenda
 
 
 ## 1. Requirements Engineering
 
 ### 1.1. User Story Description
 
-As an organization employee, I want to create a new task in order to be further published.
+As a GSM, I want to assign a Team to an entry in the Agenda.
 
 ### 1.2. Customer Specifications and Clarifications 
 
