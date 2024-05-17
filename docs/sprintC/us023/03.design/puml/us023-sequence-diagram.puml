@@ -130,6 +130,14 @@ activate GSM
 
                 Task --> CTRL : operation success
             deactivate Task
+            loop for every member in the team
+            CTRL -> Email** : new Email(collaboratorName, task)
+            CTRL -> Emailer : sendEmail(collaboratorEmail, email)
+            activate Emailer
+
+                Emailer --> CTRL : operation success
+            deactivate Emailer
+            end loop
             CTRL --> UI : operation success
         deactivate CTRL
         UI --> GSM: shows operation success
