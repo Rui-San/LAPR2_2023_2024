@@ -1,0 +1,36 @@
+.login__input {
+    -fx-border-width: 0 0 2px 0;
+    -fx-border-color: transparent transparent #429156 transparent;
+    -fx-background-color: transparent;
+    -fx-padding: 10px 0 10px 10px;
+    -fx-font-weight: bold;
+    -fx-transition: -fx-border-color 0.2s;
+}
+
+.login__input:focused,
+.login__input:hover {
+    -fx-border-color: transparent transparent #429156 transparent;
+    -fx-outline: none;
+}
+
+.login__submit {
+    -fx-background-color: #fff;
+    -fx-background-radius: 25px;
+    -fx-font-size: 14px;
+    -fx-border-radius: 5px;
+    -fx-border-color: #D4D3E8;
+    -fx-border-width: 1px;
+    -fx-border-radius: 25px;
+    -fx-font-weight: bold;
+    -fx-display: flex;
+    -fx-alignment: center;
+    -fx-text-fill: #429156;
+    -fx-effect: dropshadow(gaussian, #429156, 2, 0.0, 0, 2);
+    -fx-transition: -fx-border-color 0.2s;
+}
+
+.login__submit:focused,
+.login__submit:hover {
+    -fx-border-color: #7bc48d;
+    -fx-outline: none;
+}
