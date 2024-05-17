@@ -3,31 +3,56 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title US023 - System Sequence Diagram (SSD)
+title US023 - Sequence Diagram (SD)
 
 autonumber
 
 actor "GSM" as GSM
-participant "AssignTeamUI" as UI
-participant "Agenda" as Agenda
-participant "Team" as Team
-participant "Email Service" as EmailService
+participant ":AssignTeamUI" as UI
+participant ":AssignTeamController" as CTRL
+participant ":Agenda" as Agenda
+participant ":Team" as Team
+participant ":EmailServiceFactory" as EmailServiceFactory
+participant ":EmailService" as EmailService
 
 activate GSM
 
     GSM -> UI: asks to assign new team to entry
     activate UI
-    UI -> Agenda: assignTeam to Entry
+
+    loop until typed data is validated
+    UI -> GSM: Requests data(teamname, taskname)
+    GSM -> UI: Types requested data
+    end loop
+
+    UI -> UI: keepData(teamname, taskname)
+
+    UI -> CTRL: assignTeamToEntry(teamname, taskname)
+    activate CTRL
+
+    CTRL -> Agenda: Assign Team(teamname, taskname)
     activate Agenda
-    Agenda -> Team: Assign Team
+    Agenda -> Team: Assign Team(teamname)
     activate Team
-    Team -> EmailService: Send Assignment Message
-    activate EmailService
-    EmailService --> Team: Acknowledgment
-    deactivate EmailService
+    Team -> CTRL: Team assigned confirmation
     deactivate Team
-    Agenda --> UI: Assignment Complete
+
+    CTRL -> EmailServiceFactory: getEmailService()
+    activate EmailServiceFactory
+    EmailServiceFactory -> EmailService: createService()
+    deactivate EmailServiceFactory
+    activate EmailService
+    CTRL -> EmailService: Send Assignment Message to team members
+    EmailService --> CTRL: Acknowledgment
+    deactivate EmailService
+
+    Agenda --> CTRL: Assignment Complete
     deactivate Agenda
+
+    CTRL --> UI: Assignment Complete
+    deactivate CTRL
+
+    UI --> GSM: Displays operation success
     deactivate UI
 
 @enduml

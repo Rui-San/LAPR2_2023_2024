@@ -3,18 +3,29 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title US023 - System Sequence Diagram (SSD)
+title US023 - System Sequence Diagram (SSD) - Simplified
 
 autonumber
 
 actor "GSM" as GSM
-participant "AssignTeamUI" as UI
+participant ":AssignTeamUI" as UI
+
 activate GSM
 
     GSM -> UI: asks to assign new team to entry
     activate UI
 
+    loop until typed data is validated
+    UI -> GSM: Requests data(teamname, taskname)
+    GSM -> UI: Types requested data
+    end loop
 
+    UI -> UI: keepData(teamname, taskname)
+    UI -> UI: assignTeamToEntry(teamname, taskname)
+    UI -> UI: Notify team members via email
+    UI -> UI: Display assignment success
 
+    UI --> GSM: Displays operation success
+    deactivate UI
 
 @enduml
