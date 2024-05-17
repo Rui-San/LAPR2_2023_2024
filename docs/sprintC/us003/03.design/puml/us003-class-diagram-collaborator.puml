@@ -1,0 +1,65 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+
+
+class Collaborator {
+     - String name
+     - String mobileNumber
+     - IdDocType idDocType
+     - String idDocNumber
+     - List<Skill> skillList
+    -- Methods --
+     + Collaborator(name, birthdate, admissionDate, street,\nstreetNumber, postalCode, city, district, email, mobileNumber,\nidDocType, idDocNumber, job)
+     + toString()
+     + clone()
+    .. Getters: ..
+     + getName()
+     + getBirthdate()
+     + getAdmissionDate()
+     + getAddress()
+     + getEmail()
+     + getMobileNumber()
+     + getIdDocType()
+     + getIdDocNumber()
+     + getJob()
+     + getSkillList()
+    .. Setters: ..
+     + setName(name)
+     + setBirthdate(birthdate)
+     + setAdmissionDate(admissionDate)
+     + setAddress(street, streetNumber, postalCode, city, district)
+     + setEmail(email)
+     + setMobileNumber(mobileNumber)
+     + setIdDocType(idDocType)
+     + setIdDocNumber(idDocNumber, idDocType)
+     + setJob(job)
+     .. Validation Methods: ..
+     - validateName(name)
+     - validateMobileNumber(mobileNumber)
+     - validateIdDocType(idDocType)
+     - validateIdDocNumber(idDocNumber, idDocType)
+}
+note right of Collaborator::setBirthdate
+  This method already implements birthdate validation
+end note
+
+note right of Collaborator::setAdmissionDate
+  This method already implements admission date validation
+end note
+
+note right of Collaborator::setAddress
+  Class Address has the responsability for this validation
+end note
+
+note left of Collaborator::setEmail
+  Class Email has the responsability for this validation
+end note
+
+
+@enduml

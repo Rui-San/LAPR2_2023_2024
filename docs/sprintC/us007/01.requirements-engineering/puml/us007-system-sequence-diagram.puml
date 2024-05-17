@@ -1,0 +1,41 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title US007 - System Sequence Diagram (SSD)
+
+autonumber
+
+actor "Fleet Manager" as Employee
+participant ":RegisterCheckupUI" as System
+
+activate Employee
+
+    Employee -> System : Asks to register a new vehicle's check-up
+    activate System
+
+        System --> Employee : Shows the list of vehicles and asks to select one
+    deactivate System
+
+    Employee -> System : Selects a vehicle
+    activate System
+
+    loop until data is validated
+        System --> Employee : Requests check-up data (Date of check-up, Current kilometers)
+    deactivate System
+    Employee -> System : Types requested data
+    activate System
+        System --> System : validatesData
+    end loop
+        System --> System : keepData(vehicle, date of \ncheck-up, current kilometers)
+        System --> Employee : Shows all data and requests confirmation
+    deactivate System
+
+
+    Employee -> System : Confirms data
+    activate System
+        System --> Employee : Displays operation success
+    deactivate System
+
+@enduml
