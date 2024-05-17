@@ -1,0 +1,71 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title US026 - System Sequence Diagram (SSD)
+
+autonumber
+
+actor "GSM" as GSM
+participant ":AssignVehicleAgendaUI" as UI
+
+
+activate GSM
+
+    GSM -> UI : Asks to assign one or more vehicles to an entry in the Agenda
+
+
+
+    activate UI
+
+    loop until doesn't select a valid option
+
+        UI --> GSM : Shows agenda and asks the entry to be modified
+
+        deactivate UI
+
+        GSM -> UI : Selects an entry from Agenda
+
+        activate UI
+        |||
+        end loop
+        |||
+        UI --> UI : keepData(task)
+        |||
+
+        loop until doesn't choose to advance
+        UI --> GSM : Shows the list of vehicles and asks to select one
+            deactivate UI
+
+    GSM -> UI : Selects a vehicle
+    activate UI
+        |||
+        end
+
+        UI --> UI : keepData(List<Vehicle> selectedVehicles)
+        |||
+
+        UI --> GSM : Shows all data and requests confirmation
+    deactivate UI
+
+    GSM -> UI: Confirms data
+
+    activate UI
+        |||
+        UI --> UI : adds the selectedVehicles to\nthe selected entry of Agenda.
+        |||
+        UI --> GSM : Display operation success
+
+
+    deactivate UI
+
+
+
+
+
+
+deactivate GSM
+
+
+@enduml
