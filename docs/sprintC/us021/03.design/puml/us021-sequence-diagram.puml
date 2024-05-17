@@ -9,10 +9,12 @@ autonumber
 
 actor "GSM" as GSM
 participant ":AddNewEntryToDoUI" as UI
-participant ":AddNewEntryToDoController" as CTRL
+participant "controller\n:AddNewEntryToDoController" as CTRL
 participant ":Repositories" as REPO
 participant "repositories\n:Repositories" as REPOInstance
 participant "greenSpaceRepository\n:GreenSpaceRepository" as GreenSpaceREPO
+participant ":GreenSpaceMapper" as GreenSpaceMapper
+participant ":GreenSpaceDTO" as GreenSpaceDTO
 participant ":ToDo" as Todo
 participant ":Task" as Task
 
@@ -38,8 +40,30 @@ activate GSM
 
         CTRL -> GreenSpaceREPO : getGreenSpaceList()
         activate GreenSpaceREPO
+
         GreenSpaceREPO --> CTRL : greenSpaceList
+
         deactivate GreenSpaceREPO
+
+        CTRL -> GreenSpaceMapper : getGreenSpaceDTOlist(greenSpaceList)
+
+        activate GreenSpaceMapper
+loop for each greenSpace in greenSpaceList
+            GreenSpaceMapper -> GreenSpaceDTO** : toDTO(greenSpace)
+
+            note right of GreenSpaceDTO
+                                GreenSpaceDTO contains the (atributes here)
+                            end note
+                            |||
+            GreenSpaceMapper --> GreenSpaceMapper : add(greenSpaceDTO)
+
+end loop
+            GreenSpaceMapper --> CTRL : getGreenSpaceDTOlist
+
+
+
+        deactivate GreenSpaceMapper
+
 
 
 
