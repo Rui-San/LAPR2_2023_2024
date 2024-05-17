@@ -103,5 +103,9 @@ public class Task {
         this.urgency = urgency;
     }
 
+    public void assignVehicles(List<Vehicle> selectedVehicles){
+        this.vehiclesAssigned.addAll(selectedVehicles);
+    }
+
 
 }
