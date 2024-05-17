@@ -3,7 +3,7 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title US023 - System Sequence Diagram (SSD) - Simplified
+title US023 - System Sequence Diagram (SSD)
 
 autonumber
 
