@@ -8,15 +8,16 @@ autonumber
 
 actor "Collaborator" as Collaborator
 participant ":ConsultTasksUI" as UI
-
+participant ":CollaboratorRepository" as cr
 
 activate Collaborator
-loop until typed data is validated
-Collaborator -> UI: asks to show his assigned
+Collaborator -> UI: asks to show his assigned tasks
 UI --> Collaborator: Requests data(collaborator name)
-end loop
 UI -> UI: keepdata(collaborator name)
-
+UI -> cr: getAssignedTasks()
+activate cr
+cr --> UI: Assigned Tasks
+deactivate cr
 UI -> Collaborator: displays assigned tasks
 
 
