@@ -1,7 +1,5 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
-import pt.ipp.isep.dei.esoft.project.controller.GreenSpaceRepository;
-
 /**
  * Singleton class responsible for providing access to various repositories.
  */
