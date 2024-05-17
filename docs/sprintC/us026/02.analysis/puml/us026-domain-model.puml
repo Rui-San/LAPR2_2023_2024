@@ -4,7 +4,7 @@ skinparam packageStyle rectangle
 skinparam shadowing false
 
 'left to right direction
-title US025 - Domain Model
+title US026 - Domain Model
 skinparam classAttributeIconSize 0
 
 hide circle
@@ -21,6 +21,6 @@ class Agenda {
 
 
 
-GSM "1" -- "1" Agenda : cancels an entry
+GSM "1" -- "1" Agenda : assign vehicles\nto an entry
 
 @enduml
