@@ -14,6 +14,7 @@ import java.io.IOException;
 
 public class MainApp extends Application {
     public static final String APP_TITLE = "Login";
+
     @Override
     public void start(Stage stage) throws IOException {
         try {
