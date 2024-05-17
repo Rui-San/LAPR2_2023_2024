@@ -1,0 +1,134 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+title US003 - Class Diagram
+
+class Collaborator {
+     - String name
+     - String mobileNumber
+     ...
+
+     + Collaborator(name, birthdate, admissionDate, street,\nstreetNumber, postalCode, city, district, email, mobileNumber,\nidDocType, idDocNumber, job)
+     + getName()
+     + getBirthdate()
+     ...()
+
+}
+
+class Job {
+    - String jobName
+
+    + Job(jobName)
+    + setJobName(jobName)
+    + clone()
+    - validateJob(jobName)
+
+}
+
+class Date {
+    - int day
+    - int month
+    - int year
+
+    + Date(dateString)
+    + Date()
+    + setDate(date)
+    - validateDate(date)
+    ...()
+}
+
+class CollaboratorRepository{
+    - List<Collaborator> collaboratorList
+
+    + CollaboratorRepository()
+    + add(collaborator)
+    - validateCollaborator(collaborator)
+    + createCollaborator(name, birthdate, admissionDate, street,\nstreetNumber, postalCode, city, district, email, mobileNumber,\nidDocType, idDocNumber, job)
+}
+
+class JobRepository {
+    - List<Job> jobList
+
+    + getJobList()
+}
+
+class Repositories {
+    - Repositories()
+    + getInstance() : Repositories
+    + getJobRepository()
+    + getCollaboratorRepository()
+}
+
+note left of JobRepository
+    - used for displaying
+    the job list
+end note
+
+class RegisterCollaboratorController {
+
+    + RegisterCollaboratorController(jobRepository, collaboratorRepository)
+    + RegisterCollaboratorController()
+    - getJobRepository()
+    - getCollaboratorRepository()
+    + getJobList()
+    + createCollaborator(name, birthdate, admissionDate, street, streetNumber,\npostalCode, city, district, email, mobileNumber, idDocType, idDocNumber, job)
+
+}
+
+class RegisterCollaboratorUI {
+    - String name
+    - String birthdate
+    ...
+
+    - requestData()
+    - displayAndSelectJob()
+    - submitData()
+    ...()
+}
+
+class Email{
+    - String email
+
+    + Email(email)
+    + getEmail()
+    + setEmail(email)
+    - validateEmail(email)
+    + toString()
+    + clone()
+}
+
+class Address{
+    - String street
+    - int streetNumber
+    - String postalCode
+    - String city
+    - String district
+
+    + Address(street, streetNumber, postalCode, city, district)
+    + getStreet()
+    + setStreet(street)
+    + getStreetNumber()
+    ...()
+}
+
+RegisterCollaboratorUI .right.> RegisterCollaboratorController
+RegisterCollaboratorController ..> "1" CollaboratorRepository : collaboratorRepository
+CollaboratorRepository "1"-down-> "*" Collaborator : collaborator
+RegisterCollaboratorController ..> JobRepository : jobRepository
+JobRepository "1"-->"*" Job : job
+Collaborator o-- "1" Job : job
+Collaborator *--"1" Email : email
+Collaborator *--"1" Address : address
+Collaborator *--"1" Date : birthdate /\nadmissionDate
+RegisterCollaboratorController ..> Repositories : repositories
+Repositories --> "1" JobRepository
+Repositories --> "1" CollaboratorRepository
+Repositories -> Repositories : instance
+
+
+@enduml

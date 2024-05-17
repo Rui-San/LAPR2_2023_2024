@@ -1,0 +1,43 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+
+class Address{
+    - String street
+    - int streetNumber
+    - String postalCode
+    - String city
+    - String district
+--Methods:--
+    + Address(street, streetNumber, postalCode, city, district)
+    + toString()
+    + clone()
+    ..Getters:..
+    + getStreet()
+    + getStreetNumber()
+    + getPostalCode()
+    + getCity()
+    + getDistrict()
+    ..Setters:..
+    + setStreet(street)
+    + setStreetNumber(streetNumber)
+    + setPostalCode(postalCode)
+    + setCity(city)
+    + setDistrict(district)
+    ..Validation Methods:..
+    - validateStreet(street)
+    - validateStreetNumber(streetNumber)
+    - validatePostalCode(postalCode)
+    - validateCity(city)
+    - validateDistrict(district)
+}
+
+
+
+
+@enduml

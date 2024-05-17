@@ -1,0 +1,159 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title US004 - Sequence Diagram
+
+autonumber
+
+actor "HRM" as HRM
+participant ":AssignSkillUI" as UI
+participant ":AssignSkillController" as CTRL
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as rep
+participant "skillRepository:\nSkillRepository" as SkillRepository
+participant ":collaboratorRepository \nCollaboratorRepository" as COLREP
+participant ":collaborator \nCollaborator" as COL
+
+activate HRM
+
+    HRM -> UI : Asks to assign one or more skills to a collaborator
+
+    activate UI
+
+        UI -> CTRL : getCollaboratorList()
+
+        activate CTRL
+
+            CTRL -> RepositorySingleton : getInstance()
+
+            activate RepositorySingleton
+
+                RepositorySingleton -> CTRL : repositories
+            deactivate RepositorySingleton
+
+            CTRL -> rep : getCollaboratorRepository()
+            activate rep
+
+                rep --> CTRL : collaboratorRepository
+            deactivate rep
+            CTRL -> COLREP : getCollaboratorList()
+
+            activate COLREP
+
+            COLREP --> CTRL : collaboratorList
+            deactivate COLREP
+
+
+            CTRL -> UI : collaboratorList
+            loop until doesn't choose a valid option
+        deactivate CTRL
+        UI --> HRM : Shows a list of Collaborators and asks to select one
+
+    deactivate UI
+
+
+    HRM -> UI : Selects a collaborator
+    activate UI
+    |||
+    end
+|||
+
+    UI --> UI : keepsData(collaborator)
+
+    |||
+
+        UI -> CTRL : getSkillList()
+
+        activate CTRL
+
+            CTRL -> RepositorySingleton : getInstance()
+
+            activate RepositorySingleton
+
+                RepositorySingleton -> CTRL : repositories
+            deactivate RepositorySingleton
+
+            CTRL -> rep : getSkillRepository()
+
+            activate rep
+
+                rep --> CTRL : skillRepository
+            deactivate rep
+
+            CTRL -> SkillRepository : getSkillList()
+
+            activate SkillRepository
+
+                SkillRepository --> CTRL : skillList
+            deactivate SkillRepository
+
+            CTRL -> UI : skillList
+        deactivate CTRL
+
+        loop while doesn't choose to advance
+
+            UI --> HRM : Displays a list of available skills and asks to \nselect one.
+    deactivate UI
+
+        HRM -> UI : Selects a skill
+        |||
+
+    activate UI
+
+        end
+        |||
+        UI --> UI : keepData(List<Skill> selectedSkills)
+
+        UI --> HRM : Shows all data and requests confirmation
+    deactivate UI
+
+    HRM -> UI : Confirms the operation
+    activate UI
+
+
+        UI -> CTRL : assignSkillsToCollaborator(collaborator, selectedSkills)
+
+        activate CTRL
+
+            CTRL -> RepositorySingleton : getInstance()
+
+                    activate RepositorySingleton
+
+                        RepositorySingleton -> CTRL : repositories
+                    deactivate RepositorySingleton
+
+                    CTRL -> rep : getCollaboratorRepository()
+                    activate rep
+
+                        rep --> CTRL : collaboratorRepository
+                    deactivate rep
+                    CTRL -> COLREP : assignSkillsToCollaborator(collaborator, selectedSkills)
+
+                    activate COLREP
+
+                    COLREP -> COLREP : getCollaboratorByCollaboratorEmail(collaboratorEmail)
+
+
+                    |||
+
+                    COLREP -> COL** : assignSkills(selectedSkills)
+                   Note right
+                   <font color=black><b>Adding skills to the object collaborator:
+
+                   assignSkills(List<Skill> selectedSkills)) {
+                       skillList.addAll(selectedSkills)
+                   }
+                   end note
+
+                    COLREP -> COLREP : assignSkillsToCollaborator(collaborator, selectedSkills)
+                    COLREP --> CTRL : operation success
+                deactivate COLREP
+                CTRL --> UI : operation
+                deactivate CTRL
+                UI --> HRM : Display operation success
+                deactivate UI
+
+
+@enduml

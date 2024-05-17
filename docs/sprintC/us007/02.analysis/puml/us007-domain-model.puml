@@ -1,0 +1,39 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+title US007 - Domain Model
+
+
+
+class Vehicle{
+    plateId
+    brand
+    model
+    type
+    tare
+    grossWeight
+    currentKm
+    registerDate
+    acquisitionDate
+    checkupFrequencyKms
+}
+
+class Checkup{
+    date
+    checkupKms
+}
+
+
+FM "1" -- "*" Checkup : "registers >"
+Vehicle "1" -- "*" Checkup : "does >"
+
+@enduml
