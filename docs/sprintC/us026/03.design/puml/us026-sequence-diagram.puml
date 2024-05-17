@@ -1,0 +1,148 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title US026 - System Sequence Diagram (SSD)
+
+autonumber
+
+actor "GSM" as GSM
+participant ":AssignVehicleAgendaUI" as UI
+participant ":AssignVehicleAgendaController" as CTRL
+participant ":Agenda" as Agenda
+participant ":Task" as Task
+participant ":Repository" as REP
+participant ":repositories \nRepositories" as REPS
+participant ":vehicleRepository \nVehicleRepository" as VR
+
+
+
+activate GSM
+
+    GSM -> UI : Asks to assign one or more vehicles to an entry in the Agenda
+
+
+
+    activate UI
+
+    UI -> CTRL : getAgenda()
+
+    activate CTRL
+
+        CTRL -> Agenda : getAgenda()
+
+        activate Agenda
+
+            Agenda --> CTRL : agenda
+        deactivate Agenda
+
+        CTRL --> UI : agenda
+    deactivate CTRL
+    |||
+
+    loop until doesn't select a valid option
+
+        UI --> GSM : Shows agenda and asks the entry to be modified
+
+        deactivate UI
+
+        GSM -> UI : Selects an entry from Agenda
+
+        activate UI
+        |||
+        end loop
+        |||
+        UI --> UI : keepData(task)
+        |||
+
+        UI -> CTRL : getVehicleList()
+
+         activate CTRL
+
+                    CTRL -> REP : getInstance()
+
+                    activate REP
+
+                    REP --> CTRL : repositories
+                    deactivate REP
+
+                    CTRL -> REPS : getVehicleRepository()
+                    activate REPS
+
+                    REPS --> CTRL : vehicleRepository
+                    deactivate REPS
+
+                    CTRL -> VehicleRepository : getVehicleList()
+                    activate VehicleRepository
+
+                    VehicleRepository --> CTRL : vehicleList
+                    deactivate VehicleRepository
+
+                    CTRL --> UI : vehicleList
+                   deactivate CTRL
+                    |||
+
+        loop until doesn't choose to advance
+        UI --> GSM : Shows the list of vehicles and asks to select one
+            deactivate UI
+
+    GSM -> UI : Selects a vehicle
+    activate UI
+        |||
+        end
+
+        UI --> UI : keepData(List<Vehicle> selectedVehicles)
+        |||
+
+        UI --> GSM : Shows all data and requests confirmation
+    deactivate UI
+
+    GSM -> UI: Confirms data
+
+    activate UI
+        |||
+
+        UI -> CTRL : assignVehiclesToEntry(task, selectedVehicles)
+
+        activate CTRL
+
+            CTRL -> Agenda : assignVehiclesToEntry(task, selectedVehicles)
+
+            activate Agenda
+
+            note right
+             arranjarForma
+             DeObterTaskBy
+             Task
+                QualquerCoisa
+            end note
+            |||
+            Agenda -> Task** : assignVehicles(selectedVehicles)
+            |||
+            |||
+
+            Agenda --> Agenda : assignVehiclesToEntry(task, selectedVehicles)
+
+            Agenda --> CTRL : operation success
+        deactivate Agenda
+
+        CTRL --> UI : operation success
+
+        deactivate CTRL
+
+        UI --> GSM : Display operation success
+
+
+
+    deactivate UI
+
+
+
+
+
+
+deactivate GSM
+
+
+@enduml
