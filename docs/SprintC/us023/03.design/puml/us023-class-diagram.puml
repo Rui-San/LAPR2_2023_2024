@@ -1,0 +1,23 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+title US023 - Class Diagram
+
+Class Team {
+
+}
+
+Class AssignTeamUI
+
+Class AssignTeamController
+
+Class Agenda
+
+Class Team
+
+Class EmailService
+
+@enduml
