@@ -24,19 +24,9 @@ public class ToDoRepository {
         return toDoList;
     }
 
-    public Optional<Task> registerTaskToDo(String title, String description, Status status, GreenSpace greenSpace, UrgencyType urgency, Duration expectedDuration) {
-
-        Task task = new Task(
-                title,
-                description,
-                status,
-                greenSpace,
-                urgency,
-                expectedDuration
-        );
+    public Optional<Task> registerTaskToDo(Task task) {
 
         Optional<Task> addedTask = add(task);
-
 
         return addedTask;
     }

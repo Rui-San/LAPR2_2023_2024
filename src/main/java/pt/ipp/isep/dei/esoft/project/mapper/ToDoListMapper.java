@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.mapper;
 
+import pt.ipp.isep.dei.esoft.project.domain.GreenSpace;
 import pt.ipp.isep.dei.esoft.project.domain.Task;
 import pt.ipp.isep.dei.esoft.project.dto.ToDoTaskDTO;
 
@@ -26,18 +27,18 @@ public class ToDoListMapper {
                 toDoTask.getTitle(),
                 toDoTask.getDescription(),
                 toDoTask.getStatus(),
-                toDoTask.getGreenSpace(),
+                toDoTask.getGreenSpace().getName(),
                 toDoTask.getUrgency(),
                 toDoTask.getExpectedDuration()
         );
     }
 
-    public static Task toTask(ToDoTaskDTO toDoTaskDTO) {
+    public static Task toTask(ToDoTaskDTO toDoTaskDTO, GreenSpace greenSpace) {
         return new Task(
                 toDoTaskDTO.title,
                 toDoTaskDTO.description,
                 toDoTaskDTO.status,
-                toDoTaskDTO.greenSpace,
+                greenSpace,
                 toDoTaskDTO.urgency,
                 toDoTaskDTO.expectedDuration
         );
