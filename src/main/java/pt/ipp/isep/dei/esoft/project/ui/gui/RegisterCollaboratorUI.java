@@ -54,7 +54,7 @@ public class RegisterCollaboratorUI implements Initializable {
     @FXML
     private TextField txtDocNumber;
     @FXML
-    private ComboBox<IdDocType> cbDocType;
+    private ComboBox<String> cbDocType;
     @FXML
     private ComboBox<String> cbJob;
 
@@ -67,6 +67,7 @@ public class RegisterCollaboratorUI implements Initializable {
 
     /**
      * Returns the controller
+     *
      * @return the controller
      */
     public RegisterCollaboratorController getRegisterCollaboratorController() {
@@ -80,10 +81,25 @@ public class RegisterCollaboratorUI implements Initializable {
     }
 
     @FXML
-    private void btnSubmitAction(){
+    private void btnSubmitAction() {
         try {
             String cfBirthdate = convertFormat(dpBirthdate.getValue().toString());
             String cfAdmissionDate = convertFormat(dpAdmissionDate.getValue().toString());
+
+            int selectedIndex = cbDocType.getSelectionModel().getSelectedIndex();
+            IdDocType idDocType = null;
+            switch (selectedIndex) {
+                case 0:
+                    idDocType = IdDocType.CC;
+                    break;
+                case 1:
+                    idDocType = IdDocType.BI;
+                    break;
+                case 2:
+                    idDocType = IdDocType.PASSPORT;
+
+            }
+
             Optional<Collaborator> collaborator = getRegisterCollaboratorController().createCollaborator(
                     txtName.getText().trim(),
                     cfBirthdate,
@@ -95,7 +111,7 @@ public class RegisterCollaboratorUI implements Initializable {
                     txtDistrict.getText().trim(),
                     txtEmail.getText().trim(),
                     txtPhoneNumber.getText().trim(),
-                    IdDocType.PASSPORT,
+                    idDocType,
                     txtDocNumber.getText().trim(),
                     null
             );
@@ -118,7 +134,7 @@ public class RegisterCollaboratorUI implements Initializable {
     }
 
     private void fillDocTypeComboBox() {
-        cbDocType.getItems().addAll(IdDocType.values());
+        cbDocType.getItems().addAll("CC", "BI", "PASSPORT");
     }
 
     private void fillJobComboBox() {
