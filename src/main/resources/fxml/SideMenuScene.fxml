@@ -24,7 +24,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
                <items>
-                  <MenuItem mnemonicParsing="false" text="Register Skill" />
+                  <MenuItem mnemonicParsing="false" onAction="#RegisterSkill" text="Register Skill" />
                </items>
             </MenuButton>
             <MenuButton mnemonicParsing="false" popupSide="RIGHT" styleClass="menu-btn" text="Collaborators">
