@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="499.0" prefWidth="956.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.MenuUI">
+   <left>
+      <VBox prefHeight="470.0" prefWidth="150.0" styleClass="menu-style" BorderPane.alignment="CENTER">
+         <children>
+            <MenuButton mnemonicParsing="false" popupSide="RIGHT" styleClass="menu-btn" text="Jobs">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Register Job" />
+              </items>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </MenuButton>
+            <MenuButton mnemonicParsing="false" popupSide="RIGHT" styleClass="menu-btn" text="Skills">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Register Skill" />
+               </items>
+            </MenuButton>
+            <MenuButton mnemonicParsing="false" popupSide="RIGHT" styleClass="menu-btn" text="Collaborators">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#RegisterCollaborator" text="Register Collaborator" />
+                  <MenuItem mnemonicParsing="false" text="Assign skill" />
+               </items>
+            </MenuButton>
+            <MenuButton mnemonicParsing="false" popupSide="RIGHT" styleClass="menu-btn" text="Vehicles">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Register Vehicle" />
+                  <MenuItem mnemonicParsing="false" text="Register Vehicle Checkup" />
+                  <MenuItem mnemonicParsing="false" text="List Vehicles Needing Checkup" />
+               </items>
+            </MenuButton>
+            <MenuButton mnemonicParsing="false" popupSide="RIGHT" styleClass="menu-btn" text="Teams">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Generate Team Proposal" />
+               </items>
+            </MenuButton>
+            <MenuButton mnemonicParsing="false" popupSide="RIGHT" styleClass="menu-btn" text="Green Spaces">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#RegisterGreenSpace" text="Register Green Space" />
+               </items>
+            </MenuButton>
+            <MenuButton mnemonicParsing="false" popupSide="RIGHT" styleClass="menu-btn" text="Tasks">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Add task" />
+                  <MenuItem mnemonicParsing="false" text="Add task to agenda" />
+                  <MenuItem mnemonicParsing="false" text="Add Team to task" />
+                  <MenuItem mnemonicParsing="false" text="Add Vehicle to task" />
+                  <MenuItem mnemonicParsing="false" text="Add Green Space to task" />
+               </items>
+            </MenuButton>
+            <BorderPane prefHeight="218.0" prefWidth="257.0" VBox.vgrow="ALWAYS">
+               <bottom>
+                  <Button mnemonicParsing="false" text="Logout" BorderPane.alignment="CENTER">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <styleClass>
+                        <String fx:value="menu-btn" />
+                        <String fx:value="menu-btn-logout" />
+                     </styleClass>
+                  </Button>
+               </bottom>
+            </BorderPane>
+         </children>
+      </VBox>
+   </left>
+   <center>
+      <StackPane fx:id="contentArea" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </center>
+   <top>
+      <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="956.0" style="-fx-background-color: #E0E0E0;" BorderPane.alignment="CENTER">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Projeto Integrador" textAlignment="CENTER" wrappingWidth="193.13671875">
+               <font>
+                  <Font name="Berlin Sans FB" size="18.0" />
+               </font>
+            </Text>
+         </children>
+      </HBox>
+   </top>
+</BorderPane>
