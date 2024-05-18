@@ -19,10 +19,8 @@ import pt.ipp.isep.dei.esoft.project.ui.console.menu.VfmUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 import pt.ipp.isep.dei.esoft.project.ui.gui.AlertUI;
 import pt.ipp.isep.dei.esoft.project.ui.gui.MainApp;
-import pt.ipp.isep.dei.esoft.project.ui.gui.RegisterCollaboratorUI;
 import pt.isep.lei.esoft.auth.mappers.dto.UserRoleDTO;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
@@ -30,7 +28,7 @@ import java.util.List;
 
 public class AuthenticationUI implements Initializable {
     private final AuthenticationController ctrl;
-    private Stage novoColaboradorStage;
+    private Stage landingPage;
 
     @FXML
     private TextField txtUsername;
@@ -45,16 +43,16 @@ public class AuthenticationUI implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/RegisterCollaboratorScene.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/SideMenuScene.fxml"));
             Parent root = loader.load();
 
             Scene scene = new Scene(root);
 
-            novoColaboradorStage = new Stage();
-            novoColaboradorStage.initModality(Modality.APPLICATION_MODAL);
-            novoColaboradorStage.setTitle("Novo Colaborador");
-            novoColaboradorStage.setResizable(false);
-            novoColaboradorStage.setScene(scene);
+            landingPage = new Stage();
+            landingPage.initModality(Modality.APPLICATION_MODAL);
+            landingPage.setTitle("Programa");
+            landingPage.setResizable(false);
+            landingPage.setScene(scene);
 
         } catch (IOException ex) {
             AlertUI.createAlert(Alert.AlertType.ERROR, MainApp.APP_TITLE, "Erro.", ex.getMessage());
@@ -78,7 +76,7 @@ public class AuthenticationUI implements Initializable {
             } else {
                 UserRoleDTO role = selectsRole(roles);
                 if (!Objects.isNull(role)) {
-                    novoColaboradorStage.show();
+                    landingPage.show();
                 } else {
                     System.out.println("No role selected.");
                 }
