@@ -9,10 +9,10 @@ public class GreenSpace {
     Double totalArea;
 
     public GreenSpace(GreenSpaceType type, String name, String street, int streetNumber, String postalCode, String city, String district, Double totalArea) {
-        this.type = type;
-        this.name = name;
-        setAddress(street,streetNumber,postalCode,city,district);
-        this.totalArea = totalArea;
+        setType(type);
+        setName(name);
+        setAddress(street, streetNumber, postalCode, city, district);
+        setTotalArea(totalArea);
     }
 
     public GreenSpaceType getType() {
@@ -20,7 +20,15 @@ public class GreenSpace {
     }
 
     public void setType(GreenSpaceType type) {
-        this.type = type;
+        if (validateType(type)) {
+            this.type = type;
+        } else {
+            throw new IllegalArgumentException("This option is not a valid type.");
+        }
+    }
+
+    private boolean validateType(GreenSpaceType type) {
+        return type == GreenSpaceType.GARDEN || type == GreenSpaceType.LARGE || type == GreenSpaceType.MEDIUM;
     }
 
     public String getName() {
@@ -28,15 +36,36 @@ public class GreenSpace {
     }
 
     public void setName(String name) {
+        validateName(name);
         this.name = name;
     }
 
+    private void validateName(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Green Space name can't be empty or null.");
+        }
+        if (!name.matches("[a-zA-Z\\s-\\p{L}]+")) {
+            throw new IllegalArgumentException("Green Space name cannot contain Special characters.");
+        }
+    }
+
     public Double getTotalArea() {
+
         return totalArea;
     }
 
     public void setTotalArea(Double totalArea) {
+        validateTotalArea(totalArea);
         this.totalArea = totalArea;
+    }
+
+    private void validateTotalArea(Double totalArea) {
+        if(totalArea == null){
+            throw new IllegalArgumentException("Total Area must not be empty.");
+        }
+        if (totalArea <= 0) {
+            throw new IllegalArgumentException("Total Area must be a postive number.");
+        }
     }
 
     public Address getAddress() {

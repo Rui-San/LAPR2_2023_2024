@@ -42,10 +42,10 @@ public class Task {
 
     private void validateTitle(String title) {
         if (title == null || title.trim().isEmpty()) {
-            throw new IllegalArgumentException("Title can't be empty or null");
+            throw new IllegalArgumentException("Title can't be empty or null.");
         }
         if (!title.matches("[a-zA-Z\\s-\\p{L}]+")) {
-            throw new IllegalArgumentException("Title cannot contain Special characters");
+            throw new IllegalArgumentException("Title cannot contain Special characters.");
         }
     }
 
@@ -60,10 +60,10 @@ public class Task {
 
     private void validateDescription(String description) {
         if (description == null || description.trim().isEmpty()) {
-            throw new IllegalArgumentException("Description can't be empty or null");
+            throw new IllegalArgumentException("Description can't be empty or null.");
         }
         if (!description.matches("[a-zA-Z\\s-\\p{L}]+")) {
-            throw new IllegalArgumentException("Description cannot contain Special characters");
+            throw new IllegalArgumentException("Description cannot contain Special characters.");
         }
     }
 
