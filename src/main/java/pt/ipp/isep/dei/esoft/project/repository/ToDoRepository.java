@@ -73,4 +73,12 @@ public class ToDoRepository {
         }
         return isValid;
     }
+
+    public boolean updateTaskToProcessed(Task task) {
+        if (toDoList.contains(task)) {
+            task.setStatus(Status.PROCESSED);
+            return true;
+        }
+        return false;
+    }
 }
