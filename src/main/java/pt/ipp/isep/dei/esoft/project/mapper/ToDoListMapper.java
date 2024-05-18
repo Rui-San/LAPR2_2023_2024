@@ -31,4 +31,15 @@ public class ToDoListMapper {
                 toDoTask.getExpectedDuration()
         );
     }
+
+    public static Task toTask(ToDoTaskDTO toDoTaskDTO) {
+        return new Task(
+                toDoTaskDTO.title,
+                toDoTaskDTO.description,
+                toDoTaskDTO.status,
+                toDoTaskDTO.greenSpace,
+                toDoTaskDTO.urgency,
+                toDoTaskDTO.expectedDuration
+        );
+    }
 }

@@ -24,7 +24,7 @@ public class ToDoRepository {
         return toDoList;
     }
 
-    public Optional<Task> registerTaskToDo(String title, String description, Status status, GreenSpace greenSpace, UrgencyType urgency, int days, int hours) {
+    public Optional<Task> registerTaskToDo(String title, String description, Status status, GreenSpace greenSpace, UrgencyType urgency, Duration expectedDuration) {
 
         Task task = new Task(
                 title,
@@ -32,8 +32,7 @@ public class ToDoRepository {
                 status,
                 greenSpace,
                 urgency,
-                days,
-                hours
+                expectedDuration
         );
 
         Optional<Task> addedTask = add(task);

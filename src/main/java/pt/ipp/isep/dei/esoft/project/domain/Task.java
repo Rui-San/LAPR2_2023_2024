@@ -19,13 +19,13 @@ public class Task {
     private Team teamAssigned;
     private List<Vehicle> vehiclesAssigned;
 
-    public Task(String title, String description, Status status, GreenSpace greenSpace, UrgencyType urgency, int days, int hours) {
+    public Task(String title, String description, Status status, GreenSpace greenSpace, UrgencyType urgency, Duration expectedDuration) {
         setTitle(title);
         setDescription(description);
         setStatus(status);
         setGreenSpace(greenSpace);
         setUrgency(urgency);
-        setExpectedDuration(days,hours);
+        setExpectedDuration(expectedDuration);
         this.executionDate = null;
         this.teamAssigned = null;
         this.vehiclesAssigned = new ArrayList<>();
@@ -125,19 +125,20 @@ public class Task {
         return expectedDuration;
     }
 
-    public void setExpectedDuration(int days, int hours) {
-        validateDuration(days,hours);
+    public void setExpectedDuration(Duration expectedDuration) {
+        validateDuration(expectedDuration);
+
         this.expectedDuration = expectedDuration;
     }
 
-    private void validateDuration(int days, int hours) {
-        if (days < 0 || hours < 0) {
+    private void validateDuration(Duration expectedDuration) {
+        if (expectedDuration.toDaysPart() < 0 || expectedDuration.toHoursPart() < 0) {
             throw new IllegalArgumentException("Days and hours must be non-negative numbers.");
         }
-        if (days == 0 && hours == 0) {
+        if (expectedDuration.toDaysPart() == 0 && expectedDuration.toHoursPart() == 0) {
             throw new IllegalArgumentException("At least one of days or hours must be greater than zero.");
         }
-        if (hours >= 24) {
+        if (expectedDuration.toHours() >= 24) {
             throw new IllegalArgumentException("Hours must be less than 24.");
         }
 
