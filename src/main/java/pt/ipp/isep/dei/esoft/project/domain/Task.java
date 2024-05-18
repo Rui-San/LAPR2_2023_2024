@@ -19,13 +19,13 @@ public class Task {
     private Team teamAssigned;
     private List<Vehicle> vehiclesAssigned;
 
-    public Task(String title, String description, Status status, GreenSpace greenSpace, UrgencyType urgency, Duration expectedDuration) {
-        this.title = title;
-        this.description = description;
-        this.status = status;
-        this.greenSpace = greenSpace;
-        this.urgency = urgency;
-        this.expectedDuration = expectedDuration;
+    public Task(String title, String description, Status status, GreenSpace greenSpace, UrgencyType urgency, int days, int hours) {
+        setTitle(title);
+        setDescription(description);
+        setStatus(status);
+        setGreenSpace(greenSpace);
+        setUrgency(urgency);
+        setExpectedDuration(days,hours);
         this.executionDate = null;
         this.teamAssigned = null;
         this.vehiclesAssigned = new ArrayList<>();
@@ -36,7 +36,17 @@ public class Task {
     }
 
     public void setTitle(String title) {
+        validateTitle(title);
         this.title = title;
+    }
+
+    private void validateTitle(String title) {
+        if (title == null || title.trim().isEmpty()) {
+            throw new IllegalArgumentException("Title can't be empty or null");
+        }
+        if (!title.matches("[a-zA-Z\\s-\\p{L}]+")) {
+            throw new IllegalArgumentException("Title cannot contain Special characters");
+        }
     }
 
     public String getDescription() {
@@ -44,7 +54,17 @@ public class Task {
     }
 
     public void setDescription(String description) {
+        validateDescription(description);
         this.description = description;
+    }
+
+    private void validateDescription(String description) {
+        if (description == null || description.trim().isEmpty()) {
+            throw new IllegalArgumentException("Description can't be empty or null");
+        }
+        if (!description.matches("[a-zA-Z\\s-\\p{L}]+")) {
+            throw new IllegalArgumentException("Description cannot contain Special characters");
+        }
     }
 
     public Status getStatus() {
@@ -52,7 +72,15 @@ public class Task {
     }
 
     public void setStatus(Status status) {
-        this.status = status;
+        if (validateStatus(status)) {
+            this.status = status;
+        } else {
+            throw new IllegalArgumentException("Status is not valid.");
+        }
+    }
+
+    private boolean validateStatus(Status status) {
+        return status == Status.DONE || status == Status.CANCELED || status == Status.PENDING || status == Status.PLANNED || status == Status.POSTPONED || status == Status.PROCESSED;
     }
 
     public GreenSpace getGreenSpace() {
@@ -83,16 +111,36 @@ public class Task {
         return executionDate;
     }
 
-    public void setExecutionDate(Date executionDate) {
-        this.executionDate = executionDate;
+    public void setExecutionDate(String executionDate) {
+        Date date = new Date(executionDate);
+
+        if (date.isPastDate()) {
+            throw new IllegalArgumentException("Execution date must be a future date.");
+        } else {
+            this.executionDate = date;
+        }
     }
 
     public Duration getExpectedDuration() {
         return expectedDuration;
     }
 
-    public void setExpectedDuration(Duration expectedDuration) {
+    public void setExpectedDuration(int days, int hours) {
+        validateDuration(days,hours);
         this.expectedDuration = expectedDuration;
+    }
+
+    private void validateDuration(int days, int hours) {
+        if (days < 0 || hours < 0) {
+            throw new IllegalArgumentException("Days and hours must be non-negative numbers.");
+        }
+        if (days == 0 && hours == 0) {
+            throw new IllegalArgumentException("At least one of days or hours must be greater than zero.");
+        }
+        if (hours >= 24) {
+            throw new IllegalArgumentException("Hours must be less than 24.");
+        }
+
     }
 
     public UrgencyType getUrgency() {
@@ -100,10 +148,18 @@ public class Task {
     }
 
     public void setUrgency(UrgencyType urgency) {
-        this.urgency = urgency;
+        if (validateUrgency(urgency)) {
+            this.urgency = urgency;
+        } else {
+            throw new IllegalArgumentException("Urgency option is not valid.");
+        }
     }
 
-    public void assignVehicles(List<Vehicle> selectedVehicles){
+    private boolean validateUrgency(UrgencyType urgency) {
+        return urgency == UrgencyType.HIGH || urgency == UrgencyType.MEDIUM || urgency == UrgencyType.LOW;
+    }
+
+    public void assignVehicles(List<Vehicle> selectedVehicles) {
         this.vehiclesAssigned.addAll(selectedVehicles);
     }
 

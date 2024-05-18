@@ -46,14 +46,14 @@ public class AddNewEntryToDoController {
         return GreenSpaceMapper.toDTO(greenSpaceList);
     }
 
-    public Optional<Task> registerTask(String title, String description, Status status, GreenSpaceDTO greenSpaceDTO, UrgencyType urgency, Duration expectedDuration) {
+    public Optional<Task> registerTask(String title, String description, Status status, GreenSpaceDTO greenSpaceDTO, UrgencyType urgency, int days, int hours) {
 
         Optional<Task> newTaskToDo = Optional.empty();
 
         Optional<GreenSpace> greenSpaceOptional = greenSpaceRepository.getGreenSpaceByName(greenSpaceDTO.name);
 
         if (greenSpaceOptional.isPresent()) {
-            newTaskToDo = toDoRepository.registerTaskToDo(title, description, status, greenSpaceOptional.get(), urgency, expectedDuration);
+            newTaskToDo = toDoRepository.registerTaskToDo(title, description, status, greenSpaceOptional.get(), urgency, days, hours);
         } else {
             return Optional.empty();
         }

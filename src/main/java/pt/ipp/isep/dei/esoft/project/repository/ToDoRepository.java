@@ -14,6 +14,8 @@ public class ToDoRepository {
 
     private List<Task> toDoList;
 
+    private final Status DEFAULT_STATUS = Status.PENDING;
+
     public ToDoRepository() {
         this.toDoList = new ArrayList<>();
     }
@@ -22,7 +24,7 @@ public class ToDoRepository {
         return toDoList;
     }
 
-    public Optional<Task> registerTaskToDo(String title, String description, Status status, GreenSpace greenSpace, UrgencyType urgency, Duration expectedDuration) {
+    public Optional<Task> registerTaskToDo(String title, String description, Status status, GreenSpace greenSpace, UrgencyType urgency, int days, int hours) {
 
         Task task = new Task(
                 title,
@@ -30,10 +32,13 @@ public class ToDoRepository {
                 status,
                 greenSpace,
                 urgency,
-                expectedDuration
+                days,
+                hours
         );
 
         Optional<Task> addedTask = add(task);
+
+
         return addedTask;
     }
 
@@ -43,6 +48,7 @@ public class ToDoRepository {
         boolean operationSuccess = false;
 
         if (validateTaskToDo(task)) {
+            task.setStatus(DEFAULT_STATUS);
             newTask = Optional.of(task);
             operationSuccess = toDoList.add(newTask.get());
         }
@@ -67,5 +73,4 @@ public class ToDoRepository {
         }
         return isValid;
     }
-
 }
