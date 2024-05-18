@@ -23,10 +23,7 @@ public class GreenSpaceMapper {
 
     public static GreenSpaceDTO toDTO(GreenSpace greenSpace) {
 
-
         return new GreenSpaceDTO(greenSpace.getName());
-
-
     }
 
 
