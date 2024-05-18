@@ -13,7 +13,7 @@
          <children>
             <MenuButton mnemonicParsing="false" popupSide="RIGHT" styleClass="menu-btn" text="Jobs">
               <items>
-                <MenuItem mnemonicParsing="false" text="Register Job" />
+                <MenuItem mnemonicParsing="false" onAction="#RegisterJob" text="Register Job" />
               </items>
                <cursor>
                   <Cursor fx:constant="HAND" />

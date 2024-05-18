@@ -15,7 +15,7 @@
          </font>
       </Text>
       <TextField fx:id="txtSkillName" layoutX="239.0" layoutY="151.0" prefHeight="35.0" prefWidth="300.0" promptText="Skill name" styleClass="form-input" />
-      <Text layoutX="239.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Skill name:" textAlignment="CENTER">
+      <Text layoutX="239.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Skill name" textAlignment="CENTER">
          <font>
             <Font size="14.0" />
          </font>
