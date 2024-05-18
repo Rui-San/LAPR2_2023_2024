@@ -14,7 +14,7 @@ public class ToDoRepository {
 
     private List<Task> toDoList;
 
-    private final Status DEFAULT_STATUS = Status.PENDING;
+    private static final Status TODO_DEFAULT_STATUS = Status.PENDING;
 
     public ToDoRepository() {
         this.toDoList = new ArrayList<>();
@@ -48,7 +48,7 @@ public class ToDoRepository {
         boolean operationSuccess = false;
 
         if (validateTaskToDo(task)) {
-            task.setStatus(DEFAULT_STATUS);
+            task.setStatus(TODO_DEFAULT_STATUS);
             newTask = Optional.of(task);
             operationSuccess = toDoList.add(newTask.get());
         }

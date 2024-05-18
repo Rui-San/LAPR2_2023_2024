@@ -60,7 +60,4 @@ public class AddNewEntryToDoController {
 
         return newTaskToDo;
     }
-
-
-
 }
