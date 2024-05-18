@@ -1,51 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="446.0" prefWidth="634.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.RegisterCollaboratorUI">
-   <center>
-      <AnchorPane prefHeight="465.0" prefWidth="675.0" BorderPane.alignment="CENTER">
-         <children>
-            <TextField fx:id="txtName" layoutX="58.0" layoutY="53.0" prefHeight="27.0" prefWidth="175.0" promptText="Name" />
-            <DatePicker fx:id="dpBirthdate" layoutX="261.0" layoutY="53.0" promptText="Birthdate" />
-            <Button layoutX="315.0" layoutY="317.0" mnemonicParsing="false" onAction="#btnSubmitAction" prefHeight="34.0" prefWidth="67.0" text="Submit" />
-            <DatePicker fx:id="dpAdmissionDate" layoutX="261.0" layoutY="97.0" promptText="Admission Date" />
-            <TextField fx:id="txtDocNumber" layoutX="261.0" layoutY="141.0" prefHeight="27.0" prefWidth="174.0" promptText="Document Number" />
-            <TextField fx:id="txtEmail" layoutX="58.0" layoutY="187.0" prefHeight="27.0" prefWidth="174.0" promptText="Email" />
-            <TextField fx:id="txtPhoneNumber" layoutX="261.0" layoutY="186.0" prefHeight="27.0" prefWidth="174.0" promptText="Phone Number" />
-            <TextField fx:id="txtStreet" layoutX="59.0" layoutY="236.0" prefHeight="31.0" prefWidth="132.0" promptText="Street" />
-            <TextField fx:id="txtStreetNumber" layoutX="195.0" layoutY="236.0" prefHeight="31.0" prefWidth="62.0" promptText="nº" />
-            <TextField fx:id="txtPostalCode" layoutX="273.0" layoutY="236.0" prefHeight="31.0" prefWidth="103.0" promptText="Postal Code" />
-            <TextField fx:id="txtCity" layoutX="391.0" layoutY="236.0" prefHeight="31.0" prefWidth="103.0" promptText="City" />
-            <TextField fx:id="txtDistrict" layoutX="504.0" layoutY="236.0" prefHeight="31.0" prefWidth="103.0" promptText="District" />
-            <ComboBox fx:id="cbJob" editable="true" layoutX="58.0" layoutY="97.0" prefHeight="31.0" prefWidth="181.0" promptText="Select a Job" />
-            <ComboBox fx:id="cbDocType" editable="true" layoutX="59.0" layoutY="141.0" prefHeight="31.0" prefWidth="181.0" promptText="Select ID Type" />
-         </children>
-      </AnchorPane>
-   </center>
-   <top>
-      <MenuBar prefHeight="0.0" prefWidth="566.0" BorderPane.alignment="CENTER">
-        <menus>
-          <Menu mnemonicParsing="false" text="File">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-   </top>
-</BorderPane>
+<AnchorPane prefHeight="422.0" prefWidth="777.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.RegisterCollaboratorUI">
+   <children>
+      <TextField fx:id="txtName" layoutX="68.0" layoutY="95.0" prefHeight="35.0" prefWidth="300.0" promptText="Name" styleClass="form-input" />
+      <DatePicker fx:id="dpBirthdate" layoutX="405.0" layoutY="95.0" prefHeight="35.0" prefWidth="300.0" promptText="Birthdate" styleClass="form-input-datepicker" />
+      <TextField fx:id="txtEmail" layoutX="68.0" layoutY="145.0" prefHeight="35.0" prefWidth="300.0" promptText="Email" styleClass="form-input" />
+      <TextField fx:id="txtPhoneNumber" layoutX="405.0" layoutY="145.0" prefHeight="35.0" prefWidth="300.0" promptText="Phone Number" styleClass="form-input" />
+      <ComboBox fx:id="cbJob" editable="true" layoutX="68.0" layoutY="195.0" prefHeight="35.0" prefWidth="300.0" promptText="Select a Job" styleClass="form-input-datepicker" />
+      <DatePicker fx:id="dpAdmissionDate" layoutX="405.0" layoutY="195.0" prefHeight="35.0" prefWidth="300.0" promptText="Admission Date" styleClass="form-input-datepicker" />
+      <ComboBox fx:id="cbDocType" editable="true" layoutX="68.0" layoutY="245.0" prefHeight="35.0" prefWidth="300.0" promptText="Select ID Type" styleClass="form-input-datepicker" />
+      <TextField fx:id="txtDocNumber" layoutX="405.0" layoutY="245.0" prefHeight="35.0" prefWidth="300.0" promptText="Document Number" styleClass="form-input" />
+      <TextField fx:id="txtStreet" layoutX="68.0" layoutY="295.0" prefHeight="35.0" prefWidth="188.0" promptText="Street" styleClass="form-input" />
+      <TextField fx:id="txtStreetNumber" layoutX="265.0" layoutY="295.0" prefHeight="35.0" prefWidth="46.0" promptText="nº" styleClass="form-input" />
+      <TextField fx:id="txtPostalCode" layoutX="323.0" layoutY="295.0" prefHeight="35.0" prefWidth="106.0" promptText="Postal Code" styleClass="form-input" />
+      <TextField fx:id="txtCity" layoutX="440.0" layoutY="295.0" prefHeight="35.0" prefWidth="132.0" promptText="City" styleClass="form-input" />
+      <TextField fx:id="txtDistrict" layoutX="584.0" layoutY="295.0" prefHeight="35.0" prefWidth="121.0" promptText="District" styleClass="form-input" />
+      <Button layoutX="591.0" layoutY="353.0" mnemonicParsing="false" onAction="#btnSubmitAction" prefHeight="40.0" prefWidth="114.0" text="Submit" />
+      <Text layoutX="253.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Register a Collaborator">
+         <font>
+            <Font name="Berlin Sans FB" size="28.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

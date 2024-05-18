@@ -42,6 +42,7 @@ public class MainApp extends Application {
         } catch (IOException ex) {
             AlertUI.createAlert(Alert.AlertType.ERROR, APP_TITLE,
                     "There was a problem running the application.", ex.getMessage()).show();
+            System.out.println(ex.getMessage());
         }
     }
 
