@@ -9,20 +9,12 @@ import javafx.scene.control.TextField;
 import pt.ipp.isep.dei.esoft.project.controller.RegisterCollaboratorController;
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator.IdDocType;
-import pt.ipp.isep.dei.esoft.project.domain.Date;
 import pt.ipp.isep.dei.esoft.project.domain.Job;
-import pt.ipp.isep.dei.esoft.project.tools.ValidationAttributeResults;
-import pt.ipp.isep.dei.esoft.project.tools.MobileOperator;
-import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
-import pt.ipp.isep.dei.esoft.project.ui.gui.authorization.AuthenticationUI;
 
-
-import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.net.URL;
 import java.util.*;
 import java.util.List;
-import java.util.regex.Pattern;
+
 
 /**
  * Register Collaborator UI class
@@ -30,6 +22,7 @@ import java.util.regex.Pattern;
 public class RegisterCollaboratorUI implements Initializable {
 
     private final RegisterCollaboratorController controller;
+    private List<Job> jobs;
 
     @FXML
     private TextField txtName;
@@ -58,11 +51,14 @@ public class RegisterCollaboratorUI implements Initializable {
     @FXML
     private ComboBox<String> cbJob;
 
+
+
     /**
      * Constructor for the RegisterCollaboratorUI class
      */
     public RegisterCollaboratorUI() {
         controller = new RegisterCollaboratorController();
+        jobs = getRegisterCollaboratorController().getJobList();
     }
 
     /**
@@ -78,6 +74,7 @@ public class RegisterCollaboratorUI implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         fillDocTypeComboBox();
         fillJobComboBox();
+
     }
 
     @FXML
@@ -85,20 +82,8 @@ public class RegisterCollaboratorUI implements Initializable {
         try {
             String cfBirthdate = convertFormat(dpBirthdate.getValue().toString());
             String cfAdmissionDate = convertFormat(dpAdmissionDate.getValue().toString());
-
-            int selectedIndex = cbDocType.getSelectionModel().getSelectedIndex();
-            IdDocType idDocType = null;
-            switch (selectedIndex) {
-                case 0:
-                    idDocType = IdDocType.CC;
-                    break;
-                case 1:
-                    idDocType = IdDocType.BI;
-                    break;
-                case 2:
-                    idDocType = IdDocType.PASSPORT;
-
-            }
+            Job selectedJob = getSelectedJob();
+            IdDocType selectedIdDocType = getSelectedIdDocType();
 
             Optional<Collaborator> collaborator = getRegisterCollaboratorController().createCollaborator(
                     txtName.getText().trim(),
@@ -111,9 +96,9 @@ public class RegisterCollaboratorUI implements Initializable {
                     txtDistrict.getText().trim(),
                     txtEmail.getText().trim(),
                     txtPhoneNumber.getText().trim(),
-                    idDocType,
+                    selectedIdDocType,
                     txtDocNumber.getText().trim(),
-                    null
+                    selectedJob
             );
 
             AlertUI.createAlert(Alert.AlertType.INFORMATION, MainApp.APP_TITLE, "Register a collaborator.",
@@ -138,10 +123,34 @@ public class RegisterCollaboratorUI implements Initializable {
     }
 
     private void fillJobComboBox() {
-        List<Job> jobs = getRegisterCollaboratorController().getJobList();
         for (Job job : jobs) {
             cbJob.getItems().add(job.getJobName());
         }
+    }
+
+    private Job getSelectedJob() {
+        String selectedJob = cbJob.getValue();
+
+        for (Job job : jobs) {
+            if (job.getJobName().equals(selectedJob)) {
+                return job;
+            }
+        }
+        return null;
+    }
+
+    private IdDocType getSelectedIdDocType() {
+        int selectedIndex = cbDocType.getSelectionModel().getSelectedIndex();
+
+        switch (selectedIndex) {
+            case 0:
+                return IdDocType.CC;
+            case 1:
+                return IdDocType.BI;
+            case 2:
+                return IdDocType.PASSPORT;
+        }
+        return null;
     }
 
 }
