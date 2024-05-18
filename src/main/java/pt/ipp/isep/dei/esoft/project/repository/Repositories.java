@@ -37,6 +37,13 @@ public class Repositories {
      */
     private final AuthenticationRepository authenticationRepository;
 
+    private final GreenSpaceRepository greenSpaceRepository;
+
+    private final ToDoRepository toDoRepository;
+
+    private final AgendaRepository agendaRepository;
+
+
     /**
      * Private constructor to prevent external instantiation.
      */
@@ -48,6 +55,9 @@ public class Repositories {
         vehicleRepository = new VehicleRepository();
         teamRepository = new TeamRepository();
         authenticationRepository = new AuthenticationRepository();
+        greenSpaceRepository = new GreenSpaceRepository();
+        toDoRepository = new ToDoRepository();
+        agendaRepository = new AgendaRepository();
     }
 
     /**
@@ -123,5 +133,20 @@ public class Repositories {
      *
      * @return The AuthenticationRepository instance.
      */
-    public AuthenticationRepository getAuthenticationRepository() { return authenticationRepository; }
+    public AuthenticationRepository getAuthenticationRepository() {
+        return authenticationRepository;
+    }
+
+    public GreenSpaceRepository getGreenSpaceRepository() {
+        return greenSpaceRepository;
+    }
+
+    public ToDoRepository getToDoRepository(){
+        return toDoRepository;
+    }
+
+    public AgendaRepository getAgendaRepository(){
+        return agendaRepository;
+    }
+
 }
