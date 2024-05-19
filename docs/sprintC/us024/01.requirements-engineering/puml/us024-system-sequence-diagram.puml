@@ -1,0 +1,47 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD) - Alternative One
+
+autonumber
+
+actor "Green Space\nManager" as GSM
+participant ":PostponeTaskUI" as UI
+
+activate GSM
+
+    GSM -> UI : asks to postpone a task in the agenda
+    activate UI
+loop until user doesn't select a valid option
+        UI --> GSM : displays all tasks in the agenda and asks to select one
+    deactivate UI
+
+    GSM -> UI : selects a task
+    activate UI
+    |||
+end loop
+        UI --> UI : keepData(task)
+loop until data is valid
+        UI --> GSM : asks for a new start date
+    deactivate UI
+
+    GSM -> UI : types a new date
+    activate UI
+        UI --> UI : validateDate(startDate)
+end loop
+        UI --> UI : keepData(startDate)
+        UI --> GSM : shows all data and requests confirmation
+    deactivate UI
+
+    GSM -> UI : confirms data
+    activate UI
+        note right of UI
+            The task startDate changes to
+            the new startDate.
+        end note
+        UI --> GSM : displays operation success
+    deactivate UI
+
+@enduml
