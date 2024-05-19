@@ -155,7 +155,7 @@ public class Address implements Cloneable {
         if (validateCity(city)) {
             this.city = city;
         } else {
-            throw new IllegalArgumentException("City must not be empty");
+            throw new IllegalArgumentException("City is empty");
         }
     }
 
@@ -179,7 +179,7 @@ public class Address implements Cloneable {
         if (validateDistrict(district)) {
             this.district = district;
         } else {
-            throw new IllegalArgumentException("District must not be empty");
+            throw new IllegalArgumentException("District is empty");
         }
     }
 

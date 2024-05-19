@@ -366,7 +366,7 @@ public class RegisterCollaboratorUI implements Runnable {
                 if (validateCity(response)) {
                     validInput = true;
                 } else {
-                    throw new IllegalArgumentException("City must not be empty");
+                    throw new IllegalArgumentException("City is empty");
                 }
             } catch (IllegalArgumentException e) {
                 System.out.println("Error: " + e.getMessage());
@@ -402,7 +402,7 @@ public class RegisterCollaboratorUI implements Runnable {
                 if (validateDistrict(response)) {
                     validInput = true;
                 } else {
-                    throw new IllegalArgumentException("District must not be empty");
+                    throw new IllegalArgumentException("District is empty");
                 }
             } catch (IllegalArgumentException e) {
                 System.out.println("Error: " + e.getMessage());
