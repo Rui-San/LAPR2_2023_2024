@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="422.0" prefWidth="777.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.ListVehiclesNeedingCheckupUI">
+   <center>
+      <TableView fx:id="tbNeddingCheckup" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="plateId" prefWidth="134.0" sortable="false" text="Vehicle" />
+          <TableColumn fx:id="currentKm" prefWidth="100.0" text="Current KMs" />
+            <TableColumn fx:id="checkupFrequencyKms" prefWidth="134.0" text="Checkup Frequency" />
+            <TableColumn fx:id="lastCheckupKm" prefWidth="136.0" text="Last Checkup KMs" />
+            <TableColumn fx:id="optimalNextCheckupKm" prefWidth="192.0" text="Optimal next Checkup Kms" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+   </center>
+   <left>
+      <Pane prefHeight="360.0" prefWidth="40.0" BorderPane.alignment="CENTER" />
+   </left>
+   <bottom>
+      <Pane prefHeight="20.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
+   </bottom>
+   <right>
+      <Pane prefHeight="360.0" prefWidth="40.0" BorderPane.alignment="CENTER" />
+   </right>
+   <top>
+      <AnchorPane prefHeight="84.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Text layoutX="253.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vehicles Needing Checkup">
+               <font>
+                  <Font name="Berlin Sans FB" size="28.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+   </top>
+</BorderPane>
