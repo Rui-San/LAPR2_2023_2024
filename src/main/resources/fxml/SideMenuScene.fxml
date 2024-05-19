@@ -43,7 +43,7 @@
                <items>
                   <MenuItem mnemonicParsing="false" text="Register Vehicle" />
                   <MenuItem mnemonicParsing="false" text="Register Vehicle Checkup" />
-                  <MenuItem mnemonicParsing="false" text="List Vehicles Needing Checkup" />
+                  <MenuItem mnemonicParsing="false" onAction="#ListVehiclesNeedingCheckup" text="List Vehicles Needing Checkup" />
                </items>
             </MenuButton>
             <MenuButton mnemonicParsing="false" popupSide="RIGHT" styleClass="menu-btn" text="Teams">
@@ -96,7 +96,7 @@
    <top>
       <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="956.0" style="-fx-background-color: #E0E0E0;" BorderPane.alignment="CENTER">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Projeto Integrador" textAlignment="CENTER" wrappingWidth="193.13671875">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Projeto Integrador - LAPR 2" textAlignment="CENTER" wrappingWidth="287.13671875">
                <font>
                   <Font name="Berlin Sans FB" size="18.0" />
                </font>
