@@ -1,0 +1,34 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+title US024 - Domain Model
+
+class Agenda{
+    tasks
+}
+
+class Task{
+    title
+    description
+    state
+    urgency
+    assignedGreenSpace
+    assignedVehicle
+    assignedTeam
+    startDate
+    expectedDuration
+}
+
+
+Task "*" -u- "1" Agenda : "are part of >"
+GSM -- Task : "postpones >"
+@enduml

@@ -27,9 +27,8 @@ loop until selected data is validated
     deactivate UI
 
     GSM -> UI : selects type of green space
-end loop
     activate UI
-
+end loop
         UI --> UI : keepData(type)
 loop until typed data is validated
         UI --> GSM : requests data (name, streetNumber,\npostalCode, city, district, totalArea)
