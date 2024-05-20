@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="499.0" prefWidth="956.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.MenuUI">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="1024.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.MenuUI">
    <left>
       <VBox prefHeight="470.0" prefWidth="150.0" styleClass="menu-style" BorderPane.alignment="CENTER">
          <children>
@@ -33,7 +33,7 @@
                </cursor>
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#RegisterCollaborator" text="Register Collaborator" />
-                  <MenuItem mnemonicParsing="false" text="Assign skill" />
+                  <MenuItem mnemonicParsing="false" onAction="#AssignSkill" text="Assign skill" />
                </items>
             </MenuButton>
             <MenuButton mnemonicParsing="false" popupSide="RIGHT" styleClass="menu-btn" text="Vehicles">
@@ -41,7 +41,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
                <items>
-                  <MenuItem mnemonicParsing="false" text="Register Vehicle" />
+                  <MenuItem mnemonicParsing="false" onAction="#RegisterVehicle" text="Register Vehicle" />
                   <MenuItem mnemonicParsing="false" text="Register Vehicle Checkup" />
                   <MenuItem mnemonicParsing="false" onAction="#ListVehiclesNeedingCheckup" text="List Vehicles Needing Checkup" />
                </items>
@@ -91,7 +91,7 @@
       </VBox>
    </left>
    <center>
-      <StackPane fx:id="contentArea" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <StackPane fx:id="contentArea" prefHeight="600.0" prefWidth="900.0" BorderPane.alignment="CENTER" />
    </center>
    <top>
       <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="956.0" style="-fx-background-color: #E0E0E0;" BorderPane.alignment="CENTER">

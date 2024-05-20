@@ -62,4 +62,11 @@ public class MenuUI implements Initializable {
         contentArea.getChildren().setAll(fxml);
     }
 
+    @FXML
+    public void AssignSkill() throws IOException {
+        Parent fxml = FXMLLoader.load(getClass().getResource("/fxml/AssignSkillScene.fxml"));
+        contentArea.getChildren().removeAll();
+        contentArea.getChildren().setAll(fxml);
+    }
+
 }

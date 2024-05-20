@@ -15,6 +15,7 @@ public class Bootstrap implements Runnable {
         addCheckup();
         addCollaborator();
         addUsers();
+        assignSkills();
     }
 
     private void addSkills() {
@@ -38,19 +39,27 @@ public class Bootstrap implements Runnable {
         jobRepository.add(new Job("Bricklayer"));
     }
 
+    private void assignSkills() {
+        SkillRepository skillRepository = Repositories.getInstance().getSkillRepository();
+        CollaboratorRepository collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
+
+        collaboratorRepository.getCollaboratorList().get(1).assignSkills(skillRepository.getSkillList());
+
+    }
+
     private void addCollaborator() {
         CollaboratorRepository collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
 
-        Collaborator collaborator = new Collaborator("João Silva", "02/03/2002", "06/05/2024", "Rua Dois", 12, "3340-302", "Espinho", "Aveiro", "jsilva@this.app", "912345678", Collaborator.IdDocType.CC, "123356789", new Job("Tree Pruner") );
-        Collaborator collaborator2 = new Collaborator("Guilherme Santos", "30/08/2005", "06/05/2024", "Rua Principal", 12, "4400-302", "Vila Nova de Gaia", "Porto", "gsantos@this.app", "912345678", Collaborator.IdDocType.CC, "123456788", new Job("Gardener") );
-        Collaborator collaborator3 = new Collaborator("Maria Silva", "05/06/2002", "04/05/2024", "Rua K", 2, "2040-503", "Sagres", "Faro", "msilva@this.app", "912345678", Collaborator.IdDocType.CC, "123456789", new Job("HRM") );
-        Collaborator collaborator4 = new Collaborator("Rui Costa", "15/10/2000", "06/05/2024", "Rua Principal", 20, "4400-302", "Vila Nova de Gaia", "Porto", "rcosta@this.app", "912345678", Collaborator.IdDocType.CC, "123456669", new Job("Landscape Technician") );
-        Collaborator collaborator5 = new Collaborator("Ana Rodrigues", "20/07/1998", "04/05/2024", "Rua das Flores", 5, "1050-201", "Lisboa", "Lisboa", "arodrigues@this.app", "912345678", Collaborator.IdDocType.CC, "123555789", new Job("Farmer") );
-        Collaborator collaborator6 = new Collaborator("Miguel Oliveira", "12/12/1995", "06/05/2024", "Avenida Central", 30, "4000-100", "Porto", "Porto", "moliveira@this.app", "912345678", Collaborator.IdDocType.CC, "124456789", new Job("Electrician") );
-        Collaborator collaborator7 = new Collaborator("Sara Sousa", "03/09/1990", "04/05/2024", "Rua do Sol", 8, "8500-302", "Portimão", "Faro", "ssousa@this.app", "912345678", Collaborator.IdDocType.CC, "123456789", new Job("Forestry Engineer") );
-        Collaborator collaborator8 = new Collaborator("Pedro Martins", "28/05/1993", "06/05/2024", "Rua dos Cravos", 15, "2560-302", "Torres Vedras", "Lisboa", "pmartins@this.app", "912345678", Collaborator.IdDocType.CC, "133456789", new Job("Agricultural Engineer") );
-        Collaborator collaborator9 = new Collaborator("Carla Ferreira", "17/04/1985", "04/05/2024", "Rua da Praia", 25, "4900-302", "Viana do Castelo", "Viana do Castelo", "cferreira@this.app", "912345678", Collaborator.IdDocType.CC, "111456789", new Job("Bricklayer") );
-        Collaborator collaborator10 = new Collaborator("António Pereira", "10/02/1980", "06/05/2024", "Rua do Campo", 40, "8000-302", "Faro", "Faro", "apereira@this.app", "912345678", Collaborator.IdDocType.CC, "123333789", new Job("VFM") );
+        Collaborator collaborator = new Collaborator("João Silva", "02/03/2002", "06/05/2024", "Rua Dois", 12, "3340-302", "Espinho", "Aveiro", "jsilva@this.app", "912345678", Collaborator.IdDocType.CC, "123356789", new Job("Tree Pruner"));
+        Collaborator collaborator2 = new Collaborator("Guilherme Santos", "30/08/2005", "06/05/2024", "Rua Principal", 12, "4400-302", "Vila Nova de Gaia", "Porto", "gsantos@this.app", "912345678", Collaborator.IdDocType.CC, "123456788", new Job("Gardener"));
+        Collaborator collaborator3 = new Collaborator("Maria Silva", "05/06/2002", "04/05/2024", "Rua K", 2, "2040-503", "Sagres", "Faro", "msilva@this.app", "912345678", Collaborator.IdDocType.CC, "123456789", new Job("HRM"));
+        Collaborator collaborator4 = new Collaborator("Rui Costa", "15/10/2000", "06/05/2024", "Rua Principal", 20, "4400-302", "Vila Nova de Gaia", "Porto", "rcosta@this.app", "912345678", Collaborator.IdDocType.CC, "123456669", new Job("Landscape Technician"));
+        Collaborator collaborator5 = new Collaborator("Ana Rodrigues", "20/07/1998", "04/05/2024", "Rua das Flores", 5, "1050-201", "Lisboa", "Lisboa", "arodrigues@this.app", "912345678", Collaborator.IdDocType.CC, "123555789", new Job("Farmer"));
+        Collaborator collaborator6 = new Collaborator("Miguel Oliveira", "12/12/1995", "06/05/2024", "Avenida Central", 30, "4000-100", "Porto", "Porto", "moliveira@this.app", "912345678", Collaborator.IdDocType.CC, "124456789", new Job("Electrician"));
+        Collaborator collaborator7 = new Collaborator("Sara Sousa", "03/09/1990", "04/05/2024", "Rua do Sol", 8, "8500-302", "Portimão", "Faro", "ssousa@this.app", "912345678", Collaborator.IdDocType.CC, "123456789", new Job("Forestry Engineer"));
+        Collaborator collaborator8 = new Collaborator("Pedro Martins", "28/05/1993", "06/05/2024", "Rua dos Cravos", 15, "2560-302", "Torres Vedras", "Lisboa", "pmartins@this.app", "912345678", Collaborator.IdDocType.CC, "133456789", new Job("Agricultural Engineer"));
+        Collaborator collaborator9 = new Collaborator("Carla Ferreira", "17/04/1985", "04/05/2024", "Rua da Praia", 25, "4900-302", "Viana do Castelo", "Viana do Castelo", "cferreira@this.app", "912345678", Collaborator.IdDocType.CC, "111456789", new Job("Bricklayer"));
+        Collaborator collaborator10 = new Collaborator("António Pereira", "10/02/1980", "06/05/2024", "Rua do Campo", 40, "8000-302", "Faro", "Faro", "apereira@this.app", "912345678", Collaborator.IdDocType.CC, "123333789", new Job("VFM"));
 
         List<Collaborator> collaboratorsToAdd = List.of(collaborator, collaborator2, collaborator3, collaborator4, collaborator5, collaborator6, collaborator7, collaborator8, collaborator9, collaborator10);
 
@@ -63,7 +72,7 @@ public class Bootstrap implements Runnable {
     private void addUsers() {
 
         AuthenticationRepository authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
-        
+
         authenticationRepository.addUserRole(AuthenticationController.ROLE_ADMIN, AuthenticationController.ROLE_ADMIN);
         authenticationRepository.addUserRole(AuthenticationController.ROLE_HRM, AuthenticationController.ROLE_HRM);
         authenticationRepository.addUserRole(AuthenticationController.ROLE_VFM, AuthenticationController.ROLE_VFM);
@@ -85,7 +94,7 @@ public class Bootstrap implements Runnable {
 
         Vehicle vehicle1 = new Vehicle("00-11-AA", "Toyota", "Corolla", "1", 1300, 1700, 10000, "15/3/1999", "1/4/2023", 10000);
         vehicleRepository.add(vehicle1);
-        Vehicle vehicle2 = new Vehicle("BB-22-BB", "Ford", "Mustang", "2", 1700, 2000, 7500,"20/11/2022", "5/12/2022", 7500);
+        Vehicle vehicle2 = new Vehicle("BB-22-BB", "Ford", "Mustang", "2", 1700, 2000, 7500, "20/11/2022", "5/12/2022", 7500);
         vehicleRepository.add(vehicle2);
         Vehicle vehicle3 = new Vehicle("CC-33-CC", "BMW", "X5", "3", 2100, 2600, 12000, "10/6/2023", "1/7/2023", 12000);
         vehicleRepository.add(vehicle3);
@@ -100,8 +109,8 @@ public class Bootstrap implements Runnable {
         CheckupRepository checkupRepository = Repositories.getInstance().getCheckupRepository();
         List<Vehicle> vehicles = Repositories.getInstance().getVehicleRepository().getVehicleList();
 
-        for (Vehicle vehicle : vehicles){
-            if(vehicle.getCurrentKm() >= 5000){
+        for (Vehicle vehicle : vehicles) {
+            if (vehicle.getCurrentKm() >= 5000) {
                 int kmsForCheckupBootstrap = vehicle.getCurrentKm() - 1000;
                 VehicleCheckup checkup = new VehicleCheckup(vehicle, new Date(), kmsForCheckupBootstrap);
             }
