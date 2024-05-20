@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.esoft.project._templateFiles.application.controller;
+package pt.ipp.isep.dei.esoft.project.application.controller;
 
 import pt.ipp.isep.dei.esoft.project._templateFiles.domain.Employee;
 import pt.ipp.isep.dei.esoft.project._templateFiles.domain.Organization;

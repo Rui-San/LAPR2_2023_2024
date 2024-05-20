@@ -1,0 +1,76 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD) - Alternative One
+
+autonumber
+
+actor "Collaborator" as Collaborator
+participant ":ListCollaboratorTasksUI" as UI
+participant ":ListCollaboratorTasksController" as CTRL
+participant ":Repositories" as REPO
+participant "repositories\n:Repositories" as REPOInsctance
+
+activate Collaborator
+
+    Collaborator -> UI : asks to list tasks assigned to the collaborator\nbetween two dates
+    activate UI
+
+loop until typed data is valid
+        UI --> Collaborator : requests data (initialDate, finalDate)
+    deactivate UI
+
+    Collaborator -> UI : types requested data
+    activate UI
+        UI --> UI : validateData(initialDate,\nfinalDate)
+end loop
+
+        UI -> CTRL : getCollaboratorFromSession()
+        activate CTRL
+            CTRL -> CTRL : getEmployeeFromSession()
+            activate CTRL
+
+                CTRL -> _APP: getInstance()
+                activate _APP
+                    _APP -> CTRL: appSession
+                deactivate _APP
+
+
+                CTRL -> APP: getCurrentSession()
+                activate APP
+
+                    APP --> CTRL: currentSession
+                deactivate APP
+
+                CTRL -> SESSAO: email = getUserEmail()
+                activate SESSAO
+
+                    SESSAO --> CTRL: email
+                deactivate SESSAO
+
+
+                CTRL -> PLAT: getCollaboratorRepository()
+                activate PLAT
+
+                    PLAT --> CTRL: collaboratorRepository
+                deactivate PLAT
+
+                CTRL -> ORG: getCollaboratorByEmail(email)
+                activate ORG
+
+                    ORG --> CTRL : currentCollaborator
+                deactivate ORG
+
+                CTRL --> CTRL : currentCollaborator
+            deactivate CTRL
+
+            CTRL --> UI : currentCollaborator
+        deactivate CTRL
+
+        UI--> UI: sorts the tasks by date
+        UI --> Collaborator : shows tasks assigned to the collaborator\nbetween the two dates and sorted by date
+    deactivate UI
+
+@enduml
