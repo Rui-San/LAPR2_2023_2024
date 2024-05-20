@@ -1,0 +1,35 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+title US027 - Domain Model
+
+class GSM{
+}
+
+class GreenSpace {
+  name
+  parkType
+  totalArea
+}
+
+class Address{
+    street
+    streetNumber
+    postalCode
+    city
+    district
+}
+
+GSM "1" -- "*" GreenSpace : "list managed by me"
+GreenSpace "1" -- "1" Address : "has >"
+
+@enduml
