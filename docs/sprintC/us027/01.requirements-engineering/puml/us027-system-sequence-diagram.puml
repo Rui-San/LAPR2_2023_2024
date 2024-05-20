@@ -1,0 +1,22 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD) - Alternative One
+
+autonumber
+
+actor "Green Space\nManager" as GSM
+participant ":ListGreenSpacesUI" as UI
+
+activate GSM
+
+    GSM -> UI : asks to list all the green spaces managed by me
+    activate UI
+
+        UI --> UI : gets all the green spaces\nmanaged by the GSM
+        UI --> GSM : displays all the green spaces\nmanaged by the GSM
+    deactivate UI
+
+@enduml
