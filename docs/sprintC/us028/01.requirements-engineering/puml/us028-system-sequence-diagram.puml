@@ -1,0 +1,31 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD) - Alternative One
+
+autonumber
+
+actor "Collaborator" as Collaborator
+participant ":ListCollaboratorTasksUI" as UI
+
+activate Collaborator
+
+    Collaborator -> UI : asks to list tasks assigned to the collaborator\nbetween two dates
+    activate UI
+
+loop until typed data is valid
+        UI --> Collaborator : requests data (initialDate, finalDate)
+    deactivate UI
+
+    Collaborator -> UI : types requested data
+    activate UI
+        UI --> UI : validateData(initialDate,\nfinalDate)
+end loop
+        UI --> UI: gets tasks assigned to the collaborator\nbetween the two dates
+        UI--> UI: sorts the tasks by date
+        UI --> Collaborator : shows tasks assigned to the collaborator\nbetween the two dates and sorted by date
+    deactivate UI
+
+@enduml
