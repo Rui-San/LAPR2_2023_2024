@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.AssignSkillUI">
+<AnchorPane fx:id="lblSelectedSkillsError" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.AssignSkillUI">
    <children>
       <Text layoutX="291.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Assign Skills to Collaborator">
          <font>
@@ -17,6 +18,10 @@
       <Label alignment="CENTER" layoutX="106.0" layoutY="225.0" prefHeight="27.0" prefWidth="309.0" text="Selected Collaborator skills" />
       <ListView fx:id="lvCollaboratorSkills" layoutX="106.0" layoutY="252.0" prefHeight="235.0" prefWidth="309.0" />
       <Button layoutX="411.0" layoutY="519.0" mnemonicParsing="false" onAction="#btnAssignSelectedSkills" text="Assign Skills" />
+      <Label fx:id="lblDocTypeError" alignment="TOP_LEFT" layoutX="549.0" layoutY="500.0" prefHeight="39.0" prefWidth="317.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
-

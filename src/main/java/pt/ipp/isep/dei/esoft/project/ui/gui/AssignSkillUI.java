@@ -2,10 +2,7 @@ package pt.ipp.isep.dei.esoft.project.ui.gui;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import pt.ipp.isep.dei.esoft.project.controller.AssignSkillController;
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
@@ -33,6 +30,9 @@ public class AssignSkillUI implements Initializable {
 
     @FXML
     private VBox vboxSkills;
+
+    @FXML
+    private Label lblSelectedSkillsError;
 
 
     public AssignSkillUI() {
@@ -96,11 +96,51 @@ public class AssignSkillUI implements Initializable {
     }
 
     @FXML
-    private void btnAssignSelectedSkills(){
+    private void btnAssignSelectedSkills() {
         List<Skill> selectedSkills = getSelectedSkills();
-        for(Skill skillss : selectedSkills){
-            System.out.println(skillss.getSkillName());
+        Collaborator collaborator = getSelectedCollaborator();
+        List<Skill> collaboratorSkills = collaborator.getSkillList();
+
+        if (!validChoices(selectedSkills, collaboratorSkills)) {
+            System.out.println("funcionou");
+
         }
+
+
+    }
+
+    private boolean validChoices(List<Skill> selectedSkills, List<Skill> collaboratorSkills) {
+        List<String> repetitiveChoices = new ArrayList<>();
+        for (Skill selectedSkill : selectedSkills) {
+            if (collaboratorSkills.contains(selectedSkill)) {
+                repetitiveChoices.add(selectedSkill.getSkillName());
+            }
+        }
+        if (!repetitiveChoices.isEmpty()) {
+            StringBuilder errorMessage = new StringBuilder();
+            for (String repetitiveSkill : repetitiveChoices) {
+                errorMessage.append(repetitiveSkill).append(";");
+            }
+            displayErrorLayoutVBox(vboxSkills, lblSelectedSkillsError, "Collaborator already have the selected skills: " + errorMessage);
+            return false;
+        } else {
+            clearLabelErrorVBox(vboxSkills,lblSelectedSkillsError);
+            return true;
+        }
+    }
+
+
+    private void displayErrorLayoutVBox(VBox vBoxToShowError, Label labelToShowError, String
+            errorMessage) {
+        vBoxToShowError.setStyle("-fx-border-color: red");
+        labelToShowError.setVisible(true);
+        labelToShowError.setText(errorMessage);
+    }
+
+    private void clearLabelErrorVBox(VBox vBoxWithError, Label labelWithError) {
+        vBoxWithError.setStyle("");
+        labelWithError.setVisible(false);
+        labelWithError.setText("");
     }
 
 
