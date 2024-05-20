@@ -1,0 +1,52 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+title US028 - Domain Model
+
+class Team{
+    name
+    description
+    members
+    status
+}
+
+class Agenda{
+    tasks
+}
+
+class Collaborator{
+    name
+    admissionDate
+    birthDate
+    phoneNumber
+    email
+    idDocType
+    idDocNumber
+}
+
+class Task{
+    title
+    description
+    state
+    urgency
+    assignedGreenSpace
+    assignedVehicle
+    assignedTeam
+    expectedDuration
+}
+
+Task "*" -u- "1" Agenda : "are part of >"
+Team "1" -u- "0..*" Task : "is assigned to >"
+Collaborator "*" -l- "0..*" Team : "is part of >"
+Collaborator "1" -u- "0..*" Task : "lists assigned between\ntwo dates <"
+
+@enduml
