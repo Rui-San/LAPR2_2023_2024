@@ -69,6 +69,13 @@ end loop
             CTRL --> UI : currentCollaborator
         deactivate CTRL
 
+        UI -> CTRL : getCollaboratorTasksBetweenDates(initialDate, finalDate)
+        activate CTRL
+
+
+            CTRL --> UI
+        deactivate CTRL
+
         UI--> UI: sorts the tasks by date
         UI --> Collaborator : shows tasks assigned to the collaborator\nbetween the two dates and sorted by date
     deactivate UI
