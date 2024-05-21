@@ -181,7 +181,7 @@ public class AssignSkillUI implements Initializable {
         List<Skill> selectedSkills = getSelectedSkills();
         if (selectedSkills.isEmpty()) {
             return false;
-        }else{
+        } else {
             clearLabelError(lblSelectedSkillsError);
             return true;
 
@@ -213,11 +213,13 @@ public class AssignSkillUI implements Initializable {
                     sb.append("\n").append(skill.getSkillName());
                 }
 
-                AlertUI.createAlert(Alert.AlertType.CONFIRMATION, "Assign Skills", "Confirm the operation", sb.toString()).show();
+                Alert alertConfirmation = AlertUI.createAlert(Alert.AlertType.CONFIRMATION, "Assign Skills", "Confirm the operation", sb.toString());
+                if (alertConfirmation.showAndWait().get() == ButtonType.OK) {
+                    controller.assignSkillsToCollaborator(collaborator, selectedSkills);
 
-                controller.assignSkillsToCollaborator(collaborator,selectedSkills);
-
-                AlertUI.createAlert(Alert.AlertType.INFORMATION,"Assign Skills","Confirmation of operation","All skills were sucessfully assigned to collaborator");
+                    AlertUI.createAlert(Alert.AlertType.INFORMATION, "Assign Skills", "Confirmation of operation", "All skills were sucessfully assigned to collaborator");
+                    updateLVskills();
+                }
             }
         } catch (NullPointerException ne) {
             displayErrorLabel(lblSelectedSkillsError, "A collaborator must be selected");
