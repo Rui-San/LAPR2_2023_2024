@@ -6,6 +6,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import pt.ipp.isep.dei.esoft.project.controller.AssignSkillController;
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
+import pt.ipp.isep.dei.esoft.project.domain.Job;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 
 import java.net.URL;
@@ -65,6 +66,9 @@ public class AssignSkillUI implements Initializable {
     }
 
     private Collaborator getSelectedCollaborator() {
+        if (cbCollaborator.getValue() == null) {
+            return null;
+        }
 
         String[] comboBoxTextParts = cbCollaborator.getValue().split(": ");
         String email = comboBoxTextParts[1];
@@ -80,59 +84,113 @@ public class AssignSkillUI implements Initializable {
 
     private List<Skill> getSelectedSkills() {
         List<Skill> selectedSkills = new ArrayList<>();
+        boolean hasDuplicates = false;
+
         for (int i = 0; i < vboxSkills.getChildren().size(); i++) {
             if (vboxSkills.getChildren().get(i) instanceof CheckBox) {
                 CheckBox checkBox = (CheckBox) vboxSkills.getChildren().get(i);
                 if (checkBox.isSelected()) {
                     for (Skill skill : skillList) {
-                        if (checkBox.getText().equalsIgnoreCase(skill.getSkillName())) {
+                        if (checkBox.getText().equalsIgnoreCase(skill.getSkillName()) && getSelectedCollaborator().getSkillList().contains(skill)) {
+                            hasDuplicates = true;
+                            checkBox.setStyle("-fx-border-color: transparent transparent red transparent; -fx-border-width: 0 0 2px 0;");
+                        } else if (checkBox.getText().equalsIgnoreCase(skill.getSkillName()) && !getSelectedCollaborator().getSkillList().contains(skill)) {
                             selectedSkills.add(skill);
+                            checkBox.setStyle("-fx-border-color: transparent transparent green transparent; -fx-border-width: 0 0 2px 0;");
                         }
                     }
+                } else {
+                    checkBox.setStyle("");
                 }
             }
         }
+
+        if (hasDuplicates) {
+            lblSelectedSkillsError.setText("The skills marked in red are already assigned to collaborator" + cbCollaborator.getValue());
+        } else {
+            lblSelectedSkillsError.setText("");
+        }
+
         return selectedSkills;
+
     }
+
+    private boolean validateSelection() {
+        List<Skill> selectedSkills = getSelectedSkills();
+        if (selectedSkills.isEmpty()) {
+
+            displayErrorLabel(lblSelectedSkillsError,"You must select at least one skill");
+            return false;
+        }
+        clearLabelError(lblSelectedSkillsError);
+        return true;
+    }
+
+    private boolean validateSelectedCollaborator() {
+        if (cbCollaborator.getValue() == null) {
+            displayErrorLabel(lblSelectedSkillsError, "A collaborator must be selected");
+            return false;
+        }
+        clearLabelError(lblSelectedSkillsError);
+        return true;
+    }
+
 
     @FXML
     private void btnAssignSelectedSkills() {
         List<Skill> selectedSkills = getSelectedSkills();
         Collaborator collaborator = getSelectedCollaborator();
-        List<Skill> collaboratorSkills = collaborator.getSkillList();
 
-        if (!validChoices(selectedSkills, collaboratorSkills)) {
-            System.out.println("funcionou");
+
+        if (validateSelectedCollaborator() && validateSelection()) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("You are about to assign the following skills to collaborator ").append(collaborator.getName()).append(":");
+            for (Skill skill :selectedSkills){
+                sb.append("\n").append(skill.getSkillName());
+            }
+
+            AlertUI.createAlert(Alert.AlertType.CONFIRMATION,"Assign Skills","Confirm the operation",sb.toString()).show();
 
         }
 
 
     }
 
-    private boolean validChoices(List<Skill> selectedSkills, List<Skill> collaboratorSkills) {
-        List<String> repetitiveChoices = new ArrayList<>();
-        for (Skill selectedSkill : selectedSkills) {
-            if (collaboratorSkills.contains(selectedSkill)) {
-                repetitiveChoices.add(selectedSkill.getSkillName());
-            }
-        }
-        if (!repetitiveChoices.isEmpty()) {
-            StringBuilder errorMessage = new StringBuilder();
-            for (String repetitiveSkill : repetitiveChoices) {
-                errorMessage.append(repetitiveSkill).append(";");
-            }
-            displayErrorLayoutVBox(vboxSkills, lblSelectedSkillsError, "Collaborator already have the selected skills: " + errorMessage);
-            return false;
-        } else {
-            clearLabelErrorVBox(vboxSkills,lblSelectedSkillsError);
-            return true;
-        }
-    }
+    /*  private boolean validChoices(List<Skill> selectedSkills, List<Skill> collaboratorSkills) {
+          List<String> repetitiveChoices = new ArrayList<>();
+          for (Skill selectedSkill : selectedSkills) {
+              if (collaboratorSkills.contains(selectedSkill)) {
+                  repetitiveChoices.add(selectedSkill.getSkillName());
+              }
+          }
+          if (!repetitiveChoices.isEmpty()) {
+              StringBuilder errorMessage = new StringBuilder();
+              for (String repetitiveSkill : repetitiveChoices) {
+                  errorMessage.append(repetitiveSkill).append(";");
+              }
+              displayErrorLayoutVBox(vboxSkills, lblSelectedSkillsError, "Collaborator already have the selected skills: " + errorMessage);
+              return false;
+          } else {
+              clearLabelErrorVBox(vboxSkills, lblSelectedSkillsError);
+              return true;
+          }
+      }
 
-
-    private void displayErrorLayoutVBox(VBox vBoxToShowError, Label labelToShowError, String
+  */
+    private void displayErrorLabel(Label labelToShowError, String
             errorMessage) {
-        vBoxToShowError.setStyle("-fx-border-color: red");
+        labelToShowError.setVisible(true);
+        labelToShowError.setText(errorMessage);
+    }
+
+    private void clearLabelError(Label labelWithError) {
+        labelWithError.setVisible(false);
+        labelWithError.setText("");
+    }
+
+    private void displayErrorCheckBox(CheckBox checkBoxWithError, Label labelToShowError, String
+            errorMessage) {
+        checkBoxWithError.setStyle("-fx-border-color: transparent transparent green transparent; -fx-border-width: 0 0 2px 0;");
         labelToShowError.setVisible(true);
         labelToShowError.setText(errorMessage);
     }
