@@ -69,4 +69,13 @@ public class MenuUI implements Initializable {
         contentArea.getChildren().setAll(fxml);
     }
 
+    @FXML
+    public void GenerateTeamProposal() throws IOException {
+        Parent fxml = FXMLLoader.load(getClass().getResource("/fxml/GenerateTeamProposalScene.fxml"));
+        contentArea.getChildren().removeAll();
+        contentArea.getChildren().setAll(fxml);
+    }
+
+
+
 }

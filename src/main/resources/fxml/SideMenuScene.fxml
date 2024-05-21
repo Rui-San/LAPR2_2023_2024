@@ -51,7 +51,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
                <items>
-                  <MenuItem mnemonicParsing="false" text="Generate Team Proposal" />
+                  <MenuItem mnemonicParsing="false" onAction="#GenerateTeamProposal" text="Generate Team Proposal" />
                </items>
             </MenuButton>
             <MenuButton mnemonicParsing="false" popupSide="RIGHT" styleClass="menu-btn" text="Green Spaces">
@@ -91,7 +91,7 @@
       </VBox>
    </left>
    <center>
-      <StackPane fx:id="contentArea" prefHeight="600.0" prefWidth="900.0" BorderPane.alignment="CENTER" />
+      <StackPane fx:id="contentArea" prefHeight="573.0" prefWidth="874.0" BorderPane.alignment="CENTER" />
    </center>
    <top>
       <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="956.0" style="-fx-background-color: #E0E0E0;" BorderPane.alignment="CENTER">

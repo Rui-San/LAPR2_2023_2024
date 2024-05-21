@@ -5,19 +5,19 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.AssignSkillUI">
+<AnchorPane prefHeight="573.0" prefWidth="874.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.AssignSkillUI">
    <children>
-      <Text layoutX="291.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Assign Skills to Collaborator">
+      <Text layoutX="291.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Assign Skills to Collaborator" AnchorPane.topAnchor="32.0">
          <font>
             <Font name="Berlin Sans FB" size="28.0" />
          </font>
       </Text>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="106.0" layoutY="117.0" prefHeight="27.0" prefWidth="280.0" text="Select the collaborator" AnchorPane.leftAnchor="100.0" />
       <ComboBox fx:id="cbCollaborator" layoutX="106.0" layoutY="144.0" onAction="#updateLVskills" prefHeight="39.0" prefWidth="280.0" promptText="Collaborators" AnchorPane.leftAnchor="100.0" />
-      <Label alignment="CENTER" layoutX="100.0" layoutY="226.0" prefHeight="27.0" prefWidth="280.0" text="Selected Collaborator skills" />
-      <ListView fx:id="lvCollaboratorSkills" layoutX="106.0" layoutY="252.0" prefHeight="235.0" prefWidth="280.0" AnchorPane.leftAnchor="100.0" />
-      <Button layoutX="401.0" layoutY="530.0" mnemonicParsing="false" onAction="#btnAssignSelectedSkills" prefHeight="39.0" prefWidth="99.0" text="Assign Skills" />
-      <Label fx:id="lblSelectedSkillsError" alignment="TOP_LEFT" layoutX="520.0" layoutY="491.0" prefHeight="39.0" prefWidth="280.0" text="Error will show here" textFill="#dd2424" wrapText="true">
+      <Label alignment="CENTER" layoutX="100.0" layoutY="218.0" prefHeight="27.0" prefWidth="280.0" text="Selected Collaborator skills" />
+      <ListView fx:id="lvCollaboratorSkills" layoutX="100.0" layoutY="244.0" prefHeight="235.0" prefWidth="280.0" AnchorPane.leftAnchor="100.0" />
+      <Button layoutX="388.0" layoutY="511.0" mnemonicParsing="false" onAction="#btnAssignSelectedSkills" prefHeight="39.0" prefWidth="99.0" text="Assign Skills" />
+      <Label fx:id="lblSelectedSkillsError" alignment="TOP_LEFT" layoutX="520.0" layoutY="491.0" prefHeight="39.0" prefWidth="280.0" text="Error will show here" textFill="#dd2424" visible="false" wrapText="true">
          <font>
             <Font size="9.0" />
          </font>
@@ -26,11 +26,11 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="300.0" prefWidth="280.0">
                <children>
-                  <VBox fx:id="vboxSkills" layoutX="-1.0" maxHeight="-Infinity" prefHeight="300.0" prefWidth="280.0" AnchorPane.rightAnchor="-2.0" />
+                  <VBox fx:id="vboxSkills" layoutX="1.0" layoutY="2.0" maxHeight="-Infinity" prefHeight="300.0" prefWidth="289.0" AnchorPane.rightAnchor="-10.0" />
                </children>
             </AnchorPane>
         </content>
       </ScrollPane>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="516.0" layoutY="156.0" prefHeight="27.0" prefWidth="280.0" text="Skills to assign" AnchorPane.rightAnchor="100.0" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="494.0" layoutY="162.0" prefHeight="27.0" prefWidth="280.0" text="Skills to assign" AnchorPane.rightAnchor="100.0" />
    </children>
 </AnchorPane>
