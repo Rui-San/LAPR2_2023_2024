@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
 import pt.ipp.isep.dei.esoft.project.tools.Status;
+import pt.ipp.isep.dei.esoft.project.tools.TaskType;
 import pt.ipp.isep.dei.esoft.project.tools.UrgencyType;
 
 import java.time.Duration;
@@ -11,6 +12,7 @@ public class Task {
 
     private String title;
     private String description;
+    private TaskType taskType;
     private Status status;
     private GreenSpace greenSpace;
     private UrgencyType urgency;
@@ -19,10 +21,11 @@ public class Task {
     private Team teamAssigned;
     private List<Vehicle> vehiclesAssigned;
 
-    public Task(String title, String description, Status status, GreenSpace greenSpace, UrgencyType urgency, Duration expectedDuration) {
+    public Task(String title, String description, TaskType taskType, GreenSpace greenSpace, UrgencyType urgency, Duration expectedDuration) {
         setTitle(title);
         setDescription(description);
-        setStatus(status);
+        setTaskType(taskType);
+        this.status = null;
         setGreenSpace(greenSpace);
         setUrgency(urgency);
         setExpectedDuration(expectedDuration);
@@ -30,6 +33,7 @@ public class Task {
         this.teamAssigned = null;
         this.vehiclesAssigned = new ArrayList<>();
     }
+
 
     public String getTitle() {
         return title;
@@ -51,6 +55,10 @@ public class Task {
 
     public String getDescription() {
         return description;
+    }
+
+    public TaskType getTaskType() {
+        return taskType;
     }
 
     public void setDescription(String description) {
@@ -77,6 +85,18 @@ public class Task {
         } else {
             throw new IllegalArgumentException("Status is not valid.");
         }
+    }
+
+    private void setTaskType(TaskType taskType) {
+        if (validateTaskType(taskType)) {
+            this.taskType = taskType;
+        } else {
+            throw new IllegalArgumentException("Task type is not valid.");
+        }
+    }
+
+    private boolean validateTaskType(TaskType taskType) {
+        return taskType == TaskType.REGULAR || taskType == TaskType.OCCASIONAL;
     }
 
     private boolean validateStatus(Status status) {

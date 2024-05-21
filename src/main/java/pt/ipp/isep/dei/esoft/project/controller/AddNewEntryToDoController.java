@@ -42,7 +42,7 @@ public class AddNewEntryToDoController {
     public List<GreenSpaceDTO> getGreenSpaceDTOlist() {
         List<GreenSpace> greenSpaceList = greenSpaceRepository.getGreenSpaceList();
 
-        return GreenSpaceMapper.toDTO(greenSpaceList);
+        return GreenSpaceMapper.toDTOlist(greenSpaceList);
     }
 
     public Optional<Task> registerTask(ToDoTaskDTO toDoTaskDTO) {

@@ -15,15 +15,20 @@ participant "repositories\n:Repositories" as REPOInstance
 participant "greenSpaceRepository\n:GreenSpaceRepository" as GreenSpaceREPO
 participant ":GreenSpaceMapper" as GreenSpaceMapper
 participant ":GreenSpaceDTO" as GreenSpaceDTO
-participant ":ToDo" as Todo
-participant ":Task" as Task
+participant ":ToDoListMapper" as ToDoListMapper
+participant ":ToDoTaskDTO" as ToDoTaskDTO
+participant "toDoRepository\n:ToDoRepository" as Todo
+participant "Task" as Task
+participant "task\n:Task" as TaskSet
+
+
 
 activate GSM
 
     GSM -> UI : Asks to add a new entry on To-Do List
     activate UI
 
-    UI -> CTRL : getGreenSpaceList()
+    UI -> CTRL : getGreenSpaceDTOlist()
     activate CTRL
 
         CTRL -> REPO : getInstance()
@@ -45,20 +50,23 @@ activate GSM
 
         deactivate GreenSpaceREPO
 
-        CTRL -> GreenSpaceMapper : getGreenSpaceDTOlist(greenSpaceList)
+        CTRL -> GreenSpaceMapper : toDTOlist(greenSpaceList)
 
         activate GreenSpaceMapper
 loop for each greenSpace in greenSpaceList
             GreenSpaceMapper -> GreenSpaceDTO** : toDTO(greenSpace)
 
             note right of GreenSpaceDTO
-                                GreenSpaceDTO contains the (atributes here)
+                                GreenSpaceDTO contains the atributes:
+                                - name
+                                - type
+                                - totalArea
                             end note
                             |||
             GreenSpaceMapper --> GreenSpaceMapper : add(greenSpaceDTO)
 
 end loop
-            GreenSpaceMapper --> CTRL : getGreenSpaceDTOlist
+            GreenSpaceMapper --> CTRL : greenSpaceDTOlist
 
 
 
@@ -72,7 +80,7 @@ end loop
 
 
 
-CTRL --> UI : greenSpaceList
+CTRL --> UI : greenSpaceDTOList
     deactivate CTRL
 
 
@@ -91,7 +99,7 @@ CTRL --> UI : greenSpaceList
 
     loop until typed data is validated
 
-        UI --> GSM : Requests data (title, description, type, duration, urgency)
+        UI --> GSM : Requests data (title, description, expected duration)
     deactivate UI
 
     GSM -> UI : Types requested data
@@ -101,8 +109,29 @@ CTRL --> UI : greenSpaceList
 
     end
 
-        UI --> UI : keepData(title, description, type, duration, urgency)
+        UI --> UI : keepData(title, description, expectedDuration)
         |||
+
+    loop until doesn't select a valid option
+                        UI --> GSM : Shows list of task type and urgency and asks to select one
+                    deactivate UI
+
+                    GSM -> UI : Selects type of task and urgency
+                    note right
+                    Task type and urgency are
+                    both enumerate types
+                    end note
+                    activate UI
+                    |||
+                    end
+
+                UI --> UI : keepData(type, urgency)
+
+
+        |||
+        UI -> UI : new toDoTaskDTO(title, description, type,\ngreenSpace,urgency, expectedDuration)
+
+
 
 
                 UI --> GSM : Shows all data and requests confirmation
@@ -111,33 +140,65 @@ deactivate UI
 
     activate UI
 
-    UI -> CTRL : createNewTask(title, description, type, duration, urgency, greenSpace)
+    UI -> CTRL : registerTask(toDoTaskDTO)
     activate CTRL
 
-        CTRL -> Todo : createNewTask(title, description, type, duration, urgency, greenSpace)
+        CTRL -> GreenSpaceREPO : getGreenSpaceByName(greenSpace)
+        activate GreenSpaceREPO
 
-        activate Todo
+            GreenSpaceREPO --> CTRL : greenSpace
+        deactivate GreenSpaceREPO
 
-            Todo -> Task** : new Task (title, description, type, duration, urgency, greenSpace)
+        CTRL -> ToDoListMapper : toTask(toDoTaskDTO,greenSpace)
+
+            activate ToDoListMapper
+
+                ToDoListMapper -> Task ** : new Task(title, description, type,\ngreenSpace, urgency, expectedDuration)
 
             Task --> Task : validateTitle(title)
-
             Task --> Task : validateDescription(description)
-
             Task --> Task : validateType(type)
-
             Task --> Task : validateDuration(duration)
-
             Task --> Task : validateUrgency(urgency)
 
            |||
+           deactivate Task
 
-            Todo --> Todo : validateTask(task)
+            ToDoListMapper --> ToDoListMapper : task
 
-            Todo --> Todo : addTask(task)
+            ToDoListMapper --> CTRL : task
+            deactivate ToDoListMapper
 
-            Todo --> CTRL : operation success
-            deactivate Todo
+            CTRL -> REPO : getInstance()
+                    activate REPO
+
+                        REPO --> CTRL : repositories
+                    deactivate REPO
+                    CTRL -> REPOInstance: getToDoRepository()
+
+                    activate REPOInstance
+
+                        REPOInstance --> CTRL : toDoRepository
+                    deactivate REPOInstance
+
+                    CTRL -> Todo : registerTaskTodo(task)
+
+                    activate Todo
+                    |||
+                    |||
+                    Todo --> Todo : validateTaskToDo(task)
+                    |||
+                    Todo -> TaskSet** : setStatus(TODO_DEFAULT_STATUS)
+                    note right of TaskSet
+                    When a new task is created, the
+                    status is "PENDING" by default,
+                    until the task doesn't go the Agenda.
+                    end note
+                    Todo --> Todo : add(task)
+
+                    Todo --> CTRL : operation success
+                    deactivate Todo
+
             CTRL --> UI : operation success
             deactivate CTRL
         UI --> GSM : Displays operation success

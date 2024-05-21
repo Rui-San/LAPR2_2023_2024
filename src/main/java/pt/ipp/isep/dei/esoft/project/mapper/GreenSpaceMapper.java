@@ -12,7 +12,7 @@ public class GreenSpaceMapper {
 
     }
 
-    public static List<GreenSpaceDTO> toDTO(List<GreenSpace> greenSpaceList) {
+    public static List<GreenSpaceDTO> toDTOlist(List<GreenSpace> greenSpaceList) {
         List<GreenSpaceDTO> greenSpaceDTOS = new ArrayList<>();
         for (GreenSpace greenSpace : greenSpaceList) {
             greenSpaceDTOS.add(toDTO(greenSpace));
@@ -23,7 +23,7 @@ public class GreenSpaceMapper {
 
     public static GreenSpaceDTO toDTO(GreenSpace greenSpace) {
 
-        return new GreenSpaceDTO(greenSpace.getName());
+        return new GreenSpaceDTO(greenSpace.getName(),greenSpace.getType(),greenSpace.getTotalArea());
     }
 
 

@@ -26,7 +26,7 @@ public class ToDoListMapper {
         return new ToDoTaskDTO(
                 toDoTask.getTitle(),
                 toDoTask.getDescription(),
-                toDoTask.getStatus(),
+                toDoTask.getTaskType(),
                 toDoTask.getGreenSpace().getName(),
                 toDoTask.getUrgency(),
                 toDoTask.getExpectedDuration()
@@ -37,7 +37,7 @@ public class ToDoListMapper {
         return new Task(
                 toDoTaskDTO.title,
                 toDoTaskDTO.description,
-                toDoTaskDTO.status,
+                toDoTaskDTO.taskType,
                 greenSpace,
                 toDoTaskDTO.urgency,
                 toDoTaskDTO.expectedDuration
