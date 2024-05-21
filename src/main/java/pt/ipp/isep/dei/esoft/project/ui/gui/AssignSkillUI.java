@@ -6,14 +6,12 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import pt.ipp.isep.dei.esoft.project.controller.AssignSkillController;
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
-import pt.ipp.isep.dei.esoft.project.domain.Job;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 public class AssignSkillUI implements Initializable {
     private final AssignSkillController controller;
@@ -82,6 +80,7 @@ public class AssignSkillUI implements Initializable {
         return null;
     }
 
+    /*
     private List<Skill> getSelectedSkills() {
         List<Skill> selectedSkills = new ArrayList<>();
         boolean hasDuplicates = false;
@@ -105,7 +104,17 @@ public class AssignSkillUI implements Initializable {
             }
         }
 
-        if (hasDuplicates) {
+        if (!selectedSkills.isEmpty()) {
+            lblSelectedSkillsError.setText("");
+            if (hasDuplicates) {
+                displayErrorLabel(lblSelectedSkillsError,"The skills marked in red are already assigned to collaborator " + cbCollaborator.getValue());
+                //lblSelectedSkillsError.setText("The skills marked in red are already assigned to collaborator" + cbCollaborator.getValue());
+            }
+        } else {
+            displayErrorLabel(lblSelectedSkillsError,"Select at least one skill");
+        }
+
+        if (!selectedSkills.isEmpty() && hasDuplicates) {
             lblSelectedSkillsError.setText("The skills marked in red are already assigned to collaborator" + cbCollaborator.getValue());
         } else {
             lblSelectedSkillsError.setText("");
@@ -115,15 +124,68 @@ public class AssignSkillUI implements Initializable {
 
     }
 
+     */
+    private List<Skill> getSelectedSkills() {
+        List<Skill> selectedSkills = new ArrayList<>();
+        boolean hasDuplicates = false;
+        Collaborator selectedCollaborator = getSelectedCollaborator();
+
+        if (selectedCollaborator == null) {
+            displayErrorLabel(lblSelectedSkillsError, "A collaborator must be selected");
+            return selectedSkills;
+        }
+
+        for (int i = 0; i < vboxSkills.getChildren().size(); i++) {
+            if (vboxSkills.getChildren().get(i) instanceof CheckBox) {
+                CheckBox checkBox = (CheckBox) vboxSkills.getChildren().get(i);
+                if (checkBox.isSelected()) {
+                    Skill matchingSkill = findSkillByName(checkBox.getText());
+                    if (matchingSkill != null) {
+                        if (selectedCollaborator.getSkillList().contains(matchingSkill)) {
+                            hasDuplicates = true;
+                            checkBox.setStyle("-fx-border-color: transparent transparent red transparent; -fx-border-width: 0 0 2px 0;");
+                        } else {
+                            selectedSkills.add(matchingSkill);
+                            checkBox.setStyle("-fx-border-color: transparent transparent green transparent; -fx-border-width: 0 0 2px 0;");
+                        }
+                    }
+                } else {
+                    checkBox.setStyle("");
+                }
+            }
+        }
+
+        if (selectedSkills.isEmpty() && !hasDuplicates) {
+            displayErrorLabel(lblSelectedSkillsError, "Select at least one skill");
+        } else {
+            clearLabelError(lblSelectedSkillsError);
+            if (hasDuplicates) {
+                displayErrorLabel(lblSelectedSkillsError, "The skills marked in red are already assigned to the collaborator " + cbCollaborator.getValue());
+            }
+        }
+
+        return selectedSkills;
+    }
+
+    private Skill findSkillByName(String skillName) {
+        for (Skill skill : skillList) {
+            if (skill.getSkillName().equalsIgnoreCase(skillName)) {
+                return skill;
+            }
+        }
+        return null;
+    }
+
+
     private boolean validateSelection() {
         List<Skill> selectedSkills = getSelectedSkills();
         if (selectedSkills.isEmpty()) {
-
-            displayErrorLabel(lblSelectedSkillsError,"You must select at least one skill");
             return false;
+        }else{
+            clearLabelError(lblSelectedSkillsError);
+            return true;
+
         }
-        clearLabelError(lblSelectedSkillsError);
-        return true;
     }
 
     private boolean validateSelectedCollaborator() {
@@ -138,21 +200,28 @@ public class AssignSkillUI implements Initializable {
 
     @FXML
     private void btnAssignSelectedSkills() {
-        List<Skill> selectedSkills = getSelectedSkills();
-        Collaborator collaborator = getSelectedCollaborator();
 
+        try {
+            Collaborator collaborator = getSelectedCollaborator();
 
-        if (validateSelectedCollaborator() && validateSelection()) {
-            StringBuilder sb = new StringBuilder();
-            sb.append("You are about to assign the following skills to collaborator ").append(collaborator.getName()).append(":");
-            for (Skill skill :selectedSkills){
-                sb.append("\n").append(skill.getSkillName());
+            List<Skill> selectedSkills = getSelectedSkills();
+
+            if (validateSelectedCollaborator() && validateSelection()) {
+                StringBuilder sb = new StringBuilder();
+                sb.append("You are about to assign the following skills to collaborator ").append(collaborator.getName()).append(":");
+                for (Skill skill : selectedSkills) {
+                    sb.append("\n").append(skill.getSkillName());
+                }
+
+                AlertUI.createAlert(Alert.AlertType.CONFIRMATION, "Assign Skills", "Confirm the operation", sb.toString()).show();
+
+                controller.assignSkillsToCollaborator(collaborator,selectedSkills);
+
+                AlertUI.createAlert(Alert.AlertType.INFORMATION,"Assign Skills","Confirmation of operation","All skills were sucessfully assigned to collaborator");
             }
-
-            AlertUI.createAlert(Alert.AlertType.CONFIRMATION,"Assign Skills","Confirm the operation",sb.toString()).show();
-
+        } catch (NullPointerException ne) {
+            displayErrorLabel(lblSelectedSkillsError, "A collaborator must be selected");
         }
-
 
     }
 
