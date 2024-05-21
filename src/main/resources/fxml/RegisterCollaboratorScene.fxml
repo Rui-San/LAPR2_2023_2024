@@ -7,161 +7,157 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="466.0" prefWidth="814.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.RegisterCollaboratorUI">
+<AnchorPane prefHeight="573.0" prefWidth="874.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.RegisterCollaboratorUI">
    <children>
-      <Button layoutX="663.0" layoutY="417.0" mnemonicParsing="false" onAction="#btnSubmitAction" prefHeight="40.0" prefWidth="114.0" text="Submit" />
-      <Text layoutX="253.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Register a Collaborator">
+      <Text layoutX="309.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Register a Collaborator">
          <font>
             <Font name="Berlin Sans FB" size="28.0" />
          </font>
       </Text>
-      <Button layoutX="537.0" layoutY="417.0" mnemonicParsing="false" onAction="#btnClearAction" prefHeight="40.0" prefWidth="114.0" text="Clear" />
-      <GridPane alignment="CENTER_RIGHT" layoutX="14.0" layoutY="42.0" prefHeight="387.0" prefWidth="395.0">
-        <columnConstraints>
-          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="214.0" minWidth="10.0" prefWidth="105.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="329.0" minWidth="10.0" prefWidth="262.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="9.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="9.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="9.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="9.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="9.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="9.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="9.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="9.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="9.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="9.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="9.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="9.0" vgrow="SOMETIMES" />
-        </rowConstraints>
+      <Button layoutX="446.0" layoutY="508.0" mnemonicParsing="false" onAction="#btnSubmitAction" prefHeight="40.0" prefWidth="114.0" text="Submit" />
+      <Button layoutX="315.0" layoutY="508.0" mnemonicParsing="false" onAction="#btnClearAction" prefHeight="40.0" prefWidth="114.0" text="Clear" />
+      <Group layoutX="1.0" layoutY="11.0">
          <children>
-            <Label alignment="CENTER_RIGHT" text="Nome" GridPane.valignment="CENTER" />
-            <TextField fx:id="txtName" prefHeight="30.0" prefWidth="278.0" promptText="Name" styleClass="form-input" GridPane.columnIndex="1" GridPane.valignment="CENTER" />
-            <Label text="Email" GridPane.rowIndex="2" GridPane.valignment="TOP" />
-            <TextField fx:id="txtEmail" prefHeight="30.0" prefWidth="300.0" promptText="Email" styleClass="form-input" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="TOP" />
-            <Label text="Phone Number" GridPane.rowIndex="4" GridPane.valignment="TOP" />
-            <TextField fx:id="txtPhoneNumber" prefHeight="30.0" prefWidth="300.0" promptText="Phone Number" styleClass="form-input" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="TOP" />
-            <Label text="Job" GridPane.rowIndex="6" GridPane.valignment="TOP" />
-            <ComboBox fx:id="cbJob" prefHeight="30.0" prefWidth="300.0" promptText="Select a Job" styleClass="form-input-datepicker" GridPane.columnIndex="1" GridPane.rowIndex="6" GridPane.valignment="TOP" />
-            <Label text="Document type" GridPane.rowIndex="8" GridPane.valignment="TOP" />
-            <Label text="Document Number" GridPane.rowIndex="10" GridPane.valignment="TOP" />
-            <ComboBox fx:id="cbDocType" prefHeight="30.0" prefWidth="300.0" promptText="Select ID Type" styleClass="form-input-datepicker" GridPane.columnIndex="1" GridPane.rowIndex="8" GridPane.valignment="TOP" />
-            <TextField fx:id="txtDocNumber" prefHeight="30.0" prefWidth="300.0" promptText="Document Number" styleClass="form-input" GridPane.columnIndex="1" GridPane.rowIndex="10" GridPane.valignment="TOP" />
-            <Label fx:id="lblNameError" alignment="TOP_LEFT" prefHeight="33.0" prefWidth="275.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="TOP">
+            <Label fx:id="lblNameError" alignment="TOP_LEFT" layoutX="72.0" layoutY="118.0" prefHeight="17.0" prefWidth="350.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true">
                <font>
                   <Font size="9.0" />
                </font>
             </Label>
-            <Label fx:id="lblEmailError" alignment="TOP_LEFT" prefHeight="33.0" prefWidth="275.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
-               <font>
-                  <Font size="9.0" />
-               </font>
-            </Label>
-            <Label fx:id="lblPhoneError" alignment="TOP_LEFT" prefHeight="33.0" prefWidth="275.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="5">
-               <font>
-                  <Font size="9.0" />
-               </font>
-            </Label>
-            <Label fx:id="lblJobError" alignment="TOP_LEFT" prefHeight="33.0" prefWidth="275.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="7">
-               <font>
-                  <Font size="9.0" />
-               </font>
-            </Label>
-            <Label fx:id="lblDocTypeError" alignment="TOP_LEFT" prefHeight="33.0" prefWidth="275.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="9">
-               <font>
-                  <Font size="9.0" />
-               </font>
-            </Label>
-            <Label fx:id="lblDocNumberError" alignment="TOP_LEFT" prefHeight="33.0" prefWidth="275.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="11">
+            <Label alignment="TOP_LEFT" layoutX="70.0" layoutY="70.0" prefHeight="17.0" prefWidth="300.0" text="Nome" />
+            <TextField fx:id="txtName" layoutX="70.0" layoutY="85.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" prefWidth="350.0" promptText="Name" styleClass="form-input" />
+         </children>
+      </Group>
+      <Group layoutX="1.0" layoutY="3.0">
+         <children>
+            <DatePicker fx:id="dpBirthdate" layoutX="446.0" layoutY="94.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" prefWidth="356.0" promptText="Birthdate" styleClass="form-input-datepicker" />
+            <Label layoutX="446.0" layoutY="78.0" prefHeight="17.0" prefWidth="300.0" text="Birthdate" />
+            <Label fx:id="lblBirthdateError" alignment="TOP_LEFT" layoutX="446.0" layoutY="127.0" prefHeight="16.0" prefWidth="356.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true">
                <font>
                   <Font size="9.0" />
                </font>
             </Label>
          </children>
-      </GridPane>
-      <GridPane alignment="CENTER_RIGHT" layoutX="403.0" layoutY="42.0" prefHeight="318.0" prefWidth="367.0">
+      </Group>
+      <Group layoutX="1.0" layoutY="50.0">
          <children>
-            <Label alignment="CENTER_RIGHT" text="Birthdate" GridPane.valignment="CENTER" />
-            <Label text="Admission date" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-            <Label text="Street" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-            <Label text="Street Number" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
-            <Label text="Postal Code" GridPane.rowIndex="8" GridPane.valignment="CENTER" />
-            <TextField fx:id="txtStreet" prefHeight="30.0" prefWidth="188.0" promptText="Street" styleClass="form-input" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-            <TextField fx:id="txtStreetNumber" prefHeight="30.0" prefWidth="46.0" promptText="nº" styleClass="form-input" GridPane.columnIndex="1" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
-            <TextField fx:id="txtPostalCode" prefHeight="30.0" prefWidth="106.0" promptText="Postal Code" styleClass="form-input" GridPane.columnIndex="1" GridPane.rowIndex="8" GridPane.valignment="CENTER" />
-            <DatePicker fx:id="dpAdmissionDate" prefHeight="30.0" prefWidth="300.0" promptText="Admission Date" styleClass="form-input-datepicker" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-            <DatePicker fx:id="dpBirthdate" prefHeight="30.0" prefWidth="300.0" promptText="Birthdate" styleClass="form-input-datepicker" GridPane.columnIndex="1" GridPane.valignment="CENTER" />
-            <Label fx:id="lblBirthdateError" alignment="TOP_LEFT" prefHeight="33.0" prefWidth="275.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Label fx:id="lblEmailError" alignment="TOP_LEFT" layoutX="71.0" layoutY="153.0" prefHeight="17.0" prefWidth="350.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true">
                <font>
                   <Font size="9.0" />
                </font>
             </Label>
-            <Label fx:id="lblAdmissionDateError" alignment="TOP_LEFT" prefHeight="33.0" prefWidth="275.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
-               <font>
-                  <Font size="9.0" />
-               </font>
-            </Label>
-            <Label fx:id="lblStreetError" alignment="TOP_LEFT" prefHeight="33.0" prefWidth="275.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="5">
-               <font>
-                  <Font size="9.0" />
-               </font>
-            </Label>
-            <Label fx:id="lblStreetNumberError" alignment="TOP_LEFT" prefHeight="33.0" prefWidth="275.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="7">
-               <font>
-                  <Font size="9.0" />
-               </font>
-            </Label>
-            <Label fx:id="lblPostalCodeError" alignment="TOP_LEFT" prefHeight="33.0" prefWidth="275.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="9">
+            <Label layoutX="71.0" layoutY="103.0" prefHeight="17.0" prefWidth="300.0" text="Email" />
+            <TextField fx:id="txtEmail" layoutX="71.0" layoutY="120.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" prefWidth="350.0" promptText="Email" styleClass="form-input" />
+         </children>
+      </Group>
+      <Group layoutX="1.0" layoutY="13.0">
+         <children>
+            <Label layoutX="446.0" layoutY="140.0" prefHeight="17.0" prefWidth="300.0" text="Admission date" />
+            <DatePicker fx:id="dpAdmissionDate" layoutX="446.0" layoutY="157.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" prefWidth="356.0" promptText="Admission Date" styleClass="form-input-datepicker" />
+            <Label fx:id="lblAdmissionDateError" alignment="TOP_LEFT" layoutX="446.0" layoutY="191.0" prefHeight="16.0" prefWidth="356.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true">
                <font>
                   <Font size="9.0" />
                </font>
             </Label>
          </children>
-         <columnConstraints>
-            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="214.0" minWidth="10.0" prefWidth="105.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="329.0" minWidth="10.0" prefWidth="262.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-         </rowConstraints>
-      </GridPane>
-      <GridPane layoutX="471.0" layoutY="360.0" prefHeight="40.0" prefWidth="299.0">
-        <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="41.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="159.0" minWidth="10.0" prefWidth="96.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="52.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="157.0" minWidth="10.0" prefWidth="120.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints maxHeight="27.0" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="17.0" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
-        </rowConstraints>
+      </Group>
+      <Group layoutX="1.0" layoutY="58.0">
          <children>
-            <TextField fx:id="txtDistrict" prefHeight="30.0" prefWidth="95.0" promptText="District" styleClass="form-input" GridPane.columnIndex="3" GridPane.valignment="TOP" />
-            <TextField fx:id="txtCity" prefHeight="30.0" prefWidth="130.0" promptText="City" styleClass="form-input" GridPane.columnIndex="1" GridPane.valignment="TOP" />
-            <Label text="District" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP" />
-            <Label text="City" GridPane.halignment="RIGHT" GridPane.valignment="TOP" />
-            <Label fx:id="lblCityError" alignment="TOP_LEFT" prefHeight="33.0" prefWidth="275.0" text="City is Empty" textFill="#dd2424" visible="false" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <TextField fx:id="txtPhoneNumber" layoutX="71.0" layoutY="185.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" prefWidth="350.0" promptText="Phone Number" styleClass="form-input" />
+            <Label fx:id="lblPhoneError" alignment="TOP_LEFT" layoutX="71.0" layoutY="218.0" prefHeight="16.0" prefWidth="350.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true">
                <font>
                   <Font size="9.0" />
                </font>
             </Label>
-            <Label fx:id="lblDistrictError" alignment="TOP_LEFT" prefHeight="33.0" prefWidth="275.0" text="City is Empty" textFill="#dd2424" visible="false" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <Label layoutX="71.0" layoutY="168.0" prefHeight="17.0" prefWidth="300.0" text="Phone Number" />
+         </children>
+      </Group>
+      <Group layoutX="1.0" layoutY="22.0">
+         <children>
+            <TextField fx:id="txtStreet" layoutX="444.0" layoutY="221.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" prefWidth="356.0" promptText="Street" styleClass="form-input" />
+            <Label layoutX="445.0" layoutY="204.0" text="Street" />
+            <Label fx:id="lblStreetError" alignment="TOP_LEFT" layoutX="444.0" layoutY="254.0" prefHeight="17.0" prefWidth="356.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true">
                <font>
                   <Font size="9.0" />
                </font>
             </Label>
          </children>
-      </GridPane>
+      </Group>
+      <Group layoutX="-38.0" layoutY="87.0">
+         <children>
+            <Label layoutX="110.0" layoutY="205.0" prefHeight="17.0" prefWidth="300.0" text="Job" />
+            <ComboBox fx:id="cbJob" layoutX="110.0" layoutY="222.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" prefWidth="350.0" promptText="Select a Job" styleClass="form-input-datepicker" />
+            <Label fx:id="lblJobError" alignment="TOP_LEFT" layoutX="110.0" layoutY="255.0" prefHeight="18.0" prefWidth="350.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Label>
+         </children>
+      </Group>
+      <Group layoutX="1.0" layoutY="25.0">
+         <children>
+            <Label layoutX="446.0" layoutY="268.0" prefHeight="17.0" prefWidth="356.0" text="Street Number" />
+            <Label fx:id="lblStreetNumberError" alignment="TOP_LEFT" layoutX="446.0" layoutY="316.0" prefHeight="19.0" prefWidth="356.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtStreetNumber" layoutX="446.0" layoutY="285.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" prefWidth="356.0" promptText="nº" styleClass="form-input" />
+         </children>
+      </Group>
+      <Group layoutX="-13.0" layoutY="89.0">
+         <children>
+            <Label fx:id="lblDocTypeError" alignment="TOP_LEFT" layoutX="85.0" layoutY="321.0" prefHeight="17.0" prefWidth="350.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="cbDocType" layoutX="85.0" layoutY="288.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" prefWidth="350.0" promptText="Select ID Type" styleClass="form-input-datepicker" />
+            <Label layoutX="85.0" layoutY="270.0" prefHeight="17.0" prefWidth="300.0" text="Document type" />
+         </children>
+      </Group>
+      <Group layoutX="1.0" layoutY="30.0">
+         <children>
+            <TextField fx:id="txtPostalCode" layoutX="444.0" layoutY="347.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" prefWidth="356.0" promptText="Postal Code" styleClass="form-input" />
+            <Label layoutX="445.0" layoutY="329.0" prefHeight="17.0" prefWidth="356.0" text="Postal Code" />
+            <Label fx:id="lblPostalCodeError" alignment="TOP_LEFT" layoutX="444.0" layoutY="381.0" prefHeight="17.0" prefWidth="356.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Label>
+         </children>
+      </Group>
+      <Group layoutX="-38.0" layoutY="66.0">
+         <children>
+            <Label layoutX="110.0" layoutY="364.0" text="Document Number" />
+            <TextField fx:id="txtDocNumber" layoutX="110.0" layoutY="381.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" prefWidth="350.0" promptText="Document Number" styleClass="form-input" />
+            <Label fx:id="lblDocNumberError" alignment="TOP_LEFT" layoutX="110.0" layoutY="414.0" prefHeight="19.0" prefWidth="350.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Label>
+         </children>
+      </Group>
+      <Group layoutX="1.0" layoutY="36.0">
+         <children>
+            <TextField fx:id="txtCity" layoutX="446.0" layoutY="412.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" prefWidth="179.0" promptText="City" styleClass="form-input" />
+            <Label layoutX="446.0" layoutY="395.0" prefHeight="17.0" prefWidth="179.0" text="City" />
+            <Label fx:id="lblCityError" alignment="TOP_LEFT" layoutX="446.0" layoutY="447.0" prefHeight="10.0" prefWidth="179.0" text="City is Empty" textFill="#dd2424" visible="false" wrapText="true">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Label>
+         </children>
+      </Group>
+      <Group layoutX="1.0" layoutY="36.0">
+         <children>
+            <Label fx:id="lblDistrictError" alignment="TOP_LEFT" layoutX="630.0" layoutY="447.0" prefHeight="16.0" prefWidth="171.0" text="City is Empty" textFill="#dd2424" visible="false" wrapText="true">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Label>
+            <Label layoutX="630.0" layoutY="395.0" prefHeight="17.0" prefWidth="171.0" text="District" />
+            <TextField fx:id="txtDistrict" layoutX="630.0" layoutY="412.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" prefWidth="171.0" promptText="District" styleClass="form-input" />
+         </children>
+      </Group>
    </children>
 </AnchorPane>
