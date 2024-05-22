@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import pt.ipp.isep.dei.esoft.project.controller.RegisterGreenSpaceController;
+import pt.ipp.isep.dei.esoft.project.dto.GreenSpaceDTO;
 import pt.ipp.isep.dei.esoft.project.tools.GreenSpaceType;
 
 import java.net.URL;
@@ -62,6 +63,10 @@ public class RegisterGreenSpaceUI implements Initializable {
     @FXML
     private void btnSubmit() {
 
+        if(validateAllInputs()){
+            GreenSpaceDTO greenSpaceDTO = new GreenSpaceDTO()
+        }
+
     }
 
     @FXML
@@ -70,17 +75,39 @@ public class RegisterGreenSpaceUI implements Initializable {
     }
 
     public boolean validateAllInputs() {
+        boolean nameValid = validateName();
         boolean streetValid = validateStreet();
         boolean streetNumberValid = validateStreetNumber();
         boolean postalCodeValid = validatePostalCode();
         boolean cityValid = validatePostalCode();
         boolean districtValid = validateDistrict();
+        boolean areaValid = validateArea();
+        boolean typeValid = validateType();
 
-        return streetValid
+        return nameValid
+                && streetValid
                 && streetNumberValid
                 && postalCodeValid
                 && cityValid
-                && districtValid;
+                && districtValid
+                && areaValid
+                && typeValid;
+    }
+
+    private boolean validateName() {
+        String nameString = txtName.getText().trim();
+
+        if (nameString.isEmpty()) {
+            displayErrorLayout(txtName, lblNameError, "Can't be empty");
+            return false;
+        }
+        if (!nameString.matches("[a-zA-Z\\s-\\p{L}]+")) {
+            displayErrorLayout(txtName, lblNameError, "Can't contain Special characters.");
+            return false;
+
+        }
+        clearLayoutErrors(txtName, lblNameError);
+        return true;
     }
 
     private boolean validateStreet() {
@@ -90,6 +117,33 @@ public class RegisterGreenSpaceUI implements Initializable {
             return false;
         }
         clearLayoutErrors(txtStreet, lblStreetError);
+        return true;
+    }
+
+    private boolean validateType() {
+        if (cbType.getValue() == null) {
+            displayErrorLayout(cbType, lblTypeError, "Select one type of green space");
+            return false;
+        }
+        clearLayoutErrors(cbType, lblTypeError);
+        return true;
+    }
+
+    private boolean validateArea() {
+        try {
+            double areaDouble = Double.parseDouble(txtArea.getText().trim());
+
+            if (areaDouble <= 0) {
+                displayErrorLayout(txtArea, lblAreaError, "Must be a positive number");
+                return false;
+            }
+
+        } catch (NumberFormatException ne) {
+            displayErrorLayout(txtArea, lblAreaError, "Enter valid number format");
+            displayErrorLayout(txtArea, lblAreaError, "Enter valid number format");
+            return false;
+        }
+        clearLayoutErrors(txtArea, lblAreaError);
         return true;
     }
 
