@@ -127,12 +127,15 @@ public class AddNewEntryToDoUI implements Initializable {
     }
 
     public boolean validateAllInputs() {
-        return validateTitle()
-                && validateDescription()
-                && validateExpectedDuration()
-                && validateGreenSpaceSelection()
-                && validateTypeSelection()
-                && validateUrgencySelection();
+        boolean titleValid = validateTitle();
+        boolean descriptionValid = validateDescription();
+        boolean durationValid = validateExpectedDuration();
+        boolean greenSpaceValid = validateGreenSpaceSelection();
+        boolean typeValid = validateTypeSelection();
+        boolean urgencyValid = validateUrgencySelection();
+
+        return titleValid && descriptionValid && durationValid && greenSpaceValid && typeValid && urgencyValid;
+
     }
 
     private boolean validateTitle() {
