@@ -64,33 +64,41 @@ public class RegisterGreenSpaceUI implements Initializable {
 
     @FXML
     private void btnSubmit() {
+        try {
+
+            if (validateAllInputs()) {
+
+                GreenSpaceDTO greenSpaceDTO = new GreenSpaceDTO(txtName.getText().trim(),
+                        cbType.getValue(),
+                        Double.parseDouble(txtArea.getText().trim()),
+                        txtStreet.getText().trim(),
+                        Integer.parseInt(txtStreetNumber.getText().trim()),
+                        txtPostalCode.getText().trim(),
+                        txtCity.getText().trim(),
+                        txtDistrict.getText().trim()
+                );
+
+                StringBuilder sb = getConfirmationText(greenSpaceDTO);
+
+                Alert alertConfirmation = AlertUI.createAlert(Alert.AlertType.CONFIRMATION, "Register Green Space", "Confirm the operation", sb.toString());
+                if (alertConfirmation.showAndWait().get() == ButtonType.OK) {
 
 
-        if (validateAllInputs()) {
-            Double areaDouble = Double.parseDouble(txtArea.getText().trim());
-            int streetNumberInt = Integer.parseInt(txtStreetNumber.getText().trim());
+                    if (controller.registerGreenSpace(greenSpaceDTO).isPresent()) {
+                        AlertUI.createAlert(Alert.AlertType.INFORMATION, "Register Green Space", "Confirmation of operation", "Green space successfully registered").show();
+                        clearAllFieldsAndErrors();
 
-            GreenSpaceDTO greenSpaceDTO = new GreenSpaceDTO(txtName.getText().trim(),
-                    cbType.getValue(),
-                    areaDouble,
-                    txtStreet.getText().trim(),
-                    streetNumberInt,
-                    txtPostalCode.getText().trim(),
-                    txtCity.getText().trim(),
-                    txtDistrict.getText().trim()
-            );
+                    } else {
+                        AlertUI.createAlert(Alert.AlertType.ERROR, "Register Green Space", "Error occurred", "This Green space is already in the system").show();
+                        clearAllFieldsAndErrors();
+                    }
 
-            StringBuilder sb = getConfirmationText(greenSpaceDTO);
 
-            Alert alertConfirmation = AlertUI.createAlert(Alert.AlertType.CONFIRMATION, "Register Green Space", "Confirm the operation", sb.toString());
-            if (alertConfirmation.showAndWait().get() == ButtonType.OK) {
-                controller.registerGreenSpace(greenSpaceDTO);
+                }
 
-                AlertUI.createAlert(Alert.AlertType.INFORMATION, "Register Green Space", "Confirmation of operation", "Green space successfully registered");
-                clearAllFieldsAndErrors();
             }
-
-
+        } catch (IllegalArgumentException ie) {
+            AlertUI.createAlert(Alert.AlertType.ERROR, "ERROR", "Register Green Space", ie.getMessage());
         }
     }
 

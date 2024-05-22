@@ -39,10 +39,7 @@ public class RegisterJobUI implements Initializable {
     @FXML
     public void btnSubmitAction() {
         try {
-            Optional<Job> job = getRegisterJobController().registerJob(
-                    txtJobName.getText().trim()
-            );
-
+            Optional<Job> job = getRegisterJobController().registerJob(txtJobName.getText().trim());
 
             if (job.isPresent()) {
                 txtJobName.clear();

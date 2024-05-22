@@ -99,7 +99,7 @@ public class AddNewEntryToDoUI implements Initializable {
             if (alertConfirmation.showAndWait().get() == ButtonType.OK) {
                 controller.registerTask(toDoTaskDTO);
 
-                AlertUI.createAlert(Alert.AlertType.INFORMATION, "Add new entry To-Do", "Confirmation of operation", "New Entry To-Do sucessfully registered");
+                AlertUI.createAlert(Alert.AlertType.INFORMATION, "Add new entry To-Do", "Confirmation of operation", "New Entry To-Do sucessfully registered").show();
                 clearFields();
             }
 
