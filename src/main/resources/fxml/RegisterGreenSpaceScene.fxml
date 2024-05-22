@@ -10,7 +10,7 @@
 
 <AnchorPane prefHeight="573.0" prefWidth="874.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.RegisterGreenSpaceUI">
    <children>
-      <Group layoutX="11.0" layoutY="70.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="120.0">
+      <Group layoutY="50.0" AnchorPane.topAnchor="120.0">
          <children>
             <Label fx:id="lblNameError" alignment="TOP_LEFT" layoutX="72.0" layoutY="118.0" prefHeight="17.0" prefWidth="350.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true">
                <font>
@@ -18,21 +18,21 @@
                </font>
             </Label>
             <Label alignment="TOP_LEFT" layoutX="70.0" layoutY="70.0" prefHeight="17.0" prefWidth="300.0" text="Name" />
-            <TextField fx:id="txtName" layoutX="70.0" layoutY="85.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" prefWidth="731.0" promptText="Name" styleClass="form-input" />
+            <TextField fx:id="txtName" layoutX="70.0" layoutY="85.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" prefWidth="734.0" promptText="Name" styleClass="form-input" />
          </children>
       </Group>
-      <Group layoutX="381.0" layoutY="155.0">
+      <Group layoutX="384.0" layoutY="154.0">
          <children>
             <Label fx:id="lblAreaError" alignment="TOP_LEFT" layoutX="72.0" layoutY="118.0" prefHeight="17.0" prefWidth="350.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true">
                <font>
                   <Font size="9.0" />
                </font>
             </Label>
-            <Label alignment="TOP_LEFT" layoutX="70.0" layoutY="70.0" prefHeight="17.0" prefWidth="300.0" text="Area" />
+            <Label alignment="TOP_LEFT" layoutX="70.0" layoutY="70.0" prefHeight="17.0" prefWidth="350.0" text="Area" />
             <TextField fx:id="txtArea" layoutX="70.0" layoutY="85.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" prefWidth="350.0" promptText="Area" styleClass="form-input" />
          </children>
       </Group>
-      <Group layoutX="-377.0" layoutY="109.0" AnchorPane.rightAnchor="451.0">
+      <Group layoutX="-374.0" layoutY="109.0">
          <children>
             <TextField fx:id="txtStreet" layoutX="444.0" layoutY="221.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" prefWidth="350.0" promptText="Street" styleClass="form-input" />
             <Label layoutX="445.0" layoutY="204.0" text="Street" />
@@ -43,7 +43,7 @@
             </Label>
          </children>
       </Group>
-      <Group layoutX="2.0" layoutY="45.0" AnchorPane.rightAnchor="70.0">
+      <Group layoutX="8.0" layoutY="45.0">
          <children>
             <Label layoutX="446.0" layoutY="268.0" prefHeight="17.0" prefWidth="350.0" text="Street Number" />
             <Label fx:id="lblStreetNumberError" alignment="TOP_LEFT" layoutX="446.0" layoutY="316.0" prefHeight="19.0" prefWidth="356.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true">
@@ -65,7 +65,7 @@
             </Label>
          </children>
       </Group>
-      <Group layoutX="9.0" layoutY="3.0">
+      <Group layoutX="8.0" layoutY="3.0">
          <children>
             <TextField fx:id="txtCity" layoutX="446.0" layoutY="412.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" prefWidth="171.0" promptText="City" styleClass="form-input" />
             <Label layoutX="446.0" layoutY="395.0" prefHeight="17.0" prefWidth="171.0" text="City" />
@@ -92,9 +92,9 @@
             <Font name="Berlin Sans FB" size="28.0" />
          </font>
       </Text>
-      <Group layoutX="-40.0" layoutY="18.0" AnchorPane.leftAnchor="70.0">
+      <Group layoutX="-39.0" layoutY="19.0">
          <children>
-            <Label layoutX="110.0" layoutY="205.0" prefHeight="17.0" prefWidth="300.0" text="Type" />
+            <Label layoutX="110.0" layoutY="205.0" prefHeight="17.0" prefWidth="350.0" text="Type" />
             <ComboBox fx:id="cbType" layoutX="110.0" layoutY="222.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" prefWidth="350.0" promptText="Select type" styleClass="form-input-datepicker" />
             <Label fx:id="lblTypeError" alignment="TOP_LEFT" layoutX="110.0" layoutY="255.0" prefHeight="18.0" prefWidth="350.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true">
                <font>
@@ -103,7 +103,7 @@
             </Label>
          </children>
       </Group>
-      <Button layoutX="339.0" layoutY="489.0" mnemonicParsing="false" onAction="#btnClear" prefHeight="39.0" prefWidth="81.0" text="Clear" />
-      <Button layoutX="454.0" layoutY="489.0" mnemonicParsing="false" onAction="#btnSubmit" text="Submit" />
+      <Button layoutX="339.0" layoutY="489.0" mnemonicParsing="false" onAction="#btnClear" prefHeight="40.0" prefWidth="80.0" text="Clear" />
+      <Button layoutX="454.0" layoutY="489.0" mnemonicParsing="false" onAction="#btnSubmit" prefHeight="40.0" prefWidth="80.0" text="Submit" />
    </children>
 </AnchorPane>

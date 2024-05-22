@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -58,6 +59,7 @@ public class RegisterGreenSpaceUI implements Initializable {
     }
 
     private void fillGreenSpaceType() {
+        cbType.setItems(FXCollections.observableArrayList(GreenSpaceType.values()));
     }
 
     @FXML
@@ -99,8 +101,9 @@ public class RegisterGreenSpaceUI implements Initializable {
                 .append("\nName: ").append(greenSpaceDTO.name)
                 .append("\nType: ").append(greenSpaceDTO.type)
                 .append("\nArea: ").append(greenSpaceDTO.totalArea)
-                .append("\nStreet: ").append(greenSpaceDTO.street).append(" Nº: ").append(greenSpaceDTO.streetNumber)
-                .append("\nPostal Code: ").append(greenSpaceDTO.postalCode).append("   - City: ").append(greenSpaceDTO.city)
+                .append("\nStreet: ").append(greenSpaceDTO.street).append("         Nº: ").append(greenSpaceDTO.streetNumber)
+                .append("\nPostal Code: ").append(greenSpaceDTO.postalCode)
+                .append("\nCity: ").append(greenSpaceDTO.city)
                 .append("\nDistrict: ").append(greenSpaceDTO.district);
 
         return sb;
@@ -116,7 +119,7 @@ public class RegisterGreenSpaceUI implements Initializable {
         boolean streetValid = validateStreet();
         boolean streetNumberValid = validateStreetNumber();
         boolean postalCodeValid = validatePostalCode();
-        boolean cityValid = validatePostalCode();
+        boolean cityValid = validateCity();
         boolean districtValid = validateDistrict();
         boolean areaValid = validateArea();
         boolean typeValid = validateType();
