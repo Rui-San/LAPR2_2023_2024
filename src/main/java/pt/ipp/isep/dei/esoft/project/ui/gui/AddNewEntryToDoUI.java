@@ -199,20 +199,14 @@ public class AddNewEntryToDoUI implements Initializable {
             int hoursInt = Integer.parseInt(txtHours.getText().trim());
 
             if (daysInt < 0 || hoursInt < 0) {
-                if (daysInt < 0) {
-                    txtDays.setStyle("-fx-border-color: red");
-                }
-                if (hoursInt < 0) {
-                    txtHours.setStyle("-fx-border-color: red");
-                }
-                lblExpectedDurationError.setVisible(true);
-                lblDescriptionError.setText("Must be a positive integer");
+                displayErrorLayout(txtDays, lblExpectedDurationError, "Must be a positive integer");
+                displayErrorLayout(txtHours, lblExpectedDurationError, "Must be a positive integer");
                 return false;
             }
 
             if (daysInt == 0 && hoursInt == 0) {
-                txtHours.setStyle("-fx-border-color: red");
                 displayErrorLayout(txtDays, lblExpectedDurationError, "At least one must be greater than zero");
+                displayErrorLayout(txtHours, lblExpectedDurationError, "At least one must be greater than zero");
                 return false;
             }
 
@@ -221,16 +215,13 @@ public class AddNewEntryToDoUI implements Initializable {
                 return false;
             }
         } catch (NumberFormatException ne) {
-            txtHours.setStyle("-fx-text-fill: red;");
-            txtDays.setStyle("-fx-text-fill: red;");
-            lblExpectedDurationError.setText("Enter valid integers");
-            lblExpectedDurationError.setStyle("-fx-text-fill: red;");
-            lblExpectedDurationError.setVisible(true);
+            displayErrorLayout(txtDays, lblExpectedDurationError, "Enter valid integers");
+            displayErrorLayout(txtHours, lblExpectedDurationError, "Enter valid integers");
             return false;
 
         }
-        txtHours.setStyle("");
         clearLayoutErrors(txtDays, lblExpectedDurationError);
+        clearLayoutErrors(txtHours, lblExpectedDurationError);
         return true;
     }
 
@@ -249,12 +240,19 @@ public class AddNewEntryToDoUI implements Initializable {
 
     private void clearFields() {
         txtTitle.clear();
+        txtTitle.setStyle("");
         txtDescription.clear();
+        txtDescription.setStyle("");
         txtDays.clear();
+        txtDays.setStyle("");
         txtHours.clear();
+        txtHours.setStyle("");
         cbGreenSpace.getSelectionModel().clearSelection();
+        cbGreenSpace.setStyle("");
         cbType.getSelectionModel().clearSelection();
+        cbType.setStyle("");
         cbUrgency.getSelectionModel().clearSelection();
+        cbUrgency.setStyle("");
         lblTitleError.setStyle("");
         lblTitleError.setVisible(false);
         lblDescriptionError.setStyle("");
