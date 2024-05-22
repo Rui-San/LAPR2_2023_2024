@@ -9,7 +9,7 @@
 
 <AnchorPane prefHeight="573.0" prefWidth="874.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.RegisterCollaboratorUI">
    <children>
-      <Text layoutX="309.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Register a Collaborator">
+      <Text layoutX="309.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Register a Collaborator" AnchorPane.topAnchor="32.0">
          <font>
             <Font name="Berlin Sans FB" size="28.0" />
          </font>
