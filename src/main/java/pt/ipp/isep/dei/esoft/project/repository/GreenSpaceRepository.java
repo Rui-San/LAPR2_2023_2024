@@ -15,18 +15,7 @@ public class GreenSpaceRepository {
         this.greenSpaceList = new ArrayList<>();
     }
 
-    public Optional<GreenSpace> registerGreenSpace(GreenSpaceType type, String name, String street, int streetNumber, String postalCode, String city, String district, double totalArea) {
-
-        GreenSpace greenSpace = new GreenSpace(
-                type,
-                name,
-                street,
-                streetNumber,
-                postalCode,
-                city,
-                district,
-                totalArea
-        );
+    public Optional<GreenSpace> registerGreenSpace(GreenSpace greenSpace) {
 
         Optional<GreenSpace> addedGreenSpace = add(greenSpace);
         return addedGreenSpace;

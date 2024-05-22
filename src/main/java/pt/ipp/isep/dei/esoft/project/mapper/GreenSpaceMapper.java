@@ -35,5 +35,18 @@ public class GreenSpaceMapper {
         );
     }
 
+    public static GreenSpace toGreenSpace(GreenSpaceDTO greenSpaceDTO){
+        return new GreenSpace(
+                greenSpaceDTO.type,
+                greenSpaceDTO.name,
+                greenSpaceDTO.street,
+                greenSpaceDTO.streetNumber,
+                greenSpaceDTO.postalCode,
+                greenSpaceDTO.city,
+                greenSpaceDTO.district,
+                greenSpaceDTO.totalArea
+        );
+    }
+
 
 }
