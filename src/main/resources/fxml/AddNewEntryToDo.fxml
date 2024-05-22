@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="573.0" prefWidth="874.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.AddNewEntryToDoUI">
+   <children>
+      <Text layoutX="311.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add new entry To-Do" AnchorPane.topAnchor="32.0">
+         <font>
+            <Font name="Berlin Sans FB" size="28.0" />
+         </font>
+      </Text>
+      <Group layoutX="11.0" layoutY="21.0">
+         <children>
+            <Label fx:id="lblTitleError" alignment="TOP_LEFT" layoutX="72.0" layoutY="118.0" prefHeight="17.0" prefWidth="350.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Label>
+            <Label alignment="TOP_LEFT" layoutX="70.0" layoutY="70.0" prefHeight="17.0" prefWidth="300.0" text="Title" />
+            <TextField fx:id="txtTitle" layoutX="70.0" layoutY="85.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" prefWidth="350.0" promptText="Title" styleClass="form-input" />
+         </children>
+      </Group>
+      <Group layoutX="11.0" layoutY="111.0">
+         <children>
+            <Label fx:id="lblDescriptionError" alignment="TOP_LEFT" layoutX="72.0" layoutY="118.0" prefHeight="17.0" prefWidth="350.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Label>
+            <Label alignment="TOP_LEFT" layoutX="70.0" layoutY="70.0" prefHeight="17.0" prefWidth="300.0" text="Description" />
+            <TextField fx:id="txtDescription" layoutX="70.0" layoutY="85.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" prefWidth="350.0" promptText="Description" styleClass="form-input" />
+         </children>
+      </Group>
+      <Group layoutX="11.0" layoutY="203.0">
+         <children>
+            <Label fx:id="lblExpectedDurationError" alignment="TOP_LEFT" layoutX="72.0" layoutY="118.0" prefHeight="17.0" prefWidth="350.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="70.0" layoutY="70.0" prefHeight="27.0" prefWidth="350.0" text="Expected Duration" textAlignment="CENTER" />
+            <TextField fx:id="txtDays" layoutX="70.0" layoutY="85.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" prefWidth="165.0" promptText="Amount of" styleClass="form-input" />
+            <Label layoutX="194.0" layoutY="88.0" text="Days" />
+            <TextField fx:id="txtHours" layoutX="254.0" layoutY="85.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" prefWidth="165.0" promptText="Amount of" styleClass="form-input" />
+            <Label layoutX="369.0" layoutY="88.0" text="Hours" />
+         </children>
+      </Group>
+      <Group layoutX="-29.0" layoutY="143.0">
+         <children>
+            <Label layoutX="110.0" layoutY="205.0" prefHeight="17.0" prefWidth="300.0" text="Urgency" />
+            <ComboBox fx:id="cbUrgency" layoutX="110.0" layoutY="222.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" prefWidth="350.0" promptText="Select urgency" styleClass="form-input-datepicker" />
+            <Label fx:id="lblUrgencyError" alignment="TOP_LEFT" layoutX="110.0" layoutY="255.0" prefHeight="18.0" prefWidth="350.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Label>
+         </children>
+      </Group>
+      <Group layoutX="-29.0" layoutY="220.0">
+         <children>
+            <Label layoutX="110.0" layoutY="205.0" prefHeight="17.0" prefWidth="300.0" text="Green space" />
+            <ComboBox fx:id="cbGreenSpace" layoutX="110.0" layoutY="222.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" prefWidth="350.0" promptText="Select a Green Space" styleClass="form-input-datepicker" />
+            <Label fx:id="lblGreenSpace" alignment="TOP_LEFT" layoutX="110.0" layoutY="255.0" prefHeight="18.0" prefWidth="350.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Label>
+         </children>
+      </Group>
+      <Group layoutX="374.0" layoutY="143.0">
+         <children>
+            <Label layoutX="110.0" layoutY="205.0" prefHeight="17.0" prefWidth="300.0" text="Task type" />
+            <ComboBox fx:id="cbType" layoutX="110.0" layoutY="222.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" prefWidth="350.0" promptText="Select a type" styleClass="form-input-datepicker" />
+            <Label fx:id="lblTypeError" alignment="TOP_LEFT" layoutX="110.0" layoutY="255.0" prefHeight="18.0" prefWidth="350.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Label>
+         </children>
+      </Group>
+      <Button layoutX="539.0" layoutY="486.0" mnemonicParsing="false" onAction="#btnSubmit" text="Submit" />
+      <Button layoutX="649.0" layoutY="486.0" mnemonicParsing="false" onAction="#btnClear" text="Clear" />
+   </children>
+</AnchorPane>
