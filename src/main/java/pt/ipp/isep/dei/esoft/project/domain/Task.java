@@ -152,20 +152,16 @@ public class Task {
     }
 
     private void validateDuration(Duration expectedDuration) {
-        long totalHours = expectedDuration.toHours();
         long totalDays = expectedDuration.toDays();
-        long remainingHours = totalHours % 24;
+        long remainingHours = (expectedDuration.toHours() % 24);
+        long remainingMinutes = (expectedDuration.toMinutes() % 60);
 
-        if (totalDays < 0 || remainingHours < 0) {
-            throw new IllegalArgumentException("Days and hours must be non-negative numbers.");
+        if (totalDays < 0 || remainingHours < 0 || remainingMinutes < 0) {
+            throw new IllegalArgumentException("Days, hours, and minutes must be non-negative numbers.");
         }
-        if (totalDays == 0 && remainingHours == 0) {
-            throw new IllegalArgumentException("At least one of the following must be higher than zero: days, hours");
+        if (totalDays == 0 && remainingHours == 0 && remainingMinutes == 0) {
+            throw new IllegalArgumentException("At least one of the following must be higher than zero: days, hours, minutes");
         }
-        if (remainingHours >= 24) {
-            throw new IllegalArgumentException("Hours must be less than 24.");
-        }
-
     }
 
     public UrgencyType getUrgency() {
