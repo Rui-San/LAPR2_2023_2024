@@ -152,13 +152,17 @@ public class Task {
     }
 
     private void validateDuration(Duration expectedDuration) {
-        if (expectedDuration.toDaysPart() < 0 || expectedDuration.toHoursPart() < 0) {
+        long totalHours = expectedDuration.toHours();
+        long totalDays = expectedDuration.toDays();
+        long remainingHours = totalHours % 24;
+
+        if (totalDays < 0 || remainingHours < 0) {
             throw new IllegalArgumentException("Days and hours must be non-negative numbers.");
         }
-        if (expectedDuration.toDaysPart() == 0 && expectedDuration.toHoursPart() == 0) {
-            throw new IllegalArgumentException("At least one of days or hours must be greater than zero.");
+        if (totalDays == 0 && remainingHours == 0) {
+            throw new IllegalArgumentException("At least one of the following must be higher than zero: days, hours");
         }
-        if (expectedDuration.toHours() >= 24) {
+        if (remainingHours >= 24) {
             throw new IllegalArgumentException("Hours must be less than 24.");
         }
 

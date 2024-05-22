@@ -34,6 +34,8 @@ public class AddNewEntryToDoUI implements Initializable {
     @FXML
     private TextField txtHours;
     @FXML
+    private TextField txtMins;
+    @FXML
     private ComboBox<String> cbGreenSpace;
     @FXML
     private ComboBox<TaskType> cbType;
@@ -81,35 +83,53 @@ public class AddNewEntryToDoUI implements Initializable {
 
 
     public void btnSubmit() {
-        if (validateAllInputs()) {
-            Duration expDuration = Duration.ofDays(Integer.parseInt(txtDays.getText().trim())).plusHours(Integer.parseInt(txtHours.getText().trim()));
 
-            ToDoTaskDTO toDoTaskDTO = new ToDoTaskDTO(
-                    txtTitle.getText().trim(),
-                    txtDescription.getText().trim(),
-                    cbType.getValue(),
-                    cbGreenSpace.getValue(),
-                    cbUrgency.getValue(),
-                    expDuration
-            );
+        try {
 
-            StringBuilder sb = getConfirmationText(toDoTaskDTO);
+            if (validateAllInputs()) {
+                int daysInt = Integer.parseInt(txtDays.getText().trim());
+                int hoursInt = Integer.parseInt(txtHours.getText().trim());
+                int minutesInt = Integer.parseInt(txtMins.getText().trim());
 
-            Alert alertConfirmation = AlertUI.createAlert(Alert.AlertType.CONFIRMATION, "Add new entry To-Do", "Confirm the operation", sb.toString());
-            if (alertConfirmation.showAndWait().get() == ButtonType.OK) {
-                controller.registerTask(toDoTaskDTO);
+                long totalMinutes = (long) daysInt * 24 * 60 + hoursInt * 60L + minutesInt;
+                Duration expDuration = Duration.ofMinutes(totalMinutes);
 
-                AlertUI.createAlert(Alert.AlertType.INFORMATION, "Add new entry To-Do", "Confirmation of operation", "New Entry To-Do sucessfully registered").show();
-                clearFields();
+                ToDoTaskDTO toDoTaskDTO = new ToDoTaskDTO(
+                        txtTitle.getText().trim(),
+                        txtDescription.getText().trim(),
+                        cbType.getValue(),
+                        cbGreenSpace.getValue(),
+                        cbUrgency.getValue(),
+                        expDuration
+                );
+
+                StringBuilder sb = getConfirmationText(toDoTaskDTO);
+
+                Alert alertConfirmation = AlertUI.createAlert(Alert.AlertType.CONFIRMATION, "Add new entry To-Do", "Confirm the operation", sb.toString());
+                if (alertConfirmation.showAndWait().get() == ButtonType.OK) {
+
+                    if (controller.registerTask(toDoTaskDTO).isPresent()) {
+                        System.out.println(controller.registerTask(toDoTaskDTO).get());
+                        AlertUI.createAlert(Alert.AlertType.INFORMATION, "Add new entry To-Do", "Confirmation of operation", "New Entry To-Do successfully registered").show();
+                        clearFields();
+                    } else {
+                        AlertUI.createAlert(Alert.AlertType.ERROR, "Add new entry To-Do", "Error occurred", "This task is already in the To-Do list").show();
+                        clearFields();
+                    }
+                }
             }
-
-
-
+        } catch (IllegalArgumentException ie) {
+            AlertUI.createAlert(Alert.AlertType.ERROR, "ERROR", "Add new entry To-Do error", ie.getMessage()).show();
         }
     }
 
     private StringBuilder getConfirmationText(ToDoTaskDTO toDoTaskDTO) {
         StringBuilder sb = new StringBuilder();
+
+        long totalDays = toDoTaskDTO.expectedDuration.toDays();
+        long remainingMinutes = toDoTaskDTO.expectedDuration.toMinutes() % (24 * 60);
+        long remainingHours = remainingMinutes / 60;
+        remainingMinutes %= 60;
 
         sb.append("You're about to register de following Entry:")
                 .append("\nTitle: ").append(toDoTaskDTO.title)
@@ -117,7 +137,7 @@ public class AddNewEntryToDoUI implements Initializable {
                 .append("\nGreen Space: ").append(toDoTaskDTO.greenSpaceName)
                 .append("\nTypee: ").append(toDoTaskDTO.taskType)
                 .append("\nUrgency: ").append(toDoTaskDTO.urgency)
-                .append("\nExpected Duration: ").append(toDoTaskDTO.expectedDuration.toDays()).append(" days, ").append(toDoTaskDTO.expectedDuration.toHours()).append(" hours");
+                .append("\nExpected Duration: ").append(totalDays).append(" days and ").append(remainingHours).append(":").append(remainingMinutes).append("H");
 
         return sb;
     }
@@ -197,21 +217,25 @@ public class AddNewEntryToDoUI implements Initializable {
         try {
             int daysInt = Integer.parseInt(txtDays.getText().trim());
             int hoursInt = Integer.parseInt(txtHours.getText().trim());
+            int minutesInt = Integer.parseInt(txtMins.getText().trim());
 
-            if (daysInt < 0 || hoursInt < 0) {
-                displayErrorLayout(txtDays, lblExpectedDurationError, "Must be a positive integer");
-                displayErrorLayout(txtHours, lblExpectedDurationError, "Must be a positive integer");
+            if (daysInt < 0 || hoursInt < 0 || minutesInt < 0) {
+                displayErrorLayout(txtDays, lblExpectedDurationError, "All values of duration must be positive integers");
+                displayErrorLayout(txtHours, lblExpectedDurationError, "All values of duration must be positive integers");
+                displayErrorLayout(txtMins, lblExpectedDurationError, "All values of duration must be positive integers");
                 return false;
             }
 
-            if (daysInt == 0 && hoursInt == 0) {
+            if (daysInt == 0 && hoursInt == 0 && minutesInt == 0) {
                 displayErrorLayout(txtDays, lblExpectedDurationError, "At least one must be greater than zero");
                 displayErrorLayout(txtHours, lblExpectedDurationError, "At least one must be greater than zero");
+                displayErrorLayout(txtMins, lblExpectedDurationError, "At least one must be greater than zero");
                 return false;
             }
 
-            if (hoursInt >= 24) {
-                displayErrorLayout(txtHours, lblExpectedDurationError, "Hours must be less than 24");
+            if (hoursInt >= 24 || minutesInt >= 60) {
+                displayErrorLayout(txtHours, lblExpectedDurationError, "Hours/mins must be within their respective ranges");
+                displayErrorLayout(txtMins, lblExpectedDurationError, "Hours/mins must be within their respective ranges");
                 return false;
             }
         } catch (NumberFormatException ne) {
@@ -222,6 +246,7 @@ public class AddNewEntryToDoUI implements Initializable {
         }
         clearLayoutErrors(txtDays, lblExpectedDurationError);
         clearLayoutErrors(txtHours, lblExpectedDurationError);
+        clearLayoutErrors(txtMins, lblExpectedDurationError);
         return true;
     }
 
@@ -241,6 +266,8 @@ public class AddNewEntryToDoUI implements Initializable {
     private void clearFields() {
         txtTitle.clear();
         txtTitle.setStyle("");
+        txtMins.clear();
+        txtMins.setStyle("");
         txtDescription.clear();
         txtDescription.setStyle("");
         txtDays.clear();
