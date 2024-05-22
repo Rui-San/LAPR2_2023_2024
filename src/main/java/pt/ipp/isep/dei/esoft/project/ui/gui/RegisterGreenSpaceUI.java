@@ -63,10 +63,47 @@ public class RegisterGreenSpaceUI implements Initializable {
     @FXML
     private void btnSubmit() {
 
-        if(validateAllInputs()){
-            GreenSpaceDTO greenSpaceDTO = new GreenSpaceDTO()
-        }
 
+        if (validateAllInputs()) {
+            Double areaDouble = Double.parseDouble(txtArea.getText().trim());
+            int streetNumberInt = Integer.parseInt(txtStreetNumber.getText().trim());
+
+            GreenSpaceDTO greenSpaceDTO = new GreenSpaceDTO(txtName.getText().trim(),
+                    cbType.getValue(),
+                    areaDouble,
+                    txtStreet.getText().trim(),
+                    streetNumberInt,
+                    txtPostalCode.getText().trim(),
+                    txtCity.getText().trim(),
+                    txtDistrict.getText().trim()
+            );
+
+            StringBuilder sb = getConfirmationText(greenSpaceDTO);
+
+            Alert alertConfirmation = AlertUI.createAlert(Alert.AlertType.CONFIRMATION, "Register Green Space", "Confirm the operation", sb.toString());
+            if (alertConfirmation.showAndWait().get() == ButtonType.OK) {
+                controller.registerGreenSpace(greenSpaceDTO);
+
+                AlertUI.createAlert(Alert.AlertType.INFORMATION, "Register Green Space", "Confirmation of operation", "Green space successfully registered");
+                clearAllFieldsAndErrors();
+            }
+
+
+        }
+    }
+
+    private StringBuilder getConfirmationText(GreenSpaceDTO greenSpaceDTO) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("You are about to register the Green Space:")
+                .append("\nName: ").append(greenSpaceDTO.name)
+                .append("\nType: ").append(greenSpaceDTO.type)
+                .append("\nArea: ").append(greenSpaceDTO.totalArea)
+                .append("\nStreet: ").append(greenSpaceDTO.street).append(" Nº: ").append(greenSpaceDTO.streetNumber)
+                .append("\nPostal Code: ").append(greenSpaceDTO.postalCode).append("   - City: ").append(greenSpaceDTO.city)
+                .append("\nDistrict: ").append(greenSpaceDTO.district);
+
+        return sb;
     }
 
     @FXML

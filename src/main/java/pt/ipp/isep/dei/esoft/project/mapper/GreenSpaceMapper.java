@@ -23,7 +23,16 @@ public class GreenSpaceMapper {
 
     public static GreenSpaceDTO toDTO(GreenSpace greenSpace) {
 
-        return new GreenSpaceDTO(greenSpace.getName(),greenSpace.getType(),greenSpace.getTotalArea());
+        return new GreenSpaceDTO(
+                greenSpace.getName(),
+                greenSpace.getType(),
+                greenSpace.getTotalArea(),
+                greenSpace.getAddress().getStreet(),
+                greenSpace.getAddress().getStreetNumber(),
+                greenSpace.getAddress().getPostalCode(),
+                greenSpace.getAddress().getCity(),
+                greenSpace.getAddress().getDistrict()
+        );
     }
 
 
