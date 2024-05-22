@@ -1,13 +1,13 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui;
 
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
 import java.net.URL;
 import java.time.Duration;
-import java.util.InputMismatchException;
+
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -23,7 +23,7 @@ public class AddNewEntryToDoUI implements Initializable {
 
     private final AddNewEntryToDoController controller;
 
-    private List<GreenSpaceDTO> greenSpaceDTOList;
+    private final List<GreenSpaceDTO> greenSpaceDTOList;
 
     @FXML
     private TextField txtTitle;
@@ -109,7 +109,7 @@ public class AddNewEntryToDoUI implements Initializable {
                 if (alertConfirmation.showAndWait().get() == ButtonType.OK) {
 
                     if (controller.registerTask(toDoTaskDTO).isPresent()) {
-                        System.out.println(controller.registerTask(toDoTaskDTO).get());
+
                         AlertUI.createAlert(Alert.AlertType.INFORMATION, "Add new entry To-Do", "Confirmation of operation", "New Entry To-Do successfully registered").show();
                         clearFields();
                     } else {

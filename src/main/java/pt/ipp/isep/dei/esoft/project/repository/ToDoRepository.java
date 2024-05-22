@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.domain.Task;
 import pt.ipp.isep.dei.esoft.project.tools.Status;
+import pt.ipp.isep.dei.esoft.project.tools.TaskType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +37,7 @@ public class ToDoRepository {
         if (validateTaskToDo(task)) {
             task.setStatus(TODO_DEFAULT_STATUS);
             newTask = Optional.of(task);
-            operationSuccess = toDoList.add(newTask.get());
+            operationSuccess = toDoList.add(task);
         }
 
         if (!operationSuccess) {
@@ -48,11 +49,10 @@ public class ToDoRepository {
 
     private boolean validateTaskToDo(Task task) {
         boolean isValid = true;
-        String taskTitle = task.getTitle().trim().toLowerCase();
-        Status taskStatus = task.getStatus();
+        String taskTitle = task.getTitle().trim();
 
         for (Task registeredTask : toDoList) {
-            if ((registeredTask.getTitle().trim().toLowerCase().equals(taskTitle) && registeredTask.getStatus().equals(taskStatus))) {
+            if ((registeredTask.getTitle().trim().equalsIgnoreCase(taskTitle) && registeredTask.getStatus() == TODO_DEFAULT_STATUS)) {
                 isValid = false;
                 return isValid;
             }
