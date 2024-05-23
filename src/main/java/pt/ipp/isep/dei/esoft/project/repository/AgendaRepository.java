@@ -12,7 +12,7 @@ public class AgendaRepository {
 
     private static final Status AGENDA_DEFAULT_STATUS = Status.PLANNED;
 
-    public AgendaRepository(){
+    public AgendaRepository() {
         this.agenda = new ArrayList<>();
     }
 
@@ -57,5 +57,22 @@ public class AgendaRepository {
         Optional<Task> addedTask = add(task, executionDate);
 
         return addedTask;
+    }
+
+    public Optional<Task> updateTaskToCanceled(String title, String executionDate, Status status) {
+
+        for (Task task : agenda) {
+            if (task.getTitle().trim().equalsIgnoreCase(title)
+                    && task.getStatus() == status
+                    && task.getExecutionDate().toString().equalsIgnoreCase(executionDate)) {
+
+                if (status == Status.PLANNED || status == Status.POSTPONED) {
+                    task.setStatus(Status.PROCESSED);
+                    return Optional.of(task);
+                }
+
+            }
+        }
+        return Optional.empty();
     }
 }
