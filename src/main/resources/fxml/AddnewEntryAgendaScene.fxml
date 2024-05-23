@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="573.0" prefWidth="874.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.AddNewEntryAgendaUI">
+    <children>
+        <Text layoutX="286.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add new entry to Agenda" AnchorPane.topAnchor="33.0">
+            <font>
+                <Font name="Berlin Sans FB" size="28.0" />
+            </font>
+        </Text>
+        <Button fx:id="addToAgendaButton" layoutX="388.0" layoutY="511.0" mnemonicParsing="false" onAction="#handleAddToAgenda" prefHeight="39.0" prefWidth="99.0" text="Add" />
+      <TableView fx:id="taskTableView" layoutX="54.0" layoutY="104.0" prefHeight="367.0" prefWidth="814.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="104.0">
+        <columns>
+          <TableColumn fx:id="titleColumn" prefWidth="146.0" text="Title" />
+          <TableColumn fx:id="descriptionColumn" minWidth="0.0" prefWidth="173.0" text="Description" />
+            <TableColumn fx:id="greenSpaceNameColumn" prefWidth="174.0" text="Green Space" />
+            <TableColumn fx:id="taskTypeColumn" prefWidth="82.0" text="Type" />
+            <TableColumn fx:id="urgencyColumn" prefWidth="81.0" text="Urgency" />
+            <TableColumn fx:id="expectedDurationColumn" prefWidth="79.0" text="Duration" />
+            <TableColumn fx:id="statusColumn" prefWidth="78.0" text="Status" />
+        </columns>
+      </TableView>
+      <Label fx:id="lblAddError" alignment="TOP_LEFT" layoutX="34.0" layoutY="476.0" prefHeight="22.0" prefWidth="807.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Label>
+    </children>
+</AnchorPane>

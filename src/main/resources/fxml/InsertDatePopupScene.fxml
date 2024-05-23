@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="150.0" maxWidth="300.0" minHeight="150.0" minWidth="300.0" prefHeight="150.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.InsertDatePopupUI">
+   <children>
+      <Group layoutX="-436.0" layoutY="-27.0">
+         <children>
+            <DatePicker fx:id="dpExecutionDate" layoutX="446.0" layoutY="94.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" prefWidth="281.0" promptText="Execution date" styleClass="form-input-datepicker" />
+            <Label layoutX="446.0" layoutY="78.0" prefHeight="17.0" prefWidth="279.0" text="Execution date" />
+            <Label fx:id="lblExecutionDateError" alignment="TOP_LEFT" layoutX="446.0" layoutY="127.0" prefHeight="16.0" prefWidth="279.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Label>
+         </children>
+      </Group>
+        <Button layoutX="168.0" layoutY="115.0" onAction="#btnConfirmDate" prefHeight="25.0" prefWidth="63.0" text="Confirm" />
+      <Text layoutX="61.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Execution date for this entry">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Button layoutX="85.0" layoutY="115.0" onAction="#btnCancelAction" prefHeight="25.0" prefWidth="63.0" text="Cancel" />
+   </children>
+</AnchorPane>

@@ -64,7 +64,6 @@ public class ToDoRepository {
         for(Task taskTodo : toDoList){
             if (taskTodo.getTitle().trim().equalsIgnoreCase(task.getTitle().trim()) && taskTodo.getStatus() == TODO_DEFAULT_STATUS) {
                 taskTodo.setStatus(Status.PROCESSED);
-
             }
         }
     }

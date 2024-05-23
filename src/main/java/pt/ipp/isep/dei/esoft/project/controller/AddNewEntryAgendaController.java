@@ -4,6 +4,7 @@ import pt.ipp.isep.dei.esoft.project.domain.GreenSpace;
 import pt.ipp.isep.dei.esoft.project.domain.Task;
 import pt.ipp.isep.dei.esoft.project.dto.GreenSpaceDTO;
 import pt.ipp.isep.dei.esoft.project.dto.ToDoTaskDTO;
+import pt.ipp.isep.dei.esoft.project.dto.ToDoTaskWithStatusDTO;
 import pt.ipp.isep.dei.esoft.project.mapper.GreenSpaceMapper;
 import pt.ipp.isep.dei.esoft.project.mapper.ToDoListMapper;
 import pt.ipp.isep.dei.esoft.project.repository.AgendaRepository;
@@ -51,9 +52,9 @@ public class AddNewEntryAgendaController {
         return toDoRepository;
     }
 
-    public List<ToDoTaskDTO> getToDoDTOlist() {
+    public List<ToDoTaskWithStatusDTO> getToDoDTOlist() {
         List<Task> toDoTaskList = toDoRepository.getToDoList();
-        return ToDoListMapper.toDTOlist(toDoTaskList);
+        return ToDoListMapper.toDTOWithStatusList(toDoTaskList);
     }
 
     public Optional<Task> registerTaskAgenda(ToDoTaskDTO toDoTaskDTO, String executionDate) {

@@ -83,6 +83,13 @@ public class MenuUI implements Initializable {
         contentArea.getChildren().setAll(fxml);
     }
 
+    @FXML
+    public void NewEntryAgenda() throws IOException {
+        Parent fxml = FXMLLoader.load(getClass().getResource("/fxml/AddNewEntryAgendaScene.fxml"));
+        contentArea.getChildren().removeAll();
+        contentArea.getChildren().setAll(fxml);
+    }
+
 
 
 }

@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.esoft.project.ui;
 import pt.ipp.isep.dei.esoft.project.controller.AuthenticationController;
 import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.repository.*;
+import pt.ipp.isep.dei.esoft.project.tools.GreenSpaceType;
 
 import java.util.List;
 
@@ -16,6 +17,16 @@ public class Bootstrap implements Runnable {
         addCollaborator();
         addUsers();
         assignSkills();
+        addGreenSpaces();
+    }
+
+    private void addGreenSpaces() {
+        GreenSpaceRepository greenSpaceRepository = Repositories.getInstance().getGreenSpaceRepository();
+        greenSpaceRepository.registerGreenSpace(new GreenSpace(GreenSpaceType.GARDEN,"Jardim da Esperança","Rua Dois", 12, "3340-302", "Espinho", "Aveiro",323.0));
+        greenSpaceRepository.registerGreenSpace(new GreenSpace(GreenSpaceType.LARGE,"Central Park","Main Street", 123, "3343-122", "New York", "NY", 843.5));
+        greenSpaceRepository.registerGreenSpace(new GreenSpace(GreenSpaceType.MEDIUM,"Amazon Rainforest","Amazon River", 2, "4440-232", "Manaus", "Amazonas", 5500000.0));
+        greenSpaceRepository.registerGreenSpace(new GreenSpace(GreenSpaceType.GARDEN,"Royal Botanic Gardens","Kew Road", 20, "3350-102", "Richmond", "London", 121.0));
+
     }
 
     private void addSkills() {
