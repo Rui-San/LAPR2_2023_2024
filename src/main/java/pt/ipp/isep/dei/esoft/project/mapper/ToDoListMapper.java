@@ -13,7 +13,7 @@ public class ToDoListMapper {
 
     }
 
-    public static List<ToDoTaskDTO> toDTO(List<Task> toDoList) {
+    public static List<ToDoTaskDTO> toDTOlist(List<Task> toDoList) {
         List<ToDoTaskDTO> toDoTaskDTOS = new ArrayList<>();
         for (Task toDoTask : toDoList) {
             toDoTaskDTOS.add(toDTO(toDoTask));
@@ -43,4 +43,5 @@ public class ToDoListMapper {
                 toDoTaskDTO.expectedDuration
         );
     }
+
 }

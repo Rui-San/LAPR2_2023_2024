@@ -29,7 +29,7 @@ public class AgendaRepository {
             task.setStatus(AGENDA_DEFAULT_STATUS);
             task.setExecutionDate(executionDate);
             newTask = Optional.of(task);
-            operationSuccess = agenda.add(newTask.get());
+            operationSuccess = agenda.add(task);
         }
 
         if (!operationSuccess) {
@@ -41,15 +41,21 @@ public class AgendaRepository {
 
     private boolean validateTaskAgenda(Task task) {
         boolean isValid = true;
-        String taskTitle = task.getTitle().trim().toLowerCase();
-        Status taskStatus = task.getStatus();
+        String taskTitle = task.getTitle().trim();
 
         for (Task registeredTask : agenda) {
-            if ((registeredTask.getTitle().trim().toLowerCase().equals(taskTitle) && registeredTask.getStatus().equals(taskStatus))) {
+            if ((registeredTask.getTitle().trim().equalsIgnoreCase(taskTitle) && registeredTask.getStatus() == AGENDA_DEFAULT_STATUS)) {
                 isValid = false;
                 return isValid;
             }
         }
         return isValid;
+    }
+
+    public Optional<Task> registerTaskAgenda(Task task, String executionDate) {
+
+        Optional<Task> addedTask = add(task, executionDate);
+
+        return addedTask;
     }
 }
