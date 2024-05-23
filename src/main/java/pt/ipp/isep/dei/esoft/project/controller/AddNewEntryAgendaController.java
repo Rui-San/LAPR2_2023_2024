@@ -63,7 +63,12 @@ public class AddNewEntryAgendaController {
 
         if (greenSpaceOptional.isPresent()) {
             Task task = ToDoListMapper.toTask(toDoTaskDTO, greenSpaceOptional.get());
+
             newTaskAgenda = agendaRepository.registerTaskAgenda(task, executionDate);
+
+            if (newTaskAgenda.isPresent()) {
+                toDoRepository.updateTaskToProcessed(task);
+            }
         } else {
             return Optional.empty();
         }

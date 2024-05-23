@@ -60,11 +60,12 @@ public class ToDoRepository {
         return isValid;
     }
 
-    public boolean updateTaskToProcessed(Task task) {
-        if (toDoList.contains(task)) {
-            task.setStatus(Status.PROCESSED);
-            return true;
+    public void updateTaskToProcessed(Task task) {
+        for(Task taskTodo : toDoList){
+            if (taskTodo.getTitle().trim().equalsIgnoreCase(task.getTitle().trim()) && taskTodo.getStatus() == TODO_DEFAULT_STATUS) {
+                taskTodo.setStatus(Status.PROCESSED);
+
+            }
         }
-        return false;
     }
 }
