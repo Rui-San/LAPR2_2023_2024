@@ -23,14 +23,14 @@
                   <Font size="9.0" />
                </font>
             </Label>
-            <Label alignment="TOP_LEFT" layoutX="70.0" layoutY="70.0" prefHeight="17.0" prefWidth="300.0" text="Nome" />
+            <Label alignment="TOP_LEFT" layoutX="70.0" layoutY="68.0" prefHeight="17.0" prefWidth="300.0" text="Nome" />
             <TextField fx:id="txtName" layoutX="70.0" layoutY="85.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" prefWidth="350.0" promptText="Name" styleClass="form-input" />
          </children>
       </Group>
       <Group layoutX="1.0" layoutY="3.0">
          <children>
             <DatePicker fx:id="dpBirthdate" layoutX="446.0" layoutY="94.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" prefWidth="356.0" promptText="Birthdate" styleClass="form-input-datepicker" />
-            <Label layoutX="446.0" layoutY="78.0" prefHeight="17.0" prefWidth="300.0" text="Birthdate" />
+            <Label layoutX="446.0" layoutY="76.0" prefHeight="17.0" prefWidth="300.0" text="Birthdate" />
             <Label fx:id="lblBirthdateError" alignment="TOP_LEFT" layoutX="446.0" layoutY="127.0" prefHeight="16.0" prefWidth="356.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true">
                <font>
                   <Font size="9.0" />
