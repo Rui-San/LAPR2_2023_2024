@@ -3,7 +3,7 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title US028 - System Sequence Diagram (SSD)
+title System Sequence Diagram (SSD) - Alternative One
 
 autonumber
 
@@ -12,7 +12,7 @@ participant ":ListCollaboratorTasksUI" as UI
 
 activate Collaborator
 
-    Collaborator -> UI : asks to list tasks assigned to the collaborator\nbetween two dates
+    Collaborator -> UI : asks to record the completion of a task
     activate UI
 
 loop until typed data is valid
