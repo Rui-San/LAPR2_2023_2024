@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="573.0" prefWidth="874.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.RegisterVehicleUI">
+   <children>
+      <Text layoutX="10.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Register a Vehicle" textAlignment="CENTER" wrappingWidth="854.77734375">
+         <font>
+            <Font name="Berlin Sans FB" size="28.0" />
+         </font>
+      </Text>
+      <Button layoutX="446.0" layoutY="490.0" mnemonicParsing="false" onAction="#btnSubmitAction" prefHeight="40.0" prefWidth="114.0" text="Submit" />
+      <Button layoutX="315.0" layoutY="490.0" mnemonicParsing="false" onAction="#btnClearAction" prefHeight="40.0" prefWidth="114.0" text="Clear" />
+      <Group layoutX="-2.0" layoutY="23.0">
+         <children>
+            <Label fx:id="lblPlateIDError" alignment="TOP_LEFT" layoutX="72.0" layoutY="118.0" prefHeight="17.0" prefWidth="350.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Label>
+            <Label alignment="TOP_LEFT" layoutX="70.0" layoutY="66.0" prefHeight="17.0" prefWidth="300.0" text="License Plate:" />
+            <TextField fx:id="txtPlateID" layoutX="70.0" layoutY="85.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" prefWidth="350.0" promptText="License Plate" styleClass="form-input" />
+         </children>
+      </Group>
+      <Group layoutX="337.0" layoutY="-114.0">
+         <children>
+            <Label layoutX="110.0" layoutY="203.0" prefHeight="17.0" prefWidth="300.0" text="Type" />
+            <ComboBox fx:id="cbType" layoutX="110.0" layoutY="222.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" prefWidth="350.0" promptText="Select vehicle type" styleClass="form-input-datepicker" />
+            <Label fx:id="lblTypeError" alignment="TOP_LEFT" layoutX="110.0" layoutY="255.0" prefHeight="18.0" prefWidth="350.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Label>
+         </children>
+      </Group>
+      <Group layoutX="-375.0" layoutY="-97.0">
+         <children>
+            <Label layoutX="446.0" layoutY="266.0" prefHeight="17.0" prefWidth="356.0" text="Brand:" />
+            <Label fx:id="lblBrandError" alignment="TOP_LEFT" layoutX="446.0" layoutY="316.0" prefHeight="19.0" prefWidth="356.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtBrand" layoutX="446.0" layoutY="285.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" prefWidth="350.0" promptText="Brand" styleClass="form-input" />
+         </children>
+      </Group>
+      <Group layoutX="384.0" layoutY="68.0">
+         <children>
+            <Label fx:id="lblModelError" alignment="TOP_LEFT" layoutX="71.0" layoutY="153.0" prefHeight="17.0" prefWidth="350.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Label>
+            <Label layoutX="71.0" layoutY="101.0" prefHeight="17.0" prefWidth="300.0" text="Model:" />
+            <TextField fx:id="txtModel" layoutX="71.0" layoutY="120.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" prefWidth="350.0" promptText="Model" styleClass="form-input" />
+         </children>
+      </Group>
+      <Group layoutY="80.0">
+         <children>
+            <TextField fx:id="txtTare" layoutX="71.0" layoutY="185.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" prefWidth="350.0" promptText="Tare" styleClass="form-input" />
+            <Label fx:id="lblTareError" alignment="TOP_LEFT" layoutX="71.0" layoutY="218.0" prefHeight="16.0" prefWidth="354.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Label>
+            <Label layoutX="71.0" layoutY="165.0" prefHeight="17.0" prefWidth="300.0" text="Tare:" />
+         </children>
+      </Group>
+      <Group layoutX="7.0" layoutY="43.0">
+         <children>
+            <TextField fx:id="txtGrossWeight" layoutX="444.0" layoutY="221.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" prefWidth="350.0" promptText="Gross Weight" styleClass="form-input" />
+            <Label layoutX="445.0" layoutY="201.0" text="Gross Weight:" />
+            <Label fx:id="lblGrossWeightError" alignment="TOP_LEFT" layoutX="444.0" layoutY="254.0" prefHeight="17.0" prefWidth="356.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Label>
+         </children>
+      </Group>
+      <Group layoutX="-375.0" layoutY="245.0">
+         <children>
+            <DatePicker fx:id="dpRegisterDate" layoutX="446.0" layoutY="94.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" prefWidth="356.0" promptText="Register date" styleClass="form-input-datepicker" />
+            <Label layoutX="446.0" layoutY="74.0" prefHeight="17.0" prefWidth="350.0" text="Register Date:" />
+            <Label fx:id="lblRegisterDateError" alignment="TOP_LEFT" layoutX="446.0" layoutY="127.0" prefHeight="16.0" prefWidth="356.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Label>
+         </children>
+      </Group>
+      <Group layoutX="5.0" layoutY="181.0">
+         <children>
+            <Label layoutX="446.0" layoutY="139.0" prefHeight="17.0" prefWidth="300.0" text="Acquisition Date:" />
+            <DatePicker fx:id="dpAcquisitionDate" layoutX="446.0" layoutY="157.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" prefWidth="350.0" promptText="Acquisition date" styleClass="form-input-datepicker" />
+            <Label fx:id="lblAcquisitionDateError" alignment="TOP_LEFT" layoutX="446.0" layoutY="191.0" prefHeight="16.0" prefWidth="356.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Label>
+         </children>
+      </Group>
+      <Group layoutX="-370.0" layoutY="67.0">
+         <children>
+            <TextField fx:id="txtCheckupFrequency" layoutX="444.0" layoutY="347.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" prefWidth="350.0" promptText="Checkup frequency kilometers" styleClass="form-input" />
+            <Label layoutX="445.0" layoutY="326.0" prefHeight="17.0" prefWidth="356.0" text="Checkup frequency kilometers:" />
+            <Label fx:id="lblCheckupFrequencyError" alignment="TOP_LEFT" layoutX="444.0" layoutY="381.0" prefHeight="17.0" prefWidth="356.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Label>
+         </children>
+      </Group>
+      <Group layoutX="344.0" layoutY="32.0">
+         <children>
+            <Label layoutX="110.0" layoutY="361.0" text="Current Kilometers:" />
+            <TextField fx:id="txtCurrentKm" layoutX="110.0" layoutY="381.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" prefWidth="350.0" promptText="Current vehicle kilometers" styleClass="form-input" />
+            <Label fx:id="lblCurrentKmError" alignment="TOP_LEFT" layoutX="110.0" layoutY="415.0" prefHeight="19.0" prefWidth="350.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Label>
+         </children>
+      </Group>
+   </children>
+</AnchorPane>
