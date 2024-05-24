@@ -42,7 +42,7 @@
                </cursor>
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#RegisterVehicle" text="Register Vehicle" />
-                  <MenuItem mnemonicParsing="false" text="Register Vehicle Checkup" />
+                  <MenuItem mnemonicParsing="false" onAction="#RegisterCheckup" text="Register Vehicle Checkup" />
                   <MenuItem mnemonicParsing="false" onAction="#ListVehiclesNeedingCheckup" text="List Vehicles Needing Checkup" />
                </items>
             </MenuButton>
@@ -74,9 +74,17 @@
                   <MenuItem mnemonicParsing="false" text="Add Green Space to task" />
                </items>
             </MenuButton>
+            <MenuButton mnemonicParsing="false" popupSide="RIGHT" styleClass="menu-btn" text="Admin">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Register User" />
+               </items>
+            </MenuButton>
             <BorderPane prefHeight="218.0" prefWidth="257.0" VBox.vgrow="ALWAYS">
                <bottom>
-                  <Button mnemonicParsing="false" text="Logout" BorderPane.alignment="CENTER">
+                  <Button mnemonicParsing="false" onAction="#logoutAction" text="Logout" BorderPane.alignment="CENTER">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -94,9 +102,9 @@
       <StackPane fx:id="contentArea" prefHeight="573.0" prefWidth="874.0" BorderPane.alignment="CENTER" />
    </center>
    <top>
-      <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="956.0" style="-fx-background-color: #E0E0E0;" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="956.0" style="-fx-background-color: Green;" BorderPane.alignment="CENTER">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Projeto Integrador - LAPR 2" textAlignment="CENTER" wrappingWidth="287.13671875">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Projeto Integrador - LAPR 2" textAlignment="CENTER" wrappingWidth="287.13671875">
                <font>
                   <Font name="Berlin Sans FB" size="18.0" />
                </font>
