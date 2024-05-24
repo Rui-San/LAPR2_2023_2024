@@ -95,8 +95,9 @@ public class VehicleRepository {
                 checkupFrequencyKms
         );
 
-        this.add(vehicle);
-        return Optional.of(vehicle);
+
+        Optional<Vehicle> addedVehicle = add(vehicle);
+        return addedVehicle;
 
     }
 
@@ -109,7 +110,7 @@ public class VehicleRepository {
         Optional<Vehicle> newVehicle = Optional.empty();
         boolean operationSuccess = false;
 
-        if (validateVehicle(newVehicle)) {
+        if (validateVehicle(vehicle)) {
             newVehicle = Optional.of(vehicle.clone());
             operationSuccess = vehicleList.add(newVehicle.get());
         }
@@ -126,8 +127,18 @@ public class VehicleRepository {
      * @param vehicle
      * @return
      */
-    private boolean validateVehicle(Optional<Vehicle> vehicle) {
-        return !getVehicleList().contains(vehicle);
+    private boolean validateVehicle(Vehicle vehicle) {
+
+        boolean isValid = true;
+        String plateId = vehicle.getPlateId().trim();
+
+        for (Vehicle registeredVehicle : vehicleList) {
+            if (registeredVehicle.getPlateId().trim().equalsIgnoreCase(plateId)) {
+                isValid = false;
+                return isValid;
+            }
+        }
+        return isValid;
     }
 
     /**
@@ -180,3 +191,4 @@ public class VehicleRepository {
     }
 
 }
+

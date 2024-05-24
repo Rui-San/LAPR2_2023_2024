@@ -13,6 +13,7 @@ import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
 import java.awt.*;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -101,27 +102,23 @@ public class RegisterVehicleUI implements Initializable {
                 "You're about to register the following vehicle..",
                 information);
         if (closeAlert.showAndWait().get() == ButtonType.OK) {
+
             Optional<Vehicle> vehicle = getRegisterVehicleController().createVehicle(
-                    txtPlateID.getText(),
-                    txtBrand.getText(),
-                    txtModel.getText(),
+                    txtPlateID.getText().trim(),
+                    txtBrand.getText().trim(),
+                    txtModel.getText().trim(),
                     cbType.getValue(),
-                    Integer.parseInt(txtTare.getText()),
-                    Integer.parseInt(txtGrossWeight.getText()),
-                    Integer.parseInt(txtCurrentKm.getText()),
-                    convertDate(dpRegisterDate.getValue().toString()),
-                    convertDate(dpAcquisitionDate.getValue().toString()),
-                    Integer.parseInt(txtCheckupFrequency.getText()));
-            String operationStatus;
-            if (vehicle.isEmpty()) {
-                operationStatus = "Vehicle was already registered.";
-            } else {
-                operationStatus = "Vehicle registered successfully.";
-            }
-            Alert operationAlert = AlertUI.createAlert(Alert.AlertType.CONFIRMATION, MainApp.APP_TITLE,
-                    "Register Vehicle.",
-                    operationStatus);
-            operationAlert.show();
+                    Integer.parseInt(txtTare.getText().trim()),
+                    Integer.parseInt(txtGrossWeight.getText().trim()),
+                    Integer.parseInt(txtCurrentKm.getText().trim()),
+                    convertDate(dpRegisterDate.getValue().toString().trim()),
+                    convertDate(dpAcquisitionDate.getValue().toString().trim()),
+                    Integer.parseInt(txtCheckupFrequency.getText().trim()));
+
+            AlertUI.createAlert(Alert.AlertType.INFORMATION, MainApp.APP_TITLE, "Register Vehicle",
+                    vehicle.isPresent() ? "Vehicle registered successfully"
+                            : "Vehicle was already registered").show();
+
         }
 
     }
@@ -131,110 +128,182 @@ public class RegisterVehicleUI implements Initializable {
         return dateParts[2] + "/" + dateParts[1] + "/" + dateParts[0];
     }
 
-    private boolean validateAllNotNullOrEmpty(){
-        int isAllValid = 0;
-        isAllValid += validateNotNullorEmpty(txtPlateID, lblPlateIDError, "Plate ID");
-        isAllValid += validateNotNullorEmpty(cbType, lblTypeError, "Type");
-        isAllValid += validateNotNullorEmpty(txtBrand, lblBrandError, "Brand");
-        isAllValid += validateNotNullorEmpty(txtModel, lblModelError, "Model");
-        isAllValid += validateNotNullorEmpty(txtTare, lblTareError, "Tare");
-        isAllValid += validateNotNullorEmpty(txtGrossWeight, lblGrossWeightError, "Gross Weight");
-        isAllValid += validateNotNullorEmpty(dpRegisterDate, lblRegisterDateError, "Register Date");
-        isAllValid += validateNotNullorEmpty(dpAcquisitionDate, lblAcquisitionDateError, "Acquisition Date");
-        isAllValid += validateNotNullorEmpty(txtCheckupFrequency, lblCheckupFrequencyError, "Checkup Frequency");
-        isAllValid += validateNotNullorEmpty(txtCurrentKm, lblCurrentKmError, "Current Km");
-        if(isAllValid != 10){
+    private boolean validateAllData() {
+        boolean plateIDValid = validatePlateID();
+        boolean typeValid = validateType();
+        boolean modelValid = validateModel();
+        boolean brandValid = validateBrand();
+        boolean tareValid = validateTare();
+        boolean grossWeightValid = validateGrossWeight();
+        boolean registerDateValid = validateRegisterDate();
+        boolean acquisitionDateValid = validateAcquisitionDate();
+        boolean checkupFrequencyValid = validateCheckupFrequencyKm();
+        boolean currentKmValid = validateCurrentKm();
+
+
+        return plateIDValid
+                && typeValid
+                && modelValid
+                && brandValid
+                && tareValid
+                && grossWeightValid
+                && registerDateValid
+                && acquisitionDateValid
+                && checkupFrequencyValid
+                && currentKmValid;
+
+    }
+
+    private boolean validateType() {
+        if (cbType.getValue() == null) {
+            setError(cbType, lblTypeError, "Select a type");
             return false;
         }
+        clearError(cbType, lblTypeError);
+        return true;
+
+    }
+
+    private boolean validateModel() {
+        String stringBrand = txtModel.getText().trim();
+        if (stringBrand.isEmpty()) {
+            setError(txtModel, lblModelError, "Model is empty");
+            return false;
+        }
+        clearError(txtModel, lblModelError);
         return true;
     }
 
-    private int validateNotNullorEmpty(Control field, Label label, String context) {
-        if(field instanceof TextField){
-            TextField textField = (TextField) field;
-            if (textField.getText() == null || textField.getText().trim().isEmpty()) {
-                setError(textField, label, context + " cannot be empty.");
-                return 0;
-            }else {
-                clearError(textField, label);
-            }
-        }else if(field instanceof DatePicker){
-            DatePicker datePicker = (DatePicker) field;
-            if (datePicker.getValue() == null) {
-                setError(datePicker, label, context + " cannot be empty.");
-                return 0;
-            }else {
-                clearError(datePicker, label);
-            }
-        }else if(field instanceof ComboBox){
-            ComboBox<String> comboBox = (ComboBox<String>) field;
-            if (comboBox.getValue() == null || comboBox.getValue().trim().isEmpty()) {
-                setError(comboBox, label,"No " + context + " has been chosen.");
-                return 0;
-            }else {
-                clearError(comboBox, label);
-            }
+    private boolean validateBrand() {
+
+        String stringBrand = txtBrand.getText().trim();
+        if (stringBrand.isEmpty()) {
+            setError(txtBrand, lblBrandError, "Brand is empty");
+            return false;
         }
-        return 1;
+        clearError(txtBrand, lblBrandError);
+        return true;
     }
 
-    private boolean validatePlateID(String plateID) {
+    private boolean validateRegisterDate() {
+
+        if (dpRegisterDate.getValue() == null) {
+            setError(dpRegisterDate, lblRegisterDateError, "Register date is empty");
+            return false;
+        }
+
+        //validacao aqui que nao pode ser data de futuro
+        LocalDate currentDate = LocalDate.now();
+        LocalDate registerDate = dpRegisterDate.getValue();
+
+        if (registerDate.isAfter(currentDate)) {
+            setError(dpRegisterDate, lblRegisterDateError, "Register date cannot be in the future");
+            return false;
+        }
+
+        if (!txtPlateID.getText().isEmpty()) {
+            boolean validDate = validateDate();
+            if (validDate) {
+                clearError(dpRegisterDate, lblRegisterDateError);
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        clearError(dpRegisterDate, lblRegisterDateError);
+        return true;
+    }
+
+    private boolean validatePlateID() {
+
+        String plateID = txtPlateID.getText().trim();
+
+        if (plateID.isEmpty()) {
+            setError(txtPlateID, lblPlateIDError, "Plate ID is empty");
+            return false;
+        }
         Pattern pattern1 = Pattern.compile("^[0-9]{2}-[0-9]{2}-[A-Z]{2}$");
         Pattern pattern2 = Pattern.compile("^[0-9]{2}-[A-Z]{2}-[0-9]{2}$");
         Pattern pattern3 = Pattern.compile("^[A-Z]{2}-[0-9]{2}-[A-Z]{2}$");
 
-        if (!pattern1.matcher(plateID).matches() && !pattern2.matcher(plateID).matches() && !pattern3.matcher(plateID).matches()){
+
+        if (pattern1.matcher(plateID).matches() || pattern2.matcher(plateID).matches() || pattern3.matcher(plateID).matches()) {
+            clearError(txtPlateID, lblPlateIDError);
+            return true;
+        } else {
             setError(txtPlateID, lblPlateIDError, "Plate ID must follow the format 00-00-AA, 00-AA-00 or AA-00-AA.");
             return false;
-        }else {
-            clearError(txtPlateID, lblPlateIDError);
         }
-
-        return true;
     }
 
-    private boolean validateTare(String stringTare) {
+    private boolean validateTare() {
         double tare;
-        try{
+
+        String stringTare = txtTare.getText().trim();
+        if (stringTare.isEmpty()) {
+            setError(txtTare, lblTareError, "Tare is empty.");
+            return false;
+        }
+
+        try {
             tare = Integer.parseInt(stringTare);
-        }catch (Exception e){
+        } catch (Exception e) {
             setError(txtTare, lblTareError, "Tare is not a valid number.");
             return false;
         }
-        if(tare < 0){
+        if (tare < 0) {
             setError(txtTare, lblTareError, "Tare must be a positive number.");
             return false;
-        }else {
+        } else {
             clearError(txtTare, lblTareError);
         }
+        clearError(txtTare, lblTareError);
         return true;
     }
 
-    private boolean validateGrossWeight(String stringGrossWeight, String stringTare) {
+    private boolean validateGrossWeight() {
         double grossWeight;
         double tare;
-        try{
-            grossWeight = Integer.parseInt(stringGrossWeight);
-        }catch (Exception e){
+
+        String stringGrossWeight = txtGrossWeight.getText().trim();
+        String stringTare = txtTare.getText().trim();
+
+        if (stringGrossWeight.isEmpty()) {
+            setError(txtGrossWeight, lblGrossWeightError, "Gross Weight is empty");
+            return false;
+        }
+
+
+        try {
+            grossWeight = Double.parseDouble(stringGrossWeight);
+
+        } catch (Exception e) {
             setError(txtGrossWeight, lblGrossWeightError, "Gross Weight is not a valid number.");
             return false;
         }
         try {
-            tare = Integer.parseInt(stringTare);
-        }catch (Exception e){
+            tare = Double.parseDouble(stringTare);
+        } catch (Exception e) {
             setError(txtTare, lblTareError, "Tare is not a valid number");
             return false;
         }
-        if(grossWeight < 0 && grossWeight < tare){
-            setError(txtGrossWeight, lblGrossWeightError, "Gross weight must be a positive number and greater than the tare.");
+        if (grossWeight < 0) {
+            setError(txtGrossWeight, lblGrossWeightError, "Gross weight must be a positive number");
             return false;
-        }else{
-            clearError(txtGrossWeight, lblGrossWeightError);
         }
+
+        if (grossWeight < tare) {
+            setError(txtGrossWeight, lblGrossWeightError, "Gross weight must be greater than tare");
+            return false;
+        }
+        clearError(txtGrossWeight, lblGrossWeightError);
         return true;
     }
 
-    private boolean validateDate(String registerDate) {
+    private boolean validateDate() {
+        String registerDate = dpRegisterDate.getValue().toString().trim();
+
         Pattern pattern1 = Pattern.compile("^[0-9]{2}-[0-9]{2}-[A-Z]{2}$");
         Pattern pattern2 = Pattern.compile("^[0-9]{2}-[A-Z]{2}-[0-9]{2}$");
         Pattern pattern3 = Pattern.compile("^[A-Z]{2}-[0-9]{2}-[A-Z]{2}$");
@@ -242,88 +311,105 @@ public class RegisterVehicleUI implements Initializable {
         int registerDateYear = Integer.parseInt(registerDateParts[0]);
 
         if (registerDateYear > 2005 && pattern1.matcher(txtPlateID.getText()).matches()) {
-            setError(dpRegisterDate, lblRegisterDateError, "Invalid date, with the plateID format 00-00-AA, the register date must be before 2005");
+            setError(dpRegisterDate, lblRegisterDateError, "With plateID format 00-00-AA, the register date must be before 2005");
             return false;
         } else if ((registerDateYear <= 2005 || registerDateYear > 2020) && pattern2.matcher(txtPlateID.getText()).matches()) {
-            setError(dpRegisterDate, lblRegisterDateError, "Invalid date, with the plateID format 00-AA-00, the register date must be between 2005 and 2020");
+            setError(dpRegisterDate, lblRegisterDateError, "With plateID format 00-AA-00, the register date must be between 2005 and 2020");
             return false;
         } else if (registerDateYear <= 2020 && pattern3.matcher(txtPlateID.getText()).matches()) {
-            setError(dpRegisterDate, lblRegisterDateError, "Invalid date, with the plateID format AA-00-AA, the register date must be after 2020");
+            setError(dpRegisterDate, lblRegisterDateError, "With plateID format AA-00-AA, the register date must be after 2020");
             return false;
         }
         return true;
     }
 
-    private boolean validateAcquisitionDate(String acquisitionDate, String registerDate) {
-        String[] acquisitionDateParts = acquisitionDate.split("-");
-        String[] registerDateParts = registerDate.split("-");
-        if( Integer.parseInt(acquisitionDateParts[0]) < Integer.parseInt(registerDateParts[0]) ){
-            setError(dpAcquisitionDate, lblAcquisitionDateError, "Acquisition date must be before the register date.");
-            return false;
-        }else if ( Integer.parseInt(acquisitionDateParts[1]) < Integer.parseInt(registerDateParts[1]) ){
-            setError(dpAcquisitionDate, lblAcquisitionDateError, "Acquisition date must be before the register date.");
-            return false;
-        }else if ( Integer.parseInt(acquisitionDateParts[2]) < Integer.parseInt(registerDateParts[2]) ){
-            setError(dpAcquisitionDate, lblAcquisitionDateError, "Acquisition date must be before the register date.");
+    private boolean validateAcquisitionDate() {
+        if (dpAcquisitionDate.getValue() == null) {
+            setError(dpAcquisitionDate, lblAcquisitionDateError, "Acquisition date is empty");
             return false;
         }
+
+        LocalDate acquisitionDate = dpAcquisitionDate.getValue();
+        LocalDate registerDate = dpRegisterDate.getValue();
+
+        //validacao aqui que nao pode ser data de futuro
+        LocalDate currentDate = LocalDate.now();
+        if (acquisitionDate.isAfter(currentDate)) {
+            setError(dpAcquisitionDate, lblAcquisitionDateError, "Acquisition date cannot be in the future");
+            return false;
+        }
+
+        if (acquisitionDate.isBefore(registerDate)) {
+            setError(dpAcquisitionDate, lblAcquisitionDateError, "Acquisition date must be after the register date.");
+            return false;
+        }
+        clearError(dpAcquisitionDate, lblAcquisitionDateError);
         return true;
     }
 
-    private boolean validateCurrentKm(String stringCurrentKm) {
+    private boolean validateCurrentKm() {
+
+        String stringCurrentKm = txtCurrentKm.getText().trim();
+        if (stringCurrentKm.isEmpty()) {
+            setError(txtCurrentKm, lblCurrentKmError, "Current Km is empty");
+            return false;
+        }
         int currentKm;
-        try{
+
+        try {
             currentKm = Integer.parseInt(stringCurrentKm);
-        }catch (Exception e){
+        } catch (Exception e) {
             setError(txtCurrentKm, lblCurrentKmError, "Current Km is not a valid number.");
             return false;
         }
-        if(currentKm < 0){
+        if (currentKm < 0) {
             setError(txtCurrentKm, lblCurrentKmError, "Current Km must be a positive number.");
             return false;
-        }else{
+        } else {
             clearError(txtCurrentKm, lblCurrentKmError);
         }
+        clearError(txtCurrentKm, lblCurrentKmError);
         return true;
     }
 
-    private boolean validateCheckupFrequencyKm(String stringCheckupFrequency) {
+    private boolean validateCheckupFrequencyKm() {
+
+        String stringCheckupFrequency = txtCheckupFrequency.getText().trim();
+        if (stringCheckupFrequency.isEmpty()) {
+            setError(txtCheckupFrequency, lblCheckupFrequencyError, "Checkup frequency Km is empty.");
+            return false;
+        }
+
         int checkupFrequency;
-        try{
+
+
+        try {
             checkupFrequency = Integer.parseInt(stringCheckupFrequency);
-        }catch (Exception e){
+        } catch (Exception e) {
             setError(txtCheckupFrequency, lblCheckupFrequencyError, "Checkup frequency Km is not a valid number.");
             return false;
         }
-        if(checkupFrequency < 0){
+        if (checkupFrequency < 0) {
             setError(txtCheckupFrequency, lblCheckupFrequencyError, "Checkup frequency Km must be a positive number.");
             return false;
-        }else{
+        } else {
             clearError(txtCheckupFrequency, lblCheckupFrequencyError);
         }
+        clearError(txtCheckupFrequency, lblCheckupFrequencyError);
         return true;
     }
 
     @FXML
     private void btnSubmitAction() {
-        boolean isAllValid = true;
-        if(!validatePlateID(txtPlateID.getText())){ isAllValid = false; }
-        if(!validateTare(txtTare.getText())){ isAllValid = false; }
-        if(!validateGrossWeight(txtGrossWeight.getText(),txtTare.getText())){ isAllValid = false; }
-        if(dpRegisterDate.getValue() != null){
-            if(!validateDate(dpRegisterDate.getValue().toString())){ isAllValid = false; }
-        }
-        if(dpAcquisitionDate.getValue() != null && dpRegisterDate.getValue() != null){
-            if(!validateAcquisitionDate(dpAcquisitionDate.getValue().toString(), dpRegisterDate.getValue().toString())){ isAllValid = false; }
-        }
-        System.out.println(isAllValid);
-        if(!validateCurrentKm(txtCurrentKm.getText())){ isAllValid = false; }
-        if(!validateCheckupFrequencyKm(txtCheckupFrequency.getText())){ isAllValid = false; }
-        if(!validateAllNotNullOrEmpty()){ isAllValid = false; }
 
-        if(isAllValid){ submitData(); }else{
-            AlertUI.createAlert(Alert.AlertType.ERROR, MainApp.APP_TITLE, "There was an error registering a vehicle.","Please correct the highlighted errors and try again.").show();
+        try {
+            if (validateAllData()) {
+                submitData();
+            }
+        } catch (IllegalArgumentException ie) {
+            AlertUI.createAlert(Alert.AlertType.ERROR, "ERROR", "Register Vehicle Error", ie.getMessage()).show();
         }
+
     }
 
     @FXML
@@ -338,6 +424,7 @@ public class RegisterVehicleUI implements Initializable {
         clearError(dpAcquisitionDate, lblAcquisitionDateError);
         clearError(txtCheckupFrequency, lblCheckupFrequencyError);
         clearError(txtCurrentKm, lblCurrentKmError);
+        dpRegisterDate.setValue(null);
+        dpAcquisitionDate.setValue(null);
     }
-
 }
