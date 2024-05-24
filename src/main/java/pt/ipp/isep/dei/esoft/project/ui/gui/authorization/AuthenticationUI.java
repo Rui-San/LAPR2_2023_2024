@@ -77,6 +77,8 @@ public class AuthenticationUI implements Initializable {
                 UserRoleDTO role = selectsRole(roles);
                 if (!Objects.isNull(role)) {
                     landingPage.show();
+                    Stage currentStage = (Stage) txtUsername.getScene().getWindow();
+                    currentStage.close();
                 } else {
                     System.out.println("No role selected.");
                 }

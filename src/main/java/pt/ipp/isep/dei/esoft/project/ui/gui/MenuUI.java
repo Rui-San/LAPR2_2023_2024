@@ -4,7 +4,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import pt.ipp.isep.dei.esoft.project.ui.gui.authorization.AuthenticationUI;
 
 import java.io.IOException;
 import java.net.URL;
@@ -15,9 +20,29 @@ public class MenuUI implements Initializable {
     @FXML
     private StackPane contentArea;
 
+    private Stage loginPage;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+    }
+
+    public void setLoginPage() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/LoginScene.fxml"));
+            Parent root = loader.load();
+
+            Scene scene = new Scene(root);
+
+            loginPage = new Stage();
+            loginPage.initModality(Modality.APPLICATION_MODAL);
+            loginPage.setTitle("Programa");
+            loginPage.setResizable(false);
+            loginPage.setScene(scene);
+
+        } catch (IOException ex) {
+            AlertUI.createAlert(Alert.AlertType.ERROR, MainApp.APP_TITLE, "Erro.", ex.getMessage());
+        }
     }
 
     @FXML
@@ -56,6 +81,13 @@ public class MenuUI implements Initializable {
     }
 
     @FXML
+    public void RegisterCheckup() throws IOException {
+        Parent fxml = FXMLLoader.load(getClass().getResource("/fxml/RegisterCheckupScene.fxml"));
+        contentArea.getChildren().removeAll();
+        contentArea.getChildren().setAll(fxml);
+    }
+
+    @FXML
     public void RegisterJob() throws IOException {
         Parent fxml = FXMLLoader.load(getClass().getResource("/fxml/RegisterJobScene.fxml"));
         contentArea.getChildren().removeAll();
@@ -88,6 +120,17 @@ public class MenuUI implements Initializable {
         Parent fxml = FXMLLoader.load(getClass().getResource("/fxml/AddNewEntryAgendaScene.fxml"));
         contentArea.getChildren().removeAll();
         contentArea.getChildren().setAll(fxml);
+    }
+
+    @FXML
+    public void logoutAction() throws IOException {
+        Alert logoutAlert = AlertUI.createAlert(Alert.AlertType.CONFIRMATION, MainApp.APP_TITLE, "Logout", "Are you sure you want to logout?");
+        if(logoutAlert.showAndWait().get().getText().equals("OK")){
+            Stage stage = (Stage) contentArea.getScene().getWindow();
+            stage.close();
+            setLoginPage();
+            loginPage.show();
+        }
     }
 
 
