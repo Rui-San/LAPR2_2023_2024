@@ -69,9 +69,7 @@
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#NewEntryToDo" text="Add task" />
                   <MenuItem mnemonicParsing="false" onAction="#NewEntryAgenda" text="Add task to agenda" />
-                  <MenuItem mnemonicParsing="false" text="Add Team to task" />
-                  <MenuItem mnemonicParsing="false" text="Add Vehicle to task" />
-                  <MenuItem mnemonicParsing="false" text="Add Green Space to task" />
+                  <MenuItem mnemonicParsing="false" onAction="#OpenAgenda" text="Agenda" />
                </items>
             </MenuButton>
             <MenuButton fx:id="mbAdmin" mnemonicParsing="false" popupSide="RIGHT" styleClass="menu-btn" text="Admin">

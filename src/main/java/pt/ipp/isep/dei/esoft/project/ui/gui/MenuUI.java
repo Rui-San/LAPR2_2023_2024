@@ -164,6 +164,13 @@ public class MenuUI implements Initializable {
     }
 
     @FXML
+    public void OpenAgenda() throws IOException {
+        Parent fxml = FXMLLoader.load(getClass().getResource("/fxml/AgendaScene.fxml"));
+        contentArea.getChildren().removeAll();
+        contentArea.getChildren().setAll(fxml);
+    }
+
+    @FXML
     public void logoutAction() throws IOException {
         Alert logoutAlert = AlertUI.createAlert(Alert.AlertType.CONFIRMATION, MainApp.APP_TITLE, "Logout", "Are you sure you want to logout?");
         if(logoutAlert.showAndWait().get().getText().equals("OK")){
