@@ -53,8 +53,8 @@ public class MenuUI implements Initializable {
                 case "GREEN SPACE MANAGER":
                     sessionOptions.addAll(List.of(mbGreenSpaces, mbTasks));
                     break;
-                case "ADMIN":
-                    sessionOptions.addAll(List.of(mbAdmin));
+                case "ADMINISTRATOR":
+                    sessionOptions.addAll(allOptions);
                     break;
             }
         }
