@@ -105,18 +105,18 @@ public class RegisterCheckupUI implements Initializable {
         lblError.setVisible(false);
     }
 
-    private boolean validateCheckupDate(LocalDate checkupDateField) {
+    private int validateCheckupDate(LocalDate checkupDateField) {
         String checkupDate = "";
         try {
             checkupDate = checkupDateField.toString();
         } catch (Exception e) {
             setError(dpCheckupDate, lblCheckupDateError, "Invalid date.");
-            return false;
+            return 0;
         }
 
         if (checkupDate.isEmpty() || checkupDate.isBlank()) {
             setError(dpCheckupDate, lblCheckupDateError, "Checkup date cannot be null or empty.");
-            return false;
+            return 0;
         }
 
         Date checkupDateObj;
@@ -125,55 +125,55 @@ public class RegisterCheckupUI implements Initializable {
             checkupDateObj = new Date(checkupDate);
         }catch (Exception e){
             setError(dpCheckupDate, lblCheckupDateError, "Invalid date format.");
-            return false;
+            return 0;
         }
 
         if (checkupDateObj.compareTo(tbVehicles.getSelectionModel().getSelectedItem().getRegisterDate()) < 0) {
             setError(dpCheckupDate, lblCheckupDateError, "Checkup date must be after vehicle registration date.");
-            return false;
+            return 0;
         }
 
         clearError(dpCheckupDate, lblCheckupDateError);
-        return true;
+        return 1;
     }
 
-    private boolean validateCheckupKms(String checkupKm) {
+    private int validateCheckupKms(String checkupKm) {
         try{
             Integer.parseInt(checkupKm);
         }catch (Exception e){
             setError(txtCheckupKm, lblCheckupKmError, "Checkup km must be a number.");
-            return false;
+            return 0;
         }
 
         if(Integer.parseInt(checkupKm) < 0 ){
             setError(txtCheckupKm, lblCheckupKmError, "Checkup km must be a positive number.");
-            return false;
+            return 0;
         }else if( Integer.parseInt(checkupKm) > tbVehicles.getSelectionModel().getSelectedItem().getCurrentKm()){
             setError(txtCheckupKm, lblCheckupKmError, "Checkup km must be less than the current km.");
-            return false;
+            return 0;
         }
 
         clearError(txtCheckupKm, lblCheckupKmError);
-        return true;
+        return 1;
     }
 
-    private boolean validateSelectedVehicle() {
+    private int validateSelectedVehicle() {
         if (tbVehicles.getSelectionModel().getSelectedItem() == null) {
             setError(tbVehicles, lblVehicleError, "You must select a vehicle.");
-            return false;
+            return 0;
         }
 
         clearError(tbVehicles, lblVehicleError);
-        return true;
+        return 1;
     }
 
     @FXML
     private void btnSubmitAction() {
-        boolean isAllValid = true;
-        isAllValid = validateSelectedVehicle();
-        isAllValid = validateCheckupDate(dpCheckupDate.getValue());
-        isAllValid = validateCheckupKms(txtCheckupKm.getText());
-        if(isAllValid){ submitData(); }
+        int isAllValid = 0;
+        isAllValid += validateSelectedVehicle();
+        isAllValid += validateCheckupDate(dpCheckupDate.getValue());
+        isAllValid += validateCheckupKms(txtCheckupKm.getText());
+        if(isAllValid == 3){ submitData(); }
     }
 
     @FXML
