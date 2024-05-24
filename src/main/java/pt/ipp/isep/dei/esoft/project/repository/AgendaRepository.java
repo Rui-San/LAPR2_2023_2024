@@ -40,17 +40,54 @@ public class AgendaRepository {
     }
 
     private boolean validateTaskAgenda(Task task) {
-        boolean isValid = true;
         String taskTitle = task.getTitle().trim();
+        String taskGreenSpace = task.getGreenSpace().toString().trim();
+
+        for (Task aTask : agenda) {
+            if (!aTask.getTitle().trim().equalsIgnoreCase(taskTitle)) {
+                return true;
+            } else {
+                if (aTask.getStatus() == AGENDA_DEFAULT_STATUS) {
+                    if (aTask.getGreenSpace().toString().trim().equalsIgnoreCase(taskGreenSpace)) {
+                        return false;
+                    }
+                }
+            }
+
+
+        }
+
+
+        /*
+
+
 
         for (Task registeredTask : agenda) {
-            if ((registeredTask.getTitle().trim().equalsIgnoreCase(taskTitle) && registeredTask.getStatus() == AGENDA_DEFAULT_STATUS)) {
-                isValid = false;
-                return isValid;
+            if (registeredTask.getTitle().trim().equalsIgnoreCase(taskTitle) &&
+                    registeredTask.getStatus() == AGENDA_DEFAULT_STATUS &&
+                    registeredTask.getGreenSpace().toString().trim().equalsIgnoreCase(taskGreenSpace)) {
+                return false;
             }
         }
-        return isValid;
+
+         */
+        return true;
     }
+
+
+
+      /*
+            if ((registeredTask.getTitle().trim().equalsIgnoreCase(taskTitle) && registeredTask.getStatus() == AGENDA_DEFAULT_STATUS)) {
+                if(registeredTask.getGreenSpace().toString().trim().equalsIgnoreCase(taskGreenSpace)){
+                    isValid = false;
+                    return isValid;
+                }else{
+                    return isValid;
+                }
+            }
+        }
+        */
+
 
     public Optional<Task> registerTaskAgenda(Task task, String executionDate) {
 
@@ -59,12 +96,14 @@ public class AgendaRepository {
         return addedTask;
     }
 
-    public Optional<Task> updateTaskToCanceled(String title, String executionDate, Status status) {
+
+    public Optional<Task> updateTaskToCanceled(String title, String greenSpace, String executionDate, Status status) {
 
         for (Task task : agenda) {
             if (task.getTitle().trim().equalsIgnoreCase(title)
                     && task.getStatus() == status
-                    && task.getExecutionDate().toString().equalsIgnoreCase(executionDate)) {
+                    && task.getExecutionDate().toString().equalsIgnoreCase(executionDate)
+                    && task.getGreenSpace().toString().trim().equalsIgnoreCase(greenSpace)) {
 
                 if (status == Status.PLANNED || status == Status.POSTPONED) {
                     task.setStatus(Status.PROCESSED);

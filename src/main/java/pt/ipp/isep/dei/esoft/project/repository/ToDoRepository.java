@@ -50,9 +50,10 @@ public class ToDoRepository {
     private boolean validateTaskToDo(Task task) {
         boolean isValid = true;
         String taskTitle = task.getTitle().trim();
+        String taskGreenSpace = task.getGreenSpace().toString().trim();
 
         for (Task registeredTask : toDoList) {
-            if ((registeredTask.getTitle().trim().equalsIgnoreCase(taskTitle) && registeredTask.getStatus() == TODO_DEFAULT_STATUS)) {
+            if ((registeredTask.getTitle().trim().equalsIgnoreCase(taskTitle) && registeredTask.getStatus() == TODO_DEFAULT_STATUS) && registeredTask.getGreenSpace().toString().trim().equalsIgnoreCase(taskGreenSpace)) {
                 isValid = false;
                 return isValid;
             }
@@ -62,7 +63,7 @@ public class ToDoRepository {
 
     public void updateTaskToProcessed(Task task) {
         for(Task taskTodo : toDoList){
-            if (taskTodo.getTitle().trim().equalsIgnoreCase(task.getTitle().trim()) && taskTodo.getStatus() == TODO_DEFAULT_STATUS) {
+            if (taskTodo.getTitle().trim().equalsIgnoreCase(task.getTitle().trim()) && taskTodo.getStatus() == TODO_DEFAULT_STATUS && taskTodo.getGreenSpace().toString().trim().equalsIgnoreCase(task.getGreenSpace().toString().trim())) {
                 taskTodo.setStatus(Status.PROCESSED);
             }
         }
