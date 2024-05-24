@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.controller.AuthenticationController;
+import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.ui.console.menu.AdminUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.menu.HrmUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.menu.MenuItem;
@@ -42,6 +43,10 @@ public class AuthenticationUI implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+    }
+
+    public void setLandingPage(){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/SideMenuScene.fxml"));
             Parent root = loader.load();
@@ -59,7 +64,6 @@ public class AuthenticationUI implements Initializable {
         }
     }
 
-
     @FXML
     public void btnLoginAction() {
         boolean success = false;
@@ -76,6 +80,7 @@ public class AuthenticationUI implements Initializable {
             } else {
                 UserRoleDTO role = selectsRole(roles);
                 if (!Objects.isNull(role)) {
+                    setLandingPage();
                     landingPage.show();
                     Stage currentStage = (Stage) txtUsername.getScene().getWindow();
                     currentStage.close();

@@ -6,24 +6,65 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.MenuButton;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.ui.gui.authorization.AuthenticationUI;
+import pt.isep.lei.esoft.auth.mappers.dto.UserRoleDTO;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class MenuUI implements Initializable {
 
     @FXML
     private StackPane contentArea;
+    @FXML
+    private VBox vbMenuButtonsHolder;
+    @FXML
+    private MenuButton mbJobs, mbSkills, mbCollaborators, mbVehicles, mbTeams, mbGreenSpaces, mbTasks, mbAdmin;
+
+    private List<MenuButton> allOptions = new ArrayList<>();
 
     private Stage loginPage;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        allOptions.addAll(List.of(mbJobs, mbSkills, mbCollaborators, mbVehicles, mbTeams, mbGreenSpaces, mbTasks, mbAdmin));
+
+        List<UserRoleDTO> sessionRoles = Repositories.getInstance().getAuthenticationRepository().getCurrentUserSession().getUserRoles();
+
+        List<MenuButton> sessionOptions = new ArrayList<>();
+
+        for (UserRoleDTO role : sessionRoles) {
+            switch (role.getId()) {
+                case "HUMAN RESOURCES MANAGER":
+                    sessionOptions.addAll(List.of(mbJobs, mbSkills, mbCollaborators, mbTeams));
+                    break;
+                case "VEHICLE FLEET MANAGER":
+                    sessionOptions.addAll(List.of(mbVehicles));
+                    break;
+                case "GREEN SPACE MANAGER":
+                    sessionOptions.addAll(List.of(mbGreenSpaces, mbTasks));
+                    break;
+                case "ADMIN":
+                    sessionOptions.addAll(List.of(mbAdmin));
+                    break;
+            }
+        }
+
+        for (MenuButton option : allOptions) {
+            if (!sessionOptions.contains(option)) {
+                vbMenuButtonsHolder.getChildren().remove(option);
+            }
+        }
+
 
     }
 
@@ -126,11 +167,15 @@ public class MenuUI implements Initializable {
     public void logoutAction() throws IOException {
         Alert logoutAlert = AlertUI.createAlert(Alert.AlertType.CONFIRMATION, MainApp.APP_TITLE, "Logout", "Are you sure you want to logout?");
         if(logoutAlert.showAndWait().get().getText().equals("OK")){
-            Stage stage = (Stage) contentArea.getScene().getWindow();
-            stage.close();
-            setLoginPage();
-            loginPage.show();
+            logout();
         }
+    }
+
+    public void logout(){
+        Stage stage = (Stage) contentArea.getScene().getWindow();
+        stage.close();
+        setLoginPage();
+        loginPage.show();
     }
 
 

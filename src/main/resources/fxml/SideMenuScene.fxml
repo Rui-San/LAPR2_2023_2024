@@ -9,9 +9,9 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="1024.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.MenuUI">
    <left>
-      <VBox prefHeight="470.0" prefWidth="150.0" styleClass="menu-style" BorderPane.alignment="CENTER">
+      <VBox fx:id="vbMenuButtonsHolder" prefHeight="470.0" prefWidth="150.0" styleClass="menu-style" BorderPane.alignment="CENTER">
          <children>
-            <MenuButton mnemonicParsing="false" popupSide="RIGHT" styleClass="menu-btn" text="Jobs">
+            <MenuButton fx:id="mbJobs" mnemonicParsing="false" popupSide="RIGHT" styleClass="menu-btn" text="Jobs">
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#RegisterJob" text="Register Job" />
               </items>
@@ -19,7 +19,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </MenuButton>
-            <MenuButton mnemonicParsing="false" popupSide="RIGHT" styleClass="menu-btn" text="Skills">
+            <MenuButton fx:id="mbSkills" mnemonicParsing="false" popupSide="RIGHT" styleClass="menu-btn" text="Skills">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -27,7 +27,7 @@
                   <MenuItem mnemonicParsing="false" onAction="#RegisterSkill" text="Register Skill" />
                </items>
             </MenuButton>
-            <MenuButton mnemonicParsing="false" popupSide="RIGHT" styleClass="menu-btn" text="Collaborators">
+            <MenuButton fx:id="mbCollaborators" mnemonicParsing="false" popupSide="RIGHT" styleClass="menu-btn" text="Collaborators">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -36,7 +36,7 @@
                   <MenuItem mnemonicParsing="false" onAction="#AssignSkill" text="Assign skill" />
                </items>
             </MenuButton>
-            <MenuButton mnemonicParsing="false" popupSide="RIGHT" styleClass="menu-btn" text="Vehicles">
+            <MenuButton fx:id="mbVehicles" mnemonicParsing="false" popupSide="RIGHT" styleClass="menu-btn" text="Vehicles">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -46,7 +46,7 @@
                   <MenuItem mnemonicParsing="false" onAction="#ListVehiclesNeedingCheckup" text="List Vehicles Needing Checkup" />
                </items>
             </MenuButton>
-            <MenuButton mnemonicParsing="false" popupSide="RIGHT" styleClass="menu-btn" text="Teams">
+            <MenuButton fx:id="mbTeams" mnemonicParsing="false" popupSide="RIGHT" styleClass="menu-btn" text="Teams">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -54,7 +54,7 @@
                   <MenuItem mnemonicParsing="false" onAction="#GenerateTeamProposal" text="Generate Team Proposal" />
                </items>
             </MenuButton>
-            <MenuButton mnemonicParsing="false" popupSide="RIGHT" styleClass="menu-btn" text="Green Spaces">
+            <MenuButton fx:id="mbGreenSpaces" mnemonicParsing="false" popupSide="RIGHT" styleClass="menu-btn" text="Green Spaces">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -62,7 +62,7 @@
                   <MenuItem mnemonicParsing="false" onAction="#RegisterGreenSpace" text="Register Green Space" />
                </items>
             </MenuButton>
-            <MenuButton mnemonicParsing="false" popupSide="RIGHT" styleClass="menu-btn" text="Tasks">
+            <MenuButton fx:id="mbTasks" mnemonicParsing="false" popupSide="RIGHT" styleClass="menu-btn" text="Tasks">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -74,7 +74,7 @@
                   <MenuItem mnemonicParsing="false" text="Add Green Space to task" />
                </items>
             </MenuButton>
-            <MenuButton mnemonicParsing="false" popupSide="RIGHT" styleClass="menu-btn" text="Admin">
+            <MenuButton fx:id="mbAdmin" mnemonicParsing="false" popupSide="RIGHT" styleClass="menu-btn" text="Admin">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

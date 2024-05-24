@@ -21,6 +21,11 @@ public class AuthenticationController {
      * Constant representing the vehicle fleet manager role.
      */
     public static final String ROLE_VFM = "VEHICLE FLEET MANAGER";
+    /**
+     * Constant representing the green space manager role.
+     */
+    public static final String ROLE_GSM = "GREEN SPACE MANAGER";
+
 
     //private final ApplicationSession applicationSession;
     /**
