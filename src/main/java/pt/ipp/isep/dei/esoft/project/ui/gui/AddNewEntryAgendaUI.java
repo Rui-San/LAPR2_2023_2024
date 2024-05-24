@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 
 import pt.ipp.isep.dei.esoft.project.controller.AddNewEntryAgendaController;
 import pt.ipp.isep.dei.esoft.project.dto.ToDoTaskWithStatusDTO;
+import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.tools.Status;
 import pt.ipp.isep.dei.esoft.project.tools.TaskType;
 import pt.ipp.isep.dei.esoft.project.tools.UrgencyType;
@@ -69,7 +70,6 @@ public class AddNewEntryAgendaUI implements Initializable {
     private void fillTableInformation() {
 
         for (ToDoTaskWithStatusDTO task : taskList) {
-            System.out.println(task.title + task.description + task.greenSpaceName);
             taskTableView.getItems().add(task);
         }
     }
@@ -93,10 +93,19 @@ public class AddNewEntryAgendaUI implements Initializable {
 
                     String selectedDate = insertDatePopupUI.getSelectedDate();
                     if (selectedDate != null) {
-
+                        System.out.println(selectedTask.title + selectedTask.description + selectedTask.urgency + selectedTask.taskType + selectedTask.greenSpaceName + selectedTask.expectedDuration);
+                        System.out.println(selectedDate);
                         if (controller.registerTaskAgenda(selectedTask, selectedDate).isPresent()) {
+
+                            taskList.clear();
+                            taskList.addAll(controller.getToDoDTOlist());
+                            updateTableView();
+
+                            System.out.println(Repositories.getInstance().getAgendaRepository().getAgenda());
+
                             AlertUI.createAlert(Alert.AlertType.INFORMATION, "Add new entry to agenda", "Confirmation of operation", "Task successfully placed in Agenda").show();
                             lblAddError.setVisible(false);
+
 
                         } else {
                             AlertUI.createAlert(Alert.AlertType.ERROR, "Add new entry to agenda", "Error occurred", "This task was already in the Agenda").show();
@@ -133,9 +142,18 @@ public class AddNewEntryAgendaUI implements Initializable {
         if (selectedTask.status == Status.PENDING) {
             lblAddError.setText("");
             lblAddError.setVisible(false);
-            return false;
+            return true;
         }
         return true;
+
+    }
+
+    private void updateTableView() {
+        taskTableView.getItems().clear();
+
+        for (ToDoTaskWithStatusDTO task : taskList) {
+            taskTableView.getItems().add(task);
+        }
     }
 
 }
