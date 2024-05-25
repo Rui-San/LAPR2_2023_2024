@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="573.0" prefWidth="874.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.ListVehiclesNeedingCheckupUI">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="573.0" prefWidth="874.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.AgendaUI">
     <left>
         <Pane prefHeight="360.0" prefWidth="40.0" BorderPane.alignment="CENTER" />
     </left>
@@ -31,14 +31,14 @@
     <center>
         <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <center>
-                <TableView fx:id="tbNeddingCheckup" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                <TableView fx:id="tbTasks" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                     <columns>
-                        <TableColumn fx:id="plateId" prefWidth="171.0" sortable="false" text="Title" />
-                        <TableColumn fx:id="currentKm" prefWidth="114.0" text="Type" />
-                        <TableColumn fx:id="checkupFrequencyKms" prefWidth="110.0" text="Status" />
-                        <TableColumn fx:id="lastCheckupKm" prefWidth="122.0" text="Urgency" />
-                        <TableColumn fx:id="optimalNextCheckupKm" prefWidth="137.0" text="Teams Assigned" />
-                        <TableColumn fx:id="optimalNextCheckupKm1" prefWidth="139.0" text="Vehicles Assigned" />
+                        <TableColumn fx:id="tcTitle" prefWidth="171.0" sortable="false" text="Title" />
+                        <TableColumn fx:id="tcType" prefWidth="114.0" text="Type" />
+                        <TableColumn fx:id="tcStatus" prefWidth="110.0" text="Status" />
+                        <TableColumn fx:id="tcUrgency" prefWidth="122.0" text="Urgency" />
+                        <TableColumn fx:id="tcTeamsAssigned" prefWidth="137.0" text="Teams Assigned" />
+                        <TableColumn fx:id="tcVehiclesAssigned" prefWidth="139.0" text="Vehicles Assigned" />
                     </columns>
                     <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
