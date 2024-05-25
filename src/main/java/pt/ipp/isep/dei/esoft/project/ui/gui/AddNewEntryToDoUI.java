@@ -15,6 +15,7 @@ import javafx.scene.control.*;
 import pt.ipp.isep.dei.esoft.project.controller.AddNewEntryToDoController;
 import pt.ipp.isep.dei.esoft.project.dto.GreenSpaceDTO;
 import pt.ipp.isep.dei.esoft.project.dto.ToDoTaskDTO;
+import pt.ipp.isep.dei.esoft.project.tools.DurationFormatter;
 import pt.ipp.isep.dei.esoft.project.tools.TaskType;
 import pt.ipp.isep.dei.esoft.project.tools.UrgencyType;
 
@@ -87,9 +88,9 @@ public class AddNewEntryToDoUI implements Initializable {
         try {
 
             if (validateAllInputs()) {
-                int daysInt = Integer.parseInt(txtDays.getText().trim());
-                int hoursInt = Integer.parseInt(txtHours.getText().trim());
-                int minutesInt = Integer.parseInt(txtMins.getText().trim());
+                int daysInt = txtDays.getText().isEmpty() ? 0 : Integer.parseInt(txtDays.getText().trim());
+                int hoursInt = txtHours.getText().isEmpty() ? 0 : Integer.parseInt(txtHours.getText().trim());
+                int minutesInt = txtMins.getText().isEmpty() ? 0 : Integer.parseInt(txtMins.getText().trim());
 
                 long totalMinutes = (long) daysInt * 24 * 60 + hoursInt * 60L + minutesInt;
                 Duration expDuration = Duration.ofMinutes(totalMinutes);
@@ -126,18 +127,13 @@ public class AddNewEntryToDoUI implements Initializable {
     private StringBuilder getConfirmationText(ToDoTaskDTO toDoTaskDTO) {
         StringBuilder sb = new StringBuilder();
 
-        long totalDays = toDoTaskDTO.expectedDuration.toDays();
-        long remainingMinutes = toDoTaskDTO.expectedDuration.toMinutes() % (24 * 60);
-        long remainingHours = remainingMinutes / 60;
-        remainingMinutes %= 60;
-
         sb.append("You're about to register de following Entry:")
                 .append("\nTitle: ").append(toDoTaskDTO.title)
                 .append("\nDescription: ").append(toDoTaskDTO.description)
                 .append("\nGreen Space: ").append(toDoTaskDTO.greenSpaceName)
                 .append("\nTypee: ").append(toDoTaskDTO.taskType)
                 .append("\nUrgency: ").append(toDoTaskDTO.urgency)
-                .append("\nExpected Duration: ").append(totalDays).append(" days and ").append(remainingHours).append(":").append(remainingMinutes).append("H");
+                .append("\nExpected Duration: ").append(DurationFormatter.formatDuration(toDoTaskDTO.expectedDuration));
 
         return sb;
     }
@@ -215,35 +211,55 @@ public class AddNewEntryToDoUI implements Initializable {
 
     private boolean validateExpectedDuration() {
         try {
-            int daysInt = Integer.parseInt(txtDays.getText().trim());
-            int hoursInt = Integer.parseInt(txtHours.getText().trim());
-            int minutesInt = Integer.parseInt(txtMins.getText().trim());
+            String daysText = txtDays.getText().trim();
+            String hoursText = txtHours.getText().trim();
+            String minutesText = txtMins.getText().trim();
 
-            if (daysInt < 0 || hoursInt < 0 || minutesInt < 0) {
-                displayErrorLayout(txtDays, lblExpectedDurationError, "All values of duration must be positive integers");
-                displayErrorLayout(txtHours, lblExpectedDurationError, "All values of duration must be positive integers");
-                displayErrorLayout(txtMins, lblExpectedDurationError, "All values of duration must be positive integers");
+            boolean isDaysEmpty = daysText.isEmpty();
+            boolean isHoursEmpty = hoursText.isEmpty();
+            boolean isMinutesEmpty = minutesText.isEmpty();
+
+            // Verifica se todos os campos estão vazios
+            if (isDaysEmpty && isHoursEmpty && isMinutesEmpty) {
+                displayErrorLayout(txtDays, lblExpectedDurationError, "At least one field must be filled");
+                displayErrorLayout(txtHours, lblExpectedDurationError, "At least one field must be filled");
+                displayErrorLayout(txtMins, lblExpectedDurationError, "At least one field must be filled");
                 return false;
             }
 
-            if (daysInt == 0 && hoursInt == 0 && minutesInt == 0) {
-                displayErrorLayout(txtDays, lblExpectedDurationError, "At least one must be greater than zero");
-                displayErrorLayout(txtHours, lblExpectedDurationError, "At least one must be greater than zero");
-                displayErrorLayout(txtMins, lblExpectedDurationError, "At least one must be greater than zero");
-                return false;
+            // Valida campos não vazios
+            if (!isDaysEmpty) {
+                int daysInt = Integer.parseInt(daysText);
+                if (daysInt < 0) {
+                    displayErrorLayout(txtDays, lblExpectedDurationError, "Days must be a positive integer");
+                    return false;
+                }
             }
 
-            if (hoursInt >= 24 || minutesInt >= 60) {
-                displayErrorLayout(txtHours, lblExpectedDurationError, "Hours/mins must be within their respective ranges");
-                displayErrorLayout(txtMins, lblExpectedDurationError, "Hours/mins must be within their respective ranges");
-                return false;
+            if (!isHoursEmpty) {
+                int hoursInt = Integer.parseInt(hoursText);
+                if (hoursInt < 0 || hoursInt >= 24) {
+                    displayErrorLayout(txtHours, lblExpectedDurationError, "Hours must be between 0 and 23");
+                    return false;
+                }
             }
+
+            if (!isMinutesEmpty) {
+                int minutesInt = Integer.parseInt(minutesText);
+                if (minutesInt < 0 || minutesInt >= 60) {
+                    displayErrorLayout(txtMins, lblExpectedDurationError, "Minutes must be between 0 and 59");
+                    return false;
+                }
+            }
+
         } catch (NumberFormatException ne) {
             displayErrorLayout(txtDays, lblExpectedDurationError, "Enter valid integers");
             displayErrorLayout(txtHours, lblExpectedDurationError, "Enter valid integers");
+            displayErrorLayout(txtMins, lblExpectedDurationError, "Enter valid integers");
             return false;
-
         }
+
+        // Limpa erros se todos os campos estão corretos
         clearLayoutErrors(txtDays, lblExpectedDurationError);
         clearLayoutErrors(txtHours, lblExpectedDurationError);
         clearLayoutErrors(txtMins, lblExpectedDurationError);

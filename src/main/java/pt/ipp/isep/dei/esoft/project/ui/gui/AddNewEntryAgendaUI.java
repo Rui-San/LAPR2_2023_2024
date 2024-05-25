@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.controller.AddNewEntryAgendaController;
 import pt.ipp.isep.dei.esoft.project.dto.ToDoTaskWithStatusDTO;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
+import pt.ipp.isep.dei.esoft.project.tools.DurationFormatter;
 import pt.ipp.isep.dei.esoft.project.tools.Status;
 import pt.ipp.isep.dei.esoft.project.tools.TaskType;
 import pt.ipp.isep.dei.esoft.project.tools.UrgencyType;
@@ -42,7 +43,7 @@ public class AddNewEntryAgendaUI implements Initializable {
     @FXML
     private TableColumn<ToDoTaskWithStatusDTO, UrgencyType> urgencyColumn;
     @FXML
-    private TableColumn<ToDoTaskWithStatusDTO, Duration> expectedDurationColumn;
+    private TableColumn<ToDoTaskWithStatusDTO, String> expectedDurationColumn;
     @FXML
     private TableColumn<ToDoTaskWithStatusDTO, Status> statusColumn;
 
@@ -61,7 +62,7 @@ public class AddNewEntryAgendaUI implements Initializable {
         taskTypeColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().taskType));
         greenSpaceNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().greenSpaceName));
         urgencyColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().urgency));
-        expectedDurationColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().expectedDuration));
+        expectedDurationColumn.setCellValueFactory(cellData -> new SimpleStringProperty(DurationFormatter.formatDuration(cellData.getValue().expectedDuration)));
         statusColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().status));
 
         fillTableInformation();

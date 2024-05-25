@@ -159,7 +159,19 @@ public class Task {
         if (totalDays < 0 || remainingHours < 0 || remainingMinutes < 0) {
             throw new IllegalArgumentException("Days, hours, and minutes must be non-negative numbers.");
         }
-        if (totalDays == 0 && remainingHours == 0 && remainingMinutes == 0) {
+
+        if (remainingHours >= 24 || remainingMinutes >= 60) {
+            throw new IllegalArgumentException("Duration exceeds maximum limits.");
+        }
+
+        long recalculatedHours = totalDays * 24 + remainingHours;
+        long recalculatedMinutes = recalculatedHours * 60 + remainingMinutes;
+
+        if (recalculatedMinutes != expectedDuration.toMinutes()) {
+            throw new IllegalArgumentException("Duration values are inconsistent.");
+        }
+
+        if (totalDays == 0 && recalculatedHours == 0 && remainingMinutes == 0) {
             throw new IllegalArgumentException("At least one of the following must be higher than zero: days, hours, minutes");
         }
     }
