@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="573.0" prefWidth="874.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Text layoutX="5.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Register User" textAlignment="CENTER" wrappingWidth="863.28515625" AnchorPane.topAnchor="33.0">
+         <font>
+            <Font name="Berlin Sans FB" size="28.0" />
+         </font>
+      </Text>
+      <Label alignment="BOTTOM_LEFT" contentDisplay="CENTER" layoutX="100.0" layoutY="123.0" prefHeight="27.0" prefWidth="359.0" text="Select the collaborator" AnchorPane.leftAnchor="100.0" />
+      <Button layoutX="487.0" layoutY="458.0" mnemonicParsing="false" onAction="#btnAssignSelectedSkills" prefHeight="39.0" prefWidth="280.0" text="Register User" />
+      <ScrollPane hbarPolicy="NEVER" layoutX="487.0" layoutY="150.0" prefHeight="257.0" prefWidth="280.0" AnchorPane.rightAnchor="107.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="258.0" prefWidth="280.0">
+               <children>
+                  <VBox fx:id="vboxSkills" layoutX="1.0" layoutY="2.0" maxHeight="-Infinity" prefHeight="257.0" prefWidth="289.0" AnchorPane.rightAnchor="-10.0" />
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+      <Label alignment="BOTTOM_LEFT" contentDisplay="CENTER" layoutX="487.0" layoutY="123.0" prefHeight="27.0" prefWidth="280.0" text="Roles to Assign" AnchorPane.rightAnchor="107.0" />
+      <TableView layoutX="100.0" layoutY="150.0" prefHeight="257.0" prefWidth="359.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="C1" />
+          <TableColumn prefWidth="75.0" text="C2" />
+        </columns>
+      </TableView>
+      <TextField layoutX="100.0" layoutY="462.0" prefHeight="31.0" prefWidth="359.0" promptText="Password" />
+      <Label alignment="BOTTOM_LEFT" contentDisplay="CENTER" layoutX="100.0" layoutY="435.0" prefHeight="27.0" prefWidth="280.0" text="Password:" />
+   </children>
+</AnchorPane>
