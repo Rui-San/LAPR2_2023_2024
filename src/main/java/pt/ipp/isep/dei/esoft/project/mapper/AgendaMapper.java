@@ -22,6 +22,10 @@ public class AgendaMapper {
     }
 
     public static AgendaTaskDTO toDTO(Task agendaTask) {
+        int isTeamAssigned = 0;
+        if(agendaTask.getTeamAssigned() != null){
+            isTeamAssigned = 1;
+        }
 
         return new AgendaTaskDTO(
                 agendaTask.getTitle(),
@@ -31,7 +35,9 @@ public class AgendaMapper {
                 agendaTask.getUrgency(),
                 agendaTask.getExpectedDuration(),
                 agendaTask.getExecutionDate().toString(),
-                agendaTask.getStatus()
+                agendaTask.getStatus(),
+                isTeamAssigned,
+                agendaTask.getVehiclesAssigned().size()
         );
     }
 }
