@@ -57,7 +57,7 @@ public class AddNewEntryToDoUI implements Initializable {
 
     public AddNewEntryToDoUI() {
         this.controller = new AddNewEntryToDoController();
-        this.greenSpaceDTOList = controller.getGreenSpaceDTOlist();
+        this.greenSpaceDTOList = controller.getManagerGreenSpaceDTOList();
     }
 
 

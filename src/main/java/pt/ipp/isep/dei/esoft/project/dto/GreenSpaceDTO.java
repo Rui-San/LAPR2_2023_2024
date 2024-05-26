@@ -24,5 +24,6 @@ public class GreenSpaceDTO {
         this.postalCode = postalCode;
         this.city = city;
         this.district = ditrict;
+
     }
 }

@@ -28,10 +28,9 @@ public class RegisterGreenSpaceController {
 
     public Optional<GreenSpace> registerGreenSpace(GreenSpaceDTO greenSpaceDTO) {
         Optional<GreenSpace> newGreenSpace = Optional.empty();
-        Email currentUserEmail = Repositories.getInstance().getAuthenticationRepository().getCurrentUserSession().getUserId();
-        newGreenSpace = greenSpaceRepository.registerGreenSpace(GreenSpaceMapper.toGreenSpace(greenSpaceDTO));
+        String managerEmail = Repositories.getInstance().getAuthenticationRepository().getCurrentUserSession().getUserId().getEmail();
+        newGreenSpace = greenSpaceRepository.registerGreenSpace(GreenSpaceMapper.toGreenSpace(greenSpaceDTO,managerEmail));
 
-        System.out.println(currentUserEmail);
         return newGreenSpace;
     }
 }

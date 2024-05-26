@@ -45,6 +45,13 @@ public class AddNewEntryToDoController {
         return GreenSpaceMapper.toDTOlist(greenSpaceList);
     }
 
+    public List<GreenSpaceDTO> getManagerGreenSpaceDTOList(){
+        String managerEmail = Repositories.getInstance().getAuthenticationRepository().getCurrentUserSession().getUserId().getEmail();
+        List<GreenSpace> managerGreenSpacesList = greenSpaceRepository.getGreenSpaceListByManager(managerEmail);
+
+        return GreenSpaceMapper.toDTOlist(managerGreenSpacesList);
+    }
+
     public Optional<Task> registerTask(ToDoTaskDTO toDoTaskDTO) {
 
         Optional<Task> newTaskToDo = Optional.empty();

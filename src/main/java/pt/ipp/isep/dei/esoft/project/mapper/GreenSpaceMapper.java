@@ -32,10 +32,11 @@ public class GreenSpaceMapper {
                 greenSpace.getAddress().getPostalCode(),
                 greenSpace.getAddress().getCity(),
                 greenSpace.getAddress().getDistrict()
+
         );
     }
 
-    public static GreenSpace toGreenSpace(GreenSpaceDTO greenSpaceDTO){
+    public static GreenSpace toGreenSpace(GreenSpaceDTO greenSpaceDTO, String managerEmail){
         return new GreenSpace(
                 greenSpaceDTO.type,
                 greenSpaceDTO.name,
@@ -44,7 +45,8 @@ public class GreenSpaceMapper {
                 greenSpaceDTO.postalCode,
                 greenSpaceDTO.city,
                 greenSpaceDTO.district,
-                greenSpaceDTO.totalArea
+                greenSpaceDTO.totalArea,
+                managerEmail
         );
     }
 

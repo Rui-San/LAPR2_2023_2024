@@ -42,6 +42,16 @@ public class GreenSpaceRepository {
         return greenSpaceList;
     }
 
+    public List<GreenSpace> getGreenSpaceListByManager(String managerEmail) {
+        List<GreenSpace> managerGreenSpacesList = new ArrayList<>();
+        for (GreenSpace greenSpace : greenSpaceList){
+            if(greenSpace.getManager().equalsIgnoreCase(managerEmail)){
+                managerGreenSpacesList.add(greenSpace);
+            }
+        }
+        return managerGreenSpacesList;
+    }
+
     private boolean validateGreenSpace(GreenSpace greenSpace) {
         boolean isValid = true;
         String greenSpaceName = greenSpace.getName().trim().toLowerCase();

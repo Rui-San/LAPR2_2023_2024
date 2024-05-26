@@ -7,12 +7,15 @@ public class GreenSpace {
     String name;
     Address address;
     Double totalArea;
+    String manager;
 
-    public GreenSpace(GreenSpaceType type, String name, String street, int streetNumber, String postalCode, String city, String district, Double totalArea) {
+    public GreenSpace(GreenSpaceType type, String name, String street, int streetNumber, String postalCode, String city, String district, Double totalArea, String manager) {
         setType(type);
         setName(name);
         setAddress(street, streetNumber, postalCode, city, district);
         setTotalArea(totalArea);
+        this.manager = manager;
+
     }
 
     public GreenSpaceType getType() {
@@ -74,5 +77,9 @@ public class GreenSpace {
 
     public void setAddress(String street, int streetNumber, String postalCode, String city, String district) {
         this.address = new Address(street, streetNumber, postalCode, city, district);
+    }
+
+    public String getManager() {
+        return this.manager;
     }
 }
