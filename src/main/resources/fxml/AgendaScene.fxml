@@ -29,9 +29,9 @@
         </AnchorPane>
     </top>
     <center>
-        <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <BorderPane prefHeight="428.0" prefWidth="794.0" BorderPane.alignment="CENTER">
             <center>
-                <TableView fx:id="tbTasks" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                <TableView fx:id="tbTasks" prefHeight="348.0" prefWidth="766.0" BorderPane.alignment="CENTER">
                     <columns>
                         <TableColumn fx:id="tcTitle" prefWidth="171.0" sortable="false" text="Title" />
                         <TableColumn fx:id="tcType" prefWidth="114.0" text="Type" />
@@ -48,10 +48,11 @@
             <bottom>
                 <AnchorPane prefHeight="83.0" prefWidth="794.0" BorderPane.alignment="CENTER">
                     <children>
-                        <Button layoutY="13.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="190.0" text="Assign Team" />
-                        <Button layoutX="203.0" layoutY="13.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="190.0" text="Assign Vehicle" />
-                        <Button layoutX="403.0" layoutY="13.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="190.0" text="Postpone Task" />
-                        <Button layoutX="604.0" layoutY="13.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="190.0" text="Cancel Task" />
+                        <Button layoutY="18.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="190.0" text="Assign Team" />
+                        <Button layoutX="203.0" layoutY="18.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="190.0" text="Assign Vehicle" />
+                        <Button layoutX="403.0" layoutY="18.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="190.0" text="Postpone Task" />
+                        <Button layoutX="604.0" layoutY="18.0" mnemonicParsing="false" onAction="#btnCancelTask" prefHeight="57.0" prefWidth="190.0" text="Cancel Task" />
+                  <Label fx:id="lblError" layoutY="2.0" prefHeight="17.0" prefWidth="792.0" text="Label" textFill="#dd2424" visible="false" />
                     </children>
                 </AnchorPane>
             </bottom>

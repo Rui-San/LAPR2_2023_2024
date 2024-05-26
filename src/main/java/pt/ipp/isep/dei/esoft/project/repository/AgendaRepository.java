@@ -99,15 +99,27 @@ public class AgendaRepository {
 
     public Optional<Task> updateTaskToCanceled(String title, String greenSpace, String executionDate, Status status) {
 
-        for (Task task : agenda) {
-            if (task.getTitle().trim().equalsIgnoreCase(title)
-                    && task.getStatus() == status
-                    && task.getExecutionDate().toString().equalsIgnoreCase(executionDate)
-                    && task.getGreenSpace().toString().trim().equalsIgnoreCase(greenSpace)) {
+        Optional<Task> updatedTask = Optional.empty();
 
-                if (status == Status.PLANNED || status == Status.POSTPONED) {
-                    task.setStatus(Status.PROCESSED);
-                    return Optional.of(task);
+        System.out.println("Title parametro: " + title);
+        System.out.println("Green Space parametro: " + greenSpace);
+        System.out.println("Ex date parametro: " + executionDate);
+        System.out.println("Status do parametro: " + status);
+
+        for (Task task : agenda) {
+            System.out.println("Task do for: " + task.getTitle());
+            System.out.println("Task do for: " + task.getGreenSpace().getName());
+            System.out.println("Task do for: " + task.getExecutionDate());
+            System.out.println("Task do for: " + task.getStatus());
+            if (task.getTitle().trim().equalsIgnoreCase(title.trim()) && task.getStatus() == status && task.getExecutionDate().toString().trim().equalsIgnoreCase(executionDate.trim()) && task.getGreenSpace().getName().trim().equalsIgnoreCase(greenSpace.trim())) {
+
+                if (task.getStatus() == Status.PLANNED || task.getStatus() == Status.POSTPONED) {
+
+                    task.setStatus(Status.CANCELED);
+
+                    System.out.println("Novo Status" + task.getStatus());
+                    updatedTask = Optional.of(task);
+                    return updatedTask;
                 }
 
             }
