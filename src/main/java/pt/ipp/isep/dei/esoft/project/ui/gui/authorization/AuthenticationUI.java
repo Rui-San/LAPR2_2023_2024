@@ -88,8 +88,9 @@ public class AuthenticationUI implements Initializable {
                     System.out.println("No role selected.");
                 }
             }
+        }else{
+            this.logout();
         }
-        this.logout();
     }
 
     private List<MenuItem> getMenuItemForRoles() {
