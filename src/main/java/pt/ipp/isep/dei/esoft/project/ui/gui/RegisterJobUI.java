@@ -2,15 +2,15 @@ package pt.ipp.isep.dei.esoft.project.ui.gui;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import pt.ipp.isep.dei.esoft.project.controller.RegisterJobController;
 import pt.ipp.isep.dei.esoft.project.domain.Job;
+import pt.ipp.isep.dei.esoft.project.tools.ValidationAttributeResults;
 
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 
 public class RegisterJobUI implements Initializable {
 
@@ -39,18 +39,27 @@ public class RegisterJobUI implements Initializable {
     @FXML
     public void btnSubmitAction() {
         try {
-            Optional<Job> job = getRegisterJobController().registerJob(txtJobName.getText().trim());
 
-            if (job.isPresent()) {
-                txtJobName.clear();
-                txtJobName.setStyle(null);
-                lblJobNameError.setVisible(false);
-                AlertUI.createAlert(Alert.AlertType.INFORMATION, "Register Job", "Register Job", "Job successfully registered!").show();
-            } else {
-                AlertUI.createAlert(Alert.AlertType.INFORMATION, "Register Job", "Register Job", "This Job is already registered!").show();
+            if (validateJob()) {
+
+                StringBuilder sb = getConfirmationText(txtJobName.getText().trim());
+
+                Alert alertConfirmation = AlertUI.createAlert(Alert.AlertType.CONFIRMATION, "Add new entry To-Do", "Confirm the operation", sb.toString());
+                if (alertConfirmation.showAndWait().get() == ButtonType.OK) {
+
+                    Optional<Job> job = getRegisterJobController().registerJob(txtJobName.getText().trim());
+
+                    if (job.isPresent()) {
+                        txtJobName.clear();
+                        txtJobName.setStyle(null);
+                        lblJobNameError.setVisible(false);
+                        AlertUI.createAlert(Alert.AlertType.INFORMATION, "Register Job", "Register Job", "Job successfully registered!").show();
+                    } else {
+                        AlertUI.createAlert(Alert.AlertType.ERROR, "Register Job", "Register Job", "This Job is already registered!").show();
+                    }
+                }
+
             }
-
-
         } catch (IllegalArgumentException e) {
             txtJobName.setStyle("-fx-border-color: red");
             lblJobNameError.setText(e.getMessage());
@@ -61,10 +70,46 @@ public class RegisterJobUI implements Initializable {
         }
     }
 
+    private boolean validateJob() {
+        String jobString = txtJobName.getText().trim();
+        if (jobString.isEmpty()) {
+            displayErrorLayout(txtJobName, lblJobNameError, "Job can't be empty");
+            return false;
+        }
+        if (!jobString.matches("[a-zA-Z\\s-\\p{L}]+")) {
+            displayErrorLayout(txtJobName, lblJobNameError, "Job can't contain special characters");
+            return false;
+        }
+        clearLayoutErrors(txtJobName, lblJobNameError);
+        return true;
+    }
+
+
     @FXML
     public void btnClearAction() {
         txtJobName.clear();
         lblJobNameError.setVisible(false);
         txtJobName.setStyle(null);
+    }
+
+    private void displayErrorLayout(Control controlObject, Label labelToShowError, String errorMessage) {
+        controlObject.setStyle("-fx-border-color: red");
+        labelToShowError.setVisible(true);
+        labelToShowError.setText(errorMessage);
+    }
+
+    private void clearLayoutErrors(Control controlObject, Label labelWithError) {
+        controlObject.setStyle("");
+        labelWithError.setVisible(false);
+        labelWithError.setText("");
+    }
+
+
+    private StringBuilder getConfirmationText(String jobName) {
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("You are about to register the following job:").append("\n").append(jobName);
+
+        return sb;
     }
 }
