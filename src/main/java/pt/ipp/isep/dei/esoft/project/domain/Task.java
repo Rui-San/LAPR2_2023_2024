@@ -175,6 +175,19 @@ public class Task {
             throw new IllegalArgumentException("At least one of the following must be higher than zero: days, hours, minutes");
         }
     }
+/*
+    public Date getEndExecutionDate() {
+        int totalMinutes = (int) expectedDuration.toMinutes();
+        int totalDays = totalMinutes / (12 * 60);
+        int remainingMinutes = totalMinutes % (12 * 60);
+
+        Date endDate = executionDate.addDays(totalDays);
+        endDate = endDate.addMinutes(remainingMinutes);
+
+        return endDate;
+    }
+
+ */
 
     public UrgencyType getUrgency() {
         return urgency;

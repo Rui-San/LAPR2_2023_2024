@@ -1,6 +1,9 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
+import pt.ipp.isep.dei.esoft.project.domain.Date;
 import pt.ipp.isep.dei.esoft.project.domain.Task;
+import pt.ipp.isep.dei.esoft.project.domain.Team;
+import pt.ipp.isep.dei.esoft.project.domain.WorkPeriod;
 import pt.ipp.isep.dei.esoft.project.tools.Status;
 
 import java.util.ArrayList;
@@ -130,6 +133,24 @@ public class AgendaRepository {
     public Optional<Task> postponeTaskAgenda(String title, String greenSpaceName, String executionDate, Status status, String newDate) {
 
 
-    return Optional.empty();
+        return Optional.empty();
     }
+
+/*
+    public Optional<Task> assignTeamToTask(String title, String greenSpaceName, String executionDate, Status status, Team teamToAssign) {
+        Optional<Task> assignedTask = Optional.empty();
+        for (Task task : agenda) {
+            if (task.getTitle().trim().equalsIgnoreCase(title.trim()) && task.getStatus() == status && task.getExecutionDate().toString().trim().equalsIgnoreCase(executionDate.trim()) && task.getGreenSpace().getName().trim().equalsIgnoreCase(greenSpaceName.trim())) {
+                if (teamToAssign.isAvailable(task.getExecutionDate(), task.getEndExecutionDate())) {
+                    task.setTeamAssigned(teamToAssign);
+                    teamToAssign.addWorkPeriod(task.getExecutionDate(), task.getEndExecutionDate());
+                    assignedTask = Optional.of(task);
+                }
+            }
+        }
+        return assignedTask;
+    }
+
+ */
 }
+

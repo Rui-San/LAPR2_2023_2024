@@ -12,6 +12,8 @@ public class Team {
      */
     private List<Collaborator> members;
 
+    private List<WorkPeriod> workPeriods;
+
     /**
      * Constructs a Team object with the specified list of members.
      *
@@ -65,6 +67,30 @@ public class Team {
         }
         return stringBuilder.toString();
     }
+/*
+    public boolean isAvailable(Date start, Date end) {
+
+        if (this.workPeriods.isEmpty()) {
+            return true;
+        }
+
+        for (WorkPeriod period : workPeriods) {
+            if (period.overlapsWith(start, end)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void addWorkPeriod(Date start, Date end) {
+        workPeriods.add(new WorkPeriod(start, end));
+    }
+
+    public List<WorkPeriod> getWorkPeriods() {
+        return this.workPeriods;
+    }
+
+ */
 
     /**
      * Adds a new member to the team.
