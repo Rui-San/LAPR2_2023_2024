@@ -1,7 +1,8 @@
-package pt.ipp.isep.dei.esoft.project.application.session;
+package pt.ipp.isep.dei.esoft.project.session;
 
-import pt.ipp.isep.dei.esoft.project._templateFiles.domain.repository.Repositories;
+import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
+import pt.isep.lei.esoft.auth.UserSession;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -18,9 +19,12 @@ public class ApplicationSession {
         Properties props = getProperties();
     }
 
+    public AuthenticationRepository getAuthenticationRepository() {
+        return authenticationRepository;
+    }
+
     public UserSession getCurrentSession() {
-        pt.isep.lei.esoft.auth.UserSession userSession = this.authenticationRepository.getCurrentUserSession();
-        return new UserSession(userSession);
+        return this.authenticationRepository.getCurrentUserSession();
     }
 
     private Properties getProperties() {

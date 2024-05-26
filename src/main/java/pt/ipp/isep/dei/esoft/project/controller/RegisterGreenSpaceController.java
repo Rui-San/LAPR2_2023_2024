@@ -5,6 +5,7 @@ import pt.ipp.isep.dei.esoft.project.dto.GreenSpaceDTO;
 import pt.ipp.isep.dei.esoft.project.mapper.GreenSpaceMapper;
 import pt.ipp.isep.dei.esoft.project.repository.GreenSpaceRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
+import pt.isep.lei.esoft.auth.domain.model.Email;
 
 import java.util.Optional;
 
@@ -27,8 +28,10 @@ public class RegisterGreenSpaceController {
 
     public Optional<GreenSpace> registerGreenSpace(GreenSpaceDTO greenSpaceDTO) {
         Optional<GreenSpace> newGreenSpace = Optional.empty();
+        Email currentUserEmail = Repositories.getInstance().getAuthenticationRepository().getCurrentUserSession().getUserId();
         newGreenSpace = greenSpaceRepository.registerGreenSpace(GreenSpaceMapper.toGreenSpace(greenSpaceDTO));
 
+        System.out.println(currentUserEmail);
         return newGreenSpace;
     }
 }

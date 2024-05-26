@@ -12,7 +12,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
-import pt.ipp.isep.dei.esoft.project.ui.gui.authorization.AuthenticationUI;
+import pt.ipp.isep.dei.esoft.project.session.ApplicationSession;
+import pt.isep.lei.esoft.auth.AuthFacade;
+import pt.isep.lei.esoft.auth.UserSession;
+import pt.isep.lei.esoft.auth.domain.model.Email;
 import pt.isep.lei.esoft.auth.mappers.dto.UserRoleDTO;
 
 import java.io.IOException;
@@ -38,11 +41,14 @@ public class MenuUI implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         allOptions.addAll(List.of(mbJobs, mbSkills, mbCollaborators, mbVehicles, mbTeams, mbGreenSpaces, mbTasks, mbAdmin));
 
-        List<UserRoleDTO> sessionRoles = Repositories.getInstance().getAuthenticationRepository().getCurrentUserSession().getUserRoles();
+        UserSession session = ApplicationSession.getInstance().getCurrentSession();
+        Email af = Repositories.getInstance().getAuthenticationRepository().getAuthenticationFacade().getCurrentUserSession().getUserId();
+
+        System.out.println(af);
 
         List<MenuButton> sessionOptions = new ArrayList<>();
 
-        for (UserRoleDTO role : sessionRoles) {
+        for (UserRoleDTO role : session.getUserRoles()) {
             switch (role.getId()) {
                 case "HUMAN RESOURCES MANAGER":
                     sessionOptions.addAll(List.of(mbJobs, mbSkills, mbCollaborators, mbTeams));
@@ -57,6 +63,7 @@ public class MenuUI implements Initializable {
                     sessionOptions.addAll(allOptions);
                     break;
             }
+
         }
 
         for (MenuButton option : allOptions) {

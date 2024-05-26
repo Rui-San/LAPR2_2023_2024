@@ -1,6 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
-import pt.ipp.isep.dei.esoft.project.application.controller.CreateTaskController;
+import pt.ipp.isep.dei.esoft.project.controller.CreateTaskController;
 import pt.ipp.isep.dei.esoft.project._templateFiles.domain.Task;
 import pt.ipp.isep.dei.esoft.project._templateFiles.domain.TaskCategory;
 

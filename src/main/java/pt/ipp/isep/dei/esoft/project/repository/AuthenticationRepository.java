@@ -9,6 +9,10 @@ import pt.isep.lei.esoft.auth.UserSession;
 public class AuthenticationRepository {
     private final AuthFacade authenticationFacade;
 
+    public AuthFacade getAuthenticationFacade() {
+        return authenticationFacade;
+    }
+
     /**
      * Constructs an AuthenticationRepository object.
      */

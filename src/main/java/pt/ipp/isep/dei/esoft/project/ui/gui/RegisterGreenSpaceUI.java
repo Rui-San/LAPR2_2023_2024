@@ -6,7 +6,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import pt.ipp.isep.dei.esoft.project.controller.RegisterGreenSpaceController;
 import pt.ipp.isep.dei.esoft.project.dto.GreenSpaceDTO;
+import pt.ipp.isep.dei.esoft.project.repository.Repositories;
+import pt.ipp.isep.dei.esoft.project.session.ApplicationSession;
 import pt.ipp.isep.dei.esoft.project.tools.GreenSpaceType;
+import pt.isep.lei.esoft.auth.AuthFacade;
+import pt.isep.lei.esoft.auth.UserSession;
+import pt.isep.lei.esoft.auth.domain.model.Email;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -56,6 +61,10 @@ public class RegisterGreenSpaceUI implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         fillGreenSpaceType();
+
+        Email af = Repositories.getInstance().getAuthenticationRepository().getAuthenticationFacade().getCurrentUserSession().getUserId();
+
+        System.out.println(af);
     }
 
     private void fillGreenSpaceType() {

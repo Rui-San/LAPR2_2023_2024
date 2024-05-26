@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.esoft.project.controller;
 
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
+import pt.ipp.isep.dei.esoft.project.session.ApplicationSession;
 import pt.isep.lei.esoft.auth.mappers.dto.UserRoleDTO;
 import java.util.List;
 
@@ -27,17 +28,13 @@ public class AuthenticationController {
     public static final String ROLE_GSM = "GREEN SPACE MANAGER";
 
 
-    //private final ApplicationSession applicationSession;
-    /**
-     * Authentication Repository
-     */
-    private final AuthenticationRepository authenticationRepository;
+    private final ApplicationSession applicationSession;
 
     /**
      * Constructs an AuthenticationController object.
      */
     public AuthenticationController() {
-        this.authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
+        this.applicationSession = ApplicationSession.getInstance();
     }
 
     /**
@@ -49,7 +46,7 @@ public class AuthenticationController {
      */
     public boolean doLogin(String email, String pwd) {
         try {
-            return authenticationRepository.doLogin(email, pwd);
+            return this.applicationSession.getAuthenticationRepository().doLogin(email, pwd);
         } catch (IllegalArgumentException ex) {
             return false;
         }
@@ -61,8 +58,8 @@ public class AuthenticationController {
      * @return a list of UserRoleDTO representing the roles of the current user, or null if the user is not logged in
      */
     public List<UserRoleDTO> getUserRoles() {
-        if (authenticationRepository.getCurrentUserSession().isLoggedIn()) {
-            return authenticationRepository.getCurrentUserSession().getUserRoles();
+        if (this.applicationSession.getAuthenticationRepository().getCurrentUserSession().isLoggedIn()) {
+            return this.applicationSession.getAuthenticationRepository().getCurrentUserSession().getUserRoles();
         }
         return null;
     }
@@ -71,6 +68,6 @@ public class AuthenticationController {
      * Performs a logout operation.
      */
     public void doLogout() {
-        authenticationRepository.doLogout();
+        this.applicationSession.getAuthenticationRepository().doLogout();
     }
 }

@@ -18,6 +18,7 @@ public class Bootstrap implements Runnable {
         addUsers();
         assignSkills();
         addGreenSpaces();
+        Repositories.save();
     }
 
     private void addGreenSpaces() {
