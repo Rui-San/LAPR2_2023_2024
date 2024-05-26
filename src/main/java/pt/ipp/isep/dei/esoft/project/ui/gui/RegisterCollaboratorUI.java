@@ -143,33 +143,62 @@ public class RegisterCollaboratorUI implements Initializable {
             }
 */
             if (validateAllErrors()) {
-                Job selectedJob = getSelectedJob();
-                IdDocType selectedIdDocType = getSelectedIdDocType();
-                Optional<Collaborator> collaborator = getRegisterCollaboratorController().createCollaborator(
-                        txtName.getText().trim(),
-                        convertFormat(dpBirthdate.getValue().toString()),
-                        convertFormat(dpAdmissionDate.getValue().toString()),
-                        txtStreet.getText().trim(),
-                        Integer.parseInt(txtStreetNumber.getText().trim()),
-                        txtPostalCode.getText().trim(),
-                        txtCity.getText().trim(),
-                        txtDistrict.getText().trim(),
-                        txtEmail.getText().trim(),
-                        txtPhoneNumber.getText().trim(),
-                        selectedIdDocType,
-                        txtDocNumber.getText().trim(),
-                        selectedJob
-                );
 
-                AlertUI.createAlert(Alert.AlertType.INFORMATION, MainApp.APP_TITLE, "Register a collaborator.",
-                        collaborator.isPresent() ? "Collaborator added with success."
-                                : "This collaborator is already in the system").show();
-            } else {
-                throw new IllegalArgumentException("Please correct the highlighted errors and try again.");
+                StringBuilder sb = getConfirmationText();
+                Alert alertConfirmation = AlertUI.createAlert(Alert.AlertType.CONFIRMATION, "Register Collaborator", "Confirm the operation", sb.toString());
+                if (alertConfirmation.showAndWait().get() == ButtonType.OK) {
+
+                    Job selectedJob = getSelectedJob();
+                    IdDocType selectedIdDocType = getSelectedIdDocType();
+                    Optional<Collaborator> collaborator = getRegisterCollaboratorController().createCollaborator(
+                            txtName.getText().trim(),
+                            convertFormat(dpBirthdate.getValue().toString()),
+                            convertFormat(dpAdmissionDate.getValue().toString()),
+                            txtStreet.getText().trim(),
+                            Integer.parseInt(txtStreetNumber.getText().trim()),
+                            txtPostalCode.getText().trim(),
+                            txtCity.getText().trim(),
+                            txtDistrict.getText().trim(),
+                            txtEmail.getText().trim(),
+                            txtPhoneNumber.getText().trim(),
+                            selectedIdDocType,
+                            txtDocNumber.getText().trim(),
+                            selectedJob
+                    );
+
+                    if (collaborator.isPresent()) {
+                        clearAllErrorsAndFields();
+                        AlertUI.createAlert(Alert.AlertType.INFORMATION, "Register Collaborator", "Register Collaborator", "Collaborator successfully registered!").show();
+                    } else {
+                        AlertUI.createAlert(Alert.AlertType.ERROR, "Register Collaborator", "Register Collaborator", "This Collaborator is already registered!").show();
+                    }
+
+                }
             }
         } catch (IllegalArgumentException e) {
             AlertUI.createAlert(Alert.AlertType.ERROR, "ERROR", "Register Collaborator", e.getMessage());
         }
+    }
+
+    private StringBuilder getConfirmationText() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("You are about to register the following collaborator:")
+                .append("\nName: ").append(txtName.getText().trim())
+                .append("\nBirthdate: ").append(dpBirthdate.getValue().toString())
+                .append("\nAdmission Date: ").append(dpAdmissionDate.getValue().toString())
+                .append("\nStreet: ").append(txtStreet.getText().trim())
+                .append("\nStreet Number: ").append(txtStreetNumber.getText().trim())
+                .append("\nPostal Code: ").append(txtPostalCode.getText().trim())
+                .append("\nCity: ").append(txtCity.getText().trim())
+                .append("\nDistrict: ").append(txtDistrict.getText().trim())
+                .append("\nEmail: ").append(txtEmail.getText().trim())
+                .append("\nPhone Number: ").append(txtPhoneNumber.getText().trim())
+                .append("\nDocument Type: ").append(getSelectedIdDocType())
+                .append("\nDocument Number: ").append(txtDocNumber.getText().trim())
+                .append("\nJob: ").append(getSelectedJob().getJobName().trim());
+
+        return sb;
     }
 
 
@@ -579,6 +608,12 @@ public class RegisterCollaboratorUI implements Initializable {
 
     @FXML
     private void btnClearAction() {
+
+        clearAllErrorsAndFields();
+
+    }
+
+    private void clearAllErrorsAndFields() {
         txtName.clear();
         dpBirthdate.setValue(null);
         dpAdmissionDate.setValue(null);
@@ -592,11 +627,6 @@ public class RegisterCollaboratorUI implements Initializable {
         cbDocType.getSelectionModel().clearSelection();
         cbJob.getSelectionModel().clearSelection();
         txtDocNumber.clear();
-        clearErrorStylesAndLabels();
-
-    }
-
-    private void clearErrorStylesAndLabels() {
         txtName.setStyle("");
         txtStreet.setStyle("");
         txtStreetNumber.setStyle("");
