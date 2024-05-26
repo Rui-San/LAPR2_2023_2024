@@ -4,17 +4,15 @@ import pt.ipp.isep.dei.esoft.project.domain.Task;
 import pt.ipp.isep.dei.esoft.project.dto.AgendaTaskDTO;
 import pt.ipp.isep.dei.esoft.project.mapper.AgendaMapper;
 import pt.ipp.isep.dei.esoft.project.repository.AgendaRepository;
-import pt.ipp.isep.dei.esoft.project.repository.GreenSpaceRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 
 import java.util.List;
 import java.util.Optional;
 
-public class CancelEntryAgendaController {
-
+public class PostponeEntryAgendaController {
     private AgendaRepository agendaRepository;
 
-    public CancelEntryAgendaController() {
+    public PostponeEntryAgendaController() {
         getAgendaRepository();
     }
 
@@ -31,8 +29,8 @@ public class CancelEntryAgendaController {
         return AgendaMapper.toDTOlist(agenda);
     }
 
-    public Optional<Task> cancelTaskAgenda(AgendaTaskDTO agendaTaskDTO) {
+    public Optional<Task> postponeTaskAgenda(AgendaTaskDTO agendaTaskDTO, String newDate) {
 
-        return agendaRepository.updateTaskToCanceled(agendaTaskDTO.title, agendaTaskDTO.greenSpaceName, agendaTaskDTO.executionDate, agendaTaskDTO.status);
+        return agendaRepository.postponeTaskAgenda(agendaTaskDTO.title, agendaTaskDTO.greenSpaceName, agendaTaskDTO.executionDate, agendaTaskDTO.status, newDate);
     }
 }

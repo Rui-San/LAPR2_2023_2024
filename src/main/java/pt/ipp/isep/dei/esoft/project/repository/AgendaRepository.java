@@ -114,4 +114,10 @@ public class AgendaRepository {
         }
         return Optional.empty();
     }
+
+    public Optional<Task> postponeTaskAgenda(String title, String greenSpaceName, String executionDate, Status status, String newDate) {
+
+
+    return Optional.empty();
+    }
 }
