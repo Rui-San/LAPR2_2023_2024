@@ -44,15 +44,13 @@ public class RegisterJobUI implements Initializable {
 
                 StringBuilder sb = getConfirmationText(txtJobName.getText().trim());
 
-                Alert alertConfirmation = AlertUI.createAlert(Alert.AlertType.CONFIRMATION, "Add new entry To-Do", "Confirm the operation", sb.toString());
+                Alert alertConfirmation = AlertUI.createAlert(Alert.AlertType.CONFIRMATION, "Register Job", "Confirm the operation", sb.toString());
                 if (alertConfirmation.showAndWait().get() == ButtonType.OK) {
 
                     Optional<Job> job = getRegisterJobController().registerJob(txtJobName.getText().trim());
 
                     if (job.isPresent()) {
-                        txtJobName.clear();
-                        txtJobName.setStyle(null);
-                        lblJobNameError.setVisible(false);
+                        clearLayoutErrors(txtJobName,lblJobNameError);
                         AlertUI.createAlert(Alert.AlertType.INFORMATION, "Register Job", "Register Job", "Job successfully registered!").show();
                     } else {
                         AlertUI.createAlert(Alert.AlertType.ERROR, "Register Job", "Register Job", "This Job is already registered!").show();
