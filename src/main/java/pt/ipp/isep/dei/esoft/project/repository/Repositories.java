@@ -1,5 +1,9 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+
 /**
  * Singleton class responsible for providing access to various repositories.
  */
@@ -148,5 +152,19 @@ public class Repositories {
     public AgendaRepository getAgendaRepository(){
         return agendaRepository;
     }
+
+    /*
+    public static void save(){
+        try {
+            FileOutputStream fileOut = new FileOutputStream("data.dat");
+            ObjectOutputStream outStream = new ObjectOutputStream(fileOut);
+            outStream.writeObject(Repositories.getInstance());
+            outStream.close();
+            fileOut.close();
+        } catch(IOException i) {
+            i.printStackTrace();
+        }
+    }
+     */
 
 }
