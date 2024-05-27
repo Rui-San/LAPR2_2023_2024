@@ -27,6 +27,8 @@ public class ListCollaboratorTasksController {
 
     public List<Task> getTasks() {
 
+        //TODO - make the showing of the tasks only related to the user
+
         List<Task> agenda = new AgendaRepository().getAgenda();
         List<Object> tasks = new ArrayList<>(agenda);
 
@@ -49,9 +51,28 @@ public class ListCollaboratorTasksController {
 
     }
 
+    /**
+     * Checks if dateToCheck is after or equal to startDate and before or equal to endDate
+     */
+
     public static boolean isDateBetween(Date dateToCheck, Date startDate, Date endDate) {
-        // Check if dateToCheck is after or equal to startDate and before or equal to endDate
         return dateToCheck.compareTo(startDate) >= 0 && dateToCheck.compareTo(endDate) <= 0;
 
+    }
+
+    /**
+     * Updates the initial date.
+     * @param initialDate the new initial date
+     */
+    public void updateInitialDate(Date initialDate) {
+        this.initialDate = initialDate;
+    }
+
+    /**
+     * Updates the final date.
+     * @param finalDate the new final date
+     */
+    public void updateFinalDate(Date finalDate) {
+        this.finalDate = finalDate;
     }
 }

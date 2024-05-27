@@ -2,10 +2,8 @@ package pt.ipp.isep.dei.esoft.project.controller;
 
 import pt.ipp.isep.dei.esoft.project.domain.GreenSpace;
 import pt.ipp.isep.dei.esoft.project.domain.Task;
-import pt.ipp.isep.dei.esoft.project.dto.GreenSpaceDTO;
-import pt.ipp.isep.dei.esoft.project.dto.ToDoTaskDTO;
-import pt.ipp.isep.dei.esoft.project.dto.ToDoTaskWithStatusDTO;
-import pt.ipp.isep.dei.esoft.project.mapper.GreenSpaceMapper;
+import pt.ipp.isep.dei.esoft.project.matdisc.dto.ToDoTaskDTO;
+import pt.ipp.isep.dei.esoft.project.matdisc.dto.ToDoTaskWithStatusDTO;
 import pt.ipp.isep.dei.esoft.project.mapper.ToDoListMapper;
 import pt.ipp.isep.dei.esoft.project.repository.AgendaRepository;
 import pt.ipp.isep.dei.esoft.project.repository.GreenSpaceRepository;

@@ -2,6 +2,8 @@ package pt.ipp.isep.dei.esoft.project.ui.gui;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import pt.ipp.isep.dei.esoft.project.controller.ListCollaboratorTasksController;
@@ -17,6 +19,7 @@ public class ListCollaboratorTasksUI implements Initializable {
 
     private final ListCollaboratorTasksController controller;
 
+    //Table showing the tasks
     @FXML
     private TableView<Task> tasks;
 
@@ -35,6 +38,16 @@ public class ListCollaboratorTasksUI implements Initializable {
     @FXML
     private TableColumn<Task, String> expectedDuration;
 
+
+    @FXML
+    private DatePicker initialDatePicker;
+    @FXML
+    private DatePicker finalDatePicker;
+    @FXML
+    private Button initialDateButton;
+    @FXML
+    private Button finalDateButton;
+
     private Date initialDate;
     private Date finalDate;
 
@@ -43,6 +56,8 @@ public class ListCollaboratorTasksUI implements Initializable {
      */
 
     public ListCollaboratorTasksUI() {
+        this.initialDate = new Date();
+        this.finalDate = new Date();
         controller = new ListCollaboratorTasksController(initialDate, finalDate);
     }
 
@@ -74,4 +89,27 @@ public class ListCollaboratorTasksUI implements Initializable {
     private void showData(){
         tasks.getItems().setAll(getController().getTasks());
     }
+
+    @FXML
+    private void handleSetInitialDate() {
+        if (initialDatePicker.getValue() != null) {
+            initialDate = new Date(initialDatePicker.getValue().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+            getController().updateInitialDate(initialDate);
+            showData();
+        }
+    }
+
+    /**
+     * Handles the action of setting the final date.
+     */
+    @FXML
+    private void handleSetFinalDate() {
+        if (finalDatePicker.getValue() != null) {
+            finalDate = new Date(finalDatePicker.getValue().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+            getController().updateFinalDate(finalDate);
+            showData();
+        }
+    }
+
+
 }

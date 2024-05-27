@@ -6,13 +6,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import pt.ipp.isep.dei.esoft.project.controller.AgendaController;
 import pt.ipp.isep.dei.esoft.project.controller.CancelEntryAgendaController;
-import pt.ipp.isep.dei.esoft.project.domain.Task;
-import pt.ipp.isep.dei.esoft.project.dto.AgendaTaskDTO;
-import pt.ipp.isep.dei.esoft.project.dto.ToDoTaskWithStatusDTO;
+import pt.ipp.isep.dei.esoft.project.matdisc.dto.AgendaTaskDTO;
 import pt.ipp.isep.dei.esoft.project.tools.Status;
 
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AgendaUI implements Initializable {

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.ListCollaboratorTasksUI">
+    <TableView fx:id="taskTable">
+        <columns>
+            <TableColumn fx:id="title" text="Title"/>
+            <TableColumn fx:id="taskType" text="Task Type"/>
+            <TableColumn fx:id="status" text="Status"/>
+            <TableColumn fx:id="urgency" text="Urgency"/>
+            <TableColumn fx:id="greenSpace" text="Green Space"/>
+            <TableColumn fx:id="executionDate" text="Execution Date"/>
+            <TableColumn fx:id="expectedDuration" text="Expected Duration"/>
+        </columns>
+    </TableView>
+    <DatePicker fx:id="initialDatePicker" promptText="Select Initial Date"/>
+    <Button text="Set Initial Date" onAction="#handleSetInitialDate"/>
+    <DatePicker fx:id="finalDatePicker" promptText="Select Final Date"/>
+    <Button text="Set Final Date" onAction="#handleSetFinalDate"/>
+</VBox>
