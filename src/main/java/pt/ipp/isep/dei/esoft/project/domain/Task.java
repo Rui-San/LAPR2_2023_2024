@@ -4,7 +4,7 @@ import pt.ipp.isep.dei.esoft.project.tools.Status;
 import pt.ipp.isep.dei.esoft.project.tools.TaskType;
 import pt.ipp.isep.dei.esoft.project.tools.UrgencyType;
 
-import java.time.Duration;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,14 +21,14 @@ public class Task {
     private Team teamAssigned;
     private List<Vehicle> vehiclesAssigned;
 
-    public Task(String title, String description, TaskType taskType, GreenSpace greenSpace, UrgencyType urgency, Duration expectedDuration) {
+    public Task(String title, String description, TaskType taskType, GreenSpace greenSpace, UrgencyType urgency, int days, int hours, int minutes) {
         setTitle(title);
         setDescription(description);
         setTaskType(taskType);
         this.status = null;
         setGreenSpace(greenSpace);
         setUrgency(urgency);
-        setExpectedDuration(expectedDuration);
+        setExpectedDuration(days, hours, minutes);
         this.executionDate = null;
         this.teamAssigned = null;
         this.vehiclesAssigned = new ArrayList<>();
@@ -145,12 +145,11 @@ public class Task {
         return expectedDuration;
     }
 
-    public void setExpectedDuration(Duration expectedDuration) {
-        validateDuration(expectedDuration);
-
-        this.expectedDuration = expectedDuration;
+    public void setExpectedDuration(int days, int hours, int minutes) {
+        this.expectedDuration = new Duration(days,hours,minutes);
     }
 
+    /*
     private void validateDuration(Duration expectedDuration) {
         long totalDays = expectedDuration.toDays();
         long remainingHours = (expectedDuration.toHours() % 24);
@@ -175,6 +174,8 @@ public class Task {
             throw new IllegalArgumentException("At least one of the following must be higher than zero: days, hours, minutes");
         }
     }
+
+     */
 /*
     public Date getEndExecutionDate() {
         int totalMinutes = (int) expectedDuration.toMinutes();

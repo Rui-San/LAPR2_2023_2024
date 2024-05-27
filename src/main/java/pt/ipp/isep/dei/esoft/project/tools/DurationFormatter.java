@@ -1,17 +1,16 @@
 package pt.ipp.isep.dei.esoft.project.tools;
 
-import java.time.Duration;
+
+import pt.ipp.isep.dei.esoft.project.domain.Duration;
 
 public class DurationFormatter {
 
     public static String formatDuration(Duration duration) {
-        long days = duration.toDays();
-        duration = duration.minusDays(days);
+        int days = duration.getDays();
 
-        long hours = duration.toHours();
-        duration = duration.minusHours(hours);
+        int hours = duration.getHours();
 
-        long minutes = duration.toMinutes();
+        int minutes = duration.getMinutes();
 
         StringBuilder formattedDuration = new StringBuilder();
 
@@ -20,7 +19,7 @@ public class DurationFormatter {
             if (days > 1) {
                 formattedDuration.append("s");
             }
-            formattedDuration.append(", ");
+            formattedDuration.append(" ");
         }
 
         if (hours > 0 || (days > 0 && (minutes > 0 || hours > 0))) {
