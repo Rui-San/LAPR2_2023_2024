@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.mapper;
 
 import pt.ipp.isep.dei.esoft.project.domain.GreenSpace;
-import pt.ipp.isep.dei.esoft.project.matdisc.dto.GreenSpaceDTO;
+import pt.ipp.isep.dei.esoft.project.dto.GreenSpaceDTO;
 
 import java.util.ArrayList;
 import java.util.List;

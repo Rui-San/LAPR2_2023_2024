@@ -13,8 +13,8 @@ import java.util.ResourceBundle;
 
 import javafx.scene.control.*;
 import pt.ipp.isep.dei.esoft.project.controller.AddNewEntryToDoController;
-import pt.ipp.isep.dei.esoft.project.matdisc.dto.GreenSpaceDTO;
-import pt.ipp.isep.dei.esoft.project.matdisc.dto.ToDoTaskDTO;
+import pt.ipp.isep.dei.esoft.project.dto.GreenSpaceDTO;
+import pt.ipp.isep.dei.esoft.project.dto.ToDoTaskDTO;
 import pt.ipp.isep.dei.esoft.project.tools.DurationFormatter;
 import pt.ipp.isep.dei.esoft.project.tools.TaskType;
 import pt.ipp.isep.dei.esoft.project.tools.UrgencyType;

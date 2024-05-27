@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import pt.ipp.isep.dei.esoft.project.controller.RegisterGreenSpaceController;
-import pt.ipp.isep.dei.esoft.project.matdisc.dto.GreenSpaceDTO;
+import pt.ipp.isep.dei.esoft.project.dto.GreenSpaceDTO;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.tools.GreenSpaceType;
 import pt.isep.lei.esoft.auth.domain.model.Email;

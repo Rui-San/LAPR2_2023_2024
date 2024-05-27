@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.controller;
 
 import pt.ipp.isep.dei.esoft.project.domain.GreenSpace;
-import pt.ipp.isep.dei.esoft.project.matdisc.dto.GreenSpaceDTO;
+import pt.ipp.isep.dei.esoft.project.dto.GreenSpaceDTO;
 import pt.ipp.isep.dei.esoft.project.mapper.GreenSpaceMapper;
 import pt.ipp.isep.dei.esoft.project.repository.GreenSpaceRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;

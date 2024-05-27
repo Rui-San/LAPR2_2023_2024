@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.esoft.project.matdisc.dto;
+package pt.ipp.isep.dei.esoft.project.dto;
 
 import pt.ipp.isep.dei.esoft.project.tools.TaskType;
 import pt.ipp.isep.dei.esoft.project.tools.UrgencyType;

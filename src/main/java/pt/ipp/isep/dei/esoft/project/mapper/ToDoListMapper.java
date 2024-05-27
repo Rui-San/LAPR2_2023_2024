@@ -2,8 +2,8 @@ package pt.ipp.isep.dei.esoft.project.mapper;
 
 import pt.ipp.isep.dei.esoft.project.domain.GreenSpace;
 import pt.ipp.isep.dei.esoft.project.domain.Task;
-import pt.ipp.isep.dei.esoft.project.matdisc.dto.ToDoTaskDTO;
-import pt.ipp.isep.dei.esoft.project.matdisc.dto.ToDoTaskWithStatusDTO;
+import pt.ipp.isep.dei.esoft.project.dto.ToDoTaskDTO;
+import pt.ipp.isep.dei.esoft.project.dto.ToDoTaskWithStatusDTO;
 
 import java.util.ArrayList;
 import java.util.List;

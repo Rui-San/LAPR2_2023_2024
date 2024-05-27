@@ -6,7 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import pt.ipp.isep.dei.esoft.project.controller.AgendaController;
 import pt.ipp.isep.dei.esoft.project.controller.CancelEntryAgendaController;
-import pt.ipp.isep.dei.esoft.project.matdisc.dto.AgendaTaskDTO;
+import pt.ipp.isep.dei.esoft.project.dto.AgendaTaskDTO;
 import pt.ipp.isep.dei.esoft.project.tools.Status;
 
 import java.net.URL;
