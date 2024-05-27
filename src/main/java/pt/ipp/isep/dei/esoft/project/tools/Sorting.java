@@ -12,15 +12,22 @@ public class Sorting {
     private Properties properties;
 
     private List<Object> subject;
+    private int columnToSort;
 
     public Sorting() {
         properties = new Properties();
         loadProperties();
+        this.columnToSort = 6;
     }
 
     public Sorting(List<Object> subject) {
         properties = new Properties();
         loadProperties();
+        this.columnToSort = 6;
+    }
+
+    public void setColumnToSort(int column){
+        this.columnToSort = column;
     }
 
     public Sorting sort(){
@@ -31,7 +38,7 @@ public class Sorting {
         String algorithm = getProperty("Sorting.algorithm");
 
 
-        int columnToSort = 6;
+
         Sorting configLoader = new Sorting();
         Field field = subject.get(0).getClass().getDeclaredFields()[columnToSort];
 
