@@ -92,10 +92,14 @@ public class AddNewEntryAgendaUI implements Initializable {
                     stage.showAndWait();
 
                     String selectedDate = insertDatePopupUI.getSelectedDate();
-                    if (selectedDate != null) {
+                    int workStartingHours = insertDatePopupUI.getWorkStartingHours();
+                    int workStartingMinutes = insertDatePopupUI.getWorkStartingMinutes();
+                    if (selectedDate != null && (workStartingMinutes > 0 || workStartingHours >0)) {
                         System.out.println(selectedTask.title + selectedTask.description + selectedTask.urgency + selectedTask.taskType + selectedTask.greenSpaceName + selectedTask.expectedDuration);
                         System.out.println(selectedDate);
-                        if (controller.registerTaskAgenda(selectedTask, selectedDate).isPresent()) {
+                        System.out.println();
+                        System.out.println(workStartingHours + " : " + workStartingMinutes) ;
+                        if (controller.registerTaskAgenda(selectedTask, selectedDate, workStartingHours, workStartingMinutes).isPresent()) {
 
                             taskList.clear();
                             taskList.addAll(controller.getToDoDTOlist());

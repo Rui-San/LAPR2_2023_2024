@@ -31,6 +31,6 @@ public class PostponeEntryAgendaController {
 
     public Optional<Task> postponeTaskAgenda(AgendaTaskDTO agendaTaskDTO, String newDate) {
 
-        return agendaRepository.postponeTaskAgenda(agendaTaskDTO.title, agendaTaskDTO.greenSpaceName, agendaTaskDTO.executionDate, agendaTaskDTO.status, newDate);
+        return agendaRepository.postponeTaskAgenda(agendaTaskDTO.title, agendaTaskDTO.greenSpaceName, agendaTaskDTO.workStartDate, agendaTaskDTO.status, newDate);
     }
 }

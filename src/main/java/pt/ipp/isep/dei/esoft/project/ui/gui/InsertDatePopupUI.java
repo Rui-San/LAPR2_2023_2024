@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Control;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.time.LocalDate;
@@ -12,19 +13,76 @@ public class InsertDatePopupUI {
     @FXML
     private DatePicker dpExecutionDate;
     @FXML
-    private Label lblExecutionDateError;
+    private Label lblExecutionDateError, lblTimeError;
+
+    @FXML
+    private TextField txtHours, txtMins;
 
     private String selectedDate;
+    private int workStartingHours;
+    private int workStartingMinutes;
 
 
     @FXML
-    private void btnConfirmDate() {
+    private void btnConfirmData() {
 
         if (validateExecutionDate()) {
             selectedDate = convertFormat(dpExecutionDate.getValue().toString());
-            encerrarUI();
+
+            if(validateTime()){
+                workStartingHours = txtHours.getText().trim().isEmpty() ? 0 : Integer.parseInt(txtHours.getText().trim());
+                workStartingMinutes = txtMins.getText().trim().isEmpty() ? 0 : Integer.parseInt(txtMins.getText().trim());
+                encerrarUI();
+            }
         }
+
     }
+
+    private boolean validateTime() {
+        try {
+            String hoursText = txtHours.getText().trim();
+            String minutesText = txtMins.getText().trim();
+
+            boolean isHoursEmpty = hoursText.isEmpty();
+            boolean isMinutesEmpty = minutesText.isEmpty();
+
+            // Verifica se todos os campos estão vazios
+            if (!isHoursEmpty) {
+                int hoursInt = Integer.parseInt(hoursText);
+                if (hoursInt < 8 || (hoursInt > 12 && hoursInt < 13) || hoursInt > 17) {
+                    displayErrorLayout(txtHours, lblTimeError, "Hours must be within 08:00-12:00 or 13:00-17:00");
+                    return false;
+                }
+            }
+
+
+            if (!isHoursEmpty) {
+                int hoursInt = Integer.parseInt(hoursText);
+                if (hoursInt < 0 || hoursInt >= 24) {
+                    displayErrorLayout(txtHours, lblTimeError, "Hours must be between 0 and 23");
+                    return false;
+                }
+            }
+
+            if (!isMinutesEmpty) {
+                int minutesInt = Integer.parseInt(minutesText);
+                if (minutesInt < 0 || minutesInt >= 60) {
+                    displayErrorLayout(txtMins, lblTimeError, "Minutes must be between 0 and 59");
+                    return false;
+                }
+            }
+
+        } catch (NumberFormatException ne) {
+            displayErrorLayout(txtHours, lblTimeError, "Enter valid integers");
+            displayErrorLayout(txtMins, lblTimeError, "Enter valid integers");
+            return false;
+        }
+
+        clearLayoutErrors(txtHours, lblTimeError);
+        clearLayoutErrors(txtMins, lblTimeError);
+        return true;
+    }
+
 
     @FXML
     private void btnCancelAction() {
@@ -39,6 +97,14 @@ public class InsertDatePopupUI {
 
     public String getSelectedDate() {
         return selectedDate;
+    }
+
+    public int getWorkStartingHours() {
+        return workStartingHours;
+    }
+
+    public int getWorkStartingMinutes() {
+        return workStartingMinutes;
     }
 
     private String convertFormat(String date) {

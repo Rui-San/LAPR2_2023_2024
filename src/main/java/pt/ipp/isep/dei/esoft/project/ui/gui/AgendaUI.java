@@ -2,13 +2,23 @@ package pt.ipp.isep.dei.esoft.project.ui.gui;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.controller.AgendaController;
+import pt.ipp.isep.dei.esoft.project.controller.AssignTeamToEntryAgendaController;
 import pt.ipp.isep.dei.esoft.project.controller.CancelEntryAgendaController;
+import pt.ipp.isep.dei.esoft.project.domain.Team;
 import pt.ipp.isep.dei.esoft.project.dto.AgendaTaskDTO;
+import pt.ipp.isep.dei.esoft.project.dto.TeamDTO;
+import pt.ipp.isep.dei.esoft.project.dto.ToDoTaskWithStatusDTO;
 import pt.ipp.isep.dei.esoft.project.tools.Status;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -17,6 +27,8 @@ public class AgendaUI implements Initializable {
     private final AgendaController controller = new AgendaController();
 
     private final CancelEntryAgendaController cancelEntryAgendaController = new CancelEntryAgendaController();
+
+    private final AssignTeamToEntryAgendaController assignTeamToEntryAgendaController = new AssignTeamToEntryAgendaController();
 
     @FXML
     private TableView<AgendaTaskDTO> tbTasks;
@@ -47,7 +59,7 @@ public class AgendaUI implements Initializable {
 
         AgendaTaskDTO selectedTask = tbTasks.getSelectionModel().getSelectedItem();
 
-        if (validateSelectedTaskToCancel(selectedTask)) {
+        if (validateSelectedTask(selectedTask)) {
 
             Alert alertConfirmation = AlertUI.createAlert(Alert.AlertType.CONFIRMATION, "Cancel Entry on Agenda", "Confirm the operation", "Do you wish to cancel the selected Entry?");
             if (alertConfirmation.showAndWait().get() == ButtonType.OK) {
@@ -68,6 +80,44 @@ public class AgendaUI implements Initializable {
         }
     }
 
+    @FXML
+    public void btnAssignTeam() {
+        AgendaTaskDTO selectedTask = tbTasks.getSelectionModel().getSelectedItem();
+
+        if (validateSelectedTask(selectedTask)) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/SelectTeamPopupScene.fxml"));
+            Parent root;
+            try {
+                root = loader.load();
+                SelectTeamPopupUI selectTeamPopupUI = loader.getController();
+                Stage stage = new Stage();
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setScene(new Scene(root));
+                stage.showAndWait();
+
+                Team selectedTeam = selectTeamPopupUI.getTeamSelected();
+
+                if (selectedTeam != null) {
+                    if (assignTeamToEntryAgendaController.assignTeamToTaskAgenda(selectedTask, selectedTeam).isPresent()) {
+                        lblError.setText("");
+                        lblError.setVisible(false);
+                        updateTableView();
+
+                        AlertUI.createAlert(Alert.AlertType.INFORMATION, "Assign Team to Task", "Confirmation of operation", "Team successfully assigned to task").show();
+                        lblError.setVisible(false);
+                    }else{
+                        AlertUI.createAlert(Alert.AlertType.ERROR, "ssign Team to Task", "Error occurred", "Not possible to assign this team to the task").show();
+                        lblError.setVisible(false);
+                    }
+                }
+            } catch (IOException e) {
+                AlertUI.createAlert(Alert.AlertType.ERROR, "ERROR", "Add new entry to agenda", e.getMessage()).show();
+
+            }
+        }
+    }
+
+
     private void updateTableView() {
         tbTasks.getItems().clear();
 
@@ -76,7 +126,8 @@ public class AgendaUI implements Initializable {
         }
     }
 
-    public boolean validateSelectedTaskToCancel(AgendaTaskDTO selectedTask) {
+
+    public boolean validateSelectedTask(AgendaTaskDTO selectedTask) {
 
         if (selectedTask == null) {
             lblError.setText("Select one task from Agenda");

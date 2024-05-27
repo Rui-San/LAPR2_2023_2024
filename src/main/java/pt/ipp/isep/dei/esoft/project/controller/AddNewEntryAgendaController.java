@@ -55,7 +55,7 @@ public class AddNewEntryAgendaController {
         return ToDoListMapper.toDTOWithStatusList(toDoTaskList);
     }
 
-    public Optional<Task> registerTaskAgenda(ToDoTaskDTO toDoTaskDTO, String executionDate) {
+    public Optional<Task> registerTaskAgenda(ToDoTaskDTO toDoTaskDTO, String executionDate, int workStartingDays, int workStartingMinutes) {
 
         Optional<Task> newTaskAgenda = Optional.empty();
         Optional<GreenSpace> greenSpaceOptional = greenSpaceRepository.getGreenSpaceByName(toDoTaskDTO.greenSpaceName);
@@ -63,7 +63,7 @@ public class AddNewEntryAgendaController {
         if (greenSpaceOptional.isPresent()) {
             Task task = ToDoListMapper.toTask(toDoTaskDTO, greenSpaceOptional.get());
 
-            newTaskAgenda = agendaRepository.registerTaskAgenda(task, executionDate);
+            newTaskAgenda = agendaRepository.registerTaskAgenda(task, executionDate, workStartingDays, workStartingMinutes);
 
             if (newTaskAgenda.isPresent()) {
                 toDoRepository.updateTaskToProcessed(task);

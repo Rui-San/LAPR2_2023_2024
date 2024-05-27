@@ -1,6 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
-
+import java.time.Duration;
 import java.util.List;
 
 /**
@@ -67,37 +67,28 @@ public class Team {
         }
         return stringBuilder.toString();
     }
-/*
-    public boolean isAvailable(Date start, Date end) {
 
-        if (this.workPeriods.isEmpty()) {
-            return true;
-        }
+    public List<WorkPeriod> getWorkPeriods() {
+        return workPeriods;
+    }
 
-        for (WorkPeriod period : workPeriods) {
-            if (period.overlapsWith(start, end)) {
+    public void addMember(Collaborator collaborator) {
+        members.add(collaborator);
+    }
+
+    public boolean isAvailable(WorkPeriod taskWorkPeriod) {
+        for (WorkPeriod workPeriod : workPeriods) {
+            if (workPeriod.overlapsWith(taskWorkPeriod)) {
                 return false;
             }
         }
         return true;
     }
 
-    public void addWorkPeriod(Date start, Date end) {
-        workPeriods.add(new WorkPeriod(start, end));
+    // Add work period for assigned task
+    public void addWorkPeriod(WorkPeriod workPeriod) {
+        workPeriods.add(workPeriod);
     }
 
-    public List<WorkPeriod> getWorkPeriods() {
-        return this.workPeriods;
-    }
 
- */
-
-    /**
-     * Adds a new member to the team.
-     *
-     * @param collaborator the collaborator to add to the team
-     */
-    public void addMember(Collaborator collaborator) {
-        members.add(collaborator);
-    }
 }

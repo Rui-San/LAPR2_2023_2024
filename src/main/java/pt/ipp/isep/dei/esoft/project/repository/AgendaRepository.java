@@ -23,14 +23,14 @@ public class AgendaRepository {
         return agenda;
     }
 
-    public Optional<Task> add(Task task, String executionDate) {
+    public Optional<Task> add(Task task, String executionDate, int workStartingHours, int workStartingMinutes) {
 
         Optional<Task> newTask = Optional.empty();
         boolean operationSuccess = false;
 
         if (validateTaskAgenda(task)) {
             task.setStatus(AGENDA_DEFAULT_STATUS);
-            task.setExecutionDate(executionDate);
+            task.setTaskWorkPeriod(executionDate, workStartingHours, workStartingMinutes, task.getExpectedDuration());
             newTask = Optional.of(task);
             operationSuccess = agenda.add(task);
         }
@@ -92,9 +92,9 @@ public class AgendaRepository {
         */
 
 
-    public Optional<Task> registerTaskAgenda(Task task, String executionDate) {
+    public Optional<Task> registerTaskAgenda(Task task, String executionDate, int workStartingHours, int workStartingMinutes) {
 
-        Optional<Task> addedTask = add(task, executionDate);
+        Optional<Task> addedTask = add(task, executionDate, workStartingHours, workStartingMinutes);
 
         return addedTask;
     }
@@ -112,9 +112,9 @@ public class AgendaRepository {
         for (Task task : agenda) {
             System.out.println("Task do for: " + task.getTitle());
             System.out.println("Task do for: " + task.getGreenSpace().getName());
-            System.out.println("Task do for: " + task.getExecutionDate());
+            //System.out.println("Task do for: " + task.getExecutionDate());
             System.out.println("Task do for: " + task.getStatus());
-            if (task.getTitle().trim().equalsIgnoreCase(title.trim()) && task.getStatus() == status && task.getExecutionDate().toString().trim().equalsIgnoreCase(executionDate.trim()) && task.getGreenSpace().getName().trim().equalsIgnoreCase(greenSpace.trim())) {
+            if (task.getTitle().trim().equalsIgnoreCase(title.trim()) && task.getStatus() == status && task.getTaskWorkPeriod().getWorkStartDate().toString().trim().equalsIgnoreCase(executionDate.trim()) && task.getGreenSpace().getName().trim().equalsIgnoreCase(greenSpace.trim())) {
 
                 if (task.getStatus() == Status.PLANNED || task.getStatus() == Status.POSTPONED) {
 
@@ -132,6 +132,11 @@ public class AgendaRepository {
 
     public Optional<Task> postponeTaskAgenda(String title, String greenSpaceName, String executionDate, Status status, String newDate) {
 
+
+        return Optional.empty();
+    }
+
+    public Optional<Task> assignTeamToTaskAgenda(String title, String greenSpaceName, String executionDate, Status status, Team team){
 
         return Optional.empty();
     }
