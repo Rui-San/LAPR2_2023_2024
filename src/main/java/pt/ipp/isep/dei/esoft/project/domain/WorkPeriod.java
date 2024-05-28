@@ -87,6 +87,16 @@ public class WorkPeriod {
         this.workEndMin = endMin;
     }
 
+    public boolean matches(WorkPeriod otherWorkPeriod) {
+        return (this.workStartDate.toString().trim().equalsIgnoreCase(otherWorkPeriod.workStartDate.toString().trim())
+                && this.workStartHour == otherWorkPeriod.workStartHour
+                && this.workStartMin == otherWorkPeriod.workStartMin
+                && this.workEndDate.toString().trim().equalsIgnoreCase(otherWorkPeriod.workEndDate.toString().trim())
+                && this.workEndHour == otherWorkPeriod.workEndHour
+                && this.workEndMin == otherWorkPeriod.workEndMin);
+
+    }
+
     public boolean isOverlap(WorkPeriod other) {
         LocalDateTime thisStart = LocalDateTime.of(workStartDate.getYear(), workStartDate.getMonth(), workStartDate.getDay(), workStartHour, workStartMin);
         LocalDateTime thisEnd = LocalDateTime.of(workEndDate.getYear(), workEndDate.getMonth(), workEndDate.getDay(), workEndHour, workEndMin);
@@ -142,6 +152,7 @@ public class WorkPeriod {
 
     /**
      * Este método verifica se da o tal overlap com os dias, ou seja a tarefa tem que iniciar no dia seguinte
+     *
      * @param other
      * @return
      */
@@ -169,12 +180,6 @@ public class WorkPeriod {
         // If none of the above conditions are met, there is overlap
         return true;
     }
-
-
-
-
-
-
 
 
     public boolean overlapsWith(WorkPeriod other) {
