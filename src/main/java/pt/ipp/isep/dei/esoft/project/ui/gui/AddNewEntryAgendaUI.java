@@ -14,7 +14,6 @@ import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.controller.AddNewEntryAgendaController;
 import pt.ipp.isep.dei.esoft.project.dto.ToDoTaskWithStatusDTO;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
-import pt.ipp.isep.dei.esoft.project.tools.DurationFormatter;
 import pt.ipp.isep.dei.esoft.project.tools.Status;
 import pt.ipp.isep.dei.esoft.project.tools.TaskType;
 import pt.ipp.isep.dei.esoft.project.tools.UrgencyType;
