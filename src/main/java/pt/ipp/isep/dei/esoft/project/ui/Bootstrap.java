@@ -11,12 +11,12 @@ import java.util.List;
 public class Bootstrap implements Runnable {
 
     public void run() {
+        addUsers();
         addSkills();
         addJobs();
         addVehicle();
         addCheckup();
         addCollaborator();
-        addUsers();
         assignSkills();
         addGreenSpaces();
     }
@@ -91,16 +91,25 @@ public class Bootstrap implements Runnable {
         authenticationRepository.addUserRole(AuthenticationController.ROLE_GSM, AuthenticationController.ROLE_GSM);
         authenticationRepository.addUserRole(AuthenticationController.ROLE_COLLABORATOR, AuthenticationController.ROLE_COLLABORATOR);
 
+        authenticationRepository.addUserWithRole("Quick Administrator", "a@this.app", "b",
+                AuthenticationController.ROLE_ADMIN);
+
         authenticationRepository.addUserWithRole("Main Administrator", "admin@this.app", "admin",
                 AuthenticationController.ROLE_ADMIN);
 
-        authenticationRepository.addUserWithRole("HRM", "hrm@this.app", "pwd",
+        authenticationRepository.addUserWithRole("Human Resources Manager", "hrm@this.app", "hrm",
                 AuthenticationController.ROLE_HRM);
 
-        authenticationRepository.addUserWithRole("VFM", "vfm@this.app", "pwd",
+        authenticationRepository.addUserWithRole("Vehicle Fleet Manager", "vfm@this.app", "vfm",
                 AuthenticationController.ROLE_VFM);
 
-        authenticationRepository.addUserWithRole("GSM", "gsm@this.app", "pwd",
+        authenticationRepository.addUserWithRole("Green Space Manager One", "gsm1@this.app", "gsm1",
+                AuthenticationController.ROLE_GSM);
+
+        authenticationRepository.addUserWithRole("Green Space Manager Two", "gsm2@this.app", "gsm2",
+                AuthenticationController.ROLE_GSM);
+
+        authenticationRepository.addUserWithRole("Green Space Manager Three", "gsm3@this.app", "gsm3",
                 AuthenticationController.ROLE_GSM);
 
     }

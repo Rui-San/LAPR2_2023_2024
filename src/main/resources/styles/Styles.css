@@ -1,38 +1,45 @@
-.login__input {
-    -fx-border-width: 0 0 2px 0;
-    -fx-border-color: transparent transparent #429156 transparent;
-    -fx-background-color: transparent;
+.login-background{
+    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #f3f6f9, #ebf1f5);
+    -fx-effect: dropshadow(gaussian, #EEEEEE, 10, 2, 0, 0);
+}
+
+.login-right-container{
+    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #2FF056, #02911B);
+}
+
+.login-input {
+    -fx-background-color: white;
+    -fx-border-width: 1px;
+    -fx-border-color: white;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
     -fx-padding: 10px 0 10px 10px;
     -fx-font-weight: bold;
-    -fx-transition: -fx-border-color 0.2s;
+    -fx-effect: dropshadow(gaussian, #EEEEEE, 5, 0.3, 0, 0);
 }
 
-.login__input:focused,
-.login__input:hover {
-    -fx-border-color: transparent transparent #429156 transparent;
-    -fx-outline: none;
-}
-
-.login__submit {
-    -fx-background-color: #fff;
-    -fx-background-radius: 25px;
-    -fx-font-size: 14px;
-    -fx-border-radius: 5px;
-    -fx-border-color: #D4D3E8;
+.login-input:focused,
+.login-input:hover {
     -fx-border-width: 1px;
-    -fx-border-radius: 25px;
+    -fx-border-color: #2FF056;
     -fx-font-weight: bold;
-    -fx-display: flex;
-    -fx-alignment: center;
-    -fx-text-fill: #429156;
-    -fx-effect: dropshadow(gaussian, #429156, 2, 0.0, 0, 2);
-    -fx-transition: -fx-border-color 0.2s;
 }
 
-.login__submit:focused,
-.login__submit:hover {
-    -fx-border-color: #7bc48d;
-    -fx-outline: none;
+
+.login-submit {
+    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #32DF55, #22BF48);
+    -fx-effect: dropshadow(gaussian, #EEEEEE, 5, 0.3, 0, 0);
+    -fx-background-radius: 10px;
+    -fx-padding: 10px 0 10px 0;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-text-fill: white;
+}
+
+.login-submit:focused,
+.login-submit:hover {
+    -fx-effect: dropshadow(gaussian, #DADADA, 15, 0.5, 0, 0);
+    -fx-cursor: hand;
 }
 
 .form-input {

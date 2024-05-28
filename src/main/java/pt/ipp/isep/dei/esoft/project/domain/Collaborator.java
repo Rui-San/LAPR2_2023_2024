@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import pt.ipp.isep.dei.esoft.project.controller.AuthenticationController;
+import pt.ipp.isep.dei.esoft.project.session.ApplicationSession;
 import pt.ipp.isep.dei.esoft.project.tools.MobileOperator;
 import pt.ipp.isep.dei.esoft.project.tools.ValidationAttributeResults;
 
@@ -103,6 +105,12 @@ public class Collaborator implements Cloneable {
         setIdDocType(idDocType);
         setIdDocNumber(idDocNumber, idDocType);
         this.skillList = new ArrayList<>();
+        makeCollaboratorUser(name,email);
+    }
+
+    private void makeCollaboratorUser(String name, String email) {
+        ApplicationSession.getInstance().getAuthenticationRepository().addUserWithRole(
+                name, email, "password", AuthenticationController.ROLE_COLLABORATOR);
     }
 
     /**

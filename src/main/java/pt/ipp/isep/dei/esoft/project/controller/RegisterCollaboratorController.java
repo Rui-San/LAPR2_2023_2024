@@ -99,11 +99,6 @@ public class RegisterCollaboratorController {
         Optional<Collaborator> newCollaborator = Optional.empty();
         newCollaborator = collaboratorRepository.createCollaborator(name, birthdate, admissionDate, street, streetNumber, postalCode, city, district, email, mobileNumber, idDocType, idDocNumber, job);
 
-        if(newCollaborator.isPresent()){
-            ApplicationSession.getInstance().getAuthenticationRepository().addUserWithRole(
-                    name, email, "password", AuthenticationController.ROLE_COLLABORATOR);
-        }
-
         return newCollaborator;
     }
 

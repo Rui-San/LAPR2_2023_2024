@@ -120,6 +120,7 @@ public class RegisterVehicleUI implements Initializable {
                             : "Vehicle was already registered").show();
 
         }
+        btnClearAction();
 
     }
 
@@ -415,16 +416,24 @@ public class RegisterVehicleUI implements Initializable {
     @FXML
     private void btnClearAction() {
         clearError(txtPlateID, lblPlateIDError);
+        txtPlateID.clear();
         clearError(cbType, lblTypeError);
+        cbType.getSelectionModel().clearSelection();
         clearError(txtBrand, lblBrandError);
+        txtBrand.clear();
         clearError(txtModel, lblModelError);
+        txtModel.clear();
         clearError(txtTare, lblTareError);
+        txtTare.clear();
         clearError(txtGrossWeight, lblGrossWeightError);
+        txtGrossWeight.clear();
         clearError(dpRegisterDate, lblRegisterDateError);
-        clearError(dpAcquisitionDate, lblAcquisitionDateError);
-        clearError(txtCheckupFrequency, lblCheckupFrequencyError);
-        clearError(txtCurrentKm, lblCurrentKmError);
         dpRegisterDate.setValue(null);
+        clearError(dpAcquisitionDate, lblAcquisitionDateError);
         dpAcquisitionDate.setValue(null);
+        clearError(txtCheckupFrequency, lblCheckupFrequencyError);
+        txtCheckupFrequency.clear();
+        clearError(txtCurrentKm, lblCurrentKmError);
+        txtCurrentKm.clear();
     }
 }
