@@ -51,7 +51,7 @@ public class AgendaUI implements Initializable {
     }
 
     private void fillTaskTable() {
-        tbTasks.getItems().addAll(controller.getAgendaTaskDTOList());
+        tbTasks.getItems().addAll(controller.getAgendaTaskDTOManagerList());
     }
 
     @FXML
@@ -128,7 +128,7 @@ public class AgendaUI implements Initializable {
     private void updateTableView() {
         tbTasks.getItems().clear();
 
-        for (AgendaTaskDTO task : controller.getAgendaTaskDTOList()) {
+        for (AgendaTaskDTO task : controller.getAgendaTaskDTOManagerList()) {
             tbTasks.getItems().add(task);
         }
     }

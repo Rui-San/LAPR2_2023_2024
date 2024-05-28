@@ -23,6 +23,18 @@ public class AgendaRepository {
         return agenda;
     }
 
+    public List<Task> getManagerSpecificAgenda(String managerEmail) {
+        List<Task> managerSpecificAgenda = new ArrayList<>();
+
+        for (Task task : agenda) {
+            if(task.getGreenSpace().getManager().trim().equalsIgnoreCase(managerEmail.trim())){
+                managerSpecificAgenda.add(task);
+            }
+        }
+
+        return managerSpecificAgenda;
+    }
+
     public Optional<Task> add(Task task, String executionDate, int workStartingHours, int workStartingMinutes) {
 
         Optional<Task> newTask = Optional.empty();
@@ -139,16 +151,16 @@ public class AgendaRepository {
         return Optional.empty();
     }
 
-    public Optional<Task> assignTeamToTaskAgenda(String title, String greenSpaceName, String executionDate, Status status, Team team){
+    public Optional<Task> assignTeamToTaskAgenda(String title, String greenSpaceName, String executionDate, Status status, Team team) {
         Optional<Task> assignedTask = Optional.empty();
         for (Task task : agenda) {
             if (task.getTitle().trim().equalsIgnoreCase(title.trim()) && task.getStatus() == status && task.getTaskWorkPeriod().getWorkStartDate().toString().trim().equalsIgnoreCase(executionDate.trim()) && task.getGreenSpace().getName().trim().equalsIgnoreCase(greenSpaceName.trim())) {
                 System.out.println("-----------");
                 System.out.println("Workperiod Task da agenda:" + task.getTaskWorkPeriod().getWorkStartDate() + task.getTaskWorkPeriod().getWorkStartHour() + task.getTaskWorkPeriod().getWorkStartMin() + task.getTaskWorkPeriod().getWorkEndDate() + task.getTaskWorkPeriod().getWorkEndHour() + task.getTaskWorkPeriod().getWorkEndMin());
 
-                    task.assignTeam(team);
-                    assignedTask = Optional.of(task);
-                    return assignedTask;
+                task.assignTeam(team);
+                assignedTask = Optional.of(task);
+                return assignedTask;
 
             }
         }

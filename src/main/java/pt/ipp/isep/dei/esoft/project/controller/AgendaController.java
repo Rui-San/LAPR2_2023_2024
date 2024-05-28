@@ -9,8 +9,9 @@ import java.util.List;
 
 public class AgendaController {
 
-    public List<AgendaTaskDTO> getAgendaTaskDTOList() {
-        List<Task> agendaTaskList = Repositories.getInstance().getAgendaRepository().getAgenda();
+    public List<AgendaTaskDTO> getAgendaTaskDTOManagerList() {
+        String managerEmail = Repositories.getInstance().getAuthenticationRepository().getCurrentUserSession().getUserId().getEmail();
+        List<Task> agendaTaskList = Repositories.getInstance().getAgendaRepository().getManagerSpecificAgenda(managerEmail);
         return AgendaMapper.toDTOlist(agendaTaskList);
     }
 
