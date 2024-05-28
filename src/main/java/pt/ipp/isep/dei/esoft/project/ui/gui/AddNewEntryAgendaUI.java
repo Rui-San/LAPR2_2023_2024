@@ -50,7 +50,7 @@ public class AddNewEntryAgendaUI implements Initializable {
 
     public AddNewEntryAgendaUI() {
         this.controller = new AddNewEntryAgendaController();
-        this.taskList = controller.getToDoDTOlist();
+        this.taskList = controller.getToDoDTOManagerlist();
     }
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -101,7 +101,7 @@ public class AddNewEntryAgendaUI implements Initializable {
                         if (controller.registerTaskAgenda(selectedTask, selectedDate, workStartingHours, workStartingMinutes).isPresent()) {
 
                             taskList.clear();
-                            taskList.addAll(controller.getToDoDTOlist());
+                            taskList.addAll(controller.getToDoDTOManagerlist());
                             updateTableView();
 
                             System.out.println(Repositories.getInstance().getAgendaRepository().getAgenda());

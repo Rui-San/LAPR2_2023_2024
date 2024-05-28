@@ -22,6 +22,16 @@ public class ToDoRepository {
         return toDoList;
     }
 
+    public List<Task> getToDoManagerList(String managerEmail) {
+        List<Task> managerTasks = new ArrayList<>();
+        for(Task task : toDoList){
+            if(task.getGreenSpace().getManager().trim().equalsIgnoreCase(managerEmail.trim())){
+             managerTasks.add(task);
+            }
+        }
+        return managerTasks;
+    }
+
     public Optional<Task> registerTaskToDo(Task task) {
 
         Optional<Task> addedTask = add(task);
@@ -68,4 +78,6 @@ public class ToDoRepository {
             }
         }
     }
+
+
 }

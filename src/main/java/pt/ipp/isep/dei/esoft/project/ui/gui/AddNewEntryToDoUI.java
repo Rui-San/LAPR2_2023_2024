@@ -91,9 +91,6 @@ public class AddNewEntryToDoUI implements Initializable {
                 int hoursInt = txtHours.getText().isEmpty() ? 0 : Integer.parseInt(txtHours.getText().trim());
                 int minutesInt = txtMins.getText().isEmpty() ? 0 : Integer.parseInt(txtMins.getText().trim());
 
-                long totalMinutes = (long) daysInt * 8 * 60 + hoursInt * 60L + minutesInt;
-                Duration expDuration = Duration.ofMinutes(totalMinutes);
-
                 ToDoTaskDTO toDoTaskDTO = new ToDoTaskDTO(
                         txtTitle.getText().trim(),
                         txtDescription.getText().trim(),
