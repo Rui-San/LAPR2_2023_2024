@@ -12,7 +12,8 @@ import java.util.Properties;
 public class ApplicationSession {
     private final AuthenticationRepository authenticationRepository;
     private static final String CONFIGURATION_FILENAME = "src/main/resources/config.properties";
-    private static final String COMPANY_DESIGNATION = "Company.Designation";
+    public static final String COMPANY_DESIGNATION = "Company.Designation";
+    public static final String SORTING_ALGORITHM = "Sorting.Algorithm";
 
     private ApplicationSession() {
         this.authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
@@ -27,11 +28,12 @@ public class ApplicationSession {
         return this.authenticationRepository.getCurrentUserSession();
     }
 
-    private Properties getProperties() {
+    public Properties getProperties() {
         Properties props = new Properties();
 
         // Add default properties and values
         props.setProperty(COMPANY_DESIGNATION, "MusgoSublime");
+        props.setProperty(SORTING_ALGORITHM, "BubbleSort");
 
         // Read configured values
         try {
