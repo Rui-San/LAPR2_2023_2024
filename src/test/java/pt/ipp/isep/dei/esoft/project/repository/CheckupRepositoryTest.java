@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.esoft.project.domain.Date;
 import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
 import pt.ipp.isep.dei.esoft.project.domain.VehicleCheckup;
+import pt.ipp.isep.dei.esoft.project.tools.VehicleType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,7 @@ class CheckupRepositoryTest {
                 "AA-00-AA",
                 "Toyota",
                 "Corolla",
-                "Sedan",
+                VehicleType.PASSENGERS,
                 1500,
                 2000,
                 10000,

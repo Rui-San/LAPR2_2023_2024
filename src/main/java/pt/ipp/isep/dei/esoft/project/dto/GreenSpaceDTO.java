@@ -26,4 +26,8 @@ public class GreenSpaceDTO {
         this.district = ditrict;
 
     }
+
+    public String addressToString(){
+        return street + ", " + streetNumber + ", " + postalCode + ", " + city + ", " + district;
+    }
 }
