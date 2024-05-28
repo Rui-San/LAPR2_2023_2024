@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="573.0" prefWidth="874.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.ListGreenSpacesUI">
+   <bottom>
+      <Pane prefHeight="39.0" prefWidth="874.0" BorderPane.alignment="CENTER" />
+   </bottom>
+   <center>
+      <TableView fx:id="tbGreenSpaces" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <columns>
+            <TableColumn fx:id="greenSpaceType" prefWidth="107.0" sortable="false" text="Type" />
+            <TableColumn fx:id="greenSpaceName" prefWidth="236.0" sortable="false" text="Name" />
+            <TableColumn fx:id="greenSpaceAddress" prefWidth="307.0" sortable="false" text="Address" />
+            <TableColumn fx:id="greenSpaceAreaInHectares" prefWidth="143.0" sortable="false" text="Area (Hectares)" />
+         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+   </center>
+   <left>
+      <Pane prefHeight="360.0" prefWidth="40.0" BorderPane.alignment="CENTER" />
+   </left>
+   <right>
+      <Pane prefHeight="360.0" prefWidth="40.0" BorderPane.alignment="CENTER" />
+   </right>
+   <top>
+      <AnchorPane prefHeight="84.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Text fx:id="title" layoutX="23.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Green spaces managed by" textAlignment="CENTER" wrappingWidth="828.3203125">
+               <font>
+                  <Font name="Berlin Sans FB" size="28.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+   </top>
+</BorderPane>

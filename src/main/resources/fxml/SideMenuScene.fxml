@@ -60,6 +60,7 @@
                </cursor>
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#RegisterGreenSpace" text="Register Green Space" />
+                  <MenuItem mnemonicParsing="false" onAction="#ListGreenSpaces" text="List Green Spaces" />
                </items>
             </MenuButton>
             <MenuButton fx:id="mbTasks" mnemonicParsing="false" popupSide="RIGHT" styleClass="menu-btn" text="Tasks">

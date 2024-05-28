@@ -72,6 +72,7 @@ public class MenuUI implements Initializable {
             }
         }
 
+        System.out.println("Sorting: " + ApplicationSession.getInstance().getProperties().getProperty(ApplicationSession.SORTING_ALGORITHM));
 
     }
 
@@ -103,6 +104,13 @@ public class MenuUI implements Initializable {
     @FXML
     public void RegisterGreenSpace() throws IOException {
         Parent fxml = FXMLLoader.load(getClass().getResource("/fxml/RegisterGreenSpaceScene.fxml"));
+        contentArea.getChildren().removeAll();
+        contentArea.getChildren().setAll(fxml);
+    }
+
+    @FXML
+    public void ListGreenSpaces() throws IOException {
+        Parent fxml = FXMLLoader.load(getClass().getResource("/fxml/ListGreenSpacesScene.fxml"));
         contentArea.getChildren().removeAll();
         contentArea.getChildren().setAll(fxml);
     }
