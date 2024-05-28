@@ -179,8 +179,11 @@ public class RegisterCheckupUI implements Initializable {
     @FXML
     private void btnClearAction() {
         tbVehicles.getSelectionModel().clearSelection();
+        clearError(tbVehicles, lblVehicleError);
         dpCheckupDate.setValue(null);
+        clearError(dpCheckupDate, lblCheckupDateError);
         txtCheckupKm.clear();
+        clearError(txtCheckupKm, lblCheckupKmError);
     }
 
 }
