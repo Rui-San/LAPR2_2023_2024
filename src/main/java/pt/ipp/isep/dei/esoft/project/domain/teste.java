@@ -7,7 +7,7 @@ public class teste {
         try {
             Date workStartDate = new Date("01/06/2024");
             int workStartHour = 10;
-            int workStartMin = 30;
+            int workStartMin = 1;
             Duration expectedDuration = Duration.ofMinutes(1440);
 
             WorkPeriod wp = new WorkPeriod(workStartDate, workStartHour, workStartMin, expectedDuration);

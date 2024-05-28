@@ -31,10 +31,13 @@ public class TeamRepository {
     }
 
 
-    public Team getTeamByTeamMembers(List<Collaborator> members){
-        for (Team team : teamList){
-            if (team.getMembers().containsAll(members)){
-                return team;
+    public Team getTeamByTeamMemberEmails(String memberEmail) {
+
+        for (Team team : teamList) {
+            for (Collaborator collaborator : team.getMembers()) {
+                if (collaborator.getEmail().getEmail().trim().equalsIgnoreCase(memberEmail.trim())) {
+                    return team;
+                }
             }
         }
         return null;

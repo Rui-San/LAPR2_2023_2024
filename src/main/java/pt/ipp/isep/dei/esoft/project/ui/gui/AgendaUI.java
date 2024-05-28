@@ -90,12 +90,15 @@ public class AgendaUI implements Initializable {
             try {
                 root = loader.load();
                 SelectTeamPopupUI selectTeamPopupUI = loader.getController();
+                selectTeamPopupUI.fillTeamTable();
                 Stage stage = new Stage();
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.setScene(new Scene(root));
+
                 stage.showAndWait();
 
-                Team selectedTeam = selectTeamPopupUI.getTeamSelected();
+
+                TeamDTO selectedTeam = selectTeamPopupUI.getTeamSelected();
 
                 if (selectedTeam != null) {
                     if (assignTeamToEntryAgendaController.assignTeamToTaskAgenda(selectedTask, selectedTeam).isPresent()) {
