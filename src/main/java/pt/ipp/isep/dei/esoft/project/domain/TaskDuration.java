@@ -6,7 +6,7 @@ public class TaskDuration {
     private int minutes;
 
     public TaskDuration(int days, int hours, int minutes) {
-        if(days == 0 && hours == 0 && minutes == 0){
+        if (days == 0 && hours == 0 && minutes == 0) {
             throw new IllegalArgumentException("At least one field must be filled");
         }
         this.days = days;
@@ -50,34 +50,52 @@ public class TaskDuration {
     private int totalDurationMinutes;
 
 
-
-
-/*
     @Override
     public String toString() {
-
-        StringBuilder formattedDuration = new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder();
 
         if (days > 0) {
-            formattedDuration.append(days).append(" day");
-            if (days > 1) {
-                formattedDuration.append("s");
+            stringBuilder.append(days).append(days == 1 ? " day" : " days");
+        }
+
+        if (hours > 0) {
+            if (stringBuilder.length() > 0) {
+                stringBuilder.append(", ");
             }
-            formattedDuration.append(" ");
+            stringBuilder.append(hours).append(" h");
         }
 
-        if (hours > 0 || (days > 0 && (minutes > 0 || hours > 0))) {
-            formattedDuration.append(hours).append("h");
+        if (minutes > 0) {
+            if (stringBuilder.length() > 0) {
+                stringBuilder.append(", ");
+            }
+            stringBuilder.append(minutes).append(" min");
         }
 
-        if ((hours > 0 || days > 0) && minutes > 0) {
-            formattedDuration.append(minutes).append("min");
-        } else if (minutes > 0) {
-            formattedDuration.append(minutes).append("min");
-        }
-
-        return formattedDuration.toString();
+        return stringBuilder.toString();
     }
 
- */
+
+    public String toStringHoursAndMinutes() {
+        int totalHours = days * 24 + hours;
+        int totalMinutes = totalHours * 60 + minutes;
+
+        int hoursPart = totalMinutes / 60;
+        int minutesPart = totalMinutes % 60;
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        if (hoursPart > 0) {
+            stringBuilder.append(hoursPart).append(" h");
+        }
+
+        if (minutesPart > 0) {
+            if (stringBuilder.length() > 0) {
+                stringBuilder.append(", ");
+            }
+            stringBuilder.append(minutesPart).append(" min");
+        }
+
+        return stringBuilder.toString();
+    }
 }
