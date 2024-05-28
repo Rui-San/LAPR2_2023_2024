@@ -4,9 +4,11 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.controller.AssignTeamToEntryAgendaController;
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.dto.CollaboratorDTO;
@@ -42,10 +44,24 @@ public class SelectTeamPopupUI {
             lblError.setText("");
             lblError.setVisible(false);
             teamSelected = selectedTeam;
+            closeUI();
+
         } else {
             lblError.setText("No team selected.");
             lblError.setVisible(true);
         }
+    }
+
+    @FXML
+    private void btnCancelAction() {
+        closeUI();
+    }
+
+    private void closeUI() {
+        lblError.setText("");
+        lblError.setVisible(false);
+        Stage stage = (Stage) tbTeams.getScene().getWindow();
+        stage.close();
     }
 
     public TeamDTO getTeamSelected(){
@@ -58,5 +74,7 @@ public class SelectTeamPopupUI {
 
         tbTeams.getItems().addAll(controller.getTeams());
     }
+
+
 
 }
