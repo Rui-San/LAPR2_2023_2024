@@ -242,7 +242,7 @@
                         <configuration>
                             <archive>
                                 <manifest>
-                                    <mainClass>pt.ipp.isep.dei.esoft.project.ui.Main</mainClass>
+                                    <mainClass>pt.ipp.isep.dei.esoft.project.ui.console.Main</mainClass>
                                 </manifest>
                             </archive>
                             <descriptorRefs>

@@ -1,5 +1,6 @@
-package pt.ipp.isep.dei.esoft.project.ui;
+package pt.ipp.isep.dei.esoft.project.ui.console;
 
+import pt.ipp.isep.dei.esoft.project.ui.Bootstrap;
 import pt.ipp.isep.dei.esoft.project.ui.console.menu.MainMenuUI;
 
 public class Main {
