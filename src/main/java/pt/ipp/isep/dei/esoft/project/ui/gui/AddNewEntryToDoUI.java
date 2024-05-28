@@ -92,7 +92,7 @@ public class AddNewEntryToDoUI implements Initializable {
                 int hoursInt = txtHours.getText().isEmpty() ? 0 : Integer.parseInt(txtHours.getText().trim());
                 int minutesInt = txtMins.getText().isEmpty() ? 0 : Integer.parseInt(txtMins.getText().trim());
 
-                long totalMinutes = (long) daysInt * 24 * 60 + hoursInt * 60L + minutesInt;
+                long totalMinutes = (long) daysInt * 8 * 60 + hoursInt * 60L + minutesInt;
                 Duration expDuration = Duration.ofMinutes(totalMinutes);
 
                 ToDoTaskDTO toDoTaskDTO = new ToDoTaskDTO(
@@ -101,7 +101,9 @@ public class AddNewEntryToDoUI implements Initializable {
                         cbType.getValue(),
                         cbGreenSpace.getValue(),
                         cbUrgency.getValue(),
-                        expDuration
+                        daysInt,
+                        hoursInt,
+                        minutesInt
                 );
 
                 StringBuilder sb = getConfirmationText(toDoTaskDTO);
@@ -133,7 +135,7 @@ public class AddNewEntryToDoUI implements Initializable {
                 .append("\nGreen Space: ").append(toDoTaskDTO.greenSpaceName)
                 .append("\nTypee: ").append(toDoTaskDTO.taskType)
                 .append("\nUrgency: ").append(toDoTaskDTO.urgency)
-                .append("\nExpected Duration: ").append(DurationFormatter.formatDuration(toDoTaskDTO.expectedDuration));
+                .append("\nExpected Duration: ").append(toDoTaskDTO.days + "days" + toDoTaskDTO.hours + "h" + toDoTaskDTO.minutes + "m");
 
         return sb;
     }

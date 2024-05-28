@@ -79,17 +79,17 @@ public class Team {
     }
 
     public boolean isAvailable(WorkPeriod taskWorkPeriod) {
-        System.out.println();
-        for(WorkPeriod wr : workPeriods){
-            System.out.println(workPeriods);
+        System.out.println("Listar work periods desta team:");
+        if(this.workPeriods.isEmpty()){
+            System.out.println("Não tem nenhuns");
+        }
+        for (WorkPeriod workPeriod : workPeriods){
+            System.out.println(workPeriod.getWorkStartDate() + "----end----" + workPeriod.getWorkEndDate());
         }
 
-        if (this.workPeriods.isEmpty()) {
-            return true;
-        }
 
         for (WorkPeriod workPeriod : workPeriods) {
-            if (workPeriod.overlapsWith(taskWorkPeriod)) {
+            if (workPeriod.isOverlap(taskWorkPeriod)) {
                 return false;
             }
         }

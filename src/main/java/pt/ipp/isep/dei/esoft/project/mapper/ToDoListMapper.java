@@ -30,7 +30,9 @@ public class ToDoListMapper {
                 toDoTask.getTaskType(),
                 toDoTask.getGreenSpace().getName(),
                 toDoTask.getUrgency(),
-                toDoTask.getExpectedDuration()
+                toDoTask.getExpectedDuration().getDays(),
+                toDoTask.getExpectedDuration().getHours(),
+                toDoTask.getExpectedDuration().getMinutes()
         );
     }
 
@@ -62,7 +64,9 @@ public class ToDoListMapper {
                 toDoTaskDTO.taskType,
                 greenSpace,
                 toDoTaskDTO.urgency,
-                toDoTaskDTO.expectedDuration
+                toDoTaskDTO.days,
+                toDoTaskDTO.hours,
+                toDoTaskDTO.minutes
         );
     }
 

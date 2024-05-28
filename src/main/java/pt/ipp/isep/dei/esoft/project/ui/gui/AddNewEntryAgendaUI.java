@@ -61,7 +61,7 @@ public class AddNewEntryAgendaUI implements Initializable {
         taskTypeColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().taskType));
         greenSpaceNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().greenSpaceName));
         urgencyColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().urgency));
-        expectedDurationColumn.setCellValueFactory(cellData -> new SimpleStringProperty(DurationFormatter.formatDuration(cellData.getValue().expectedDuration)));
+        expectedDurationColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().expectedDurationToString()));
         statusColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().status));
 
         fillTableInformation();
@@ -95,7 +95,7 @@ public class AddNewEntryAgendaUI implements Initializable {
                     int workStartingHours = insertDatePopupUI.getWorkStartingHours();
                     int workStartingMinutes = insertDatePopupUI.getWorkStartingMinutes();
                     if (selectedDate != null && (workStartingMinutes > 0 || workStartingHours >0)) {
-                        System.out.println(selectedTask.title + selectedTask.description + selectedTask.urgency + selectedTask.taskType + selectedTask.greenSpaceName + selectedTask.expectedDuration);
+                        System.out.println(selectedTask.title + selectedTask.description + selectedTask.urgency + selectedTask.taskType + selectedTask.greenSpaceName + selectedTask.expectedDurationToString());
                         System.out.println(selectedDate);
                         System.out.println();
                         System.out.println(workStartingHours + " : " + workStartingMinutes) ;

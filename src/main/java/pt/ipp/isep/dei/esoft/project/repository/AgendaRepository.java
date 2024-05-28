@@ -31,8 +31,8 @@ public class AgendaRepository {
         if (validateTaskAgenda(task)) {
             task.setStatus(AGENDA_DEFAULT_STATUS);
             task.setTaskWorkPeriod(executionDate, workStartingHours, workStartingMinutes, task.getExpectedDuration());
-            System.out.println("-----------");
-            System.out.println("Workperiod Task da agenda:" + task.getTaskWorkPeriod().getWorkStartDate() + task.getTaskWorkPeriod().getWorkStartHour() + task.getTaskWorkPeriod().getWorkStartMin() + task.getTaskWorkPeriod().getWorkStartDate() + task.getTaskWorkPeriod().getWorkEndHour() + task.getTaskWorkPeriod().getWorkEndMin());
+            System.out.println("-----------" + task.getExpectedDuration());
+            System.out.println("Workperiod Task da agenda:" + task.getTaskWorkPeriod().getWorkStartDate() + task.getTaskWorkPeriod().getWorkStartHour() + task.getTaskWorkPeriod().getWorkStartMin() + task.getTaskWorkPeriod().getWorkEndDate() + task.getTaskWorkPeriod().getWorkEndHour() + task.getTaskWorkPeriod().getWorkEndMin());
 
             newTask = Optional.of(task);
             operationSuccess = agenda.add(task);
@@ -144,14 +144,12 @@ public class AgendaRepository {
         for (Task task : agenda) {
             if (task.getTitle().trim().equalsIgnoreCase(title.trim()) && task.getStatus() == status && task.getTaskWorkPeriod().getWorkStartDate().toString().trim().equalsIgnoreCase(executionDate.trim()) && task.getGreenSpace().getName().trim().equalsIgnoreCase(greenSpaceName.trim())) {
                 System.out.println("-----------");
-                System.out.println("Workperiod Task da agenda:" + task.getTaskWorkPeriod().getWorkStartDate() + task.getTaskWorkPeriod().getWorkStartHour() + task.getTaskWorkPeriod().getWorkStartMin() + task.getTaskWorkPeriod().getWorkStartDate() + task.getTaskWorkPeriod().getWorkEndHour() + task.getTaskWorkPeriod().getWorkEndMin());
+                System.out.println("Workperiod Task da agenda:" + task.getTaskWorkPeriod().getWorkStartDate() + task.getTaskWorkPeriod().getWorkStartHour() + task.getTaskWorkPeriod().getWorkStartMin() + task.getTaskWorkPeriod().getWorkEndDate() + task.getTaskWorkPeriod().getWorkEndHour() + task.getTaskWorkPeriod().getWorkEndMin());
 
-                if (team.isAvailable(task.getTaskWorkPeriod())) {
-                    task.setTeamAssigned(team);
-                    team.addWorkPeriod(task.getTaskWorkPeriod());
+                    task.assignTeam(team);
                     assignedTask = Optional.of(task);
                     return assignedTask;
-                }
+
             }
         }
 

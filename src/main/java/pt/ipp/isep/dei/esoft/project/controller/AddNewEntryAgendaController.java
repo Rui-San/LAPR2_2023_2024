@@ -62,7 +62,7 @@ public class AddNewEntryAgendaController {
 
         if (greenSpaceOptional.isPresent()) {
             Task task = ToDoListMapper.toTask(toDoTaskDTO, greenSpaceOptional.get());
-
+            System.out.println("duracao " + task.getExpectedDuration().getTotalDurationMinutes());
             newTaskAgenda = agendaRepository.registerTaskAgenda(task, executionDate, workStartingDays, workStartingMinutes);
 
             if (newTaskAgenda.isPresent()) {

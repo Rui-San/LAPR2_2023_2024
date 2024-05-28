@@ -15,20 +15,20 @@ public class Task {
     private Status status;
     private GreenSpace greenSpace;
     private UrgencyType urgency;
-    private Duration expectedDuration;
+    private TaskDuration expectedDuration;
     private Team teamAssigned;
     private List<Vehicle> vehiclesAssigned;
     private WorkPeriod taskWorkPeriod;
 
 
-    public Task(String title, String description, TaskType taskType, GreenSpace greenSpace, UrgencyType urgency, Duration expectedDuration) {
+    public Task(String title, String description, TaskType taskType, GreenSpace greenSpace, UrgencyType urgency, int days, int hours, int minutes) {
         setTitle(title);
         setDescription(description);
         setTaskType(taskType);
         this.status = null;
         setGreenSpace(greenSpace);
         setUrgency(urgency);
-        setExpectedDuration(expectedDuration);
+        this.expectedDuration = new TaskDuration(days, hours, minutes);
         this.taskWorkPeriod = null;
         this.teamAssigned = null;
         this.vehiclesAssigned = new ArrayList<>();
@@ -155,17 +155,15 @@ public class Task {
 
      */
 
-    public Duration getExpectedDuration() {
+    public TaskDuration getExpectedDuration() {
         return expectedDuration;
     }
 
-    public void setTaskWorkPeriod(String executionDate, int workStartHour, int workStartMinutes, Duration expectedDuration) {
+    public void setTaskWorkPeriod(String executionDate, int workStartHour, int workStartMinutes, TaskDuration expectedDuration) {
         Date execDate = new Date(executionDate);
         if (execDate.isPastDate()) {
             throw new IllegalArgumentException("Execution date must be a future date.");
         }
-
-        validateDuration(expectedDuration);
 
         if (workStartHour < 0 || workStartMinutes < 0) {
             throw new IllegalArgumentException("Inputs cannot be negative integer");
@@ -179,13 +177,15 @@ public class Task {
 
     }
 
-    public void setExpectedDuration(Duration expectedDuration) {
-        validateDuration(expectedDuration);
+    public void setExpectedDuration(int days, int hours, int minutes) {
 
-        this.expectedDuration = expectedDuration;
+        this.expectedDuration = new TaskDuration(days, hours,minutes);
     }
+/*
+    private void validateDuration(int expectedDuration) {
 
-    private void validateDuration(Duration expectedDuration) {
+        if(expectedDuration < 0){
+
         long totalDays = expectedDuration.toDays();
         long remainingHours = (expectedDuration.toHours() % 24);
         long remainingMinutes = (expectedDuration.toMinutes() % 60);
@@ -204,6 +204,8 @@ public class Task {
             throw new IllegalArgumentException("At least one of the following must be higher than zero: days, hours, minutes");
         }
     }
+
+ */
 
     /*
         public Date getEndExecutionDate() {

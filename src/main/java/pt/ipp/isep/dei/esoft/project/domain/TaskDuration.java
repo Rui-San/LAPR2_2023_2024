@@ -1,17 +1,18 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
-public class Duration {
+public class TaskDuration {
     private int days;
     private int hours;
     private int minutes;
 
-    public Duration(int days, int hours, int minutes) {
+    public TaskDuration(int days, int hours, int minutes) {
         if(days == 0 && hours == 0 && minutes == 0){
             throw new IllegalArgumentException("At least one field must be filled");
         }
-        setDays(days);
-        setHours(hours);
-        setMinutes(minutes);
+        this.days = days;
+        this.hours = hours;
+        this.minutes = minutes;
+        this.totalDurationMinutes = days * 8 * 60 + hours * 60 + minutes;
     }
 
     public int getDays() {
@@ -19,13 +20,7 @@ public class Duration {
     }
 
     public void setDays(int days) {
-        validateDays(days);
         this.days = days;
-    }
-    private void validateDays(int days) {
-        if (days < 0) {
-            throw new IllegalArgumentException("Days must be a positive integer");
-        }
     }
 
     public int getHours() {
@@ -33,15 +28,7 @@ public class Duration {
     }
 
     public void setHours(int hours) {
-        validateHours(hours);
         this.hours = hours;
-    }
-
-
-    private void validateHours(int hours) {
-        if (hours < 0 || hours > 23) {
-            throw new IllegalArgumentException("Hours must be between 0 and 23");
-        }
     }
 
     public int getMinutes() {
@@ -49,16 +36,23 @@ public class Duration {
     }
 
     public void setMinutes(int minutes) {
-        validateMinutes(minutes);
         this.minutes = minutes;
     }
 
-    private void validateMinutes(int minutes) {
-        if (minutes < 0 || minutes > 59) {
-            throw new IllegalArgumentException("Minutes must be between 0 and 59");
-        }
+    public int getTotalDurationMinutes() {
+        return totalDurationMinutes;
     }
 
+    public void setTotalDurationMinutes(int totalDurationMinutes) {
+        this.totalDurationMinutes = totalDurationMinutes;
+    }
+
+    private int totalDurationMinutes;
+
+
+
+
+/*
     @Override
     public String toString() {
 
@@ -84,4 +78,6 @@ public class Duration {
 
         return formattedDuration.toString();
     }
+
+ */
 }
