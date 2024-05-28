@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.esoft.project.repository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.esoft.project.domain.*;
+import pt.ipp.isep.dei.esoft.project.tools.VehicleType;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,10 +22,10 @@ public class VehicleRepositoryTest {
     public void createData() {
         vehicleRepository = new VehicleRepository();
         vehicle = new Vehicle(
-                "AA-00-AA",
+                "AA-00-WW",
                 "Toyota",
                 "Corolla",
-                "Sedan",
+                VehicleType.PASSENGERS,
                 1500,
                 2000,
                 10000,
@@ -41,7 +42,19 @@ public class VehicleRepositoryTest {
     @Test
     public void testAddVehicle() {
 
-        Optional<Vehicle> addedVehicle = vehicleRepository.add(vehicle);
+        Vehicle vehicleToAdd = new Vehicle(
+                "AA-00-PP",
+                "Toyota",
+                "Corolla",
+                VehicleType.PASSENGERS,
+                1500,
+                2000,
+                10000,
+                "01/01/2023",
+                "01/05/2024",
+                5000
+        );
+        Optional<Vehicle> addedVehicle = vehicleRepository.add(vehicleToAdd);
 
         assertTrue(addedVehicle.isPresent());
     }
@@ -76,10 +89,10 @@ public class VehicleRepositoryTest {
     void testCreateVehicle() {
 
         Optional<Vehicle> addedVehicle = vehicleRepository.createVehicle(
-                "AA-00-AA",
+                "UU-00-AA",
                 "Toyota",
                 "Corolla",
-                "Sedan",
+                VehicleType.PASSENGERS,
                 1500,
                 2000,
                 10000,

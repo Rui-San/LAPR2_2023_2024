@@ -1,7 +1,9 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
 import pt.ipp.isep.dei.esoft.project._templateFiles.domain.Task;
+import pt.ipp.isep.dei.esoft.project.tools.VehicleType;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
@@ -25,7 +27,7 @@ public class Vehicle {
     /**
      * The type of the vehicle.
      */
-    private String type;
+    private VehicleType type;
 
     /**
      * The tare of the vehicle.
@@ -79,7 +81,7 @@ public class Vehicle {
      * Returns the type of the vehicle.
      * @return the type of the vehicle
      */
-    public String getType() { return type; }
+    public VehicleType getType() { return type; }
 
     /**
      * Returns the tare of the vehicle.
@@ -191,7 +193,7 @@ public class Vehicle {
      * Sets the type of the vehicle.
      * @param type the type of the vehicle
      */
-    public void setType(String type) {
+    public void setType(VehicleType type) {
 
         validateType(type);
         this.type = type;
@@ -201,11 +203,9 @@ public class Vehicle {
      * Validates the type of the vehicle.
      * @param type the type of the vehicle
      */
-    public void validateType(String type){
-        if (type == null || type.trim().isEmpty()) {
+    public void validateType(VehicleType type){
+        if (type == null) {
             throw new IllegalArgumentException("Type cannot be null or empty.");
-        }else if (!type.matches("^[\\p{L}0-9 -]+$")) {
-            throw new IllegalArgumentException("Type cannot contain special characters.");
         }
     }
 
@@ -297,6 +297,9 @@ public class Vehicle {
         }else if(registerDateYear <= 2020 && pattern3.matcher(getPlateId()).matches()){
             throw new IllegalArgumentException("Invalid date, with the plateID format AA-00-AA, the register date must be after 2020");
         }
+        if(new Date(registerDate).isAfter(new Date())){
+            throw new IllegalArgumentException("Register date cannot be after the current date.");
+        }
     }
 
     /**
@@ -316,6 +319,12 @@ public class Vehicle {
     public void validateAcquisitionDate(String acquisitionDate) {
         if (acquisitionDate == null) {
             throw new IllegalArgumentException("Acquisition date cannot be null.");
+        }
+        if(new Date(acquisitionDate).isAfter(new Date())){
+            throw new IllegalArgumentException("Acquisition date cannot be after the current date.");
+        }
+        if(new Date(acquisitionDate).isBefore(this.registerDate)){
+            throw new IllegalArgumentException("Acquisition date cannot be before the register date.");
         }
     }
 
@@ -342,7 +351,7 @@ public class Vehicle {
     /**
      * Creates an instance of Vehicle.
      */
-    public Vehicle(String plateId, String brand, String model, String type, double tare, double grossWeight, int currentKm, String registerDate, String acquisitionDate, int checkupFrequencyKms) {
+    public Vehicle(String plateId, String brand, String model, VehicleType type, double tare, double grossWeight, int currentKm, String registerDate, String acquisitionDate, int checkupFrequencyKms) {
         this.setPlateId(plateId);
         this.setBrand(brand);
         this.setModel(model);

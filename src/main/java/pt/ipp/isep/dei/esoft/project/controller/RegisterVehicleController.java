@@ -8,6 +8,7 @@ import pt.ipp.isep.dei.esoft.project.repository.CollaboratorRepository;
 import pt.ipp.isep.dei.esoft.project.repository.JobRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.repository.VehicleRepository;
+import pt.ipp.isep.dei.esoft.project.tools.VehicleType;
 
 import java.util.List;
 import java.util.Optional;
@@ -60,7 +61,7 @@ public class RegisterVehicleController {
     public Optional<Vehicle> createVehicle(String plateId, String brand, String model, String type, double tare, double grossWeight, int currentKm, String registerDate, String acquisitionDate, int checkupFrequencyKms) {
         Optional<Vehicle> newVehicle = Optional.empty();
 
-        newVehicle = getVehicleRepository().createVehicle(plateId, brand, model, type, tare, grossWeight, currentKm, registerDate, acquisitionDate, checkupFrequencyKms);
+        newVehicle = getVehicleRepository().createVehicle(plateId, brand, model, VehicleType.valueOf(type), tare, grossWeight, currentKm, registerDate, acquisitionDate, checkupFrequencyKms);
 
         return newVehicle;
     }

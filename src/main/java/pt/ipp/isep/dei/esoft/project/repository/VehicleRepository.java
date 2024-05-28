@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.domain.*;
+import pt.ipp.isep.dei.esoft.project.tools.VehicleType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,7 +81,7 @@ public class VehicleRepository {
      * @param checkupFrequencyKms The checkup frequency of the vehicle in KMs.
      * @return An optional with the created vehicle if the operation was successful, an empty optional otherwise.
      */
-    public Optional<Vehicle> createVehicle(String plateId, String brand, String model, String type, double tare, double grossWeight, int currentKm, String registerDate, String acquisitionDate, int checkupFrequencyKms) {
+    public Optional<Vehicle> createVehicle(String plateId, String brand, String model, VehicleType type, double tare, double grossWeight, int currentKm, String registerDate, String acquisitionDate, int checkupFrequencyKms) {
 
         Vehicle vehicle = new Vehicle(
                 plateId,

@@ -1,8 +1,10 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
 import pt.ipp.isep.dei.esoft.project.controller.RegisterVehicleController;
+import pt.ipp.isep.dei.esoft.project.domain.Job;
 import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
 import pt.ipp.isep.dei.esoft.project.domain.Date;
+import pt.ipp.isep.dei.esoft.project.tools.VehicleType;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
 import java.util.*;
@@ -103,7 +105,7 @@ public class RegisterVehicleUI implements Runnable {
         plateID = requestPlateID();
         model = requestModel();
         brand = requestBrand();
-        type = requestType();
+        type = showAndSelectType();
         tare = requestTare();
         grossWeight = requestGrossWeight(tare);
         currentKm = requestCurrentKm();
@@ -217,26 +219,30 @@ public class RegisterVehicleUI implements Runnable {
      *
      * @return the type
      */
-    private String requestType() {
+    private String showAndSelectType() {
+        System.out.println("\nList of vehicle type:");
+
+        int answer = 0;
         Scanner input = new Scanner(System.in);
-        boolean validInput = false;
-        String response = "";
-
-        while (!validInput) {
-            try {
-                System.out.print("\nType: ");
-                response = input.nextLine();
-
-                if (validateNotNullorEmpty(response)) {
-                    validInput = true;
-                } else {
-                    throw new IllegalArgumentException("Type must not be empty");
-                }
-            } catch (IllegalArgumentException e) {
-                System.out.println("Error: " + e.getMessage());
-            }
+        for(int i = 0; i < VehicleType.values().length; i++){
+            System.out.println((i+1) + " - " + VehicleType.values()[i]);
         }
-        return response;
+        while (answer < 1 || answer > VehicleType.values().length) {
+            System.out.print("\nSelect a type: ");
+            try {
+                answer = input.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Error: Please enter a valid Option.");
+                input.next();
+            }
+            if (answer < 1 || answer > VehicleType.values().length) {
+                System.out.println("Select an option from the list.");
+            }
+
+        }
+
+        VehicleType type = VehicleType.values()[answer - 1];
+        return type.toString();
     }
 
     /**
