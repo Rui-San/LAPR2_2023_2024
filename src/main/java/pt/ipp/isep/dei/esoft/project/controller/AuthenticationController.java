@@ -27,6 +27,8 @@ public class AuthenticationController {
      */
     public static final String ROLE_GSM = "GREEN SPACE MANAGER";
 
+    public static final String ROLE_COLLABORATOR = "COLLABORATOR";
+
 
     private final ApplicationSession applicationSession;
 

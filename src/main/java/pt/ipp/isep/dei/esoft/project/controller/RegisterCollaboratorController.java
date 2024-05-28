@@ -6,6 +6,8 @@ import pt.ipp.isep.dei.esoft.project.domain.Job;
 import pt.ipp.isep.dei.esoft.project.repository.CollaboratorRepository;
 import pt.ipp.isep.dei.esoft.project.repository.JobRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
+import pt.ipp.isep.dei.esoft.project.session.ApplicationSession;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -95,8 +97,12 @@ public class RegisterCollaboratorController {
     public Optional<Collaborator> createCollaborator(String name, String birthdate, String admissionDate, String street, int streetNumber, String postalCode, String city, String district, String email, String mobileNumber, IdDocType idDocType, String idDocNumber, Job job) {
 
         Optional<Collaborator> newCollaborator = Optional.empty();
-
         newCollaborator = collaboratorRepository.createCollaborator(name, birthdate, admissionDate, street, streetNumber, postalCode, city, district, email, mobileNumber, idDocType, idDocNumber, job);
+
+        if(newCollaborator.isPresent()){
+            ApplicationSession.getInstance().getAuthenticationRepository().addUserWithRole(
+                    name, email, "password", AuthenticationController.ROLE_COLLABORATOR);
+        }
 
         return newCollaborator;
     }
