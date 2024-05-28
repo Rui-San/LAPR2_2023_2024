@@ -101,6 +101,7 @@ public class AgendaUI implements Initializable {
                 TeamDTO selectedTeam = selectTeamPopupUI.getTeamSelected();
 
                 if (selectedTeam != null) {
+
                     if (assignTeamToEntryAgendaController.assignTeamToTaskAgenda(selectedTask, selectedTeam).isPresent()) {
                         lblError.setText("");
                         lblError.setVisible(false);
@@ -114,7 +115,10 @@ public class AgendaUI implements Initializable {
                     }
                 }
             } catch (IOException e) {
-                AlertUI.createAlert(Alert.AlertType.ERROR, "ERROR", "Add new entry to agenda", e.getMessage()).show();
+                AlertUI.createAlert(Alert.AlertType.ERROR, "ERROR", "An error occurred", e.getMessage()).show();
+
+            } catch (IllegalArgumentException exception){
+                AlertUI.createAlert(Alert.AlertType.ERROR, "ERROR", "Error assigning team to the task", exception.getMessage()).show();
 
             }
         }
