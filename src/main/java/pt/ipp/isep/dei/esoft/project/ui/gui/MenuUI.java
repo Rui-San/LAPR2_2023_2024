@@ -195,6 +195,7 @@ public class MenuUI implements Initializable {
 
     public void logout(){
         Stage stage = (Stage) contentArea.getScene().getWindow();
+        ApplicationSession.getInstance().getCurrentSession().doLogout();
         stage.close();
         setLoginPage();
         loginPage.show();
