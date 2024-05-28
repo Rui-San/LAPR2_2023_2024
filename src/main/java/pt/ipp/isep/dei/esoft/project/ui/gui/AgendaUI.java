@@ -149,7 +149,7 @@ public class AgendaUI implements Initializable {
 
                 List<VehicleDTO> selectedVehicles = selectVehiclesPopupUI.getVehiclesSelected();
 
-                if (!selectedVehicles.isEmpty()) {
+                if (selectedVehicles != null) {
 
                     if (assignVehiclesToEntryAgendaController.assignVehiclesToTaskAgenda(selectedTask, selectedVehicles).isPresent()) {
                         lblError.setText("");

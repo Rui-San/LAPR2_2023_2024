@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.controller.AssignVehiclesToEntryAgendaController;
 import pt.ipp.isep.dei.esoft.project.dto.VehicleDTO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SelectVehiclesPopupUI {
@@ -29,7 +30,7 @@ public class SelectVehiclesPopupUI {
 
     public void btnSelectVehicle() {
         List<VehicleDTO> selectedVehicles = tbVehicles.getSelectionModel().getSelectedItems();
-        if (!selectedVehicles.isEmpty()) {
+        if (selectedVehicles != null) {
             lblError.setText("");
             lblError.setVisible(false);
             vehiclesSelected = selectedVehicles;
