@@ -54,7 +54,7 @@ public class SelectTeamPopupUI {
 
     public void fillTeamTable() {
         tcCollaborator.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().namesToString()));
-        //tcSkills.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().skillsToString()));
+        tcSkills.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().skillsToString()));
 
         tbTeams.getItems().addAll(controller.getTeams());
     }

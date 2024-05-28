@@ -109,7 +109,7 @@ public class AgendaUI implements Initializable {
                         AlertUI.createAlert(Alert.AlertType.INFORMATION, "Assign Team to Task", "Confirmation of operation", "Team successfully assigned to task").show();
                         lblError.setVisible(false);
                     }else{
-                        AlertUI.createAlert(Alert.AlertType.ERROR, "ssign Team to Task", "Error occurred", "Not possible to assign this team to the task").show();
+                        AlertUI.createAlert(Alert.AlertType.ERROR, "Assign Team to Task", "Error occurred", "Not possible to assign this team to the task").show();
                         lblError.setVisible(false);
                     }
                 }
