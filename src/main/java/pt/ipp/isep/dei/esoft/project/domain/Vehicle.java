@@ -2,13 +2,14 @@ package pt.ipp.isep.dei.esoft.project.domain;
 
 import pt.ipp.isep.dei.esoft.project._templateFiles.domain.Task;
 import pt.ipp.isep.dei.esoft.project.tools.VehicleType;
+import pt.ipp.isep.dei.esoft.project.tools.WorkPeriodRemover;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-public class Vehicle {
+public class Vehicle implements WorkPeriodRemover {
 
     /**
      * The plate ID of the vehicle.
@@ -442,4 +443,16 @@ public class Vehicle {
         workPeriods.add(workPeriod);
     }
 
+    @Override
+    public void removeWorkPeriodIfExists(WorkPeriod taskWorkPeriod) {
+        int indexToRemove = -1;
+        for (int i = 0; i < workPeriods.size(); i++) {
+            if (workPeriods.get(i).matches(taskWorkPeriod)) {
+                indexToRemove = i;
+            }
+        }
+        if (indexToRemove != -1) {
+            workPeriods.remove(indexToRemove);
+        }
+    }
 }

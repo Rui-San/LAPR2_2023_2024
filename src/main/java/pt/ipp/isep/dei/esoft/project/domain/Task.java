@@ -192,6 +192,18 @@ public class Task {
 
     }
 
+    public void removeAssignedTeam(){
+        this.teamAssigned = null;
+    }
+
+    public void removeAssignedWorkPeriod(){
+        this.taskWorkPeriod = null;
+    }
+
+    public void removeAssignedVehicles(){
+        this.vehiclesAssigned = new ArrayList<>();
+    }
+
     public void setExpectedDuration(int days, int hours, int minutes) {
 
         this.expectedDuration = new TaskDuration(days, hours,minutes);

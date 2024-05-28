@@ -24,7 +24,7 @@ public class AgendaRepository {
         List<Task> managerSpecificAgenda = new ArrayList<>();
 
         for (Task task : agenda) {
-            if(task.getGreenSpace().getManager().trim().equalsIgnoreCase(managerEmail.trim())){
+            if (task.getGreenSpace().getManager().trim().equalsIgnoreCase(managerEmail.trim())) {
                 managerSpecificAgenda.add(task);
             }
         }
@@ -116,23 +116,26 @@ public class AgendaRepository {
 
         Optional<Task> updatedTask = Optional.empty();
 
-        System.out.println("Title parametro: " + title);
-        System.out.println("Green Space parametro: " + greenSpace);
-        System.out.println("Ex date parametro: " + executionDate);
-        System.out.println("Status do parametro: " + status);
-
         for (Task task : agenda) {
-            System.out.println("Task do for: " + task.getTitle());
-            System.out.println("Task do for: " + task.getGreenSpace().getName());
-            //System.out.println("Task do for: " + task.getExecutionDate());
-            System.out.println("Task do for: " + task.getStatus());
             if (task.getTitle().trim().equalsIgnoreCase(title.trim()) && task.getStatus() == status && task.getTaskWorkPeriod().getWorkStartDate().toString().trim().equalsIgnoreCase(executionDate.trim()) && task.getGreenSpace().getName().trim().equalsIgnoreCase(greenSpace.trim())) {
-
                 if (task.getStatus() == Status.PLANNED || task.getStatus() == Status.POSTPONED) {
+
 
                     task.setStatus(Status.CANCELED);
 
-                    System.out.println("Novo Status" + task.getStatus());
+                    if (task.getTeamAssigned() != null) {
+                        task.getTeamAssigned().removeWorkPeriodIfExists(task.getTaskWorkPeriod());
+                    }
+
+                    if (!task.getVehiclesAssigned().isEmpty()){
+                        for(Vehicle assignedVehicle : task.getVehiclesAssigned()){
+                            assignedVehicle.removeWorkPeriodIfExists(task.getTaskWorkPeriod());
+                        }
+                    }
+
+                    task.removeAssignedTeam();
+                    task.removeAssignedVehicles();
+                    task.removeAssignedWorkPeriod();
                     updatedTask = Optional.of(task);
                     return updatedTask;
                 }
@@ -165,7 +168,7 @@ public class AgendaRepository {
         return Optional.empty();
     }
 
-    public Optional<Task> assignVehiclesToTaskAgenda(String title, String greenSpaceName, String executionDate, Status status, List<Vehicle> vehicles){
+    public Optional<Task> assignVehiclesToTaskAgenda(String title, String greenSpaceName, String executionDate, Status status, List<Vehicle> vehicles) {
         Optional<Task> assignedTask;
         for (Task task : agenda) {
             if (task.getTitle().trim().equalsIgnoreCase(title.trim()) && task.getStatus() == status && task.getTaskWorkPeriod().getWorkStartDate().toString().trim().equalsIgnoreCase(executionDate.trim()) && task.getGreenSpace().getName().trim().equalsIgnoreCase(greenSpaceName.trim())) {
