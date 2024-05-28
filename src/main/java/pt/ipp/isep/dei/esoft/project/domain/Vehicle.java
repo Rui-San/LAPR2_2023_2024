@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.esoft.project.domain;
 import pt.ipp.isep.dei.esoft.project._templateFiles.domain.Task;
 import pt.ipp.isep.dei.esoft.project.tools.VehicleType;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.regex.Pattern;
@@ -58,6 +59,8 @@ public class Vehicle {
      * The checkup frequency kilometers of the vehicle.
      */
     private int checkupFrequencyKms;
+
+    private List<WorkPeriod> workPeriods;
 
     /**
      * Returns the plate ID of the vehicle.
@@ -362,6 +365,7 @@ public class Vehicle {
         this.setRegisterDate(registerDate);
         this.setAcquisitionDate(acquisitionDate);
         this.setCheckupFrequencyKms(checkupFrequencyKms);
+        this.workPeriods = new ArrayList<>();
     }
 
     /**
@@ -409,6 +413,11 @@ public class Vehicle {
                 this.acquisitionDate.clone().toString(),
                 this.checkupFrequencyKms
         );
+    }
+
+    // Add work period for assigned task
+    public void addWorkPeriod(WorkPeriod workPeriod) {
+        workPeriods.add(workPeriod);
     }
 
 }
