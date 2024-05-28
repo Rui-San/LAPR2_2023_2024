@@ -6,9 +6,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.controller.AuthenticationController;
@@ -37,6 +36,9 @@ public class AuthenticationUI implements Initializable {
     @FXML
     private PasswordField txtPassword;
 
+    @FXML
+    private Text lblError;
+
     public AuthenticationUI() {
         ctrl = new AuthenticationController();
     }
@@ -64,6 +66,18 @@ public class AuthenticationUI implements Initializable {
         }
     }
 
+    private void displayErrorLayout(Control controlObject, Text labelToShowError, String errorMessage) {
+        controlObject.setStyle("-fx-border-color: red");
+        labelToShowError.setVisible(true);
+        labelToShowError.setText(errorMessage);
+    }
+
+    private void clearLayoutErrors(Control controlObject, Text labelWithError) {
+        controlObject.setStyle("");
+        labelWithError.setVisible(false);
+        labelWithError.setText("");
+    }
+
     @FXML
     public void btnLoginAction() {
         boolean success = false;
@@ -89,6 +103,8 @@ public class AuthenticationUI implements Initializable {
                 }
             }
         }else{
+            displayErrorLayout(txtUsername, lblError, "Invalid username or password.");
+            displayErrorLayout(txtPassword, lblError, "Invalid username or password.");
             this.logout();
         }
     }
