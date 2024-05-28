@@ -50,8 +50,9 @@ public class AddNewEntryAgendaController {
         return toDoRepository;
     }
 
-    public List<ToDoTaskWithStatusDTO> getToDoDTOlist() {
-        List<Task> toDoTaskList = toDoRepository.getToDoList();
+    public List<ToDoTaskWithStatusDTO> getToDoDTOManagerlist() {
+        String managerEmail = Repositories.getInstance().getAuthenticationRepository().getCurrentUserSession().getUserId().getEmail();
+        List<Task> toDoTaskList = toDoRepository.getToDoManagerList(managerEmail);
         return ToDoListMapper.toDTOWithStatusList(toDoTaskList);
     }
 
