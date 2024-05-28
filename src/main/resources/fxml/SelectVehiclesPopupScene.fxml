@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="573.0" prefWidth="874.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.SelectVehiclePopupUI">
+<AnchorPane prefHeight="573.0" prefWidth="874.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.SelectVehiclesPopupUI">
    <children>
       <BorderPane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="573.0" prefWidth="874.0">
          <bottom>
@@ -47,7 +47,7 @@
          <top>
             <AnchorPane prefHeight="84.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                <children>
-                  <Text layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vehicles to Assign" textAlignment="CENTER" wrappingWidth="874.0">
+                  <Text layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vehicle to Assign" textAlignment="CENTER" wrappingWidth="874.0">
                      <font>
                         <Font name="Berlin Sans FB" size="28.0" />
                      </font>

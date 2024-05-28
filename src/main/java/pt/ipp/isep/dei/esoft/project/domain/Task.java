@@ -107,6 +107,21 @@ public class Task {
         }
     }
 
+    public void assignVehicles(List<Vehicle> vehicles) {
+        boolean allAvailable = true;
+        for (Vehicle vehicle : vehicles) {
+            if (!vehicle.isAvailable(this.taskWorkPeriod)) {
+                allAvailable = false;
+            }
+        }
+        if (allAvailable){
+            this.vehiclesAssigned.addAll(vehicles);
+            vehicles.forEach(vehicle -> vehicle.addWorkPeriod(this.taskWorkPeriod));
+        }else {
+            throw new IllegalArgumentException("One or more vehicles are not available for the given task period.");
+        }
+    }
+
     private boolean validateStatus(Status status) {
         return status == Status.DONE || status == Status.CANCELED || status == Status.PENDING || status == Status.PLANNED || status == Status.POSTPONED || status == Status.PROCESSED;
     }
@@ -233,9 +248,6 @@ public class Task {
         return urgency == UrgencyType.HIGH || urgency == UrgencyType.MEDIUM || urgency == UrgencyType.LOW;
     }
 
-    public void assignVehicles(List<Vehicle> selectedVehicles) {
-        this.vehiclesAssigned.addAll(selectedVehicles);
-    }
 /*
     public boolean isTeamAvailable(Team team, Date start, int startHour, int startMin, Duration expectedDuration) {
         return team.isAvailable(start, startHour, startMin, expectedDuration);

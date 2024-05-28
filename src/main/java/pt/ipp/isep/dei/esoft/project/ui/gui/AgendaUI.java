@@ -11,15 +11,18 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.controller.AgendaController;
 import pt.ipp.isep.dei.esoft.project.controller.AssignTeamToEntryAgendaController;
+import pt.ipp.isep.dei.esoft.project.controller.AssignVehiclesToEntryAgendaController;
 import pt.ipp.isep.dei.esoft.project.controller.CancelEntryAgendaController;
 import pt.ipp.isep.dei.esoft.project.domain.Team;
 import pt.ipp.isep.dei.esoft.project.dto.AgendaTaskDTO;
 import pt.ipp.isep.dei.esoft.project.dto.TeamDTO;
 import pt.ipp.isep.dei.esoft.project.dto.ToDoTaskWithStatusDTO;
+import pt.ipp.isep.dei.esoft.project.dto.VehicleDTO;
 import pt.ipp.isep.dei.esoft.project.tools.Status;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class AgendaUI implements Initializable {
@@ -29,6 +32,8 @@ public class AgendaUI implements Initializable {
     private final CancelEntryAgendaController cancelEntryAgendaController = new CancelEntryAgendaController();
 
     private final AssignTeamToEntryAgendaController assignTeamToEntryAgendaController = new AssignTeamToEntryAgendaController();
+
+    private final AssignVehiclesToEntryAgendaController assignVehiclesToEntryAgendaController = new AssignVehiclesToEntryAgendaController();
 
     @FXML
     private TableView<AgendaTaskDTO> tbTasks;
@@ -119,6 +124,50 @@ public class AgendaUI implements Initializable {
 
             } catch (IllegalArgumentException exception){
                 AlertUI.createAlert(Alert.AlertType.ERROR, "ERROR", "Error assigning team to the task", exception.getMessage()).show();
+
+            }
+        }
+    }
+
+    @FXML
+    private void btnAssignVehicles(){
+        AgendaTaskDTO selectedTask = tbTasks.getSelectionModel().getSelectedItem();
+
+        if (validateSelectedTask(selectedTask)) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/SelectVehiclesPopupScene.fxml"));
+            Parent root;
+            try {
+                root = loader.load();
+                SelectVehiclesPopupUI selectVehiclesPopupUI = loader.getController();
+                selectVehiclesPopupUI.fillVehicleTable();
+                Stage stage = new Stage();
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setScene(new Scene(root));
+
+                stage.showAndWait();
+
+
+                List<VehicleDTO> selectedVehicles = selectVehiclesPopupUI.getVehiclesSelected();
+
+                if (!selectedVehicles.isEmpty()) {
+
+                    if (assignVehiclesToEntryAgendaController.assignVehiclesToTaskAgenda(selectedTask, selectedVehicles).isPresent()) {
+                        lblError.setText("");
+                        lblError.setVisible(false);
+                        updateTableView();
+
+                        AlertUI.createAlert(Alert.AlertType.INFORMATION, "Assign Vehicle to Task", "Confirmation of operation", "Vehicle successfully assigned to task").show();
+                        lblError.setVisible(false);
+                    }else{
+                        AlertUI.createAlert(Alert.AlertType.ERROR, "Assign Vehicle to Task", "Error occurred", "Not possible to assign one or more selected vehicles to the task").show();
+                        lblError.setVisible(false);
+                    }
+                }
+            } catch (IOException e) {
+                AlertUI.createAlert(Alert.AlertType.ERROR, "ERROR", "An error occurred", e.getMessage()).show();
+
+            } catch (IllegalArgumentException exception){
+                AlertUI.createAlert(Alert.AlertType.ERROR, "ERROR", "Error assigning vehicles to the task", exception.getMessage()).show();
 
             }
         }
