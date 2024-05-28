@@ -90,12 +90,15 @@ public class AgendaUI implements Initializable {
             try {
                 root = loader.load();
                 SelectTeamPopupUI selectTeamPopupUI = loader.getController();
+                selectTeamPopupUI.fillTeamTable();
                 Stage stage = new Stage();
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.setScene(new Scene(root));
+
                 stage.showAndWait();
 
-                Team selectedTeam = selectTeamPopupUI.getTeamSelected();
+
+                TeamDTO selectedTeam = selectTeamPopupUI.getTeamSelected();
 
                 if (selectedTeam != null) {
                     if (assignTeamToEntryAgendaController.assignTeamToTaskAgenda(selectedTask, selectedTeam).isPresent()) {
@@ -106,7 +109,7 @@ public class AgendaUI implements Initializable {
                         AlertUI.createAlert(Alert.AlertType.INFORMATION, "Assign Team to Task", "Confirmation of operation", "Team successfully assigned to task").show();
                         lblError.setVisible(false);
                     }else{
-                        AlertUI.createAlert(Alert.AlertType.ERROR, "ssign Team to Task", "Error occurred", "Not possible to assign this team to the task").show();
+                        AlertUI.createAlert(Alert.AlertType.ERROR, "Assign Team to Task", "Error occurred", "Not possible to assign this team to the task").show();
                         lblError.setVisible(false);
                     }
                 }

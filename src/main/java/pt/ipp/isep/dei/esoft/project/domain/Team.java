@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,6 +22,7 @@ public class Team {
      */
     public Team(List<Collaborator> members) {
         this.members = members;
+        this.workPeriods = new ArrayList<>();
     }
 
     /**
@@ -77,6 +79,15 @@ public class Team {
     }
 
     public boolean isAvailable(WorkPeriod taskWorkPeriod) {
+        System.out.println();
+        for(WorkPeriod wr : workPeriods){
+            System.out.println(workPeriods);
+        }
+
+        if (this.workPeriods.isEmpty()) {
+            return true;
+        }
+
         for (WorkPeriod workPeriod : workPeriods) {
             if (workPeriod.overlapsWith(taskWorkPeriod)) {
                 return false;

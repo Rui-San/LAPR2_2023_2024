@@ -32,7 +32,7 @@ public class InsertDatePopupUI {
             if(validateTime()){
                 workStartingHours = txtHours.getText().trim().isEmpty() ? 0 : Integer.parseInt(txtHours.getText().trim());
                 workStartingMinutes = txtMins.getText().trim().isEmpty() ? 0 : Integer.parseInt(txtMins.getText().trim());
-                encerrarUI();
+                closeUI();
             }
         }
 
@@ -86,10 +86,10 @@ public class InsertDatePopupUI {
 
     @FXML
     private void btnCancelAction() {
-        encerrarUI();
+        closeUI();
     }
 
-    private void encerrarUI() {
+    private void closeUI() {
         clearLayoutErrors(dpExecutionDate, lblExecutionDateError);
         Stage stage = (Stage) dpExecutionDate.getScene().getWindow();
         stage.close();

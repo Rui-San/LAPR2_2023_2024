@@ -87,17 +87,17 @@ public class WorkPeriod {
     }
 
     public boolean overlapsWith(WorkPeriod other) {
-        // Check if this period overlaps with another period
-        boolean startBeforeOtherEnds = this.workEndDate.isBefore(other.workEndDate) ||
-                (this.workEndDate.equals(other.workEndDate) &&
-                        (this.workEndHour < other.workEndHour ||
-                                (this.workEndHour == other.workEndHour && this.workEndMin <= other.workEndMin)));
-        boolean endAfterOtherStarts = this.workStartDate.isAfter(other.workStartDate) ||
-                (this.workStartDate.equals(other.workStartDate) &&
-                        (this.workStartHour > other.workStartHour ||
-                                (this.workStartHour == other.workStartHour && this.workStartMin >= other.workStartMin)));
+        boolean startsDuringOther = this.workStartDate.isBefore(other.workEndDate) ||
+                (this.workStartDate.equals(other.workEndDate) &&
+                        (this.workStartHour < other.workEndHour ||
+                                (this.workStartHour == other.workEndHour && this.workStartMin < other.workEndMin)));
 
-        return startBeforeOtherEnds && endAfterOtherStarts;
+        boolean endsDuringOther = this.workEndDate.isAfter(other.workStartDate) ||
+                (this.workEndDate.equals(other.workStartDate) &&
+                        (this.workEndHour > other.workStartHour ||
+                                (this.workEndHour == other.workStartHour && this.workEndMin > other.workStartMin)));
+
+        return startsDuringOther && endsDuringOther;
     }
 
 
