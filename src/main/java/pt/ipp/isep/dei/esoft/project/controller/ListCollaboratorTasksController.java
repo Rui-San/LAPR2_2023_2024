@@ -41,7 +41,7 @@ public class ListCollaboratorTasksController {
             Task b = (Task) a;
 
             //checks if the task is between the selected dates
-            if (isDateBetween(b.getExecutionDate(), initialDate, finalDate)) {
+            if (isDateBetween(b.getTaskWorkPeriod().getWorkEndDate(), initialDate, finalDate)) {
                 agenda.add((Task) a);
             }
             agenda.add((Task) a);

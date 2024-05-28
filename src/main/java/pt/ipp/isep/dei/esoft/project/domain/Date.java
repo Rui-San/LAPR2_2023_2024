@@ -3,7 +3,7 @@ package pt.ipp.isep.dei.esoft.project.domain;
 import pt.ipp.isep.dei.esoft.project.tools.ValidationAttributeResults;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 
 /**
  * to create variables that represent a date in day/month/year
@@ -342,16 +342,5 @@ public class Date implements Comparable<Date>, Cloneable {
         );
         return clone;
     }
-/*
-    public Date addDays(int days) {
-        LocalDate localDate = LocalDate.of(this.year, this.month, this.day).plusDays(days);
-        return new Date(String.format("%02d/%02d/%d", localDate.getDayOfMonth(), localDate.getMonthValue(), localDate.getYear()));
-    }
 
-    public Date addMinutes(int minutes) {
-        LocalDateTime localDateTime = LocalDateTime.of(this.year, this.month, this.day, 0, 0).plusMinutes(minutes);
-        return new Date(String.format("%02d/%02d/%d", localDateTime.getDayOfMonth(), localDateTime.getMonthValue(), localDateTime.getYear()));
-    }
-
- */
 }

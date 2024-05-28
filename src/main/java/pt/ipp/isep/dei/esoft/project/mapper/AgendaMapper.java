@@ -33,7 +33,9 @@ public class AgendaMapper {
                 agendaTask.getGreenSpace().getName(),
                 agendaTask.getUrgency(),
                 agendaTask.getExpectedDuration(),
-                agendaTask.getExecutionDate().toString(),
+                agendaTask.getTaskWorkPeriod().getWorkStartDate().toString(),
+                agendaTask.getTaskWorkPeriod().getWorkStartHour(),
+                agendaTask.getTaskWorkPeriod().getWorkStartMin(),
                 agendaTask.getStatus(),
                 isTeamAssigned,
                 agendaTask.getVehiclesAssigned().size()

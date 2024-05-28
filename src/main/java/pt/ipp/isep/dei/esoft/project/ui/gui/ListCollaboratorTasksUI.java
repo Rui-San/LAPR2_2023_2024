@@ -76,7 +76,7 @@ public class ListCollaboratorTasksUI implements Initializable {
         status.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStatus().toString()));
         urgency.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getUrgency().toString()));
         greenSpace.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getGreenSpace().toString()));
-        executionDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getExecutionDate().toString()));
+        executionDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTaskWorkPeriod().getWorkStartDate().toString()));
         expectedDuration.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getExpectedDuration().toString()));
 
         showData();

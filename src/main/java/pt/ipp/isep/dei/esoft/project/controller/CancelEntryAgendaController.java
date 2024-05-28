@@ -32,6 +32,6 @@ public class CancelEntryAgendaController {
 
     public Optional<Task> cancelTaskAgenda(AgendaTaskDTO agendaTaskDTO) {
 
-        return agendaRepository.updateTaskToCanceled(agendaTaskDTO.title, agendaTaskDTO.greenSpaceName, agendaTaskDTO.executionDate, agendaTaskDTO.status);
+        return agendaRepository.updateTaskToCanceled(agendaTaskDTO.title, agendaTaskDTO.greenSpaceName, agendaTaskDTO.workStartDate, agendaTaskDTO.status);
     }
 }

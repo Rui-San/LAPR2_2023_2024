@@ -30,6 +30,16 @@ public class TeamRepository {
         return teamList;
     }
 
+
+    public Team getTeamByTeamMembers(List<Collaborator> members){
+        for (Team team : teamList){
+            if (team.getMembers().containsAll(members)){
+                return team;
+            }
+        }
+        return null;
+    }
+
     /**
      * Generates a list with all possible teams with the given inputs.
      *

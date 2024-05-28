@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="150.0" maxWidth="300.0" minHeight="150.0" minWidth="300.0" prefHeight="150.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.InsertDatePopupUI">
+<AnchorPane maxHeight="300.0" maxWidth="300.0" minHeight="150.0" minWidth="300.0" prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.InsertDatePopupUI">
    <children>
       <Group layoutX="-436.0" layoutY="-27.0">
          <children>
@@ -20,12 +20,25 @@
             </Label>
          </children>
       </Group>
-        <Button layoutX="168.0" layoutY="115.0" onAction="#btnConfirmDate" prefHeight="25.0" prefWidth="63.0" text="Confirm" />
-      <Text layoutX="61.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Execution date for this entry">
+        <Button layoutX="159.0" layoutY="226.0" onAction="#btnConfirmData" prefHeight="25.0" prefWidth="63.0" text="Confirm" />
+      <Text layoutX="68.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add task to Agenda inputs">
          <font>
             <Font size="14.0" />
          </font>
       </Text>
-      <Button layoutX="85.0" layoutY="115.0" onAction="#btnCancelAction" prefHeight="25.0" prefWidth="63.0" text="Cancel" />
+      <Button layoutX="77.0" layoutY="226.0" onAction="#btnCancelAction" prefHeight="25.0" prefWidth="63.0" text="Cancel" />
+      <TextField fx:id="txtHours" layoutX="69.0" layoutY="150.0" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="70.0" promptText="hours" styleClass="form-input" />
+      <TextField fx:id="txtMins" layoutX="160.0" layoutY="150.0" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="70.0" promptText="mins" styleClass="form-input" />
+      <Label alignment="CENTER" layoutX="140.0" layoutY="149.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="19.0" text=":" textAlignment="CENTER">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Label layoutX="104.0" layoutY="131.0" text="Task starting time" />
+      <Label fx:id="lblTimeError" alignment="TOP_LEFT" layoutX="66.0" layoutY="186.0" prefHeight="16.0" prefWidth="165.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
