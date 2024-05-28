@@ -37,8 +37,8 @@
                         <TableColumn fx:id="tcType" prefWidth="114.0" text="Type" />
                         <TableColumn fx:id="tcStatus" prefWidth="110.0" text="Status" />
                         <TableColumn fx:id="tcUrgency" prefWidth="122.0" text="Urgency" />
-                        <TableColumn fx:id="tcTeamsAssigned" prefWidth="137.0" text="Teams Assigned" />
-                        <TableColumn fx:id="tcVehiclesAssigned" prefWidth="139.0" text="Vehicles Assigned" />
+                        <TableColumn fx:id="tcTeamsAssigned" prefWidth="137.0" text="Team Assigned" />
+                        <TableColumn fx:id="tcVehiclesAssigned" prefWidth="139.0" text="Nº Vehicles Assigned" />
                     </columns>
                     <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
