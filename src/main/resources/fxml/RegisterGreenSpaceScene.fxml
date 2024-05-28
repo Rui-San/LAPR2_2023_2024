@@ -30,6 +30,7 @@
             </Label>
             <Label alignment="TOP_LEFT" layoutX="70.0" layoutY="70.0" prefHeight="17.0" prefWidth="350.0" text="Area" />
             <TextField fx:id="txtArea" layoutX="70.0" layoutY="85.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" prefWidth="350.0" promptText="Area" styleClass="form-input" />
+            <Text fill="#3c3c3c" layoutX="355.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hectares" textAlignment="RIGHT" wrappingWidth="54.048828125" />
          </children>
       </Group>
       <Group layoutX="-374.0" layoutY="109.0">
