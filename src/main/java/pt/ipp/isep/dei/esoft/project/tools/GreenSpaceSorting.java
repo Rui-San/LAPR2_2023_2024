@@ -9,7 +9,7 @@ public class GreenSpaceSorting {
 
     private enum SortingAlgorithm {
         BubbleSort,
-        SelectionSort,
+        SelectionSort
     }
 
     public static List<GreenSpace> sort(List<GreenSpace> listToSort){
