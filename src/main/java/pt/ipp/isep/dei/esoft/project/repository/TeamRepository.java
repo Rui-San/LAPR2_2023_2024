@@ -4,6 +4,7 @@ import pt.ipp.isep.dei.esoft.project.domain.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Team Repository class
@@ -275,4 +276,16 @@ public class TeamRepository {
         teamList.add(teamAccepted);
     }
 
+    public void removeWorkPeriod(Task canceledTask) {
+        WorkPeriod taskWorkPeriod = canceledTask.getTaskWorkPeriod();
+        String emailToVerify = canceledTask.getTeamAssigned().getMembers().get(0).getEmail().getEmail().trim();
+
+        for(Team team : teamList){
+            for(Collaborator collaborator : team.getMembers()){
+                if(collaborator.getEmail().getEmail().trim().equalsIgnoreCase(emailToVerify)){
+                    team.removeWorkPeriodIfExists(taskWorkPeriod);
+                }
+            }
+        }
+    }
 }

@@ -120,9 +120,10 @@ public class AgendaRepository {
             if (task.getTitle().trim().equalsIgnoreCase(title.trim()) && task.getStatus() == status && task.getTaskWorkPeriod().getWorkStartDate().toString().trim().equalsIgnoreCase(executionDate.trim()) && task.getGreenSpace().getName().trim().equalsIgnoreCase(greenSpace.trim())) {
                 if (task.getStatus() == Status.PLANNED || task.getStatus() == Status.POSTPONED) {
 
-
                     task.setStatus(Status.CANCELED);
+                    updatedTask = Optional.of(task);
 
+                    /*
                     if (task.getTeamAssigned() != null) {
                         task.getTeamAssigned().removeWorkPeriodIfExists(task.getTaskWorkPeriod());
                     }
@@ -132,11 +133,12 @@ public class AgendaRepository {
                             assignedVehicle.removeWorkPeriodIfExists(task.getTaskWorkPeriod());
                         }
                     }
+                */
 
                     task.removeAssignedTeam();
                     task.removeAssignedVehicles();
                     task.removeAssignedWorkPeriod();
-                    updatedTask = Optional.of(task);
+
                     return updatedTask;
                 }
 
