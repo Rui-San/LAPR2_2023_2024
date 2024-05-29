@@ -1,7 +1,10 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.domain.Job;
+import pt.ipp.isep.dei.esoft.project.tools.SerializationFiles;
+import pt.ipp.isep.dei.esoft.project.tools.SerializationUtils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -9,7 +12,7 @@ import java.util.Optional;
 /**
  * Job Repository class
  */
-public class JobRepository {
+public class JobRepository implements Serializable {
 
     /**
      * List to store all the jobs.
@@ -37,6 +40,8 @@ public class JobRepository {
         if (validateJob(job)) {
             newJob = Optional.of(job.clone());
             operationSuccess = jobList.add(newJob.get());
+            SerializationUtils.saveToFile(jobList, SerializationFiles.JOB_DATABASE);
+
         }
 
         if (!operationSuccess) {

@@ -2,12 +2,13 @@ package pt.ipp.isep.dei.esoft.project.domain;
 
 import pt.ipp.isep.dei.esoft.project.tools.ValidationAttributeResults;
 
+import java.io.Serializable;
 import java.util.regex.Pattern;
 
 /**
  * Represents a Job object containing the job name.
  */
-public class Job implements Cloneable{
+public class Job implements Cloneable, Serializable {
     /**
      * The name of the job.
      */

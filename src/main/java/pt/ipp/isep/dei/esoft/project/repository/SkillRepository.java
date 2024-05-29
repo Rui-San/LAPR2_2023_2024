@@ -1,7 +1,10 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
+import pt.ipp.isep.dei.esoft.project.tools.SerializationFiles;
+import pt.ipp.isep.dei.esoft.project.tools.SerializationUtils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -9,7 +12,7 @@ import java.util.Optional;
 /**
  * Skill Repository class
  */
-public class SkillRepository {
+public class SkillRepository implements Serializable {
     /**
      * List to store all the skills.
      */
@@ -36,6 +39,7 @@ public class SkillRepository {
         if (validateSkill(skill)) {
             newSkill = Optional.of(skill.clone());
             operationSuccess = skillList.add(newSkill.get());
+            SerializationUtils.saveToFile(skillList, SerializationFiles.SKILL_DATABASE);
         }
 
         if (!operationSuccess) {
