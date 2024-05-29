@@ -2,7 +2,12 @@ package pt.ipp.isep.dei.esoft.project.controller;
 
 import pt.ipp.isep.dei.esoft.project.domain.Date;
 import pt.ipp.isep.dei.esoft.project.domain.Task;
+import pt.ipp.isep.dei.esoft.project.dto.AgendaTaskDTO;
+import pt.ipp.isep.dei.esoft.project.mapper.AgendaMapper;
+import pt.ipp.isep.dei.esoft.project.mapper.TeamMapper;
 import pt.ipp.isep.dei.esoft.project.repository.AgendaRepository;
+import pt.ipp.isep.dei.esoft.project.repository.Repositories;
+import pt.ipp.isep.dei.esoft.project.session.ApplicationSession;
 import pt.ipp.isep.dei.esoft.project.tools.Sorting;
 
 
@@ -16,39 +21,24 @@ public class ListCollaboratorTasksController {
     private String status;
     private String collaboratorName;
 
-    public ListCollaboratorTasksController(Date initialDate, Date finalDate){
-        this.initialDate = initialDate;
-        this.finalDate = finalDate;
+    private AgendaRepository agendaRepository;
+
+    public AgendaRepository getAgendaRepository() {
+        return agendaRepository;
+    }
+
+    public ListCollaboratorTasksController(){
+        agendaRepository = Repositories.getInstance().getAgendaRepository();
     }
 
     /**
      * @return sorted tasks assigned to the collaborator between two selected dates
      */
 
-    public List<Task> getTasks() {
+    public List<AgendaTaskDTO> getCollaboratorTasks() {
 
-        //TODO - make the showing of the tasks only related to the user
-
-        List<Task> agenda = new AgendaRepository().getAgenda();
-        List<Object> tasks = new ArrayList<>(agenda);
-
-        Sorting sorting = new Sorting(tasks);
-        sorting.setColumnToSort(6);
-        sorting.sort();
-
-        agenda.clear();
-        for (Object a : tasks) {
-            Task b = (Task) a;
-
-            //checks if the task is between the selected dates
-            if (isDateBetween(b.getTaskWorkPeriod().getWorkEndDate(), initialDate, finalDate)) {
-                agenda.add((Task) a);
-            }
-            agenda.add((Task) a);
-        }
-
-        return agenda;
-
+        List<Task> collaboratorTasks = getAgendaRepository().getManagerSpecificAgenda(ApplicationSession.getInstance().getCurrentSession().getUserId().getEmail());
+        return AgendaMapper.toDTOlist(collaboratorTasks);
     }
 
     /**

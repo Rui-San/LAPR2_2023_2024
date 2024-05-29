@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -14,6 +15,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import pt.ipp.isep.dei.esoft.project.domain.Task;
+import pt.ipp.isep.dei.esoft.project.dto.AgendaTaskDTO;
 
 public class ListCollaboratorTasksUI implements Initializable {
 
@@ -21,22 +23,10 @@ public class ListCollaboratorTasksUI implements Initializable {
 
     //Table showing the tasks
     @FXML
-    private TableView<Task> tasks;
+    private TableView<AgendaTaskDTO> taskTable;
 
     @FXML
-    private TableColumn<Task, String> title;
-    @FXML
-    private TableColumn<Task, String> taskType;
-    @FXML
-    private TableColumn<Task, String> status;
-    @FXML
-    private TableColumn<Task, String> urgency;
-    @FXML
-    private TableColumn<Task, String> greenSpace;
-    @FXML
-    private TableColumn<Task, String> executionDate;
-    @FXML
-    private TableColumn<Task, String> expectedDuration;
+    private TableColumn<AgendaTaskDTO, String> title, taskType, status,urgency,greenSpace,executionDate, expectedDuration;
 
 
     @FXML
@@ -58,7 +48,7 @@ public class ListCollaboratorTasksUI implements Initializable {
     public ListCollaboratorTasksUI() {
         this.initialDate = new Date();
         this.finalDate = new Date();
-        controller = new ListCollaboratorTasksController(initialDate, finalDate);
+        controller = new ListCollaboratorTasksController();
     }
 
     /**
@@ -71,15 +61,15 @@ public class ListCollaboratorTasksUI implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        title.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTitle()));
-        taskType.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTaskType().toString()));
-        status.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStatus().toString()));
-        urgency.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getUrgency().toString()));
-        greenSpace.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getGreenSpace().toString()));
-        executionDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTaskWorkPeriod().getWorkStartDate().toString()));
-        expectedDuration.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getExpectedDuration().toString()));
+        title.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().title));
+        taskType.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().taskType.toString()));
+        status.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().status.toString()));
+        urgency.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().urgency.toString()));
+        greenSpace.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().greenSpaceName));
+        executionDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().workStartDate));
+        expectedDuration.setCellValueFactory(cellData -> new SimpleStringProperty(Integer.toString(cellData.getValue().expectedDuration)));
 
-        showData();
+        fillTaskList();
 
     }
 
@@ -88,18 +78,8 @@ public class ListCollaboratorTasksUI implements Initializable {
      */
 
     @FXML
-    private void showData(){
-        if (initialDatePicker.getValue() != null) {
-            initialDate = new Date(initialDatePicker.getValue().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-            getController().updateInitialDate(initialDate);
-        }
-
-        if (finalDatePicker.getValue() != null) {
-            finalDate = new Date(finalDatePicker.getValue().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-            getController().updateFinalDate(finalDate);
-        }
-
-        tasks.getItems().setAll(getController().getTasks());
+    private void fillTaskList(){
+        taskTable.getItems().addAll(controller.getCollaboratorTasks());
     }
 
     @FXML

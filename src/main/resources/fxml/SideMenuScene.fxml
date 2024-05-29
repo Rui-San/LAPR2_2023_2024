@@ -70,18 +70,14 @@
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#NewEntryToDo" text="Add task" />
                   <MenuItem mnemonicParsing="false" onAction="#NewEntryAgenda" text="Add task to agenda" />
-                  <MenuItem mnemonicParsing="false" onAction="#OpenAgenda" text="Agenda" />
-                  <MenuItem mnemonicParsing="false" onAction="#ListCollaboratorTasks" text="Your Tasks" />
+                  <MenuItem mnemonicParsing="false" onAction="#OpenAgenda" text="GSM Agenda" />
                </items>
             </MenuButton>
-            <MenuButton fx:id="mbAdmin" mnemonicParsing="false" popupSide="RIGHT" styleClass="menu-btn" text="Admin">
+            <Button fx:id="mbMyAgenda" mnemonicParsing="false" onAction="#ListCollaboratorTasks" styleClass="menu-btn" text="My Agenda">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
-               <items>
-                  <MenuItem mnemonicParsing="false" text="Register User" />
-               </items>
-            </MenuButton>
+            </Button>
             <BorderPane prefHeight="218.0" prefWidth="257.0" VBox.vgrow="ALWAYS">
                <bottom>
                   <Button mnemonicParsing="false" onAction="#logoutAction" text="Logout" BorderPane.alignment="CENTER">

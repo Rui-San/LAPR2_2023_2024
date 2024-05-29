@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Control;
 import javafx.scene.control.MenuButton;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -31,22 +32,22 @@ public class MenuUI implements Initializable {
     @FXML
     private VBox vbMenuButtonsHolder;
     @FXML
-    private MenuButton mbJobs, mbSkills, mbCollaborators, mbVehicles, mbTeams, mbGreenSpaces, mbTasks, mbAdmin;
+    private Control mbJobs, mbSkills, mbCollaborators, mbVehicles, mbTeams, mbGreenSpaces, mbTasks, mbLogout, mbMyAgenda;
 
-    private List<MenuButton> allOptions = new ArrayList<>();
+    private List<Control> allOptions = new ArrayList<>();
 
     private Stage loginPage;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        allOptions.addAll(List.of(mbJobs, mbSkills, mbCollaborators, mbVehicles, mbTeams, mbGreenSpaces, mbTasks, mbAdmin));
+        allOptions.addAll(List.of(mbJobs, mbSkills, mbCollaborators, mbVehicles, mbTeams, mbGreenSpaces, mbTasks, mbMyAgenda));
 
         UserSession session = ApplicationSession.getInstance().getCurrentSession();
         Email af = Repositories.getInstance().getAuthenticationRepository().getAuthenticationFacade().getCurrentUserSession().getUserId();
 
         System.out.println(af);
 
-        List<MenuButton> sessionOptions = new ArrayList<>();
+        List<Control> sessionOptions = new ArrayList<>();
 
         for (UserRoleDTO role : session.getUserRoles()) {
             switch (role.getId()) {
@@ -54,19 +55,23 @@ public class MenuUI implements Initializable {
                     sessionOptions.addAll(List.of(mbJobs, mbSkills, mbCollaborators, mbTeams));
                     break;
                 case "VEHICLE FLEET MANAGER":
-                    sessionOptions.addAll(List.of(mbVehicles));
+                    sessionOptions.add(mbVehicles);
                     break;
                 case "GREEN SPACE MANAGER":
                     sessionOptions.addAll(List.of(mbGreenSpaces, mbTasks));
                     break;
                 case "ADMINISTRATOR":
                     sessionOptions.addAll(allOptions);
+                    sessionOptions.remove(mbMyAgenda);
+                    break;
+                case "COLLABORATOR":
+                    sessionOptions.add(mbMyAgenda);
                     break;
             }
 
         }
 
-        for (MenuButton option : allOptions) {
+        for (Control option : allOptions) {
             if (!sessionOptions.contains(option)) {
                 vbMenuButtonsHolder.getChildren().remove(option);
             }

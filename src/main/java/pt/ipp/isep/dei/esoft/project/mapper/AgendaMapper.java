@@ -16,12 +16,14 @@ public class AgendaMapper {
 
     }
 
-    public static List<AgendaTaskDTO> toDTOlist(List<Task> agenda, TeamDTO teamDTO, List<VehicleDTO> vehicleDTOList) {
-        List<AgendaTaskDTO> agendaDTOS = new ArrayList<>();
-        for (Task agendaTask : agenda) {
-            agendaDTOS.add(toDTO(agendaTask, teamDTO, vehicleDTOList));
+    public static List<AgendaTaskDTO> toDTOlist(List<Task> agenda) {
+        List<AgendaTaskDTO> agendaTaskDTOList = new ArrayList<>();
+        for (Task task : agenda) {
+            TeamDTO teamDTO = TeamMapper.toDTO(CollaboratorMapper.toDTOlist(task.getTeamAssigned().getMembers()));
+            List<VehicleDTO> vehicleDTOList = VehicleMapper.toDTOList(task.getVehiclesAssigned());
+            agendaTaskDTOList.add(toDTO(task, teamDTO, vehicleDTOList));
         }
-        return agendaDTOS;
+        return agendaTaskDTOList;
     }
 
     public static AgendaTaskDTO toDTO(Task agendaTask, TeamDTO teamDTO, List<VehicleDTO> vehicleDTOList) {
