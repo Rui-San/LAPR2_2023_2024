@@ -172,13 +172,17 @@ public class AgendaRepository {
                     System.out.println("----------//-------");
                     if(task.getVehiclesAssigned().isEmpty()){
                         System.out.println("no vehicles on task now");
+                    }else{
+
+                        System.out.println("task still have veicles: " + task.getVehiclesAssigned().size());
                     }
-                    System.out.println("task still have veicles" + task.getVehiclesAssigned().size());
 
                     if(task.getTeamAssigned() == null){
                         System.out.println("no team on task now");
+                    }else{
+                        System.out.println("task still have team with size" + task.getTeamAssigned().getMembers().size());
+
                     }
-                    System.out.println("task still have team with size" + task.getTeamAssigned().getMembers().size());
                     System.out.println("----------//-------");
 
 
@@ -194,8 +198,9 @@ public class AgendaRepository {
         if(selectedTask != null){
             WorkPeriod oldWorkPeriod = selectedTask.getTaskWorkPeriod();
             for (Task task : agenda) {
-                if (task.equals(selectedTask)) {
+                if (task.getTitle().trim().equalsIgnoreCase(selectedTask.getTitle().trim()) && task.getStatus() == selectedTask.getStatus() && task.getTaskWorkPeriod().getWorkStartDate().toString().trim().equalsIgnoreCase(selectedTask.getTaskWorkPeriod().getWorkStartDate().toString().trim()) && task.getGreenSpace().getName().trim().equalsIgnoreCase(selectedTask.getGreenSpace().getName().trim())) {
                     task.setTaskWorkPeriod(newWorkPeriod);
+
                     System.out.println("Workperiod of the task postponed !");
                     return true;
                 }
