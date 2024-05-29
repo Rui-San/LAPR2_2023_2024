@@ -201,7 +201,7 @@ public class VehicleRepository {
         return null;
     }
 
-    public void removeWorkPeriod(Task canceledTask) {
+    public void removeWorkPeriodFromVehicle(Task canceledTask) {
         WorkPeriod taskWorkPeriod = canceledTask.getTaskWorkPeriod();
         List<String> vehiclePlateIds = new ArrayList<>();
 
@@ -219,7 +219,7 @@ public class VehicleRepository {
     }
 
     public void postponeWorkPeriods(Task postponedTask, WorkPeriod newWorkPeriod) {
-        removeWorkPeriod(postponedTask);
+        removeWorkPeriodFromVehicle(postponedTask);
         for (Vehicle vehicle : getVehicleList()) {
             if (postponedTask.getVehiclesAssigned().contains(vehicle)) {
                 vehicle.addWorkPeriod(newWorkPeriod);

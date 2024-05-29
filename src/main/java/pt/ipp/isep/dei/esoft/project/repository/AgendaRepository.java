@@ -142,29 +142,16 @@ public class AgendaRepository {
     }
 
 
-    public Optional<Task> updateTaskToCanceled(String title, String greenSpace, String executionDate, Status status) {
-
-        Optional<Task> updatedTask = Optional.empty();
-
+    public Task updateTaskToCanceled(String title, String greenSpace, String executionDate, Status status) {
         for (Task task : agenda) {
             if (task.getTitle().trim().equalsIgnoreCase(title.trim()) && task.getStatus() == status && task.getTaskWorkPeriod().getWorkStartDate().toString().trim().equalsIgnoreCase(executionDate.trim()) && task.getGreenSpace().getName().trim().equalsIgnoreCase(greenSpace.trim())) {
                 if (task.getStatus() == Status.PLANNED || task.getStatus() == Status.POSTPONED) {
 
                     task.setStatus(Status.CANCELED);
-                    updatedTask = Optional.of(task);
-                    System.out.println();
+                    Task copy = getCopy(task);
 
-                    /*
-                    if (task.getTeamAssigned() != null) {
-                        task.getTeamAssigned().removeWorkPeriodIfExists(task.getTaskWorkPeriod());
-                    }
-
-                    if (!task.getVehiclesAssigned().isEmpty()){
-                        for(Vehicle assignedVehicle : task.getVehiclesAssigned()){
-                            assignedVehicle.removeWorkPeriodIfExists(task.getTaskWorkPeriod());
-                        }
-                    }
-                */
+                    System.out.println(copy.getTeamAssigned().getMembers().size());
+                    System.out.println(copy.getTeamAssigned().getMembers().get(1).getName());
 
                     task.removeAssignedTeam();
                     task.removeAssignedVehicles();
@@ -186,12 +173,28 @@ public class AgendaRepository {
                     System.out.println("----------//-------");
 
 
-                    return updatedTask;
+                    return copy;
                 }
 
             }
         }
-        return Optional.empty();
+        return null;
+    }
+
+    private Task getCopy (Task task) {
+        Task copy = new Task(task.getTitle().trim(),
+                task.getDescription().trim(),
+                task.getTaskType(),
+                task.getGreenSpace(),
+                task.getUrgency(),
+                task.getExpectedDuration().getDays(),
+                task.getExpectedDuration().getHours(),
+                task.getExpectedDuration().getMinutes()
+                );
+        copy.setTeamAssigned(task.getTeamAssigned());
+        copy.setVehiclesAssigned(task.getVehiclesAssigned());
+        copy.setTaskWorkPeriod(task.getTaskWorkPeriod());
+        return copy;
     }
 
     public boolean postponeTaskAgenda(Task selectedTask, WorkPeriod newWorkPeriod) {

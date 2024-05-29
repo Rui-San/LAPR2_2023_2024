@@ -1,15 +1,14 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
-import pt.ipp.isep.dei.esoft.project.tools.WorkPeriodRemover;
 
-import java.time.Duration;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Represents a Team as a list of collaborators
  */
-public class Team implements WorkPeriodRemover {
+public class Team {
     /**
      * The list of members in the team.
      */
@@ -76,16 +75,20 @@ public class Team implements WorkPeriodRemover {
         return workPeriods;
     }
 
-    @Override
+
     public void removeWorkPeriodIfExists(WorkPeriod workPeriod) {
         int indexToRemove = -1;
         for (int i = 0; i < workPeriods.size(); i++) {
             if (workPeriods.get(i).matches(workPeriod)) {
                 indexToRemove = i;
+                System.out.println("Class TEAM : WorkPeriod encontrado e removido: " + workPeriods.get(i));
+
             }
         }
         if (indexToRemove != -1) {
             workPeriods.remove(indexToRemove);
+        }else{
+            System.out.println("Nenhum WorkPeriod correspondente encontrado para remover.");
         }
     }
 

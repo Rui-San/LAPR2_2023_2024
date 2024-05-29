@@ -88,10 +88,10 @@ public class WorkPeriod {
     }
 
     public boolean matches(WorkPeriod otherWorkPeriod) {
-        return (this.workStartDate.toString().trim().equalsIgnoreCase(otherWorkPeriod.workStartDate.toString().trim())
+        return (this.workStartDate.toString().trim().equals(otherWorkPeriod.workStartDate.toString().trim())
                 && this.workStartHour == otherWorkPeriod.workStartHour
                 && this.workStartMin == otherWorkPeriod.workStartMin
-                && this.workEndDate.toString().trim().equalsIgnoreCase(otherWorkPeriod.workEndDate.toString().trim())
+                && this.workEndDate.toString().trim().equals(otherWorkPeriod.workEndDate.toString().trim())
                 && this.workEndHour == otherWorkPeriod.workEndHour
                 && this.workEndMin == otherWorkPeriod.workEndMin);
 

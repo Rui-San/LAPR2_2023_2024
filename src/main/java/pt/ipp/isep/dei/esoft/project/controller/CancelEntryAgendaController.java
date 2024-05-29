@@ -66,16 +66,27 @@ public class CancelEntryAgendaController {
 
     public Optional<Task> cancelTaskAgenda(AgendaTaskDTO agendaTaskDTO) {
 
-        Optional<Task> canceledTask = agendaRepository.updateTaskToCanceled(agendaTaskDTO.title, agendaTaskDTO.greenSpaceName, agendaTaskDTO.workStartDate, agendaTaskDTO.status);
-        if (canceledTask.isPresent()) {
-            if(canceledTask.get().getTeamAssigned() != null){
-                teamRepository.removeWorkPeriod(canceledTask.get());
+        System.out.println("Iniciando cancelamento de tarefa...");
+
+        Task canceledTask = agendaRepository.updateTaskToCanceled(agendaTaskDTO.title, agendaTaskDTO.greenSpaceName, agendaTaskDTO.workStartDate, agendaTaskDTO.status);
+
+        if (canceledTask != null) {
+            System.out.println("Tarefa encontrada e status atualizado para CANCELED.");
+
+            if(canceledTask.getTeamAssigned() != null){
+                System.out.println("tamanho da equipa: " +canceledTask.getTeamAssigned().getMembers().size());
+                System.out.println("Removendo work period da equipe.");
+                teamRepository.removeWorkPeriodFromTeam(canceledTask);
             }
-            if(!canceledTask.get().getVehiclesAssigned().isEmpty()){
-                vehicleRepository.removeWorkPeriod(canceledTask.get());
+            if(!canceledTask.getVehiclesAssigned().isEmpty()){
+                System.out.println("Numero de veiculos dentro da task: " + canceledTask.getVehiclesAssigned().size());
+                System.out.println("Removendo work period dos veículos.");
+                vehicleRepository.removeWorkPeriodFromVehicle(canceledTask);
             }
-            return canceledTask;
+
+            return Optional.of(canceledTask);
         }else{
+            System.out.println("Tarefa não encontrada ou não pode ser cancelada.");
             return Optional.empty();
         }
     }

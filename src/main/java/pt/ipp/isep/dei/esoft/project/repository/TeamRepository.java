@@ -276,7 +276,7 @@ public class TeamRepository {
         teamList.add(teamAccepted);
     }
 
-    public void removeWorkPeriod(Task canceledTask) {
+    public void removeWorkPeriodFromTeam(Task canceledTask) {
         WorkPeriod taskWorkPeriod = canceledTask.getTaskWorkPeriod();
         String emailToVerify = canceledTask.getTeamAssigned().getMembers().get(0).getEmail().getEmail().trim();
 
@@ -290,7 +290,7 @@ public class TeamRepository {
     }
 
     public void postponeWorkPeriods(Task postponedTask, WorkPeriod newWorkPeriod) {
-        removeWorkPeriod(postponedTask);
+        removeWorkPeriodFromTeam(postponedTask);
         for (Team team : teamList) {
             for (Collaborator collaborator : team.getMembers()) {
                 if (collaborator.getEmail().getEmail().trim().equalsIgnoreCase(postponedTask.getTeamAssigned().getMembers().get(0).getEmail().getEmail().trim())) {
