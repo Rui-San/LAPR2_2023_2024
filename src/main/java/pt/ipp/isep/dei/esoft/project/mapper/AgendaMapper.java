@@ -30,13 +30,6 @@ public class AgendaMapper {
             isTeamAssigned = "Yes";
         }
 
-        String workStartDate = "";
-        int workStartHour = 0, workStartMin = 0;
-        if (agendaTask.getTaskWorkPeriod() != null) {
-            workStartDate = agendaTask.getTaskWorkPeriod().getWorkStartDate().toString();
-            workStartHour = agendaTask.getTaskWorkPeriod().getWorkStartHour();
-            workStartMin = agendaTask.getTaskWorkPeriod().getWorkStartMin();
-        }
 
         return new AgendaTaskDTO(
                 agendaTask.getTitle(),
@@ -45,9 +38,9 @@ public class AgendaMapper {
                 agendaTask.getGreenSpace().getName(),
                 agendaTask.getUrgency(),
                 agendaTask.getExpectedDuration(),
-                workStartDate,
-                workStartHour,
-                workStartMin,
+                agendaTask.getTaskWorkPeriod().getWorkStartDate().toString().trim(),
+                agendaTask.getTaskWorkPeriod().getWorkStartHour(),
+                agendaTask.getTaskWorkPeriod().getWorkStartMin(),
                 agendaTask.getStatus(),
                 isTeamAssigned,
                 agendaTask.getVehiclesAssigned().size(),

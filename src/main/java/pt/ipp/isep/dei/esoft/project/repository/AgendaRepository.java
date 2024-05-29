@@ -142,6 +142,7 @@ public class AgendaRepository {
 
                     task.setStatus(Status.CANCELED);
                     updatedTask = Optional.of(task);
+                    System.out.println();
 
                     /*
                     if (task.getTeamAssigned() != null) {
@@ -157,7 +158,19 @@ public class AgendaRepository {
 
                     task.removeAssignedTeam();
                     task.removeAssignedVehicles();
-                    task.removeAssignedWorkPeriod();
+
+                    System.out.println("----------//-------");
+                    if(task.getVehiclesAssigned().isEmpty()){
+                        System.out.println("no vehicles on task now");
+                    }
+                    System.out.println("task still have veicles" + task.getVehiclesAssigned().size());
+
+                    if(task.getTeamAssigned() == null){
+                        System.out.println("no team on task now");
+                    }
+                    System.out.println("task still have team with size" + task.getTeamAssigned().getMembers().size());
+                    System.out.println("----------//-------");
+
 
                     return updatedTask;
                 }
