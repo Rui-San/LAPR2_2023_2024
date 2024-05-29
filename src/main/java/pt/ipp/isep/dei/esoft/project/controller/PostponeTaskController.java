@@ -51,6 +51,7 @@ public class PostponeTaskController {
 
         Task task = getAgendaRepository().getTask(selectedTask);
         WorkPeriod newWorkPeriod = new WorkPeriod(new Date(selectedDate),workStartingHours,workStartingMinutes,task.getExpectedDuration());
+        WorkPeriod oldWorkPeriod = task.getTaskWorkPeriod();
         boolean isTeamAvailableInNewPeriod = true;
         boolean areVehiclesAvailableInNewPeriod = true;
         boolean isTaskPostponed = false;
@@ -67,10 +68,10 @@ public class PostponeTaskController {
             isTaskPostponed = getAgendaRepository().postponeTaskAgenda(task, newWorkPeriod);
             if (isTaskPostponed) {
                 if (task.getTeamAssigned() != null) {
-                    teamRepository.postponeWorkPeriods(task, newWorkPeriod);
+                    teamRepository.postponeWorkPeriods(task, oldWorkPeriod, newWorkPeriod);
                 }
                 if (task.getVehiclesAssigned() != null) {
-                    vehicleRepository.postponeWorkPeriods(task, newWorkPeriod);
+                    vehicleRepository.postponeWorkPeriods(task, oldWorkPeriod, newWorkPeriod);
                 }
             }
         }

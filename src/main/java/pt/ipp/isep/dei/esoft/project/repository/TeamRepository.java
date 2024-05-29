@@ -276,21 +276,20 @@ public class TeamRepository {
         teamList.add(teamAccepted);
     }
 
-    public void removeWorkPeriodFromTeam(Task canceledTask) {
-        WorkPeriod taskWorkPeriod = canceledTask.getTaskWorkPeriod();
+    public void removeWorkPeriodFromTeam(Task canceledTask, WorkPeriod oldWorkPeriod) {
         String emailToVerify = canceledTask.getTeamAssigned().getMembers().get(0).getEmail().getEmail().trim();
 
         for(Team team : teamList){
             for(Collaborator collaborator : team.getMembers()){
                 if(collaborator.getEmail().getEmail().trim().equalsIgnoreCase(emailToVerify)){
-                    team.removeWorkPeriodIfExists(taskWorkPeriod);
+                    team.removeWorkPeriodIfExists(oldWorkPeriod);
                 }
             }
         }
     }
 
-    public void postponeWorkPeriods(Task postponedTask, WorkPeriod newWorkPeriod) {
-        removeWorkPeriodFromTeam(postponedTask);
+    public void postponeWorkPeriods(Task postponedTask, WorkPeriod oldWorkPeriod, WorkPeriod newWorkPeriod) {
+        removeWorkPeriodFromTeam(postponedTask, oldWorkPeriod);
         for (Team team : teamList) {
             for (Collaborator collaborator : team.getMembers()) {
                 if (collaborator.getEmail().getEmail().trim().equalsIgnoreCase(postponedTask.getTeamAssigned().getMembers().get(0).getEmail().getEmail().trim())) {

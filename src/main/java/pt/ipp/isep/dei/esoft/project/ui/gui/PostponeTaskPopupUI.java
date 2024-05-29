@@ -114,7 +114,7 @@ public class PostponeTaskPopupUI {
 
     private boolean validateExecutionDate() {
         try {
-            if (dpExecutionDate.getValue() == null) {
+            if (dpExecutionDate.getValue() == null){
                 displayErrorLayout(dpExecutionDate, lblExecutionDateError, "Execution date is empty");
                 return false;
             }

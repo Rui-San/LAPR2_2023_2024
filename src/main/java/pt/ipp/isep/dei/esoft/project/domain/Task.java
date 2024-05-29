@@ -275,4 +275,13 @@ public class Task {
 
  */
 
+    public Task clone(){
+        Task newTask = new Task(this.title, this.description, this.taskType, this.greenSpace, this.urgency, this.expectedDuration.getDays(), this.expectedDuration.getHours(), this.expectedDuration.getMinutes());
+        newTask.setStatus(this.status);
+        newTask.setTaskWorkPeriod(this.taskWorkPeriod);
+        newTask.setTeamAssigned(this.teamAssigned);
+        newTask.setVehiclesAssigned(this.vehiclesAssigned);
+        return newTask;
+    }
+
 }

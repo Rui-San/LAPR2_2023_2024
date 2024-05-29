@@ -201,8 +201,7 @@ public class VehicleRepository {
         return null;
     }
 
-    public void removeWorkPeriodFromVehicle(Task canceledTask) {
-        WorkPeriod taskWorkPeriod = canceledTask.getTaskWorkPeriod();
+    public void removeWorkPeriodFromVehicle(Task canceledTask, WorkPeriod oldWorkPeriod) {
         List<String> vehiclePlateIds = new ArrayList<>();
 
         for (Vehicle vehicle : canceledTask.getVehiclesAssigned()) {
@@ -212,14 +211,14 @@ public class VehicleRepository {
         for (Vehicle storedVehicle : vehicleList) {
             for (String plateId : vehiclePlateIds) {
                 if (storedVehicle.getPlateId().trim().equalsIgnoreCase(plateId)) {
-                    storedVehicle.removeWorkPeriodIfExists(taskWorkPeriod);
+                    storedVehicle.removeWorkPeriodIfExists(oldWorkPeriod);
                 }
             }
         }
     }
 
-    public void postponeWorkPeriods(Task postponedTask, WorkPeriod newWorkPeriod) {
-        removeWorkPeriodFromVehicle(postponedTask);
+    public void postponeWorkPeriods(Task postponedTask, WorkPeriod oldWorkPeriod, WorkPeriod newWorkPeriod) {
+        removeWorkPeriodFromVehicle(postponedTask, oldWorkPeriod);
         for (Vehicle vehicle : getVehicleList()) {
             if (postponedTask.getVehiclesAssigned().contains(vehicle)) {
                 vehicle.addWorkPeriod(newWorkPeriod);

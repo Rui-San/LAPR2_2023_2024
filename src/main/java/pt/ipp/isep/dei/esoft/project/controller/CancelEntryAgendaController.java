@@ -76,12 +76,12 @@ public class CancelEntryAgendaController {
             if(canceledTask.getTeamAssigned() != null){
                 System.out.println("tamanho da equipa: " +canceledTask.getTeamAssigned().getMembers().size());
                 System.out.println("Removendo work period da equipe.");
-                teamRepository.removeWorkPeriodFromTeam(canceledTask);
+                teamRepository.removeWorkPeriodFromTeam(canceledTask, canceledTask.getTaskWorkPeriod());
             }
             if(!canceledTask.getVehiclesAssigned().isEmpty()){
                 System.out.println("Numero de veiculos dentro da task: " + canceledTask.getVehiclesAssigned().size());
                 System.out.println("Removendo work period dos veículos.");
-                vehicleRepository.removeWorkPeriodFromVehicle(canceledTask);
+                vehicleRepository.removeWorkPeriodFromVehicle(canceledTask, canceledTask.getTaskWorkPeriod());
             }
 
             return Optional.of(canceledTask);
