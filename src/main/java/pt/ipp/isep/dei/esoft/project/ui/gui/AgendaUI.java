@@ -50,7 +50,7 @@ public class AgendaUI implements Initializable {
         tcType.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().taskType.toString()));
         tcStatus.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().status.toString()));
         tcUrgency.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().urgency.toString()));
-        tcTeamsAssigned.setCellValueFactory(cellData -> new SimpleStringProperty(Integer.toString(cellData.getValue().teamsAssigned)));
+        tcTeamsAssigned.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().isTeamAssigned));
         tcVehiclesAssigned.setCellValueFactory(cellData -> new SimpleStringProperty(Integer.toString(cellData.getValue().vehiclesAssigned)));
         fillTaskTable();
     }

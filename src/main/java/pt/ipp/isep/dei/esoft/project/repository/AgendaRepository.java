@@ -32,6 +32,26 @@ public class AgendaRepository {
         return managerSpecificAgenda;
     }
 
+    public List<Task> getCollbaboratorSpecificAgenda(String collaboratorEmail) {
+        List<Task> collaboratorSpecificAgenda = new ArrayList<>();
+
+        for (Task task : agenda) {
+            if (task.getTeamAssigned() != null) {
+                List<Collaborator> teamOnTask = task.getTeamAssigned().getMembers();
+
+                for(Collaborator collaborator : teamOnTask){
+                    if(collaborator.getEmail().getEmail().trim().equalsIgnoreCase(collaboratorEmail)){
+                        collaboratorSpecificAgenda.add(task);
+                    }
+                }
+
+            }
+        }
+
+
+        return collaboratorSpecificAgenda;
+    }
+
     public Optional<Task> add(Task task, String executionDate, int workStartingHours, int workStartingMinutes) {
 
         Optional<Task> newTask = Optional.empty();

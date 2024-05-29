@@ -8,6 +8,7 @@ import pt.ipp.isep.dei.esoft.project.dto.TeamDTO;
 import pt.ipp.isep.dei.esoft.project.mapper.AgendaMapper;
 import pt.ipp.isep.dei.esoft.project.mapper.CollaboratorMapper;
 import pt.ipp.isep.dei.esoft.project.mapper.TeamMapper;
+import pt.ipp.isep.dei.esoft.project.mapper.VehicleMapper;
 import pt.ipp.isep.dei.esoft.project.repository.AgendaRepository;
 import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
@@ -54,9 +55,17 @@ public class AssignTeamToEntryAgendaController {
         return agendaRepository;
     }
 
-    public List<AgendaTaskDTO> getAgenda() {
-        List<Task> agenda = agendaRepository.getAgenda();
-        return AgendaMapper.toDTOlist(agenda);
+    public List<AgendaTaskDTO> getAgendaTaskDTOManagerList() {
+        String managerEmail = Repositories.getInstance().getAuthenticationRepository().getCurrentUserSession().getUserId().getEmail();
+        List<Task> agendaTaskList = Repositories.getInstance().getAgendaRepository().getManagerSpecificAgenda(managerEmail);
+        List<AgendaTaskDTO> managerSpecificAgendaDTO = new ArrayList<>();
+
+        for (Task agendaTask : agendaTaskList) {
+            managerSpecificAgendaDTO.add(AgendaMapper.toDTO(agendaTask,
+                    TeamMapper.toDTO(CollaboratorMapper.toDTOlist(agendaTask.getTeamAssigned().getMembers())),
+                    VehicleMapper.toDTOList(agendaTask.getVehiclesAssigned())));
+        }
+        return managerSpecificAgendaDTO;
     }
 
     public List<TeamDTO> getTeams(){

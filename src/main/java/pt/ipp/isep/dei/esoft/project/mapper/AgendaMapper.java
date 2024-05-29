@@ -1,7 +1,10 @@
 package pt.ipp.isep.dei.esoft.project.mapper;
 
 import pt.ipp.isep.dei.esoft.project.domain.Task;
+import pt.ipp.isep.dei.esoft.project.domain.Team;
 import pt.ipp.isep.dei.esoft.project.dto.AgendaTaskDTO;
+import pt.ipp.isep.dei.esoft.project.dto.TeamDTO;
+import pt.ipp.isep.dei.esoft.project.dto.VehicleDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,18 +15,18 @@ public class AgendaMapper {
 
     }
 
-    public static List<AgendaTaskDTO> toDTOlist(List<Task> agenda) {
+    public static List<AgendaTaskDTO> toDTOlist(List<Task> agenda, TeamDTO teamDTO, List<VehicleDTO> vehicleDTOList) {
         List<AgendaTaskDTO> agendaDTOS = new ArrayList<>();
         for (Task agendaTask : agenda) {
-            agendaDTOS.add(toDTO(agendaTask));
+            agendaDTOS.add(toDTO(agendaTask, teamDTO, vehicleDTOList));
         }
         return agendaDTOS;
     }
 
-    public static AgendaTaskDTO toDTO(Task agendaTask) {
-        int isTeamAssigned = 0;
+    public static AgendaTaskDTO toDTO(Task agendaTask, TeamDTO teamDTO, List<VehicleDTO> vehicleDTOList) {
+        String isTeamAssigned = "No";
         if(agendaTask.getTeamAssigned() != null){
-            isTeamAssigned = 1;
+            isTeamAssigned = "Yes";
         }
 
         return new AgendaTaskDTO(
@@ -38,7 +41,9 @@ public class AgendaMapper {
                 agendaTask.getTaskWorkPeriod().getWorkStartMin(),
                 agendaTask.getStatus(),
                 isTeamAssigned,
-                agendaTask.getVehiclesAssigned().size()
+                agendaTask.getVehiclesAssigned().size(),
+                teamDTO,
+                vehicleDTOList
         );
     }
 }

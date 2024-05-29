@@ -8,6 +8,7 @@ import pt.ipp.isep.dei.esoft.project.tools.TaskType;
 import pt.ipp.isep.dei.esoft.project.tools.UrgencyType;
 
 import java.time.Duration;
+import java.util.List;
 
 public class AgendaTaskDTO {
 
@@ -20,11 +21,15 @@ public class AgendaTaskDTO {
     public String workStartDate;
     public int workStartHour;
     public int workStartMinutes;
-    public Status status;
-    public int teamsAssigned;
-    public int vehiclesAssigned;
 
-    public AgendaTaskDTO(String title, String description, TaskType taskType, String greenSpace, UrgencyType urgency, TaskDuration expectedDuration, String executionDate, int workStartHour, int workStartMinutes, Status status, int teamsAssigned, int vehiclesAssigned){
+    public Status status;
+    public String isTeamAssigned;
+    public int vehiclesAssigned;
+    public TeamDTO teamDTO;
+
+    public List<VehicleDTO> vehicleDTOList;
+
+    public AgendaTaskDTO(String title, String description, TaskType taskType, String greenSpace, UrgencyType urgency, TaskDuration expectedDuration, String executionDate, int workStartHour, int workStartMinutes, Status status, String isTeamAssigned, int vehiclesAssigned, TeamDTO teamDTO, List<VehicleDTO> vehicleDTOList) {
         this.title = title;
         this.description = description;
         this.taskType = taskType;
@@ -35,7 +40,9 @@ public class AgendaTaskDTO {
         this.workStartHour = workStartHour;
         this.workStartMinutes = workStartMinutes;
         this.status = status;
-        this.teamsAssigned = teamsAssigned;
+        this.isTeamAssigned = isTeamAssigned;
         this.vehiclesAssigned = vehiclesAssigned;
+        this.teamDTO = teamDTO;
+        this.vehicleDTOList = vehicleDTOList;
     }
 }
