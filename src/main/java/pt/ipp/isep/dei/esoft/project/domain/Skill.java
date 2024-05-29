@@ -2,12 +2,13 @@ package pt.ipp.isep.dei.esoft.project.domain;
 
 import pt.ipp.isep.dei.esoft.project.tools.ValidationAttributeResults;
 
+import java.io.Serializable;
 import java.util.regex.Pattern;
 
 /**
  * Represents a Skill object containing the skill name.
  */
-public class Skill implements Cloneable{
+public class Skill implements Cloneable, Serializable {
     /**
      * The name of the skill.
      */

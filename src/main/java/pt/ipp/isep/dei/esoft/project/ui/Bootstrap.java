@@ -4,12 +4,14 @@ import pt.ipp.isep.dei.esoft.project.controller.AuthenticationController;
 import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 import pt.ipp.isep.dei.esoft.project.tools.GreenSpaceType;
+import pt.ipp.isep.dei.esoft.project.tools.SerializationFiles;
+import pt.ipp.isep.dei.esoft.project.tools.SerializationUtils;
 import pt.ipp.isep.dei.esoft.project.tools.VehicleType;
 
 import java.util.List;
 
 public class Bootstrap implements Runnable {
-
+  
     public void run() {
         addUsers();
         addSkills();
@@ -19,6 +21,28 @@ public class Bootstrap implements Runnable {
         addCollaborator();
         assignSkills();
         addGreenSpaces();
+       // fillRepositoryLists();
+    }
+
+
+    public void fillRepositoryLists(){
+        fillJobRepositoryFromFile();
+        fillSkillRepositoryFromFile();
+
+    }
+    private void fillJobRepositoryFromFile() {
+        List<Job> jobList = SerializationUtils.readFromFile(SerializationFiles.JOB_DATABASE);
+        JobRepository jobRepository = Repositories.getInstance().getJobRepository();
+        for(Job job : jobList){
+            jobRepository.add(job);
+        }
+    }
+    private static void fillSkillRepositoryFromFile() {
+        List<Skill> skillList = SerializationUtils.readFromFile(SerializationFiles.SKILL_DATABASE);
+        SkillRepository skillRepository = Repositories.getInstance().getSkillRepository();
+        for(Skill skill : skillList){
+            skillRepository.add(skill);
+        }
     }
 
     private void addGreenSpaces() {
