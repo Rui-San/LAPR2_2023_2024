@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.domain.*;
+import pt.ipp.isep.dei.esoft.project.dto.AgendaTaskDTO;
 import pt.ipp.isep.dei.esoft.project.tools.Status;
 
 import java.util.ArrayList;
@@ -30,6 +31,15 @@ public class AgendaRepository {
         }
 
         return managerSpecificAgenda;
+    }
+
+    public Task getTask(AgendaTaskDTO taskDTO) {
+        for (Task task : agenda) {
+            if (task.getTitle().trim().equalsIgnoreCase(taskDTO.title.trim()) && task.getGreenSpace().getName().trim().equalsIgnoreCase(taskDTO.greenSpaceName.trim()) && task.getStatus().toString().trim().equalsIgnoreCase(taskDTO.status.toString())) {
+                return task;
+            }
+        }
+        return null;
     }
 
     public List<Task> getCollbaboratorSpecificAgenda(String collaboratorEmail) {
@@ -180,10 +190,19 @@ public class AgendaRepository {
         return Optional.empty();
     }
 
-    public Optional<Task> postponeTaskAgenda(String title, String greenSpaceName, String executionDate, Status status, String newDate) {
-
-
-        return Optional.empty();
+    public boolean postponeTaskAgenda(Task selectedTask, WorkPeriod newWorkPeriod) {
+        if(selectedTask != null){
+            WorkPeriod oldWorkPeriod = selectedTask.getTaskWorkPeriod();
+            for (Task task : agenda) {
+                if (task.equals(selectedTask)) {
+                    task.setTaskWorkPeriod(newWorkPeriod);
+                    System.out.println("Workperiod of the task postponed !");
+                    return true;
+                }
+            }
+        }
+        System.out.println("Task does not exist");
+        return false;
     }
 
     public Optional<Task> assignTeamToTaskAgenda(String title, String greenSpaceName, String executionDate, Status status, Team team) {

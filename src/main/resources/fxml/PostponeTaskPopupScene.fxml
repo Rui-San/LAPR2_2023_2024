@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="348.0" maxWidth="412.0" minHeight="150.0" minWidth="300.0" prefHeight="284.0" prefWidth="377.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.PostponeTaskPopupUI">
+   <children>
+      <Text layoutX="76.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Postpone task" textAlignment="CENTER" wrappingWidth="225.0078125">
+         <font>
+            <Font name="Berlin Sans FB" size="25.0" />
+         </font>
+      </Text>
+      <Group layoutX="-408.0" layoutY="-15.0">
+         <children>
+            <DatePicker fx:id="dpExecutionDate" layoutX="446.0" layoutY="97.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" prefWidth="300.0" promptText="Execution date">
+               <styleClass>
+                  <String fx:value="form-input-datepicker" />
+                  <String fx:value="form-input" />
+               </styleClass></DatePicker>
+            <Label layoutX="446.0" layoutY="78.0" prefHeight="17.0" prefWidth="300.0" text="New Execution date" />
+            <Label fx:id="lblExecutionDateError" alignment="TOP_LEFT" layoutX="446.0" layoutY="132.0" prefHeight="16.0" prefWidth="300.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Label>
+         </children>
+      </Group>
+      <Group layoutX="28.0" layoutY="25.0">
+         <children>
+            <TextField fx:id="txtHours" layoutX="11.0" layoutY="130.0" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="70.0" promptText="hours" styleClass="form-input" />
+            <TextField fx:id="txtMins" layoutX="100.0" layoutY="130.0" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="70.0" promptText="mins" styleClass="form-input" />
+            <Label layoutX="10.0" layoutY="109.0" text="New starting time:" />
+            <Label alignment="CENTER" layoutX="81.0" layoutY="133.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="19.0" text=":" textAlignment="CENTER">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblTimeError" alignment="TOP_LEFT" layoutX="11.0" layoutY="166.0" prefHeight="16.0" prefWidth="300.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Label>
+         </children>
+      </Group>
+        <Button layoutX="196.0" layoutY="217.0" onAction="#btnConfirmData" prefHeight="43.0" prefWidth="144.0" text="Confirm" />
+      <Button layoutX="38.0" layoutY="217.0" onAction="#btnCancelAction" prefHeight="43.0" prefWidth="144.0" text="Cancel" />
+   </children>
+</AnchorPane>

@@ -217,5 +217,15 @@ public class VehicleRepository {
             }
         }
     }
+
+    public void postponeWorkPeriods(Task postponedTask, WorkPeriod newWorkPeriod) {
+        removeWorkPeriod(postponedTask);
+        for (Vehicle vehicle : getVehicleList()) {
+            if (postponedTask.getVehiclesAssigned().contains(vehicle)) {
+                vehicle.addWorkPeriod(newWorkPeriod);
+                System.out.println("Work period added to vehicle " + vehicle.getPlateId());
+            }
+        }
+    }
 }
 

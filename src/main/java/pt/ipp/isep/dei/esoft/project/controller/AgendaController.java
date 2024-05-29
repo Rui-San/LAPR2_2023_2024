@@ -3,7 +3,7 @@ package pt.ipp.isep.dei.esoft.project.controller;
 import pt.ipp.isep.dei.esoft.project.domain.Task;
 
 import pt.ipp.isep.dei.esoft.project.dto.AgendaTaskDTO;
-import pt.ipp.isep.dei.esoft.project.dto.CollaboratorDTO;
+import pt.ipp.isep.dei.esoft.project.dto.TeamDTO;
 import pt.ipp.isep.dei.esoft.project.dto.VehicleDTO;
 import pt.ipp.isep.dei.esoft.project.mapper.AgendaMapper;
 import pt.ipp.isep.dei.esoft.project.mapper.CollaboratorMapper;
@@ -22,18 +22,15 @@ public class AgendaController {
         List<AgendaTaskDTO> managerSpecificAgendaDTO = new ArrayList<>();
 
         for (Task agendaTask : agendaTaskList) {
-
-            List<CollaboratorDTO> collaboratorDTOList = new ArrayList<>();
-            if (agendaTask.getTeamAssigned() != null && agendaTask.getTeamAssigned().getMembers() != null) {
-                collaboratorDTOList = CollaboratorMapper.toDTOlist(agendaTask.getTeamAssigned().getMembers());
+            TeamDTO teamDTO = null;
+            List<VehicleDTO> vehicleDTOList = null;
+            if(agendaTask.getTeamAssigned() != null){
+                teamDTO = TeamMapper.toDTO(CollaboratorMapper.toDTOlist(agendaTask.getTeamAssigned().getMembers()));
             }
-
-            List<VehicleDTO> vehicleDTOList = new ArrayList<>();
-            if (agendaTask.getVehiclesAssigned() != null) {
+            if(agendaTask.getVehiclesAssigned() != null){
                 vehicleDTOList = VehicleMapper.toDTOList(agendaTask.getVehiclesAssigned());
             }
-
-            managerSpecificAgendaDTO.add(AgendaMapper.toDTO(agendaTask, TeamMapper.toDTO(collaboratorDTOList), vehicleDTOList));
+            managerSpecificAgendaDTO.add(AgendaMapper.toDTO(agendaTask, teamDTO, vehicleDTOList));
         }
         return managerSpecificAgendaDTO;
     }
