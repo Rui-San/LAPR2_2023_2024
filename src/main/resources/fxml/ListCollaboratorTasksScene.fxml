@@ -4,22 +4,56 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.ListCollaboratorTasksUI">
-    <TableView fx:id="taskTable">
-        <columns>
-            <TableColumn fx:id="title" text="Title"/>
-            <TableColumn fx:id="taskType" text="Task Type"/>
-            <TableColumn fx:id="status" text="Status"/>
-            <TableColumn fx:id="urgency" text="Urgency"/>
-            <TableColumn fx:id="greenSpace" text="Green Space"/>
-            <TableColumn fx:id="executionDate" text="Execution Date"/>
-            <TableColumn fx:id="expectedDuration" text="Expected Duration"/>
-        </columns>
-    </TableView>
-    <DatePicker fx:id="initialDatePicker" promptText="Select Initial Date"/>
-    <Button text="Set Initial Date" onAction="#handleSetInitialDate"/>
-    <DatePicker fx:id="finalDatePicker" promptText="Select Final Date"/>
-    <Button text="Set Final Date" onAction="#handleSetFinalDate"/>
-</VBox>
+<BorderPane prefHeight="573.0" prefWidth="874.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.ListCollaboratorTasksUI">
+    <bottom>
+        <HBox alignment="CENTER" prefHeight="78.0" prefWidth="696.0" spacing="10" BorderPane.alignment="CENTER">
+            <VBox prefHeight="78.0" prefWidth="180.0" spacing="10">
+                <DatePicker fx:id="initialDatePicker" promptText="Select Initial Date" />
+                <DatePicker fx:id="finalDatePicker" promptText="Select Final Date" />
+            </VBox>
+            <VBox spacing="10" />
+         <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="94.0" text="Show Tasks" />
+        </HBox>
+    </bottom>
+   <top>
+      <AnchorPane prefHeight="68.0" prefWidth="708.0" BorderPane.alignment="CENTER">
+         <children>
+            <Text layoutX="379.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Tasks" wrappingWidth="116.455078125">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+         </children></AnchorPane>
+   </top>
+   <center>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <center>
+              <TableView fx:id="taskTable" prefHeight="200.0" prefWidth="598.0" BorderPane.alignment="CENTER">
+                  <columns>
+                      <TableColumn fx:id="title" text="Title" />
+                      <TableColumn fx:id="taskType" text="Task Type" />
+                      <TableColumn fx:id="status" text="Status" />
+                      <TableColumn fx:id="urgency" text="Urgency" />
+                      <TableColumn fx:id="greenSpace" prefWidth="88.0" text="Green Space" />
+                      <TableColumn fx:id="executionDate" prefWidth="94.4000244140625" text="Execution Date" />
+                      <TableColumn fx:id="expectedDuration" prefWidth="117.79998779296875" text="Expected Duration" />
+                  </columns>
+              </TableView>
+         </center>
+      </BorderPane>
+   </center>
+   <left>
+      <Pane prefHeight="200.0" prefWidth="41.0" BorderPane.alignment="CENTER" />
+   </left>
+   <right>
+      <Pane prefHeight="152.0" prefWidth="42.0" BorderPane.alignment="CENTER" />
+   </right>
+</BorderPane>
