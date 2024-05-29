@@ -1,60 +1,40 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui;
 
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import pt.ipp.isep.dei.esoft.project.controller.ListCollaboratorTasksController;
-import pt.ipp.isep.dei.esoft.project.domain.Date;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import javafx.scene.text.Text;
+import javafx.beans.property.SimpleStringProperty;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import pt.ipp.isep.dei.esoft.project.domain.Task;
+import pt.ipp.isep.dei.esoft.project.controller.ListCollaboratorTasksController;
 import pt.ipp.isep.dei.esoft.project.dto.AgendaTaskDTO;
+import pt.ipp.isep.dei.esoft.project.tools.Status;
 
 public class ListCollaboratorTasksUI implements Initializable {
 
     private final ListCollaboratorTasksController controller;
 
-    //Table showing the tasks
     @FXML
     private TableView<AgendaTaskDTO> taskTable;
-
+    @FXML
+    private Text sceneTitle;
     @FXML
     private TableColumn<AgendaTaskDTO, String> title, taskType, status,urgency,greenSpace,executionDate, expectedDuration;
-
-
     @FXML
-    private DatePicker initialDatePicker;
+    private DatePicker dpInitialDate, dpFinalDate;
     @FXML
-    private DatePicker finalDatePicker;
-
+    private ComboBox<String> cbStatusFilter;
     @FXML
-    private Button showTasks;
+    private Label lblError;
 
-
-    private Date initialDate;
-    private Date finalDate;
-
-    /**
-     * Creates an instance of ListCollaboratorTasksUI.
-     */
 
     public ListCollaboratorTasksUI() {
-        this.initialDate = new Date();
-        this.finalDate = new Date();
         controller = new ListCollaboratorTasksController();
     }
 
-    /**
-     * Gets the controller.
-     * @return controller
-     */
     private ListCollaboratorTasksController getController(){
         return controller;
     }
@@ -70,18 +50,107 @@ public class ListCollaboratorTasksUI implements Initializable {
         expectedDuration.setCellValueFactory(cellData -> new SimpleStringProperty(Integer.toString(cellData.getValue().expectedDuration)));
 
         fillTaskList();
-
+        fillStatusFilter();
+        sceneTitle.setText("Tasks assigned to " + controller.getCollaboratorName());
     }
-
-    /**
-     * Method that shows the data in the table view.
-     */
 
     @FXML
-    private void fillTaskList(){
-        taskTable.getItems().addAll(controller.getCollaboratorTasks());
+    public void btnFilterAction(){
+        boolean isOneNull = checkIsOneNull();
+        boolean isFinalDateBeforeInitialDate = false;
+        if(!isOneNull){
+            isFinalDateBeforeInitialDate = validateFinalDate();
+            if(!isFinalDateBeforeInitialDate){
+                filterTable();
+            }
+        }
     }
 
+    public void filterTable(){
+        taskTable.getItems().clear();
+        // TODO: implement filterTable
+    }
+
+    @FXML
+    public void btnSetCompleted(){
+        completeTask();
+    }
+
+    public void completeTask() {
+        // TODO: implement completeTask
+    }
+
+    @FXML
+    public void btnClearFilter(){
+        taskTable.getItems().clear();
+        fillTaskList();
+        dpInitialDate.setValue(null);
+        dpFinalDate.setValue(null);
+        cbStatusFilter.getSelectionModel().selectFirst();
+        clearError(dpInitialDate, lblError);
+        clearError(dpFinalDate, lblError);
+        clearError(cbStatusFilter, lblError);
+    }
+
+    public boolean validateFinalDate(){
+        if (dpFinalDate.getValue().isBefore(dpInitialDate.getValue())){
+            setError(dpFinalDate, lblError, "Final date must be after initial date");
+            return true;
+        }else {
+            clearError(dpFinalDate, lblError);
+        }
+        return false;
+    }
+
+    public boolean checkIsOneNull(){
+        int validFields = 0;
+        if(cbStatusFilter.getValue() == null){
+            setError(cbStatusFilter, lblError, "Fill all fields before filtering.");
+        }else {
+            clearError(cbStatusFilter, lblError);
+            validFields++;
+        }
+        if(dpInitialDate.getValue() == null){
+            setError(dpInitialDate, lblError, "Fill all fields before filtering.");
+        }else {
+            clearError(dpInitialDate, lblError);
+            validFields++;
+        }
+        if(dpFinalDate.getValue() == null){
+            setError(dpFinalDate, lblError, "Fill all fields before filtering.");
+        }else {
+            clearError(dpFinalDate, lblError);
+            validFields++;
+        }
+
+        return validFields != 3;
+    }
+
+    private void fillTaskList(){
+        taskTable.getItems().addAll(getController().getCollaboratorTasks());
+    }
+
+    public void fillStatusFilter(){
+        cbStatusFilter.getItems().add("All Status");
+        for (Status status : Status.values()){
+            cbStatusFilter.getItems().add(status.toString());
+        }
+        cbStatusFilter.getSelectionModel().selectFirst();
+    }
+
+    private void setError(Control field, Label lblError, String message) {
+        field.setStyle("-fx-border-color: red;");
+        lblError.setText(message);
+        lblError.setVisible(true);
+    }
+
+    private void clearError(Control field, Label lblError) {
+        field.setStyle("-fx-border-color: none;");
+        lblError.setText("");
+        lblError.setVisible(false);
+    }
+
+    /*
     @FXML
     private void handleSetInitialDate() {
         if (initialDatePicker.getValue() != null) {
@@ -90,9 +159,6 @@ public class ListCollaboratorTasksUI implements Initializable {
         }
     }
 
-    /**
-     * Handles the action of setting the final date.
-     */
     @FXML
     private void handleSetFinalDate() {
         if (finalDatePicker.getValue() != null) {
@@ -100,6 +166,6 @@ public class ListCollaboratorTasksUI implements Initializable {
             getController().updateFinalDate(finalDate);
         }
     }
-
+    */
 
 }

@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.controller;
 
 import pt.ipp.isep.dei.esoft.project.domain.Date;
+import pt.ipp.isep.dei.esoft.project.domain.Email;
 import pt.ipp.isep.dei.esoft.project.domain.Task;
 import pt.ipp.isep.dei.esoft.project.dto.AgendaTaskDTO;
 import pt.ipp.isep.dei.esoft.project.mapper.AgendaMapper;
@@ -9,7 +10,6 @@ import pt.ipp.isep.dei.esoft.project.repository.AgendaRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.session.ApplicationSession;
 import pt.ipp.isep.dei.esoft.project.tools.Sorting;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,13 +31,17 @@ public class ListCollaboratorTasksController {
         agendaRepository = Repositories.getInstance().getAgendaRepository();
     }
 
+    public String getCollaboratorName(){
+        return Repositories.getInstance().getCollaboratorRepository().getCollaboratorByCollaboratorEmail(new Email(ApplicationSession.getInstance().getCurrentSession().getUserId().toString())).get().getName();
+    }
+
     /**
      * @return sorted tasks assigned to the collaborator between two selected dates
      */
 
     public List<AgendaTaskDTO> getCollaboratorTasks() {
 
-        List<Task> collaboratorTasks = getAgendaRepository().getManagerSpecificAgenda(ApplicationSession.getInstance().getCurrentSession().getUserId().getEmail());
+        List<Task> collaboratorTasks = getAgendaRepository().getCollbaboratorSpecificAgenda(ApplicationSession.getInstance().getCurrentSession().getUserId().getEmail());
         return AgendaMapper.toDTOlist(collaboratorTasks);
     }
 
