@@ -71,6 +71,7 @@
                   <MenuItem mnemonicParsing="false" onAction="#NewEntryToDo" text="Add task" />
                   <MenuItem mnemonicParsing="false" onAction="#NewEntryAgenda" text="Add task to agenda" />
                   <MenuItem mnemonicParsing="false" onAction="#OpenAgenda" text="Agenda" />
+                  <MenuItem mnemonicParsing="false" onAction="#ListCollaboratorTasks" text="Your Tasks" />
                </items>
             </MenuButton>
             <MenuButton fx:id="mbAdmin" mnemonicParsing="false" popupSide="RIGHT" styleClass="menu-btn" text="Admin">

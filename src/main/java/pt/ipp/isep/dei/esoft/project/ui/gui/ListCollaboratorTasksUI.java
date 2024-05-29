@@ -43,10 +43,10 @@ public class ListCollaboratorTasksUI implements Initializable {
     private DatePicker initialDatePicker;
     @FXML
     private DatePicker finalDatePicker;
+
     @FXML
-    private Button initialDateButton;
-    @FXML
-    private Button finalDateButton;
+    private Button showTasks;
+
 
     private Date initialDate;
     private Date finalDate;
@@ -86,7 +86,19 @@ public class ListCollaboratorTasksUI implements Initializable {
     /**
      * Method that shows the data in the table view.
      */
+
+    @FXML
     private void showData(){
+        if (initialDatePicker.getValue() != null) {
+            initialDate = new Date(initialDatePicker.getValue().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+            getController().updateInitialDate(initialDate);
+        }
+
+        if (finalDatePicker.getValue() != null) {
+            finalDate = new Date(finalDatePicker.getValue().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+            getController().updateFinalDate(finalDate);
+        }
+
         tasks.getItems().setAll(getController().getTasks());
     }
 
@@ -95,7 +107,6 @@ public class ListCollaboratorTasksUI implements Initializable {
         if (initialDatePicker.getValue() != null) {
             initialDate = new Date(initialDatePicker.getValue().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")));
             getController().updateInitialDate(initialDate);
-            showData();
         }
     }
 
@@ -107,7 +118,6 @@ public class ListCollaboratorTasksUI implements Initializable {
         if (finalDatePicker.getValue() != null) {
             finalDate = new Date(finalDatePicker.getValue().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")));
             getController().updateFinalDate(finalDate);
-            showData();
         }
     }
 
