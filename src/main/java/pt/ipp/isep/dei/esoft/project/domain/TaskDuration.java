@@ -49,6 +49,12 @@ public class TaskDuration {
 
     private int totalDurationMinutes;
 
+    public static TaskDuration toTaskDuration(int minutes){
+        int days = minutes / (8 * 60);
+        int hours = (minutes % (8 * 60)) / 60;
+        int mins = minutes % 60;
+        return new TaskDuration(days, hours, mins);
+    }
 
     @Override
     public String toString() {

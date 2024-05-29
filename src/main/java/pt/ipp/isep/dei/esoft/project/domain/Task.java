@@ -192,6 +192,10 @@ public class Task {
 
     }
 
+    public void setTaskWorkPeriod(WorkPeriod workPeriod){
+        this.taskWorkPeriod = workPeriod;
+    }
+
     public void removeAssignedTeam(){
         this.teamAssigned = null;
     }

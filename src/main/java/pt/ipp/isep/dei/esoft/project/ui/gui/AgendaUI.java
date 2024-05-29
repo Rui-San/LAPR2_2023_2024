@@ -9,15 +9,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import pt.ipp.isep.dei.esoft.project.controller.AgendaController;
-import pt.ipp.isep.dei.esoft.project.controller.AssignTeamToEntryAgendaController;
-import pt.ipp.isep.dei.esoft.project.controller.AssignVehiclesToEntryAgendaController;
-import pt.ipp.isep.dei.esoft.project.controller.CancelEntryAgendaController;
+import pt.ipp.isep.dei.esoft.project.controller.*;
 import pt.ipp.isep.dei.esoft.project.domain.Team;
 import pt.ipp.isep.dei.esoft.project.dto.AgendaTaskDTO;
 import pt.ipp.isep.dei.esoft.project.dto.TeamDTO;
 import pt.ipp.isep.dei.esoft.project.dto.ToDoTaskWithStatusDTO;
 import pt.ipp.isep.dei.esoft.project.dto.VehicleDTO;
+import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.tools.Status;
 
 import java.io.IOException;
@@ -34,6 +32,8 @@ public class AgendaUI implements Initializable {
     private final AssignTeamToEntryAgendaController assignTeamToEntryAgendaController = new AssignTeamToEntryAgendaController();
 
     private final AssignVehiclesToEntryAgendaController assignVehiclesToEntryAgendaController = new AssignVehiclesToEntryAgendaController();
+
+    private final PostponeTaskController postponeTaskController = new PostponeTaskController();
 
     @FXML
     private TableView<AgendaTaskDTO> tbTasks;
@@ -173,6 +173,46 @@ public class AgendaUI implements Initializable {
         }
     }
 
+    public void btnPostponeTask(){
+        AgendaTaskDTO selectedTask = tbTasks.getSelectionModel().getSelectedItem();
+
+        if (validateSelectedTask(selectedTask)) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/PostponeTaskPopupScene.fxml"));
+            Parent root;
+            try {
+                root = loader.load();
+                PostponeTaskPopupUI postponeTaskPopupUI = loader.getController();
+                Stage stage = new Stage();
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setScene(new Scene(root));
+
+                stage.showAndWait();
+
+                String selectedDate = postponeTaskPopupUI.getSelectedDate();
+                int workStartingHours = postponeTaskPopupUI.getWorkStartingHours();
+                int workStartingMinutes = postponeTaskPopupUI.getWorkStartingMinutes();
+                if (selectedDate != null && (workStartingMinutes > 0 || workStartingHours >0)) {
+                    if (postponeTaskController.postponeTask(selectedTask, selectedDate, workStartingHours, workStartingMinutes)) {
+                        lblError.setText("");
+                        lblError.setVisible(false);
+                        updateTableView();
+
+                        AlertUI.createAlert(Alert.AlertType.INFORMATION, "Postpone Task", "Operation Success", "Task successfully postponed").show();
+                    } else {
+                        AlertUI.createAlert(Alert.AlertType.ERROR, "Postpone Task", "Error occurred", "Task cannot be postponed to selected date.").show();
+                        lblError.setVisible(false);
+                    }
+
+                }
+            } catch (IOException e) {
+                AlertUI.createAlert(Alert.AlertType.ERROR, "ERROR", "An error occurred", e.getMessage()).show();
+
+            } catch (IllegalArgumentException exception){
+                AlertUI.createAlert(Alert.AlertType.ERROR, "ERROR", "Error assigning vehicles to the task", exception.getMessage()).show();
+
+            }
+        }
+    }
 
     private void updateTableView() {
         tbTasks.getItems().clear();
@@ -181,7 +221,6 @@ public class AgendaUI implements Initializable {
             tbTasks.getItems().add(task);
         }
     }
-
 
     public boolean validateSelectedTask(AgendaTaskDTO selectedTask) {
 
