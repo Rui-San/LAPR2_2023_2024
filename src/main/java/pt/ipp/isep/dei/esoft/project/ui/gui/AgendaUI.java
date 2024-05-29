@@ -91,10 +91,10 @@ public class AgendaUI implements Initializable {
 
         if (validateSelectedTask(selectedTask)) {
             System.out.println(selectedTask.isTeamAssigned.trim());
-          //  if (selectedTask.isTeamAssigned.trim().equalsIgnoreCase("Yes")) {
-            //    lblError.setText("This task already have a team assigned to.");
-              //  lblError.setVisible(true);
-        //    } else {
+            if (selectedTask.isTeamAssigned.trim().equalsIgnoreCase("Yes")) {
+                lblError.setText("This task already have a team assigned to.");
+                lblError.setVisible(true);
+            } else {
                 lblError.setText("");
                 lblError.setVisible(false);
 
@@ -134,7 +134,7 @@ public class AgendaUI implements Initializable {
                     AlertUI.createAlert(Alert.AlertType.ERROR, "ERROR", "Error assigning team to the task", exception.getMessage()).show();
 
                 }
-           // }
+            }
         }
     }
 
