@@ -99,6 +99,9 @@ public class Task {
     }
 
     public void assignTeam(Team team) {
+        if(this.getTeamAssigned() != null){
+            throw new IllegalArgumentException("This task already have a team assigned to.");
+        }
         if (team.isAvailable(this.taskWorkPeriod)) {
             this.teamAssigned = team;
             team.addWorkPeriod(this.taskWorkPeriod);
