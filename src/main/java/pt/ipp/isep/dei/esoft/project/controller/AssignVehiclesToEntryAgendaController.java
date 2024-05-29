@@ -51,9 +51,17 @@ public class AssignVehiclesToEntryAgendaController {
         return agendaRepository;
     }
 
-    public List<AgendaTaskDTO> getAgenda() {
-        List<Task> agenda = agendaRepository.getAgenda();
-        return AgendaMapper.toDTOlist(agenda);
+    public List<AgendaTaskDTO> getAgendaTaskDTOManagerList() {
+        String managerEmail = Repositories.getInstance().getAuthenticationRepository().getCurrentUserSession().getUserId().getEmail();
+        List<Task> agendaTaskList = Repositories.getInstance().getAgendaRepository().getManagerSpecificAgenda(managerEmail);
+        List<AgendaTaskDTO> managerSpecificAgendaDTO = new ArrayList<>();
+
+        for (Task agendaTask : agendaTaskList) {
+            managerSpecificAgendaDTO.add(AgendaMapper.toDTO(agendaTask,
+                    TeamMapper.toDTO(CollaboratorMapper.toDTOlist(agendaTask.getTeamAssigned().getMembers())),
+                    VehicleMapper.toDTOList(agendaTask.getVehiclesAssigned())));
+        }
+        return managerSpecificAgendaDTO;
     }
 
     public List<VehicleDTO> getVehicles(){
