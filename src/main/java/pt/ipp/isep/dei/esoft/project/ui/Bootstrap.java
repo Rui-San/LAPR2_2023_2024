@@ -37,7 +37,7 @@ public class Bootstrap implements Runnable {
             jobRepository.add(job);
         }
     }
-    private static void fillSkillRepositoryFromFile() {
+    private void fillSkillRepositoryFromFile() {
         List<Skill> skillList = SerializationUtils.readFromFile(SerializationFiles.SKILL_DATABASE);
         SkillRepository skillRepository = Repositories.getInstance().getSkillRepository();
         for(Skill skill : skillList){
