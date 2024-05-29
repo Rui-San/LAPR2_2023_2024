@@ -90,47 +90,56 @@ public class AgendaUI implements Initializable {
         AgendaTaskDTO selectedTask = tbTasks.getSelectionModel().getSelectedItem();
 
         if (validateSelectedTask(selectedTask)) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/SelectTeamPopupScene.fxml"));
-            Parent root;
-            try {
-                root = loader.load();
-                SelectTeamPopupUI selectTeamPopupUI = loader.getController();
-                selectTeamPopupUI.fillTeamTable();
-                Stage stage = new Stage();
-                stage.initModality(Modality.APPLICATION_MODAL);
-                stage.setScene(new Scene(root));
+            System.out.println(selectedTask.isTeamAssigned.trim());
+            if (selectedTask.isTeamAssigned.trim().equalsIgnoreCase("Yes")) {
+                lblError.setText("This task already have a team assigned to.");
+                lblError.setVisible(true);
+            } else {
+                lblError.setText("");
+                lblError.setVisible(false);
 
-                stage.showAndWait();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/SelectTeamPopupScene.fxml"));
+                Parent root;
+                try {
+                    root = loader.load();
+                    SelectTeamPopupUI selectTeamPopupUI = loader.getController();
+                    selectTeamPopupUI.fillTeamTable();
+                    Stage stage = new Stage();
+                    stage.initModality(Modality.APPLICATION_MODAL);
+                    stage.setScene(new Scene(root));
+
+                    stage.showAndWait();
 
 
-                TeamDTO selectedTeam = selectTeamPopupUI.getTeamSelected();
+                    TeamDTO selectedTeam = selectTeamPopupUI.getTeamSelected();
 
-                if (selectedTeam != null) {
+                    if (selectedTeam != null) {
 
-                    if (assignTeamToEntryAgendaController.assignTeamToTaskAgenda(selectedTask, selectedTeam).isPresent()) {
-                        lblError.setText("");
-                        lblError.setVisible(false);
-                        updateTableView();
+                        if (assignTeamToEntryAgendaController.assignTeamToTaskAgenda(selectedTask, selectedTeam).isPresent()) {
+                            lblError.setText("");
+                            lblError.setVisible(false);
+                            updateTableView();
 
-                        AlertUI.createAlert(Alert.AlertType.INFORMATION, "Assign Team to Task", "Confirmation of operation", "Team successfully assigned to task").show();
-                        lblError.setVisible(false);
-                    }else{
-                        AlertUI.createAlert(Alert.AlertType.ERROR, "Assign Team to Task", "Error occurred", "Not possible to assign this team to the task").show();
-                        lblError.setVisible(false);
+                            AlertUI.createAlert(Alert.AlertType.INFORMATION, "Assign Team to Task", "Confirmation of operation", "Team successfully assigned to task").show();
+                            lblError.setVisible(false);
+                        } else {
+                            AlertUI.createAlert(Alert.AlertType.ERROR, "Assign Team to Task", "Error occurred", "Not possible to assign this team to the task").show();
+                            lblError.setVisible(false);
+                        }
                     }
+                } catch (IOException e) {
+                    AlertUI.createAlert(Alert.AlertType.ERROR, "ERROR", "An error occurred", e.getMessage()).show();
+
+                } catch (IllegalArgumentException exception) {
+                    AlertUI.createAlert(Alert.AlertType.ERROR, "ERROR", "Error assigning team to the task", exception.getMessage()).show();
+
                 }
-            } catch (IOException e) {
-                AlertUI.createAlert(Alert.AlertType.ERROR, "ERROR", "An error occurred", e.getMessage()).show();
-
-            } catch (IllegalArgumentException exception){
-                AlertUI.createAlert(Alert.AlertType.ERROR, "ERROR", "Error assigning team to the task", exception.getMessage()).show();
-
             }
         }
     }
 
     @FXML
-    private void btnAssignVehicles(){
+    private void btnAssignVehicles() {
         AgendaTaskDTO selectedTask = tbTasks.getSelectionModel().getSelectedItem();
 
         if (validateSelectedTask(selectedTask)) {
@@ -158,7 +167,7 @@ public class AgendaUI implements Initializable {
 
                         AlertUI.createAlert(Alert.AlertType.INFORMATION, "Assign Vehicle to Task", "Confirmation of operation", "Vehicle successfully assigned to task").show();
                         lblError.setVisible(false);
-                    }else{
+                    } else {
                         AlertUI.createAlert(Alert.AlertType.ERROR, "Assign Vehicle to Task", "Error occurred", "Not possible to assign one or more selected vehicles to the task").show();
                         lblError.setVisible(false);
                     }
@@ -166,7 +175,7 @@ public class AgendaUI implements Initializable {
             } catch (IOException e) {
                 AlertUI.createAlert(Alert.AlertType.ERROR, "ERROR", "An error occurred", e.getMessage()).show();
 
-            } catch (IllegalArgumentException exception){
+            } catch (IllegalArgumentException exception) {
                 AlertUI.createAlert(Alert.AlertType.ERROR, "ERROR", "Error assigning vehicles to the task", exception.getMessage()).show();
 
             }
