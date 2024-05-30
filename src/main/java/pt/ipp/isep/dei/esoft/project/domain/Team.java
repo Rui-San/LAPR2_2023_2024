@@ -115,6 +115,24 @@ public class Team {
         return true;
     }
 
+    public boolean isAvailable(WorkPeriod newTaskWorkPeriod, WorkPeriod oldTaskWorkPeriod) {
+        System.out.println("Listar work periods desta team:");
+        if(this.workPeriods.isEmpty()){
+            System.out.println("Não tem nenhuns");
+        }
+        for (WorkPeriod workPeriod : workPeriods){
+            System.out.println(workPeriod.getWorkStartDate() + "----end----" + workPeriod.getWorkEndDate());
+        }
+
+
+        for (WorkPeriod workPeriod : workPeriods) {
+            if (workPeriod.isOverlap(newTaskWorkPeriod) && !workPeriod.matches(oldTaskWorkPeriod)){
+                return false;
+            }
+        }
+        return true;
+    }
+
     // Add work period for assigned task
     public void addWorkPeriod(WorkPeriod workPeriod) {
         workPeriods.add(workPeriod);

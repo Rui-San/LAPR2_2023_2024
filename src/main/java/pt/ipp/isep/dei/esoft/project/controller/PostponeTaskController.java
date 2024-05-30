@@ -57,11 +57,11 @@ public class PostponeTaskController {
         boolean isTaskPostponed = false;
 
         if(task.getTeamAssigned() != null){
-            isTeamAvailableInNewPeriod = task.getTeamAssigned().isAvailable(newWorkPeriod);
+            isTeamAvailableInNewPeriod = task.getTeamAssigned().isAvailable(newWorkPeriod, oldWorkPeriod);
         }
         if(task.getVehiclesAssigned() != null){
             for (Vehicle vehicle : task.getVehiclesAssigned()) {
-                if(areVehiclesAvailableInNewPeriod){ areVehiclesAvailableInNewPeriod = vehicle.isAvailable(newWorkPeriod); }
+                if(areVehiclesAvailableInNewPeriod){ areVehiclesAvailableInNewPeriod = vehicle.isAvailable(newWorkPeriod, oldWorkPeriod); }
             }
         }
         if(isTeamAvailableInNewPeriod && areVehiclesAvailableInNewPeriod) {
