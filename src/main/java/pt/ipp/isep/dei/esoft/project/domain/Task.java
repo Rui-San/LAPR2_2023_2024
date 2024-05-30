@@ -4,11 +4,12 @@ import pt.ipp.isep.dei.esoft.project.tools.Status;
 import pt.ipp.isep.dei.esoft.project.tools.TaskType;
 import pt.ipp.isep.dei.esoft.project.tools.UrgencyType;
 
+import java.io.Serializable;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Task {
+public class Task implements Serializable {
     private String title;
     private String description;
     private TaskType taskType;

@@ -11,7 +11,7 @@ import pt.ipp.isep.dei.esoft.project.tools.VehicleType;
 import java.util.List;
 
 public class Bootstrap implements Runnable {
-  
+
     public void run() {
         addUsers();
         addSkills();
@@ -21,36 +21,47 @@ public class Bootstrap implements Runnable {
         addCollaborator();
         assignSkills();
         addGreenSpaces();
-       // fillRepositoryLists();
+        //fillRepositoryLists();
     }
 
 
-    public void fillRepositoryLists(){
-        fillJobRepositoryFromFile();
-        fillSkillRepositoryFromFile();
+    public void fillRepositoryLists() {
+        Repositories.getInstance().getJobRepository().loadJobsFromFile();
+        Repositories.getInstance().getSkillRepository().loadSkillsFromFile();
+        Repositories.getInstance().getCollaboratorRepository().loadCollaboratorsFromFile();
 
     }
+
     private void fillJobRepositoryFromFile() {
         List<Job> jobList = SerializationUtils.readFromFile(SerializationFiles.JOB_DATABASE);
         JobRepository jobRepository = Repositories.getInstance().getJobRepository();
-        for(Job job : jobList){
+        for (Job job : jobList) {
             jobRepository.add(job);
         }
     }
+
     private void fillSkillRepositoryFromFile() {
         List<Skill> skillList = SerializationUtils.readFromFile(SerializationFiles.SKILL_DATABASE);
         SkillRepository skillRepository = Repositories.getInstance().getSkillRepository();
-        for(Skill skill : skillList){
+        for (Skill skill : skillList) {
             skillRepository.add(skill);
+        }
+    }
+
+    private void fillCollaboratorRepositoryFromFile() {
+        List<Collaborator> collaboratorList = SerializationUtils.readFromFile(SerializationFiles.COLLABORATOR_DATABASE);
+        CollaboratorRepository collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
+        for (Collaborator collaborator : collaboratorList) {
+            collaboratorRepository.add(collaborator);
         }
     }
 
     private void addGreenSpaces() {
         GreenSpaceRepository greenSpaceRepository = Repositories.getInstance().getGreenSpaceRepository();
-        greenSpaceRepository.registerGreenSpace(new GreenSpace(GreenSpaceType.GARDEN,"Jardim da Esperança","Rua Dois", 12, "3340-302", "Espinho", "Aveiro",323.0,"admin@this.app"));
-        greenSpaceRepository.registerGreenSpace(new GreenSpace(GreenSpaceType.LARGE,"Central Park","Main Street", 123, "3343-122", "New York", "NY", 843.5,"admin@this.app"));
-        greenSpaceRepository.registerGreenSpace(new GreenSpace(GreenSpaceType.MEDIUM,"Amazon Rainforest","Amazon River", 2, "4440-232", "Manaus", "Amazonas", 5500000.0,"admin@this.app"));
-        greenSpaceRepository.registerGreenSpace(new GreenSpace(GreenSpaceType.GARDEN,"Royal Botanic Gardens","Kew Road", 20, "3350-102", "Richmond", "London", 121.0,"admin@this.app"));
+        greenSpaceRepository.registerGreenSpace(new GreenSpace(GreenSpaceType.GARDEN, "Jardim da Esperança", "Rua Dois", 12, "3340-302", "Espinho", "Aveiro", 323.0, "admin@this.app"));
+        greenSpaceRepository.registerGreenSpace(new GreenSpace(GreenSpaceType.LARGE, "Central Park", "Main Street", 123, "3343-122", "New York", "NY", 843.5, "admin@this.app"));
+        greenSpaceRepository.registerGreenSpace(new GreenSpace(GreenSpaceType.MEDIUM, "Amazon Rainforest", "Amazon River", 2, "4440-232", "Manaus", "Amazonas", 5500000.0, "admin@this.app"));
+        greenSpaceRepository.registerGreenSpace(new GreenSpace(GreenSpaceType.GARDEN, "Royal Botanic Gardens", "Kew Road", 20, "3350-102", "Richmond", "London", 121.0, "admin@this.app"));
 
     }
 

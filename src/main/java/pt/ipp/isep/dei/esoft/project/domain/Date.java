@@ -2,13 +2,14 @@ package pt.ipp.isep.dei.esoft.project.domain;
 
 import pt.ipp.isep.dei.esoft.project.tools.ValidationAttributeResults;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 
 /**
  * to create variables that represent a date in day/month/year
  */
-public class Date implements Comparable<Date>, Cloneable {
+public class Date implements Comparable<Date>, Cloneable, Serializable {
     /**
      * The day of the Date.
      */

@@ -1,10 +1,12 @@
 package pt.ipp.isep.dei.esoft.project.tools;
 
 
+import java.io.Serializable;
+
 /**
  * Type Enumerated, enumerating all the different results that may occur during the validation of attributes.
  */
-public enum ValidationAttributeResults {
+public enum ValidationAttributeResults implements Serializable {
 
     /**
      * Indicates that the field is valid.

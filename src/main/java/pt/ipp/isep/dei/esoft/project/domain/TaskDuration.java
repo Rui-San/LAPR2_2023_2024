@@ -1,6 +1,8 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
-public class TaskDuration {
+import java.io.Serializable;
+
+public class TaskDuration implements Serializable {
     private int days;
     private int hours;
     private int minutes;

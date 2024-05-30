@@ -2,12 +2,13 @@ package pt.ipp.isep.dei.esoft.project.domain;
 
 import pt.ipp.isep.dei.esoft.project.tools.VehicleType;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-public class Vehicle {
+public class Vehicle implements Serializable {
 
     /**
      * The plate ID of the vehicle.

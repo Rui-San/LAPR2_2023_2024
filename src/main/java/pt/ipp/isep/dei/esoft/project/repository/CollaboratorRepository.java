@@ -1,6 +1,8 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.domain.*;
+import pt.ipp.isep.dei.esoft.project.tools.SerializationFiles;
+import pt.ipp.isep.dei.esoft.project.tools.SerializationUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +16,7 @@ public class CollaboratorRepository {
     /**
      * List to store the collaborators.
      */
-    private final List<Collaborator> collaboratorList;
+    private List<Collaborator> collaboratorList;
 
     /**
      * Constructs a CollaboratorRepository object.
@@ -36,6 +38,7 @@ public class CollaboratorRepository {
         if (validateCollaborator(collaborator)) {
             newCollaborator = Optional.of(collaborator.clone());
             operationSuccess = collaboratorList.add(newCollaborator.get());
+            //SerializationUtils.saveToFile(collaboratorList, SerializationFiles.COLLABORATOR_DATABASE);
         }
 
         if (!operationSuccess) {
@@ -80,6 +83,7 @@ public class CollaboratorRepository {
 
     /**
      * Method used to get the collaborator object from the collaborator list with a specific email.
+     *
      * @param email the email of the collaborator to retrieve
      * @return an Optional containing the collaborator if found, empty otherwise
      */
@@ -97,22 +101,22 @@ public class CollaboratorRepository {
     /**
      * Creates a new collaborator with the provided information and adds it to the repository.
      *
-     * @param name           the name of the collaborator
-     * @param birthdate      the birthdate of the collaborator
-     * @param admissionDate  the admission date of the collaborator
-     * @param street         the street of the collaborator's address
-     * @param streetNumber   the street number of the collaborator's address
-     * @param postalCode     the postal code of the collaborator's address
-     * @param city           the city of the collaborator's address
-     * @param district       the district of the collaborator's address
-     * @param email          the email of the collaborator
-     * @param mobileNumber   the mobile number of the collaborator
-     * @param idDocType      the ID document type of the collaborator
-     * @param idDocNumber    the ID document number of the collaborator
-     * @param job            the job of the collaborator
+     * @param name          the name of the collaborator
+     * @param birthdate     the birthdate of the collaborator
+     * @param admissionDate the admission date of the collaborator
+     * @param street        the street of the collaborator's address
+     * @param streetNumber  the street number of the collaborator's address
+     * @param postalCode    the postal code of the collaborator's address
+     * @param city          the city of the collaborator's address
+     * @param district      the district of the collaborator's address
+     * @param email         the email of the collaborator
+     * @param mobileNumber  the mobile number of the collaborator
+     * @param idDocType     the ID document type of the collaborator
+     * @param idDocNumber   the ID document number of the collaborator
+     * @param job           the job of the collaborator
      * @return an Optional containing the newly created collaborator if successful, empty otherwise
      */
-    public Optional<Collaborator> createCollaborator(String name, String birthdate, String admissionDate, String street, int streetNumber,String postalCode, String city, String district, String email, String mobileNumber, Collaborator.IdDocType idDocType, String idDocNumber, Job job) {
+    public Optional<Collaborator> createCollaborator(String name, String birthdate, String admissionDate, String street, int streetNumber, String postalCode, String city, String district, String email, String mobileNumber, Collaborator.IdDocType idDocType, String idDocNumber, Job job) {
 
         Collaborator collaborator = new Collaborator(
                 name,
@@ -146,9 +150,35 @@ public class CollaboratorRepository {
 
         if (existingCollaborator.isPresent()) {
             existingCollaborator.get().assignSkills(skills);
+            //SerializationUtils.saveToFile(collaboratorList, SerializationFiles.COLLABORATOR_DATABASE);
             return true;
         } else {
             return false;
+        }
+    }
+
+    public void loadCollaboratorsFromFile() {
+        collaboratorList = SerializationUtils.readFromFile(SerializationFiles.COLLABORATOR_DATABASE);
+
+        for (Collaborator collaborator : collaboratorList) {
+
+            for (Job job : Repositories.getInstance().getJobRepository().getJobList()) {
+                if (job.getJobName().trim().equalsIgnoreCase(collaborator.getJob().getJobName().trim())) {
+                    collaborator.setJob(job);
+                }
+            }
+
+            List<Skill> collaboratorSkills = collaborator.getSkillList();
+            List<Skill> allSkills = Repositories.getInstance().getSkillRepository().getSkillList();
+
+            for (int i = 0; i < collaboratorSkills.size(); i++) {
+                Skill collaboratorSkill = collaboratorSkills.get(i);
+                for (Skill skill : allSkills) {
+                    if (skill.getSkillName().trim().equalsIgnoreCase(collaboratorSkill.getSkillName().trim())) {
+                        collaboratorSkills.set(i, skill);
+                    }
+                }
+            }
         }
     }
 

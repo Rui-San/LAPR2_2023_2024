@@ -2,12 +2,14 @@ package pt.ipp.isep.dei.esoft.project.domain;
 
 import pt.ipp.isep.dei.esoft.project.tools.ValidationAttributeResults;
 
+import java.io.Serializable;
+
 
 /**
  * Represents an Email object.
  * This class provides functionality to validate an email address.
  */
-public class Email implements Cloneable {
+public class Email implements Cloneable, Serializable {
 
     /**
      * The email address.

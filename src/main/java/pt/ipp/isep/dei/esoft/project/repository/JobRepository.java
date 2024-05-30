@@ -17,7 +17,7 @@ public class JobRepository implements Serializable {
     /**
      * List to store all the jobs.
      */
-    private final List<Job> jobList;
+    private List<Job> jobList;
 
     /**
      * Constructs a JobRepository object.
@@ -107,6 +107,10 @@ public class JobRepository implements Serializable {
         Job newJob = new Job(jobName);
         Optional<Job> addedJob = add(newJob);
         return addedJob;
+    }
+
+    public void loadJobsFromFile(){
+        jobList = SerializationUtils.readFromFile(SerializationFiles.JOB_DATABASE);
     }
 }
 

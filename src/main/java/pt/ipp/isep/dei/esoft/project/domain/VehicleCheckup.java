@@ -1,10 +1,12 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
 
+import java.io.Serializable;
+
 /**
  * Represents a Vehicle Checkup, through its Vehicle, checkup date and checkup kilometers.
  */
-public class VehicleCheckup {
+public class VehicleCheckup implements Serializable {
 
     /**
      *  The vehicle selected to register the checkup.

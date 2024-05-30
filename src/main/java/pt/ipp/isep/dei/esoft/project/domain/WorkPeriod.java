@@ -1,9 +1,9 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
-import java.time.Duration;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class WorkPeriod {
+public class WorkPeriod implements Serializable {
     private Date workStartDate;
     private int workStartHour;
     private int workStartMin;

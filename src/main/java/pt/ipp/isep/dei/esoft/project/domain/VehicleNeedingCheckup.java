@@ -1,6 +1,8 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
-public class VehicleNeedingCheckup {
+import java.io.Serializable;
+
+public class VehicleNeedingCheckup implements Serializable {
 
     /**
      * The vehicle that needs checkup.

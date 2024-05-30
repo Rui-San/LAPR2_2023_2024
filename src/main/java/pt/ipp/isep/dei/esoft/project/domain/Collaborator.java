@@ -5,6 +5,7 @@ import pt.ipp.isep.dei.esoft.project.session.ApplicationSession;
 import pt.ipp.isep.dei.esoft.project.tools.MobileOperator;
 import pt.ipp.isep.dei.esoft.project.tools.ValidationAttributeResults;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -12,7 +13,7 @@ import java.util.regex.Pattern;
 /**
  * Represents a collaborator containing a name, birthdate, admission date, job, an address, an email, mobile number, type of ID document, ID number and a list of skills.
  */
-public class Collaborator implements Cloneable {
+public class Collaborator implements Cloneable, Serializable {
 
     /**
      * The name of the collaborator.

@@ -1,11 +1,14 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import pt.ipp.isep.dei.esoft.project.tools.SerializationFiles;
 import pt.ipp.isep.dei.esoft.project.tools.ValidationAttributeResults;
+
+import java.io.Serializable;
 
 /**
  * Represents an Address object containing street, street number, postal code, city, and district.
  */
-public class Address implements Cloneable {
+public class Address implements Cloneable, Serializable {
 
     /**
      * The street of the address.

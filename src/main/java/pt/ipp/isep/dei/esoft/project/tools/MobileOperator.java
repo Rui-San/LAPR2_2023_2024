@@ -1,9 +1,11 @@
 package pt.ipp.isep.dei.esoft.project.tools;
 
+import java.io.Serializable;
+
 /**
  * Type enumerated, enumerating all the different mobile operators that a phone number can have.
  */
-public enum MobileOperator {
+public enum MobileOperator implements Serializable {
     OPERATOR1('1'),
     OPERATOR2('2'),
     OPERATOR3('3');

@@ -16,7 +16,7 @@ public class SkillRepository implements Serializable {
     /**
      * List to store all the skills.
      */
-    private final List<Skill> skillList;
+    private List<Skill> skillList;
 
     /**
      * Constructs a SkillRepository object.
@@ -39,7 +39,7 @@ public class SkillRepository implements Serializable {
         if (validateSkill(skill)) {
             newSkill = Optional.of(skill.clone());
             operationSuccess = skillList.add(newSkill.get());
-           // SerializationUtils.saveToFile(skillList, SerializationFiles.SKILL_DATABASE);
+            //SerializationUtils.saveToFile(skillList, SerializationFiles.SKILL_DATABASE);
         }
 
         if (!operationSuccess) {
@@ -88,5 +88,9 @@ public class SkillRepository implements Serializable {
         Skill newSkill = new Skill(skillName);
         Optional<Skill> addedSkill = add(newSkill);
         return addedSkill;
+    }
+
+    public void loadSkillsFromFile(){
+        skillList = SerializationUtils.readFromFile(SerializationFiles.SKILL_DATABASE);
     }
 }

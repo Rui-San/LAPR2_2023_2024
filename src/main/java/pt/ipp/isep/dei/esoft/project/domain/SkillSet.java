@@ -1,12 +1,13 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Represents a combination of a skill with a quantity needed of that skill.
  */
-public class SkillSet implements Cloneable {
+public class SkillSet implements Cloneable, Serializable {
 
     /**
      * The object skill.
