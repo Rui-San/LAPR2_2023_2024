@@ -58,7 +58,7 @@ public class TeamRepository {
 
         List<Team> definitiveTeamList = new ArrayList<>();
 
-        if (!verifyQuantityNeeded(quantityNeeded, maxTeamSize) || minTeamSize < 2 || maxTeamSize < 2 || maxTeamSize < minTeamSize || skillsNeeded.isEmpty() || quantityNeeded.isEmpty()) {
+        if (!verifyQuantityNeeded(quantityNeeded, maxTeamSize) || minTeamSize < 1 || maxTeamSize < 1 || maxTeamSize < minTeamSize || skillsNeeded.isEmpty() || quantityNeeded.isEmpty()) {
             return definitiveTeamList;
         }
 
