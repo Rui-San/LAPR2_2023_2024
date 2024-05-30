@@ -52,8 +52,10 @@ public class TeamTest {
 
         collaborator2.assignSkills(skillList);
 
-        String expectedResult = "Name: João Silva |  Email: jsilva@this.app | Skills: \n" +
-                "Name: Guilherme Santos |  Email: gsantos@this.app | Skills: License Drive, Tree Prunning\n";
+        String expectedResult = "Name: João Silva |  Email: jsilva@this.app\n" +
+                "Skills: \n" +
+                "Name: Guilherme Santos |  Email: gsantos@this.app\n" +
+                "Skills: License Drive, Tree Prunning\n";
         String actualResult = newTeam.toString();
         assertEquals(expectedResult, actualResult);
     }
