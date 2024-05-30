@@ -151,7 +151,7 @@ public class AgendaRepository {
                     Task copy = getCopy(task);
 
                     System.out.println(copy.getTeamAssigned().getMembers().size());
-                    System.out.println(copy.getTeamAssigned().getMembers().get(1).getName());
+                    System.out.println(copy.getTeamAssigned().getMembers().get(0).getName());
 
                     task.removeAssignedTeam();
                     task.removeAssignedVehicles();
@@ -218,7 +218,7 @@ public class AgendaRepository {
         for (Task task : agenda) {
             if (task.getTitle().trim().equalsIgnoreCase(title.trim()) && task.getStatus() == status && task.getTaskWorkPeriod().getWorkStartDate().toString().trim().equalsIgnoreCase(executionDate.trim()) && task.getGreenSpace().getName().trim().equalsIgnoreCase(greenSpaceName.trim())) {
                 System.out.println("-----------");
-                System.out.println("Workperiod Task da agenda:" + task.getTaskWorkPeriod().getWorkStartDate() + task.getTaskWorkPeriod().getWorkStartHour() + task.getTaskWorkPeriod().getWorkStartMin() + task.getTaskWorkPeriod().getWorkEndDate() + task.getTaskWorkPeriod().getWorkEndHour() + task.getTaskWorkPeriod().getWorkEndMin());
+                System.out.println("Workperiod Task da agenda:" + task.getTaskWorkPeriod().getWorkStartDate() + "  " + task.getTaskWorkPeriod().getWorkStartHour() + "  " + task.getTaskWorkPeriod().getWorkStartMin() + "  " + task.getTaskWorkPeriod().getWorkEndDate() + "  " + task.getTaskWorkPeriod().getWorkEndHour() + "  " + task.getTaskWorkPeriod().getWorkEndMin());
 
                 task.assignTeam(team);
                 assignedTask = Optional.of(task);

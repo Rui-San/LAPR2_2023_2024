@@ -21,6 +21,7 @@ public class Bootstrap implements Runnable {
         addCollaborator();
         assignSkills();
         addGreenSpaces();
+
         //fillRepositoryLists();
     }
 
@@ -29,9 +30,10 @@ public class Bootstrap implements Runnable {
         Repositories.getInstance().getJobRepository().loadJobsFromFile();
         Repositories.getInstance().getSkillRepository().loadSkillsFromFile();
         Repositories.getInstance().getCollaboratorRepository().loadCollaboratorsFromFile();
+        Repositories.getInstance().getTeamRepository().loadTeamsFromFile();
 
     }
-
+/*
     private void fillJobRepositoryFromFile() {
         List<Job> jobList = SerializationUtils.readFromFile(SerializationFiles.JOB_DATABASE);
         JobRepository jobRepository = Repositories.getInstance().getJobRepository();
@@ -55,6 +57,8 @@ public class Bootstrap implements Runnable {
             collaboratorRepository.add(collaborator);
         }
     }
+
+ */
 
     private void addGreenSpaces() {
         GreenSpaceRepository greenSpaceRepository = Repositories.getInstance().getGreenSpaceRepository();

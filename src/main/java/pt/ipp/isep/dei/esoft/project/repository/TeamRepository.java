@@ -1,6 +1,8 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.domain.*;
+import pt.ipp.isep.dei.esoft.project.tools.SerializationFiles;
+import pt.ipp.isep.dei.esoft.project.tools.SerializationUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +15,7 @@ public class TeamRepository {
     /**
      * List to store all the accepted teams.
      */
-    private final List<Team> teamList;
+    private List<Team> teamList;
 
     /**
      * Constructs a TeamRepository object.
@@ -176,42 +178,6 @@ public class TeamRepository {
         return teams;
     }
 
-
-/*
-    private List<Team> createTeamsBySize(List<Collaborator> possibleCollaborators, int teamSize) {
-        List<Team> teams = new ArrayList<>();
-
-        int n = possibleCollaborators.size();
-
-        int[] index = new int[teamSize];
-        for (int i = 0; i < teamSize; i++) {
-            index[i] = i;
-        }
-
-        while (index[0] < n - teamSize + 1) {
-            List<Collaborator> actualTeam = new ArrayList<>();
-            for (int i = 0; i < teamSize; i++) {
-                actualTeam.add(possibleCollaborators.get(index[i]));
-            }
-            teams.add(new Team(actualTeam));
-
-            int j = teamSize - 1;
-            while (j >= 0 && index[j] == n - teamSize + j) {
-                j--;
-            }
-            if (j < 0) {
-                break;
-            }
-            index[j]++;
-            for (int k = j + 1; k < teamSize; k++) {
-                index[k] = index[k - 1] + 1;
-            }
-        }
-        return teams;
-    }
-
- */
-
     /**
      * Check which collaborators of the company can join a new team.
      * In order to join a new team, this method verifies if the collaborator is already in a team (by calling method isAlreadyInOneTeam) and if the collaborator has at least one needed skill.
@@ -274,14 +240,15 @@ public class TeamRepository {
      */
     public void saveTeamProposal(Team teamAccepted) {
         teamList.add(teamAccepted);
+        //SerializationUtils.saveToFile(teamList, SerializationFiles.TEAM_DATABASE);
     }
 
     public void removeWorkPeriodFromTeam(Task canceledTask, WorkPeriod oldWorkPeriod) {
         String emailToVerify = canceledTask.getTeamAssigned().getMembers().get(0).getEmail().getEmail().trim();
 
-        for(Team team : teamList){
-            for(Collaborator collaborator : team.getMembers()){
-                if(collaborator.getEmail().getEmail().trim().equalsIgnoreCase(emailToVerify)){
+        for (Team team : teamList) {
+            for (Collaborator collaborator : team.getMembers()) {
+                if (collaborator.getEmail().getEmail().trim().equalsIgnoreCase(emailToVerify)) {
                     team.removeWorkPeriodIfExists(oldWorkPeriod);
                 }
             }
@@ -295,6 +262,24 @@ public class TeamRepository {
                 if (collaborator.getEmail().getEmail().trim().equalsIgnoreCase(postponedTask.getTeamAssigned().getMembers().get(0).getEmail().getEmail().trim())) {
                     team.addWorkPeriod(newWorkPeriod);
                     System.out.println("Team work period postponed!");
+                }
+            }
+        }
+    }
+
+    public void loadTeamsFromFile() {
+        teamList = SerializationUtils.readFromFile(SerializationFiles.TEAM_DATABASE);
+
+        for (Team team : teamList) {
+            List<Collaborator> teamMembers = team.getMembers();
+            List<Collaborator> allCollaborators = Repositories.getInstance().getCollaboratorRepository().getCollaboratorList();
+
+            for (int i = 0; i < teamMembers.size(); i++) {
+                Collaborator teamMember = teamMembers.get(i);
+                for (Collaborator collaborator : allCollaborators) {
+                    if (collaborator.getEmail().getEmail().trim().equalsIgnoreCase(teamMember.getEmail().getEmail().trim())) {
+                        teamMembers.set(i, collaborator);
+                    }
                 }
             }
         }
