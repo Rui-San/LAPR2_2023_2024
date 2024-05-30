@@ -61,6 +61,30 @@ class Address{
     + Address(street, streetNumber, postalCode, city, district)
 }
 
+class ApplicationController{
+
+}
+
+class UserSession{
+
+}
+
+class Email{
+
+}
+
+class GreenSpaceMapper{
+
+}
+
+class GreenSpaceDTO{
+
+}
+
+class AuthenticationRepository{
+
+}
+
 RegisterGreenSpaceUI .right.> RegisterGreenSpaceController
 RegisterGreenSpaceController ..> "1" GreenSpaceRepository : greenSpaceRepository
 GreenSpaceRepository "1"-down-> "*" GreenSpace : greenSpace
@@ -68,6 +92,12 @@ GreenSpace *--"1" Address : address
 RegisterGreenSpaceController ..> Repositories : repositories
 Repositories --> "1" GreenSpaceRepository
 Repositories -> Repositories : instance
-
+Repositories --> "1" AuthenticationRepository
+RegisterGreenSpaceController ..> ApplicationController
+ApplicationController ..> AuthenticationRepository
+AuthenticationRepository ..> UserSession
+UserSession ..> Email
+RegisterGreenSpaceController ..> GreenSpaceMapper
+GreenSpaceMapper ..> GreenSpaceDTO
 
 @enduml

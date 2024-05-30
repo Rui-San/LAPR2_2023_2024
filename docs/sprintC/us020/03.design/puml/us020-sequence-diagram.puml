@@ -8,13 +8,19 @@ title US020 - Sequence Diagram (SD)
 autonumber
 
 actor "Green Space\nManager" as GSM
-participant ":registerGreenSpaceUI" as UI
-participant ":registerGreenSpaceController" as CTRL
+participant ":RegisterGreenSpaceUI" as UI
+participant ":GreenSpaceDTO" as DTO
+participant ":RegisterGreenSpaceController" as CTRL
 participant ":Repositories" as REPO
 participant "repositories\n:Repositories" as REPOInstance
+participant ":GreenSpaceMapper" as Mapper
 participant ":greenSpaceRepository" as GSRepo
 participant ":GreenSpace" as GS
 participant ":Address" as Address
+participant ":ApplicationSession" as APP
+participant "singleton\n:ApplicationSession" as APPSingleton
+participant "userSession\n:UserSession" as UserSession
+participant "userID\n:Email" as Email
 
 activate GSM
 
@@ -22,29 +28,24 @@ activate GSM
     activate UI
 
         UI --> CTRL** : create
-loop until selected data is validated
-        UI --> GSM : Displays the types of green spaces and asks\nto select one (garden, medium, large)
-    deactivate UI
 
-    GSM -> UI : selects type of green space
-    activate UI
-end loop
-        UI --> UI : keepData(type)
 loop until typed data is validated
-        UI --> GSM : requests data (name, streetNumber,\npostalCode, city, district, totalArea)
+        UI --> GSM : requests data (name, type, area, street,\n streetNumber, postalCode, city, district)
     deactivate UI
 
     GSM -> UI : types requested data
     activate UI
 end loop
-        UI --> UI : keepData(name,streetNumber,\npostalCode,city,district,totalArea)
+        UI --> UI : keepData(name, type, area, street,\n streetNumber,postalCode, city, district)
         UI --> GSM : shows all data and requests confirmation
     deactivate UI
 
     GSM -> UI : confirms data
     activate UI
 
-        UI --> CTRL : createGreenSpace(type,name,streetNumber,\npostalCode,city,district,totalArea)
+        UI -> DTO** : new GreenSpaceDTO(name, type, area, street,\n streetNumber,postalCode, city, district)
+
+        UI --> CTRL : registerGreenSpace(greenSpaceDTO)
         activate CTRL
 
             CTRL --> REPO : getInstance()
@@ -59,10 +60,34 @@ end loop
                 REPOInstance --> CTRL : greenSpaceRepository
             deactivate REPOInstance
 
-            CTRL --> GSRepo : createGreenSpace(type,name,streetNumber,\npostalCode,city,district,totalArea)
-            activate GSRepo
+            CTRL --> APP : getInstance()
+            activate APP
 
-                GSRepo --> GS** : new GreenSpace(type,name,streetNumber,\npostalCode,city,district,totalArea)
+                APP --> CTRL : singleton
+            deactivate APP
+
+            CTRL --> APPSingleton : getUserSession()
+            activate APPSingleton
+
+                APPSingleton --> CTRL : userSession
+            deactivate APPSingleton
+
+            CTRL --> UserSession : getUserId()
+            activate UserSession
+
+                UserSession --> CTRL : userId
+            deactivate UserSession
+
+            CTRL --> Email : getEmail()
+            activate Email
+
+                Email --> CTRL : email
+            deactivate Email
+
+            CTRL --> Mapper : toGreenSpace(greenSpaceDTO,managerEmail)
+            activate Mapper
+
+                Mapper --> GS** : new GreenSpace(type,name,streetNumber,\npostalCode,city,district,totalArea)
                     GS --> GS : validateName(name)
                     GS --> Address** : new Address(streetNumber,\npostalCode,city,district)
                         Address --> Address : validateStreet(street)
@@ -71,10 +96,18 @@ end loop
                         Address --> Address : validateCity(city)
                         Address --> Address : validateDistrict(district)
                     GS --> GS : validateTotalArea(totalArea)
-                GSRepo --> GSRepo : add(newGreenSpace)
-                GSRepo --> GSRepo : validateGreenSpace(newGreenSpace)
+                Mapper --> CTRL : greenSpace
+
+            deactivate Mapper
+
+            CTRL --> GSRepo : registerGreenSpace(greenSpace)
+            activate GSRepo
+
+                GSRepo --> GSRepo : add(greenSpace)
+                GSRepo --> GSRepo : validateGreenSpace(greenSpace)
                 GSRepo --> CTRL : operation success
             deactivate GSRepo
+
 
             CTRL --> UI : operation success
         deactivate CTRL
