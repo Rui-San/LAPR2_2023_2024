@@ -81,7 +81,7 @@ class AddressTest {
             IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
                 new Address("Rua das travessas", 123, "1223-111", city, "Porto");
             });
-            assertTrue(exception.getMessage().contains("City must not be empty"));
+            assertTrue(exception.getMessage().contains("City is empty"));
         }
     }
 
@@ -93,7 +93,7 @@ class AddressTest {
             IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
                 new Address("Rua das travessas", 123, "1223-111", "S.M.Feira", district);
             });
-            assertTrue(exception.getMessage().contains("District must not be empty"));
+            assertTrue(exception.getMessage().contains("District is empty"));
         }
     }
 

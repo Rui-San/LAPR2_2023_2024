@@ -150,12 +150,6 @@ public class WorkPeriod {
      */
 
 
-    /**
-     * Este método verifica se da o tal overlap com os dias, ou seja a tarefa tem que iniciar no dia seguinte
-     *
-     * @param other
-     * @return
-     */
     public boolean isOverlapDates(WorkPeriod other) {
         // Check if this work period ends before the other work period starts
         if (this.workEndDate.isBefore(other.workStartDate)) {

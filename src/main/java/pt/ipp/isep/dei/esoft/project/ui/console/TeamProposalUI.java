@@ -181,10 +181,10 @@ public class TeamProposalUI implements Runnable {
 
     private int requestMinTeamSize() {
         int input = -1;
-        while (input < 2) {
+        while (input < 1) {
             input = Utils.readIntegerFromConsole("Minimum size of team: ");
-            if (input < 2) {
-                System.out.println("A team must have at least 2 members.");
+            if (input < 1) {
+                System.out.println("A team must have at least 1 member.");
             }
         }
         return input;

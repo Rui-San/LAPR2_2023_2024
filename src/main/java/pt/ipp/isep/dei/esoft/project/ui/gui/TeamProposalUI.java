@@ -37,7 +37,6 @@ public class TeamProposalUI implements Initializable {
     private Label lblResult;
 
 
-
     @FXML
     private ListView<String> lvTeamGenerated;
 
@@ -76,21 +75,28 @@ public class TeamProposalUI implements Initializable {
     private void btnAddSelectedSkillPlusQuantity() {
         Skill selectedSkill = skillsListView.getSelectionModel().getSelectedItem();
         if (selectedSkill != null) {
-            try {
-                int quantity = Integer.parseInt(txtQuantityOfSelectedSkill.getText());
-                if (quantity > 0) {
-                    skillsNeeded.add(selectedSkill);
-                    quantityNeeded.add(quantity);
-                    lvSkillSetList.getItems().add(selectedSkill.getSkillName() + " - " + quantity);
-                    txtQuantityOfSelectedSkill.clear();
-                    lblSkillSetQuantityError.setVisible(false);
-                } else {
-                    lblSkillSetQuantityError.setText("Quantity must be greater than 0.");
+            if (skillsNeeded.contains(selectedSkill)) {
+                lblSkillSetQuantityError.setText("Skill already added.");
+                lblSkillSetQuantityError.setVisible(true);
+            } else {
+
+
+                try {
+                    int quantity = Integer.parseInt(txtQuantityOfSelectedSkill.getText());
+                    if (quantity > 0) {
+                        skillsNeeded.add(selectedSkill);
+                        quantityNeeded.add(quantity);
+                        lvSkillSetList.getItems().add(selectedSkill.getSkillName() + " - " + quantity);
+                        txtQuantityOfSelectedSkill.clear();
+                        lblSkillSetQuantityError.setVisible(false);
+                    } else {
+                        lblSkillSetQuantityError.setText("Quantity must be greater than 0.");
+                        lblSkillSetQuantityError.setVisible(true);
+                    }
+                } catch (NumberFormatException e) {
+                    lblSkillSetQuantityError.setText("Invalid quantity format.");
                     lblSkillSetQuantityError.setVisible(true);
                 }
-            } catch (NumberFormatException e) {
-                lblSkillSetQuantityError.setText("Invalid quantity format.");
-                lblSkillSetQuantityError.setVisible(true);
             }
         } else {
             lblSkillSetQuantityError.setText("No skill selected.");
@@ -104,12 +110,13 @@ public class TeamProposalUI implements Initializable {
             int minTeamSize = Integer.parseInt(txtMinTeamSize.getText());
             int maxTeamSize = Integer.parseInt(txtMaxTeamSize.getText());
 
-            if (minTeamSize > 1 && maxTeamSize >= minTeamSize) {
+            if (minTeamSize >= 1 && maxTeamSize >= minTeamSize) {
                 generatedTeams = controller.generateAllTeamProposal(minTeamSize, maxTeamSize, skillsNeeded, quantityNeeded);
                 if (generatedTeams.isEmpty()) {
                     lblGenerateTeamError.setText("No teams could be generated with the given inputs.");
                     lblGenerateTeamError.setVisible(true);
                     lblResult.setVisible(false);
+                    lvTeamGenerated.getItems().clear();
                 } else {
                     currentTeamIndex = 0;
                     showCurrentTeam();
@@ -196,11 +203,13 @@ public class TeamProposalUI implements Initializable {
         lblMaxError.setVisible(false);
         lblMinError.setVisible(false);
         lblResult.setVisible(false);
+        skillsNeeded.clear();
+        quantityNeeded.clear();
 
     }
 
     @FXML
-    public void btnClear(){
+    public void btnClear() {
         clearFields();
     }
 }
