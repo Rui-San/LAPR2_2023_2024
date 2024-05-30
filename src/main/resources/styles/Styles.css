@@ -43,15 +43,15 @@
 }
 
 .form-input {
-    -fx-padding: 3px 3spx;
-    -fx-pref-height: 27px;
+    -fx-padding: 3px 2spx;
+    -fx-pref-height: 30px;
     -fx-background-radius: 5px;
     -fx-border-radius: 5px;
     -fx-border-width: 1px;
     -fx-border-color: #DDE3EC;
     -fx-background-color: #FFFFFF;
     -fx-font-weight: 500;
-    -fx-font-size: 16px;
+    -fx-font-size: 15px;
     -fx-text-fill: #536387;
     -fx-focus-color: transparent;
 }
@@ -70,8 +70,51 @@
 
 .form-input:focused,
 .form-input:hover {
-    -fx-border-color: #6a64f1;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.05), 8, 0, 0, 3);
+}
+
+.form-btn{
+    -fx-background-color: white;
+    -fx-background-radius: 15px;
+    -fx-border-width: 1px;
+    -fx-border-color: gray;
+    -fx-border-radius: 15px;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+}
+
+.btn-highlight{
+    -fx-background-color: linear-gradient(#388e3c, #2e7d32);
+    -fx-background-radius: 15px;
+    -fx-border-width: 1px;
+    -fx-border-radius: 15px;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-border-color: transparent;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 0);
+}
+
+.btn-highlight:hover{
+    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #32DF55, #22BF48);
+    -fx-text-fill: white;
+    -fx-border-color: transparent;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 12, 0, 0, 0);
+}
+
+.form-btn:hover{
+    -fx-background-color: #f4f4f4;
+    -fx-border-color: #6a64f1;
+}
+
+.remove-border-radius-right{
+    -fx-background-radius: 15px 0px 0px 15px;
+    -fx-border-radius: 15px 0px 0px 15px;
+}
+
+.remove-border-radius-left{
+    -fx-background-radius: 0px 15px 15px 0px;
+    -fx-border-radius: 0px 15px 15px 0px;
 }
 
 
@@ -98,4 +141,114 @@
 
 .menu-btn-logout{
     -fx-border-width: 1px 0px 0px 0px;
+}
+
+
+
+/* General TableView Styling */
+.table-view {
+    -fx-background-color: #f9f9f9;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-font-size: 14px;
+}
+
+/* Header Styling */
+.table-view .column-header-background {
+    -fx-background-color: linear-gradient(#4CAF50, #388E3C);
+    -fx-background-radius: 10 10 0 0;
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-size: 25px;
+    -fx-background-color: transparent;
+    -fx-border-color: #ffffff;
+    -fx-border-width: 0 0 1 0;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+}
+
+.table-view .cell:selected {
+    -fx-border-color: transparent; /* Remove the focus border */
+}
+
+.table-view .cell:focused {
+    -fx-border-color: transparent; /* Remove the focus border */
+    -fx-border-width: 0;
+}
+
+/* Row Styling */
+.table-row-cell:filled {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #eeeeee;
+    -fx-border-width: 0 0 1 0;
+}
+
+.table-row-cell:filled:selected {
+    -fx-background-color: #e8f5e9; /* Light green background */
+    -fx-text-fill: black; /* Ensure the text color stays black */
+    -fx-border-color: transparent; /* Remove the focus border */
+}
+
+.table-row-cell:filled:hover {
+    -fx-background-color: #f1f8e9; /* Slightly darker green for hover */
+}
+
+.table-view .cell {
+    -fx-alignment: CENTER-LEFT;
+    -fx-padding: 5 10 5 10;
+    -fx-text-fill: black; /* Ensure text color is black by default */
+}
+
+/* Alternate Row Colors */
+.table-view .table-row-cell:even {
+    -fx-background-color: #f7f7f7;
+}
+
+.table-view .table-row-cell:odd {
+    -fx-background-color: #ffffff;
+}
+
+/* Focused Cell Styling */
+.table-cell:focused {
+    -fx-border-color: transparent; /* Remove the focus border */
+    -fx-border-width: 0;
+}
+
+/* Scrollbar Styling */
+.scroll-bar:vertical .thumb, .scroll-bar:horizontal .thumb {
+    -fx-background-color: #4CAF50;
+}
+
+.scroll-bar:vertical .track, .scroll-bar:horizontal .track {
+    -fx-background-color: #f0f0f0;
+}
+
+/* Selection Bar */
+.table-view .virtual-flow .clipped-container .sheet .selected {
+    -fx-background-color: #A5D6A7; /* Light green background */
+    -fx-border-color: transparent; /* Remove the focus border */
+}
+
+/* Remove blue focus border */
+.table-view .virtual-flow .clipped-container .sheet .focused {
+    -fx-border-color: transparent; /* Remove the focus border */
+}
+
+.table-view .cell:selected {
+    -fx-background-color: #D7E5D8; /* Light green background for selected cells */
+    -fx-text-fill: black; /* Ensure text color is black for selected cells */
+    -fx-border-color: transparent; /* Remove the focus border */
+    -fx-outline: none; /* Remove the focus outline */
+}
+
+.table-view:focused .table-row-cell:filled:selected .table-cell {
+    -fx-border-color: transparent; /* Remove the focus border */
 }

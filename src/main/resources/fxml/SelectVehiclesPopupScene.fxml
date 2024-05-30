@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="573.0" prefWidth="874.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.SelectVehiclesPopupUI">
+<AnchorPane prefHeight="573.0" prefWidth="874.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.SelectVehiclesPopupUI">
    <children>
       <BorderPane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="573.0" prefWidth="874.0">
          <bottom>
@@ -31,9 +31,9 @@
                <bottom>
                   <AnchorPane prefHeight="83.0" prefWidth="794.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Button layoutX="411.0" layoutY="13.0" mnemonicParsing="false" onAction="#btnSelectVehicle" prefHeight="57.0" prefWidth="100.0" text="Select vehicles" />
+                        <Button layoutX="287.0" layoutY="13.0" mnemonicParsing="false" onAction="#btnSelectVehicle" prefHeight="57.0" prefWidth="100.0" styleClass="form-btn" text="Select vehicles" />
                         <Label fx:id="lblError" layoutY="2.0" prefHeight="17.0" prefWidth="792.0" text="Label" textFill="#dd2424" visible="false" />
-                        <Button layoutX="281.0" layoutY="13.0" mnemonicParsing="false" onAction="#btnCancelAction" prefHeight="57.0" prefWidth="100.0" text="Exit" />
+                        <Button layoutX="410.0" layoutY="13.0" mnemonicParsing="false" onAction="#btnCancelAction" prefHeight="57.0" prefWidth="100.0" styleClass="form-btn" text="Exit" />
                      </children>
                   </AnchorPane>
                </bottom>

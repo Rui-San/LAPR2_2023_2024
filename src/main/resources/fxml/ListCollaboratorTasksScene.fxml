@@ -16,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="573.0" prefWidth="874.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.ListCollaboratorTasksUI">
+<BorderPane prefHeight="573.0" prefWidth="874.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.ListCollaboratorTasksUI">
    <top>
       <AnchorPane prefHeight="68.0" prefWidth="708.0" BorderPane.alignment="CENTER">
          <children>
@@ -50,13 +50,21 @@
                <top>
                   <AnchorPane prefHeight="65.0" prefWidth="791.0" BorderPane.alignment="CENTER">
                      <children>
-                            <DatePicker fx:id="dpInitialDate" layoutX="144.0" layoutY="8.0" prefHeight="30.0" prefWidth="139.0" promptText="Select Initial Date" />
-                            <DatePicker fx:id="dpFinalDate" layoutX="294.0" layoutY="8.0" maxWidth="139.0" prefHeight="30.0" promptText="Select Final Date" />
-                        <Button layoutX="445.0" layoutY="8.0" mnemonicParsing="false" onAction="#btnFilterAction" prefHeight="30.0" prefWidth="80.0" text="Filter" />
-                        <ComboBox fx:id="cbStatusFilter" layoutY="8.0" prefHeight="30.0" prefWidth="131.0" promptText="Filter by status" />
+                            <DatePicker fx:id="dpInitialDate" layoutX="144.0" layoutY="8.0" minHeight="-Infinity" prefHeight="30.0" prefWidth="139.0" promptText="Initial Date" styleClass="form-input" />
+                            <DatePicker fx:id="dpFinalDate" layoutX="294.0" layoutY="8.0" maxWidth="139.0" minHeight="-Infinity" prefHeight="30.0" promptText="Final Date" styleClass="form-input" />
+                        <Button layoutX="445.0" layoutY="8.0" mnemonicParsing="false" onAction="#btnFilterAction" prefHeight="33.0" prefWidth="88.0" text="Filter">
+                           <styleClass>
+                              <String fx:value="form-btn" />
+                              <String fx:value="remove-border-radius-right" />
+                           </styleClass></Button>
+                        <ComboBox fx:id="cbStatusFilter" layoutY="8.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="131.0" promptText="Filter by status" styleClass="form-input" />
                         <Label fx:id="lblError" layoutY="43.0" prefHeight="17.0" prefWidth="429.0" text="Error label. Final date must be after initial date... etc.. etc..." textFill="RED" visible="false" />
-                        <Button layoutX="525.0" layoutY="8.0" mnemonicParsing="false" onAction="#btnClearFilter" prefHeight="30.0" prefWidth="86.0" text="Clear Filter" />
-                        <Button layoutX="639.0" layoutY="5.0" mnemonicParsing="false" onAction="#btnSetCompleted" prefHeight="45.0" prefWidth="152.0" text="Set Completed" />
+                        <Button layoutX="532.0" layoutY="8.0" mnemonicParsing="false" onAction="#btnClearFilter" prefHeight="33.0" prefWidth="101.0" text="Clear Filter">
+                           <styleClass>
+                              <String fx:value="form-btn" />
+                              <String fx:value="remove-border-radius-left" />
+                           </styleClass></Button>
+                        <Button layoutX="648.0" layoutY="5.0" mnemonicParsing="false" onAction="#btnSetCompleted" prefHeight="45.0" prefWidth="143.0" styleClass="btn-highlight" text="Set Completed" />
                      </children>
                   </AnchorPane>
                </top>
