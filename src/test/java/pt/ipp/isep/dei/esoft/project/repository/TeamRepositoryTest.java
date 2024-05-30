@@ -2,6 +2,9 @@ package pt.ipp.isep.dei.esoft.project.repository;
 
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.esoft.project.domain.*;
+import pt.ipp.isep.dei.esoft.project.tools.GreenSpaceType;
+import pt.ipp.isep.dei.esoft.project.tools.TaskType;
+import pt.ipp.isep.dei.esoft.project.tools.UrgencyType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -352,5 +355,76 @@ public class TeamRepositoryTest {
         assertTrue(repository.getTeamList().contains(team2));
     }
 
+    @Test
+    public void testGetTeamByTeamMemberEmails() {
+
+        TeamRepository repository = new TeamRepository();
+        List<Collaborator> members = new ArrayList<>();
+        members.add(new Collaborator("Maria Silva", "05/06/2002", "04/05/2024", "Rua K", 2, "2040-503", "Sagres", "Faro", "msilva@this.app", "912345678", Collaborator.IdDocType.CC, "123456789", new Job("HRM") ));
+        Team team = new Team(members);
+        repository.saveTeamProposal(team);
+
+        assertEquals(team, repository.getTeamByTeamMemberEmails("msilva@this.app"));
+    }
+
+    @Test
+    public void testSaveTeamProposal() {
+
+        TeamRepository repository = new TeamRepository();
+        Team team = new Team(new ArrayList<>());
+
+        repository.saveTeamProposal(team);
+
+        assertTrue(repository.getTeamList().contains(team));
+    }
+
+    @Test
+    public void testRemoveWorkPeriodFromTeam() {
+        GreenSpace greenSpace1 = new GreenSpace(GreenSpaceType.GARDEN, "Park nameA", "Street1", 123, "1234-123", "Matosinhos", "Porto", 1234.0, "manager1@this.app");
+
+        Task newTask = new Task("title","description", TaskType.OCCASIONAL,greenSpace1, UrgencyType.HIGH,0,8,0);
+        WorkPeriod wp = new WorkPeriod(new Date("31/05/2024"),8,0,newTask.getExpectedDuration());
+        newTask.setTaskWorkPeriod(wp);
+        TeamRepository repository = new TeamRepository();
+        Collaborator collaborator = new Collaborator("Maria Silva", "05/06/2002", "04/05/2024", "Rua K", 2, "2040-503", "Sagres", "Faro", "msilva@this.app", "912345678", Collaborator.IdDocType.CC, "123456789", new Job("HRM") );
+        List<Collaborator> members = new ArrayList<>();
+        members.add(collaborator);
+        Team team = new Team(members);
+
+        repository.saveTeamProposal(team);
+        newTask.assignTeam(team);
+        System.out.println(team.getWorkPeriods());
+
+
+
+        repository.removeWorkPeriodFromTeam(newTask, newTask.getTaskWorkPeriod());
+
+        assertFalse(team.getWorkPeriods().contains(newTask.getTaskWorkPeriod()));
+    }
+
+    @Test
+    public void testPostponeWorkPeriods() {
+        GreenSpace greenSpace1 = new GreenSpace(GreenSpaceType.GARDEN, "Park nameA", "Street1", 123, "1234-123", "Matosinhos", "Porto", 1234.0, "manager1@this.app");
+
+
+        TeamRepository repository = new TeamRepository();
+        Collaborator collaborator = new Collaborator("Maria Silva", "05/06/2002", "04/05/2024", "Rua K", 2, "2040-503", "Sagres", "Faro", "msilva@this.app", "912345678", Collaborator.IdDocType.CC, "123456789", new Job("HRM") );
+        List<Collaborator> members = new ArrayList<>();
+        members.add(collaborator);
+        Team team = new Team(members);
+        repository.saveTeamProposal(team);
+
+
+        Task newTask = new Task("title","description", TaskType.OCCASIONAL,greenSpace1, UrgencyType.HIGH,0,8,0);
+        WorkPeriod wp = new WorkPeriod(new Date("31/05/2024"),8,0,newTask.getExpectedDuration());
+        newTask.setTaskWorkPeriod(wp);
+        WorkPeriod newWorkPeriod = new WorkPeriod(new Date("31/05/2024"),8,0,newTask.getExpectedDuration());
+
+        newTask.setTeamAssigned(team);
+
+        repository.postponeWorkPeriods(newTask, newTask.getTaskWorkPeriod(), newWorkPeriod);
+
+        assertTrue(team.getWorkPeriods().contains(newWorkPeriod));
+    }
 
 }
