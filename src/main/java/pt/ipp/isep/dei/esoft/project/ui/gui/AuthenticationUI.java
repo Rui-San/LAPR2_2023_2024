@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.esoft.project.ui.gui.authorization;
+package pt.ipp.isep.dei.esoft.project.ui.gui;
 
 
 import javafx.fxml.FXML;
@@ -11,14 +11,11 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.controller.AuthenticationController;
-import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.ui.console.menu.AdminUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.menu.HrmUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.menu.MenuItem;
 import pt.ipp.isep.dei.esoft.project.ui.console.menu.VfmUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
-import pt.ipp.isep.dei.esoft.project.ui.gui.AlertUI;
-import pt.ipp.isep.dei.esoft.project.ui.gui.MainApp;
 import pt.isep.lei.esoft.auth.mappers.dto.UserRoleDTO;
 
 import java.io.IOException;

@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="573.0" prefWidth="874.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.AgendaUI">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="573.0" prefWidth="874.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.AgendaUI">
     <left>
         <Pane prefHeight="360.0" prefWidth="40.0" BorderPane.alignment="CENTER" />
     </left>
@@ -31,7 +31,7 @@
     <center>
         <BorderPane prefHeight="428.0" prefWidth="794.0" BorderPane.alignment="CENTER">
             <center>
-                <TableView fx:id="tbTasks" prefHeight="348.0" prefWidth="766.0" BorderPane.alignment="CENTER">
+                <TableView fx:id="tbTasks" prefHeight="361.0" prefWidth="798.0" BorderPane.alignment="CENTER">
                     <columns>
                         <TableColumn fx:id="tcTitle" prefWidth="171.0" sortable="false" text="Title" />
                         <TableColumn fx:id="tcType" prefWidth="114.0" text="Type" />
@@ -46,12 +46,28 @@
                 </TableView>
             </center>
             <bottom>
-                <AnchorPane prefHeight="83.0" prefWidth="794.0" BorderPane.alignment="CENTER">
+                <AnchorPane prefHeight="94.0" prefWidth="798.0" BorderPane.alignment="CENTER">
                     <children>
-                        <Button layoutY="18.0" mnemonicParsing="false" onAction="#btnAssignTeam" prefHeight="57.0" prefWidth="190.0" text="Assign Team" />
-                        <Button layoutX="203.0" layoutY="18.0" mnemonicParsing="false" onAction="#btnAssignVehicles" prefHeight="57.0" prefWidth="190.0" text="Assign Vehicle" />
-                        <Button layoutX="403.0" layoutY="18.0" mnemonicParsing="false" onAction="#btnPostponeTask" prefHeight="57.0" prefWidth="190.0" text="Postpone Task" />
-                        <Button layoutX="604.0" layoutY="18.0" mnemonicParsing="false" onAction="#btnCancelTask" prefHeight="57.0" prefWidth="190.0" text="Cancel Task" />
+                        <Button layoutX="1.0" layoutY="22.0" mnemonicParsing="false" onAction="#btnAssignTeam" prefHeight="57.0" prefWidth="200.0" text="Assign Team">
+                     <styleClass>
+                        <String fx:value="form-btn" />
+                        <String fx:value="remove-border-radius-right" />
+                     </styleClass></Button>
+                        <Button layoutX="200.0" layoutY="22.0" mnemonicParsing="false" onAction="#btnAssignVehicles" prefHeight="57.0" prefWidth="200.0" text="Assign Vehicle">
+                     <styleClass>
+                        <String fx:value="form-btn" />
+                        <String fx:value="remove-border-radius" />
+                     </styleClass></Button>
+                        <Button layoutX="399.0" layoutY="22.0" mnemonicParsing="false" onAction="#btnPostponeTask" prefHeight="57.0" prefWidth="200.0" text="Postpone Task">
+                     <styleClass>
+                        <String fx:value="form-btn" />
+                        <String fx:value="remove-border-radius" />
+                     </styleClass></Button>
+                        <Button layoutX="598.0" layoutY="22.0" mnemonicParsing="false" onAction="#btnCancelTask" prefHeight="57.0" prefWidth="200.0" text="Cancel Task">
+                     <styleClass>
+                        <String fx:value="form-btn" />
+                        <String fx:value="remove-border-radius-left" />
+                     </styleClass></Button>
                   <Label fx:id="lblError" layoutY="2.0" prefHeight="17.0" prefWidth="792.0" text="Label" textFill="#dd2424" visible="false" />
                     </children>
                 </AnchorPane>
