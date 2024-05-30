@@ -58,10 +58,6 @@ public class RegisterGreenSpaceUI implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         fillGreenSpaceType();
-
-        Email af = Repositories.getInstance().getAuthenticationRepository().getAuthenticationFacade().getCurrentUserSession().getUserId();
-
-        System.out.println(af);
     }
 
     private void fillGreenSpaceType() {
