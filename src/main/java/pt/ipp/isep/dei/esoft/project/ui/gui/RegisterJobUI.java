@@ -50,8 +50,9 @@ public class RegisterJobUI implements Initializable {
                     Optional<Job> job = getRegisterJobController().registerJob(txtJobName.getText().trim());
 
                     if (job.isPresent()) {
-                        clearLayoutErrors(txtJobName,lblJobNameError);
+                        clearLayoutErrors(txtJobName, lblJobNameError);
                         AlertUI.createAlert(Alert.AlertType.INFORMATION, "Register Job", "Register Job", "Job successfully registered!").show();
+                        clearErrors();
                     } else {
                         AlertUI.createAlert(Alert.AlertType.ERROR, "Register Job", "Register Job", "This Job is already registered!").show();
                     }
@@ -85,9 +86,7 @@ public class RegisterJobUI implements Initializable {
 
     @FXML
     public void btnClearAction() {
-        txtJobName.clear();
-        lblJobNameError.setVisible(false);
-        txtJobName.setStyle(null);
+        clearErrors();
     }
 
     private void displayErrorLayout(Control controlObject, Label labelToShowError, String errorMessage) {
@@ -100,6 +99,12 @@ public class RegisterJobUI implements Initializable {
         controlObject.setStyle("");
         labelWithError.setVisible(false);
         labelWithError.setText("");
+    }
+
+    private void clearErrors() {
+        txtJobName.clear();
+        lblJobNameError.setVisible(false);
+        txtJobName.setStyle(null);
     }
 
 
