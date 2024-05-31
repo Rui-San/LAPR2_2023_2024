@@ -181,6 +181,45 @@ public class AgendaRepository {
         return null;
     }
 
+    public Task updateTaskToDone(String title, String greenSpace, String executionDate, Status status) {
+        for (Task task : agenda) {
+            if (task.getTitle().trim().equalsIgnoreCase(title.trim()) && task.getStatus() == status && task.getTaskWorkPeriod().getWorkStartDate().toString().trim().equalsIgnoreCase(executionDate.trim()) && task.getGreenSpace().getName().trim().equalsIgnoreCase(greenSpace.trim())) {
+                if (task.getStatus() == Status.PLANNED || task.getStatus() == Status.POSTPONED) {
+
+                    task.setStatus(Status.DONE);
+                    Task copy = getCopy(task);
+
+                    System.out.println(copy.getTeamAssigned().getMembers().size());
+                    System.out.println(copy.getTeamAssigned().getMembers().get(0).getName());
+
+                    task.removeAssignedTeam();
+                    task.removeAssignedVehicles();
+
+                    System.out.println("----------//-------");
+                    if(task.getVehiclesAssigned().isEmpty()){
+                        System.out.println("no vehicles on task now");
+                    }else{
+
+                        System.out.println("task still have veicles: " + task.getVehiclesAssigned().size());
+                    }
+
+                    if(task.getTeamAssigned() == null){
+                        System.out.println("no team on task now");
+                    }else{
+                        System.out.println("task still have team with size" + task.getTeamAssigned().getMembers().size());
+
+                    }
+                    System.out.println("----------//-------");
+
+
+                    return copy;
+                }
+
+            }
+        }
+        return null;
+    }
+
     private Task getCopy (Task task) {
         Task copy = new Task(task.getTitle().trim(),
                 task.getDescription().trim(),
