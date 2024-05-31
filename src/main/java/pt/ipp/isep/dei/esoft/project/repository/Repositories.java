@@ -1,13 +1,13 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Singleton class responsible for providing access to various repositories.
  */
-public class Repositories {
+public class Repositories implements Serializable{
     /**
      * The singleton instance of Repositories.
      */
@@ -39,7 +39,7 @@ public class Repositories {
     /**
      * Repository for authentication.
      */
-    private final AuthenticationRepository authenticationRepository;
+    private transient AuthenticationRepository authenticationRepository;
 
     private final GreenSpaceRepository greenSpaceRepository;
 
@@ -145,26 +145,61 @@ public class Repositories {
         return greenSpaceRepository;
     }
 
-    public ToDoRepository getToDoRepository(){
+    public ToDoRepository getToDoRepository() {
         return toDoRepository;
     }
 
-    public AgendaRepository getAgendaRepository(){
+    public AgendaRepository getAgendaRepository() {
         return agendaRepository;
     }
 
-    /*
-    public static void save(){
+
+    public static void save() {
         try {
-            FileOutputStream fileOut = new FileOutputStream("data.dat");
+            String directoryPath = System.getProperty("user.dir") + File.separator + "data";
+            File directory = new File(directoryPath);
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+
+            String filePath = directoryPath + File.separator + "data.bin";
+            File file = new File(filePath);
+
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
+            FileOutputStream fileOut = new FileOutputStream(filePath);
             ObjectOutputStream outStream = new ObjectOutputStream(fileOut);
             outStream.writeObject(Repositories.getInstance());
             outStream.close();
             fileOut.close();
-        } catch(IOException i) {
+        } catch (IOException i) {
             i.printStackTrace();
         }
     }
-     */
 
+    public static void load() {
+        try {
+            String directoryPath = System.getProperty("user.dir") + File.separator + "data";
+            String filePath = directoryPath + File.separator + "data.bin";
+            File file = new File(filePath);
+
+            if (file.exists()) {
+                ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
+                try {
+                    instance = (Repositories) in.readObject();
+                } finally {
+                    in.close();
+                }
+            } else {
+                instance = new Repositories();
+            }
+        } catch (IOException | ClassNotFoundException ex) {
+            ex.printStackTrace();
+            instance = new Repositories();
+        }
+    }
 }
+
+
