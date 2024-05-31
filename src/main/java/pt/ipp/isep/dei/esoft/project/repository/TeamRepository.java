@@ -4,6 +4,7 @@ import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.tools.SerializationFiles;
 import pt.ipp.isep.dei.esoft.project.tools.SerializationUtils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -11,7 +12,7 @@ import java.util.Optional;
 /**
  * Team Repository class
  */
-public class TeamRepository {
+public class TeamRepository implements Serializable {
     /**
      * List to store all the accepted teams.
      */

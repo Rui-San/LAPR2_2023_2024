@@ -1,13 +1,11 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 
 /**
  * Singleton class responsible for providing access to various repositories.
  */
-public class Repositories {
+public class Repositories implements Serializable {
     /**
      * The singleton instance of Repositories.
      */
@@ -39,7 +37,7 @@ public class Repositories {
     /**
      * Repository for authentication.
      */
-    private final AuthenticationRepository authenticationRepository;
+    private transient AuthenticationRepository authenticationRepository;
 
     private final GreenSpaceRepository greenSpaceRepository;
 
@@ -153,7 +151,6 @@ public class Repositories {
         return agendaRepository;
     }
 
-    /*
     public static void save(){
         try {
             FileOutputStream fileOut = new FileOutputStream("data.dat");
@@ -165,6 +162,25 @@ public class Repositories {
             i.printStackTrace();
         }
     }
-     */
+
+    public static boolean load(){
+        try{
+            FileInputStream file = new FileInputStream("data.dat");
+            ObjectInputStream in = new ObjectInputStream(file);
+
+            instance = (Repositories) in.readObject();
+
+            in.close();
+            file.close();
+            System.out.println("All repos have been deserialized");
+
+            Repositories.getInstance().authenticationRepository = new AuthenticationRepository();
+
+            return true;
+        }catch (Exception e){
+            System.out.println("First time executing program, data from bootstrap has been saved.");
+            return false;
+        }
+    }
 
 }

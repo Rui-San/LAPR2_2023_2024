@@ -40,8 +40,6 @@ public class JobRepository implements Serializable {
         if (validateJob(job)) {
             newJob = Optional.of(job.clone());
             operationSuccess = jobList.add(newJob.get());
-            //SerializationUtils.saveToFile(jobList, SerializationFiles.JOB_DATABASE);
-
         }
 
         if (!operationSuccess) {

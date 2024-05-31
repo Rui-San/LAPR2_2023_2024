@@ -78,19 +78,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <BorderPane prefHeight="218.0" prefWidth="257.0" VBox.vgrow="ALWAYS">
-               <bottom>
-                  <Button mnemonicParsing="false" onAction="#logoutAction" text="Logout" BorderPane.alignment="CENTER">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <styleClass>
-                        <String fx:value="menu-btn" />
-                        <String fx:value="menu-btn-logout" />
-                     </styleClass>
-                  </Button>
-               </bottom>
-            </BorderPane>
+            <BorderPane prefHeight="218.0" prefWidth="257.0" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
    </left>
@@ -98,14 +86,23 @@
       <StackPane fx:id="contentArea" prefHeight="573.0" prefWidth="874.0" BorderPane.alignment="CENTER" />
    </center>
    <top>
-      <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="956.0" style="-fx-background-color: Green;" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="53.0" prefWidth="1024.0" styleClass="menu-header" BorderPane.alignment="CENTER">
          <children>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Projeto Integrador - LAPR 2" textAlignment="CENTER" wrappingWidth="287.13671875">
+            <Text fill="WHITE" layoutX="14.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Projeto Integrador - LAPR 2" textAlignment="CENTER" wrappingWidth="287.13671875">
                <font>
                   <Font name="Berlin Sans FB" size="18.0" />
                </font>
             </Text>
+            <Button layoutX="810.0" layoutY="7.0" mnemonicParsing="false" onAction="#logoutAction" text="Logout ⧩">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <styleClass>
+                  <String fx:value="menu-btn" />
+                  <String fx:value="menu-btn-logout" />
+               </styleClass>
+            </Button>
          </children>
-      </HBox>
+      </AnchorPane>
    </top>
 </BorderPane>

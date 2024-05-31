@@ -127,7 +127,9 @@
     -fx-border-radius: 0px;
 }
 
-
+.menu-header{
+    -fx-background-color: linear-gradient(#4CAF50, #388E3C);
+}
 
 .menu-style{
     -fx-background-color: #f4f4f4;

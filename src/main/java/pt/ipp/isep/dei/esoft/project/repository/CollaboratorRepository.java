@@ -4,6 +4,7 @@ import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.tools.SerializationFiles;
 import pt.ipp.isep.dei.esoft.project.tools.SerializationUtils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -11,7 +12,7 @@ import java.util.Optional;
 /**
  * Collaborator Repository class
  */
-public class CollaboratorRepository {
+public class CollaboratorRepository implements Serializable {
 
     /**
      * List to store the collaborators.

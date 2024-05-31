@@ -4,11 +4,12 @@ import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.dto.AgendaTaskDTO;
 import pt.ipp.isep.dei.esoft.project.tools.Status;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class AgendaRepository {
+public class AgendaRepository implements Serializable {
     List<Task> agenda;
 
     private static final Status AGENDA_DEFAULT_STATUS = Status.PLANNED;

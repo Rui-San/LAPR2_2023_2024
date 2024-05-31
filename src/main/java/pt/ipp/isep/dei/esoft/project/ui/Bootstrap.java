@@ -120,7 +120,7 @@ public class Bootstrap implements Runnable {
 
     }
 
-    private void addUsers() {
+    public static void addUsers() {
 
         AuthenticationRepository authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
 
@@ -151,6 +151,9 @@ public class Bootstrap implements Runnable {
         authenticationRepository.addUserWithRole("Green Space Manager Three", "gsm3@this.app", "gsm3",
                 AuthenticationController.ROLE_GSM);
 
+        for(Collaborator collaborator : Repositories.getInstance().getCollaboratorRepository().getCollaboratorList()) {
+            authenticationRepository.addUserWithRole(collaborator.getName(), collaborator.getEmail().getEmail(), "password", AuthenticationController.ROLE_COLLABORATOR);
+        }
     }
 
     private void addVehicle() {
