@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class TaskDurationFormatter implements Serializable {
 
-    public static String toString(int days, int hours, int minutes) {
+    public static String toStringDaysHoursMinutes(int days, int hours, int minutes) {
         StringBuilder stringBuilder = new StringBuilder();
 
         if (days > 0) {
@@ -26,6 +26,23 @@ public class TaskDurationFormatter implements Serializable {
         }
 
         return stringBuilder.toString();
+    }
+
+    public static String toStringDaysHoursMinutes(String expectedDurationString) {
+        int days = 0, hours = 0, minutes = 0;
+
+        String[] parts = expectedDurationString.split(" ");
+        for (String part : parts) {
+            if (part.endsWith("d")) {
+                days = Integer.parseInt(part.substring(0, part.length() - 1));
+            } else if (part.endsWith("h")) {
+                hours = Integer.parseInt(part.substring(0, part.length() - 1));
+            } else if (part.endsWith("m")) {
+                minutes = Integer.parseInt(part.substring(0, part.length() - 1));
+            }
+        }
+
+        return toStringDaysHoursMinutes(days, hours, minutes);
     }
 
     public static String toStringHoursAndMinutes(int days, int hours, int minutes) {

@@ -15,6 +15,7 @@ import javafx.scene.control.*;
 import pt.ipp.isep.dei.esoft.project.controller.AddNewEntryToDoController;
 import pt.ipp.isep.dei.esoft.project.dto.GreenSpaceDTO;
 import pt.ipp.isep.dei.esoft.project.dto.ToDoTaskDTO;
+import pt.ipp.isep.dei.esoft.project.tools.TaskDurationFormatter;
 import pt.ipp.isep.dei.esoft.project.tools.TaskType;
 import pt.ipp.isep.dei.esoft.project.tools.UrgencyType;
 
@@ -131,7 +132,7 @@ public class AddNewEntryToDoUI implements Initializable {
                 .append("\nGreen Space: ").append(toDoTaskDTO.greenSpaceName)
                 .append("\nType: ").append(toDoTaskDTO.taskType)
                 .append("\nUrgency: ").append(toDoTaskDTO.urgency)
-                .append("\nExpected Duration: ").append(toDoTaskDTO.days + "days" + toDoTaskDTO.hours + "h" + toDoTaskDTO.minutes + "m");
+                .append("\nExpected Duration: ").append(TaskDurationFormatter.toStringDaysHoursMinutes(toDoTaskDTO.days,toDoTaskDTO.hours,toDoTaskDTO.minutes));
 
         return sb;
     }

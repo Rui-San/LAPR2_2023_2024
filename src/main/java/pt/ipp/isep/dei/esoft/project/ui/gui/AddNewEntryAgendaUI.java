@@ -15,6 +15,7 @@ import pt.ipp.isep.dei.esoft.project.controller.AddNewEntryAgendaController;
 import pt.ipp.isep.dei.esoft.project.dto.ToDoTaskWithStatusDTO;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.tools.Status;
+import pt.ipp.isep.dei.esoft.project.tools.TaskDurationFormatter;
 import pt.ipp.isep.dei.esoft.project.tools.TaskType;
 import pt.ipp.isep.dei.esoft.project.tools.UrgencyType;
 
@@ -60,7 +61,7 @@ public class AddNewEntryAgendaUI implements Initializable {
         taskTypeColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().taskType));
         greenSpaceNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().greenSpaceName));
         urgencyColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().urgency));
-        expectedDurationColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().expectedDurationToString()));
+        expectedDurationColumn.setCellValueFactory(cellData -> new SimpleStringProperty(TaskDurationFormatter.toStringDaysHoursMinutes(cellData.getValue().expectedDurationToString())));
         statusColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().status));
 
         fillTableInformation();

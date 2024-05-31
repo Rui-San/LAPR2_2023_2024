@@ -30,6 +30,6 @@ public class ToDoTaskDTO {
 
     public String expectedDurationToString() {
         String expectDurationString = days + "d " + hours + "h " + minutes + "m";
-return expectDurationString;
+        return expectDurationString;
     }
 }
