@@ -39,7 +39,7 @@ public class SkillRepository implements Serializable {
         if (validateSkill(skill)) {
             newSkill = Optional.of(skill.clone());
             operationSuccess = skillList.add(newSkill.get());
-            //SerializationUtils.saveToFile(skillList, SerializationFiles.SKILL_DATABASE);
+
         }
 
         if (!operationSuccess) {

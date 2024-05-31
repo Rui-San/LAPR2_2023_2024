@@ -1,6 +1,8 @@
 package pt.ipp.isep.dei.esoft.project.tools;
 
-public enum VehicleType {
+import java.io.Serializable;
+
+public enum VehicleType implements Serializable {
     PASSENGERS,
     MIXED,
     LIGHT,

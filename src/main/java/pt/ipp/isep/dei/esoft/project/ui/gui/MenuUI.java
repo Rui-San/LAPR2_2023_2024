@@ -43,7 +43,7 @@ public class MenuUI implements Initializable {
         allOptions.addAll(List.of(mbJobs, mbSkills, mbCollaborators, mbVehicles, mbTeams, mbGreenSpaces, mbTasks, mbMyAgenda));
 
         UserSession session = ApplicationSession.getInstance().getCurrentSession();
-        Email af = Repositories.getInstance().getAuthenticationRepository().getAuthenticationFacade().getCurrentUserSession().getUserId();
+        String af = ApplicationSession.getInstance().getCurrentSession().getUserId().getEmail().toString();
 
         System.out.println(af);
 

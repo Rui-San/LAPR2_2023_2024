@@ -1,6 +1,8 @@
 package pt.ipp.isep.dei.esoft.project.tools;
 
-public class TaskDurationFormatter {
+import java.io.Serializable;
+
+public class TaskDurationFormatter implements Serializable {
 
     public static String toString(int days, int hours, int minutes) {
         StringBuilder stringBuilder = new StringBuilder();

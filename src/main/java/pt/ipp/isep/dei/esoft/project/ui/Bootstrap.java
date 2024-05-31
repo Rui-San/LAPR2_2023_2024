@@ -22,7 +22,8 @@ public class Bootstrap implements Runnable {
         assignSkills();
         addGreenSpaces();
 
-        //fillRepositoryLists();
+        Repositories.save();
+        Repositories.load();
     }
 
 
