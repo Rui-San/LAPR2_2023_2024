@@ -129,7 +129,7 @@ public class AddNewEntryToDoUI implements Initializable {
                 .append("\nTitle: ").append(toDoTaskDTO.title)
                 .append("\nDescription: ").append(toDoTaskDTO.description)
                 .append("\nGreen Space: ").append(toDoTaskDTO.greenSpaceName)
-                .append("\nTypee: ").append(toDoTaskDTO.taskType)
+                .append("\nType: ").append(toDoTaskDTO.taskType)
                 .append("\nUrgency: ").append(toDoTaskDTO.urgency)
                 .append("\nExpected Duration: ").append(toDoTaskDTO.days + "days" + toDoTaskDTO.hours + "h" + toDoTaskDTO.minutes + "m");
 
@@ -208,6 +208,9 @@ public class AddNewEntryToDoUI implements Initializable {
     }
 
     private boolean validateExpectedDuration() {
+        lblExpectedDurationError.setText("");
+        lblExpectedDurationError.setStyle("");
+        lblExpectedDurationError.setVisible(false);
         try {
             String daysText = txtDays.getText().trim();
             String hoursText = txtHours.getText().trim();
@@ -217,7 +220,6 @@ public class AddNewEntryToDoUI implements Initializable {
             boolean isHoursEmpty = hoursText.isEmpty();
             boolean isMinutesEmpty = minutesText.isEmpty();
 
-            // Verifica se todos os campos estão vazios
             if (isDaysEmpty && isHoursEmpty && isMinutesEmpty) {
                 displayErrorLayout(txtDays, lblExpectedDurationError, "At least one field must be filled");
                 displayErrorLayout(txtHours, lblExpectedDurationError, "At least one field must be filled");
@@ -225,27 +227,32 @@ public class AddNewEntryToDoUI implements Initializable {
                 return false;
             }
 
-            // Valida campos não vazios
             if (!isDaysEmpty) {
                 int daysInt = Integer.parseInt(daysText);
                 if (daysInt < 0) {
                     displayErrorLayout(txtDays, lblExpectedDurationError, "Days must be a positive integer");
+                    displayErrorLayout(txtHours, lblExpectedDurationError, "Days must be a positive integer");
+                    displayErrorLayout(txtMins, lblExpectedDurationError, "Days must be a positive integer");
                     return false;
                 }
             }
 
             if (!isHoursEmpty) {
                 int hoursInt = Integer.parseInt(hoursText);
-                if (hoursInt < 0 || hoursInt >= 24) {
-                    displayErrorLayout(txtHours, lblExpectedDurationError, "Hours must be between 0 and 23");
+                if (hoursInt < 0) {
+                    displayErrorLayout(txtDays, lblExpectedDurationError, "Hours must be a positive integer");
+                    displayErrorLayout(txtHours, lblExpectedDurationError, "Hours must be a positive integer");
+                    displayErrorLayout(txtMins, lblExpectedDurationError, "Hours must be a positive integer");
                     return false;
                 }
             }
 
             if (!isMinutesEmpty) {
                 int minutesInt = Integer.parseInt(minutesText);
-                if (minutesInt < 0 || minutesInt >= 60) {
-                    displayErrorLayout(txtMins, lblExpectedDurationError, "Minutes must be between 0 and 59");
+                if (minutesInt < 0) {
+                    displayErrorLayout(txtDays, lblExpectedDurationError, "Minutes must be a positive integer");
+                    displayErrorLayout(txtHours, lblExpectedDurationError, "Minutes must be a positive integer");
+                    displayErrorLayout(txtMins, lblExpectedDurationError, "Minutes must be a positive integer");
                     return false;
                 }
             }
@@ -257,7 +264,6 @@ public class AddNewEntryToDoUI implements Initializable {
             return false;
         }
 
-        // Limpa erros se todos os campos estão corretos
         clearLayoutErrors(txtDays, lblExpectedDurationError);
         clearLayoutErrors(txtHours, lblExpectedDurationError);
         clearLayoutErrors(txtMins, lblExpectedDurationError);

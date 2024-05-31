@@ -8,13 +8,7 @@ public class TaskDuration implements Serializable {
     private int minutes;
 
     public TaskDuration(int days, int hours, int minutes) {
-        if (days == 0 && hours == 0 && minutes == 0) {
-            throw new IllegalArgumentException("At least one field must be filled");
-        }
-        this.days = days;
-        this.hours = hours;
-        this.minutes = minutes;
-        this.totalDurationMinutes = days * 8 * 60 + hours * 60 + minutes;
+        setTaskDuration(days, hours, minutes);
     }
 
     public int getDays() {
@@ -22,6 +16,9 @@ public class TaskDuration implements Serializable {
     }
 
     public void setDays(int days) {
+        if (days < 0) {
+            throw new IllegalArgumentException("Days must be a positive integer");
+        }
         this.days = days;
     }
 
@@ -30,6 +27,9 @@ public class TaskDuration implements Serializable {
     }
 
     public void setHours(int hours) {
+        if (hours < 0) {
+            throw new IllegalArgumentException("Hours must be a positive integer");
+        }
         this.hours = hours;
     }
 
@@ -38,7 +38,37 @@ public class TaskDuration implements Serializable {
     }
 
     public void setMinutes(int minutes) {
+        if (minutes < 0) {
+            throw new IllegalArgumentException("Minutes must be a positive integer");
+        }
         this.minutes = minutes;
+    }
+
+    public void setTaskDuration(int days, int hours, int minutes) {
+        validateTaskDuration(days, hours, minutes);
+        this.days = days;
+        this.hours = hours;
+        this.minutes = minutes;
+        this.totalDurationMinutes = days * 8 * 60 + hours * 60 + minutes;
+
+    }
+
+    private void validateTaskDuration(int days, int hours, int minutes) {
+        if (days == 0 && hours == 0 && minutes == 0) {
+            throw new IllegalArgumentException("At least one field must be filled");
+        }
+
+        if (days < 0) {
+            throw new IllegalArgumentException("Days must be a positive integer");
+        }
+
+        if (hours < 0) {
+            throw new IllegalArgumentException("Hours must be a positive integer");
+        }
+
+        if (minutes < 0) {
+            throw new IllegalArgumentException("Minutes must be a positive integer");
+        }
     }
 
     public int getTotalDurationMinutes() {
@@ -51,7 +81,7 @@ public class TaskDuration implements Serializable {
 
     private int totalDurationMinutes;
 
-    public static TaskDuration toTaskDuration(int minutes){
+    public static TaskDuration toTaskDuration(int minutes) {
         int days = minutes / (8 * 60);
         int hours = (minutes % (8 * 60)) / 60;
         int mins = minutes % 60;
