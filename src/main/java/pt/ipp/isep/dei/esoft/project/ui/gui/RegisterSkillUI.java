@@ -52,6 +52,7 @@ public class RegisterSkillUI implements Initializable {
                     if (skill.isPresent()) {
                         clearLayoutErrors(txtSkillName, lblSkillNameError);
                         AlertUI.createAlert(Alert.AlertType.INFORMATION, "Register Skill", "Register Skill", "Skill successfully registered!").show();
+                        clearErrors();
                     } else {
                         AlertUI.createAlert(Alert.AlertType.ERROR, "Register Skill", "Register Skill", "This Skill is already registered!").show();
                     }
@@ -105,6 +106,10 @@ public class RegisterSkillUI implements Initializable {
 
     @FXML
     public void btnClearAction() {
+        clearErrors();
+    }
+
+    private void clearErrors() {
         txtSkillName.clear();
         lblSkillNameError.setVisible(false);
         txtSkillName.setStyle(null);

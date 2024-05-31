@@ -9,6 +9,7 @@ import pt.ipp.isep.dei.esoft.project.repository.AgendaRepository;
 import pt.ipp.isep.dei.esoft.project.repository.GreenSpaceRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.repository.ToDoRepository;
+import pt.ipp.isep.dei.esoft.project.session.ApplicationSession;
 
 import java.util.List;
 import java.util.Optional;
@@ -51,7 +52,7 @@ public class AddNewEntryAgendaController {
     }
 
     public List<ToDoTaskWithStatusDTO> getToDoDTOManagerlist() {
-        String managerEmail = Repositories.getInstance().getAuthenticationRepository().getCurrentUserSession().getUserId().getEmail();
+        String managerEmail = ApplicationSession.getInstance().getCurrentSession().getUserId().getEmail();
         List<Task> toDoTaskList = toDoRepository.getToDoManagerList(managerEmail);
         return ToDoListMapper.toDTOWithStatusList(toDoTaskList);
     }

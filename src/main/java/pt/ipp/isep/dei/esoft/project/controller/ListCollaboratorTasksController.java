@@ -69,4 +69,6 @@ public class ListCollaboratorTasksController {
     public void updateFinalDate(Date finalDate) {
         this.finalDate = finalDate;
     }
+
+
 }

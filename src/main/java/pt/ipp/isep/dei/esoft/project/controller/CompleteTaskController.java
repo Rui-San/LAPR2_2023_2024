@@ -1,35 +1,38 @@
 package pt.ipp.isep.dei.esoft.project.controller;
 
 import pt.ipp.isep.dei.esoft.project.domain.Task;
-import pt.ipp.isep.dei.esoft.project.domain.Team;
 import pt.ipp.isep.dei.esoft.project.dto.AgendaTaskDTO;
-import pt.ipp.isep.dei.esoft.project.dto.CollaboratorDTO;
-import pt.ipp.isep.dei.esoft.project.dto.TeamDTO;
 import pt.ipp.isep.dei.esoft.project.mapper.AgendaMapper;
 import pt.ipp.isep.dei.esoft.project.mapper.CollaboratorMapper;
 import pt.ipp.isep.dei.esoft.project.mapper.TeamMapper;
 import pt.ipp.isep.dei.esoft.project.mapper.VehicleMapper;
 import pt.ipp.isep.dei.esoft.project.repository.AgendaRepository;
-import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.repository.TeamRepository;
-import pt.ipp.isep.dei.esoft.project.session.ApplicationSession;
+import pt.ipp.isep.dei.esoft.project.repository.VehicleRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class AssignTeamToEntryAgendaController {
+public class CompleteTaskController {
 
     private AgendaRepository agendaRepository;
-    private AuthenticationRepository authenticationRepository;
     private TeamRepository teamRepository;
+    private VehicleRepository vehicleRepository;
 
-    public AssignTeamToEntryAgendaController() {
+    public CompleteTaskController() {
         getAgendaRepository();
-        getAuthenticationRepository();
         getTeamRepository();
+        getVehicleRepository();
+    }
 
+    private VehicleRepository getVehicleRepository() {
+        if(vehicleRepository == null){
+            Repositories repositories = Repositories.getInstance();
+            vehicleRepository = repositories.getVehicleRepository();
+        }
+        return vehicleRepository;
     }
 
     private TeamRepository getTeamRepository() {
@@ -38,14 +41,6 @@ public class AssignTeamToEntryAgendaController {
             teamRepository = repositories.getTeamRepository();
         }
         return teamRepository;
-    }
-
-    private AuthenticationRepository getAuthenticationRepository() {
-        if (authenticationRepository == null) {
-            Repositories repositories = Repositories.getInstance();
-            authenticationRepository = repositories.getAuthenticationRepository();
-        }
-        return authenticationRepository;
     }
 
     private AgendaRepository getAgendaRepository() {
@@ -57,7 +52,7 @@ public class AssignTeamToEntryAgendaController {
     }
 
     public List<AgendaTaskDTO> getAgendaTaskDTOManagerList() {
-        String managerEmail = ApplicationSession.getInstance().getCurrentSession().getUserId().getEmail();
+        String managerEmail = Repositories.getInstance().getAuthenticationRepository().getCurrentUserSession().getUserId().getEmail();
         List<Task> agendaTaskList = Repositories.getInstance().getAgendaRepository().getManagerSpecificAgenda(managerEmail);
         List<AgendaTaskDTO> managerSpecificAgendaDTO = new ArrayList<>();
 
@@ -69,24 +64,30 @@ public class AssignTeamToEntryAgendaController {
         return managerSpecificAgendaDTO;
     }
 
-    public List<TeamDTO> getTeams(){
-        List<TeamDTO> teamListDTO = new ArrayList<>();
+    public Optional<Task> completeTaskAgenda(AgendaTaskDTO agendaTaskDTO) {
 
-        for(Team team : teamRepository.getTeamList()){
-            List<CollaboratorDTO> collaboratorDTOList = CollaboratorMapper.toDTOlist(team.getMembers());
-            teamListDTO.add(TeamMapper.toDTO(collaboratorDTOList));
+        System.out.println("Iniciando cancelamento de tarefa...");
+
+        Task completedTask = agendaRepository.updateTaskToDone(agendaTaskDTO.title, agendaTaskDTO.greenSpaceName, agendaTaskDTO.workStartDate, agendaTaskDTO.status);
+
+        if (completedTask != null) {
+            System.out.println("Tarefa encontrada e status atualizado para DONE.");
+
+            if(completedTask.getTeamAssigned() != null){
+                System.out.println("tamanho da equipa: " +completedTask.getTeamAssigned().getMembers().size());
+                System.out.println("Removendo work period da equipe.");
+                teamRepository.removeWorkPeriodFromTeam(completedTask, completedTask.getTaskWorkPeriod());
+            }
+            if(!completedTask.getVehiclesAssigned().isEmpty()){
+                System.out.println("Numero de veiculos dentro da task: " + completedTask.getVehiclesAssigned().size());
+                System.out.println("Removendo work period dos veículos.");
+                vehicleRepository.removeWorkPeriodFromVehicle(completedTask, completedTask.getTaskWorkPeriod());
+            }
+
+            return Optional.of(completedTask);
+        }else{
+            System.out.println("Tarefa não encontrada ou não pode ser completada.");
+            return Optional.empty();
         }
-        return teamListDTO;
-    }
-
-
-/*
-    public List<Team> getTeams(){
-        return teamRepository.getTeamList();
-    }
-*/
-    public Optional<Task> assignTeamToTaskAgenda(AgendaTaskDTO agendaTaskDTO, TeamDTO selectedTeamDTO) {
-        Team teamObj = teamRepository.getTeamByTeamMemberEmails(selectedTeamDTO.collaborators.get(0).email);
-        return agendaRepository.assignTeamToTaskAgenda(agendaTaskDTO.title, agendaTaskDTO.greenSpaceName, agendaTaskDTO.workStartDate, agendaTaskDTO.status, teamObj);
     }
 }

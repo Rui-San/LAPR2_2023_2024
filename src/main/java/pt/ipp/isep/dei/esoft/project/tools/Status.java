@@ -1,6 +1,8 @@
 package pt.ipp.isep.dei.esoft.project.tools;
 
-public enum Status {
+import java.io.Serializable;
+
+public enum Status implements Serializable {
     PENDING,
     PROCESSED,
     PLANNED,

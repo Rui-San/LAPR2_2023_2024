@@ -7,16 +7,25 @@ import javafx.scene.text.Text;
 import javafx.beans.property.SimpleStringProperty;
 
 import java.net.URL;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import pt.ipp.isep.dei.esoft.project.domain.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import pt.ipp.isep.dei.esoft.project.controller.CompleteTaskController;
 import pt.ipp.isep.dei.esoft.project.controller.ListCollaboratorTasksController;
+import pt.ipp.isep.dei.esoft.project.domain.Task;
 import pt.ipp.isep.dei.esoft.project.dto.AgendaTaskDTO;
+import pt.ipp.isep.dei.esoft.project.repository.AgendaRepository;
+import pt.ipp.isep.dei.esoft.project.tools.Sorting;
 import pt.ipp.isep.dei.esoft.project.tools.Status;
+
 
 public class ListCollaboratorTasksUI implements Initializable {
 
     private final ListCollaboratorTasksController controller;
-
+    private final CompleteTaskController completeTaskController = new CompleteTaskController();
     @FXML
     private TableView<AgendaTaskDTO> taskTable;
     @FXML
@@ -68,7 +77,24 @@ public class ListCollaboratorTasksUI implements Initializable {
 
     public void filterTable(){
         taskTable.getItems().clear();
-        // TODO: implement filterTable
+        List<AgendaTaskDTO> agenda = controller.getCollaboratorTasks();
+        List<Object> tasks = new ArrayList<>(agenda);
+
+        Sorting sorting = new Sorting(tasks);
+        sorting.setColumnToSort(6);
+        sorting.sort();
+
+        agenda.clear();
+        for (Object a : tasks) {
+            AgendaTaskDTO b = (AgendaTaskDTO) a;
+
+            Date dateToCheck = new Date(b.workStartDate.format(String.valueOf(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
+            //checks if the task is between the selected dates
+            if (controller.isDateBetween(dateToCheck, dpToDate(dpInitialDate), dpToDate(dpFinalDate))) {
+                taskTable.getItems().add(b);
+            }
+        }
+
     }
 
     @FXML
@@ -77,8 +103,58 @@ public class ListCollaboratorTasksUI implements Initializable {
     }
 
     public void completeTask() {
-        // TODO: implement completeTask
+        AgendaTaskDTO selectedTask = taskTable.getSelectionModel().getSelectedItem();
+
+        if (validateSelectedTask(selectedTask)) {
+
+            Alert alertConfirmation = AlertUI.createAlert(Alert.AlertType.CONFIRMATION, "Set Entry on Agenda to Done", "Confirm the operation", "Do you wish to complete the selected Entry?");
+            if (alertConfirmation.showAndWait().get() == ButtonType.OK) {
+
+                if (completeTaskController.completeTaskAgenda(selectedTask).isPresent()) {
+
+                    AlertUI.createAlert(Alert.AlertType.INFORMATION, "Agenda", "Confirmation of operation", "Selected task successfully set to Done").show();
+                    lblError.setText("");
+                    lblError.setVisible(false);
+                    updateTableView();
+                } else {
+                    AlertUI.createAlert(Alert.AlertType.ERROR, "Agenda", "Error occurred", "Task couldn't be complete").show();
+                    lblError.setText("");
+                    lblError.setVisible(false);
+                }
+
+            }
+        }
     }
+
+    public boolean validateSelectedTask(AgendaTaskDTO selectedTask) {
+
+        if (selectedTask == null) {
+            lblError.setText("Select one task from Agenda");
+            lblError.setVisible(true);
+            return false;
+        }
+
+        if (selectedTask.status == Status.DONE) {
+            lblError.setText("The selected task is already done");
+            lblError.setVisible(true);
+            return false;
+        }
+
+        if (selectedTask.status == Status.CANCELED) {
+            lblError.setText("The selected task is already canceled");
+            lblError.setVisible(true);
+            return false;
+        }
+
+        if (selectedTask.status == Status.POSTPONED || selectedTask.status == Status.PLANNED) {
+            lblError.setText("");
+            lblError.setVisible(true);
+            return true;
+        }
+        return true;
+    }
+
+
 
     @FXML
     public void btnClearFilter(){
@@ -150,22 +226,39 @@ public class ListCollaboratorTasksUI implements Initializable {
         lblError.setVisible(false);
     }
 
-    /*
+    private void updateTableView() {
+        taskTable.getItems().clear();
+
+        for (AgendaTaskDTO task : controller.getCollaboratorTasks()) {
+            taskTable.getItems().add(task);
+        }
+    }
+
+    @FXML
+    private Date dpToDate(DatePicker dp) {
+        if (dp.getValue() != null) {
+            Date date = new Date(dp.getValue().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+            return date;
+        } else {
+            return null;
+        }
+    }
+
     @FXML
     private void handleSetInitialDate() {
-        if (initialDatePicker.getValue() != null) {
-            initialDate = new Date(initialDatePicker.getValue().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        if (dpInitialDate.getValue() != null) {
+            Date initialDate = new Date(dpInitialDate.getValue().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")));
             getController().updateInitialDate(initialDate);
         }
     }
 
     @FXML
     private void handleSetFinalDate() {
-        if (finalDatePicker.getValue() != null) {
-            finalDate = new Date(finalDatePicker.getValue().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-            getController().updateFinalDate(finalDate);
+        if (dpFinalDate.getValue() != null) {
+            Date finalDate = new Date(dpFinalDate.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+            controller.updateFinalDate(finalDate);
         }
     }
-    */
+
 
 }

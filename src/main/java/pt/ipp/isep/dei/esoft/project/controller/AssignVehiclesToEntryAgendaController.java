@@ -12,6 +12,7 @@ import pt.ipp.isep.dei.esoft.project.mapper.CollaboratorMapper;
 import pt.ipp.isep.dei.esoft.project.mapper.TeamMapper;
 import pt.ipp.isep.dei.esoft.project.mapper.VehicleMapper;
 import pt.ipp.isep.dei.esoft.project.repository.*;
+import pt.ipp.isep.dei.esoft.project.session.ApplicationSession;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +53,7 @@ public class AssignVehiclesToEntryAgendaController {
     }
 
     public List<AgendaTaskDTO> getAgendaTaskDTOManagerList() {
-        String managerEmail = Repositories.getInstance().getAuthenticationRepository().getCurrentUserSession().getUserId().getEmail();
+        String managerEmail = ApplicationSession.getInstance().getCurrentSession().getUserId().getEmail();
         List<Task> agendaTaskList = Repositories.getInstance().getAgendaRepository().getManagerSpecificAgenda(managerEmail);
         List<AgendaTaskDTO> managerSpecificAgendaDTO = new ArrayList<>();
 
