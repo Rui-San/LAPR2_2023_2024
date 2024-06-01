@@ -14,27 +14,28 @@ participant ":RegisterGreenSpaceController" as CTRL
 participant ":Repositories" as REPO
 participant "repositories\n:Repositories" as REPOInstance
 participant ":GreenSpaceMapper" as Mapper
-participant ":greenSpaceRepository" as GSRepo
-participant ":GreenSpace" as GS
-participant ":Address" as Address
 participant ":ApplicationSession" as APP
 participant "singleton\n:ApplicationSession" as APPSingleton
 participant "userSession\n:UserSession" as UserSession
 participant "userID\n:Email" as Email
+participant ":greenSpaceRepository" as GSRepo
 
 activate GSM
 
     GSM -> UI : asks to create a new Green Space
     activate UI
 
-        UI --> CTRL** : create
+
 
 loop until typed data is validated
         UI --> GSM : requests data (name, type, area, street,\n streetNumber, postalCode, city, district)
     deactivate UI
 
     GSM -> UI : types requested data
+
     activate UI
+    UI --> UI: Validates input data
+    |||
 end loop
         UI --> UI : keepData(name, type, area, street,\n streetNumber,postalCode, city, district)
         UI --> GSM : shows all data and requests confirmation
@@ -45,20 +46,11 @@ end loop
 
         UI -> DTO** : new GreenSpaceDTO(name, type, area, street,\n streetNumber,postalCode, city, district)
 
+|||
         UI --> CTRL : registerGreenSpace(greenSpaceDTO)
         activate CTRL
 
-            CTRL --> REPO : getInstance()
-            activate REPO
 
-                REPO --> CTRL : repositories
-            deactivate REPO
-
-            CTRL --> REPOInstance : getGreenSpaceRepository()
-            activate REPOInstance
-
-                REPOInstance --> CTRL : greenSpaceRepository
-            deactivate REPOInstance
 
             CTRL --> APP : getInstance()
             activate APP
@@ -83,22 +75,32 @@ end loop
 
                 Email --> CTRL : email
             deactivate Email
+            |||
+
 
             CTRL --> Mapper : toGreenSpace(greenSpaceDTO,managerEmail)
+            |||
             activate Mapper
+                ref over Mapper
+                SD_toGreenSpaceDomainObject
+                end ref
 
-                Mapper --> GS** : new GreenSpace(type,name,streetNumber,\npostalCode,city,district,totalArea)
-                    GS --> GS : validateName(name)
-                    GS --> Address** : new Address(streetNumber,\npostalCode,city,district)
-                        Address --> Address : validateStreet(street)
-                        Address --> Address : validateStreetNumber(number)
-                        Address --> Address : validatePostalCode(postalCode)
-                        Address --> Address : validateCity(city)
-                        Address --> Address : validateDistrict(district)
-                    GS --> GS : validateTotalArea(totalArea)
                 Mapper --> CTRL : greenSpace
 
             deactivate Mapper
+
+            |||
+            CTRL --> REPO : getInstance()
+                        activate REPO
+
+                            REPO --> CTRL : repositories
+                        deactivate REPO
+
+                        CTRL --> REPOInstance : getGreenSpaceRepository()
+                        activate REPOInstance
+
+                            REPOInstance --> CTRL : greenSpaceRepository
+                        deactivate REPOInstance
 
             CTRL --> GSRepo : registerGreenSpace(greenSpace)
             activate GSRepo
@@ -113,6 +115,7 @@ end loop
         deactivate CTRL
 
         UI --> GSM : displays operation success
+        deactivate UI
     deactivate GSM
 
 @enduml

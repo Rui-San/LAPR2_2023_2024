@@ -1,0 +1,40 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title SD_toGreenSpaceDomainObject
+
+autonumber
+
+
+participant ":RegisterGreenSpaceController" as CTRL
+
+
+participant ":GreenSpaceMapper" as Mapper
+
+participant ":GreenSpace" as GS
+participant ":Address" as Address
+
+activate CTRL
+
+            CTRL --> Mapper : toGreenSpace(greenSpaceDTO,managerEmail)
+            activate Mapper
+
+                Mapper --> GS** : new GreenSpace(type,name,streetNumber,\npostalCode,city,district,totalArea)
+                    GS --> GS : validateName(name)
+                    GS --> Address** : new Address(streetNumber,\npostalCode,city,district)
+                        Address --> Address : validateStreet(street)
+                        Address --> Address : validateStreetNumber(number)
+                        Address --> Address : validatePostalCode(postalCode)
+                        Address --> Address : validateCity(city)
+                        Address --> Address : validateDistrict(district)
+                    GS --> GS : validateTotalArea(totalArea)
+                Mapper --> CTRL : greenSpace
+
+            deactivate Mapper
+
+            |||
+
+
+@enduml
