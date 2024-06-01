@@ -15,10 +15,21 @@ activate GSM
     GSM -> UI : asks to create a new Green Space
     activate UI
 
+    loop until doesn't select a valid option
+UI --> GSM : Displays the types of green spaces and asks to\nselect one (garden, medium, large)
+    deactivate UI
+
+    GSM -> UI : selects type of green space
+    activate UI
+    UI --> UI: validates Selection
+                    |||
+                    end
+                    |||
+        UI --> UI : keepData(type)
 
 
 loop until typed data is validated
-        UI --> GSM : requests data (name, type, area, street,\n streetNumber, postalCode, city, district)
+        UI --> GSM : requests data (name, area, street,\n streetNumber, postalCode, city, district)
     deactivate UI
 
     GSM -> UI : types requested data
@@ -27,14 +38,17 @@ loop until typed data is validated
     UI --> UI: Validates input data
     |||
 end loop
-        UI --> UI : keepData(name, type, area, street,\n streetNumber,postalCode, city, district)
+        UI --> UI : keepData(name, area, street, streetNumber,\n                 postalCode, city, district)
         UI --> GSM : shows all data and requests confirmation
     deactivate UI
 
     GSM -> UI : confirms data
     activate UI
 
+    UI --> UI : Save new green space
+
         UI --> GSM : displays operation success
+        deactivate UI
     deactivate GSM
 
 @enduml
