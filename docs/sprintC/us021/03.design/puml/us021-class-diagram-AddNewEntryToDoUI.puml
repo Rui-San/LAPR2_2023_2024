@@ -1,0 +1,46 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+
+class AddNewEntryToDoUI {
+    - String title
+    - String description
+    - TaskType taskType
+    - String greenSpaceName
+    - UrgencyType urgency
+    - int days
+    - int hours
+    - int minutes
+
+    --Methods--
+    + AddNewEntryToDoUI()
+    + initialize(url, resourceBundle)
+    ..Fill methods..
+    - fillTaskTypeComboBox()
+    - fillUrgencyComboBox()
+    - fillGreenSpaceComboBox()
+    ..Button methods..
+    + btnSubmit()
+    + btnClear()
+    ..Validation methods..
+    - validateAllInputs()
+    - validateTitle()
+    - validateGreenSpaceSelection()
+    - validateTypeSelection()
+    - validateUrgencySelection()
+    - validateDescription()
+    - validateExpectedDuration()
+    ..UI tools methods..
+    - getConfirmationText(toDoTaskDTO)
+    - displayErrorLayout(controlObject, labelToShowError, errorMessage)
+    - clearLayoutErrors(controlObject, labelWithError)
+    - clearFields()
+
+}
+
+@enduml

@@ -13,23 +13,23 @@ class Address{
     - String postalCode
     - String city
     - String district
---Methods:--
+    --Methods--
     + Address(street, streetNumber, postalCode, city, district)
     + toString()
     + clone()
-    ..Getters:..
+    ..Getters..
     + getStreet()
     + getStreetNumber()
     + getPostalCode()
     + getCity()
     + getDistrict()
-    ..Setters:..
+    ..Setters..
     + setStreet(street)
     + setStreetNumber(streetNumber)
     + setPostalCode(postalCode)
     + setCity(city)
     + setDistrict(district)
-    ..Validation Methods:..
+    ..Validation Methods..
     - validateStreet(street)
     - validateStreetNumber(streetNumber)
     - validatePostalCode(postalCode)

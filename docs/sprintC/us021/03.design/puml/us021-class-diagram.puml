@@ -1,0 +1,185 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+title US021 - Class Diagram
+
+package GUI <<Folder>> #DDDDDD {
+
+class AddNewEntryToDoUI {
+    - String title
+    - String description
+    - TaskType taskType
+    - String greenSpaceName
+    - UrgencyType urgency
+    - int days
+    - int hours
+    - int minutes
+
+    +AddNewEntryToDoUI()
+    + initialize(url, resourceBundle)
+    - fillGreenSpaceComboBox()
+    (...)
+}
+}
+
+package Controller <<Folder>> #DDDDDD {
+class AddNewEntryToDoController {
+
+    + AddNewEntryToDoController()
+    - getToDoRepository()
+    - getGreenSpaceRepository()
+    + getManagerGreenSpaceDTOList()
+    + registerTask(toDoTaskDTO)
+    }
+}
+
+'package Domain <<Folder>> #AAAAAA{
+package Repository <<Folder>> #DDDDDD {
+class GreenSpaceRepository{
+    - List<GreenSpace> greenSpaceList
+
+    + getGreenSpaceListByManager(managerEmail)
+}
+
+class ToDoRepository{
+    - List<Task> toDoList
+
+    + registerTaskToDo(task)
+    - add(task)
+    - validateTaskToDo(task)
+}
+
+class Repositories {
+    - Repositories()
+    + getInstance() : Repositories
+    + getGreenSpaceRepository()
+    + getToDoRepository()
+}
+
+class ApplicationSession{
+    - ApplicationSession()
+    + getInstance() : ApplicationSession
+    + getAuthenticationRepository()
+    + getCurrentSession()
+
+}
+
+class UserSession{
+    + getUserEmail()
+
+}
+
+class Email{
+
+}
+
+}
+
+
+package Domain <<Folder>> #DDDDDD {
+class GreenSpace {
+    - GreenSpaceType type
+    - String name
+    - double totalArea
+    - String manager
+    + GreenSpace(type,name,street, streetNumber,\npostalCode,city,district,totalArea, manager)
+    - validateType(type)
+    - validateName(name)
+    - validateTotalArea(totalArea)
+}
+
+class Task {
+    - String title;
+    - String description;
+    - TaskType taskType;
+    - Status status;
+    ...
+
+    + Task(title, description, taskType, greenSpace,\nurgency, days, hours, minutes)
+    (...)
+}
+
+class TaskDuration {
+    - int days;
+    - int hours;
+    - int minutes;
+    - int totalDurationMinutes;
+
+    + TaskDuration(days, hours, minutes)
+    + setTaskDuration(days, hours, minutes)
+    - validateTaskDuration(days, hours, minutes)
+}
+
+'}
+}
+
+
+package Mapper <<Folder>> #DDDDDD {
+class GreenSpaceMapper{
+    + GreenSpaceMapper()
+    + toDTOlist(List<GreenSpace> greenSpaceList)
+    + toDTO(greenSpace)
+}
+
+class ToDoListMapper{
+    + ToDoListMapper()
+    + toTask(toDoTaskDTO, greenSpace)
+}
+}
+
+package DTO <<Folder>> #DDDDDD {
+class GreenSpaceDTO{
+    + String name
+    + GreenSpaceType type
+    + Double totalArea
+    + String street
+    + int streetNumber
+    + String postalCode
+    + String city
+    + String district
+
+    + GreenSpaceDTO(name, type, totalArea, street, streetNumber, postalCode, city, district)
+    + addressToString()
+}
+
+class ToDoTaskDTO{
+    + String title;
+    + String description;
+    + TaskType taskType;
+    + String greenSpaceName;
+    + UrgencyType urgency;
+    + int days;
+    + int hours;
+    + int minutes;
+
+    + ToDoTaskDTO(title, description, taskType,\ngreenSpace, urgency, days, hours, minutes)
+    + expectedDurationToString()
+    }
+}
+
+AddNewEntryToDoUI .down.> AddNewEntryToDoController
+AddNewEntryToDoController ...> Repositories : repositories
+AddNewEntryToDoController ..> GreenSpaceRepository : greenSpaceRepository
+AddNewEntryToDoController ..> ToDoRepository : toDoRepository
+AddNewEntryToDoController ...> ApplicationSession
+Repositories -> Repositories : instance
+Repositories ---> "1" GreenSpaceRepository
+Repositories ---> "1" ToDoRepository
+ApplicationSession -> ApplicationSession : instance
+ApplicationSession -down-> "1" UserSession : userSession
+UserSession ..> Email
+GreenSpaceRepository "1" -> GreenSpace
+ToDoRepository "1" -down-> Task : task
+Task *--"1" TaskDuration : taskDuration
+AddNewEntryToDoController ..> GreenSpaceMapper
+AddNewEntryToDoController ...> ToDoListMapper
+GreenSpaceMapper ..> GreenSpaceDTO
+ToDoListMapper ..> ToDoTaskDTO
+
+
+@enduml

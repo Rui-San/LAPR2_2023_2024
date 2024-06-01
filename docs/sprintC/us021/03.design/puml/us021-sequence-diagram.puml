@@ -41,6 +41,7 @@ CTRL --> UI : greenSpaceDTOList
                 GSM -> UI : Selects a green space
 
                 activate UI
+                 UI --> UI: validates Selection
                 |||
                 end
 
@@ -62,6 +63,10 @@ CTRL --> UI : greenSpaceDTOList
     end
 
         UI --> UI : keepData(title, description, expectedDuration)
+        note right of UI
+                    expectedDuration is composed
+                    by days, hours and minutes
+                    end note
         |||
 
     loop until doesn't select a valid option
@@ -74,6 +79,7 @@ CTRL --> UI : greenSpaceDTOList
                     both enumerate types
                     end note
                     activate UI
+                     UI --> UI: validates Selection
                     |||
                     end
 

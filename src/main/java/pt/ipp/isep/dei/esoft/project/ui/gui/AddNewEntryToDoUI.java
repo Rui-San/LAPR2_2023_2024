@@ -141,7 +141,7 @@ public class AddNewEntryToDoUI implements Initializable {
         clearFields();
     }
 
-    public boolean validateAllInputs() {
+    private boolean validateAllInputs() {
         boolean titleValid = validateTitle();
         boolean descriptionValid = validateDescription();
         boolean durationValid = validateExpectedDuration();
