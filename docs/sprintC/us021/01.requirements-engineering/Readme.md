@@ -54,6 +54,9 @@ Similarly, when a new entry is added to the Agenda, the status of that task will
 * **AC3:** The green space for the new entry should be chosen from a
   list presented to the GSM.
 * **AC4:** The urgency must be one of the 3 options: High, Medium and Low
+* **AC5:** The Green Space list must be the green spaces managed by the user logged in.
+* **AC6:** Default Status for an entry on To-Do list is "PENDING"
+* **AC7:** Expected duration of the task can be days and/or hours
 
 ### 1.4. Found out Dependencies
 
@@ -66,12 +69,12 @@ Similarly, when a new entry is added to the Agenda, the status of that task will
 * Typed data:
     * Title
     * Description
-    * Type
-    * Urgency
     * Task duration
 	
 * Selected data:
     * a green space
+    * Type
+    * Urgency
 
 
 **Output Data:**
