@@ -47,7 +47,10 @@ This diagram shows the full sequence of interactions between the classes involve
 ![Sequence Diagram - SD_toGreenSpaceDomainObject](svg/SD_toGreenSpaceDomainObject.svg)
 
 
-
 ## 3.3. Class Diagram (CD)
 
 ![Class Diagram](svg/us020-class-diagram.svg)
+
+### Address Class Diagram
+
+![Class Diagram](svg/us020-class-diagram-address.svg)

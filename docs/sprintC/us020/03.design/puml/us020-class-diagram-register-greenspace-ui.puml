@@ -1,0 +1,42 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+
+class RegisterGreenSpaceUI {
+    - string type
+    - string name
+    - string street
+    - int streetNumber
+    - string postalCode
+    - string city
+    - string district
+    - double totalArea
+    + RegisterGreenSpaceUI()
+    + initialize()
+    - fillGreenSpaceType()
+    - btnSubmit()
+    - getConfirmationText(greenSpaceDTO)
+    - btnClear()
+    - validateAllInputs()
+    - validateName()
+    - validateStreet()
+    - validateType()
+    - validateArea()
+    - validateStreetNumber()
+    - validatePostalCode()
+    - validateCity()
+    - validateDistrict()
+    - displayErrorLayout(controlObject, labelToShowError, errorMessage)
+    - clearLayoutErrors(controlObject, labelWithError)
+    - clearAllFieldsAndErrors()
+}
+
+
+
+
+@enduml

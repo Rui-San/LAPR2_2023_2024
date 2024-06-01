@@ -8,36 +8,7 @@ skinparam linetype polyline
 skinparam classAttributeIconSize 0
 title US020 - Class Diagram
 
-class GreenSpace {
-    - GreenSpaceType type
-    - String name
-    - Address address
-    - float totalArea
-    + GreenSpace(type,name,streetNumber,\npostalCode,city,district,totalArea)
-}
-
-class GreenSpaceRepository{
-    - List<GreenSpace> greenSpaceList
-
-    + GreenSpaceRepository()
-    + add(newGreenSpace)
-    - validateGreenSpace(newGreenSpace)
-    + createGreenSpace(type,name,streetNumber,postalCode,city,district,totalArea)
-}
-
-class Repositories {
-    - Repositories()
-    + getInstance() : Repositories
-    + getGreenSpaceRepository()
-}
-
-class RegisterGreenSpaceController {
-
-    + RegisterGreenSpaceController(greenSpaceRepository)
-    + RegisterGreenSpaceController()
-    - getGreenSpaceRepository()
-    + createGreenSpace(type,name,streetNumber,postalCode,city,district,totalArea)
-}
+package GUI <<Folder>> #DDDDDD {
 
 class RegisterGreenSpaceUI {
     - string type
@@ -47,10 +18,76 @@ class RegisterGreenSpaceUI {
     - string postalCode
     - string city
     - string district
-    - float totalArea
-    - requestData()
-    - submitData()
+    - double totalArea
+    +RegisterGreenSpaceUI()
+    +initialize()
+    -fillGreenSpaceType()
+    (...)
 }
+}
+
+package Controller <<Folder>> #DDDDDD {
+class RegisterGreenSpaceController {
+
+    + RegisterGreenSpaceController()
+    - getGreenSpaceRepository()
+    + registerGreenSpace(greenSpaceDTO)
+    }
+}
+
+package Repository <<Folder>> #DDDDDD {
+class GreenSpaceRepository{
+    - List<GreenSpace> greenSpaceList
+
+    + GreenSpaceRepository()
+    + registerGreenSpace(greenSpace)
+    + add(greenSpace)
+    - validateGreenSpace(newGreenSpace)
+}
+
+class Repositories {
+    - Repositories()
+    + getInstance() : Repositories
+    + getGreenSpaceRepository()
+}
+
+class ApplicationSession{
+    - ApplicationSession()
+    + getInstance() : ApplicationSession
+    + getAuthenticationRepository()
+    + getCurrentSession()
+
+}
+
+class UserSession{
+    + getUserEmail()
+
+}
+
+class Email{
+
+}
+
+}
+
+
+package Domain <<Folder>> #DDDDDD {
+class GreenSpace {
+    - GreenSpaceType type
+    - String name
+    - double totalArea
+    - String manager
+    + GreenSpace(type,name,street, streetNumber,\npostalCode,city,district,totalArea, manager)
+    - validateType(type)
+    - validateName(name)
+    - validateTotalArea(totalArea)
+}
+
+
+
+
+
+
 
 class Address{
     - String street
@@ -59,45 +96,51 @@ class Address{
     - String city
     - String district
     + Address(street, streetNumber, postalCode, city, district)
+    (...)
+}
 }
 
-class ApplicationController{
 
-}
-
-class UserSession{
-
-}
-
-class Email{
-
-}
-
+package Mapper <<Folder>> #DDDDDD {
 class GreenSpaceMapper{
+    + GreenSpaceMapper()
+    + toGreenSpace(greenSpaceDTO, managerEmail)
 
 }
+}
 
+package DTO <<Folder>> #DDDDDD {
 class GreenSpaceDTO{
-
+public String name
+    + GreenSpaceType type
+    + Double totalArea
+    + String street
+    + int streetNumber
+    + String postalCode
+    + String city
+    + String district
+    + GreenSpaceDTO(name, type, totalArea, street, streetNumber, postalCode, city, district)
+    + addressToString()
+}
 }
 
-class AuthenticationRepository{
 
-}
 
-RegisterGreenSpaceUI .right.> RegisterGreenSpaceController
+RegisterGreenSpaceUI .down.> RegisterGreenSpaceController
 RegisterGreenSpaceController ..> "1" GreenSpaceRepository : greenSpaceRepository
 GreenSpaceRepository "1"-down-> "*" GreenSpace : greenSpace
 GreenSpace *--"1" Address : address
 RegisterGreenSpaceController ..> Repositories : repositories
 Repositories --> "1" GreenSpaceRepository
 Repositories -> Repositories : instance
-Repositories --> "1" AuthenticationRepository
-RegisterGreenSpaceController ..> ApplicationController
-ApplicationController ..> AuthenticationRepository
-AuthenticationRepository ..> UserSession
+
+RegisterGreenSpaceController ..> ApplicationSession
+
+ApplicationSession -> ApplicationSession : instance
+ApplicationSession --> "1" UserSession : userSession
 UserSession ..> Email
 RegisterGreenSpaceController ..> GreenSpaceMapper
 GreenSpaceMapper ..> GreenSpaceDTO
+RegisterGreenSpaceController ..> GreenSpaceDTO
 
 @enduml

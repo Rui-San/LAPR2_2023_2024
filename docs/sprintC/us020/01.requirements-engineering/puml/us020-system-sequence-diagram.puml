@@ -3,32 +3,31 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title System Sequence Diagram (SSD)
+title US020 - System Sequence Diagram (SSD)
 
 autonumber
 
 actor "Green Space\nManager" as GSM
-participant ":registerGreenSpaceUI" as UI
+participant ":RegisterGreenSpaceUI" as UI
 
 activate GSM
 
     GSM -> UI : asks to create a new Green Space
     activate UI
 
-        UI --> GSM : Displays the types of green spaces and asks\nto select one (garden, medium, large)
-    deactivate UI
 
-    GSM -> UI : selects type of green space
-    activate UI
-        UI --> UI : keepData(type)
+
 loop until typed data is validated
-        UI --> GSM : requests data (name, streetNumber,\npostalCode, city, district, totalArea)
+        UI --> GSM : requests data (name, type, area, street,\n streetNumber, postalCode, city, district)
     deactivate UI
 
     GSM -> UI : types requested data
+
     activate UI
+    UI --> UI: Validates input data
+    |||
 end loop
-        UI --> UI : keepData(name,streetNumber,\npostalCode,city,district,totalArea)
+        UI --> UI : keepData(name, type, area, street,\n streetNumber,postalCode, city, district)
         UI --> GSM : shows all data and requests confirmation
     deactivate UI
 
