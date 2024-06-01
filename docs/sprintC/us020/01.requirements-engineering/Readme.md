@@ -58,6 +58,11 @@ da Cidade).
 ### 1.3. Acceptance Criteria
 
 * **AC1:** All required fields must be filled in.
+* **AC2:** Total Area must be a positive number.
+* **AC3:** Green Space types are:
+  * Garden
+  * Medium-sized
+  * Large-sized
 
 ### 1.4. Found out Dependencies
 
@@ -80,10 +85,6 @@ da Cidade).
 * Success of the operation
 
 ### 1.6. System Sequence Diagram (SSD)
-
-**_Other alternatives might exist._**
-
-#### Alternative One
 
 ![System Sequence Diagram](svg/us020-system-sequence-diagram.svg)
 
