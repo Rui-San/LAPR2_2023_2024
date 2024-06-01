@@ -10,15 +10,10 @@ autonumber
 actor "GSM" as GSM
 participant ":AddNewEntryToDoUI" as UI
 participant "controller\n:AddNewEntryToDoController" as CTRL
+participant ":ToDoTaskDTO" as ToDoTaskDTO
 participant ":Repositories" as REPO
 participant "repositories\n:Repositories" as REPOInstance
-participant "greenSpaceRepository\n:GreenSpaceRepository" as GreenSpaceREPO
-participant ":GreenSpaceMapper" as GreenSpaceMapper
-participant ":GreenSpaceDTO" as GreenSpaceDTO
-participant ":ToDoListMapper" as ToDoListMapper
-participant ":ToDoTaskDTO" as ToDoTaskDTO
 participant "toDoRepository\n:ToDoRepository" as Todo
-participant "Task" as Task
 participant "task\n:Task" as TaskSet
 
 
@@ -30,55 +25,10 @@ activate GSM
 
     UI -> CTRL : getGreenSpaceDTOlist()
     activate CTRL
-
-        CTRL -> REPO : getInstance()
-        activate REPO
-
-            REPO --> CTRL : repositories
-        deactivate REPO
-        CTRL -> REPOInstance: getGreenSpaceRepository()
-
-        activate REPOInstance
-
-            REPOInstance --> CTRL : greenSpaceRepository
-        deactivate REPOInstance
-
-        CTRL -> GreenSpaceREPO : getGreenSpaceList()
-        activate GreenSpaceREPO
-
-        GreenSpaceREPO --> CTRL : greenSpaceList
-
-        deactivate GreenSpaceREPO
-
-        CTRL -> GreenSpaceMapper : toDTOlist(greenSpaceList)
-
-        activate GreenSpaceMapper
-loop for each greenSpace in greenSpaceList
-            GreenSpaceMapper -> GreenSpaceDTO** : toDTO(greenSpace)
-
-            note right of GreenSpaceDTO
-                                GreenSpaceDTO contains the atributes:
-                                - name
-                                - type
-                                - totalArea
-                            end note
-                            |||
-            GreenSpaceMapper --> GreenSpaceMapper : add(greenSpaceDTO)
-
-end loop
-            GreenSpaceMapper --> CTRL : greenSpaceDTOlist
-
-
-
-        deactivate GreenSpaceMapper
-
-
-
-
-
-
-
-
+|||
+        ref over CTRL
+        SD_toGreenSpaceDTOlist
+        end ref
 
 CTRL --> UI : greenSpaceDTOList
     deactivate CTRL
@@ -105,6 +55,8 @@ CTRL --> UI : greenSpaceDTOList
     GSM -> UI : Types requested data
 
     activate UI
+
+    UI --> UI : validates typed data
     |||
 
     end
@@ -113,7 +65,7 @@ CTRL --> UI : greenSpaceDTOList
         |||
 
     loop until doesn't select a valid option
-                        UI --> GSM : Shows list of task type and urgency and asks to select one
+                        UI --> GSM : Shows list of task taskType and urgency and asks to select one
                     deactivate UI
 
                     GSM -> UI : Selects type of task and urgency
@@ -129,7 +81,7 @@ CTRL --> UI : greenSpaceDTOList
 
 
         |||
-        UI -> UI : new toDoTaskDTO(title, description, type,\ngreenSpace,urgency, expectedDuration)
+
 
 
 
@@ -140,35 +92,22 @@ deactivate UI
 
     activate UI
 
+    UI -> ToDoTaskDTO** : new toDoTaskDTO(title, description, taskType, greenSpace,\nurgency, days, hours, minutes)
+    |||
     UI -> CTRL : registerTask(toDoTaskDTO)
     activate CTRL
 
-        CTRL -> GreenSpaceREPO : getGreenSpaceByName(greenSpace)
-        activate GreenSpaceREPO
+            ref over CTRL
+            |||
+            SD_toToDoDomainObject
 
-            GreenSpaceREPO --> CTRL : greenSpace
-        deactivate GreenSpaceREPO
-
-        CTRL -> ToDoListMapper : toTask(toDoTaskDTO,greenSpace)
-
-            activate ToDoListMapper
-
-                ToDoListMapper -> Task ** : new Task(title, description, type,\ngreenSpace, urgency, expectedDuration)
-
-            Task --> Task : validateTitle(title)
-            Task --> Task : validateDescription(description)
-            Task --> Task : validateType(type)
-            Task --> Task : validateDuration(duration)
-            Task --> Task : validateUrgency(urgency)
-
-           |||
-           deactivate Task
-
-            ToDoListMapper --> ToDoListMapper : task
-
-            ToDoListMapper --> CTRL : task
-            deactivate ToDoListMapper
-
+            end ref
+            CTRL -> CTRL : task
+            note right
+            The DTO is converted
+            to domain object Task
+            end note
+            |||
             CTRL -> REPO : getInstance()
                     activate REPO
 
@@ -184,15 +123,14 @@ deactivate UI
                     CTRL -> Todo : registerTaskTodo(task)
 
                     activate Todo
-                    |||
-                    |||
+
                     Todo --> Todo : validateTaskToDo(task)
                     |||
                     Todo -> TaskSet** : setStatus(TODO_DEFAULT_STATUS)
                     note right of TaskSet
                     When a new task is created, the
-                    status is "PENDING" by default,
-                    until the task doesn't go the Agenda.
+                    status is "PENDING" by default, until
+                    the task doesn't go to the Agenda.
                     end note
                     Todo --> Todo : add(task)
 

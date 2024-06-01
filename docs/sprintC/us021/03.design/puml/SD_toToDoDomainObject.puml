@@ -1,0 +1,62 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title SD_toToDoDomainObject
+
+autonumber
+
+
+participant "controller\n:AddNewEntryToDoController" as CTRL
+
+participant ":Repositories" as REPO
+participant "repositories\n:Repositories" as REPOInstance
+participant "greenSpaceRepository\n:GreenSpaceRepository" as GreenSpaceREPO
+participant ":ToDoListMapper" as ToDoListMapper
+participant "Task" as Task
+
+    activate CTRL
+            |||
+            CTRL -> REPO : getInstance()
+            activate REPO
+
+                REPO --> CTRL : repositories
+            deactivate REPO
+            CTRL -> REPOInstance: getGreenSpaceRepository()
+
+            activate REPOInstance
+
+                REPOInstance --> CTRL : greenSpaceRepository
+            deactivate REPOInstance
+
+        CTRL -> GreenSpaceREPO : getGreenSpaceByName(toDoTaskDTO.name)
+        activate GreenSpaceREPO
+
+            GreenSpaceREPO --> CTRL : greenSpace
+        deactivate GreenSpaceREPO
+        |||
+        CTRL -> ToDoListMapper : toTask(toDoTaskDTO,greenSpace)
+
+            activate ToDoListMapper
+
+                ToDoListMapper -> Task ** : new Task(title, description, taskType,\ngreenSpace, urgency, days, hours, minutes)
+
+            Task --> Task : validateTitle(title)
+            Task --> Task : validateDescription(description)
+            Task --> Task : validateTaskType(taskType)
+            Task --> Task : validateUrgency(urgency)
+
+            |||
+            Task --> TaskDuration** : new TaskDuration(days, hours, minutes)
+            TaskDuration --> TaskDuration : validateTaskDuration(days, hours, minutes)
+           |||
+           deactivate Task
+
+            ToDoListMapper --> ToDoListMapper : task
+
+            ToDoListMapper --> CTRL : task
+            deactivate ToDoListMapper
+
+
+@enduml

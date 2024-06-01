@@ -1,0 +1,111 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title SD_toGreenSpaceDTOlist
+
+autonumber
+
+
+participant ":AddNewEntryToDoUI" as UI
+participant "controller\n:AddNewEntryToDoController" as CTRL
+participant ":ApplicationSession" as APP
+participant "singleton\n:ApplicationSession" as APPSingleton
+participant "userSession\n:UserSession" as UserSession
+participant "userID\n:Email" as Email
+participant ":Repositories" as REPO
+participant "repositories\n:Repositories" as REPOInstance
+participant "greenSpaceRepository\n:GreenSpaceRepository" as GreenSpaceREPO
+participant ":GreenSpaceMapper" as GreenSpaceMapper
+participant ":GreenSpaceDTO" as GreenSpaceDTO
+
+
+    activate UI
+
+    UI -> CTRL : getManagerGreenSpaceDTOList()
+    activate CTRL
+
+    CTRL --> APP : getInstance()
+                activate APP
+
+                    APP --> CTRL : singleton
+                deactivate APP
+
+                CTRL --> APPSingleton : getUserSession()
+                activate APPSingleton
+
+                    APPSingleton --> CTRL : userSession
+                deactivate APPSingleton
+
+                CTRL --> UserSession : getUserId()
+                activate UserSession
+
+                    UserSession --> CTRL : userId
+                deactivate UserSession
+
+                CTRL --> Email : getEmail()
+                activate Email
+
+                    Email --> CTRL : email
+                deactivate Email
+
+                CTRL -> CTRL : managerEmail
+                |||
+
+        CTRL -> REPO : getInstance()
+        activate REPO
+
+            REPO --> CTRL : repositories
+        deactivate REPO
+        CTRL -> REPOInstance: getGreenSpaceRepository()
+
+        activate REPOInstance
+
+            REPOInstance --> CTRL : greenSpaceRepository
+        deactivate REPOInstance
+
+        CTRL -> GreenSpaceREPO : getGreenSpaceListByManager(managerEmail)
+        activate GreenSpaceREPO
+
+        GreenSpaceREPO --> CTRL : managerGreenSpacesList
+
+        deactivate GreenSpaceREPO
+
+        CTRL -> GreenSpaceMapper : toDTOlist(managerGreenSpacesList)
+
+        activate GreenSpaceMapper
+loop for each greenSpace in managerGreenSpacesList
+|||
+            GreenSpaceMapper -> GreenSpaceDTO** : toDTO(greenSpace)
+
+            note right of GreenSpaceDTO
+                                GreenSpaceDTO contains the atributes:
+                                - name, type, totalArea, street,
+                                streetNumber, postalCode, city
+                                and district
+                                                          end note
+                            |||
+            GreenSpaceMapper --> GreenSpaceMapper : add(greenSpaceDTO)
+
+end loop
+            GreenSpaceMapper --> CTRL : greenSpaceDTOlist
+
+
+
+        deactivate GreenSpaceMapper
+
+
+
+
+
+
+
+
+
+CTRL --> UI : greenSpaceDTOList
+    deactivate CTRL
+
+
+
+@enduml
