@@ -9,7 +9,7 @@ autonumber
 
 
 participant ":AddNewEntryToDoUI" as UI
-participant "controller\n:AddNewEntryToDoController" as CTRL
+participant ":AgendaController" as CTRL
 participant ":ApplicationSession" as APP
 participant "singleton\n:ApplicationSession" as APPSingleton
 participant "userSession\n:UserSession" as UserSession

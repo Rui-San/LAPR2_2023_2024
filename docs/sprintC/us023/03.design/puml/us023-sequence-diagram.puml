@@ -3,146 +3,135 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title Sequence Diagram (SD) - Alternative One
+title US023 - Sequence Diagram
 
 autonumber
 
+
 actor "Green Space\nManager" as GSM
-participant ":AssignTeamToTaskUI" as UI
-participant "controller\n:AssignTeamToTaskController" as CTRL
-participant "task:\nTask" as Task
-participant ":Repository" as REPO
-participant "repositories\n:Repository" as REPOInstance
-participant "agenda\n:Agenda" as Agenda
-participant ":TaskMapper" as TaskMapper
-participant ":TaskDTO" as TaskDTO
-participant "teamRepository\n:TeamRepository" as TeamREPO
-participant ":TeamMapper" as TeamMapper
-participant ":TeamDTO" as TeamDTO
+participant ":AgendaUI" as UI
+participant ":SelectTeamPopupUI" as POPUP
+participant ":AgendaController" as AGENDA_CTRL
+participant ":AssignTeamToEntryAgendaController" as CTRL
+participant ":Repositories" as REPO
+participant "repositories\n:Repositories" as REPOInstance
+participant "agendaRepository\n:AgendaRepository" as AgendaRepository
 
 activate GSM
 
-    GSM -> UI: asks to assign team to an entry in the agenda
-    activate UI
+GSM -> UI: asks to assign team to an entry in the agenda
+activate UI
 
-        UI -> CTRL** : create
-        UI -> CTRL: getTaskList()
-        activate CTRL
+    UI -> AGENDA_CTRL : getAgendaTaskDTOManagerList()
+    activate AGENDA_CTRL
+    |||
+    ref over AGENDA_CTRL
+    SD_managerSpecificAgendaDTO
 
-            CTRL -> REPO: getInstance()
-            activate REPO
+    end ref
+    AGENDA_CTRL --> UI : managerSpecificAgendaDTO
+    deactivate AGENDA_CTRL
 
-                REPO --> CTRL : repositories
-            deactivate REPO
+    loop until doesn't select a valid option
 
-            CTRL -> REPOInstance: getAgenda()
-            activate REPOInstance
+    UI --> GSM: shows the list of tasks in the agenda and\nasks to select one
+deactivate UI
 
-                REPOInstance --> CTRL : agenda
-            deactivate REPOInstance
+GSM -> UI : selects a task
+activate UI
+UI --> UI : validates selected option
+|||
+end loop
 
-            CTRL -> Agenda: getTaskList()
-            activate Agenda
+    UI --> UI : keepData(task)
 
-                Agenda --> CTRL : taskList
-            deactivate Agenda
-
-            CTRL -> TaskMapper: getTaskDTOlist(taskList)
-            activate TaskMapper
-
-    loop for each task in taskList
-                TaskMapper -> TaskDTO**: toDTO(task)
-                note right of TaskDTO
-                    TaskDTO contains the title, description,
-                     status and urgency of the task
-                end note
-                TaskMapper --> TaskMapper : add(TaskDTO)
-    end loop
-                TaskMapper --> CTRL : taskDTOList
-            deactivate TaskMapper
-
-            CTRL --> UI : taskDTOList
-        deactivate CTRL
-
-        UI --> GSM: shows the list of taks in the agenda and\nasks to select one
+    |||
+    UI -> POPUP : Shows the popup with the list of teams\n                 fillTeamTable()
     deactivate UI
+    activate POPUP
 
-    GSM -> UI : selects a task
-    activate UI
-        UI --> UI: keepData(task)
+    POPUP -> CTRL : getTeams()
+    activate CTRL
 
-        UI --> CTRL : getTeamList()
-        activate CTRL
+    ref over CTRL
+    SD_getTeamListDTO
 
-            CTRL -> REPO: getInstance()
-            activate REPO
+    end ref
 
-                REPO --> CTRL : repositories
-            deactivate REPO
+    CTRL --> POPUP : teamListDTO
+    deactivate CTRL
 
-            CTRL -> REPOInstance: getTeamRepository()
-            activate REPOInstance
 
-                REPOInstance --> CTRL : teamRepository
-            deactivate REPOInstance
 
-            CTRL -> TeamREPO: getTeamList()
-            activate TeamREPO
+    |||
+    loop until doesn't select a valid option
+    POPUP --> GSM: Shows the list of teams and asks to select one
+deactivate POPUP
 
-                TeamREPO --> CTRL : teamList
-            deactivate TeamREPO
+GSM -> POPUP : selects a team
+activate POPUP
+POPUP --> POPUP : validates selected option
+end loop
+|||
+POPUP --> UI : Sends selected team to Main UI
+deactivate POPUP
+activate UI
+    |||
+    UI --> UI : keepData(selectedTeam)
+    |||
 
-            CTRL -> TeamMapper: getTeamDTOlist(teamList)
-            activate TeamMapper
+    UI -> CTRL : assignTeamToTaskAgenda(selectedTask, selectedTeam)
+    activate CTRL
 
-    loop for each team in the teamList
-                TeamMapper -> TeamDTO**: toDTO(team)
-                note right of TeamDTO
-                    TeamDTO contains the name of all
-                    the members of the team
-                end note
-                TeamMapper --> TeamMapper : add(TeamDTO)
-    end loop
-                TeamMapper --> CTRL : teamDTOList
-            deactivate TeamMapper
+    ref over CTRL
+    SD_getTeamDomainObject
 
-            CTRL --> UI : teamDTOList
-        deactivate CTRL
+    end ref
+    CTRL -> CTRL : teamObj
 
-        UI --> GSM: shows the list of teams and asks to select one
-    deactivate UI
+    CTRL -> REPO : getInstance()
+                        activate REPO
 
-    GSM -> UI : selects a team
-    activate UI
+                            REPO --> CTRL : repositories
+                        deactivate REPO
+                        CTRL -> REPOInstance: getAgendaRepository()
 
-        UI --> UI: keepData(team)
-        UI --> GSM: shows the task and the team about to be assigned to\nthat ask and asks for confirmation
-    deactivate UI
+                        activate REPOInstance
 
-    GSM -> UI: confirms operation
-    activate UI
+                            REPOInstance --> CTRL : agendaRepository
+                        deactivate REPOInstance
 
-        UI --> CTRL : assignTeamToTask(task, team)
-        activate CTRL
+                    CTRL -> AgendaRepository : assignTeamToTaskAgenda(title, greenSpaceName, workStartDate, status, teamObj)
+                    activate AgendaRepository
 
-            CTRL -> Task : setTeam(team)
-            activate Task
+                    AgendaRepository -> Task** : assignTeam(team)
+                    activate Task
+                    alt team is available
 
-                Task --> CTRL : operation success
-            deactivate Task
-            loop for every member in the team
-            CTRL -> Email** : new Email(collaboratorName, task)
-            CTRL -> Emailer : sendEmail(collaboratorEmail, email)
-            activate Emailer
+                    Task -> Team** : addWorkPeriod(workPeriod)
 
-                Emailer --> CTRL : operation success
-            deactivate Emailer
-            end loop
-            CTRL --> UI : operation success
-        deactivate CTRL
-        UI --> GSM: shows operation success
-    deactivate UI
+                    else team is not available
 
-deactivate GSM
+                    note over Task, Team
+                    An error message will be shown indicating
+                          the selected team is not available
+                    end note
+                    deactivate Task
+
+                    end
+
+                    AgendaRepository --> CTRL : task Optional
+                    deactivate AgendaRepository
+
+
+
+    CTRL --> UI : operation success
+
+    deactivate CTRL
+
+
+
+    UI --> GSM: shows operation success
+deactivate UI
 
 @enduml

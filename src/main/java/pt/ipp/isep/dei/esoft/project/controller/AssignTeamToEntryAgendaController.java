@@ -88,5 +88,8 @@ public class AssignTeamToEntryAgendaController {
     public Optional<Task> assignTeamToTaskAgenda(AgendaTaskDTO agendaTaskDTO, TeamDTO selectedTeamDTO) {
         Team teamObj = teamRepository.getTeamByTeamMemberEmails(selectedTeamDTO.collaborators.get(0).email);
         return agendaRepository.assignTeamToTaskAgenda(agendaTaskDTO.title, agendaTaskDTO.greenSpaceName, agendaTaskDTO.workStartDate, agendaTaskDTO.status, teamObj);
+
+        //TODO: implement sending email to collaborators
+
     }
 }

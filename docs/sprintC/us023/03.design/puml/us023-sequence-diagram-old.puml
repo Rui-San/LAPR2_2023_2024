@@ -1,0 +1,148 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title Sequence Diagram (SD) - Alternative One
+
+autonumber
+
+actor "Green Space\nManager" as GSM
+participant ":AssignTeamToTaskUI" as UI
+participant "controller\n:AssignTeamToTaskController" as CTRL
+participant "task:\nTask" as Task
+participant ":Repository" as REPO
+participant "repositories\n:Repository" as REPOInstance
+participant "agenda\n:Agenda" as Agenda
+participant ":TaskMapper" as TaskMapper
+participant ":TaskDTO" as TaskDTO
+participant "teamRepository\n:TeamRepository" as TeamREPO
+participant ":TeamMapper" as TeamMapper
+participant ":TeamDTO" as TeamDTO
+
+activate GSM
+
+    GSM -> UI: asks to assign team to an entry in the agenda
+    activate UI
+
+        UI -> CTRL** : create
+        UI -> CTRL: getTaskList()
+        activate CTRL
+
+            CTRL -> REPO: getInstance()
+            activate REPO
+
+                REPO --> CTRL : repositories
+            deactivate REPO
+
+            CTRL -> REPOInstance: getAgenda()
+            activate REPOInstance
+
+                REPOInstance --> CTRL : agenda
+            deactivate REPOInstance
+
+            CTRL -> Agenda: getTaskList()
+            activate Agenda
+
+                Agenda --> CTRL : taskList
+            deactivate Agenda
+
+            CTRL -> TaskMapper: getTaskDTOlist(taskList)
+            activate TaskMapper
+
+    loop for each task in taskList
+                TaskMapper -> TaskDTO**: toDTO(task)
+                note right of TaskDTO
+                    TaskDTO contains the title, description,
+                     status and urgency of the task
+                end note
+                TaskMapper --> TaskMapper : add(TaskDTO)
+    end loop
+                TaskMapper --> CTRL : taskDTOList
+            deactivate TaskMapper
+
+            CTRL --> UI : taskDTOList
+        deactivate CTRL
+
+        UI --> GSM: shows the list of taks in the agenda and\nasks to select one
+    deactivate UI
+
+    GSM -> UI : selects a task
+    activate UI
+        UI --> UI: keepData(task)
+
+        UI --> CTRL : getTeamList()
+        activate CTRL
+
+            CTRL -> REPO: getInstance()
+            activate REPO
+
+                REPO --> CTRL : repositories
+            deactivate REPO
+
+            CTRL -> REPOInstance: getTeamRepository()
+            activate REPOInstance
+
+                REPOInstance --> CTRL : teamRepository
+            deactivate REPOInstance
+
+            CTRL -> TeamREPO: getTeamList()
+            activate TeamREPO
+
+                TeamREPO --> CTRL : teamList
+            deactivate TeamREPO
+
+            CTRL -> TeamMapper: getTeamDTOlist(teamList)
+            activate TeamMapper
+
+    loop for each team in the teamList
+                TeamMapper -> TeamDTO**: toDTO(team)
+                note right of TeamDTO
+                    TeamDTO contains the name of all
+                    the members of the team
+                end note
+                TeamMapper --> TeamMapper : add(TeamDTO)
+    end loop
+                TeamMapper --> CTRL : teamDTOList
+            deactivate TeamMapper
+
+            CTRL --> UI : teamDTOList
+        deactivate CTRL
+
+        UI --> GSM: shows the list of teams and asks to select one
+    deactivate UI
+
+    GSM -> UI : selects a team
+    activate UI
+
+        UI --> UI: keepData(team)
+        UI --> GSM: shows the task and the team about to be assigned to\nthat ask and asks for confirmation
+    deactivate UI
+
+    GSM -> UI: confirms operation
+    activate UI
+
+        UI --> CTRL : assignTeamToTask(task, team)
+        activate CTRL
+
+            CTRL -> Task : setTeam(team)
+            activate Task
+
+                Task --> CTRL : operation success
+            deactivate Task
+            loop for every member in the team
+            CTRL -> Email** : new Email(collaboratorName, task)
+            CTRL -> Emailer : sendEmail(collaboratorEmail, email)
+            activate Emailer
+
+                Emailer --> CTRL : operation success
+            deactivate Emailer
+            end loop
+            CTRL --> UI : operation success
+        deactivate CTRL
+        UI --> GSM: shows operation success
+    deactivate UI
+
+deactivate GSM
+
+@enduml

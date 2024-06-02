@@ -1,0 +1,50 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title SD_getTeamDomainObject
+
+autonumber
+
+
+
+participant ":AssignTeamToEntryAgendaController" as CTRL
+
+
+participant ":Repositories" as REPO
+participant "repositories\n:Repositories" as REPOInstance
+participant "teamRepository\n:TeamRepository" as TeamRepository
+
+
+
+
+    activate CTRL
+
+
+
+        CTRL -> REPO : getInstance()
+        activate REPO
+
+            REPO --> CTRL : repositories
+        deactivate REPO
+        CTRL -> REPOInstance: getTeamRepository()
+
+        activate REPOInstance
+
+            REPOInstance --> CTRL : teamRepository
+        deactivate REPOInstance
+
+        CTRL -> TeamRepository : getTeamByTeamMemberEmails(selectedTeamDTO.collaborators.get(0).email)
+
+        activate TeamRepository
+
+        TeamRepository --> CTRL : teamObj
+        deactivate TeamRepository
+
+|||
+    deactivate CTRL
+
+
+
+@enduml

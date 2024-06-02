@@ -1,0 +1,35 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title SD_obtainVehicleDTOList
+
+autonumber
+
+participant ":AgendaController" as AGENDA_CTRL
+
+participant ":VehicleMapper" as VehicleMapper
+participant ":VehicleDTO" as VehicleDTO
+
+activate AGENDA_CTRL
+
+
+    AGENDA_CTRL -> VehicleMapper : toDTOList(getVehiclesAssigned())
+    activate VehicleMapper
+    loop for each vehicle in getVehiclesAssigned()
+    |||
+                VehicleMapper -> VehicleDTO** : toDTO(vehicle)
+
+                                |||
+                VehicleMapper --> VehicleMapper : add(vehicleDTO)
+
+    end loop
+                VehicleMapper --> AGENDA_CTRL : vehicleDTOList
+
+                deactivate VehicleMapper
+
+
+deactivate AGENDA_CTRL
+
+@enduml

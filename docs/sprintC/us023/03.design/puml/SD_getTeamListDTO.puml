@@ -1,0 +1,81 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title SD_getTeamListDTO
+
+autonumber
+
+participant ":AssignTeamToEntryAgendaController" as CTRL
+participant ":Repositories" as REPO
+participant "repositories\n:Repositories" as REPOInstance
+participant "teamRepository\n:TeamRepository" as TeamRepository
+
+participant ":CollaboratorMapper" as CollaboratorMapper
+participant ":CollaboratorDTO" as CollaboratorDTO
+participant ":TeamMapper" as TeamMapper
+participant ":TeamDTO" as TeamDTO
+
+activate CTRL
+
+    CTRL -> REPO : getInstance()
+    activate REPO
+
+        REPO --> CTRL : repositories
+    deactivate REPO
+
+    CTRL -> REPOInstance : getTeamRepository()
+    activate REPOInstance
+
+        REPOInstance --> CTRL : teamRepository
+    deactivate REPOInstance
+
+    CTRL -> TeamRepository : getTeamList()
+    activate TeamRepository
+
+        TeamRepository --> CTRL : teamList
+    deactivate TeamRepository
+
+    |||
+
+
+        loop for each team in teamList
+
+
+                CTRL -> CollaboratorMapper : toDTOlist(team.getMembers())
+                    activate CollaboratorMapper
+                    loop for each collaborator in teamMembers
+                    |||
+                                CollaboratorMapper -> CollaboratorDTO** : toDTO(collaborator)
+
+
+
+                                 CollaboratorMapper --> CollaboratorMapper : add(collaboratorDTO)
+
+                    end loop
+                                CollaboratorMapper --> CTRL : collaboratorDTOlist
+                                deactivate CollaboratorMapper
+                                |||
+
+                    CTRL -> TeamMapper : toDTO(collaboratorDTOlist)
+                    activate TeamMapper
+
+                    TeamMapper -> TeamDTO** : new TeamDTO(collaboratorDTOList)
+                    |||
+                    TeamMapper --> CTRL : teamDTO
+                    deactivate TeamMapper
+
+                    |||
+                    CTRL -> CTRL : teamListDTO.add(teamDTO)
+        end
+
+        CTRL -> CTRL : teamListDTO
+
+
+
+
+
+
+
+@enduml
