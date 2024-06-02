@@ -32,7 +32,10 @@ in the Agenda defines a task (that was previously included in the to-do list).
 * **AC1:** All required fields must be filled in.
 * **AC2:** The new entry must be associated with a green space managed by the GSM.
 * **AC3:** The new entry must exist in the To-Do list.
-
+* **AC4:** When the task enters agenda its default status must be "PLANNED"
+* **AC5:** Execution date and time must be introduced and not empty.
+* **AC6:** The task to add to the Agenda must be with status "PENDING", meaning that it was not planned yet.
+* **AC7:** At least one valid task must be selected before typing execution date and time.
 
 
 ### 1.4. Found out Dependencies
@@ -44,14 +47,16 @@ in the Agenda defines a task (that was previously included in the to-do list).
 **Input Data:**
 
 * Typed data:
-    * There is no typed data
+    * Execution date
+    * Execution time
+      * hours
+      * minutes
 	
 * Selected data:
     * a task from ToDo list
 
 **Output Data:**
 
-* Shows data for confirmation
 * Success of the operation
 
 ### 1.6. System Sequence Diagram (SSD)
@@ -63,4 +68,4 @@ in the Agenda defines a task (that was previously included in the to-do list).
 
 ### 1.7 Other Relevant Remarks
 
-* After adding the new entry to Agenda, the task selected will have the status "planned".
+* After adding the new entry to Agenda, the selected task will have the status "planned".
