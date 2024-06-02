@@ -39,12 +39,13 @@ activate GSM
 
         loop until typed data is validated
 
-        Popup --> GSM : Asks to type requested data ()execution date and hour for the selected task)
+        Popup --> GSM : Asks to type requested data (execution date and hour for the selected task)
         deactivate Popup
 
     deactivate UI
     |||
-    GSM -> Popup: Enters date (selectedDate) and time (workStartingHours, workStartingMins)
+    GSM -> Popup: Types requested date (selectedDate) and time (workStartingHours, workStartingMins)
+
     activate Popup
 
     Popup --> Popup : validates typed data
