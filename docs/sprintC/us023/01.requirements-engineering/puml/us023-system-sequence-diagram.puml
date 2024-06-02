@@ -3,36 +3,56 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title System Sequence Diagram (SSD) - Alternative One
+title US023 - System Sequence Diagram (SSD)
 
 autonumber
 
+
 actor "Green Space\nManager" as GSM
-participant ":AssignTeamToTaskUI" as UI
+participant ":AgendaUI" as UI
+participant ":SelectTeamPopupUI" as POPUP
+
+activate GSM
 
 GSM -> UI: asks to assign team to an entry in the agenda
 activate UI
 
-    UI --> GSM: shows the list of taks in the agenda and\nasks to select one
+    loop until doesn't select a valid option
+
+    UI --> GSM: shows the list of tasks in the agenda and\nasks to select one
 deactivate UI
 
 GSM -> UI : selects a task
 activate UI
+UI --> UI : validates selected option
+|||
+end loop
 
     UI --> UI : keepData(task)
-    UI --> GSM: shows the list of teams and asks to select one
-deactivate UI
 
-GSM -> UI : selects a team
+    UI -> POPUP : Shows the popup with the list of teams
+    deactivate UI
+    activate POPUP
+    |||
+    loop until doesn't select a valid option
+    POPUP --> GSM: Shows the list of teams and asks to select one
+deactivate POPUP
+
+GSM -> POPUP : selects a team
+activate POPUP
+POPUP --> POPUP : validates selected option
+end loop
+|||
+POPUP --> UI : Sends selected team to Main UI
+deactivate POPUP
 activate UI
+    |||
+    UI --> UI : keepData(selectedTeam)
+    |||
+    UI -> UI : assigns the team to the selected task
+    |||
 
-    UI --> UI : keepData(team)
-    UI --> GSM: shows the task and the team about to be assigned to\nthat ask and asks for confirmation
-deactivate UI
 
-GSM -> UI: confirms operation
-activate UI
-    UI --> UI : assigns the team to the task
     UI --> GSM: shows operation success
 deactivate UI
 
