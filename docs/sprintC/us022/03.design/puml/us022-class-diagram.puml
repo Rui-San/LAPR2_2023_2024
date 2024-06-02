@@ -1,0 +1,205 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+title US022 - Class Diagram
+
+package GUI <<Folder>> #DDDDDD {
+
+class AddNewEntryAgendaUI {
+    - ToDoTaskDTO selectedTask
+
+    + AddNewEntryAgendaUI()
+    + initialize(url, resourceBundle)
+    - fillTableInformation()
+    - handleAddToAgenda()
+    - validateTaskSelected()
+    - updateTableView()
+}
+
+class InsertDatePopupUI{
+    - String selectedDate
+    - int workStartingHours
+    - int workStartingMinutes
+
+    - btnConfirmData()
+    - btnCancelAction()
+    - closeUI()
+    - validateTime()
+    - validateExecutionDate()
+    + getSelectedDate()
+    + getWorkStartingHours()
+    + getWorkStartingMinutes()
+    - convertFormat(date)
+    - displayErrorLayout(controlObject, labelToShowError, errorMessage)
+    - clearLayoutErrors(controlObject, labelWithError)
+
+}
+
+}
+
+package Controller <<Folder>> #DDDDDD {
+class AddNewEntryAgendaController {
+
+    + AddNewEntryAgendaController()
+    - getToDoRepository()
+    - getAgendaRepository()
+    - getGreenSpaceRepository()
+    + getToDoDTOManagerList()
+    + registerTaskAgenda(toDoTaskDTO, executionDate,\nworkStartingDays, workStartingMinutes)
+    }
+}
+
+'package Domain <<Folder>> #AAAAAA{
+package Repository <<Folder>> #DDDDDD {
+class GreenSpaceRepository{
+    - List<GreenSpace> greenSpaceList
+
+    + getGreenSpaceByName(greenSpaceName)
+}
+
+class ToDoRepository{
+    - List<Task> toDoList
+
+    + getToDoManagerList(managerEmail)
+}
+
+class AgendaRepository{
+    - List<Task> agenda
+
+    + AgendaRepository()
+    + registerTaskAgenda(task, executionDate,\nworkStartingHours, workStartingMinutes)
+    + add(task, executionDate, workStartingHours,\nworkStartingMinutes)
+    - validateTaskAgenda(task)
+}
+
+class Repositories {
+    - Repositories()
+    + getInstance() : Repositories
+    + getGreenSpaceRepository()
+    + getToDoRepository()
+    + getAgendaRepository()
+}
+
+class ApplicationSession{
+    - ApplicationSession()
+    + getInstance() : ApplicationSession
+    + getAuthenticationRepository()
+    + getCurrentSession()
+
+}
+
+class UserSession{
+    + getUserEmail()
+
+}
+
+class Email{
+
+}
+
+}
+
+
+package Domain <<Folder>> #DDDDDD {
+class GreenSpace {
+    - GreenSpaceType type
+    - String name
+    - double totalArea
+    - String manager
+    + GreenSpace(type,name,street, streetNumber,\npostalCode,city,district,totalArea, manager)
+    - validateType(type)
+    - validateName(name)
+    - validateTotalArea(totalArea)
+}
+
+class Task {
+    - String title;
+    - String description;
+    - TaskType taskType;
+    - Status status;
+    ...
+
+    + Task(title, description, taskType, greenSpace,\nurgency, days, hours, minutes)
+    (...)
+}
+
+class TaskDuration {
+    - int days;
+    - int hours;
+    - int minutes;
+    - int totalDurationMinutes;
+
+    + TaskDuration(days, hours, minutes)
+    + setTaskDuration(days, hours, minutes)
+    - validateTaskDuration(days, hours, minutes)
+}
+
+'}
+}
+
+
+package Mapper <<Folder>> #DDDDDD {
+
+class ToDoListMapper{
+    + ToDoListMapper()
+    + toDTOWithStatusList(List<Task> toDoList)
+    + toDTOWithStatus(toDoTask)
+    + toTask(toDoTaskDTO, greenSpace)
+}
+}
+
+package DTO <<Folder>> #DDDDDD {
+
+class ToDoTaskDTO{
+    + String title;
+    + String description;
+    + TaskType taskType;
+    + String greenSpaceName;
+    + UrgencyType urgency;
+    + int days;
+    + int hours;
+    + int minutes;
+
+    + ToDoTaskDTO(title, description, taskType,\ngreenSpace, urgency, days, hours, minutes)
+    + expectedDurationToString()
+    }
+
+class ToDoTaskWithStatusDTO{
+    + Status status
+
+    + ToDoTaskWithStatusDTO(title, description, taskType, \ngreenSpaceName, urgency, expectedDuration, status)
+    + expectedDurationToString()
+    }
+
+}
+
+
+AddNewEntryAgendaUI .down.> AddNewEntryAgendaController
+AddNewEntryAgendaUI ..right> InsertDatePopupUI
+AddNewEntryAgendaController ...> Repositories : repositories
+AddNewEntryAgendaController ...> GreenSpaceRepository : greenSpaceRepository
+AddNewEntryAgendaController ...> ToDoRepository : toDoRepository
+AddNewEntryAgendaController ...> AgendaRepository : agendaRepository
+AddNewEntryAgendaController ...> ApplicationSession
+Repositories -> Repositories : instance
+Repositories ---> "1" GreenSpaceRepository
+Repositories ---> "1" ToDoRepository
+Repositories ---> "1" AgendaRepository
+ApplicationSession -> ApplicationSession : instance
+ApplicationSession -down-> "1" UserSession : userSession
+UserSession ..> Email
+GreenSpaceRepository "1" -> GreenSpace : greenSpace
+ToDoRepository "1" -down-> Task : task
+Task *--"1" TaskDuration : taskDuration
+AddNewEntryAgendaController ..right.> ToDoListMapper
+ToDoListMapper ..> Task : task
+ToDoListMapper ..> ToDoTaskWithStatusDTO : toDoTaskWithStatusDTO
+ToDoTaskDTO <|-- ToDoTaskWithStatusDTO
+
+
+@enduml
