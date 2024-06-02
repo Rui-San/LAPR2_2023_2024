@@ -14,7 +14,7 @@ participant ":AddNewEntryAgendaController" as CTRL
 participant ":Repositories" as REPO
 participant "repositories\n:Repositories" as REPOInstance
 participant "agendaRepository\n:AgendaRepository" as AgendaRepository
-
+participant "toDoRepository\n:ToDoRepository" as ToDoRepository
 
 activate GSM
 
@@ -112,19 +112,43 @@ activate GSM
                 AgendaRepository -> Task** : setStatus(AGENDA_DEFAULT_STATUS)
 
                 note right
-                                When a task enters the Agenda,
-                                the default status of the task
-                                is "PLANNED"
+                                When a task enters the Agenda, the
+                                default status of the task is
+                                "PLANNED" and the task in To-Do
+                                list will be "PROCESSED"
                                              end note
 
                 AgendaRepository -> Task** : setTaskWorkPeriod(executionDate, workStartingHours,\nworkStartingMinutes, expectedDuration);
 
 
 
-                AgendaRepository --> CTRL : operation success
+                AgendaRepository --> CTRL : taskOptional
                 deactivate AgendaRepository
 
-                CTRL --> UI : operation success
+
+
+                CTRL -> REPO : getInstance()
+                                    activate REPO
+
+                                        REPO --> CTRL : repositories
+                                    deactivate REPO
+                                    CTRL -> REPOInstance: getToDoRepository()
+
+                                    activate REPOInstance
+
+                                        REPOInstance --> CTRL : toDoRepository
+                                    deactivate REPOInstance
+
+                                CTRL -> ToDoRepository : updateTaskToProcessed(task)
+                                activate ToDoRepository
+
+                                ToDoRepository -> Task** : setStatus(Status.PROCESSED)
+
+                                ToDoRepository --> CTRL : operation success
+                                deactivate ToDoRepository
+
+                                CTRL --> UI : operation success
+
                 deactivate CTRL
 
 

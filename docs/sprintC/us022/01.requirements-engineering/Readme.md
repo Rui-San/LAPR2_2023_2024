@@ -36,6 +36,7 @@ in the Agenda defines a task (that was previously included in the to-do list).
 * **AC5:** Execution date and time must be introduced and not empty.
 * **AC6:** The task to add to the Agenda must be with status "PENDING", meaning that it was not planned yet.
 * **AC7:** At least one valid task must be selected before typing execution date and time.
+* **AC8:** When a task is successfully planned, the new task on agenda status will be "PLANNED" and the selected task status from To-Do list will be "PROCESSED" 
 
 
 ### 1.4. Found out Dependencies
@@ -68,4 +69,4 @@ in the Agenda defines a task (that was previously included in the to-do list).
 
 ### 1.7 Other Relevant Remarks
 
-* After adding the new entry to Agenda, the selected task will have the status "planned".
+* After adding the new entry to Agenda, the selected task will have the status "planned" on Agenda and "processed" on To-Do list.
