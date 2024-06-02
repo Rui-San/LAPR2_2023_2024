@@ -10,6 +10,7 @@ autonumber
 actor "GSM" as GSM
 participant ":AddNewEntryAgendaUI" as UI
 participant ":InsertDatePopupUI" as Popup
+participant ":AddNewEntryAgendaController" as CTRL
 
 activate GSM
 
@@ -18,50 +19,36 @@ activate GSM
     activate UI
         loop until doesn't select a valid option
         UI --> GSM : Shows the To-Do list and asks to select the task
-
-
     deactivate UI
-
 
     GSM -> UI : Selects a task
     activate UI
-    UI --> UI : validates selected option
         |||
         end
 
         UI --> UI : keepData(task)
         |||
 
-        UI -> Popup : Show the popup to insert task execution\ndate and hour
-        deactivate UI
-        |||
-        activate Popup
-
-        loop until typed data is validated
-
-        Popup --> GSM : Asks to type requested data ()execution date and hour for the selected task)
-        deactivate Popup
-
+        UI --> GSM : Asks the execution date and hour for the selected task
     deactivate UI
-    |||
-    GSM -> Popup: Enters date (selectedDate) and time (workStartingHours, workStartingMins)
-    activate Popup
 
-    Popup --> Popup : validates typed data
-    |||
-    end loop
-    |||
-
-        Popup --> UI: Sends date and time data to Main UI
-    deactivate Popup
+    GSM -> UI: Confirms data
 
     activate UI
         |||
-        UI --> UI : add selected task to agenda and set the\nstatus of the selected task to "planned"
+        UI --> UI : add task to agenda and set the status\nof the selected task to "planned"
         |||
         UI --> GSM : Display operation success
+
+
     deactivate UI
 
+
+
+
+
+
 deactivate GSM
+
 
 @enduml

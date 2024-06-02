@@ -3,95 +3,134 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title US022 - Sequence Diagram
+title US022 - System Sequence Diagram (SSD)
 
 autonumber
 
 actor "GSM" as GSM
 participant ":AddNewEntryAgendaUI" as UI
+participant ":InsertDatePopupUI" as Popup
 participant ":AddNewEntryAgendaController" as CTRL
-participant ":ToDo" as ToDo
-participant ":Agenda" as Agenda
-participant ":Task" as Task
+participant ":Repositories" as REPO
+participant "repositories\n:Repositories" as REPOInstance
+participant "agendaRepository\n:AgendaRepository" as AgendaRepository
+
 
 activate GSM
 
     GSM -> UI : Asks to add a new entry on Agenda
+
     activate UI
 
-        UI -> CTRL : getToDoList()
+
+    UI -> CTRL : getToDoDTOManagerList()
+
     activate CTRL
 
-        CTRL -> ToDo : getToDoList()
-        activate ToDo
+    ref over CTRL
+    SD_getToDoManagerList
 
-            ToDo --> CTRL : toDoList
-        deactivate ToDo
+    end ref
 
-        CTRL --> UI : toDoList
+    CTRL --> UI : toDoDTOManagerList
     deactivate CTRL
 
         loop until doesn't select a valid option
         UI --> GSM : Shows the To-Do list and asks to select the task
+
+
     deactivate UI
+
 
     GSM -> UI : Selects a task
     activate UI
+    UI --> UI : validates selected option
         |||
         end
 
-        UI --> UI : keepData(task)
+        UI --> UI : keepData(selectedTask)
         |||
 
-        UI --> GSM : Shows all data and requests confirmation
-    deactivate UI
+        UI -> Popup : Show the popup to insert task execution\ndate and hour
+        deactivate UI
+        |||
+        activate Popup
 
-    GSM -> UI: Confirms data
+        loop until typed data is validated
+
+        Popup --> GSM : Asks to type requested data (execution date and hour for the selected task)
+        deactivate Popup
+
+    deactivate UI
+    |||
+    GSM -> Popup: Enters date (selectedDate) and time (workStartingHours, workStartingMins)
+    activate Popup
+
+    Popup --> Popup : validates typed data
+    |||
+    end loop
+    |||
+
+        Popup --> UI: Sends date and time data to Main UI
+    deactivate Popup
 
     activate UI
         |||
-        UI -> CTRL : addEntryToAgenda(task)
+        UI --> CTRL : registerTaskAgenda(selectedTask, selectedDate, workStartingHours, workStartingMins)
+        |||
 
         activate CTRL
 
-            CTRL -> Agenda : addEntryToAgenda(task)
+        ref over CTRL
+        SD_toTaskDomainObject
 
-            activate Agenda
+        end ref
 
-                Agenda -> Task** : setStatusToPlanned()
-
-                note right of Task
-                    The task was pending on ToDo list by default
-
-                    After adding the task to Agenda, the dafault
-                    status is set to planned.
-
-                end note
-
-                Agenda --> Agenda : addTask(task)
-                Agenda --> CTRL : operation success
-
-
-
-            deactivate Agenda
-
-
-
-            CTRL --> UI : operation success
-        deactivate CTRL
-
+        CTRL -> CTRL : task
         |||
+
+        CTRL -> REPO : getInstance()
+                    activate REPO
+
+                        REPO --> CTRL : repositories
+                    deactivate REPO
+                    CTRL -> REPOInstance: getAgendaRepository()
+
+                    activate REPOInstance
+
+                        REPOInstance --> CTRL : agendaRepository
+                    deactivate REPOInstance
+
+                CTRL -> AgendaRepository : registerTaskAgenda(task, executionDate, workStartingDays, workStartingMinutes)
+                activate AgendaRepository
+
+                AgendaRepository --> AgendaRepository : add(task, executionDate, workStartingDays,\nworkStartingMinutes)
+
+                AgendaRepository --> AgendaRepository : validateTaskAgenda(task)
+
+                |||
+                AgendaRepository -> Task** : setStatus(AGENDA_DEFAULT_STATUS)
+
+                note right
+                                When a task enters the Agenda,
+                                the default status of the task
+                                is "PLANNED"
+                                             end note
+
+                AgendaRepository -> Task** : setTaskWorkPeriod(executionDate, workStartingHours,\nworkStartingMinutes, expectedDuration);
+
+
+
+                AgendaRepository --> CTRL : operation success
+                deactivate AgendaRepository
+
+                CTRL --> UI : operation success
+                deactivate CTRL
+
+
         UI --> GSM : Display operation success
-
-
     deactivate UI
 
-
-
-
-
-
 deactivate GSM
-
 
 @enduml

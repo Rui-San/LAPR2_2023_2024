@@ -3,7 +3,7 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title SD_toToDoDomainObject
+title SD_toTaskDomainObject
 
 autonumber
 

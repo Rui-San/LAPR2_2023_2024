@@ -1,0 +1,96 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title SD_getToDoManagerList
+
+autonumber
+
+
+
+participant "controller\n:AddNewEntryAgendaController" as CTRL
+participant ":ApplicationSession" as APP
+participant "singleton\n:ApplicationSession" as APPSingleton
+participant "userSession\n:UserSession" as UserSession
+participant "userID\n:Email" as Email
+participant ":Repositories" as REPO
+participant "repositories\n:Repositories" as REPOInstance
+participant "toDoRepository\n:ToDoRepository" as ToDoRepository
+participant ":ToDoListMapper" as ToDoListMapper
+participant ":ToDoTaskWithStatusDTO" as ToDoTaskWithStatusDTO
+
+
+
+    activate CTRL
+
+    CTRL -> APP : getInstance()
+                activate APP
+
+                    APP --> CTRL : singleton
+                deactivate APP
+
+                CTRL -> APPSingleton : getUserSession()
+                activate APPSingleton
+
+                    APPSingleton --> CTRL : userSession
+                deactivate APPSingleton
+
+                CTRL -> UserSession : getUserId()
+                activate UserSession
+
+                    UserSession --> CTRL : userId
+                deactivate UserSession
+
+                CTRL -> Email : getEmail()
+                activate Email
+
+                    Email --> CTRL : email
+                deactivate Email
+
+                CTRL -> CTRL : managerEmail
+                |||
+
+        CTRL -> REPO : getInstance()
+        activate REPO
+
+            REPO --> CTRL : repositories
+        deactivate REPO
+        CTRL -> REPOInstance: getToDoRepository()
+
+        activate REPOInstance
+
+            REPOInstance --> CTRL : toDoRepository
+        deactivate REPOInstance
+
+        CTRL -> ToDoRepository : getToDoManagerList(managerEmail)
+
+        activate ToDoRepository
+
+        ToDoRepository --> CTRL : managerToDoTaskList
+        |||
+
+        deactivate ToDoRepository
+
+        CTRL -> ToDoListMapper : toDTOWithStatusList(managerToDoTaskList)
+
+        activate ToDoListMapper
+loop for each toDoTask in managerToDoTaskList
+|||
+            ToDoListMapper -> ToDoTaskWithStatusDTO** : toDTOWithStatus(toDoTask)
+
+
+                            |||
+            ToDoListMapper --> ToDoListMapper : add(toDoTaskWithStatusDTO)
+
+end loop
+            ToDoListMapper --> CTRL : toDoTaskDTOlist
+
+
+
+
+    deactivate CTRL
+
+
+
+@enduml
