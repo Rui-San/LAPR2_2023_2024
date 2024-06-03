@@ -45,4 +45,9 @@ public class AgendaTaskDTO {
         this.teamDTO = teamDTO;
         this.vehicleDTOList = vehicleDTOList;
     }
+
+   //part of us29-method to mark a task as completed
+    public void markTaskAsCompleted(){
+        this.status = Status.DONE;
+    }
 }
