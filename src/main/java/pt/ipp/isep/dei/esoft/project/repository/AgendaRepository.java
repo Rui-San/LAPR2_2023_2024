@@ -154,8 +154,8 @@ public class AgendaRepository implements Serializable {
                     System.out.println(copy.getTeamAssigned().getMembers().size());
                     System.out.println(copy.getTeamAssigned().getMembers().get(0).getName());
 
-                    task.removeAssignedTeam();
-                    task.removeAssignedVehicles();
+                   // task.removeAssignedTeam();
+                   // task.removeAssignedVehicles();
 
                     System.out.println("----------//-------");
                     if(task.getVehiclesAssigned().isEmpty()){
@@ -193,8 +193,8 @@ public class AgendaRepository implements Serializable {
                     System.out.println(copy.getTeamAssigned().getMembers().size());
                     System.out.println(copy.getTeamAssigned().getMembers().get(0).getName());
 
-                    task.removeAssignedTeam();
-                    task.removeAssignedVehicles();
+                    //task.removeAssignedTeam();
+                    //task.removeAssignedVehicles();
 
                     System.out.println("----------//-------");
                     if(task.getVehiclesAssigned().isEmpty()){

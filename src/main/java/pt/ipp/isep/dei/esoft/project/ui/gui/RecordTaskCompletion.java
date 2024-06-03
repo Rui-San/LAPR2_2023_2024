@@ -1,3 +1,4 @@
+/*
 package pt.ipp.isep.dei.esoft.project.ui.gui;
 
 import javafx.fxml.FXML;
@@ -45,3 +46,5 @@ public class RecordTaskCompletion {
         this.collaborator = collaborator;
     }
 }
+
+*/
