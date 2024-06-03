@@ -6,6 +6,8 @@ import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import java.util.ArrayList;
 import java.util.List;
 
+import pt.ipp.isep.dei.esoft.project.dto.AgendaTaskDTO;
+
 public class CollaboratorDTO {
     public String collaboratorName;
     public String email;
@@ -21,4 +23,11 @@ public class CollaboratorDTO {
             skillNames.add(skill.getSkillName());
         }
     }
+
+    //part of us29
+    public void completeTask(AgendaTaskDTO task){
+        task.markTaskAsCompleted();
+
+    }
+
 }
