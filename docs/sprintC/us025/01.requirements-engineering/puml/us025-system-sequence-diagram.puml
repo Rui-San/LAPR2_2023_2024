@@ -8,7 +8,7 @@ title US025 - System Sequence Diagram (SSD)
 autonumber
 
 actor "GSM" as GSM
-participant ":CancelEntryAgendaUI" as UI
+participant ":AgendaUI" as UI
 
 
 activate GSM
@@ -22,20 +22,21 @@ activate GSM
 
     GSM -> UI : Selects a task
     activate UI
+    UI --> UI : validates selected option
         |||
         end
 
         UI --> UI : keepData(task)
         |||
 
-        UI --> GSM : Shows all data and requests confirmation
+        UI --> GSM : Shows cancel task message and asks for confirmation
     deactivate UI
 
-    GSM -> UI: Confirms data
+    GSM -> UI: Confirms the operation
 
     activate UI
         |||
-        UI --> UI : set the status of the\nselected task to "Canceled"
+        UI --> UI : Cancel task by setting the status of the\nselected task to "Canceled" and removes\n frees the Team and vehicle from the task\nworking period
         |||
         UI --> GSM : Display operation success
 

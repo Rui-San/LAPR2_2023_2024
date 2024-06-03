@@ -3,15 +3,25 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title US025 - System Sequence Diagram (SSD)
+title US025 - Sequence Diagram
 
 autonumber
 
 actor "GSM" as GSM
-participant ":CancelEntryAgendaUI" as UI
+participant ":AgendaUI" as UI
+
+participant ":AgendaController" as AGENDA_CTRL
 participant ":CancelEntryAgendaController" as CTRL
-participant ":Agenda" as Agenda
+
+participant ":Repositories" as REPO
+participant "repositories\n:Repositories" as REPOInstance
+participant "agendaRepository\n:AgendaRepository" as AgendaRepository
+participant "teamRepository\n:TeamRepository" as TeamRepository
+participant "vehicleRepository\n:VehicleRepository" as VehicleRepository
+
 participant ":Task" as Task
+participant ":Team" as Team
+participant ":Vehicle" as Vehicle
 
 
 activate GSM
@@ -20,19 +30,18 @@ activate GSM
 
     activate UI
 
-        UI -> CTRL : getAgenda()
+        UI -> AGENDA_CTRL : getAgendaTaskDTOManagerList()
 
-        activate CTRL
+        activate AGENDA_CTRL
+        |||
 
-            CTRL -> Agenda : getAgenda()
+            ref over AGENDA_CTRL
+                SD_managerSpecificAgendaDTO
 
-            activate Agenda
+                end ref
 
-                Agenda --> CTRL : agenda
-            deactivate Agenda
-
-            CTRL --> UI : agenda
-        deactivate CTRL
+            AGENDA_CTRL --> UI : managerSpecificAgendaDTO
+        deactivate AGENDA_CTRL
 
         loop until doesn't select a valid option
         UI --> GSM : Shows the tasks of the Agenda and asks to\nselect the task to be canceled
@@ -40,51 +49,102 @@ activate GSM
 
     GSM -> UI : Selects a task
     activate UI
+    UI --> UI : validates selected option
         |||
         end
 
         UI --> UI : keepData(task)
         |||
 
-        UI --> GSM : Shows all data and requests confirmation
+        UI --> GSM : Shows cancel task message and asks for confirmation
     deactivate UI
 
-    GSM -> UI: Confirms data
+    GSM -> UI: Confirms the operation
 
     activate UI
+
+    UI -> CTRL : cancelTaskAgenda(selectedTask)
+    activate CTRL
+
+    CTRL -> REPO : getInstance()
+    activate REPO
+
+    REPO --> CTRL : repositories
+    deactivate REPO
+    CTRL -> REPOInstance: getAgendaRepository()
+
+    activate REPOInstance
+
+    REPOInstance --> CTRL : agendaRepository
+    deactivate REPOInstance
+
+    CTRL -> AgendaRepository : updateTaskToCanceled(title, greenSpaceName, workStartDate, status)
+    activate AgendaRepository
+
+    AgendaRepository -> Task** : setStatus(Status.CANCELED)
+    |||
+    AgendaRepository --> CTRL : canceledTask
+    deactivate AgendaRepository
+
+    |||
+    alt canceledTask has team assigned
+
+        CTRL -> REPO : getInstance()
+        activate REPO
+
+        REPO --> CTRL : repositories
+        deactivate REPO
+        CTRL -> REPOInstance: getTeamRepository()
+
+        activate REPOInstance
+
+        REPOInstance --> CTRL : teamRepository
+        deactivate REPOInstance
+
+        CTRL -> TeamRepository : removeWorkPeriodFromTeam(canceledTask, canceledTask.getTaskWorkPeriod())
+        activate TeamRepository
+
+        TeamRepository -> Team** : removeWorkPeriodIfExists(workPeriod)
+
+        TeamRepository --> CTRL : team work periods successfully removed
+        deactivate TeamRepository
+
+    end
+    |||
+    alt canceledTask has vehicles assigned
+
+            CTRL -> REPO : getInstance()
+            activate REPO
+
+            REPO --> CTRL : repositories
+            deactivate REPO
+            CTRL -> REPOInstance: getVehicleRepository()
+
+            activate REPOInstance
+
+            REPOInstance --> CTRL : vehicleRepository
+            deactivate REPOInstance
+
+            CTRL -> VehicleRepository : removeWorkPeriodFromVehicle(canceledTask, canceledTask.getTaskWorkPeriod())
+            activate VehicleRepository
+
+            loop for each vehicle assigned to the task
+
+            VehicleRepository -> Vehicle** : removeWorkPeriodIfExists(workPeriod)
             |||
-            UI -> CTRL : cancelEntryInAgenda(task)
+            end loop
+            VehicleRepository --> CTRL : vehicle's work periods successfully removed
+            deactivate VehicleRepository
 
-            activate CTRL
+        end
 
-                CTRL -> Agenda : cancelEntryInAgenda(task)
-
-                activate Agenda
-
-                    Agenda -> Task** : setStatusToCancel()
-
+        CTRL --> UI: operation success
+        deactivate CTRL
 
 
-                    Agenda --> CTRL : operation success
+    UI --> GSM : Display operation success
 
-
-
-                deactivate Agenda
-
-
-
-                CTRL --> UI : operation success
-            deactivate CTRL
-
-            |||
-            UI --> GSM : Display operation success
-
-
-        deactivate UI
-
-
-
-
+    deactivate UI
 
 
 deactivate GSM
