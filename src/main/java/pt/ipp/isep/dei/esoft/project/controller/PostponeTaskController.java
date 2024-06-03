@@ -7,6 +7,7 @@ import pt.ipp.isep.dei.esoft.project.domain.WorkPeriod;
 import pt.ipp.isep.dei.esoft.project.dto.AgendaTaskDTO;
 import pt.ipp.isep.dei.esoft.project.mapper.AgendaMapper;
 import pt.ipp.isep.dei.esoft.project.repository.*;
+import pt.ipp.isep.dei.esoft.project.tools.Status;
 
 import java.util.List;
 

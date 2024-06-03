@@ -132,7 +132,13 @@ public class ListCollaboratorTasksUI implements Initializable {
             return false;
         }
 
-        if (selectedTask.status == Status.POSTPONED || selectedTask.status == Status.PLANNED) {
+        if(selectedTask.status == Status.POSTPONED){
+            lblError.setText("The selected task is postponed");
+            lblError.setVisible(true);
+            return false;
+        }
+
+        if (selectedTask.status == Status.PLANNED) {
             lblError.setText("");
             lblError.setVisible(true);
             return true;

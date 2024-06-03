@@ -252,9 +252,12 @@ public class AgendaRepository implements Serializable {
             WorkPeriod oldWorkPeriod = selectedTask.getTaskWorkPeriod();
             for (Task task : agenda) {
                 if (task.getTitle().trim().equalsIgnoreCase(selectedTask.getTitle().trim()) && task.getStatus() == selectedTask.getStatus() && task.getTaskWorkPeriod().getWorkStartDate().toString().trim().equalsIgnoreCase(selectedTask.getTaskWorkPeriod().getWorkStartDate().toString().trim()) && task.getGreenSpace().getName().trim().equalsIgnoreCase(selectedTask.getGreenSpace().getName().trim())) {
-                    task.setTaskWorkPeriod(newWorkPeriod);
+                    Task newTask = task.clone();
+                    Repositories.getInstance().getAgendaRepository().getAgenda().add(newTask);
+                    task.setStatus(Status.POSTPONED);
+                    newTask.setTaskWorkPeriod(newWorkPeriod);
 
-                    System.out.println("Workperiod of the task postponed !");
+                    System.out.println("Task postponed !");
                     return true;
                 }
             }
