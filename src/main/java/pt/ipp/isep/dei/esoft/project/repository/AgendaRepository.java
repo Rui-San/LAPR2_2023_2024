@@ -43,6 +43,16 @@ public class AgendaRepository implements Serializable {
         return null;
     }
 
+    public List<Task> getTaskList(List<AgendaTaskDTO> taskDTOList){
+        List<Task> taskList = new ArrayList<>();
+
+        for (AgendaTaskDTO dto : taskDTOList){
+            taskList.add(getTask(dto));
+        }
+
+        return taskList;
+    }
+
     public List<Task> getCollbaboratorSpecificAgenda(String collaboratorEmail) {
         List<Task> collaboratorSpecificAgenda = new ArrayList<>();
 
