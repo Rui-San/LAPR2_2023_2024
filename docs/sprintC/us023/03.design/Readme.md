@@ -1,4 +1,4 @@
-# US023 - Assign team to an entry in agenda
+          # US023 - Assign team to an entry in agenda
 
 ## 3. Design - User Story Realization
 
