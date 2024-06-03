@@ -1,22 +1,14 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui;
 
-import javafx.beans.property.SimpleIntegerProperty;
+
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.controller.AssignTeamToEntryAgendaController;
-import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
-import pt.ipp.isep.dei.esoft.project.dto.CollaboratorDTO;
 import pt.ipp.isep.dei.esoft.project.dto.TeamDTO;
-
-import java.net.URL;
-import java.util.List;
-import java.util.ResourceBundle;
 
 public class SelectTeamPopupUI {
 

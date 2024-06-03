@@ -200,6 +200,7 @@ AddNewEntryAgendaController ..right.> ToDoListMapper
 ToDoListMapper ..> Task : task
 ToDoListMapper ..> ToDoTaskWithStatusDTO : toDoTaskWithStatusDTO
 ToDoTaskDTO <|-- ToDoTaskWithStatusDTO
+AgendaRepository "1" -> Task : task
 
 
 @enduml

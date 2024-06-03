@@ -43,7 +43,6 @@ public class AgendaUI implements Initializable {
     @FXML
     private Label lblError;
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         tcTitle.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().title));

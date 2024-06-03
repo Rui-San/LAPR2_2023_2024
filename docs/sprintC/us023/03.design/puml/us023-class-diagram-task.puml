@@ -1,0 +1,65 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+class Task {
+    - String title;
+    - String description;
+    - TaskType taskType;
+    - Status status;
+    - GreenSpace greenSpace;
+    - UrgencyType urgency;
+    - TaskDuration expectedDuration;
+    - Team teamAssigned;
+    - List<Vehicle> vehiclesAssigned;
+    - WorkPeriod taskWorkPeriod;
+
+    --Methods--
+    + Task(title, description, taskType, greenSpace,\nurgency, days, hours, minutes)
+    + assignTeam(team)
+    + assignVehicles(List<Vehicle> vehicles)
+    + setTaskWorkPeriod(executionDate, workStartHour,\nworkStartMinutes, expectedDuration)
+    + removeAssignedTeam()
+    + removeAssignedVehicles()
+
+    ..Validation methods..
+    - validateTitle(title)
+    - validateDescription(description)
+    - validateTaskType(taskType)
+    - validateStatus(status)
+    - validateUrgency(urgency)
+
+    ..getters..
+    + getTitle()
+    + getDescription()
+    + getTaskType()
+    + getStatus()
+    + getTaskWorkPeriod()
+    + getGreenSpace()
+    + getTeamAssigned()
+    + getVehiclesAssigned()
+    + getExpectedDuration()
+    + getUrgency()
+
+    ..setters..
+    + setTitle(title)
+    + setDescription(description)
+    + setStatus(status)
+    + setTaskType(taskType)
+    + setGreenSpace(greenSpace)
+    + setTeamAssigned(teamAssigned)
+    + setVehiclesAssigned(List<Vehicle> vehiclesAssigned)
+    + setTaskWorkPeriod(workPeriod)
+    + setUrgency(urgency)
+
+
+}
+
+
+
+
+@enduml

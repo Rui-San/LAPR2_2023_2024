@@ -1,0 +1,228 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+title US023 - Class Diagram
+
+package GUI <<Folder>> #DDDDDD {
+
+class AgendaUI {
+    - TeamDTO selectedTeam
+    + initialize(location, resources)
+    - fillTaskTable()
+    + btnAssignTeam()
+    - updateTableView()
+    - validateSelectedTask(selectedTask)
+}
+
+class SelectTeamPopupUI{
+    - TeamDTO teamSelected
+    + btnSelectTeam()
+    - btnCancelAction()
+    - closeUI()
+    + getTeamSelected()
+    + fillTeamTable()
+
+}
+
+}
+
+package Controller <<Folder>> #DDDDDD {
+class AssignTeamToEntryAgendaController {
+    + AssignTeamToEntryAgendaController()
+    + getAgendaRepository()
+    + getAuthenticationRepository()
+    + getTeamRepository()
+    + getTeams()
+    + assignTeamToTaskAgenda(agendaTaskDTO, selectedTeamDTO)
+}
+
+class AgendaController{
+    + getAgendaTaskDTOManagerList()
+
+
+}
+}
+
+'package Domain <<Folder>> #AAAAAA{
+package Repository <<Folder>> #DDDDDD {
+class TeamRepository{
+    - List<Team> teamList
+
+    + getTeamByTeamMemberEmails(collaboratorEmail)
+}
+
+class AgendaRepository{
+    - List<Task> agenda
+
+    + getManagerSpecificAgenda(managerEmail)
+    + assignTeamToTaskAgenda(title, greenSpaceName, workStartDate, status, teamObj)
+}
+
+class Repositories {
+    - Repositories()
+    + getInstance() : Repositories
+    + getTeamRepository()
+    + getAgendaRepository()
+}
+
+class ApplicationSession{
+    - ApplicationSession()
+    + getInstance() : ApplicationSession
+    + getAuthenticationRepository()
+    + getCurrentSession()
+
+}
+
+class UserSession{
+    + getUserEmail()
+
+}
+
+class Email{
+
+}
+
+}
+
+
+package Domain <<Folder>> #DDDDDD {
+class Team {
+    - List<Collaborator> members
+}
+
+class Task {
+    - String title;
+    - String description;
+    - TaskType taskType;
+    - Status status;
+    ...
+
+    + Task(title, description, taskType, greenSpace,\nurgency, days, hours, minutes)
+    (...)
+}
+
+class TaskDuration {
+    - int days;
+    - int hours;
+    - int minutes;
+    - int totalDurationMinutes;
+
+    + TaskDuration(days, hours, minutes)
+    + setTaskDuration(days, hours, minutes)
+    - validateTaskDuration(days, hours, minutes)
+}
+
+'}
+}
+
+
+package Mapper <<Folder>> #DDDDDD {
+
+class AgendaMapper{
+    + AgendaMapper()
+    + toDTO(agendaTask, teamDTO, List<VehicleDTO> vehicleDTOList)
+
+}
+
+}
+
+package DTO <<Folder>> #DDDDDD {
+
+class AgendaTaskDTO {
+    + String title;
+    + String description;
+    + TaskType taskType;
+    + String greenSpaceName;
+    + UrgencyType urgency;
+    + int expectedDuration;
+    + String workStartDate;
+    + int workStartHour;
+    + int workStartMinutes;
+    + Status status;
+    + String isTeamAssigned;
+
+    + AgendaTaskDTO(title, description, taskType, greenSpace,\nurgency, expectedDuration, executionDate, workStartHour,\nworkStartMinutes, status, isTeamAssigned, vehiclesAssigned,\nteamDTO, vehicleDTOList)
+
+}
+
+class CollaboratorDTO{
+    + String collaboratorName;
+    + String email;
+    + List<String> skillNames;
+
+    + CollaboratorDTO(collaborator)
+
+    }
+
+class TeamDTO{
+    + List<CollaboratorDTO> collaborators
+    + TeamDTO(List<CollaboratorDTO> teamMembers)
+    }
+
+class VehicleDTO{
+    + String plateID;
+    + String brand;
+    + String model;
+    + String type;
+
+    +VehicleDTO(vehicle)
+
+}
+
+}
+
+
+'AddNewEntryAgendaUI .down.> AddNewEntryAgendaController
+'AddNewEntryAgendaUI ..right> InsertDatePopupUI
+'AddNewEntryAgendaController ...> Repositories : repositories
+'AddNewEntryAgendaController ...> GreenSpaceRepository : greenSpaceRepository
+'AddNewEntryAgendaController ...> ToDoRepository : toDoRepository
+'AddNewEntryAgendaController ...> AgendaRepository : agendaRepository
+'AddNewEntryAgendaController ...> ApplicationSession
+'Repositories -> Repositories : instance
+'Repositories ---> "1" GreenSpaceRepository
+'Repositories ---> "1" ToDoRepository
+'Repositories ---> "1" AgendaRepository
+'ApplicationSession -> ApplicationSession : instance
+'ApplicationSession -down-> "1" UserSession : userSession
+'UserSession ..> Email
+'GreenSpaceRepository "1" -> GreenSpace : greenSpace
+'ToDoRepository "1" -down-> Task : task
+'Task *--"1" TaskDuration : taskDuration
+'AddNewEntryAgendaController ..right.> ToDoListMapper
+'ToDoListMapper ..> Task : task
+'ToDoListMapper ..> ToDoTaskWithStatusDTO : toDoTaskWithStatusDTO
+'ToDoTaskDTO <|-- ToDoTaskWithStatusDTO
+
+AgendaUI ..> AgendaController
+AgendaUI .left.> SelectTeamPopupUI
+SelectTeamPopupUI ...> AssignTeamToEntryAgendaController
+AgendaController ...> Repositories
+AssignTeamToEntryAgendaController ..> Repositories
+AgendaController .> ApplicationSession
+ApplicationSession -> ApplicationSession : instance
+ApplicationSession -down-> "1" UserSession : userSession
+UserSession ..> Email
+Repositories ---> "1" AgendaRepository
+Repositories ---> "1" TeamRepository
+AgendaRepository "1" -down-> Task : task
+Task *--"1" TaskDuration : taskDuration
+TeamRepository "1" -> Team : team
+AgendaController ..> AgendaRepository : agendaRepository
+AssignTeamToEntryAgendaController ..> AgendaRepository : agendaRepository
+AssignTeamToEntryAgendaController ..> TeamRepository : teamRepository
+Repositories -> Repositories : instance
+AgendaController ..left> AgendaMapper
+AgendaMapper ..> AgendaTaskDTO
+AgendaTaskDTO ..> "1"TeamDTO
+AgendaMapper ..> Task
+TeamDTO "1" ..> CollaboratorDTO
+AgendaTaskDTO "1" ..> VehicleDTO
+
+
+@enduml
