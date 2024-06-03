@@ -57,7 +57,7 @@
                               <String fx:value="form-btn" />
                               <String fx:value="remove-border-radius-right" />
                            </styleClass></Button>
-                        <ComboBox fx:id="cbStatusFilter" layoutY="8.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="131.0" promptText="Filter by status" styleClass="form-input" />
+                        <ComboBox fx:id="cbStatusFilter" layoutY="8.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#filterStatus" prefHeight="32.0" prefWidth="131.0" promptText="Filter by status" styleClass="form-input" />
                         <Label fx:id="lblError" layoutY="43.0" prefHeight="17.0" prefWidth="429.0" text="Error label. Final date must be after initial date... etc.. etc..." textFill="RED" visible="false" />
                         <Button layoutX="532.0" layoutY="8.0" mnemonicParsing="false" onAction="#btnClearFilter" prefHeight="33.0" prefWidth="101.0" text="Clear Filter">
                            <styleClass>

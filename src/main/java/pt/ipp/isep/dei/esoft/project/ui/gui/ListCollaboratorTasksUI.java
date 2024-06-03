@@ -77,10 +77,9 @@ public class ListCollaboratorTasksUI implements Initializable {
 
     public void filterTable(){
         taskTable.getItems().clear();
-
         List<AgendaTaskDTO> filteredTasks = controller.getFilteredTasks(dpToDate(dpInitialDate), dpToDate(dpFinalDate));
         fillTaskList(filteredTasks);
-
+        filterStatus();
     }
 
     @FXML
@@ -146,7 +145,20 @@ public class ListCollaboratorTasksUI implements Initializable {
         return true;
     }
 
-
+    @FXML
+    public void filterStatus(){
+        taskTable.getItems().clear();
+        List<AgendaTaskDTO> colabTasks = controller.getCollaboratorTasks();
+        for(AgendaTaskDTO taskDto : colabTasks){
+            if(!cbStatusFilter.getValue().equals("All Status")){
+                if(taskDto.status.toString().equals(cbStatusFilter.getValue())){
+                    taskTable.getItems().add(taskDto);
+                }
+            }else {
+                taskTable.getItems().add(taskDto);
+            }
+        }
+    }
 
     @FXML
     public void btnClearFilter(){
@@ -201,7 +213,9 @@ public class ListCollaboratorTasksUI implements Initializable {
     public void fillStatusFilter(){
         cbStatusFilter.getItems().add("All Status");
         for (Status status : Status.values()){
-            cbStatusFilter.getItems().add(status.toString());
+            if(status != Status.PENDING && status != Status.PROCESSED){
+                cbStatusFilter.getItems().add(status.toString());
+            }
         }
         cbStatusFilter.getSelectionModel().selectFirst();
     }
