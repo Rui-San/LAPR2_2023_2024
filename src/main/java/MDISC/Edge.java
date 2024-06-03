@@ -2,38 +2,45 @@ package MDISC;
 
 public class Edge {
 
-    private String vertexFrom;
-    private String vertexTo;
+    private Vertex startVertex;
+    private Vertex endVertex;
     private int weight;
 
-    public String getVertexFrom() {
-        return vertexFrom;
+    public Edge(Vertex startVertex, Vertex endVertex, int weight) {
+        this.startVertex = startVertex;
+        this.endVertex = endVertex;
+        this.weight = weight;
     }
 
-    public String getVertexTo() {
-        return vertexTo;
+    public Vertex getVertexFrom() {
+        return startVertex;
     }
 
-    public void setVertexFrom(String vertexFrom) {
-        this.vertexFrom = vertexFrom;
+    public Vertex getVertexTo() {
+        return endVertex;
     }
 
     public int getWeight() {
         return weight;
     }
 
-    public void setVertexTo(String vertexTo) {
-        this.vertexTo = vertexTo;
+    @Override
+    public String toString(){
+        return startVertex + " -" + weight + "- " + endVertex;
     }
 
-    public void setWeight(int weight) {
-        this.weight = weight;
-    }
-
-    public Edge(String vertexFrom, String vertexTo, int weight) {
-        this.vertexFrom = vertexFrom;
-        this.vertexTo = vertexTo;
-        this.weight = weight;
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Edge) {
+            Edge edge = (Edge) obj;
+            boolean equal = false;
+            if(startVertex.equals(edge.getVertexFrom()) && endVertex.equals(edge.getVertexTo()))
+                equal = true;
+            if(startVertex.equals(edge.getVertexTo()) && endVertex.equals(edge.getVertexFrom()))
+                equal = true;
+            return equal;
+        }
+        return false;
     }
 
 }

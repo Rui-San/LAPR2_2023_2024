@@ -58,7 +58,7 @@ public class ListCollaboratorTasksUI implements Initializable {
         executionDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().workStartDate));
         expectedDuration.setCellValueFactory(cellData -> new SimpleStringProperty(Integer.toString(cellData.getValue().expectedDuration)));
 
-        fillTaskList();
+        fillTaskList(getController().getCollaboratorTasks());
         fillStatusFilter();
         sceneTitle.setText("Tasks assigned to " + controller.getCollaboratorName());
     }
@@ -77,23 +77,9 @@ public class ListCollaboratorTasksUI implements Initializable {
 
     public void filterTable(){
         taskTable.getItems().clear();
-        List<AgendaTaskDTO> agenda = controller.getCollaboratorTasks();
-        List<Object> tasks = new ArrayList<>(agenda);
 
-        Sorting sorting = new Sorting(tasks);
-        sorting.setColumnToSort(6);
-        sorting.sort();
-
-        agenda.clear();
-        for (Object a : tasks) {
-            AgendaTaskDTO b = (AgendaTaskDTO) a;
-
-            Date dateToCheck = new Date(b.workStartDate.format(String.valueOf(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
-            //checks if the task is between the selected dates
-            if (controller.isDateBetween(dateToCheck, dpToDate(dpInitialDate), dpToDate(dpFinalDate))) {
-                taskTable.getItems().add(b);
-            }
-        }
+        List<AgendaTaskDTO> filteredTasks = controller.getFilteredTasks(dpToDate(dpInitialDate), dpToDate(dpFinalDate));
+        fillTaskList(filteredTasks);
 
     }
 
@@ -159,7 +145,7 @@ public class ListCollaboratorTasksUI implements Initializable {
     @FXML
     public void btnClearFilter(){
         taskTable.getItems().clear();
-        fillTaskList();
+        fillTaskList(getController().getCollaboratorTasks());
         dpInitialDate.setValue(null);
         dpFinalDate.setValue(null);
         cbStatusFilter.getSelectionModel().selectFirst();
@@ -202,8 +188,8 @@ public class ListCollaboratorTasksUI implements Initializable {
         return validFields != 3;
     }
 
-    private void fillTaskList(){
-        taskTable.getItems().addAll(getController().getCollaboratorTasks());
+    private void fillTaskList(List<AgendaTaskDTO> collabAgenda){
+        taskTable.getItems().addAll(collabAgenda);
     }
 
     public void fillStatusFilter(){

@@ -20,6 +20,15 @@ public class WorkPeriod implements Serializable {
         calculateEndDate(expectedDuration);
     }
 
+    public WorkPeriod(Date initialDate, Date finalDate){
+        this.workStartDate = initialDate;
+        this.workStartHour = 8;
+        this.workStartMin = 0;
+        this.workEndDate = finalDate;
+        this.workEndHour = 17;
+        this.workEndMin = 0;
+    }
+
     public Date getWorkStartDate() {
         return workStartDate;
     }
