@@ -76,10 +76,12 @@ public class CancelEntryAgendaController {
         return agendaRepository;
     }
 
+
     /**
      * Gets the list of tasksDTO of a manager
      * @return the list of tasksDTO of a manager
      */
+    /*
     public List<AgendaTaskDTO> getAgendaTaskDTOManagerList() {
         String managerEmail = ApplicationSession.getInstance().getCurrentSession().getUserId().getEmail();
         List<Task> agendaTaskList = Repositories.getInstance().getAgendaRepository().getManagerSpecificAgenda(managerEmail);
@@ -92,6 +94,7 @@ public class CancelEntryAgendaController {
         }
         return managerSpecificAgendaDTO;
     }
+    */
 
     /**
      * Cancels a task from the agenda
