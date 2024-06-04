@@ -7,65 +7,53 @@ title US026 - System Sequence Diagram (SSD)
 
 autonumber
 
-actor "GSM" as GSM
-participant ":AssignVehicleAgendaUI" as UI
 
+actor "Green Space\nManager" as GSM
+participant ":AgendaUI" as UI
+participant ":SelectVehiclesPopupUI" as POPUP
 
 activate GSM
 
-    GSM -> UI : Asks to assign one or more vehicles to an entry in the Agenda
-
-
-
-    activate UI
+GSM -> UI: Asks to assign one or more vehicles to an entry in the Agenda
+activate UI
 
     loop until doesn't select a valid option
 
-        UI --> GSM : Shows agenda and asks the entry to be modified
+    UI --> GSM: Shows the list of tasks in the agenda and asks to select one
+deactivate UI
 
-        deactivate UI
+GSM -> UI : Selects a task
+activate UI
+UI --> UI : validates selected option
+|||
+end loop
 
-        GSM -> UI : Selects an entry from Agenda
+    UI --> UI : keepData(task)
 
-        activate UI
-        |||
-        end loop
-        |||
-        UI --> UI : keepData(task)
-        |||
-
-        loop until doesn't choose to advance
-        UI --> GSM : Shows the list of vehicles and asks to select one
-            deactivate UI
-
-    GSM -> UI : Selects a vehicle
-    activate UI
-        |||
-        end
-
-        UI --> UI : keepData(List<Vehicle> selectedVehicles)
-        |||
-
-        UI --> GSM : Shows all data and requests confirmation
+    UI -> POPUP : Shows the popup with the list of vehicles
     deactivate UI
+    activate POPUP
+    |||
+    loop until doesn't choose to advance
+    POPUP --> GSM: Shows the list of vehicles and asks to select the vehicles needed
+deactivate POPUP
 
-    GSM -> UI: Confirms data
+GSM -> POPUP : selects a vehicle
+activate POPUP
+POPUP --> POPUP : validates selected option
+end loop
+|||
+POPUP --> UI : the list of selected vehicles to main UI
+deactivate POPUP
+activate UI
+    |||
+    UI --> UI : keepData(List<Vehicle> selectedVehicles)
+    |||
+    UI -> UI : adds the selected vehicles to\nthe selected entry of Agenda.
+    |||
 
-    activate UI
-        |||
-        UI --> UI : adds the selectedVehicles to\nthe selected entry of Agenda.
-        |||
-        UI --> GSM : Display operation success
 
-
-    deactivate UI
-
-
-
-
-
-
-deactivate GSM
-
+    UI --> GSM: shows operation success
+deactivate UI
 
 @enduml
