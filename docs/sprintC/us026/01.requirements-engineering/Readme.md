@@ -21,18 +21,38 @@ the task ...
 
 **From the client clarifications:**
 
-> **Question:** 
+> **Question:** Should each GSM only be able to assign vehicles to its own entries or every GSM can assign vehicles to every entry, even if the green space associated with the task is not registered with their email?
 >
-> **Answer:** 
+> **Answer:** For the sake of simplicity, you can assume that GSM will only manage its Agenda Entries.
 
-> **Question:** 
+> **Question:** How will the Green Spaces Manager choose the vehicle to assign? By its plate?
 >
-> **Answer:** 
- 
+> **Answer:** The data related with vehicle should be provided in order to ease the selection.
+
+> **Question:** Is the number of vehicles to be assigned provided by the Green Spaces Manager?
+> 
+> **Answer:** There is no specification concerning the number of vehicles, is upt to GSM decide what vehicles the task needs.
+
+> **Question:** It is possible to add any kind of vehicles?
+> 
+> **Answer:** Yes, any can of vehicles can be assigned.
+
+> **Question:** Only Vehicle with no Entry's can be assigned ?
+> 
+> **Answer:** The vehicle needs to be available in the period.
+
+
 ### 1.3. Acceptance Criteria
 
-* **AC1:**  The entry of Agenda must be selected.
+* **AC1:** The entry of Agenda must be selected.
 * **AC2:** At least one vehicle must be selected in order to show operation success.
+* **AC3:** The same vehicle cannot be in two tasks that occur in the same time period.
+* **AC4:** The tasks showing in the Agenda, are task that have been created by the GSM logged in the system.
+* **AC5:** The same vehicle can be assigned to multiple entries as long as the work periods does not overlap.
+* **AC6:** Can't assign vehicles to tasks with status:
+  * POSTPONED
+  * CANCELED
+  * DONE
 
 
 ### 1.4. Found out Dependencies
@@ -62,7 +82,6 @@ the task ...
 ![System Sequence Diagram](svg/us026-system-sequence-diagram.svg)
 
 
-
 ### 1.7 Other Relevant Remarks
 
-* There is no other relevant remarks.
+* After selecting the task and clicking on the button to Assign vehicles, a popup will appear with the list of vehicles.

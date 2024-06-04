@@ -67,4 +67,4 @@ Done).
 ### 1.7 Other Relevant Remarks
 
 * When a team is successfully assigned to a task in the Agenda, on task it will show Team Assigned: "Yes"
-* * After selecting the task and clicking on the button to Assign Team, a popup will appear with the list of teams.
+* After selecting the task and clicking on the button to Assign Team, a popup will appear with the list of teams.
