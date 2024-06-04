@@ -3,20 +3,29 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title US027 - Sequence Diagram (SD)
+title US027 - Sequence Diagram
 
 autonumber
 
 actor "Green Space\nManager" as GSM
 participant ":ListGreenSpacesUI" as UI
 participant ":ListGreenSpacesController" as CTRL
+
+participant ":GreenSpaceMapper" as GSMapper
+
+participant ":ApplicationSession" as APP
+participant "singleton\n:ApplicationSession" as APPSingleton
+participant "userSession\n:UserSession" as UserSession
+participant "userID\n:Email" as Email
+
+
 participant ":Repositories" as REPO
 participant "repositories\n:Repositories" as REPOInstance
 participant "greenSpaceRepository\n:GreenSpaceRepository" as GSRepo
-participant ":GreenSpaceMapper" as GSMapper
-participant ":GreenSpaceDTO" as GSDto
+
+participant ":GreenSpaceSorting" as GreenSpaceSorting
+participant ":ApplicationSession" as ApplicationSession
 participant ":ConfigLoader" as Config
-participant ":Sorter" as Sorter
 
 
 activate GSM
@@ -24,9 +33,41 @@ activate GSM
     GSM -> UI : asks to list all the green spaces managed by me
     activate UI
 
-        UI -> CTRL** : create
+
         UI -> CTRL : getGreenSpaces()
         activate CTRL
+
+        CTRL -> APP : getInstance()
+            activate APP
+
+                APP --> CTRL : singleton
+            deactivate APP
+
+            CTRL -> APPSingleton : getUserSession()
+            activate APPSingleton
+
+                APPSingleton --> CTRL : userSession
+            deactivate APPSingleton
+
+            CTRL -> UserSession : getUserId()
+            activate UserSession
+
+                UserSession --> CTRL : userId
+            deactivate UserSession
+
+            CTRL -> Email : getEmail()
+            activate Email
+
+                Email --> CTRL : email
+            deactivate Email
+
+            CTRL -> CTRL : managerEmail
+            |||
+
+
+
+
+
 
             CTRL -> REPO : getInstance()
             activate REPO
@@ -40,47 +81,73 @@ activate GSM
                 REPOInstance --> CTRL : greenSpaceRepository
             deactivate REPOInstance
 
-            CTRL -> GSRepo : getGreenSpaceList()
+            CTRL -> GSRepo : getGreenSpaceListByManager(managerEmail)
             activate GSRepo
 
-                GSRepo --> CTRL : greenSpaceList
+                GSRepo --> CTRL : managerGreenSpacesList
             deactivate GSRepo
 
-            CTRL -> GSMapper : getDTOList(greenSpaceList)
-            activate GSMapper
+            |||
 
-                loop for every greenSpace in greenSpaceList
-                    GSMapper -> GSDto : toDTO(greenSpace)
-                    activate GSDto
-                        note right of GSDto
-                            greenSpaceDTO contains the name of the green space,
-                            it's size, the city where it is located and the
-                            type of green space it is.
-                        end note
-                        GSDto --> GSMapper : greenSpaceDTO
-                    deactivate GSDto
-                    GSMapper --> GSMapper : add(greenSpaceDTO)
-                end loop
+            CTRL -> GreenSpaceSorting : sort(managerGreenSpacesList)
+            activate GreenSpaceSorting
+
+            GreenSpaceSorting -> ApplicationSession : getInstance().getProperties()
+            activate ApplicationSession
+
+            ApplicationSession -> Config : getProperty(ApplicationSession.SORTING_ALGORITHM)
+            activate Config
+            |||
+            Config --> ApplicationSession : Sorting.Algorithm
+            deactivate Config
+
+            ApplicationSession --> GreenSpaceSorting : Sorting.Algorithm
+            deactivate ApplicationSession
+            |||
+            alt Sorting.Algorithm on ":ConfigLoader" is bubbleSort
+
+            GreenSpaceSorting -> GreenSpaceSorting : bubbleSort(managerGreenSpacesList))
+            |||
+            else Sorting.Algorithm on ":ConfigLoader" is selectionSort
+
+            GreenSpaceSorting -> GreenSpaceSorting : selectionSort(managerGreenSpacesList))
+            |||
+            end
+
+
+            GreenSpaceSorting --> CTRL : sorted managerGreenSpacesList
+
+            deactivate GreenSpaceSorting
+            |||
+            note over CTRL
+            at this point the managerGreenSpacesList
+                                  is now sorted
+            end note
+
+
+            |||
+
+
+
+
+            CTRL -> GSMapper : toDTOList(managerGreenSpacesList)
+            |||
+            activate GSMapper
+            ref over GSMapper
+                        SD_toGreenSpaceDTOList
+
+                        end ref
+
+
 
                 GSMapper --> CTRL : greenSpaceDTOList
             deactivate GSMapper
 
-            CTRL -> ConfigLoader : getSortingAlgorithm()
-            activate ConfigLoader
+            CTRL --> UI: greenSpaceDTOList
+            deactivate CTRL
 
-                ConfigLoader --> CTRL : sortingAlgorithm
-            deactivate ConfigLoader
+            UI --> GSM : displays all the green spaces managed by the GSM
 
-            CTRL -> Sorter : sort(greenSpaceDTOList, sortingAlgorithm, columnToSort)
-            activate Sorter
-
-                Sorter --> CTRL : sortedGreenSpaceDTOList
-            deactivate Sorter
-
-            CTRL --> UI : sortedGreenSpaceDTOList
-        deactivate CTRL
-
-        UI --> GSM : displays all the green spaces\nmanaged by the GSM
-    deactivate UI
+             deactivate UI
 
 @enduml

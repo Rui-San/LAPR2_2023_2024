@@ -15,8 +15,8 @@ activate GSM
     GSM -> UI : asks to list all the green spaces managed by me
     activate UI
 
-        UI --> UI : gets all the green spaces\nmanaged by the GSM
-        UI --> GSM : displays all the green spaces\nmanaged by the GSM
+        UI --> UI : gets all the green spaces\nmanaged by the GSM logged in
+        UI --> GSM : displays all the green spaces managed by the GSM
     deactivate UI
 
 @enduml

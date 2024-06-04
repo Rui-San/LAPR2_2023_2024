@@ -1,0 +1,71 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title SD_obtainManagerAgendaTaskList
+
+autonumber
+
+participant ":AgendaController" as AGENDA_CTRL
+
+participant ":ApplicationSession" as APP
+participant "singleton\n:ApplicationSession" as APPSingleton
+participant "userSession\n:UserSession" as UserSession
+participant "userID\n:Email" as Email
+
+participant ":Repositories" as REPO
+participant "repositories\n:Repositories" as REPOInstance
+participant "agendaRepository\n:AgendaRepository" as AgendaRepository
+
+activate AGENDA_CTRL
+
+    AGENDA_CTRL -> APP : getInstance()
+    activate APP
+
+        APP --> AGENDA_CTRL : singleton
+    deactivate APP
+
+    AGENDA_CTRL -> APPSingleton : getUserSession()
+    activate APPSingleton
+
+        APPSingleton --> AGENDA_CTRL : userSession
+    deactivate APPSingleton
+
+    AGENDA_CTRL -> UserSession : getUserId()
+    activate UserSession
+
+        UserSession --> AGENDA_CTRL : userId
+    deactivate UserSession
+
+    AGENDA_CTRL -> Email : getEmail()
+    activate Email
+
+        Email --> AGENDA_CTRL : email
+    deactivate Email
+
+    AGENDA_CTRL -> AGENDA_CTRL : managerEmail
+    |||
+
+    AGENDA_CTRL -> REPO : getInstance()
+    activate REPO
+
+        REPO --> AGENDA_CTRL : repositories
+    deactivate REPO
+
+    AGENDA_CTRL -> REPOInstance : getAgendaRepository()
+    activate REPOInstance
+
+        REPOInstance --> AGENDA_CTRL : agendaRepository
+    deactivate REPOInstance
+
+    AGENDA_CTRL -> AgendaRepository : getManagerSpecificAgenda(managerEmail)
+    activate AgendaRepository
+
+        AgendaRepository --> AGENDA_CTRL : agendaTaskList
+
+    deactivate AgendaRepository
+
+deactivate AGENDA_CTRL
+
+@enduml
