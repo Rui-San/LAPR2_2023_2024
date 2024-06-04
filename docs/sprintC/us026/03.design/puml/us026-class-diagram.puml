@@ -222,7 +222,6 @@ Repositories -> Repositories : instance
 AgendaController ..left> AgendaMapper
 AgendaMapper ..> AgendaTaskDTO
 AgendaTaskDTO ..> "1"TeamDTO
-AgendaMapper ..> Task
 TeamDTO "1" ..> CollaboratorDTO
 AgendaTaskDTO "1" ..> VehicleDTO
 VehicleMapper -> Vehicle : vehicle

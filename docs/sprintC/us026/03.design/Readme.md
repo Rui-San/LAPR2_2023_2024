@@ -60,6 +60,10 @@ This diagram shows the full sequence of interactions between the classes involve
 
 ![Sequence Diagram - managerSpecificAgendaDTO](svg/SD_managerSpecificAgendaDTO.svg)
 
+### Ref: SD_obtainManagerAgendaTaskList
+
+![Sequence Diagram - obtainManagerAgendaTaskList](svg/SD_obtainManagerAgendaTaskList.svg)
+
 ### Ref: SD_getVehicleListDTO
 
 ![Sequence Diagram - getVehicleListDTO](svg/SD_getVehicleListDTO.svg)
