@@ -14,6 +14,8 @@ public class ApplicationSession {
     private static final String CONFIGURATION_FILENAME = "src/main/resources/config.properties";
     public static final String COMPANY_DESIGNATION = "Company.Designation";
     public static final String SORTING_ALGORITHM = "Sorting.Algorithm";
+    public static final String EMAIL_SERVICE = "Email.Service";
+    public static final String EMAIL_NOREPLY = "Email.NoReply";
 
     private ApplicationSession() {
         this.authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
@@ -34,6 +36,8 @@ public class ApplicationSession {
         // Add default properties and values
         props.setProperty(COMPANY_DESIGNATION, "MusgoSublime");
         props.setProperty(SORTING_ALGORITHM, "BubbleSort");
+        props.setProperty(EMAIL_SERVICE, "GmailService");
+        props.setProperty(EMAIL_NOREPLY, "musgosubline.noreply");
 
         // Read configured values
         try {

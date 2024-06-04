@@ -16,14 +16,27 @@ import java.util.Optional;
 
 public class AddNewEntryToDoController {
 
+    /**
+     * The repository of To-Do tasks.
+     */
     private ToDoRepository toDoRepository;
+    /**
+     * The repository of GreenSpaces.
+     */
     private GreenSpaceRepository greenSpaceRepository;
 
+    /**
+     * Instantiates a new Add New Entry To Do Controller.
+     */
     public AddNewEntryToDoController() {
         getToDoRepository();
         getGreenSpaceRepository();
     }
 
+    /**
+     * Gets the GreenSpaceRepository.
+     * @return GreenSpaceRepository
+     */
     private GreenSpaceRepository getGreenSpaceRepository() {
         if (greenSpaceRepository == null) {
             Repositories repositories = Repositories.getInstance();
@@ -32,6 +45,10 @@ public class AddNewEntryToDoController {
         return greenSpaceRepository;
     }
 
+    /**
+     * Gets the ToDoRepository.
+     * @return ToDoRepository
+     */
     private ToDoRepository getToDoRepository() {
         if (toDoRepository == null) {
             Repositories repositories = Repositories.getInstance();
@@ -40,12 +57,20 @@ public class AddNewEntryToDoController {
         return toDoRepository;
     }
 
+    /**
+     * Gets the GreenSpaceDTO list.
+     * @return GreenSpaceDTO list
+     */
     public List<GreenSpaceDTO> getGreenSpaceDTOlist() {
         List<GreenSpace> greenSpaceList = greenSpaceRepository.getGreenSpaceList();
 
         return GreenSpaceMapper.toDTOlist(greenSpaceList);
     }
 
+    /**
+     * Gets the GreenSpaceDTO list of the manager.
+     * @return GreenSpaceDTO list
+     */
     public List<GreenSpaceDTO> getManagerGreenSpaceDTOList(){
         String managerEmail = ApplicationSession.getInstance().getCurrentSession().getUserId().getEmail();
         List<GreenSpace> managerGreenSpacesList = greenSpaceRepository.getGreenSpaceListByManager(managerEmail);
@@ -53,6 +78,11 @@ public class AddNewEntryToDoController {
         return GreenSpaceMapper.toDTOlist(managerGreenSpacesList);
     }
 
+    /**
+     * Register a new task.
+     * @param toDoTaskDTO to do task DTO
+     * @return the new task as a DTO
+     */
     public Optional<Task> registerTask(ToDoTaskDTO toDoTaskDTO) {
 
         Optional<Task> newTaskToDo = Optional.empty();

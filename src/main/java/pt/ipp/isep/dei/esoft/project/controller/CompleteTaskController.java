@@ -17,16 +17,32 @@ import java.util.Optional;
 
 public class CompleteTaskController {
 
+    /**
+     * Agenda Repository
+     */
     private AgendaRepository agendaRepository;
+    /**
+     * Team Repository
+     */
     private TeamRepository teamRepository;
+    /**
+     * Vehicle Repository
+     */
     private VehicleRepository vehicleRepository;
 
+    /**
+     * Instantiates a new Complete Task Controller.
+     */
     public CompleteTaskController() {
         getAgendaRepository();
         getTeamRepository();
         getVehicleRepository();
     }
 
+    /**
+     * Gets the Vehicle Repository.
+     * @return Vehicle Repository
+     */
     private VehicleRepository getVehicleRepository() {
         if(vehicleRepository == null){
             Repositories repositories = Repositories.getInstance();
@@ -35,6 +51,10 @@ public class CompleteTaskController {
         return vehicleRepository;
     }
 
+    /**
+     * Gets the Team Repository.
+     * @return Team Repository
+     */
     private TeamRepository getTeamRepository() {
         if (teamRepository == null) {
             Repositories repositories = Repositories.getInstance();
@@ -43,6 +63,10 @@ public class CompleteTaskController {
         return teamRepository;
     }
 
+    /**
+     * Gets the Agenda Repository.
+     * @return Agenda Repository
+     */
     private AgendaRepository getAgendaRepository() {
         if (agendaRepository == null) {
             Repositories repositories = Repositories.getInstance();
@@ -51,6 +75,10 @@ public class CompleteTaskController {
         return agendaRepository;
     }
 
+    /**
+     * Gets the list of AgendaTaskDTO for the Manager.
+     * @return List of AgendaTaskDTO
+     */
     public List<AgendaTaskDTO> getAgendaTaskDTOManagerList() {
         String managerEmail = Repositories.getInstance().getAuthenticationRepository().getCurrentUserSession().getUserId().getEmail();
         List<Task> agendaTaskList = Repositories.getInstance().getAgendaRepository().getManagerSpecificAgenda(managerEmail);
@@ -64,6 +92,11 @@ public class CompleteTaskController {
         return managerSpecificAgendaDTO;
     }
 
+    /**
+     * Completes a Task in the Agenda.
+     * @param agendaTaskDTO the task to set as done
+     * @return completed Task
+     */
     public Optional<Task> completeTaskAgenda(AgendaTaskDTO agendaTaskDTO) {
 
         System.out.println("Iniciando cancelamento de tarefa...");

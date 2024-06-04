@@ -12,42 +12,64 @@ import pt.ipp.isep.dei.esoft.project.mapper.VehicleMapper;
 import pt.ipp.isep.dei.esoft.project.repository.AgendaRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.session.ApplicationSession;
-import pt.ipp.isep.dei.esoft.project.tools.Sorting;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ListCollaboratorTasksController {
 
+    /**
+     * Initial date
+     */
     private Date initialDate;
+    /**
+     * Final date
+     */
     private Date finalDate;
-    private String status;
-    private String collaboratorName;
-
+    /**
+     * Agenda Repository
+     */
     private AgendaRepository agendaRepository;
 
+    /**
+     * Gets the Agenda Repository.
+     * @return Agenda Repository
+     */
     public AgendaRepository getAgendaRepository() {
         return agendaRepository;
     }
 
+    /**
+     * Instantiates a new List Collaborator Tasks Controller.
+     */
     public ListCollaboratorTasksController(){
         agendaRepository = Repositories.getInstance().getAgendaRepository();
     }
 
+    /**
+     * gets the collaborator name of the current session
+     * @return collaborator name of the current session
+     */
     public String getCollaboratorName(){
         return Repositories.getInstance().getCollaboratorRepository().getCollaboratorByCollaboratorEmail(new Email(ApplicationSession.getInstance().getCurrentSession().getUserId().toString())).get().getName();
     }
 
     /**
-     * @return sorted tasks assigned to the collaborator between two selected dates
+     * gets the tasks a the collaborator of the current session
+     * @return list of tasks of the collaborator of the current session
      */
-
     public List<AgendaTaskDTO> getCollaboratorTasks() {
 
         List<Task> collaboratorTasks = getAgendaRepository().getCollbaboratorSpecificAgenda(ApplicationSession.getInstance().getCurrentSession().getUserId().getEmail());
         return AgendaMapper.toDTOlist(collaboratorTasks);
     }
 
+    /**
+     * gets the tasks of the collaborator of the current session sorted by two dates
+     * @param initialDate initial date
+     * @param finalDate final date
+     * @return list of tasks of the collaborator of the current session sorted by initial and final dates
+     */
     public List<AgendaTaskDTO> getFilteredTasks(Date initialDate, Date finalDate) {
 
         List<Task> collabTasks = getAgendaRepository().getCollbaboratorSpecificAgenda(ApplicationSession.getInstance().getCurrentSession().getUserId().getEmail());;
@@ -65,21 +87,10 @@ public class ListCollaboratorTasksController {
     }
 
     /**
-     * Checks if dateToCheck is after or equal to startDate and before or equal to endDate
-     */
-
-    public static boolean isDateBetween(Date dateToCheck, Date startDate, Date endDate) {
-        return dateToCheck.compareTo(startDate) >= 0 && dateToCheck.compareTo(endDate) <= 0;
-
-    }
-
-    /**
      * Updates the initial date.
      * @param initialDate the new initial date
      */
-    public void updateInitialDate(Date initialDate) {
-        this.initialDate = initialDate;
-    }
+    public void updateInitialDate(Date initialDate) { this.initialDate = initialDate; }
 
     /**
      * Updates the final date.

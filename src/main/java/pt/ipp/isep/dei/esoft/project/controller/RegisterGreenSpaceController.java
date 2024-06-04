@@ -11,13 +11,22 @@ import java.util.Optional;
 
 public class RegisterGreenSpaceController {
 
+    /**
+     * The Green Space Repository.
+     */
     private GreenSpaceRepository greenSpaceRepository;
 
-
+    /**
+     * Instantiates a new Register Green Space Controller.
+     */
     public RegisterGreenSpaceController() {
         getGreenSpaceRepository();
     }
 
+    /**
+     * Gets the Green Space Repository.
+     * @return Green Space Repository
+     */
     private GreenSpaceRepository getGreenSpaceRepository() {
         if (greenSpaceRepository == null) {
             Repositories repositories = Repositories.getInstance();
@@ -26,6 +35,11 @@ public class RegisterGreenSpaceController {
         return greenSpaceRepository;
     }
 
+    /**
+     * Register Green Space.
+     * @param greenSpaceDTO Green Space DTO
+     * @return the new Green Space
+     */
     public Optional<GreenSpace> registerGreenSpace(GreenSpaceDTO greenSpaceDTO) {
         Optional<GreenSpace> newGreenSpace = Optional.empty();
         String managerEmail = ApplicationSession.getInstance().getCurrentSession().getUserId().getEmail();

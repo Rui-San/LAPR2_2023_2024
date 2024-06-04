@@ -5,25 +5,36 @@ import pt.ipp.isep.dei.esoft.project.domain.Task;
 import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
 import pt.ipp.isep.dei.esoft.project.domain.WorkPeriod;
 import pt.ipp.isep.dei.esoft.project.dto.AgendaTaskDTO;
-import pt.ipp.isep.dei.esoft.project.mapper.AgendaMapper;
 import pt.ipp.isep.dei.esoft.project.repository.*;
-import pt.ipp.isep.dei.esoft.project.tools.Status;
-
-import java.util.List;
 
 public class PostponeTaskController {
 
+    /**
+     * The Agenda Repository.
+     */
     private AgendaRepository agendaRepository;
+    /**
+     * The Vehicle Repository.
+     */
     private VehicleRepository vehicleRepository;
+    /**
+     * The Team Repository.
+     */
     private TeamRepository teamRepository;
-    private ToDoRepository toDoRepository;
 
+    /**
+     * Instantiates a new Postpone Task Controller.
+     */
     public PostponeTaskController() {
         getAgendaRepository();
         getVehicleRepository();
         getTeamRepository();
     }
 
+    /**
+     * Gets the agenda repository.
+     * @return the agenda repository
+     */
     private AgendaRepository getAgendaRepository() {
         if (agendaRepository == null) {
             Repositories repositories = Repositories.getInstance();
@@ -32,6 +43,10 @@ public class PostponeTaskController {
         return agendaRepository;
     }
 
+    /**
+     * Gets the vehicles repository.
+     * @return the vehicles repository
+     */
     private VehicleRepository getVehicleRepository() {
         if (vehicleRepository == null) {
             Repositories repositories = Repositories.getInstance();
@@ -40,6 +55,10 @@ public class PostponeTaskController {
         return vehicleRepository;
     }
 
+    /**
+     * Gets the team repository.
+     * @return the team repository
+     */
     private TeamRepository getTeamRepository() {
         if (teamRepository == null) {
             Repositories repositories = Repositories.getInstance();
@@ -48,6 +67,14 @@ public class PostponeTaskController {
         return teamRepository;
     }
 
+    /**
+     * Postpones a task in the agenda.
+     * @param selectedTask the selected task
+     * @param selectedDate the date to be postponed to
+     * @param workStartingHours the new work starting hours
+     * @param workStartingMinutes the new work starting minutes
+     * @return true if the task is postponed, false otherwise
+     */
     public boolean postponeTask(AgendaTaskDTO selectedTask, String selectedDate,int workStartingHours,int workStartingMinutes){
 
         Task task = getAgendaRepository().getTask(selectedTask);

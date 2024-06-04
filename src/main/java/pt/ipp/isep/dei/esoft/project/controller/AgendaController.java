@@ -17,6 +17,10 @@ import java.util.List;
 
 public class AgendaController {
 
+    /**
+     * Gets the list of AgendaTaskDTOs for the manager.
+     * @return List of AgendaTaskDTOs
+     */
     public List<AgendaTaskDTO> getAgendaTaskDTOManagerList() {
         String managerEmail = ApplicationSession.getInstance().getCurrentSession().getUserId().getEmail();
         List<Task> agendaTaskList = Repositories.getInstance().getAgendaRepository().getManagerSpecificAgenda(managerEmail);
@@ -32,19 +36,6 @@ public class AgendaController {
                 vehicleDTOList = VehicleMapper.toDTOList(agendaTask.getVehiclesAssigned());
             }
             managerSpecificAgendaDTO.add(AgendaMapper.toDTO(agendaTask, teamDTO, vehicleDTOList));
-        }
-        return managerSpecificAgendaDTO;
-    }
-
-    public List<AgendaTaskDTO> getCollbaboratorSpecificAgenda() {
-        String collaboratorEmail = Repositories.getInstance().getAuthenticationRepository().getCurrentUserSession().getUserId().getEmail();
-        List<Task> agendaTaskList = Repositories.getInstance().getAgendaRepository().getCollbaboratorSpecificAgenda(collaboratorEmail);
-        List<AgendaTaskDTO> managerSpecificAgendaDTO = new ArrayList<>();
-
-        for (Task agendaTask : agendaTaskList) {
-            managerSpecificAgendaDTO.add(AgendaMapper.toDTO(agendaTask,
-                    TeamMapper.toDTO(CollaboratorMapper.toDTOlist(agendaTask.getTeamAssigned().getMembers())),
-                    VehicleMapper.toDTOList(agendaTask.getVehiclesAssigned())));
         }
         return managerSpecificAgendaDTO;
     }

@@ -1,11 +1,8 @@
 package pt.ipp.isep.dei.esoft.project.controller;
 
 import pt.ipp.isep.dei.esoft.project.domain.Task;
-import pt.ipp.isep.dei.esoft.project.domain.Team;
 import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
 import pt.ipp.isep.dei.esoft.project.dto.AgendaTaskDTO;
-import pt.ipp.isep.dei.esoft.project.dto.CollaboratorDTO;
-import pt.ipp.isep.dei.esoft.project.dto.TeamDTO;
 import pt.ipp.isep.dei.esoft.project.dto.VehicleDTO;
 import pt.ipp.isep.dei.esoft.project.mapper.AgendaMapper;
 import pt.ipp.isep.dei.esoft.project.mapper.CollaboratorMapper;
@@ -20,17 +17,28 @@ import java.util.Optional;
 
 public class AssignVehiclesToEntryAgendaController {
 
+    /**
+     * The Agenda Repository.
+     */
     private AgendaRepository agendaRepository;
-    private AuthenticationRepository authenticationRepository;
+
+    /**
+     * The Vehicle Repository.
+     */
     private VehicleRepository vehicleRepository;
 
+    /**
+     * Instantiates a new Assign Vehicles to Entry Agenda Controller.
+     */
     public AssignVehiclesToEntryAgendaController() {
         getAgendaRepository();
-        getAuthenticationRepository();
         getVehicleRepository();
-
     }
 
+    /**
+     * Gets the Vehicle Repository.
+     * @return Vehicle Repository
+     */
     private VehicleRepository getVehicleRepository() {
         if (vehicleRepository == null) {
             vehicleRepository = Repositories.getInstance().getVehicleRepository();
@@ -38,13 +46,10 @@ public class AssignVehiclesToEntryAgendaController {
         return vehicleRepository;
     }
 
-    private AuthenticationRepository getAuthenticationRepository() {
-        if (authenticationRepository == null) {
-            authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
-        }
-        return authenticationRepository;
-    }
-
+    /**
+     * Gets the Agenda Repository.
+     * @return Agenda Repository
+     */
     private AgendaRepository getAgendaRepository() {
         if (agendaRepository == null) {
             agendaRepository = Repositories.getInstance().getAgendaRepository();
@@ -52,6 +57,10 @@ public class AssignVehiclesToEntryAgendaController {
         return agendaRepository;
     }
 
+    /**
+     * Gets the list of TasksDTO of a manager.
+     * @return list of TasksDTO of a manager
+     */
     public List<AgendaTaskDTO> getAgendaTaskDTOManagerList() {
         String managerEmail = ApplicationSession.getInstance().getCurrentSession().getUserId().getEmail();
         List<Task> agendaTaskList = Repositories.getInstance().getAgendaRepository().getManagerSpecificAgenda(managerEmail);
@@ -65,6 +74,10 @@ public class AssignVehiclesToEntryAgendaController {
         return managerSpecificAgendaDTO;
     }
 
+    /**
+     * Gets the list of VehiclesDTO.
+     * @return list of VehiclesDTO
+     */
     public List<VehicleDTO> getVehicles(){
         List<VehicleDTO> vehicleListDTO = new ArrayList<>();
 
@@ -74,6 +87,12 @@ public class AssignVehiclesToEntryAgendaController {
         return vehicleListDTO;
     }
 
+    /**
+     * Gets the list of VehiclesDTO assigned to a Task.
+     * @param agendaTaskDTO TaskDTO
+     * @param selectedVehiclesDTO list of VehiclesDTO
+     * @return
+     */
     public Optional<Task> assignVehiclesToTaskAgenda(AgendaTaskDTO agendaTaskDTO, List<VehicleDTO> selectedVehiclesDTO) {
         List<Vehicle> selectedVehicles = VehicleMapper.toDomainList(selectedVehiclesDTO);
         return agendaRepository.assignVehiclesToTaskAgenda(agendaTaskDTO.title, agendaTaskDTO.greenSpaceName, agendaTaskDTO.workStartDate, agendaTaskDTO.status, selectedVehicles);

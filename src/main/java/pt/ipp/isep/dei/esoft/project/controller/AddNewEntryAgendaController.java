@@ -16,17 +16,32 @@ import java.util.Optional;
 
 public class AddNewEntryAgendaController {
 
+    /**
+     * The repository of To-Do Tasks.
+     */
     private ToDoRepository toDoRepository;
+    /**
+     * The repository of Agenda.
+     */
     private AgendaRepository agendaRepository;
+    /**
+     * The repository of GreenSpaces.
+     */
     private GreenSpaceRepository greenSpaceRepository;
 
-
+    /**
+     * Instantiates a new Add New Entry Agenda Controller.
+     */
     public AddNewEntryAgendaController() {
         getToDoRepository();
         getAgendaRepository();
         getGreenSpaceRepository();
     }
 
+    /**
+     * Gets the agenda repository.
+     * @return the agenda repository
+     */
     private AgendaRepository getAgendaRepository() {
         if (agendaRepository == null) {
             Repositories repositories = Repositories.getInstance();
@@ -35,6 +50,10 @@ public class AddNewEntryAgendaController {
         return agendaRepository;
     }
 
+    /**
+     * Gets the green space repository.
+     * @return the green space repository
+     */
     private GreenSpaceRepository getGreenSpaceRepository() {
         if (greenSpaceRepository == null) {
             Repositories repositories = Repositories.getInstance();
@@ -43,6 +62,10 @@ public class AddNewEntryAgendaController {
         return greenSpaceRepository;
     }
 
+    /**
+     * Gets the to-do repository.
+     * @return the to-do repository
+     */
     private ToDoRepository getToDoRepository() {
         if (toDoRepository == null) {
             Repositories repositories = Repositories.getInstance();
@@ -51,12 +74,24 @@ public class AddNewEntryAgendaController {
         return toDoRepository;
     }
 
+    /**
+     * Gets the DTO List of to-do list taks of a manager
+     * @return the to-do list of a manager
+     */
     public List<ToDoTaskWithStatusDTO> getToDoDTOManagerlist() {
         String managerEmail = ApplicationSession.getInstance().getCurrentSession().getUserId().getEmail();
         List<Task> toDoTaskList = toDoRepository.getToDoManagerList(managerEmail);
         return ToDoListMapper.toDTOWithStatusList(toDoTaskList);
     }
 
+    /**
+     * Registers a task in the agenda
+     * @param toDoTaskDTO the to-do task dto
+     * @param executionDate the execution date
+     * @param workStartingDays the work starting days
+     * @param workStartingMinutes the work starting minutes
+     * @return a new task in the agenda
+     */
     public Optional<Task> registerTaskAgenda(ToDoTaskDTO toDoTaskDTO, String executionDate, int workStartingDays, int workStartingMinutes) {
 
         Optional<Task> newTaskAgenda = Optional.empty();
