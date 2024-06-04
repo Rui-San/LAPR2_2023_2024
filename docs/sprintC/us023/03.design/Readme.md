@@ -76,6 +76,3 @@ This diagram shows the full sequence of interactions between the classes involve
 
 ![Class Diagram](svg/us023-class-diagram.svg)
 
-### Task Class Diagram
-
-![Task Class Diagram](svg/us023-class-diagram-task.svg)

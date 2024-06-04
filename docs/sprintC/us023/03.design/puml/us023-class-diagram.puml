@@ -176,29 +176,6 @@ class VehicleDTO{
 
 }
 
-
-'AddNewEntryAgendaUI .down.> AddNewEntryAgendaController
-'AddNewEntryAgendaUI ..right> InsertDatePopupUI
-'AddNewEntryAgendaController ...> Repositories : repositories
-'AddNewEntryAgendaController ...> GreenSpaceRepository : greenSpaceRepository
-'AddNewEntryAgendaController ...> ToDoRepository : toDoRepository
-'AddNewEntryAgendaController ...> AgendaRepository : agendaRepository
-'AddNewEntryAgendaController ...> ApplicationSession
-'Repositories -> Repositories : instance
-'Repositories ---> "1" GreenSpaceRepository
-'Repositories ---> "1" ToDoRepository
-'Repositories ---> "1" AgendaRepository
-'ApplicationSession -> ApplicationSession : instance
-'ApplicationSession -down-> "1" UserSession : userSession
-'UserSession ..> Email
-'GreenSpaceRepository "1" -> GreenSpace : greenSpace
-'ToDoRepository "1" -down-> Task : task
-'Task *--"1" TaskDuration : taskDuration
-'AddNewEntryAgendaController ..right.> ToDoListMapper
-'ToDoListMapper ..> Task : task
-'ToDoListMapper ..> ToDoTaskWithStatusDTO : toDoTaskWithStatusDTO
-'ToDoTaskDTO <|-- ToDoTaskWithStatusDTO
-
 AgendaUI ..> AgendaController
 AgendaUI .left.> SelectTeamPopupUI
 SelectTeamPopupUI ...> AssignTeamToEntryAgendaController
@@ -220,7 +197,6 @@ Repositories -> Repositories : instance
 AgendaController ..left> AgendaMapper
 AgendaMapper ..> AgendaTaskDTO
 AgendaTaskDTO ..> "1"TeamDTO
-AgendaMapper ..> Task
 TeamDTO "1" ..> CollaboratorDTO
 AgendaTaskDTO "1" ..> VehicleDTO
 

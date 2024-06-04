@@ -6,32 +6,24 @@ skinparam linetype polyline
 'skinparam linetype orto
 
 skinparam classAttributeIconSize 0
-title US020 - Class Diagram
+title US027 - Class Diagram
 
 package GUI <<Folder>> #DDDDDD {
 
-class RegisterGreenSpaceUI {
-    - string type
-    - string name
-    - string street
-    - int streetNumber
-    - string postalCode
-    - string city
-    - string district
-    - double totalArea
-    +RegisterGreenSpaceUI()
-    +initialize()
-    -fillGreenSpaceType()
-    (...)
+class ListGreenSpacesUI {
+    + ListGreenSpacesUI()
+    + initialize(location, resources)
+    - fillGreenSpacesTable()
+
 }
 }
 
 package Controller <<Folder>> #DDDDDD {
-class RegisterGreenSpaceController {
+class ListGreenSpacesController {
 
-    + RegisterGreenSpaceController()
-    - getGreenSpaceRepository()
-    + registerGreenSpace(greenSpaceDTO)
+    + ListGreenSpacesController()
+    + getGreenSpaceRepository()
+    + getManagerGreenSpaceDTOList()
     }
 }
 
@@ -39,10 +31,7 @@ package Repository <<Folder>> #DDDDDD {
 class GreenSpaceRepository{
     - List<GreenSpace> greenSpaceList
 
-    + GreenSpaceRepository()
-    + registerGreenSpace(greenSpace)
-    + add(greenSpace)
-    - validateGreenSpace(newGreenSpace)
+    + getGreenSpaceListByManager(managerEmail)
 }
 
 class Repositories {
@@ -70,8 +59,18 @@ class Email{
 
 }
 
+package Tools <<Folder>> #DDDDDD{
+class GreenSpaceSorting {
+    + sort(listToSort)
+    - bubbleSort(listToSort)
+    - selectionSort(listToSort)
+}
+
+}
+
 
 package Domain <<Folder>> #DDDDDD {
+
 class GreenSpace {
     - GreenSpaceType type
     - String name
@@ -89,22 +88,15 @@ class GreenSpace {
 
 
 
-class Address{
-    - String street
-    - int streetNumber
-    - String postalCode
-    - String city
-    - String district
-    + Address(street, streetNumber, postalCode, city, district)
-    (...)
-}
+
 }
 
 
 package Mapper <<Folder>> #DDDDDD {
 class GreenSpaceMapper{
     + GreenSpaceMapper()
-    + toGreenSpace(greenSpaceDTO, managerEmail)
+    + toDTOlist(greenSpaceList)
+    + toDTO(greenSpace)
 
 }
 }
@@ -124,23 +116,20 @@ public String name
 }
 }
 
-
-
-RegisterGreenSpaceUI .down.> RegisterGreenSpaceController
-RegisterGreenSpaceController ..> "1" GreenSpaceRepository : greenSpaceRepository
-GreenSpaceRepository "1"-down-> "*" GreenSpace : greenSpace
-GreenSpace *--"1" Address : address
-RegisterGreenSpaceController ..> Repositories : repositories
-Repositories --> "1" GreenSpaceRepository
+ListGreenSpacesUI .down.> ListGreenSpacesController
+ListGreenSpacesController ...> Repositories
 Repositories -> Repositories : instance
-
-RegisterGreenSpaceController ..> ApplicationSession
-
+Repositories ---> GreenSpaceRepository
+ListGreenSpacesController .left.> ApplicationSession
 ApplicationSession -> ApplicationSession : instance
-ApplicationSession --> "1" UserSession : userSession
-UserSession ..> Email
-RegisterGreenSpaceController ..> GreenSpaceMapper
-GreenSpaceMapper ..> GreenSpace
-RegisterGreenSpaceUI ...> GreenSpaceDTO
+ApplicationSession -down-> UserSession
+UserSession .down.> Email
+GreenSpaceRepository "1" --> GreenSpace : greenSpace
+ListGreenSpacesController .....> GreenSpaceRepository : getGreenSpaceRepository
+ListGreenSpacesController ....> GreenSpaceMapper
+GreenSpaceMapper ..> GreenSpaceDTO
+Controller ...> GreenSpaceSorting
+ListGreenSpacesController ..> UserSession
+
 
 @enduml

@@ -20,19 +20,30 @@ Done).
 > 
 **From the client clarifications:**
 
-> **Question:** 
+> **Question:** When a GSM wants to cancel a task or a Collaborator wants to record the completion of a task, the task just changes its status in the Agenda to "Canceled" or "Done", respectively.
 >
-> **Answer:** 
+> **Answer:** Yes
 
-> **Question:** 
+> **Question:** When a task is cancelled, is it possible to put it back on the agenda again later?
 >
-> **Answer:** 
- 
+> **Answer:** Yes.
+
+> **Question:** When we cancel a task, do we move it again to the To-Do List?
+>
+> **Answer:** No.
+
+> **Question:** When the GSM wants to cancel a task, this task can only be canceled if its status is PLANNED or POSTPONED, correct?
+>
+> **Answer:** No, just planned because if there is a Postponed entry then there is also an Planned Entry with the new date.
+
 ### 1.3. Acceptance Criteria
 
-* **AC1:**  A canceled task should not be deleted but rather change its state.
+* **AC1:** A canceled task should not be deleted but rather change its state.
 * **AC2:** One task/entry from Agenda must be selected before proceeding to the cancellation process.
-
+* **AC3:** The tasks showing in the Agenda, are task that have been created by the GSM logged in the system.
+* **AC4:** When a task is canceled, it will still show on agenda, but the status will be "CANCELED".
+* **AC5:** If a canceled task had a team and/or vehicles assigned, both will be released from that work period upon cancellation.
+* **AC6:** The task to be canceled must have status as "PLANNED".
 
 
 ### 1.4. Found out Dependencies
@@ -56,10 +67,7 @@ Done).
 
 ### 1.6. System Sequence Diagram (SSD)
 
-
 ![System Sequence Diagram](svg/us025-system-sequence-diagram.svg)
-
-
 
 ### 1.7 Other Relevant Remarks
 
