@@ -16,6 +16,8 @@ local.properties
 
 *.dat
 
+emails/
+
 # External tool builders
 .externalToolBuilders/
 
