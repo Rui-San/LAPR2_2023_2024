@@ -140,7 +140,7 @@ ApplicationSession -> ApplicationSession : instance
 ApplicationSession --> "1" UserSession : userSession
 UserSession ..> Email
 RegisterGreenSpaceController ..> GreenSpaceMapper
-GreenSpaceMapper ..> GreenSpaceDTO
-RegisterGreenSpaceController ..> GreenSpaceDTO
+GreenSpaceMapper ..> GreenSpace
+RegisterGreenSpaceUI ...> GreenSpaceDTO
 
 @enduml
