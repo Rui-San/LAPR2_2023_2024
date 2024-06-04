@@ -250,21 +250,4 @@ public class ListCollaboratorTasksUI implements Initializable {
         }
     }
 
-    @FXML
-    private void handleSetInitialDate() {
-        if (dpInitialDate.getValue() != null) {
-            Date initialDate = new Date(dpInitialDate.getValue().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-            getController().updateInitialDate(initialDate);
-        }
-    }
-
-    @FXML
-    private void handleSetFinalDate() {
-        if (dpFinalDate.getValue() != null) {
-            Date finalDate = new Date(dpFinalDate.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-            controller.updateFinalDate(finalDate);
-        }
-    }
-
-
 }
