@@ -1,0 +1,38 @@
+graph {
+labelloc="t";
+label="us17_output";
+fontsize=25;
+fontweight=bold;
+    Biblioteca -- Teatro [label="8", color="black", len=2, penwidth=1.0];
+    Biblioteca -- AP [label="10", color="red", len=2, penwidth=4.0];
+    Teatro -- AP [label="7", color="red", len=2, penwidth=4.0];
+    Teatro -- Topo [label="6", color="black", len=2, penwidth=1.0];
+    AP -- Pavilhao [label="5", color="red", len=2, penwidth=4.0];
+    AP -- Topo [label="9", color="red", len=2, penwidth=4.0];
+    AP -- Lago [label="9", color="red", len=2, penwidth=4.0];
+    AP -- Escadas1 [label="10", color="red", len=2, penwidth=4.0];
+    Pavilhao -- Lago [label="6", color="black", len=2, penwidth=1.0];
+    Topo -- ParqueInfantil [label="7", color="red", len=2, penwidth=4.0];
+    Topo -- Miradouro [label="3", color="red", len=2, penwidth=4.0];
+    Topo -- Capela [label="4", color="red", len=2, penwidth=4.0];
+    Topo -- Lago [label="5", color="black", len=2, penwidth=1.0];
+    ParqueInfantil -- Macieirinha [label="10", color="red", len=2, penwidth=4.0];
+    ParqueInfantil -- Fontaine [label="8", color="black", len=2, penwidth=1.0];
+    Macieirinha -- Fontaine [label="11", color="black", len=2, penwidth=1.0];
+    Fontaine -- Miradouro [label="8", color="red", len=2, penwidth=4.0];
+    Fontaine -- Torreao [label="11", color="black", len=2, penwidth=1.0];
+    Miradouro -- Capela [label="4", color="black", len=2, penwidth=1.0];
+    Miradouro -- Torreao [label="9", color="red", len=2, penwidth=4.0];
+    Capela -- Torreao [label="11", color="black", len=2, penwidth=1.0];
+    Capela -- Escadas3 [label="9", color="black", len=2, penwidth=1.0];
+    Torreao -- Escadas3 [label="12", color="black", len=2, penwidth=1.0];
+    Lago -- Escadas1 [label="7", color="black", len=2, penwidth=1.0];
+    Escadas3 -- Sentimentos [label="5", color="black", len=2, penwidth=1.0];
+    Escadas3 -- Escadas2 [label="5", color="red", len=2, penwidth=4.0];
+    Sentimentos -- Escadas2 [label="7", color="red", len=2, penwidth=4.0];
+    CasaRoseiral -- JardimRoseiral [label="3", color="black", len=2, penwidth=1.0];
+    CasaRoseiral -- Escadas2 [label="4", color="red", len=2, penwidth=4.0];
+    JardimRoseiral -- Escadas2 [label="3", color="red", len=2, penwidth=4.0];
+    JardimRoseiral -- Escadas1 [label="8", color="black", len=2, penwidth=1.0];
+    Escadas2 -- Escadas1 [label="3", color="red", len=2, penwidth=4.0];
+}
