@@ -46,6 +46,7 @@ Other software classes (i.e. Pure Fabrication) identified:
 * UserSession
 * AgendaRepository
 * TeamRepository
+* WorkPeriod
 
 ## 3.2. Sequence Diagram (SD)
 
