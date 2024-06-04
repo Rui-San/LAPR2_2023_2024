@@ -14,9 +14,14 @@ participant ":Task" as Task
 
 activate Collaborator
 activate UI
+
+loop until the collaborator shows a valid task
 Collaborator -> UI: asks to record the completion of a task(selectedTask)
 UI -> Collaborator: asks the confirmation of the operation
 Collaborator -> UI: Confirms the operation
+
+end loop
+
 UI -> CTRL: completeTaskAgenda(selectedTask)
 
 activate CTRL
@@ -27,6 +32,7 @@ CTRL -> REPO: updateTaskToDone(selectedTask)
     deactivate REPO
 
 activate Task
+
 
 Task -> UI: Displays operation success
 deactivate CTRL

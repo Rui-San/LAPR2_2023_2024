@@ -56,7 +56,10 @@ activate Collaborator
     deactivate CTRL
     UI -> Collaborator: Displays the collaborator's specific agenda
 
+    loop until the collaborator selects valid dates
     Collaborator -> UI: Filters the tasks between two dates(initialDate, finalDate)
+    UI -> UI: validateDates(initialDate, FinalDate)
+    end loop
 
     UI -> CTRL : getFilteredTasks(initialDate, finalDate)
 
@@ -95,11 +98,11 @@ activate Collaborator
         activate Task
         Task -> Workperiod: isOverlap(initialDate, finalDate)
         deactivate Task
-        alt True
+        alt the task work period overlaps with the selected dates interval
         activate Workperiod
         Workperiod -> Mapper: toDTO(task)
-        activate Mapper
         deactivate Workperiod
+        activate Mapper
         Mapper -> CTRL: addTask()
         deactivate Mapper
         end
