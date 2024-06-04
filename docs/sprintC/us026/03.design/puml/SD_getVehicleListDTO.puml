@@ -1,0 +1,63 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title SD_getVehicleListDTO
+
+autonumber
+
+participant ":AssignVehiclesToEntryAgendaController" as CTRL
+
+participant ":Repositories" as REPO
+participant "repositories\n:Repositories" as REPOInstance
+participant "vehicleRepository\n:VehicleRepository" as VehicleRepository
+
+participant ":VehicleMapper" as VehicleMapper
+participant ":VehicleDTO" as VehicleDTO
+
+
+
+activate CTRL
+
+CTRL -> REPO : getInstance()
+    activate REPO
+
+        REPO --> CTRL : repositories
+    deactivate REPO
+
+    CTRL -> REPOInstance : getVehicleRepository()
+    activate REPOInstance
+
+        REPOInstance --> CTRL : vehicleRepository
+    deactivate REPOInstance
+
+    CTRL -> VehicleRepository : getVehicleList()
+    activate VehicleRepository
+
+        VehicleRepository --> CTRL : vehicleList
+    deactivate VehicleRepository
+
+    CTRL -> CTRL : vehicleList
+
+    |||
+
+    loop for each vehicle in vehicleList
+
+    CTRL -> VehicleMapper : toDTO(vehicle)
+    activate VehicleMapper
+
+        VehicleMapper -> VehicleDTO** : toDTO(vehicle)
+
+        VehicleMapper --> CTRL : vehicleDTO
+
+        deactivate VehicleMapper
+|||
+        CTRL --> CTRL : vehicleListDTO.add(vehicleDTO)
+end loop
+
+CTRL -> CTRL : vehicleListDTO
+
+
+
+@enduml
