@@ -3,81 +3,110 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title System Sequence Diagram (SSD) - Alternative One
+title US028 - Sequence Diagram
 
 autonumber
 
 actor "Collaborator" as Collaborator
 participant ":ListCollaboratorTasksUI" as UI
 participant ":ListCollaboratorTasksController" as CTRL
-participant ":Repositories" as REPO
-participant "repositories\n:Repositories" as REPOInsctance
+participant ":AgendaRepository" as REPO
+participant ":AgendaTaskDTO" as DTO
+participant ":AgendaMapper" as Mapper
+participant ":ApplicationSession" as AS
+participant ":UserSession" as US
+participant ":Email" as Email
+participant ":Task" as Task
+participant ":Workperiod" as Workperiod
 
 activate Collaborator
 
-    Collaborator -> UI : asks to list tasks assigned to the collaborator\nbetween two dates
+    Collaborator -> UI :asks to show his agenda
     activate UI
+    UI -> CTRL :getCollaboratorTasks()
+    activate CTRL
+    CTRL -> REPO:getCollaboratorSpecificAgenda()
+    activate REPO
+    REPO -> AS:getInstance()
+    activate AS
 
-loop until typed data is valid
-        UI --> Collaborator : requests data (initialDate, finalDate)
-    deactivate UI
+    AS -> US:getCurrentSession()
+    deactivate AS
+    activate US
+    US -> Email:getUserId()
+    deactivate US
+    activate Email
+    Email -> REPO:User Email
+    deactivate Email
 
-    Collaborator -> UI : types requested data
-    activate UI
-        UI --> UI : validateData(initialDate,\nfinalDate)
-end loop
+    REPO -> CTRL: collaboratorTasks
+    deactivate REPO
+    CTRL -> Mapper: toDTOList(collaboratorTasks)
 
-        UI -> CTRL : getCollaboratorFromSession()
-        activate CTRL
-            CTRL -> CTRL : getEmployeeFromSession()
-            activate CTRL
+    activate Mapper
+    Mapper -> DTO: collaboratorDTOtaskList
+    deactivate Mapper
 
-                CTRL -> _APP: getInstance()
-                activate _APP
-                    _APP -> CTRL: appSession
-                deactivate _APP
-
-
-                CTRL -> APP: getCurrentSession()
-                activate APP
-
-                    APP --> CTRL: currentSession
-                deactivate APP
-
-                CTRL -> SESSAO: email = getUserEmail()
-                activate SESSAO
-
-                    SESSAO --> CTRL: email
-                deactivate SESSAO
+    activate DTO
+    DTO -> CTRL: collaboratorDTOtaskList
+    deactivate DTO
+    CTRL -> UI: collaboratorDTOtaskList
 
 
-                CTRL -> PLAT: getCollaboratorRepository()
-                activate PLAT
+    deactivate CTRL
+    UI -> Collaborator: Displays the collaborator's specific agenda
 
-                    PLAT --> CTRL: collaboratorRepository
-                deactivate PLAT
+    Collaborator -> UI: Filters the tasks between two dates(initialDate, finalDate)
 
-                CTRL -> ORG: getCollaboratorByEmail(email)
-                activate ORG
+    UI -> CTRL : getFilteredTasks(initialDate, finalDate)
 
-                    ORG --> CTRL : currentCollaborator
-                deactivate ORG
 
-                CTRL --> CTRL : currentCollaborator
-            deactivate CTRL
 
-            CTRL --> UI : currentCollaborator
+    activate CTRL
+        CTRL -> REPO:getCollaboratorSpecificAgenda()
+        activate REPO
+        REPO -> AS:getInstance()
+        activate AS
+
+        AS -> US:getCurrentSession()
+        deactivate AS
+        activate US
+        US -> Email:getUserId()
+        deactivate US
+        activate Email
+        Email -> REPO:User Email
+        deactivate Email
+
+        REPO -> CTRL: collaboratorTasks
+        deactivate REPO
+        CTRL -> Mapper: toDTOList(collaboratorTasks)
+
+        activate Mapper
+        Mapper -> DTO: collaboratorDTOtaskList
+        deactivate Mapper
+
+        activate DTO
+        DTO -> CTRL: collaboratorDTOtaskList
+        deactivate DTO
+        loop for each task of the collaborator's agenda
+
+
+        CTRL -> Task: getTaskWorkPeriod()
+        activate Task
+        Task -> Workperiod: isOverlap(initialDate, finalDate)
+        deactivate Task
+        alt True
+        activate Workperiod
+        Workperiod -> Mapper: toDTO(task)
+        activate Mapper
+        deactivate Workperiod
+        Mapper -> CTRL: addTask()
+        deactivate Mapper
+        end
+        end loop
+        CTRL -> UI: filteredTasks
         deactivate CTRL
+        UI -> Collaborator: filteredTasks
 
-        UI -> CTRL : getCollaboratorTasksBetweenDates(initialDate, finalDate)
-        activate CTRL
-
-
-            CTRL --> UI
-        deactivate CTRL
-
-        UI--> UI: sorts the tasks by date
-        UI --> Collaborator : shows tasks assigned to the collaborator\nbetween the two dates and sorted by date
-    deactivate UI
 
 @enduml

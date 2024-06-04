@@ -1,0 +1,37 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title US029 - Sequence Diagram
+
+autonumber
+actor "Collaborator" as Collaborator
+participant ":ListCollaboratorTasksUI" as UI
+participant ":CompleteTaskController" as CTRL
+participant ":AgendaRepository" as REPO
+participant ":Task" as Task
+
+activate Collaborator
+activate UI
+Collaborator -> UI: asks to record the completion of a task(selectedTask)
+UI -> Collaborator: asks the confirmation of the operation
+Collaborator -> UI: Confirms the operation
+UI -> CTRL: completeTaskAgenda(selectedTask)
+
+activate CTRL
+CTRL -> REPO: updateTaskToDone(selectedTask)
+
+    activate REPO
+    REPO -> Task: sets task status to Done
+    deactivate REPO
+
+activate Task
+
+Task -> UI: Displays operation success
+deactivate CTRL
+UI -> Collaborator: Displays operation success
+
+deactivate Task
+
+@enduml
