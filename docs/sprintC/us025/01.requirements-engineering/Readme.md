@@ -30,9 +30,12 @@ Done).
  
 ### 1.3. Acceptance Criteria
 
-* **AC1:**  A canceled task should not be deleted but rather change its state.
+* **AC1:** A canceled task should not be deleted but rather change its state.
 * **AC2:** One task/entry from Agenda must be selected before proceeding to the cancellation process.
-
+* **AC3:** The tasks showing in the Agenda, are task that have been created by the GSM logged in the system.
+* **AC4:** When a task is canceled, it will still show on agenda, but the status will be "CANCELED".
+* **AC5:** If a canceled task had a team and/or vehicles assigned, both will be released from that work period upon cancellation.
+* **AC6:** The task to be canceled must have status as "PLANNED".
 
 
 ### 1.4. Found out Dependencies
@@ -56,10 +59,7 @@ Done).
 
 ### 1.6. System Sequence Diagram (SSD)
 
-
 ![System Sequence Diagram](svg/us025-system-sequence-diagram.svg)
-
-
 
 ### 1.7 Other Relevant Remarks
 
