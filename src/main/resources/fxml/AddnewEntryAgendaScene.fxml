@@ -5,14 +5,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="573.0" prefWidth="874.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.AddNewEntryAgendaUI">
+<AnchorPane prefHeight="573.0" prefWidth="874.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.AddNewEntryAgendaUI">
     <children>
         <Text layoutX="286.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add new entry to Agenda" AnchorPane.topAnchor="33.0">
             <font>
                 <Font name="Berlin Sans FB" size="28.0" />
             </font>
         </Text>
-        <Button fx:id="addToAgendaButton" layoutX="388.0" layoutY="511.0" mnemonicParsing="false" onAction="#handleAddToAgenda" prefHeight="39.0" prefWidth="99.0" text="Add" />
+        <Button fx:id="addToAgendaButton" layoutX="388.0" layoutY="511.0" mnemonicParsing="false" onAction="#handleAddToAgenda" prefHeight="39.0" prefWidth="99.0" styleClass="form-btn" text="Add" />
       <TableView fx:id="taskTableView" layoutX="54.0" layoutY="104.0" prefHeight="367.0" prefWidth="814.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="104.0">
         <columns>
           <TableColumn fx:id="titleColumn" prefWidth="146.0" text="Title" />

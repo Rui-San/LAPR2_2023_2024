@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="573.0" prefWidth="874.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.RegisterGreenSpaceUI">
+<AnchorPane prefHeight="573.0" prefWidth="874.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.RegisterGreenSpaceUI">
    <children>
       <Group layoutY="50.0" AnchorPane.topAnchor="120.0">
          <children>
@@ -104,7 +104,7 @@
             </Label>
          </children>
       </Group>
-      <Button layoutX="339.0" layoutY="489.0" mnemonicParsing="false" onAction="#btnClear" prefHeight="40.0" prefWidth="80.0" text="Clear" />
-      <Button layoutX="454.0" layoutY="489.0" mnemonicParsing="false" onAction="#btnSubmit" prefHeight="40.0" prefWidth="80.0" text="Submit" />
+      <Button layoutX="339.0" layoutY="489.0" mnemonicParsing="false" onAction="#btnClear" prefHeight="40.0" prefWidth="80.0" styleClass="form-btn" text="Clear" />
+      <Button layoutX="454.0" layoutY="489.0" mnemonicParsing="false" onAction="#btnSubmit" prefHeight="40.0" prefWidth="80.0" styleClass="form-btn" text="Submit" />
    </children>
 </AnchorPane>

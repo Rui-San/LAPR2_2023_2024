@@ -46,7 +46,7 @@
             </Label>
          </children>
       </Group>
-        <Button layoutX="196.0" layoutY="217.0" onAction="#btnConfirmData" prefHeight="43.0" prefWidth="144.0" text="Confirm" />
-      <Button layoutX="38.0" layoutY="217.0" onAction="#btnCancelAction" prefHeight="43.0" prefWidth="144.0" text="Cancel" />
+        <Button layoutX="196.0" layoutY="217.0" onAction="#btnConfirmData" prefHeight="43.0" prefWidth="144.0" styleClass="form-btn" text="Confirm" />
+      <Button layoutX="38.0" layoutY="217.0" onAction="#btnCancelAction" prefHeight="43.0" prefWidth="144.0" styleClass="form-btn" text="Cancel" />
    </children>
 </AnchorPane>

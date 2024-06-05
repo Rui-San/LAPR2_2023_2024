@@ -106,6 +106,7 @@ public class AgendaUI implements Initializable {
                     Stage stage = new Stage();
                     stage.initModality(Modality.APPLICATION_MODAL);
                     stage.setScene(new Scene(root));
+                    stage.setResizable(false);
 
                     stage.showAndWait();
 
@@ -151,7 +152,7 @@ public class AgendaUI implements Initializable {
                 Stage stage = new Stage();
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.setScene(new Scene(root));
-
+                stage.setResizable(false);
                 stage.showAndWait();
 
 
@@ -193,7 +194,7 @@ public class AgendaUI implements Initializable {
                 Stage stage = new Stage();
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.setScene(new Scene(root));
-
+                stage.setResizable(false);
                 stage.showAndWait();
 
                 String selectedDate = postponeTaskPopupUI.getSelectedDate();
