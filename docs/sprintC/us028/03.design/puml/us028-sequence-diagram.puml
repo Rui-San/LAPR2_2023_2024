@@ -36,29 +36,29 @@ activate Collaborator
     US -> Email:getUserId()
     deactivate US
     activate Email
-    Email -> REPO:User Email
+    Email --> REPO:userEmail
     deactivate Email
 
-    REPO -> CTRL: collaboratorTasks
+    REPO --> CTRL: collaboratorTasks
     deactivate REPO
     CTRL -> Mapper: toDTOList(collaboratorTasks)
 
     activate Mapper
-    Mapper -> DTO: collaboratorDTOtaskList
+    Mapper --> DTO: collaboratorDTOtaskList
     deactivate Mapper
 
     activate DTO
-    DTO -> CTRL: collaboratorDTOtaskList
+    DTO --> CTRL: collaboratorDTOtaskList
     deactivate DTO
-    CTRL -> UI: collaboratorDTOtaskList
+    CTRL --> UI: collaboratorDTOtaskList
 
 
     deactivate CTRL
-    UI -> Collaborator: Displays the collaborator's specific agenda
+    UI --> Collaborator: Displays the collaborator's specific agenda
 
     loop until the collaborator selects valid dates
-    Collaborator -> UI: Filters the tasks between two dates(initialDate, finalDate)
-    UI -> UI: validateDates(initialDate, FinalDate)
+    Collaborator -> UI: Asks to filter the tasks between two dates(initialDate, finalDate)
+    UI --> UI: validateDates(initialDate, FinalDate)
     end loop
 
     UI -> CTRL : getFilteredTasks(initialDate, finalDate)
@@ -77,19 +77,19 @@ activate Collaborator
         US -> Email:getUserId()
         deactivate US
         activate Email
-        Email -> REPO:User Email
+        Email --> REPO:userEmail
         deactivate Email
 
-        REPO -> CTRL: collaboratorTasks
+        REPO --> CTRL: collaboratorTasks
         deactivate REPO
         CTRL -> Mapper: toDTOList(collaboratorTasks)
 
         activate Mapper
-        Mapper -> DTO: collaboratorDTOtaskList
+        Mapper --> DTO: collaboratorDTOtaskList
         deactivate Mapper
 
         activate DTO
-        DTO -> CTRL: collaboratorDTOtaskList
+        DTO --> CTRL: collaboratorDTOtaskList
         deactivate DTO
         loop for each task of the collaborator's agenda
 
@@ -100,16 +100,50 @@ activate Collaborator
         deactivate Task
         alt the task work period overlaps with the selected dates interval
         activate Workperiod
-        Workperiod -> Mapper: toDTO(task)
+        Workperiod --> Mapper: toDTO(task)
         deactivate Workperiod
         activate Mapper
-        Mapper -> CTRL: addTask()
+        Mapper --> CTRL: addTask()
         deactivate Mapper
         end
         end loop
-        CTRL -> UI: filteredTasks
+        CTRL --> UI: filteredTasks
         deactivate CTRL
-        UI -> Collaborator: filteredTasks
+        UI --> Collaborator: filteredTasks
+        Collaborator -> UI: Asks to filter the tasks by status(selected status)
+        UI -> CTRL :getCollaboratorTasks()
+            activate CTRL
+            CTRL -> REPO:getCollaboratorSpecificAgenda()
+            activate REPO
+            REPO -> AS:getInstance()
+            activate AS
 
+            AS -> US:getCurrentSession()
+            deactivate AS
+            activate US
+            US -> Email:getUserId()
+            deactivate US
+            activate Email
+            Email --> REPO:userEmail
+            deactivate Email
+
+            REPO --> CTRL: collaboratorTasks
+            deactivate REPO
+            CTRL -> Mapper: toDTOList(collaboratorTasks)
+
+            activate Mapper
+            Mapper --> DTO: collaboratorDTOtaskList
+            deactivate Mapper
+            activate DTO
+                DTO --> CTRL: collaboratorDTOtaskList
+                deactivate DTO
+
+            CTRL --> UI: collaboratorDTOtaskList
+            deactivate CTRL
+            loop for each task of the collaborator's agenda
+            alt the selected status filter is not "All Status"
+            UI -> DTO:
+            end
+            end loop
 
 @enduml
