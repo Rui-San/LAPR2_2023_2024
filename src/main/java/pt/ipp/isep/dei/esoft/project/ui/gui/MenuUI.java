@@ -32,7 +32,7 @@ public class MenuUI implements Initializable {
     @FXML
     private VBox vbMenuButtonsHolder;
     @FXML
-    private Control mbJobs, mbSkills, mbCollaborators, mbVehicles, mbTeams, mbGreenSpaces, mbTasks, mbLogout, mbMyAgenda;
+    private Control mbJobs, mbSkills, mbCollaborators, mbVehicles, mbTeams, mbGreenSpaces, mbTasks, mbLogout, mbMyAgenda, mbUpdateVehicleKm;
 
     private List<Control> allOptions = new ArrayList<>();
 
@@ -40,7 +40,7 @@ public class MenuUI implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        allOptions.addAll(List.of(mbJobs, mbSkills, mbCollaborators, mbVehicles, mbTeams, mbGreenSpaces, mbTasks, mbMyAgenda));
+        allOptions.addAll(List.of(mbJobs, mbSkills, mbCollaborators, mbVehicles, mbTeams, mbGreenSpaces, mbTasks, mbMyAgenda, mbUpdateVehicleKm));
 
         UserSession session = ApplicationSession.getInstance().getCurrentSession();
         String af = ApplicationSession.getInstance().getCurrentSession().getUserId().getEmail().toString();
@@ -63,9 +63,11 @@ public class MenuUI implements Initializable {
                 case "ADMINISTRATOR":
                     sessionOptions.addAll(allOptions);
                     sessionOptions.remove(mbMyAgenda);
+                    sessionOptions.remove(mbUpdateVehicleKm);
                     break;
                 case "COLLABORATOR":
-                    sessionOptions.add(mbMyAgenda);
+
+                    sessionOptions.addAll(List.of(mbMyAgenda, mbUpdateVehicleKm));
                     break;
             }
 
@@ -193,6 +195,13 @@ public class MenuUI implements Initializable {
     @FXML
     public void OpenAgenda() throws IOException {
         Parent fxml = FXMLLoader.load(getClass().getResource("/fxml/AgendaScene.fxml"));
+        contentArea.getChildren().removeAll();
+        contentArea.getChildren().setAll(fxml);
+    }
+
+    @FXML
+    public void UpdateVehicleKm() throws IOException {
+        Parent fxml = FXMLLoader.load(getClass().getResource("/fxml/UpdateVehicleKmScene.fxml"));
         contentArea.getChildren().removeAll();
         contentArea.getChildren().setAll(fxml);
     }

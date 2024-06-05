@@ -78,6 +78,11 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
+            <Button fx:id="mbUpdateVehicleKm" mnemonicParsing="false" onAction="#UpdateVehicleKm" styleClass="menu-btn" text="Update Km">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
             <BorderPane prefHeight="218.0" prefWidth="257.0" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
