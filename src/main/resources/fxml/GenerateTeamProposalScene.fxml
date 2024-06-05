@@ -13,24 +13,24 @@
             <Font name="Berlin Sans FB" size="28.0" />
          </font>
       </Text>
-      <Label layoutX="40.0" layoutY="150.0" prefHeight="17.0" prefWidth="260.0" text="Available Skills:" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="150.0" />
-      <ListView fx:id="skillsListView" layoutX="40.0" layoutY="168.0" prefHeight="170.0" prefWidth="280.0" AnchorPane.leftAnchor="40.0" />
-      <TextField fx:id="txtQuantityOfSelectedSkill" layoutX="100.0" layoutY="343.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" prefWidth="133.0" promptText="Quantity of skill" styleClass="form-input" />
-      <Label alignment="TOP_LEFT" layoutX="42.0" layoutY="350.0" prefHeight="17.0" prefWidth="52.0" text="Quantity: " />
-      <Button layoutX="244.0" layoutY="342.0" mnemonicParsing="false" onAction="#btnAddSelectedSkillPlusQuantity" prefHeight="32.0" prefWidth="75.0" styleClass="form-btn" text="Add Skill" />
-      <ListView fx:id="lvSkillSetList" layoutX="63.0" layoutY="390.0" prefHeight="127.0" prefWidth="280.0" AnchorPane.leftAnchor="40.0" />
+      <Label layoutX="40.0" layoutY="140.0" prefHeight="17.0" prefWidth="260.0" text="Available Skills:" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="140.0" />
+      <ListView fx:id="skillsListView" layoutX="40.0" layoutY="158.0" prefHeight="135.0" prefWidth="284.0" AnchorPane.leftAnchor="40.0" />
+      <TextField fx:id="txtQuantityOfSelectedSkill" layoutX="100.0" layoutY="298.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" prefWidth="126.0" promptText="Quantity of skill" styleClass="form-input" />
+      <Label alignment="TOP_LEFT" layoutX="42.0" layoutY="305.0" prefHeight="17.0" prefWidth="52.0" text="Quantity: " />
+      <Button layoutX="241.0" layoutY="297.0" mnemonicParsing="false" onAction="#btnAddSelectedSkillPlusQuantity" prefHeight="32.0" prefWidth="80.0" styleClass="form-btn" text="Add Skill" />
+      <ListView fx:id="lvSkillSetList" layoutX="40.0" layoutY="344.0" prefHeight="130.0" prefWidth="284.0" AnchorPane.leftAnchor="40.0" />
       <Group />
-      <Button layoutX="39.0" layoutY="522.0" mnemonicParsing="false" onAction="#btnGenerateAllTeamProposals" prefHeight="32.0" prefWidth="166.0" styleClass="form-btn" text="Generate all team proposals" AnchorPane.leftAnchor="39.0" />
-      <Text layoutX="352.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Generated team" textAlignment="CENTER" wrappingWidth="480.0">
+      <Button layoutX="44.0" layoutY="489.0" mnemonicParsing="false" onAction="#btnGenerateAllTeamProposals" prefHeight="32.0" prefWidth="144.0" styleClass="form-btn" text="Generate all teams" AnchorPane.leftAnchor="44.0" />
+      <Text layoutX="374.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Generated team" textAlignment="CENTER" wrappingWidth="458.0">
          <font>
             <Font name="Berlin Sans FB" size="18.0" />
          </font>
       </Text>
-      <Button layoutX="561.0" layoutY="497.0" mnemonicParsing="false" onAction="#btnAcceptTeam" prefHeight="32.0" prefWidth="126.0" styleClass="form-btn" text="Aceept Team" />
-      <Button layoutX="703.0" layoutY="497.0" mnemonicParsing="false" onAction="#btnDisplayOtherTeam" prefHeight="32.0" prefWidth="126.0" styleClass="form-btn" text="Display other team" />
-      <ListView fx:id="lvTeamGenerated" layoutX="362.0" layoutY="170.0" prefHeight="302.0" prefWidth="467.0" />
-      <Button layoutX="210.0" layoutY="522.0" mnemonicParsing="false" onAction="#btnRemoveSkillSet" prefHeight="32.0" prefWidth="109.0" styleClass="form-btn" text="Remove Skill Set" />
-      <Group layoutX="-28.0" layoutY="27.0">
+      <Button layoutX="703.0" layoutY="489.0" mnemonicParsing="false" onAction="#btnAcceptTeam" prefHeight="32.0" prefWidth="126.0" styleClass="form-btn" text="Aceept Team" />
+      <Button layoutX="566.0" layoutY="489.0" mnemonicParsing="false" onAction="#btnDisplayOtherTeam" prefHeight="32.0" prefWidth="126.0" styleClass="form-btn" text="Display other team" />
+      <ListView fx:id="lvTeamGenerated" layoutX="371.0" layoutY="159.0" prefHeight="315.0" prefWidth="458.0" />
+      <Button layoutX="205.0" layoutY="489.0" mnemonicParsing="false" onAction="#btnRemoveSkillSet" prefHeight="32.0" prefWidth="113.0" styleClass="form-btn" text="Remove Skill Set" />
+      <Group layoutX="-28.0" layoutY="17.0">
          <children>
             <Label fx:id="lblMinError" alignment="TOP_LEFT" layoutX="72.0" layoutY="118.0" prefHeight="17.0" prefWidth="130.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true">
                <font>
@@ -41,7 +41,7 @@
             <TextField fx:id="txtMinTeamSize" layoutX="70.0" layoutY="85.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" prefWidth="130.0" promptText="Minimum size" styleClass="form-input" />
          </children>
       </Group>
-      <Group layoutX="119.0" layoutY="27.0">
+      <Group layoutX="118.0" layoutY="17.0">
          <children>
             <Label fx:id="lblMaxError" alignment="TOP_LEFT" layoutX="72.0" layoutY="118.0" prefHeight="17.0" prefWidth="130.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true">
                <font>
@@ -52,18 +52,18 @@
             <TextField fx:id="txtMaxTeamSize" layoutX="70.0" layoutY="85.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" prefWidth="130.0" promptText="Maximum size" styleClass="form-input" />
          </children>
       </Group>
-      <Label fx:id="lblSkillSetQuantityError" alignment="TOP_LEFT" layoutX="102.0" layoutY="375.0" prefHeight="17.0" prefWidth="216.0" text="Quantity must be greater than 0." textFill="#dd2424" visible="false" wrapText="true">
+      <Label fx:id="lblSkillSetQuantityError" alignment="TOP_LEFT" layoutX="100.0" layoutY="329.0" prefHeight="17.0" prefWidth="216.0" text="Quantity must be greater than 0." textFill="#dd2424" visible="false" wrapText="true">
          <font>
             <Font size="9.0" />
          </font>
       </Label>
-      <Label fx:id="lblGenerateTeamError" alignment="TOP_LEFT" layoutX="362.0" layoutY="472.0" prefHeight="17.0" prefWidth="467.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true">
+      <Label fx:id="lblGenerateTeamError" alignment="TOP_LEFT" layoutX="371.0" layoutY="472.0" prefHeight="17.0" prefWidth="458.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true">
          <font>
             <Font size="9.0" />
          </font>
       </Label>
-      <Button layoutX="457.0" layoutY="497.0" mnemonicParsing="false" onAction="#btnClear" prefHeight="32.0" prefWidth="86.0" styleClass="form-btn" text="Clear" />
-      <Label fx:id="lblResult" layoutX="515.0" layoutY="149.0" text="Total teams generated: x" visible="false">
+      <Button layoutX="469.0" layoutY="489.0" mnemonicParsing="false" onAction="#btnClear" prefHeight="32.0" prefWidth="86.0" styleClass="form-btn" text="Clear" />
+      <Label fx:id="lblResult" layoutX="524.0" layoutY="139.0" text="Total teams generated: x" visible="false">
          <font>
             <Font size="14.0" />
          </font>
