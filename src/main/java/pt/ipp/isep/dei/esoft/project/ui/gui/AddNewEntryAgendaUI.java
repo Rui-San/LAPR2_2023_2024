@@ -12,6 +12,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import pt.ipp.isep.dei.esoft.project.controller.AddNewEntryAgendaController;
+import pt.ipp.isep.dei.esoft.project.dto.AgendaTaskDTO;
 import pt.ipp.isep.dei.esoft.project.dto.ToDoTaskWithStatusDTO;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.tools.Status;
@@ -65,6 +66,38 @@ public class AddNewEntryAgendaUI implements Initializable {
         statusColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().status));
 
         fillTableInformation();
+
+        taskTableView.setRowFactory(tv -> {
+            TableRow<ToDoTaskWithStatusDTO> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && !row.isEmpty()) {
+                    ToDoTaskWithStatusDTO selectedTask = row.getItem();
+                    showTaskDetailsPopup(selectedTask);
+                }
+            });
+            return row;
+        });
+
+
+
+    }
+
+    private void showTaskDetailsPopup(ToDoTaskWithStatusDTO task) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TodoTaskDetailsPopupScene.fxml"));
+            Parent root = loader.load();
+            TodoTaskDetailsPopupUI controller = loader.getController();
+            controller.initData(task);
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
     }
 
     private void fillTableInformation() {

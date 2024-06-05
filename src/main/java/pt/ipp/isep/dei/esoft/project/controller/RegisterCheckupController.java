@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.controller;
 
 
+import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
 import pt.ipp.isep.dei.esoft.project.domain.VehicleCheckup;
 import pt.ipp.isep.dei.esoft.project.repository.CheckupRepository;
@@ -85,4 +86,10 @@ public class RegisterCheckupController {
         return vehicleRepository.getVehicleList();
     }
 
+    public Optional<Vehicle> updateVehicleKms(String plateId, int newKms) {
+        Optional<Vehicle> updatedVehicle = Optional.empty();
+        updatedVehicle = vehicleRepository.updateVehicleKms(plateId,newKms);
+        return updatedVehicle;
+
+    }
 }

@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.esoft.project.repository;
 import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.tools.VehicleType;
 
+import javax.swing.plaf.basic.BasicOptionPaneUI;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -226,6 +227,19 @@ public class VehicleRepository implements Serializable {
                 System.out.println("Work period added to vehicle " + vehicle.getPlateId());
             }
         }
+    }
+
+    public Optional<Vehicle> updateVehicleKms(String plateId, int newKms) {
+
+        Optional<Vehicle> updatedVehicle = Optional.empty();
+
+        for (Vehicle vehicle : vehicleList){
+            if(vehicle.getPlateId().trim().equalsIgnoreCase(plateId)){
+                vehicle.setCurrentKm(newKms);
+                return Optional.of(vehicle);
+            }
+        }
+        return updatedVehicle;
     }
 }
 

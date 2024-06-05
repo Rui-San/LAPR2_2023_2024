@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="371.0" prefWidth="343.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.TeamDetailsPopupUI">
+    <children>
+        <Text layoutX="20.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Team Detailed Information" textAlignment="CENTER" wrappingWidth="303.0078125">
+            <font>
+                <Font name="Berlin Sans FB" size="25.0" />
+            </font>
+        </Text>
+        <Group layoutX="37.0" layoutY="91.0">
+            <children>
+                <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="80.0" prefWidth="260.0" fitToWidth="true">
+                    <content>
+                        <Label fx:id="lblCollaborators" prefWidth="250.0" wrapText="true" />
+                    </content>
+                </ScrollPane>
+                <Label layoutY="-22.0" prefHeight="25.0" prefWidth="250.0" text="Collaborators" />
+            </children>
+        </Group>
+        <Button layoutX="115.0" layoutY="305.0" mnemonicParsing="false" onAction="#btnExit" prefHeight="40.0" prefWidth="114.0" styleClass="form-btn" text="Exit" />
+        <Group layoutX="37.0" layoutY="202.0">
+            <children>
+                <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="80.0" prefWidth="260.0" fitToWidth="true" vbarPolicy="ALWAYS">
+                    <content>
+                        <Label fx:id="lblSkills" prefWidth="250.0" wrapText="true" />
+                    </content>
+                </ScrollPane>
+                <Label layoutY="-22.0" prefHeight="25.0" prefWidth="250.0" text="List of Skills" />
+            </children>
+        </Group>
+    </children>
+</AnchorPane>
