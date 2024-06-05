@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.controller.*;
+import pt.ipp.isep.dei.esoft.project.domain.TaskDuration;
 import pt.ipp.isep.dei.esoft.project.domain.Team;
 import pt.ipp.isep.dei.esoft.project.dto.AgendaTaskDTO;
 import pt.ipp.isep.dei.esoft.project.dto.TeamDTO;
@@ -17,6 +18,8 @@ import pt.ipp.isep.dei.esoft.project.dto.ToDoTaskWithStatusDTO;
 import pt.ipp.isep.dei.esoft.project.dto.VehicleDTO;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.tools.Status;
+import pt.ipp.isep.dei.esoft.project.tools.TaskDurationFormatter;
+import pt.ipp.isep.dei.esoft.project.tools.TaskStartDateFormatter;
 
 import java.io.IOException;
 import java.net.URL;
@@ -38,7 +41,7 @@ public class AgendaUI implements Initializable {
     @FXML
     private TableView<AgendaTaskDTO> tbTasks;
     @FXML
-    private TableColumn<AgendaTaskDTO, String> tcTitle, tcType, tcStatus, tcUrgency, tcTeamsAssigned, tcVehiclesAssigned;
+    private TableColumn<AgendaTaskDTO, String> tcTitle, tcType, tcStatus, tcUrgency, tcTeamsAssigned, tcVehiclesAssigned, tcGreenSpace, tcDate;
 
     @FXML
     private Label lblError;
@@ -46,12 +49,26 @@ public class AgendaUI implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         tcTitle.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().title));
+        tcGreenSpace.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().greenSpaceName));
         tcType.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().taskType.toString()));
         tcStatus.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().status.toString()));
         tcUrgency.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().urgency.toString()));
         tcTeamsAssigned.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().isTeamAssigned));
+        tcDate.setCellValueFactory(cellData -> new SimpleStringProperty(TaskStartDateFormatter.getFormattedStartDateTime(cellData.getValue().workStartDate,cellData.getValue().workStartHour,cellData.getValue().workStartMinutes)));
         tcVehiclesAssigned.setCellValueFactory(cellData -> new SimpleStringProperty(Integer.toString(cellData.getValue().vehiclesAssigned)));
         fillTaskTable();
+
+
+        tbTasks.setRowFactory(tv -> {
+            TableRow<AgendaTaskDTO> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && !row.isEmpty()) {
+                    AgendaTaskDTO selectedTask = row.getItem();
+                    showTaskDetailsPopup(selectedTask);
+                }
+            });
+            return row;
+        });
     }
 
     private void fillTaskTable() {
@@ -263,6 +280,24 @@ public class AgendaUI implements Initializable {
             return true;
         }
         return true;
+    }
+
+    private void showTaskDetailsPopup(AgendaTaskDTO task) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TaskDetailsPopupScene.fxml"));
+            Parent root = loader.load();
+            TaskDetailsPopupUI controller = loader.getController();
+            controller.initData(task);
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle error loading FXML
+        }
     }
 
 }

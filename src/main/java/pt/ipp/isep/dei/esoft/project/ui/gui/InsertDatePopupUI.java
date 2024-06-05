@@ -53,6 +53,9 @@ public class InsertDatePopupUI {
                     displayErrorLayout(txtHours, lblTimeError, "Hours must be within 08:00-12:00 or 13:00-17:00");
                     return false;
                 }
+            }else{
+                displayErrorLayout(txtHours, lblTimeError, "Hours must not be empty");
+                return false;
             }
 
 

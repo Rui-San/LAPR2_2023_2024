@@ -30,48 +30,54 @@
     </top>
     <center>
         <BorderPane prefHeight="428.0" prefWidth="794.0" BorderPane.alignment="CENTER">
-            <center>
-                <TableView fx:id="tbTasks" prefHeight="361.0" prefWidth="798.0" BorderPane.alignment="CENTER">
+            <bottom>
+                <AnchorPane prefHeight="94.0" prefWidth="798.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <Button layoutX="1.0" layoutY="22.0" mnemonicParsing="false" onAction="#btnAssignTeam" prefHeight="57.0" prefWidth="200.0" text="Assign Team">
+                            <styleClass>
+                                <String fx:value="form-btn" />
+                                <String fx:value="remove-border-radius-right" />
+                            </styleClass></Button>
+                        <Button layoutX="200.0" layoutY="22.0" mnemonicParsing="false" onAction="#btnAssignVehicles" prefHeight="57.0" prefWidth="200.0" text="Assign Vehicle">
+                            <styleClass>
+                                <String fx:value="form-btn" />
+                                <String fx:value="remove-border-radius" />
+                            </styleClass></Button>
+                        <Button layoutX="399.0" layoutY="22.0" mnemonicParsing="false" onAction="#btnPostponeTask" prefHeight="57.0" prefWidth="200.0" text="Postpone Task">
+                            <styleClass>
+                                <String fx:value="form-btn" />
+                                <String fx:value="remove-border-radius" />
+                            </styleClass></Button>
+                        <Button layoutX="598.0" layoutY="22.0" mnemonicParsing="false" onAction="#btnCancelTask" prefHeight="57.0" prefWidth="200.0" text="Cancel Task">
+                            <styleClass>
+                                <String fx:value="form-btn" />
+                                <String fx:value="remove-border-radius-left" />
+                            </styleClass></Button>
+                        <Label fx:id="lblError" layoutY="2.0" prefHeight="17.0" prefWidth="792.0" text="Label" textFill="#dd2424" visible="false" />
+                    </children>
+                </AnchorPane>
+            </bottom>
+            <top>
+                <TableView fx:id="tbTasks" prefHeight="361.0" prefWidth="798.0" styleClass="tb-tasks" BorderPane.alignment="CENTER">
                     <columns>
-                        <TableColumn fx:id="tcTitle" prefWidth="171.0" sortable="false" text="Title" />
-                        <TableColumn fx:id="tcType" prefWidth="114.0" text="Type" />
-                        <TableColumn fx:id="tcStatus" prefWidth="110.0" text="Status" />
-                        <TableColumn fx:id="tcUrgency" prefWidth="122.0" text="Urgency" />
-                        <TableColumn fx:id="tcTeamsAssigned" prefWidth="137.0" text="Team Assigned" />
-                        <TableColumn fx:id="tcVehiclesAssigned" prefWidth="139.0" text="Nº Vehicles Assigned" />
+                        <TableColumn fx:id="tcTitle" minWidth="20.0" prefWidth="140.0" sortable="false" text="Title" />
+                        <TableColumn fx:id="tcGreenSpace" minWidth="20.0" prefWidth="140.0" text="Green Space" />
+                        <TableColumn fx:id="tcType" minWidth="20.0" prefWidth="96.0" text="Type" />
+                        <TableColumn fx:id="tcStatus" minWidth="20.0" prefWidth="95.0" text="Status" />
+                        <TableColumn fx:id="tcUrgency" minWidth="20.0" prefWidth="70.0" text="Urgency" />
+                        <TableColumn fx:id="tcDate" minWidth="20.0" prefWidth="125.0" text="Date" />
+                        <TableColumn fx:id="tcTitle1" minWidth="40.0" prefWidth="120.0" sortable="false" text="Assigned?">
+                            <columns>
+                                <TableColumn fx:id="tcTeamsAssigned" minWidth="20.0" prefWidth="60.0" text="Team" />
+                                <TableColumn fx:id="tcVehiclesAssigned" minWidth="20.0" prefWidth="60.0" text="Vehicles" />
+                            </columns>
+                        </TableColumn>
                     </columns>
                     <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                     </columnResizePolicy>
                 </TableView>
-            </center>
-            <bottom>
-                <AnchorPane prefHeight="94.0" prefWidth="798.0" BorderPane.alignment="CENTER">
-                    <children>
-                        <Button layoutX="1.0" layoutY="22.0" mnemonicParsing="false" onAction="#btnAssignTeam" prefHeight="57.0" prefWidth="200.0" text="Assign Team">
-                     <styleClass>
-                        <String fx:value="form-btn" />
-                        <String fx:value="remove-border-radius-right" />
-                     </styleClass></Button>
-                        <Button layoutX="200.0" layoutY="22.0" mnemonicParsing="false" onAction="#btnAssignVehicles" prefHeight="57.0" prefWidth="200.0" text="Assign Vehicle">
-                     <styleClass>
-                        <String fx:value="form-btn" />
-                        <String fx:value="remove-border-radius" />
-                     </styleClass></Button>
-                        <Button layoutX="399.0" layoutY="22.0" mnemonicParsing="false" onAction="#btnPostponeTask" prefHeight="57.0" prefWidth="200.0" text="Postpone Task">
-                     <styleClass>
-                        <String fx:value="form-btn" />
-                        <String fx:value="remove-border-radius" />
-                     </styleClass></Button>
-                        <Button layoutX="598.0" layoutY="22.0" mnemonicParsing="false" onAction="#btnCancelTask" prefHeight="57.0" prefWidth="200.0" text="Cancel Task">
-                     <styleClass>
-                        <String fx:value="form-btn" />
-                        <String fx:value="remove-border-radius-left" />
-                     </styleClass></Button>
-                  <Label fx:id="lblError" layoutY="2.0" prefHeight="17.0" prefWidth="792.0" text="Label" textFill="#dd2424" visible="false" />
-                    </children>
-                </AnchorPane>
-            </bottom>
+            </top>
         </BorderPane>
     </center>
 </BorderPane>

@@ -265,3 +265,11 @@
 .table-view:focused .table-row-cell:filled:selected .table-cell {
     -fx-border-color: transparent; /* Remove the focus border */
 }
+
+.tb-tasks .table-row-cell .cell {
+    -fx-font-size: 12px;
+}
+
+.tb-tasks-todo .table-row-cell .cell {
+    -fx-font-size: 12px;
+}

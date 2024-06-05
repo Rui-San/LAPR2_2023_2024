@@ -67,4 +67,13 @@ public class TaskDurationFormatter implements Serializable {
 
         return stringBuilder.toString();
     }
+
+    public static String toStringDaysHoursMinutes(int totalMinutes) {
+        int days = totalMinutes / (24 * 60);
+        int remainingMinutes = totalMinutes % (24 * 60);
+        int hours = remainingMinutes / 60;
+        int minutes = remainingMinutes % 60;
+
+        return toStringDaysHoursMinutes(days, hours, minutes);
+    }
 }
