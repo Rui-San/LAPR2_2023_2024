@@ -20,6 +20,8 @@ participant "teamRepository\n:TeamRepository" as TeamRepo
 participant "vehicleRepository\n:VehicleRepository" as VehicleRepo
 participant ":Task" as NewTask
 participant "newTask:Task" as NewTaskTask
+participant "team\n:Team" as Team
+participant "vehicle\n:Vehicle" as Vehicle
 
 activate GSM
 
@@ -131,11 +133,29 @@ end loop
             CTRL -> TeamRepo : postponeWorkPeriods(task, oldWorkPeriod, newWorkPeriod)
             activate TeamRepo
 
+                TeamRepo -> Team : removeWorkPeriodIfExists(oldWorkPeriod)
+                activate Team
+
+                    Team --> TeamRepo : operation success
+                deactivate Team
+
                 TeamRepo --> CTRL : operation success
             deactivate TeamRepo
 
             CTRL -> VehicleRepo : postponeWorkPeriods(task, oldWorkPeriod, newWorkPeriod)
             activate VehicleRepo
+
+                VehicleRepo --> VehicleRepo : removeWorkPeriodFromVehicle(postponedTask, oldWorkPeriod)
+                loop for every vehicle in vehicles assigned to task
+                activate VehicleRepo
+
+                    VehicleRepo -> Vehicle : removeWorkPeriodIfExists(oldWorkPeriod)
+                    activate Vehicle
+
+                        Vehicle --> VehicleRepo : operation success
+                    deactivate Vehicle
+                deactivate VehicleRepo
+                end loop
 
                 VehicleRepo --> CTRL : operation success
             deactivate VehicleRepo
