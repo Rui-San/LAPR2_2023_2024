@@ -6,38 +6,139 @@ skinparam shadowing false
 title US029 - Sequence Diagram
 
 autonumber
+
 actor "Collaborator" as Collaborator
 participant ":ListCollaboratorTasksUI" as UI
+participant ":ListCollaboratorTasksController" as LIST_CTRL
 participant ":CompleteTaskController" as CTRL
-participant ":AgendaRepository" as REPO
+
+participant ":Repositories" as REPO
+participant "repositories\n:Repositories" as REPOInstance
+participant "agendaRepository\n:AgendaRepository" as AgendaRepository
+participant "teamRepository\n:TeamRepository" as TeamRepository
+participant "vehicleRepository\n:VehicleRepository" as VehicleRepository
+
 participant ":Task" as Task
+participant ":Team" as Team
+participant ":Vehicle" as Vehicle
 
 activate Collaborator
-activate UI
 
-loop until the collaborator shows a valid task
-Collaborator -> UI: asks to record the completion of a task(selectedTask)
-UI -> Collaborator: asks the confirmation of the operation
-Collaborator -> UI: Confirms the operation
+    Collaborator -> UI : Asks to record the completion of a task
+    activate UI
 
+    UI -> LIST_CTRL : getCollaboratorTasks()
+    activate LIST_CTRL
+
+   ref over LIST_CTRL
+   SD_getCollaboratorTaskDTOList
+
+   end ref
+
+   LIST_CTRL --> UI : collaboratorTaskDTOList
+
+   deactivate LIST_CTRL
+
+loop until doesn't select a valid option
+        UI --> Collaborator : Shows the tasks assigned to the collaborator \nand asks to select one
+    deactivate UI
+
+    Collaborator -> UI : Selects one task
+    activate UI
+        UI --> UI : validate selected option
 end loop
+        UI --> UI: keepData(selectedTask)
 
-UI -> CTRL: completeTaskAgenda(selectedTask)
+        UI --> Collaborator : Asks for confirm the operation
+        deactivate UI
+        Collaborator -> UI: Confirms the operation
+        activate UI
+        |||
+        UI -> CTRL : completeTaskAgenda(selectedTask)
 
-activate CTRL
-CTRL -> REPO: updateTaskToDone(selectedTask)
+        activate CTRL
+        CTRL -> REPO : getInstance()
+            activate REPO
 
-    activate REPO
-    REPO -> Task: sets task status to Done
-    deactivate REPO
+            REPO --> CTRL : repositories
+            deactivate REPO
+            CTRL -> REPOInstance: getAgendaRepository()
 
-activate Task
+            activate REPOInstance
+
+            REPOInstance --> CTRL : agendaRepository
+            deactivate REPOInstance
+
+            CTRL -> AgendaRepository : updateTaskToDone(title, greenSpaceName, workStartDate, status)
+            activate AgendaRepository
+
+            AgendaRepository -> Task** : setStatus(Status.DONE)
+            |||
+            AgendaRepository --> CTRL : completedTask
+            deactivate AgendaRepository
+        |||
 
 
-Task -> UI: Displays operation success
-deactivate CTRL
-UI -> Collaborator: Displays operation success
+            alt completedTask has team assigned
 
-deactivate Task
+                CTRL -> REPO : getInstance()
+                activate REPO
+
+                REPO --> CTRL : repositories
+                deactivate REPO
+                CTRL -> REPOInstance: getTeamRepository()
+
+                activate REPOInstance
+
+                REPOInstance --> CTRL : teamRepository
+                deactivate REPOInstance
+
+                CTRL -> TeamRepository : removeWorkPeriodFromTeam(completedTask, completedTask.getTaskWorkPeriod())
+                activate TeamRepository
+
+                TeamRepository -> Team** : removeWorkPeriodIfExists(workPeriod)
+
+                TeamRepository --> CTRL : team work periods successfully removed
+                deactivate TeamRepository
+
+            end
+            |||
+            alt completedTask has vehicles assigned
+
+                    CTRL -> REPO : getInstance()
+                    activate REPO
+
+                    REPO --> CTRL : repositories
+                    deactivate REPO
+                    CTRL -> REPOInstance: getVehicleRepository()
+
+                    activate REPOInstance
+
+                    REPOInstance --> CTRL : vehicleRepository
+                    deactivate REPOInstance
+
+                    CTRL -> VehicleRepository : removeWorkPeriodFromVehicle(completedTask, completedTask.getTaskWorkPeriod())
+                    activate VehicleRepository
+
+                    loop for each vehicle assigned to the task
+
+                    VehicleRepository -> Vehicle** : removeWorkPeriodIfExists(workPeriod)
+                    |||
+                    end loop
+                    VehicleRepository --> CTRL : vehicle's work periods successfully removed
+                    deactivate VehicleRepository
+
+                end
+
+                CTRL --> UI: operation success
+                deactivate CTRL
+
+
+
+
+
+
+        UI --> Collaborator : Displays operation success
+    deactivate UI
 
 @enduml

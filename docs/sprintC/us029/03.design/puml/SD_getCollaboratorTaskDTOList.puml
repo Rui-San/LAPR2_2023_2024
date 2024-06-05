@@ -1,0 +1,89 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title SD_getCollaboratorTaskDTOList
+
+autonumber
+
+participant ":AgendaController" as LIST_CTRL
+
+participant ":ApplicationSession" as APP
+participant "singleton\n:ApplicationSession" as APPSingleton
+participant "userSession\n:UserSession" as UserSession
+participant "userID\n:Email" as Email
+
+participant ":Repositories" as REPO
+participant "repositories\n:Repositories" as REPOInstance
+participant "agendaRepository\n:AgendaRepository" as AgendaRepository
+
+activate LIST_CTRL
+
+    LIST_CTRL -> APP : getInstance()
+    activate APP
+
+        APP --> LIST_CTRL : singleton
+    deactivate APP
+
+    LIST_CTRL -> APPSingleton : getUserSession()
+    activate APPSingleton
+
+        APPSingleton --> LIST_CTRL : userSession
+    deactivate APPSingleton
+
+    LIST_CTRL -> UserSession : getUserId()
+    activate UserSession
+
+        UserSession --> LIST_CTRL : userId
+    deactivate UserSession
+
+    LIST_CTRL -> Email : getEmail()
+    activate Email
+
+        Email --> LIST_CTRL : email
+    deactivate Email
+
+    LIST_CTRL -> LIST_CTRL : collaboratorEmail
+    |||
+
+    LIST_CTRL -> REPO : getInstance()
+    activate REPO
+
+        REPO --> LIST_CTRL : repositories
+    deactivate REPO
+
+    LIST_CTRL -> REPOInstance : getAgendaRepository()
+    activate REPOInstance
+
+        REPOInstance --> LIST_CTRL : agendaRepository
+    deactivate REPOInstance
+
+    LIST_CTRL -> AgendaRepository : getCollbaboratorSpecificAgenda(collaboratorEmail)
+    activate AgendaRepository
+
+        AgendaRepository --> LIST_CTRL : collaboratorTasks
+
+    deactivate AgendaRepository
+    |||
+    |||
+    
+    LIST_CTRL -> AgendaMapper : toDTOList(collaboratorTasks)
+                activate AgendaMapper
+
+                loop for each task in collaboratorTasks
+                AgendaMapper -> AgendaTaskDTO** : toDTO(task)
+    
+                |||
+                AgendaMapper -> AgendaMapper : agendaTaskDTOList.add(agendaTaskDTO)
+                |||
+                end
+                AgendaMapper --> LIST_CTRL : agendaTaskDTOList
+                deactivate AgendaMapper
+
+                |||
+
+
+deactivate LIST_CTRL
+
+@enduml
