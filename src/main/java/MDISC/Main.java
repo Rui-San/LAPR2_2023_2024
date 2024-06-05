@@ -10,68 +10,15 @@ public class Main {
     private static final String CSV_SEPARATOR = ";";
     static final String CSS = "graph {padding: 75px;} node {text-alignment: under;} edge {text-size: 15px; text-color: #000000;}";
 
-    private final static File us17_matrix = new File(System.getProperty("user.dir") + "/math_resources/us17_resources/" + "US17_matrix.csv");
-    private final static File us17_vertexes = new File(System.getProperty("user.dir") + "/math_resources/us17_resources/" + "US17_points_names.csv");
-
-    private final static File us18_matrix = new File(System.getProperty("user.dir") + "/math_resources/us18_resources/" + "US18_matrix.csv");
-    private final static File us18_vertexes = new File(System.getProperty("user.dir") + "/math_resources/us18_resources/" + "US18_points_names.csv");
-
-    private static Map<Vertex, Integer> distance = new HashMap<>();
-    private static Map<Vertex, Vertex> previous = new HashMap<>();
-
     public static void main(String[] args) {
 
-        // US 17
-        Graph us17Graph = readGraph(us17_matrix, us17_vertexes);
+        System.out.println("---- GSM - Emergency Plans ----");
+        US17.run();
+        US18.run();
 
-        int us17_AP = 0;
-        for(int i = 0; i < us17Graph.getVertexes().size(); i++){
-            if(us17Graph.getVertexes().get(i).getName().equals("AP")){
-                us17_AP = i;
-            }
-        }
-        DijkstraAlgorithm(us17Graph, us17Graph.getVertexes().get(us17_AP));
-
-        Graph us17_minimalGraph = createMinimalGraph(distance, previous, us17Graph);
-
-        generateSvgOutput(us17Graph.getEdges(), us17_minimalGraph.getEdges(), "us17_output");
-        generateCsvOutput(us17Graph, distance, previous, us17Graph.getVertexes().get(us17_AP), "us17_output");
-        // ----------
-
-        // US 18
-        previous.clear();
-        distance.clear();
-
-        Map<Vertex, Integer> distanceDefinitive = new HashMap<>();
-        Map<Vertex, Vertex> previousDefinitive = new HashMap<>();
-
-        Graph us18Graph = readGraph(us18_matrix, us18_vertexes);
-        List<Vertex> us18_APs = new ArrayList<>();
-        for(Vertex vertex : us18Graph.getVertexes()){
-            Pattern pattern = Pattern.compile("AP[0-9]+");
-            if(pattern.matcher(vertex.getName()).matches()){
-                us18_APs.add(vertex);
-            }
-        }
-
-        for(Vertex vertexI : us18_APs){
-            DijkstraAlgorithm(us18Graph, vertexI);
-            for(Vertex vertexJ : us18Graph.getVertexes()){
-                if(distanceDefinitive.get(vertexJ) == null || distanceDefinitive.get(vertexJ) > distance.get(vertexJ)){
-                    distanceDefinitive.put(vertexJ, distance.get(vertexJ));
-                    previousDefinitive.put(vertexJ, previous.get(vertexJ));
-                }
-            }
-        }
-
-        Graph us18_minimalGraph = createMinimalGraph(distanceDefinitive, previousDefinitive, us18Graph);
-        generateSvgOutput(us18Graph.getEdges(), us18_minimalGraph.getEdges(), "us18_output");
-        //generateCsvOutput(us18Graph, distanceDefinitive, previousDefinitive, us17Graph.getVertexes().get(us17_AP), "us18_output");
-
-        // ----------
     }
 
-    public static void DijkstraAlgorithm(Graph graph, Vertex source) {
+    public static void DijkstraAlgorithm(Graph graph,Map<Vertex, Integer> distance, Map<Vertex, Vertex> previous, Vertex source) {
 
         List<Vertex> visited = new ArrayList<>();
 
@@ -99,11 +46,11 @@ public class Main {
                 }
             }
             visited.add(visiting);
-            visiting = getMinDistanceVertex(graph, visited);
+            visiting = getMinDistanceVertex(graph, distance, visited);
         }
     }
 
-    private static Vertex getMinDistanceVertex(Graph graph, List<Vertex> visited) {
+    public static Vertex getMinDistanceVertex(Graph graph, Map<Vertex, Integer> distance, List<Vertex> visited) {
         Vertex nextVertex = null;
         for(Vertex vertex : graph.getVertexes()){
             if(!visited.contains(vertex)){
@@ -118,7 +65,7 @@ public class Main {
         return nextVertex;
     }
 
-    private static Graph readGraph(File matrixFile, File vertexesFile) {
+    public static Graph readGraph(File matrixFile, File vertexesFile) {
 
         List<Vertex> vertices = new ArrayList<>();
         List<Edge> edges = new ArrayList<>();
@@ -160,7 +107,7 @@ public class Main {
         return new Graph(vertices, edges);
     }
 
-    private static Graph createMinimalGraph(Map<Vertex, Integer> distance, Map<Vertex, Vertex> previous, Graph graph) {
+    public static Graph createMinimalGraph(Map<Vertex, Integer> distance, Map<Vertex, Vertex> previous, Graph graph) {
         List<Vertex> vertices = new ArrayList<>();
         List<Edge> edges = new ArrayList<>();
 
@@ -177,26 +124,31 @@ public class Main {
         return new Graph(vertices, edges);
     }
 
-    public static void generateSvgOutput(List<Edge> initialGraphEdges, List<Edge> minimalSpanningTreeEdges, String title)                  {
+    public static void generateSvgOutput(List<Edge> path, Vertex fromVertex, String usPath){
         try {
             String directoryPath = "src/main/java/MDISC/output";
             File directory = new File(directoryPath);
+            File directoryUS = new File(directoryPath + "/" + usPath);
 
             if (!directory.exists()) {
-                directory.mkdirs();
+                directory.mkdir();
             }
 
-            FileWriter writer = new FileWriter(directoryPath + "/" + title + "_graph.dot");
+            if(!directoryUS.exists()){
+                directoryUS.mkdir();
+            }
+
+            FileWriter writer = new FileWriter(directoryPath + "/" + usPath + "_graph.dot");
 
             writer.write("graph {\n");
             writer.write("labelloc=\"t\";\n"); // Position the label at the top
-            writer.write("label=\"" + title + "\";\n"); // Set the label
+            writer.write("label=\"" + fromVertex + "\";\n"); // Set the label
             writer.write("fontsize=25;\n"); // Set the font size of the title
             writer.write("fontweight=bold;\n"); // Set the font weight of the title
 
-            for (Edge edge : initialGraphEdges) {
-                String color = minimalSpanningTreeEdges.contains(edge) ? "red" : "black";
-                String penwidth = minimalSpanningTreeEdges.contains(edge) ? "4.0" : "1.0";
+            for (Edge edge : path) {
+                String color = "red";
+                String penwidth = "2.0";
                 writer.write("    " + edge.getVertexFrom().getName() + " -- " + edge.getVertexTo().getName() + " [label=\"" + edge.getWeight() + "\", color=\"" + color + "\", len=2, penwidth=" + penwidth + "];\n");
             }
 
@@ -204,8 +156,12 @@ public class Main {
             writer.close();
             try {
                 // Use neato layout engine
-                Runtime.getRuntime().exec("neato -Tsvg " + directoryPath + "/" + title + "_graph.dot -o " + directoryPath + "/" + title + ".svg");
-            } catch (IOException e) {
+                Runtime.getRuntime().exec("neato -Tsvg " + directoryPath + "/" + usPath + "_graph.dot -o " + directoryUS + "/" + fromVertex + ".svg").waitFor();
+                File dotFile = new File(directoryPath + "/" + usPath + "_graph.dot");
+                if(dotFile.exists()){
+                    dotFile.deleteOnExit();
+                }
+            } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }
         } catch (IOException e) {
@@ -213,7 +169,7 @@ public class Main {
         }
     }
 
-    private static void generateCsvOutput(Graph graph, Map<Vertex, Integer> distance, Map<Vertex, Vertex> previous, Vertex source, String title) {
+    public static void generateCsvOutput(Graph graph, Map<Vertex, Integer> distance, Map<Vertex, Vertex> previous, List<Vertex> sources, String title) {
         File outputFolder = new File(System.getProperty("user.dir") + "/src/main/java/MDISC/output");
         if(!outputFolder.exists()){
             outputFolder.mkdirs();
@@ -221,16 +177,11 @@ public class Main {
         try{
             FileWriter writer = new FileWriter(outputFolder + "/" + title + ".csv");
             for(Vertex vertex : graph.getVertexes()){
-                if(vertex != source){
+                if(!sources.contains(vertex)){
                     StringBuilder path = new StringBuilder();
                     path.append("(");
-                    Vertex currentVertex = vertex;
-                    while(!currentVertex.equals(source)){
-                        path.append(currentVertex.getName()).append(";");
-                        currentVertex = previous.get(currentVertex);
-                    }
-                    path.append(source.getName()).append("); ");
-                    path.append(distance.get(vertex)).append("\n");
+                    path.append(shortestPathToString(vertex, sources, distance, previous));
+                    path.append("\n");
                     writer.write(path.toString());
                 }
              }
@@ -241,4 +192,19 @@ public class Main {
 
 
     }
+
+    public static String shortestPathToString(Vertex vertex, List<Vertex> sources, Map<Vertex, Integer> distance , Map<Vertex, Vertex> previous){
+        String shortestPath = "";
+        Vertex currentVertex = vertex;
+        Vertex sourceOfVertex = null;
+        while(!sources.contains(currentVertex)){
+            shortestPath += currentVertex.getName() + ";";
+            currentVertex = previous.get(currentVertex);
+            sourceOfVertex = currentVertex;
+        }
+        shortestPath += sourceOfVertex + "); ";
+        shortestPath += distance.get(vertex);
+        return shortestPath;
+    }
+
 }
