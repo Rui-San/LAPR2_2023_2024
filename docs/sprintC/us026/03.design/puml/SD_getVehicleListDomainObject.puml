@@ -1,0 +1,70 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title SD_getVehicleListDomainObject
+
+autonumber
+
+
+
+participant ":AssignTeamToEntryAgendaController" as CTRL
+
+participant ":VehicleMapper" as VehicleMapper
+participant ":Repositories" as REPO
+participant "repositories\n:Repositories" as REPOInstance
+participant "vehicleRepository\n:VehicleRepository" as VehicleRepository
+
+
+
+
+
+
+
+
+
+    activate CTRL
+
+
+    CTRL -> VehicleMapper : toDomainList(selectedVehiclesDTO)
+    activate VehicleMapper
+
+    VehicleMapper -> REPO : getInstance()
+        activate REPO
+
+            REPO --> VehicleMapper : repositories
+        deactivate REPO
+
+        VehicleMapper -> REPOInstance : getVehicleRepository()
+        activate REPOInstance
+
+            REPOInstance --> VehicleMapper : vehicleRepository
+        deactivate REPOInstance
+
+        loop for each vehicleDTO in (selectedVehiclesDTO)
+
+        VehicleMapper -> VehicleRepository : getVehicleByPlateId(vehicleDTO.plateID)
+        activate VehicleRepository
+
+            VehicleRepository --> VehicleMapper : vehicle
+        deactivate VehicleRepository
+
+
+        VehicleMapper --> VehicleMapper : vehicleList.add(vehicle)
+
+        end loop
+
+        VehicleMapper --> CTRL : vehicleList
+
+
+    deactivate VehicleMapper
+
+
+
+
+
+
+
+
+@enduml

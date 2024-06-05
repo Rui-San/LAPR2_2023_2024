@@ -3,7 +3,7 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title US026 - System Sequence Diagram (SSD)
+title US026 - Sequence Diagram
 
 autonumber
 
@@ -12,6 +12,10 @@ actor "Green Space\nManager" as GSM
 participant ":AgendaUI" as UI
 participant ":SelectVehiclesPopupUI" as POPUP
 participant ":AgendaController" as AGENDA_CTRL
+participant ":AssignVehiclesToEntryAgendaController" as CTRL
+participant ":Repositories" as REPO
+participant "repositories\n:Repositories" as REPOInstance
+participant "agendaRepository\n:AgendaRepository" as AgendaRepository
 
 activate GSM
 
@@ -44,6 +48,19 @@ end loop
     UI -> POPUP : Shows the popup with the list of vehicles
     deactivate UI
     activate POPUP
+
+    POPUP -> CTRL : getVehicles()
+    activate CTRL
+
+    ref over CTRL
+    SD_getVehicleListDTO
+
+    end ref
+
+    CTRL --> POPUP : vehicleListDTO
+    deactivate CTRL
+
+
     |||
     loop until doesn't choose to advance
     POPUP --> GSM: Shows the list of vehicles and asks to select the vehicles needed
@@ -54,17 +71,65 @@ activate POPUP
 POPUP --> POPUP : validates selected option
 end loop
 |||
-POPUP --> UI : the list of selected vehicles to main UI
+POPUP --> UI : Sends the list of selected vehicles to main UI
 deactivate POPUP
 activate UI
     |||
     UI --> UI : keepData(List<Vehicle> selectedVehicles)
     |||
-    UI -> UI : adds the selected vehicles to\nthe selected entry of Agenda.
-    |||
+    UI -> CTRL : assignVehiclesToTaskAgenda(agendaTaskDTO, selectedVehiclesDTO)
+
+    activate CTRL
+    ref over CTRL
+        SD_getVehicleListDomainObject
+
+        end ref
+        CTRL -> CTRL : vehicleList
+
+        CTRL -> REPO : getInstance()
+                                activate REPO
+
+                                    REPO --> CTRL : repositories
+                                deactivate REPO
+                                CTRL -> REPOInstance: getAgendaRepository()
+
+                                activate REPOInstance
+
+                                    REPOInstance --> CTRL : agendaRepository
+                                deactivate REPOInstance
+
+                            CTRL -> AgendaRepository : assignVehiclesToTaskAgenda(title, greenSpaceName,\nworkStartDate, status, vehicleList)
+                            activate AgendaRepository
+                            AgendaRepository -> Task** : assignVehicles(vehicles)
+                                                activate Task
+                                                loop for each vehicle in the list
+
+                                                alt all vehicle are available
+
+                                                Task -> Vehicle** : addWorkPeriod(workPeriod)
+
+                                                else vehicles are not available
+
+                                                note over Task, Team
+                                                An error message will be shown indicating
+                                                   the selected vehicles are not available
+                                                end note
+                                                deactivate Task
+
+                                                end
+                                                end loop
+
+                                                AgendaRepository --> CTRL : task Optional
 
 
-    UI --> GSM: shows operation success
+                                                deactivate AgendaRepository
+                                                CTRL -> UI : operation success
+                                                deactivate CTRL
+
+
+
+
+    UI --> GSM: Displays operation success
 deactivate UI
 
 @enduml

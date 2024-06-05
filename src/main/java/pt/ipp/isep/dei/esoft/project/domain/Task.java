@@ -5,23 +5,63 @@ import pt.ipp.isep.dei.esoft.project.tools.TaskType;
 import pt.ipp.isep.dei.esoft.project.tools.UrgencyType;
 
 import java.io.Serializable;
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Task implements Serializable {
+
+    /**
+     * Title of the task
+     */
     private String title;
+    /**
+     * Description of the task
+     */
     private String description;
+    /**
+     * Type of the task
+     */
     private TaskType taskType;
+    /**
+     * Status of the task
+     */
     private Status status;
+    /**
+     * GreenSpace to which the task is associated
+     */
     private GreenSpace greenSpace;
+    /**
+     * Urgency of the task
+     */
     private UrgencyType urgency;
+    /**
+     * Expected duration of the task
+     */
     private TaskDuration expectedDuration;
+    /**
+     * Team assigned to the task
+     */
     private Team teamAssigned;
+    /**
+     * List of vehicles assigned to the task
+     */
     private List<Vehicle> vehiclesAssigned;
+    /**
+     * The work period of the task
+     */
     private WorkPeriod taskWorkPeriod;
 
-
+    /**
+     * Instantiates a new Task with only a few attributes.
+     * @param title the title
+     * @param description the description
+     * @param taskType the task type
+     * @param greenSpace the green space
+     * @param urgency the urgency
+     * @param days the days
+     * @param hours the hours
+     * @param minutes the minutes
+     */
     public Task(String title, String description, TaskType taskType, GreenSpace greenSpace, UrgencyType urgency, int days, int hours, int minutes) {
         setTitle(title);
         setDescription(description);
@@ -35,15 +75,27 @@ public class Task implements Serializable {
         this.vehiclesAssigned = new ArrayList<>();
     }
 
+    /**
+     * Gets the task title
+     * @return the title
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     * Sets the task title
+     * @param title the title
+     */
     public void setTitle(String title) {
         validateTitle(title);
         this.title = title;
     }
 
+    /**
+     * Validates the title
+     * @param title the title
+     */
     private void validateTitle(String title) {
         if (title == null || title.trim().isEmpty()) {
             throw new IllegalArgumentException("Title can't be empty or null.");
@@ -53,19 +105,35 @@ public class Task implements Serializable {
         }
     }
 
+    /**
+     * Gets the task description
+     * @return the description
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Gets the task type
+     * @return the task type
+     */
     public TaskType getTaskType() {
         return taskType;
     }
 
+    /**
+     * Sets the task description
+     * @param description the description
+     */
     public void setDescription(String description) {
         validateDescription(description);
         this.description = description;
     }
 
+    /**
+     * Validates the description
+     * @param description the description
+     */
     private void validateDescription(String description) {
         if (description == null || description.trim().isEmpty()) {
             throw new IllegalArgumentException("Description can't be empty or null.");
@@ -75,10 +143,18 @@ public class Task implements Serializable {
         }
     }
 
+    /**
+     * Gets the task status
+     * @return the status
+     */
     public Status getStatus() {
         return status;
     }
 
+    /**
+     * Sets the task status
+     * @param status the status
+     */
     public void setStatus(Status status) {
         if (validateStatus(status)) {
             this.status = status;
@@ -87,6 +163,10 @@ public class Task implements Serializable {
         }
     }
 
+    /**
+     * Sets the task type
+     * @param taskType the task type
+     */
     private void setTaskType(TaskType taskType) {
         if (validateTaskType(taskType)) {
             this.taskType = taskType;
@@ -95,10 +175,19 @@ public class Task implements Serializable {
         }
     }
 
+    /**
+     * Validates the task type
+     * @param taskType the task type
+     * @return true if the task type is valid, false otherwise
+     */
     private boolean validateTaskType(TaskType taskType) {
         return taskType == TaskType.REGULAR || taskType == TaskType.OCCASIONAL;
     }
 
+    /**
+     * Assigns a team to the task
+     * @param team the team
+     */
     public void assignTeam(Team team) {
         if(this.getTeamAssigned() != null){
             throw new IllegalArgumentException("This task already have a team assigned to.");
@@ -111,6 +200,10 @@ public class Task implements Serializable {
         }
     }
 
+    /**
+     * Assigns vehicles to the task
+     * @param vehicles the vehicles
+     */
     public void assignVehicles(List<Vehicle> vehicles) {
         boolean allAvailable = true;
         for (Vehicle vehicle : vehicles) {
@@ -126,58 +219,86 @@ public class Task implements Serializable {
         }
     }
 
+    /**
+     * Validates the status
+     * @param status the status
+     * @return true if the status is valid, false otherwise
+     */
     private boolean validateStatus(Status status) {
         return status == Status.DONE || status == Status.CANCELED || status == Status.PENDING || status == Status.PLANNED || status == Status.POSTPONED || status == Status.PROCESSED;
     }
 
+    /**
+     * Gets the task work period
+     * @return the work period
+     */
     public WorkPeriod getTaskWorkPeriod() {
         return taskWorkPeriod;
     }
 
+    /**
+     * Gets the green space
+     * @return the green space
+     */
     public GreenSpace getGreenSpace() {
         return greenSpace;
     }
 
+    /**
+     * Sets the green space
+     * @param greenSpace the green space
+     */
     public void setGreenSpace(GreenSpace greenSpace) {
         this.greenSpace = greenSpace;
     }
 
+    /**
+     * Gets the team assigned to the task
+     * @return the team assigned
+     */
     public Team getTeamAssigned() {
         return teamAssigned;
     }
 
+    /**
+     * Sets the team assigned to the task
+     * @param teamAssigned the team assigned
+     */
     public void setTeamAssigned(Team teamAssigned) {
         this.teamAssigned = teamAssigned;
     }
 
+    /**
+     * Gets the vehicles assigned to the task
+     * @return the vehicles assigned
+     */
     public List<Vehicle> getVehiclesAssigned() {
         return vehiclesAssigned;
     }
 
+    /**
+     * Sets the vehicles assigned to the task
+     * @param vehiclesAssigned the vehicles to be assigned
+     */
     public void setVehiclesAssigned(List<Vehicle> vehiclesAssigned) {
         this.vehiclesAssigned = vehiclesAssigned;
     }
 
-    /*
-    public Date getExecutionDate() {
-        return executionDate;
-    }
-
-    public void setExecutionDate(String executionDate) {
-        Date date = new Date(executionDate);
-        if (date.isPastDate()) {
-            throw new IllegalArgumentException("Execution date must be a future date.");
-        } else {
-            this.executionDate = date;
-        }
-    }
-
+    /**
+     * Gets the expected duration of the task
+     * @return the expected duration
      */
-
     public TaskDuration getExpectedDuration() {
         return expectedDuration;
     }
 
+    /**
+     * Sets the task work period
+     * @param executionDate the execution date
+     * @param workStartHour the work start hour
+     * @param workStartMinutes the work start minutes
+     * @param expectedDuration the expected duration
+     */
     public void setTaskWorkPeriod(String executionDate, int workStartHour, int workStartMinutes, TaskDuration expectedDuration) {
         Date execDate = new Date(executionDate);
         if (execDate.isPastDate()) {
@@ -196,66 +317,26 @@ public class Task implements Serializable {
 
     }
 
+    /**
+     * Sets the task work period
+     * @param workPeriod the work period
+     */
     public void setTaskWorkPeriod(WorkPeriod workPeriod){
         this.taskWorkPeriod = workPeriod;
     }
 
-    public void removeAssignedTeam(){
-        this.teamAssigned = null;
-    }
-
-    public void removeAssignedWorkPeriod(){
-        this.taskWorkPeriod = null;
-    }
-
-    public void removeAssignedVehicles(){
-        this.vehiclesAssigned = new ArrayList<>();
-    }
-
-    public void setExpectedDuration(int days, int hours, int minutes) {
-
-        this.expectedDuration = new TaskDuration(days, hours,minutes);
-    }
-/*
-    private void validateDuration(int expectedDuration) {
-
-        if(expectedDuration < 0){
-
-        long totalDays = expectedDuration.toDays();
-        long remainingHours = (expectedDuration.toHours() % 24);
-        long remainingMinutes = (expectedDuration.toMinutes() % 60);
-        if (totalDays < 0 || remainingHours < 0 || remainingMinutes < 0) {
-            throw new IllegalArgumentException("Days, hours, and minutes must be non-negative numbers.");
-        }
-        if (remainingHours >= 24 || remainingMinutes >= 60) {
-            throw new IllegalArgumentException("Duration exceeds maximum limits.");
-        }
-        long recalculatedHours = totalDays * 24 + remainingHours;
-        long recalculatedMinutes = recalculatedHours * 60 + remainingMinutes;
-        if (recalculatedMinutes != expectedDuration.toMinutes()) {
-            throw new IllegalArgumentException("Duration values are inconsistent.");
-        }
-        if (totalDays == 0 && recalculatedHours == 0 && remainingMinutes == 0) {
-            throw new IllegalArgumentException("At least one of the following must be higher than zero: days, hours, minutes");
-        }
-    }
-
- */
-
-    /*
-        public Date getEndExecutionDate() {
-            int totalMinutes = (int) expectedDuration.toMinutes();
-            int totalDays = totalMinutes / (12 * 60);
-            int remainingMinutes = totalMinutes % (12 * 60);
-            Date endDate = executionDate.addDays(totalDays);
-            endDate = endDate.addMinutes(remainingMinutes);
-            return endDate;
-        }
+    /**
+     * Gets the urgency of the task
+     * @return the urgency
      */
     public UrgencyType getUrgency() {
         return urgency;
     }
 
+    /**
+     * Sets the urgency of the task
+     * @param urgency the urgency
+     */
     public void setUrgency(UrgencyType urgency) {
         if (validateUrgency(urgency)) {
             this.urgency = urgency;
@@ -264,18 +345,19 @@ public class Task implements Serializable {
         }
     }
 
+    /**
+     * Validates the urgency
+     * @param urgency the urgency
+     * @return true if the urgency is valid, false otherwise
+     */
     private boolean validateUrgency(UrgencyType urgency) {
         return urgency == UrgencyType.HIGH || urgency == UrgencyType.MEDIUM || urgency == UrgencyType.LOW;
     }
 
-/*
-    public boolean isTeamAvailable(Team team, Date start, int startHour, int startMin, Duration expectedDuration) {
-        return team.isAvailable(start, startHour, startMin, expectedDuration);
-    }
-
-
- */
-
+    /**
+     * Returns a clone of the task
+     * @return the clone
+     */
     public Task clone(){
         Task newTask = new Task(this.title, this.description, this.taskType, this.greenSpace, this.urgency, this.expectedDuration.getDays(), this.expectedDuration.getHours(), this.expectedDuration.getMinutes());
         newTask.setStatus(this.status);

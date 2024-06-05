@@ -17,15 +17,24 @@ Done).
 
 **From the client clarifications:**
 
-> **Question:** 
+> **Question:** Can a Team be assigned to multiple entries?
 >
-> **Answer:** 
+> **Answer:** Yes.
+
+> **Question:** Can an Agenda entry have more than one team assigned to it?
+>
+> **Answer:** No.
+
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** All required fields must be filled in.
+* **AC1:** A task from agenda must be selected before assign the Team.
 * **AC2:** A message must be sent to all team members informing them about the assignment.
 * **AC3:** Different email services can send the message. These services must be defined through a configuration file to allow the use of different platforms (e.g. Gmail, DEI’s email service, etc.).
+* **AC4:** The same team cannot be in two tasks that occur in the same time period.
+* **AC5:** One task can only have one team assign at maximum.
+* **AC6:** The tasks showing in the Agenda, are task that have been created by the GSM logged in the system.
+* **AC7:** The same team can be assigned to multiple entries as long as the work periods does not overlap.
 
 ### 1.4. Found out Dependencies
 
@@ -47,7 +56,7 @@ Done).
 
 **Output Data:**
 
-* (In)Success of the operation
+* Success of the operation
 
 ### 1.6. System Sequence Diagram (SSD)
 
@@ -57,4 +66,5 @@ Done).
 
 ### 1.7 Other Relevant Remarks
 
-* The created task stays in a "not published" state in order to distinguish from "published" tasks.
+* When a team is successfully assigned to a task in the Agenda, on task it will show Team Assigned: "Yes"
+* After selecting the task and clicking on the button to Assign Team, a popup will appear with the list of teams.

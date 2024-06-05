@@ -1,0 +1,229 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+title US026 - Class Diagram
+
+package GUI <<Folder>> #DDDDDD {
+
+class AgendaUI {
+    - AgendaTaskDTO selectedTask
+    - List<VehicleDTO> selectedVehicles
+    + initialize(location, resources)
+    - fillTaskTable()
+    + btnAssignVehicles()
+    - updateTableView()
+    - validateSelectedTask(selectedTask)
+}
+
+class SelectVehiclesPopupUI{
+    - List<VehicleDTO> vehiclesSelected
+    + btnSelectVehicle()
+    - btnCancelAction()
+    - closeUI()
+    + getVehiclesSelected()
+    + fillVehicleTable()
+
+}
+
+}
+
+package Controller <<Folder>> #DDDDDD {
+class AssignVehiclesToEntryAgendaController {
+    + AssignVehiclesToEntryAgendaController()
+    + getAgendaRepository()
+    + getVehicleRepository()
+    + getVehicles()
+    + assignVehiclesToTaskAgenda(agendaTaskDTO, selectedVehiclesDTO)
+}
+
+class AgendaController{
+    + getAgendaTaskDTOManagerList()
+
+
+}
+}
+
+'package Domain <<Folder>> #AAAAAA{
+package Repository <<Folder>> #DDDDDD {
+class VehicleRepository{
+    - List<Team> vehicleList
+
+    + getVehicleList()
+    + getVehicleByPlateId(vehicleDTO.plateID)
+}
+
+class AgendaRepository{
+    - List<Task> agenda
+
+    + getManagerSpecificAgenda(managerEmail)
+    + assignVehiclesToTaskAgenda(title, greenSpaceName,\nexecutionDate, status, vehicles)
+    }
+
+class Repositories {
+    - Repositories()
+    + getInstance() : Repositories
+    + getVehicleRepository()
+    + getAgendaRepository()
+}
+
+class ApplicationSession{
+    - ApplicationSession()
+    + getInstance() : ApplicationSession
+    + getAuthenticationRepository()
+    + getCurrentSession()
+
+}
+
+class UserSession{
+    + getUserEmail()
+
+}
+
+class Email{
+
+}
+
+}
+
+
+package Domain <<Folder>> #DDDDDD {
+
+class WorkPeriod{
+    + Date workStartDate
+    + int workStartHour
+    + int workStartMin
+    + Date workEndDate
+    + int workEndHour
+    + int workEndMin
+
+}
+
+class Vehicle{
+    + String plateId
+    + String brand
+    + String model
+    + VehicleType type
+    + double tare
+    ...
+    + removeWorkPeriodIfExists(oldWorkPeriod)
+}
+
+class Task {
+    - String title;
+    - String description;
+    - TaskType taskType;
+    - Status status;
+    ...
+
+    + Task(title, description, taskType, greenSpace,\nurgency, days, hours, minutes)
+    (...)
+}
+
+class TaskDuration {
+    - int days;
+    - int hours;
+    - int minutes;
+    - int totalDurationMinutes;
+
+    + TaskDuration(days, hours, minutes)
+    + setTaskDuration(days, hours, minutes)
+    - validateTaskDuration(days, hours, minutes)
+}
+
+'}
+}
+
+
+package Mapper <<Folder>> #DDDDDD {
+
+class AgendaMapper{
+    + AgendaMapper()
+    + toDTO(agendaTask, teamDTO, List<VehicleDTO> vehicleDTOList)
+
+}
+
+class VehicleMapper{
+    + toDomain(vehicleDTO)
+    + toDomainList(vehicleDTOList)
+}
+
+}
+
+package DTO <<Folder>> #DDDDDD {
+
+class AgendaTaskDTO {
+    + String title;
+    + String description;
+    + TaskType taskType;
+    + String greenSpaceName;
+    + UrgencyType urgency;
+    + int expectedDuration;
+    + String workStartDate;
+    + int workStartHour;
+    + int workStartMinutes;
+    + Status status;
+    + String isTeamAssigned;
+
+    + AgendaTaskDTO(title, description, taskType, greenSpace,\nurgency, expectedDuration, executionDate, workStartHour,\nworkStartMinutes, status, isTeamAssigned, vehiclesAssigned,\nteamDTO, vehicleDTOList)
+
+}
+
+class CollaboratorDTO{
+    + String collaboratorName;
+    + String email;
+    + List<String> skillNames;
+
+    + CollaboratorDTO(collaborator)
+
+    }
+
+class TeamDTO{
+    + List<CollaboratorDTO> collaborators
+    + TeamDTO(List<CollaboratorDTO> teamMembers)
+    }
+
+class VehicleDTO{
+    + String plateID;
+    + String brand;
+    + String model;
+    + String type;
+
+    +VehicleDTO(vehicle)
+
+}
+
+}
+
+AgendaUI ..> AgendaController
+AgendaUI .left.> SelectVehiclesPopupUI
+SelectVehiclesPopupUI ...> AssignVehiclesToEntryAgendaController
+AgendaController ...> Repositories
+AssignVehiclesToEntryAgendaController ..> Repositories
+AgendaController .> ApplicationSession
+ApplicationSession -> ApplicationSession : instance
+ApplicationSession -down-> "1" UserSession : userSession
+UserSession ..> Email
+Repositories ---> "1" AgendaRepository
+Repositories ---> "1" VehicleRepository
+AgendaRepository "1" -down-> Task : task
+Task *--"1" TaskDuration : taskDuration
+Task *---"1" WorkPeriod : workPeriod
+VehicleRepository "1" -> Vehicle : vehicle
+Vehicle "1" --> WorkPeriod : workperiod
+AgendaController ..> AgendaRepository : agendaRepository
+AssignVehiclesToEntryAgendaController ..> AgendaRepository : agendaRepository
+AssignVehiclesToEntryAgendaController ..> VehicleRepository : vehicleRepository
+Repositories -> Repositories : instance
+AgendaController ..left> AgendaMapper
+AgendaMapper ..> AgendaTaskDTO
+AgendaTaskDTO ..> "1"TeamDTO
+TeamDTO "1" ..> CollaboratorDTO
+AgendaTaskDTO "1" ..> VehicleDTO
+VehicleMapper -> Vehicle : vehicle
+
+@enduml

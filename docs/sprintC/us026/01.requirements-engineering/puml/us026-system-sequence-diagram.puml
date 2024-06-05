@@ -43,7 +43,7 @@ activate POPUP
 POPUP --> POPUP : validates selected option
 end loop
 |||
-POPUP --> UI : the list of selected vehicles to main UI
+POPUP --> UI : Sends the list of selected vehicles to main UI
 deactivate POPUP
 activate UI
     |||
@@ -53,7 +53,7 @@ activate UI
     |||
 
 
-    UI --> GSM: shows operation success
+    UI --> GSM: Displays operation success
 deactivate UI
 
 @enduml

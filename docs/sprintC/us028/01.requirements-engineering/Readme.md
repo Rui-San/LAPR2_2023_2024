@@ -23,15 +23,41 @@ Done).
 
 **From the client clarifications:**
 
-> **Question:** 
+> **Question:** The collaborator can have more than one task assigned to them. To ensure that, the same task should be available for more than one team, am I right?
 >
-> **Answer:** 
+> **Answer:**A team can have multiple task assigned, hence, if a collaborator belongs to a team.
+Besides, a collaborator can move from a team to another, so during, for instance, a month period a collaborator can belong to multiples teams.
+
+> **Question:**  A collaborator could have assigned at the same time different tasks from different teams, isn't it?
+>
+> **Answer:** No, in a specific period (for instance during a week) a collaborator just belongs to team. But if you consider a wider period you may find different teams to which a collaborator belonged.
+
+> **Question:** Could a task belong to different teams and collaborators?
+>
+> **Answer:** No.
+
+> **Question:** The tasks consulted will be the ones that were assigned to the team/teams that collaborator is in, right?
+>
+> **Answer:** Right.
+
+> **Question:** Why do we need to show a list of green spaces? Are we assuming that one collaborator could work in 2 different parks?
+> 
+> **Answer:** Yes, a collaborator can work in multiples green spaces
+
+> **Question:** Do collaborators log in with a password (created by the respective manager when creating the collaborator), or with other information like the BI number or the TaxPayer?
+>
+> **Answer:** One can use email or taxpayer number.
+
+> **Question:** When a collaborator is registered, they are given an account with the registered email and a password? This allows them to log in and view their tasks later on. What should be the password for this collaborator's account?
+>
+> **Answer:** Yes, it makes sense. About the password, not important in this stage of the project.
 
 ### 1.3. Acceptance Criteria
 
 * **AC1:** All required fields must be filled in.
 * **AC2:** The list of tasks must be sorted by date
-* **AC3:**  The Collaborator should be able to filter the results by the status of the task
+* **AC3:** The Collaborator should be able to filter the results by the status of the task
+* **AC4:** The tasks showing to the collaborator, are only the ones assigned to him.
 
 ### 1.4. Found out Dependencies
 
@@ -54,15 +80,11 @@ Done).
 
 **Output Data:**
 
-* List of tasks assigned to the Collaborator
+* List of tasks assigned to the Collaborator between two dates
 
 ### 1.6. System Sequence Diagram (SSD)
 
-**_Other alternatives might exist._**
-
-#### Alternative One
-
-![System Sequence Diagram - Alternative One](svg/us028-system-sequence-diagram.svg)
+![System Sequence Diagram](svg/us028-system-sequence-diagram.svg)
 
 ### 1.7 Other Relevant Remarks
 

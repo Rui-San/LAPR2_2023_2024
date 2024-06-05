@@ -3,18 +3,46 @@ package pt.ipp.isep.dei.esoft.project.domain;
 import java.io.Serializable;
 
 public class TaskDuration implements Serializable {
-    private int days;
-    private int hours;
-    private int minutes;
 
+    /**
+     * reference to the number of days in the task duration
+     */
+    private int days;
+    /**
+     * reference to the number of hours in the task duration
+     */
+    private int hours;
+    /**
+     * reference to the number of minutes in the task duration
+     */
+    private int minutes;
+    /**
+     * reference to the total duration in minutes
+     */
+    private int totalDurationMinutes;
+
+    /**
+     * TaskDuration constructor
+     * @param days  number of days
+     * @param hours number of hours
+     * @param minutes number of minutes
+     */
     public TaskDuration(int days, int hours, int minutes) {
         setTaskDuration(days, hours, minutes);
     }
 
+    /**
+     * Get the number of days in the task duration
+     * @return
+     */
     public int getDays() {
         return days;
     }
 
+    /**
+     * Set the number of days in the task duration
+     * @param days number of days
+     */
     public void setDays(int days) {
         if (days < 0) {
             throw new IllegalArgumentException("Days must be a positive integer");
@@ -22,10 +50,18 @@ public class TaskDuration implements Serializable {
         this.days = days;
     }
 
+    /**
+     * Get the number of hours in the task duration
+     * @return number of hours
+     */
     public int getHours() {
         return hours;
     }
 
+    /**
+     * Set the number of hours in the task duration
+     * @param hours number of hours
+     */
     public void setHours(int hours) {
         if (hours < 0) {
             throw new IllegalArgumentException("Hours must be a positive integer");
@@ -33,10 +69,18 @@ public class TaskDuration implements Serializable {
         this.hours = hours;
     }
 
+    /**
+     * Get the number of minutes in the task duration
+     * @return number of minutes
+     */
     public int getMinutes() {
         return minutes;
     }
 
+    /**
+     * Set the number of minutes in the task duration
+     * @param minutes number of minutes
+     */
     public void setMinutes(int minutes) {
         if (minutes < 0) {
             throw new IllegalArgumentException("Minutes must be a positive integer");
@@ -44,6 +88,12 @@ public class TaskDuration implements Serializable {
         this.minutes = minutes;
     }
 
+    /**
+     * Set the task duration
+     * @param days number of days
+     * @param hours number of hours
+     * @param minutes number of minutes
+     */
     public void setTaskDuration(int days, int hours, int minutes) {
         validateTaskDuration(days, hours, minutes);
         this.days = days;
@@ -53,6 +103,12 @@ public class TaskDuration implements Serializable {
 
     }
 
+    /**
+     * Validate the task duration
+     * @param days number of days
+     * @param hours number of hours
+     * @param minutes number of minutes
+     */
     private void validateTaskDuration(int days, int hours, int minutes) {
         if (days == 0 && hours == 0 && minutes == 0) {
             throw new IllegalArgumentException("At least one field must be filled");
@@ -71,23 +127,18 @@ public class TaskDuration implements Serializable {
         }
     }
 
+    /**
+     * Get the total duration in minutes
+     * @return total duration in minutes
+     */
     public int getTotalDurationMinutes() {
         return totalDurationMinutes;
     }
 
-    public void setTotalDurationMinutes(int totalDurationMinutes) {
-        this.totalDurationMinutes = totalDurationMinutes;
-    }
-
-    private int totalDurationMinutes;
-
-    public static TaskDuration toTaskDuration(int minutes) {
-        int days = minutes / (8 * 60);
-        int hours = (minutes % (8 * 60)) / 60;
-        int mins = minutes % 60;
-        return new TaskDuration(days, hours, mins);
-    }
-
+    /**
+     *  converts the task duration to a string in format "X days, Y h, Z min"
+     * @return string representation of the task duration
+     */
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
@@ -113,27 +164,4 @@ public class TaskDuration implements Serializable {
         return stringBuilder.toString();
     }
 
-
-    public String toStringHoursAndMinutes() {
-        int totalHours = days * 24 + hours;
-        int totalMinutes = totalHours * 60 + minutes;
-
-        int hoursPart = totalMinutes / 60;
-        int minutesPart = totalMinutes % 60;
-
-        StringBuilder stringBuilder = new StringBuilder();
-
-        if (hoursPart > 0) {
-            stringBuilder.append(hoursPart).append(" h");
-        }
-
-        if (minutesPart > 0) {
-            if (stringBuilder.length() > 0) {
-                stringBuilder.append(", ");
-            }
-            stringBuilder.append(minutesPart).append(" min");
-        }
-
-        return stringBuilder.toString();
-    }
 }

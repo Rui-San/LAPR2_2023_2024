@@ -43,17 +43,33 @@ da Cidade).
 >
 > **Answer:**  The required fields are the name of the park, the address of the park, the area of the park in square meters, and the park type.
 
-> **Question:** What is the minimum area for a greenspace?
+> **Question:** In which unit should the area be measured in?
 >
-> **Answer:** 
+> **Answer:** Usually, areas are measured in hectares.
 
-> **Question:** At how much meters squared is a Green Space considered a medium-sized park?
+> **Question:** In the registration of a green space, should a green space's name be allowed to contain digits and special characters, or just letters and whitespaces?
 > 
-> **Answer:** 
+> **Answer:** Same rules for other names in the business, letters, spaces and dashes.
 
-> **Question:** At how much meters squared is a Green Space considered a large-sized park?
+> **Question:** In view of the description of GreenSpaces does it make sense to ask for optional mind for the different types this data?
+>
+> **Answer:** In the current version, it is sufficient to define a park using name, size classification, area (hectare) and address.
+
+> **Question:** I would like to know between what ranges of hectares a green space is classified as garden, medium or large, or if it is possible to register 2 green spaces with the same area but in different typology, depending on the GSM it registers
+>
+> **Answer:** The classification is not automatic, it's up to GSM decide about it.
+
+> **Question:** Can two green spaces have the same name?
+>
+> **Answer:** No.
+
+> **Question:** We understand that type (garden, medium-size, large-size), area, name, and address are required inputs for a Green Space (and if we are wrong in this, please correct us), but are there any other inputs that we are unaware of?
+>
+> **Answer:** Seems enough.
+
+> **Question:** Can two different green spaces have the same address?
 > 
-> **Answer:**
+> **Answer:** No.
 
 ### 1.3. Acceptance Criteria
 
@@ -63,6 +79,8 @@ da Cidade).
   * Garden
   * Medium-sized
   * Large-sized
+* **AC4:** Green space name must not contain special characters or numbers.
+* **AC5:** Two different green spaces cannot have the same name.
 
 ### 1.4. Found out Dependencies
 

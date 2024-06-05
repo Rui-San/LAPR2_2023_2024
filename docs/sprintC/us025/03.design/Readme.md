@@ -54,6 +54,11 @@ Other software classes (i.e. Pure Fabrication) identified:
 
 ![Sequence Diagram - managerSpecificAgendaDTO](svg/SD_managerSpecificAgendaDTO.svg)
 
+### Ref: SD_obtainManagerAgendaTaskList
+
+![Sequence Diagram - obtainManagerAgendaTaskList](svg/SD_obtainManagerAgendaTaskList.svg)
+
+
 ## 3.3. Class Diagram (CD)
 
 ![Class Diagram](svg/us025-class-diagram.svg)

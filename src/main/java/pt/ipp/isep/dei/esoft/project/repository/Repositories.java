@@ -38,13 +38,18 @@ public class Repositories implements Serializable {
      * Repository for authentication.
      */
     private transient AuthenticationRepository authenticationRepository;
-
+    /**
+     * Repository for green spaces.
+     */
     private final GreenSpaceRepository greenSpaceRepository;
-
+    /**
+     * Repository for to do tasks.
+     */
     private final ToDoRepository toDoRepository;
-
+    /**
+     * Repository for agenda tasks.
+     */
     private final AgendaRepository agendaRepository;
-
 
     /**
      * Private constructor to prevent external instantiation.
@@ -64,7 +69,6 @@ public class Repositories implements Serializable {
 
     /**
      * Returns the singleton instance of Repositories.
-     *
      * @return The singleton instance.
      */
     public static Repositories getInstance() {
@@ -78,7 +82,6 @@ public class Repositories implements Serializable {
 
     /**
      * Retrieves the CollaboratorRepository instance.
-     *
      * @return The CollaboratorRepository instance.
      */
     public CollaboratorRepository getCollaboratorRepository() {
@@ -87,7 +90,6 @@ public class Repositories implements Serializable {
 
     /**
      * Retrieves the instance of JobRepository.
-     *
      * @return The JobRepository instance.
      */
     public JobRepository getJobRepository() {
@@ -96,7 +98,6 @@ public class Repositories implements Serializable {
 
     /**
      * Retrieves the SkillRepository instance.
-     *
      * @return The SkillRepository instance.
      */
     public SkillRepository getSkillRepository() {
@@ -105,7 +106,6 @@ public class Repositories implements Serializable {
 
     /**
      * Retrieves the CheckupRepository instance.
-     *
      * @return The CheckupRepository instance.
      */
     public CheckupRepository getCheckupRepository() {
@@ -114,7 +114,6 @@ public class Repositories implements Serializable {
 
     /**
      * Retrieves the VehicleRepository instance.
-     *
      * @return The VehicleRepository instance.
      */
     public VehicleRepository getVehicleRepository() {
@@ -123,7 +122,6 @@ public class Repositories implements Serializable {
 
     /**
      * Retrieves the TeamRepository instance.
-     *
      * @return The TeamRepository instance.
      */
     public TeamRepository getTeamRepository() {
@@ -132,25 +130,40 @@ public class Repositories implements Serializable {
 
     /**
      * Retrieves the AuthenticationRepository instance.
-     *
      * @return The AuthenticationRepository instance.
      */
     public AuthenticationRepository getAuthenticationRepository() {
         return authenticationRepository;
     }
 
+    /**
+     * Retrieves the GreenSpaceRepository instance.
+     * @return The GreenSpaceRepository instance.
+     */
     public GreenSpaceRepository getGreenSpaceRepository() {
         return greenSpaceRepository;
     }
 
+    /**
+     * Retrieves the ToDoRepository instance.
+     * @return The ToDoRepository instance.
+     */
     public ToDoRepository getToDoRepository(){
         return toDoRepository;
     }
 
+    /**
+     * Retrieves the AgendaRepository instance.
+     * @return The AgendaRepository instance.
+     */
     public AgendaRepository getAgendaRepository(){
         return agendaRepository;
     }
 
+    /**
+     * Saves the current state of the Repositories instance to a file.
+     * Therefore, it serializes all the repositories.
+     */
     public static void save(){
         try {
             FileOutputStream fileOut = new FileOutputStream("data.dat");
@@ -163,6 +176,10 @@ public class Repositories implements Serializable {
         }
     }
 
+    /**
+     * Loads the state of the Repositories instance from a file. Therefore, it deserializes all the repositories.
+     * @return True if the file was successfully loaded, false otherwise.
+     */
     public static boolean load(){
         try{
             FileInputStream file = new FileInputStream("data.dat");

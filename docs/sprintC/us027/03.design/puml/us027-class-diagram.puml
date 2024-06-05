@@ -1,0 +1,135 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+title US027 - Class Diagram
+
+package GUI <<Folder>> #DDDDDD {
+
+class ListGreenSpacesUI {
+    + ListGreenSpacesUI()
+    + initialize(location, resources)
+    - fillGreenSpacesTable()
+
+}
+}
+
+package Controller <<Folder>> #DDDDDD {
+class ListGreenSpacesController {
+
+    + ListGreenSpacesController()
+    + getGreenSpaceRepository()
+    + getManagerGreenSpaceDTOList()
+    }
+}
+
+package Repository <<Folder>> #DDDDDD {
+class GreenSpaceRepository{
+    - List<GreenSpace> greenSpaceList
+
+    + getGreenSpaceListByManager(managerEmail)
+}
+
+class Repositories {
+    - Repositories()
+    + getInstance() : Repositories
+    + getGreenSpaceRepository()
+}
+
+class ApplicationSession{
+    - ApplicationSession()
+    + getInstance() : ApplicationSession
+    + getAuthenticationRepository()
+    + getCurrentSession()
+
+}
+
+class UserSession{
+    + getUserEmail()
+
+}
+
+class Email{
+
+}
+
+}
+
+package Tools <<Folder>> #DDDDDD{
+class GreenSpaceSorting {
+    + sort(listToSort)
+    - bubbleSort(listToSort)
+    - selectionSort(listToSort)
+}
+
+}
+
+
+package Domain <<Folder>> #DDDDDD {
+
+class GreenSpace {
+    - GreenSpaceType type
+    - String name
+    - double totalArea
+    - String manager
+    + GreenSpace(type,name,street, streetNumber,\npostalCode,city,district,totalArea, manager)
+    - validateType(type)
+    - validateName(name)
+    - validateTotalArea(totalArea)
+}
+
+
+
+
+
+
+
+
+}
+
+
+package Mapper <<Folder>> #DDDDDD {
+class GreenSpaceMapper{
+    + GreenSpaceMapper()
+    + toDTOlist(greenSpaceList)
+    + toDTO(greenSpace)
+
+}
+}
+
+package DTO <<Folder>> #DDDDDD {
+class GreenSpaceDTO{
+public String name
+    + GreenSpaceType type
+    + Double totalArea
+    + String street
+    + int streetNumber
+    + String postalCode
+    + String city
+    + String district
+    + GreenSpaceDTO(name, type, totalArea, street, streetNumber, postalCode, city, district)
+    + addressToString()
+}
+}
+
+ListGreenSpacesUI .down.> ListGreenSpacesController
+ListGreenSpacesController ...> Repositories
+Repositories -> Repositories : instance
+Repositories ---> GreenSpaceRepository
+ListGreenSpacesController .left.> ApplicationSession
+ApplicationSession -> ApplicationSession : instance
+ApplicationSession -down-> UserSession
+UserSession .down.> Email
+GreenSpaceRepository "1" --> GreenSpace : greenSpace
+ListGreenSpacesController .....> GreenSpaceRepository : getGreenSpaceRepository
+ListGreenSpacesController ....> GreenSpaceMapper
+GreenSpaceMapper ..> GreenSpaceDTO
+Controller ...> GreenSpaceSorting
+ListGreenSpacesController ..> UserSession
+
+
+@enduml

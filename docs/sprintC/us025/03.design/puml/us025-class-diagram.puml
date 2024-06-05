@@ -211,12 +211,10 @@ AgendaController ..> AgendaRepository : agendaRepository
 CancelEntryAgendaController .> AgendaRepository : agendaRepository
 CancelEntryAgendaController ..> TeamRepository : teamRepository
 CancelEntryAgendaController ..> VehicleRepository : vehicleRepository
-
 Repositories -> Repositories : instance
 AgendaController ..right...> AgendaMapper
 AgendaMapper ..> AgendaTaskDTO
 AgendaTaskDTO ..> "1"TeamDTO
-AgendaMapper ..> Task
 TeamDTO "1" ..> CollaboratorDTO
 AgendaTaskDTO "1" ..> VehicleDTO
 Vehicle "1" -down--> WorkPeriod : workperiod

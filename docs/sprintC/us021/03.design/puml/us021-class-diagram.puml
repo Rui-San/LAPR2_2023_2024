@@ -162,7 +162,7 @@ class ToDoTaskDTO{
     }
 }
 
-AddNewEntryToDoUI ..down..> AddNewEntryToDoController
+AddNewEntryToDoUI .down.> AddNewEntryToDoController
 AddNewEntryToDoController ...> Repositories : repositories
 AddNewEntryToDoController ..> GreenSpaceRepository : greenSpaceRepository
 AddNewEntryToDoController ..> ToDoRepository : toDoRepository
@@ -180,7 +180,7 @@ AddNewEntryToDoController ..> GreenSpaceMapper
 AddNewEntryToDoController ...> ToDoListMapper
 GreenSpaceMapper ..> GreenSpaceDTO
 ToDoListMapper ..> Task : task
-AddNewEntryToDoUI ....> "1" ToDoTaskDTO
+AddNewEntryToDoUI .> "1" ToDoTaskDTO
 
 
 @enduml
