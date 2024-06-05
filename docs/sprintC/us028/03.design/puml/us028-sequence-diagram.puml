@@ -140,10 +140,15 @@ activate Collaborator
 
             CTRL --> UI: collaboratorDTOtaskList
             deactivate CTRL
+
             loop for each task of the collaborator's agenda
             alt the selected status filter is not "All Status"
-            UI -> DTO:
+            alt task status is the same as the filter status
+            UI --> UI: add(task)
+            end
+            else
+            UI --> UI: add(task)
             end
             end loop
-
+            UI --> Collaborator: filteredTasks
 @enduml
