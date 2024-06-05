@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="399.0" prefWidth="702.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.TodoTaskDetailsPopupUI">
+    <children>
+        <Text layoutX="184.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Task Detailed Information" textAlignment="CENTER" wrappingWidth="343.0078125">
+            <font>
+                <Font name="Berlin Sans FB" size="25.0" />
+            </font>
+        </Text>
+      <Group layoutX="69.0" layoutY="91.0">
+         <children>
+                <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="36.0" prefWidth="553.0">
+                    <content>
+                        <Label fx:id="lblTitle" maxHeight="200.0" maxWidth="350.0" wrapText="true" />
+                    </content>
+                </ScrollPane>
+                <Label layoutY="-22.0" prefHeight="25.0" prefWidth="370.0" text="Title:" />
+         </children>
+      </Group>
+      <Group layoutX="69.0" layoutY="155.0">
+         <children>
+            <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="36.0" prefWidth="370.0">
+               <content>
+                  <Label fx:id="lblGreenSpace" maxHeight="200.0" maxWidth="350.0" wrapText="true" />
+               </content>
+            </ScrollPane>
+            <Label layoutY="-22.0" prefHeight="25.0" prefWidth="370.0" text="Green Space" />
+         </children>
+      </Group>
+      <Group layoutX="474.0" layoutY="228.0">
+         <children>
+            <Label layoutY="-22.0" prefHeight="25.0" prefWidth="57.0" text="Task type:" />
+            <Label fx:id="lblTaskType" layoutX="56.0" layoutY="-16.0" maxHeight="200.0" maxWidth="350.0" wrapText="true" />
+         </children>
+      </Group>
+      <Group layoutX="69.0" layoutY="225.0">
+         <children>
+            <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="85.0" prefWidth="370.0">
+               <content>
+                  <Label fx:id="lblDescription" maxHeight="200.0" maxWidth="350.0" wrapText="true" />
+               </content>
+            </ScrollPane>
+            <Label layoutY="-22.0" prefHeight="25.0" prefWidth="300.0" text="Description" />
+         </children>
+      </Group>
+      <Group layoutX="473.0" layoutY="155.0">
+         <children>
+            <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="36.0" prefWidth="150.0">
+               <content>
+                  <Label fx:id="lblExpectedDuration" maxHeight="200.0" maxWidth="350.0" wrapText="true" />
+               </content>
+            </ScrollPane>
+            <Label layoutY="-22.0" prefHeight="25.0" prefWidth="150.0" text="Expected Duration" />
+         </children>
+      </Group>
+      <Group layoutX="473.0" layoutY="273.0">
+         <children>
+            <Label layoutY="-22.0" prefHeight="25.0" prefWidth="57.0" text="Urgency:" />
+            <Label fx:id="lblUrgency" layoutX="56.0" layoutY="-16.0" maxHeight="200.0" maxWidth="350.0" wrapText="true" />
+         </children>
+      </Group>
+      <Group layoutX="473.0" layoutY="314.0">
+         <children>
+            <Label layoutY="-22.0" prefHeight="25.0" prefWidth="57.0" text="Status:" />
+            <Label fx:id="lblStatus" layoutX="56.0" layoutY="-16.0" maxHeight="200.0" maxWidth="350.0" wrapText="true" />
+         </children>
+      </Group>
+      <Button layoutX="299.0" layoutY="338.0" mnemonicParsing="false" onAction="#btnExit" prefHeight="40.0" prefWidth="114.0" styleClass="form-btn" text="Exit" />
+    </children>
+</AnchorPane>
