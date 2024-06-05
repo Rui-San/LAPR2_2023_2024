@@ -1,72 +1,76 @@
-# US006 - Create a Task 
-
+# US029 - Record the completion of a task
 
 ## 1. Requirements Engineering
 
 ### 1.1. User Story Description
 
-As an organization employee, I want to create a new task in order to be further published.
+As a Collaborator, I want to record the completion of a task.
 
-### 1.2. Customer Specifications and Clarifications 
+### 1.2. Customer Specifications and Clarifications
 
 **From the specifications document:**
 
->	Each task is characterized by having a unique reference per organization, a designation, an informal and a technical description, an estimated duration and cost, as well as a task category. 
+>	The management of green areas for public use requires the timely management and completion of multiple tasks throughout the year.
 
->	As long as it is not published, access to the task is exclusive to the employees of the respective organization. 
+>	The Agenda is made
+up of entries that relate to a task (which was previously in the To-Do List),
+the team that will carry out the task, the vehicles/equipment assigned to
+the task, expected duration, and the status (Planned, Postponed, Canceled,
+Done).
+
 
 **From the client clarifications:**
 
-> **Question:** Which is the unit of measurement used to estimate duration?
+> **Question:** Can a collaborator mark a task as "done" only if it is in the "planned" status?
 >
-> **Answer:** Duration is estimated in days.
+> **Answer:** It depends on the status set your team decide to have/use. But if you consider only status refered in the text and in the forum my answer would be, yes, just the "Planned" status can be changed to "Done".
 
-> **Question:** Monetary data is expressed in any particular currency?
+> **Question:** The collaborator should be able to change the status of any task or only tasks assigned to him?
 >
-> **Answer:** Monetary data (e.g. estimated cost of a task) is indicated in POT (virtual currency internal to the platform).
+> **Answer:** yes
+
+> **Question:** When a collaborator records a task, it should be asked for any observations regarding the completed task?
+>
+> **Answer:** Not mandatory
+
+> **Question:** The collaborator can see what type of entrys? Like what status can he filter ? Can he see canceled Entry's?
+>
+> **Answer:** The ones assigned to him.
+He can filter by the different values the status of the status, like planned, executed, canceled ...
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** All required fields must be filled in.
-* **AC2:** The task reference must have at least 5 alphanumeric characters.
-* **AC3:** When creating a task with an existing reference, the system must reject such operation and the user must be able to modify the typed reference.
-
+* **AC1:** A task must be selected before recording as completed.
+* **AC2:** The tasks showing to the collaborator, are only the ones assigned to him.
+* **AC3:** If the task recorded as completed had a team and/or vehicles assigned, both will be released from that work period.
+* **AC4:** Only tasks with status Planned can be set as completed.
+*
 ### 1.4. Found out Dependencies
 
-* There is a dependency on "US003 - Create a task category" as there must be at least one task category to classify the task being created.
+* There is a dependency on "US003 - Register a collaborator" as there must be at least one collaborator created in the system for him to be assigned to a task.
+* There is a dependency on "US021 - Add new entry in the To-Do List" as the task must have first been created in the To-Do List before it can be added to the agenda.
+* There is a dependency on "US022 - Add new entry in the Agenda" as the task must have already been added to the agenda before it can be assigned to a team.
+
 
 ### 1.5 Input and Output Data
 
 **Input Data:**
 
 * Typed data:
-    * a reference
-    * a designation 
-    * an informal description
-    * a technical description
-    * an estimated duration
-    * an estimated cost
-	
+  * n/a
+
 * Selected data:
-    * a task category 
+  * a task from the collaborator agenda
 
 **Output Data:**
 
-* List of existing task categories
-* (In)Success of the operation
+* Success of the operation
 
 ### 1.6. System Sequence Diagram (SSD)
 
-**_Other alternatives might exist._**
+![System Sequence Diagram](svg/us029-system-sequence-diagram.svg)
 
-#### Alternative One
-
-![System Sequence Diagram - Alternative One](svg/us006-system-sequence-diagram-alternative-one.svg)
-
-#### Alternative Two
-
-![System Sequence Diagram - Alternative Two](svg/us006-system-sequence-diagram-alternative-two.svg)
 
 ### 1.7 Other Relevant Remarks
 
-* The created task stays in a "not published" state in order to distinguish from "published" tasks.
+There is no other relevant remarks for this User Story.
