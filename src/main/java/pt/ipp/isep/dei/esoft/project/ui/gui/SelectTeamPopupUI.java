@@ -3,12 +3,20 @@ package pt.ipp.isep.dei.esoft.project.ui.gui;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.controller.AssignTeamToEntryAgendaController;
+import pt.ipp.isep.dei.esoft.project.dto.AgendaTaskDTO;
 import pt.ipp.isep.dei.esoft.project.dto.TeamDTO;
+
+import java.io.IOException;
 
 public class SelectTeamPopupUI {
 
@@ -65,7 +73,37 @@ public class SelectTeamPopupUI {
         tcSkills.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().skillsToString()));
 
         tbTeams.getItems().addAll(controller.getTeams());
+
+        tbTeams.setRowFactory(tv -> {
+            TableRow<TeamDTO> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && !row.isEmpty()) {
+                    TeamDTO selectedTeam = row.getItem();
+                    showTaskDetailsPopup(selectedTeam);
+                }
+            });
+            return row;
+        });
+
     }
+    private void showTaskDetailsPopup(TeamDTO teamSelected) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TeamDetailsPopupScene.fxml"));
+            Parent root = loader.load();
+            TeamDetailsPopupUI controller = loader.getController();
+            controller.initData(teamSelected);
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle error loading FXML
+        }
+    }
+
 
 
 
