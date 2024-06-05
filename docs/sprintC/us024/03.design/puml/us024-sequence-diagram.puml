@@ -8,117 +8,146 @@ title US024 - Sequence Diagram (SD)
 autonumber
 
 actor "Green Space\nManager" as GSM
-participant ":PostponeTaskUI" as UI
+participant ":AgendaUI" as UI
+participant ":PostPoneTaskPopupUI" as Popup
 participant ":PostponeTaskController" as CTRL
 participant ":Repositories" as REPO
 participant "repositories\n:Repositories" as REPOInstance
-participant "agenda\n:Agenda" as AGENDA
-participant ":TaskMapper" as TaskMapper
-participant ":TaskDTO" as TaskDTO
-participant "taskDTO\n:TaskDTO" as getTaskDTO
+participant "agendaRepository\n:Agenda" as AGENDA
 participant "task\n:Task" as Task
 participant ":Date" as Date
+participant "teamRepository\n:TeamRepository" as TeamRepo
+participant "vehicleRepository\n:VehicleRepository" as VehicleRepo
+participant ":Task" as NewTask
+participant "newTask:Task" as NewTaskTask
 
 activate GSM
 
-    GSM -> UI : asks to postpone a task in the agenda
+    GSM -> UI : Asks to postpone an entry on Agenda
+
     activate UI
+loop until doesn't select a valid option
+        UI --> GSM : Shows the tasks of the Agenda and asks to\nselect the task to be postponed
+    deactivate UI
 
-    UI -> CTRL** : new PostPoneTaskController()
-
-    UI -> CTRL : getTasksInAgenda()
-    activate CTRL
-
-        CTRL -> REPO : getInstance();
+    GSM -> UI : Selects a task
+    activate UI
+    UI --> UI : validates selected option
+end loop
+        UI --> UI : keepData(task)
+        UI --> CTRL** : new PostPoneTaskController()
+        CTRL -> REPO : getInstance()
         activate REPO
 
             REPO --> CTRL : repositories
         deactivate REPO
-        CTRL -> REPOInstance : getAgenda()
+        CTRL -> REPOInstance : getVehicleRepository()
         activate REPOInstance
 
-            REPOInstance --> CTRL : agenda
+            REPOInstance --> CTRL : vehicleRepository
         deactivate REPOInstance
-        CTRL -> AGENDA : getTaskList()
-        activate AGENDA
+        CTRL -> REPOInstance : getTeamRepository()
+        activate REPOInstance
 
-            AGENDA --> CTRL : taskList
-        deactivate AGENDA
+            REPOInstance --> CTRL : teamRepository
+        deactivate REPOInstance
+        CTRL -> REPOInstance : getAgendaRepository()
+        activate REPOInstance
 
-        CTRL -> TaskMapper: getTaskDTOlist(taskList)
-        activate TaskMapper
+            REPOInstance --> CTRL : agendaRepository
+        deactivate REPOInstance
 
-loop for each task in taskList
-            TaskMapper -> TaskDTO**: toDTO(task)
-            note right of TaskDTO
-                TaskDTO contains the title, description,
-                 status and urgency of the task
-            end note
-            TaskMapper --> TaskMapper : add(TaskDTO)
-end loop
-            TaskMapper --> CTRL : taskDTOList
-        deactivate TaskMapper
-        CTRL --> UI : taskDTOList
-
-    deactivate CTRL
-
-loop until user doesn't select a valid option
-        UI --> GSM : displays all tasks in the agenda and asks to select one
+        UI -> Popup : show the popup to select a new execution date,\nstarting hours and starting minutes
     deactivate UI
 
-    GSM -> UI : selects a task
-    activate UI
-    |||
+    activate Popup
+loop until typed data is valid
+        Popup --> GSM : asks to type the required data (new execution date, start hour and start minute)
+    deactivate Popup
+
+    GSM -> Popup : Types requested data (executionDate, startHour, startMinute)
+    activate Popup
+
+        Popup -> Popup : validateExecutionDate()
+        Popup -> Popup : validateTime()
 end loop
-        UI --> UI : keepData(task)
-loop until data is valid
-        UI --> GSM : asks for a new start date
-    deactivate UI
+        Popup --> UI : sends executionDate, startHour and startMinute\nback to main UI
+    deactivate Popup
 
-    GSM -> UI : types a new date
-    activate UI
-        UI --> UI : validateDate(startDate)
-end loop
-        UI --> UI : keepData(startDate)
-        UI --> GSM : shows all data and requests confirmation
-    deactivate UI
-
-    GSM -> UI : confirms data
     activate UI
 
-        UI -> CTRL : postponeTask(taskDTO, startDate)
+        UI -> CTRL : postponeTask(selectedTask, selectedDate,\nworkStartingHours, workStartingMinutes)
         activate CTRL
 
-            CTRL -> REPO : getInstance();
-            activate REPO
-
-                REPO --> CTRL : repositories
-            deactivate REPO
-            CTRL -> REPOInstance : getAgenda()
-            activate REPOInstance
-
-                REPOInstance --> CTRL : agenda
-            deactivate REPOInstance
-            CTRL -> AGENDA : postponeTask(taskDTO, startDate)
+            CTRL -> AGENDA : getTask(selectedTask)
             activate AGENDA
 
-                AGENDA --> getTaskDTO** : getTitle()
-                AGENDA --> AGENDA : getTaskByTitle(taskTitle)
-                AGENDA -> Task : setStartDate(startDate)
+                AGENDA --> AGENDA : for all tasks in agenda get\nequals selectedTask
+                AGENDA --> CTRL : task
+            deactivate AGENDA
+
+            CTRL --> CTRL : oldWorkPeriod
+
+            CTRL -> Task : getTeamAssigned().isAvailable(newWorkPeriod, oldWorkPeriod)
+            activate Task
+
+                Task --> Task : getTeamAssigned()
+                Task --> CTRL : true
+            deactivate Task
+
+            loop for every vehicle assigned to task
+            CTRL -> Task : vehicle.isAvailable(newWorkPeriod, oldWorkPeriod)
+            activate Task
+
+                Task --> Task : isAvailable(newWorkPeriod, oldWorkPeriod)
+                Task --> CTRL : true
+            deactivate Task
+            end loop
+
+            note right of CTRL
+                if team and vehicles are all available in the
+                work period of the new task continue
+            end note
+
+            CTRL -> AGENDA : postponeTaskAgenda(task, newWorkPeriod)
+            activate AGENDA
+
+                AGENDA --> NewTask** : task.clone()
+                AGENDA --> AGENDA : add(newTask)
+                AGENDA -> Task : setStatus(Status.POSTPONED)
                 activate Task
 
-                    Task -> Date** : new Date(startDate)
-                    Date --> Date : validateDate(startDate)
                     Task --> AGENDA : operation success
                 deactivate Task
+                AGENDA --> NewTaskTask : setTaskWorkPeriod(newWorkPeriod)
+                activate NewTaskTask
+
+                    AGENDA --> NewTaskTask : operation success
+                deactivate NewTaskTask
 
                 AGENDA --> CTRL : operation success
             deactivate AGENDA
 
+            CTRL -> TeamRepo : postponeWorkPeriods(task, oldWorkPeriod, newWorkPeriod)
+            activate TeamRepo
+
+                TeamRepo --> CTRL : operation success
+            deactivate TeamRepo
+
+            CTRL -> VehicleRepo : postponeWorkPeriods(task, oldWorkPeriod, newWorkPeriod)
+            activate VehicleRepo
+
+                VehicleRepo --> CTRL : operation success
+            deactivate VehicleRepo
+
             CTRL --> UI : operation success
         deactivate CTRL
 
-        UI --> GSM : displays operation success
+        UI --> GSM : Display operation success
+
     deactivate UI
+
+deactivate GSM
+
 
 @enduml
