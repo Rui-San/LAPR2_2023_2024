@@ -1,14 +1,21 @@
 package pt.ipp.isep.dei.esoft.project.ui.gui;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import javafx.beans.property.SimpleStringProperty;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.domain.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -61,6 +68,19 @@ public class ListCollaboratorTasksUI implements Initializable {
         fillTaskList(getController().getCollaboratorTasks());
         fillStatusFilter();
         sceneTitle.setText("Tasks assigned to " + controller.getCollaboratorName());
+
+
+        taskTable.setRowFactory(tv -> {
+            TableRow<AgendaTaskDTO> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && !row.isEmpty()) {
+                    AgendaTaskDTO selectedTask = row.getItem();
+                    showTaskDetailsPopup(selectedTask);
+                }
+            });
+            return row;
+        });
+
     }
 
     @FXML
@@ -247,6 +267,24 @@ public class ListCollaboratorTasksUI implements Initializable {
             return date;
         } else {
             return null;
+        }
+    }
+
+    private void showTaskDetailsPopup(AgendaTaskDTO task) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TaskDetailsPopupScene.fxml"));
+            Parent root = loader.load();
+            TaskDetailsPopupUI controller = loader.getController();
+            controller.initData(task);
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle error loading FXML
         }
     }
 

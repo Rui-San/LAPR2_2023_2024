@@ -273,3 +273,7 @@
 .tb-tasks-todo .table-row-cell .cell {
     -fx-font-size: 12px;
 }
+
+.tb-tasks-collaborator .table-row-cell .cell {
+    -fx-font-size: 12px;
+}

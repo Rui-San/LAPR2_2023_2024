@@ -32,7 +32,7 @@
          <center>
             <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <center>
-                    <TableView fx:id="taskTable" prefHeight="404.0" prefWidth="791.0" BorderPane.alignment="CENTER">
+                    <TableView fx:id="taskTable" prefHeight="404.0" prefWidth="791.0" styleClass="tb-tasks-collaborator" BorderPane.alignment="CENTER">
                         <columns>
                             <TableColumn fx:id="title" prefWidth="98.0" text="Title" />
                             <TableColumn fx:id="taskType" prefWidth="89.0" text="Task Type" />
