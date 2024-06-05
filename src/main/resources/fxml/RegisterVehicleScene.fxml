@@ -7,15 +7,15 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="573.0" prefWidth="874.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.RegisterVehicleUI">
+<AnchorPane prefHeight="573.0" prefWidth="874.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.RegisterVehicleUI">
    <children>
       <Text layoutX="10.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Register a Vehicle" textAlignment="CENTER" wrappingWidth="854.77734375">
          <font>
             <Font name="Berlin Sans FB" size="28.0" />
          </font>
       </Text>
-      <Button layoutX="446.0" layoutY="490.0" mnemonicParsing="false" onAction="#btnSubmitAction" prefHeight="40.0" prefWidth="114.0" text="Submit" />
-      <Button layoutX="315.0" layoutY="490.0" mnemonicParsing="false" onAction="#btnClearAction" prefHeight="40.0" prefWidth="114.0" text="Clear" />
+      <Button layoutX="446.0" layoutY="490.0" mnemonicParsing="false" onAction="#btnSubmitAction" prefHeight="40.0" prefWidth="114.0" styleClass="form-btn" text="Submit" />
+      <Button layoutX="315.0" layoutY="490.0" mnemonicParsing="false" onAction="#btnClearAction" prefHeight="40.0" prefWidth="114.0" styleClass="form-btn" text="Clear" />
       <Group layoutX="-2.0" layoutY="23.0">
          <children>
             <Label fx:id="lblPlateIDError" alignment="TOP_LEFT" layoutX="72.0" layoutY="118.0" prefHeight="17.0" prefWidth="350.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true">
