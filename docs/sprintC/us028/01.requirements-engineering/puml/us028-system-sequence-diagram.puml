@@ -15,6 +15,17 @@ activate Collaborator
     Collaborator -> UI : asks to list tasks assigned to the collaborator\nbetween two dates
     activate UI
 
+    loop until doesn't select a valid option
+            UI --> Collaborator : Shows the tasks assigned to the collaborator \nand asks to select one
+        deactivate UI
+
+        Collaborator -> UI : Selects one task
+        activate UI
+            UI --> UI : validate selected option
+    end loop
+    |||
+            UI --> UI: keepData(selectedTask)
+
 loop until typed data is valid
         UI --> Collaborator : requests data (initialDate, finalDate)
     deactivate UI

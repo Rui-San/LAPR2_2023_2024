@@ -6,24 +6,32 @@ skinparam shadowing false
 title US029 - System Sequence Diagram (SSD)
 
 autonumber
+
 actor "Collaborator" as Collaborator
 participant ":ListCollaboratorTasksUI" as UI
 
-
 activate Collaborator
-activate UI
 
-loop until the collaborator shows a valid task
-Collaborator -> UI: asks to record the completion of a task(selectedTask)
-UI -> Collaborator: asks the confirmation of the operation
-Collaborator -> UI: Confirms the operation
+    Collaborator -> UI : Asks to record the completion of a task
+    activate UI
 
+loop until doesn't select a valid option
+        UI --> Collaborator : Shows the tasks assigned to the collaborator \nand asks to select one
+    deactivate UI
+
+    Collaborator -> UI : Selects one task
+    activate UI
+        UI --> UI : validate selected option
 end loop
+        UI --> UI: keepData(selectedTask)
 
+        UI --> Collaborator : Asks for confirm the operation
+        deactivate UI
+        Collaborator -> UI: Confirms the operation
+        activate UI
+        UI --> UI : updates the task status to\n"DONE" and release vehicles\n and teams work periods
 
-
-UI -> Collaborator: Displays operation success
-
-
+        UI --> Collaborator : Displays operation success
+    deactivate UI
 
 @enduml
