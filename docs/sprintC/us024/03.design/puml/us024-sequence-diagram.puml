@@ -28,8 +28,8 @@ activate GSM
     GSM -> UI : Asks to postpone an entry on Agenda
 
     activate UI
-loop until doesn't select a valid option
         UI --> GSM : Shows the tasks of the Agenda and asks to\nselect the task to be postponed
+loop until doesn't select a valid option
     deactivate UI
 
     GSM -> UI : Selects a task
