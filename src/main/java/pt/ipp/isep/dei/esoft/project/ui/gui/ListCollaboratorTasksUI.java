@@ -99,7 +99,6 @@ public class ListCollaboratorTasksUI implements Initializable {
         taskTable.getItems().clear();
         List<AgendaTaskDTO> filteredTasks = controller.getFilteredTasks(dpToDate(dpInitialDate), dpToDate(dpFinalDate));
         fillTaskList(filteredTasks);
-        filterStatus();
     }
 
     @FXML

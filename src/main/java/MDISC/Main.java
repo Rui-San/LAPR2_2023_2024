@@ -107,23 +107,6 @@ public class Main {
         return new Graph(vertices, edges);
     }
 
-    public static Graph createMinimalGraph(Map<Vertex, Integer> distance, Map<Vertex, Vertex> previous, Graph graph) {
-        List<Vertex> vertices = new ArrayList<>();
-        List<Edge> edges = new ArrayList<>();
-
-        for(Vertex vertex : graph.getVertexes()){
-            vertices.add(vertex);
-        }
-
-        for(Vertex vertex : graph.getVertexes()){
-            if(previous.get(vertex) != null){
-                edges.add(new Edge(vertex, previous.get(vertex), distance.get(vertex)));
-            }
-        }
-
-        return new Graph(vertices, edges);
-    }
-
     public static void generateSvgOutput(List<Edge> path, Vertex fromVertex, String usPath){
         try {
             String directoryPath = "src/main/java/MDISC/output";
