@@ -12,6 +12,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.scene.image.Image;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.session.ApplicationSession;
 import pt.isep.lei.esoft.auth.AuthFacade;
@@ -92,12 +93,14 @@ public class MenuUI implements Initializable {
 
             loginPage = new Stage();
             loginPage.initModality(Modality.APPLICATION_MODAL);
-            loginPage.setTitle("Programa");
+            loginPage.setTitle("Login");
             loginPage.setResizable(false);
+            Image image = new Image("file:MS_logo.png");
+            loginPage.getIcons().add(image);
             loginPage.setScene(scene);
 
         } catch (IOException ex) {
-            AlertUI.createAlert(Alert.AlertType.ERROR, MainApp.APP_TITLE, "Erro.", ex.getMessage());
+            AlertUI.createAlert(Alert.AlertType.ERROR, MainApp.APP_TITLE, "Error.", ex.getMessage());
         }
     }
 
