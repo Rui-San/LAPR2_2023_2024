@@ -200,10 +200,7 @@ public class AddNewEntryToDoUI implements Initializable {
             displayErrorLayout(txtDescription, lblDescriptionError, "Can't be empty or null");
             return false;
         }
-        if (!descriptionString.matches("[a-zA-Z\\s-\\p{L}]+")) {
-            displayErrorLayout(txtDescription, lblDescriptionError, "Can't contain special characters");
-            return false;
-        }
+
         clearLayoutErrors(txtDescription, lblDescriptionError);
         return true;
     }

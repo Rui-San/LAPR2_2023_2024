@@ -138,9 +138,6 @@ public class Task implements Serializable {
         if (description == null || description.trim().isEmpty()) {
             throw new IllegalArgumentException("Description can't be empty or null.");
         }
-        if (!description.matches("[a-zA-Z\\s-\\p{L}]+")) {
-            throw new IllegalArgumentException("Description cannot contain Special characters.");
-        }
     }
 
     /**

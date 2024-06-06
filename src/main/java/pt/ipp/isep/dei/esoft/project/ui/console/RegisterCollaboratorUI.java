@@ -734,7 +734,7 @@ public class RegisterCollaboratorUI implements Runnable {
 
         char[] mobileNumberChars = mobileNumber.toCharArray();
 
-        if (mobileNumberChars.length != 9 || mobileNumberChars[0] != '9' || (mobileNumberChars[1] != MobileOperator.OPERATOR1.getOperatorCode() && mobileNumberChars[1] != MobileOperator.OPERATOR2.getOperatorCode() && mobileNumberChars[1] != MobileOperator.OPERATOR3.getOperatorCode())) {
+        if (mobileNumberChars.length != 9 || mobileNumberChars[0] != '9' || (mobileNumberChars[1] != MobileOperator.OPERATOR1.getOperatorCode() && mobileNumberChars[1] != MobileOperator.OPERATOR2.getOperatorCode() && mobileNumberChars[1] != MobileOperator.OPERATOR3.getOperatorCode() && mobileNumberChars[1] != MobileOperator.OPERATOR6.getOperatorCode())) {
             return false;
         } else {
             return true;

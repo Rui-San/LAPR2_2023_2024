@@ -8,7 +8,8 @@ import java.io.Serializable;
 public enum MobileOperator implements Serializable {
     OPERATOR1('1'),
     OPERATOR2('2'),
-    OPERATOR3('3');
+    OPERATOR3('3'),
+    OPERATOR6('6');
 
     /**
      * The operator code of the mobile phone.

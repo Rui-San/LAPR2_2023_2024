@@ -487,7 +487,7 @@ public class RegisterCollaboratorUI implements Initializable {
 
         char[] mobileNumberChars = mobileNumber.toCharArray();
 
-        if (mobileNumberChars.length != 9 || mobileNumberChars[0] != '9' || (mobileNumberChars[1] != MobileOperator.OPERATOR1.getOperatorCode() && mobileNumberChars[1] != MobileOperator.OPERATOR2.getOperatorCode() && mobileNumberChars[1] != MobileOperator.OPERATOR3.getOperatorCode())) {
+        if (mobileNumberChars.length != 9 || mobileNumberChars[0] != '9' || (mobileNumberChars[1] != MobileOperator.OPERATOR1.getOperatorCode() && mobileNumberChars[1] != MobileOperator.OPERATOR2.getOperatorCode() && mobileNumberChars[1] != MobileOperator.OPERATOR3.getOperatorCode() && mobileNumberChars[1] != MobileOperator.OPERATOR6.getOperatorCode())) {
             displayErrorLayout(txtPhoneNumber, lblPhoneError, "Mobile Number is not in a correct format");
             return false;
         } else {
