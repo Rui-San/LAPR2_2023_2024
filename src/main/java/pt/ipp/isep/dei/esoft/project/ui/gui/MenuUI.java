@@ -93,7 +93,7 @@ public class MenuUI implements Initializable {
 
             loginPage = new Stage();
             loginPage.initModality(Modality.APPLICATION_MODAL);
-            loginPage.setTitle("Musgo Sublime - Green Space Management");
+            loginPage.setTitle("Login");
             loginPage.setResizable(false);
             Image image = new Image("file:MS_logo.png");
             loginPage.getIcons().add(image);
