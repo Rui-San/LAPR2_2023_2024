@@ -140,23 +140,8 @@ public class AgendaRepository implements Serializable {
                 }
             }
 
-
         }
 
-
-        /*
-
-
-
-        for (Task registeredTask : agenda) {
-            if (registeredTask.getTitle().trim().equalsIgnoreCase(taskTitle) &&
-                    registeredTask.getStatus() == AGENDA_DEFAULT_STATUS &&
-                    registeredTask.getGreenSpace().toString().trim().equalsIgnoreCase(taskGreenSpace)) {
-                return false;
-            }
-        }
-
-         */
         return true;
     }
 
@@ -191,28 +176,8 @@ public class AgendaRepository implements Serializable {
                     task.setStatus(Status.CANCELED);
                     Task copy = getCopy(task);
 
-                    System.out.println(copy.getTeamAssigned().getMembers().size());
-                    System.out.println(copy.getTeamAssigned().getMembers().get(0).getName());
-
                    // task.removeAssignedTeam();
                    // task.removeAssignedVehicles();
-
-                    System.out.println("----------//-------");
-                    if(task.getVehiclesAssigned().isEmpty()){
-                        System.out.println("no vehicles on task now");
-                    }else{
-
-                        System.out.println("task still have veicles: " + task.getVehiclesAssigned().size());
-                    }
-
-                    if(task.getTeamAssigned() == null){
-                        System.out.println("no team on task now");
-                    }else{
-                        System.out.println("task still have team with size" + task.getTeamAssigned().getMembers().size());
-
-                    }
-                    System.out.println("----------//-------");
-
 
                     return copy;
                 }
