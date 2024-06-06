@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.controller.*;
@@ -123,6 +124,9 @@ public class AgendaUI implements Initializable {
                     Stage stage = new Stage();
                     stage.initModality(Modality.APPLICATION_MODAL);
                     stage.setScene(new Scene(root));
+                    stage.setTitle("Assign Team");
+                    Image image = new Image("file:MS_logo.png");
+                    stage.getIcons().add(image);
                     stage.setResizable(false);
 
                     stage.showAndWait();
@@ -170,6 +174,9 @@ public class AgendaUI implements Initializable {
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.setScene(new Scene(root));
                 stage.setResizable(false);
+                stage.setTitle("Assign Vehicles");
+                Image image = new Image("file:MS_logo.png");
+                stage.getIcons().add(image);
                 stage.showAndWait();
 
 
@@ -212,6 +219,9 @@ public class AgendaUI implements Initializable {
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.setScene(new Scene(root));
                 stage.setResizable(false);
+                stage.setTitle("Postpone Task");
+                Image image = new Image("file:MS_logo.png");
+                stage.getIcons().add(image);
                 stage.showAndWait();
 
                 String selectedDate = postponeTaskPopupUI.getSelectedDate();
@@ -292,6 +302,9 @@ public class AgendaUI implements Initializable {
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(new Scene(root));
+            stage.setTitle("Task Details");
+            Image image = new Image("file:MS_logo.png");
+            stage.getIcons().add(image);
             stage.setResizable(false);
             stage.showAndWait();
         } catch (IOException e) {

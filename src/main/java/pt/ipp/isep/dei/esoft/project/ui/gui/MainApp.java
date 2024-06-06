@@ -9,6 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javafx.scene.image.Image;
 
 import java.io.IOException;
 
@@ -24,6 +25,10 @@ public class MainApp extends Application {
             Scene scene = new Scene(root);
             String css = this.getClass().getResource("/styles/Styles.css").toExternalForm();
             scene.getStylesheets().add(css);
+
+
+            Image image = new Image("file:MS_logo.png");
+            stage.getIcons().add(image);
 
             stage.setTitle(APP_TITLE);
             stage.setScene(scene);

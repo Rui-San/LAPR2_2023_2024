@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.scene.image.Image;
 import pt.ipp.isep.dei.esoft.project.controller.AuthenticationController;
 import pt.ipp.isep.dei.esoft.project.ui.console.menu.AdminUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.menu.HrmUI;
@@ -54,7 +55,9 @@ public class AuthenticationUI implements Initializable {
 
             landingPage = new Stage();
             landingPage.initModality(Modality.APPLICATION_MODAL);
-            landingPage.setTitle("Programa");
+            landingPage.setTitle("Musgo Sublime - Green Space Management");
+            Image image = new Image("file:MS_logo.png");
+            landingPage.getIcons().add(image);
             landingPage.setResizable(false);
             landingPage.setScene(scene);
 
@@ -132,6 +135,7 @@ public class AuthenticationUI implements Initializable {
             System.out.println("There is no UI for users with role '" + role.getDescription() + "'");
         }
     }
+
 
     private UserRoleDTO selectsRole(List<UserRoleDTO> roles) {
         if (roles.size() == 1) {

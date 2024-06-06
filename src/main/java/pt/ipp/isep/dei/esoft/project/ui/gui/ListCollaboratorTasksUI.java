@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.text.Text;
 import javafx.beans.property.SimpleStringProperty;
 
@@ -280,6 +281,9 @@ public class ListCollaboratorTasksUI implements Initializable {
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(new Scene(root));
+            stage.setTitle("Task details");
+            Image image = new Image("file:MS_logo.png");
+            stage.getIcons().add(image);
             stage.setResizable(false);
             stage.showAndWait();
         } catch (IOException e) {
