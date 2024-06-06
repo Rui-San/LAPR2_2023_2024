@@ -55,6 +55,96 @@ class TaskTest {
         TaskType result = task.getTaskType();
         assertEquals(expectedResult, result);
     }
+    @Test
+    void testNullTitle() {
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> task.setTitle(null));
+        assertEquals("Title can't be empty or null.", exception.getMessage());
+    }
+
+    @Test
+    void testEmptyTitle() {
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> task.setTitle(""));
+        assertEquals("Title can't be empty or null.", exception.getMessage());
+    }
+
+    @Test
+    void testTitleSpecialCharacters() {
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> task.setTitle("Invalid@Title!"));
+        assertEquals("Title cannot contain Special characters.", exception.getMessage());
+    }
+
+    @Test
+    void testValidTitle() {
+
+        task.setTitle("Valid Title");
+        assertEquals("Valid Title", task.getTitle());
+    }
+
+    @Test
+    void testNullDescription() {
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> task.setDescription(null));
+        assertEquals("Description can't be empty or null.", exception.getMessage());
+    }
+
+    @Test
+    void testEmptyDescription() {
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> task.setDescription(""));
+        assertEquals("Description can't be empty or null.", exception.getMessage());
+    }
+
+    @Test
+    void testValidDescription() {
+
+        task.setDescription("This is a valid description.");
+        assertEquals("This is a valid description.", task.getDescription());
+    }
+
+    @Test
+    void testValidTaskType() {
+
+        task.setTaskType(TaskType.REGULAR);
+        assertEquals(TaskType.REGULAR, task.getTaskType());
+    }
+
+    @Test
+    void testInvalidTaskType() {
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> task.setTaskType(null));
+        assertEquals("Task type is not valid.", exception.getMessage());
+    }
+
+    @Test
+    void testValidStatus() {
+
+        task.setStatus(Status.PLANNED);
+        assertEquals(Status.PLANNED, task.getStatus());
+    }
+
+    @Test
+    void testInvalidStatus() {
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> task.setStatus(null));
+        assertEquals("Status is not valid.", exception.getMessage());
+    }
+
+    @Test
+    void testValidUrgency() {
+
+        task.setUrgency(UrgencyType.HIGH);
+        assertEquals(UrgencyType.HIGH, task.getUrgency());
+    }
+
+    @Test
+    void testInvalidUrgency() {
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> task.setUrgency(null));
+        assertEquals("Urgency option is not valid.", exception.getMessage());
+    }
 
     @Test
     void setDescription() {

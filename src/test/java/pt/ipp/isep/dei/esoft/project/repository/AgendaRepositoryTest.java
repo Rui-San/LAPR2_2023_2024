@@ -6,6 +6,7 @@ import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.tools.*;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -44,7 +45,7 @@ class AgendaRepositoryTest {
     }
 
     @Test
-    void getCollbaboratorSpecificAgenda() {
+    void getCollaboratorSpecificAgenda() {
         assertEquals(0, agendaRepository.getCollbaboratorSpecificAgenda("test@this.app").size());
     }
 
@@ -65,5 +66,44 @@ class AgendaRepositoryTest {
         agendaRepository.postponeTaskAgenda(task, new WorkPeriod(new Date("17/10/2024"), 8, 0, new TaskDuration(2, 0, 0)));
         assertEquals(Status.POSTPONED, agendaRepository.getAgenda().get(0).getStatus());
     }
+
+    @Test
+    void testRegisterTask() {
+        Task newTask = new Task("New Task", "New Task Description", TaskType.REGULAR, greenSpace, UrgencyType.HIGH, 3, 1, 0);
+        Optional<Task> result = agendaRepository.registerTaskAgenda(newTask, "17/10/2024", 9, 0);
+        assertTrue(result.isPresent());
+        assertEquals(newTask, result.get());
+        assertEquals(Status.PLANNED, newTask.getStatus());
+    }
+
+    @Test
+    void testRegisterDuplicate() {
+        Optional<Task> result = agendaRepository.registerTaskAgenda(task, "16/10/2024", 8, 0);
+        assertFalse(result.isPresent());
+    }
+
+    @Test
+    void testAssignTeamToTaskAgenda() {
+        Task newTask = new Task("New Task", "New Task Description", TaskType.REGULAR, greenSpace, UrgencyType.LOW, 2, 0, 0);
+        agendaRepository.registerTaskAgenda(newTask, "17/10/2024", 9, 0);
+
+        Team newTeam = new Team(List.of(collaborator, collaborator2));
+        Optional<Task> result = agendaRepository.assignTeamToTaskAgenda("New Task", greenSpace.getName(), "17/10/2024", Status.PLANNED, newTeam);
+        assertTrue(result.isPresent());
+        assertEquals(newTeam, result.get().getTeamAssigned());
+    }
+
+    @Test
+    void testAssignVehiclesToTaskAgenda() {
+        Task newTask = new Task("Another New Task", "Another New Task Description", TaskType.REGULAR, greenSpace, UrgencyType.LOW, 2, 0, 0);
+        agendaRepository.registerTaskAgenda(newTask, "18/10/2024", 10, 0);
+
+        List<Vehicle> newVehicles = List.of(vehicle, vehicle2);
+        Optional<Task> result = agendaRepository.assignVehiclesToTaskAgenda("Another New Task", greenSpace.getName(), "18/10/2024", Status.PLANNED, newVehicles);
+        assertTrue(result.isPresent());
+        assertEquals(newVehicles, result.get().getVehiclesAssigned());
+    }
+
+
 
 }

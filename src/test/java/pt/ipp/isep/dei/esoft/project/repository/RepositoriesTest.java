@@ -51,4 +51,22 @@ class RepositoriesTest {
         assertNotNull(instance.getVehicleRepository());
     }
 
+    @Test
+    void testGetToDoRepository() {
+        Repositories instance = Repositories.getInstance();
+        assertNotNull(instance.getToDoRepository());
+    }
+
+    @Test
+    void testGetAgendaRepository() {
+        Repositories instance = Repositories.getInstance();
+        assertNotNull(instance.getAgendaRepository());
+    }
+
+    @Test
+    void testGetGreenSpaceRepository() {
+        Repositories instance = Repositories.getInstance();
+        assertNotNull(instance.getGreenSpaceRepository());
+    }
+
 }

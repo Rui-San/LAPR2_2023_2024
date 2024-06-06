@@ -164,7 +164,7 @@ public class Task implements Serializable {
      * Sets the task type
      * @param taskType the task type
      */
-    private void setTaskType(TaskType taskType) {
+    public void setTaskType(TaskType taskType) {
         if (validateTaskType(taskType)) {
             this.taskType = taskType;
         } else {

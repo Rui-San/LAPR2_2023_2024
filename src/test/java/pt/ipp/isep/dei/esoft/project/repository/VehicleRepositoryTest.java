@@ -3,6 +3,9 @@ package pt.ipp.isep.dei.esoft.project.repository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.esoft.project.domain.*;
+import pt.ipp.isep.dei.esoft.project.tools.GreenSpaceType;
+import pt.ipp.isep.dei.esoft.project.tools.TaskType;
+import pt.ipp.isep.dei.esoft.project.tools.UrgencyType;
 import pt.ipp.isep.dei.esoft.project.tools.VehicleType;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -77,7 +80,7 @@ public class VehicleRepositoryTest {
     }
 
     @Test
-    void testGetVehiclesNeedingCheckup(){
+    void testGetVehiclesNeedingCheckup() {
 
         List<VehicleNeedingCheckup> vehiclesNeedingCheckup = vehicleRepository.getVehiclesNeedingCheckup(checkupRepository.getVehicleCheckups());
 
@@ -122,5 +125,17 @@ public class VehicleRepositoryTest {
         assertTrue(needsCheckup);
 
     }
+
+    @Test
+    void testUpdateVehicleKms() {
+        int newKms = 12000;
+        Optional<Vehicle> updatedVehicle = vehicleRepository.updateVehicleKms(vehicle.getPlateId(), newKms);
+
+        assertTrue(updatedVehicle.isPresent());
+        assertEquals(newKms, updatedVehicle.get().getCurrentKm());
+    }
+
+
+
 
 }
