@@ -32,7 +32,7 @@ public class MenuUI implements Initializable {
     @FXML
     private VBox vbMenuButtonsHolder;
     @FXML
-    private Control mbJobs, mbSkills, mbCollaborators, mbVehicles, mbTeams, mbGreenSpaces, mbTasks, mbLogout, mbMyAgenda, mbUpdateVehicleKm;
+    private Control mbJobs, mbSkills, mbCollaborators, mbVehicles, mbTeams, mbGreenSpaces, mbTasks, mbLogout, mbMyAgenda, mbUpdateVehicleKm, mbRoutesToOpen;
 
     private List<Control> allOptions = new ArrayList<>();
 
@@ -40,7 +40,7 @@ public class MenuUI implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        allOptions.addAll(List.of(mbJobs, mbSkills, mbCollaborators, mbVehicles, mbTeams, mbGreenSpaces, mbTasks, mbMyAgenda, mbUpdateVehicleKm));
+        allOptions.addAll(List.of(mbJobs, mbSkills, mbCollaborators, mbVehicles, mbTeams, mbGreenSpaces, mbTasks, mbMyAgenda, mbUpdateVehicleKm, mbRoutesToOpen));
 
         UserSession session = ApplicationSession.getInstance().getCurrentSession();
         String af = ApplicationSession.getInstance().getCurrentSession().getUserId().getEmail().toString();
@@ -58,7 +58,7 @@ public class MenuUI implements Initializable {
                     sessionOptions.add(mbVehicles);
                     break;
                 case "GREEN SPACE MANAGER":
-                    sessionOptions.addAll(List.of(mbGreenSpaces, mbTasks));
+                    sessionOptions.addAll(List.of(mbGreenSpaces, mbTasks, mbRoutesToOpen));
                     break;
                 case "ADMINISTRATOR":
                     sessionOptions.addAll(allOptions);
@@ -125,6 +125,13 @@ public class MenuUI implements Initializable {
     @FXML
     public void ListVehiclesNeedingCheckup() throws IOException {
         Parent fxml = FXMLLoader.load(getClass().getResource("/fxml/ListVehiclesNeedingCheckupScene.fxml"));
+        contentArea.getChildren().removeAll();
+        contentArea.getChildren().setAll(fxml);
+    }
+
+    @FXML
+    public void RoutesToOpen() throws IOException {
+        Parent fxml = FXMLLoader.load(getClass().getResource("/fxml/ObtainRoutesScene.fxml"));
         contentArea.getChildren().removeAll();
         contentArea.getChildren().setAll(fxml);
     }

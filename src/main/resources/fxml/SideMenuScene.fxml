@@ -83,6 +83,11 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
+            <Button fx:id="mbRoutesToOpen" mnemonicParsing="false" onAction="#RoutesToOpen" styleClass="menu-btn" text="Routes to Open">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
             <BorderPane prefHeight="218.0" prefWidth="257.0" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
