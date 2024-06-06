@@ -62,7 +62,7 @@ public class AuthenticationUI implements Initializable {
             landingPage.setScene(scene);
 
         } catch (IOException ex) {
-            AlertUI.createAlert(Alert.AlertType.ERROR, MainApp.APP_TITLE, "Erro.", ex.getMessage());
+            AlertUI.createAlert(Alert.AlertType.ERROR, MainApp.APP_TITLE, "Error", ex.getMessage());
         }
     }
 

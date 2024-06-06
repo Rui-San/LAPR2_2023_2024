@@ -66,7 +66,7 @@ public class RegisterSkillUI implements Initializable {
             lblSkillNameError.setVisible(true);
 
         } catch (NullPointerException npe) {
-            AlertUI.createAlert(Alert.AlertType.ERROR, "Register Skill", "Error occured", npe.getMessage()).show();
+            AlertUI.createAlert(Alert.AlertType.ERROR, "Register Skill", "Error occurred", npe.getMessage()).show();
         }
     }
 

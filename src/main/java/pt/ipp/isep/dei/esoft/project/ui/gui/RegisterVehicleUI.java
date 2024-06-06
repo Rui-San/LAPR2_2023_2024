@@ -98,7 +98,7 @@ public class RegisterVehicleUI implements Initializable {
     private void submitData() {
 
         String information = "PlateID: " + txtPlateID.getText() + "\n" + "Type: " + cbType.getValue() + "\n" + "Brand: " + txtBrand.getText() + "\n" + "Model: " + txtModel.getText() + "\n" + "Tare: " + txtTare.getText() + "\n" + "Gross Weight: " + txtGrossWeight.getText() + "\n" + "Register Date: " + dpRegisterDate.getValue().toString() + "\n" + "Acquisition Date: " + dpAcquisitionDate.getValue().toString() + "\n" + "Checkup Frequency: " + txtCheckupFrequency.getText() + "\n" + "Current Km: " + txtCurrentKm.getText() + "\n" + "Do you wish yo proceed ?";
-        Alert closeAlert = AlertUI.createAlert(Alert.AlertType.CONFIRMATION, MainApp.APP_TITLE,
+        Alert closeAlert = AlertUI.createAlert(Alert.AlertType.CONFIRMATION, "Register Vehicle",
                 "You're about to register the following vehicle..",
                 information);
         if (closeAlert.showAndWait().get() == ButtonType.OK) {
@@ -115,7 +115,7 @@ public class RegisterVehicleUI implements Initializable {
                     convertDate(dpAcquisitionDate.getValue().toString().trim()),
                     Integer.parseInt(txtCheckupFrequency.getText().trim()));
 
-            AlertUI.createAlert(Alert.AlertType.INFORMATION, MainApp.APP_TITLE, "Register Vehicle",
+            AlertUI.createAlert(Alert.AlertType.INFORMATION, "Register Vehicle", "Register Vehicle",
                     vehicle.isPresent() ? "Vehicle registered successfully"
                             : "Vehicle was already registered").show();
 
