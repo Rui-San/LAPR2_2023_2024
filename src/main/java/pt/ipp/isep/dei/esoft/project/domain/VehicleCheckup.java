@@ -9,7 +9,7 @@ import java.io.Serializable;
 public class VehicleCheckup implements Serializable {
 
     /**
-     *  The vehicle selected to register the checkup.
+     * The vehicle selected to register the checkup.
      */
     private Vehicle vehicle;
 
@@ -25,24 +25,34 @@ public class VehicleCheckup implements Serializable {
 
     /**
      * Gets the vehicle of a checkup.
+     *
      * @return
      */
-    public Vehicle getVehicle() { return vehicle; }
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
 
     /**
      * Gets the date of a checkup.
+     *
      * @return
      */
-    public Date getCheckupDate() { return checkupDate; }
+    public Date getCheckupDate() {
+        return checkupDate;
+    }
 
     /**
      * Gets the kilometers of a checkup.
+     *
      * @return
      */
-    public int getCheckupKms() { return checkupKms; }
+    public int getCheckupKms() {
+        return checkupKms;
+    }
 
     /**
      * Sets the vehicle of a checkup.
+     *
      * @param vehicle the vehicle that was checked
      */
     public void setVehicle(Vehicle vehicle) {
@@ -50,7 +60,7 @@ public class VehicleCheckup implements Serializable {
         this.vehicle = vehicle;
     }
 
-    public void validateVehicle(Vehicle vehicle){
+    public void validateVehicle(Vehicle vehicle) {
         if (vehicle == null) {
             throw new IllegalArgumentException("Vehicle does not exist.");
         }
@@ -58,6 +68,7 @@ public class VehicleCheckup implements Serializable {
 
     /**
      * Sets the date of a checkup.
+     *
      * @param checkupDate the date of the checkup
      */
     public void setCheckupDate(Date checkupDate) {
@@ -67,6 +78,7 @@ public class VehicleCheckup implements Serializable {
 
     /**
      * Sets the kilometers of a checkup.
+     *
      * @param checkupKms the kilometers at the time of the checkup
      */
     public void setCheckupKms(int checkupKms) {
@@ -76,9 +88,10 @@ public class VehicleCheckup implements Serializable {
 
     /**
      * Instantiates a new Vehicle Checkup.
-     * @param vehicle the vehicle
+     *
+     * @param vehicle     the vehicle
      * @param checkupDate the checkup date
-     * @param checkupKms the checkup kilometers
+     * @param checkupKms  the checkup kilometers
      */
     public VehicleCheckup(Vehicle vehicle, Date checkupDate, int checkupKms) {
         setVehicle(vehicle);
@@ -88,19 +101,21 @@ public class VehicleCheckup implements Serializable {
 
     /**
      * Validates the checkup kilometers.
-     * @param vehicle the vehicle
+     *
+     * @param vehicle    the vehicle
      * @param checkupKms the checkup kilometers
      */
     private void validateCheckupKm(Vehicle vehicle, int checkupKms) {
         if (checkupKms < 0) {
             throw new IllegalArgumentException("Checkup kilometers must be a positive number.");
-        }else if(checkupKms > vehicle.getCurrentKm()){
+        } else if (checkupKms > vehicle.getCurrentKm()) {
             throw new IllegalArgumentException("Checkup kilometers must be less than the current kilometers of the vehicle.");
         }
     }
 
     /**
      * Validates the checkup date.
+     *
      * @param checkupDate the checkup date
      */
     private void validateCheckupDate(Date checkupDate) {
@@ -108,13 +123,14 @@ public class VehicleCheckup implements Serializable {
             throw new IllegalArgumentException("Checkup cannot have been done before the register date.");
         }
 
-        if (!checkupDate.isPastDate()) {
+        if (!checkupDate.isPastDate() || checkupDate.compareTo(new Date()) == 0) {
             throw new IllegalArgumentException("Check-up cannot be made in the future.");
         }
     }
 
     /**
      * Returns the textual representation of the Vehicle Checkup. In this case, showing the vehicle, checkup date and checkup kilometers.
+     *
      * @return the textual representation of the Vehicle Checkup
      */
     @Override
@@ -128,6 +144,7 @@ public class VehicleCheckup implements Serializable {
 
     /**
      * Creates a deep copy of the checkup
+     *
      * @return a deep copy of the checkup
      */
     @Override
