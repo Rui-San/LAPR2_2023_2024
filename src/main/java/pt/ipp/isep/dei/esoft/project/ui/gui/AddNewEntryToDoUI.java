@@ -29,7 +29,7 @@ public class AddNewEntryToDoUI implements Initializable {
     @FXML
     private TextField txtTitle;
     @FXML
-    private TextField txtDescription;
+    private TextArea txtDescription;
     @FXML
     private TextField txtDays;
     @FXML

@@ -83,7 +83,7 @@
       </Group>
       <Button layoutX="437.0" layoutY="496.0" mnemonicParsing="false" onAction="#btnSubmit" prefHeight="38.0" prefWidth="92.0" styleClass="form-btn" text="Submit" />
       <Button layoutX="308.0" layoutY="496.0" mnemonicParsing="false" onAction="#btnClear" prefHeight="38.0" prefWidth="92.0" styleClass="form-btn" text="Clear" />
-      <TextField fx:id="txtDescription" alignment="TOP_LEFT" layoutX="81.0" layoutY="170.0" prefHeight="191.0" prefWidth="319.0" promptText="Description" />
+      <TextArea fx:id="txtDescription" layoutX="81.0" layoutY="170.0" prefHeight="191.0" prefWidth="319.0" promptText="Description" wrapText="true" />
       <Label fx:id="lblDescriptionError" alignment="TOP_LEFT" layoutX="81.0" layoutY="364.0" prefHeight="17.0" prefWidth="319.0" text="Name must not contain more than 6 words, according to Portuguese Law" textFill="#dd2424" visible="false" wrapText="true">
          <font>
             <Font size="9.0" />
