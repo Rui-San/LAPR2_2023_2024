@@ -107,6 +107,10 @@ public class VehicleCheckup implements Serializable {
         if (checkupDate.compareTo(getVehicle().getRegisterDate()) < 0) {
             throw new IllegalArgumentException("Checkup cannot have been done before the register date.");
         }
+
+        if (!checkupDate.isPastDate()) {
+            throw new IllegalArgumentException("Check-up cannot be made in the future.");
+        }
     }
 
     /**

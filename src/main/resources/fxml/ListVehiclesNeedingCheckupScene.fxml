@@ -15,7 +15,7 @@
           <TableColumn fx:id="currentKm" prefWidth="100.0" text="Current KMs" />
             <TableColumn fx:id="checkupFrequencyKms" prefWidth="134.0" text="Checkup Frequency" />
             <TableColumn fx:id="lastCheckupKm" prefWidth="136.0" text="Last Checkup KMs" />
-            <TableColumn fx:id="optimalNextCheckupKm" prefWidth="192.0" text="Optimal next Checkup Kms" />
+            <TableColumn fx:id="optimalNextCheckupKm" prefWidth="192.0" text="Limit KMs" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

@@ -67,23 +67,27 @@ public class RegisterCheckupUI implements Initializable {
         Alert closeAlert = AlertUI.createAlert(Alert.AlertType.CONFIRMATION, MainApp.APP_TITLE,
                 "You're about to register the following vehicle..",
                 information);
-        if (closeAlert.showAndWait().get() == ButtonType.OK) {
-            Optional<VehicleCheckup> checkup = getController().registerVehicleCheckup(
-                    tbVehicles.getSelectionModel().getSelectedItem(),
-                    convertDate(dpCheckupDate.getValue().toString()),
-                    Integer.parseInt(txtCheckupKm.getText())
-            );
-            String operationStatus;
-            if (checkup.isEmpty()) {
-                operationStatus = "Checkup was already registered.";
-            } else {
-                operationStatus = "Checkup registered successfully.";
+        try {
+            if (closeAlert.showAndWait().get() == ButtonType.OK) {
+                Optional<VehicleCheckup> checkup = getController().registerVehicleCheckup(
+                        tbVehicles.getSelectionModel().getSelectedItem(),
+                        convertDate(dpCheckupDate.getValue().toString()),
+                        Integer.parseInt(txtCheckupKm.getText())
+                );
+                String operationStatus;
+                if (checkup.isEmpty()) {
+                    operationStatus = "Checkup was already registered.";
+                } else {
+                    operationStatus = "Checkup registered successfully.";
+                }
+                Alert operationAlert = AlertUI.createAlert(Alert.AlertType.CONFIRMATION, MainApp.APP_TITLE,
+                        "Register Checkup.",
+                        operationStatus);
+                operationAlert.show();
+                btnClearAction();
             }
-            Alert operationAlert = AlertUI.createAlert(Alert.AlertType.CONFIRMATION, MainApp.APP_TITLE,
-                    "Register Checkup.",
-                    operationStatus);
-            operationAlert.show();
-            btnClearAction();
+        }catch (IllegalArgumentException ie){
+            AlertUI.createAlert(Alert.AlertType.ERROR, "Register Checkup", "Error occurred", ie.getMessage()).show();
         }
 
     }
@@ -169,6 +173,7 @@ public class RegisterCheckupUI implements Initializable {
 
     @FXML
     private void btnSubmitAction() {
+
         int isAllValid = 0;
         isAllValid += validateSelectedVehicle();
         isAllValid += validateCheckupDate(dpCheckupDate.getValue());
