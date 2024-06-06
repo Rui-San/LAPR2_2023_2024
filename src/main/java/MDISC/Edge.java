@@ -6,6 +6,7 @@ public class Edge {
     private Vertex endVertex;
     private int weight;
 
+    //
     public Edge(Vertex startVertex, Vertex endVertex, int weight) {
         this.startVertex = startVertex;
         this.endVertex = endVertex;
@@ -42,5 +43,4 @@ public class Edge {
         }
         return false;
     }
-
 }

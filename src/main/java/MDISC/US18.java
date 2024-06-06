@@ -61,7 +61,7 @@ public class US18 {
         String answer;
         boolean flag = true;
         do {
-            System.out.print("\nDo you want to get the shortest route from a specific vertex ? ");
+            System.out.print("\nUS18-\nDo you want to get the shortest route from a specific vertex?(y/n) ");
             answer = read.nextLine();
             if(answer.equals("y") || answer.equals("n")){
                 flag = false;

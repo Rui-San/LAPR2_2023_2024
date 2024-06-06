@@ -1,4 +1,7 @@
-package MDISC;public class Vertex {
+package MDISC;
+
+
+public class Vertex {
 
     private String name;
 
@@ -12,9 +15,6 @@ package MDISC;public class Vertex {
 
     @Override
     public boolean equals(Object possibleVertex){
-        // learnt by doing this method:
-        // in java you can omit the { } in the if statement if the line inside the if is a return statement
-        // this is useful to make the code more readable and "smaller" in terms of lines
         if(this == possibleVertex)
             return true;
         if(possibleVertex == null)
