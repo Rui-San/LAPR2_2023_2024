@@ -108,6 +108,7 @@ public class MainUS13 {
         // Adiciona o texto à visualização do grafo
         Viewer viewer = graph.display();
         ViewerPipe pipe = viewer.newViewerPipe();
+        viewer.setCloseFramePolicy(Viewer.CloseFramePolicy.HIDE_ONLY);
 
         // Adiciona o texto na parte superior da visualização
         JPanel panel = (JPanel) viewer.getDefaultView();
@@ -260,6 +261,7 @@ public class MainUS13 {
                 directory.mkdirs();
             }
 
+
             FileWriter writer = new FileWriter(directoryPath + "/graph.dot");
 
             writer.write("graph {\n");
@@ -279,7 +281,10 @@ public class MainUS13 {
             title = title.substring(0, title.length() - 4);
             try {
                 // Use neato layout engine
+
                 Runtime.getRuntime().exec("neato -Tsvg " + directoryPath + "/graph.dot -o " + directoryPath + "/" + title + "_MST.svg");
+
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -288,7 +293,8 @@ public class MainUS13 {
         }
     }
 
-    private static void exportDataToCsv(List<Edge> minimalSpanningTree, String fileName, double totalCost) {
+
+    public static void exportDataToCsv(List<Edge> minimalSpanningTree, String fileName, double totalCost) {
         String csvName = fileName.substring(fileName.lastIndexOf(File.separator) + 1);
         String csvNameOriginal = csvName;
 
