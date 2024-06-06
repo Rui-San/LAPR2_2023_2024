@@ -18,7 +18,7 @@ _Evaluates the user interface. It has several subcategories,
 among them: error prevention; interface aesthetics and design; help and
 documentation; consistency and standards._
 
-- The application documention must be in English language.
+- The application documentation must be in English language.
 - The application should be easy to navigate.
 - All fields introduced by the user must be validated by the application.
 - During software development, Javadoc must be used to generate useful documentation for Java code.

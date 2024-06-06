@@ -55,7 +55,7 @@ public class AuthenticationUI implements Initializable {
 
             landingPage = new Stage();
             landingPage.initModality(Modality.APPLICATION_MODAL);
-            landingPage.setTitle("Musgo Sublime - Green Space Management");
+            landingPage.setTitle("MusgoSublime - Green Space Management");
             Image image = new Image("file:MS_logo.png");
             landingPage.getIcons().add(image);
             landingPage.setResizable(false);

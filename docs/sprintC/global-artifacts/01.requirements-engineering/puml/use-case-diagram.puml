@@ -13,6 +13,8 @@ left to right direction
 
     actor "HRM"
     actor "FM"
+    actor "GSM"
+    actor "Collaborator"
 
 
 rectangle {
@@ -26,6 +28,17 @@ rectangle {
     usecase "UC6 - Register a Vehicle" as UC6
     usecase "UC7 - Register a vehicle’s check-up" as UC7
     usecase "UC8 - List vehicles needing check-up" as UC8
+    usecase "UC20 - Register a greens pace" as UC20
+    usecase "UC21 - Add new entry to the To-Do List" as UC21
+    usecase "UC22 - Add new entry in the Agenda" as UC22
+    usecase "UC23 - Assign team to an entry in agenda" as UC23
+    usecase "UC24 - Postpone an entry in the Agenda to a specific future date" as UC24
+    usecase "UC25 - Cancel an entry in the Agenda" as UC25
+    usecase "UC26 - Assign one or more vehicles to an entry in the Agenda" as UC26
+    usecase "UC27 - List green spaces" as UC27
+    usecase "UC28 - Consult tasks assigned between two dates" as UC28
+    usecase "UC29 - Record the completion of a task" as UC29
+
 
     HRM --> UC1
     HRM --> UC2
@@ -35,6 +48,16 @@ rectangle {
     FM --> UC6
     FM --> UC7
     FM --> UC8
+    GSM --> UC20
+    GSM --> UC21
+    GSM --> UC22
+    GSM --> UC23
+    GSM --> UC24
+    GSM --> UC25
+    GSM --> UC26
+    GSM --> UC27
+    Collaborator --> UC28
+    Collaborator --> UC29
 
 
 
