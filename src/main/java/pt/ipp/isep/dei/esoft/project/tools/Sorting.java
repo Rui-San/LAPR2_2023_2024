@@ -113,7 +113,6 @@ public class Sorting {
     private void loadProperties() {
         try (InputStream input = getClass().getClassLoader().getResourceAsStream("config.properties")) {
             if (input == null) {
-                System.out.println("Sorry, unable to find config.properties");
                 return;
             }
             // Load the properties file from class path

@@ -106,8 +106,6 @@ public class AgendaRepository implements Serializable {
         if (validateTaskAgenda(task)) {
             task.setStatus(AGENDA_DEFAULT_STATUS);
             task.setTaskWorkPeriod(executionDate, workStartingHours, workStartingMinutes, task.getExpectedDuration());
-            System.out.println("-----------" + task.getExpectedDuration());
-            System.out.println("Workperiod Task da agenda:" + task.getTaskWorkPeriod().getWorkStartDate() + task.getTaskWorkPeriod().getWorkStartHour() + task.getTaskWorkPeriod().getWorkStartMin() + task.getTaskWorkPeriod().getWorkEndDate() + task.getTaskWorkPeriod().getWorkEndHour() + task.getTaskWorkPeriod().getWorkEndMin());
 
             newTask = Optional.of(task);
             operationSuccess = agenda.add(task);
@@ -203,29 +201,6 @@ public class AgendaRepository implements Serializable {
                     task.setStatus(Status.DONE);
                     Task copy = getCopy(task);
 
-                    System.out.println(copy.getTeamAssigned().getMembers().size());
-                    System.out.println(copy.getTeamAssigned().getMembers().get(0).getName());
-
-                    //task.removeAssignedTeam();
-                    //task.removeAssignedVehicles();
-
-                    System.out.println("----------//-------");
-                    if(task.getVehiclesAssigned().isEmpty()){
-                        System.out.println("no vehicles on task now");
-                    }else{
-
-                        System.out.println("task still have veicles: " + task.getVehiclesAssigned().size());
-                    }
-
-                    if(task.getTeamAssigned() == null){
-                        System.out.println("no team on task now");
-                    }else{
-                        System.out.println("task still have team with size" + task.getTeamAssigned().getMembers().size());
-
-                    }
-                    System.out.println("----------//-------");
-
-
                     return copy;
                 }
 
@@ -270,13 +245,10 @@ public class AgendaRepository implements Serializable {
                     Repositories.getInstance().getAgendaRepository().getAgenda().add(newTask);
                     task.setStatus(Status.POSTPONED);
                     newTask.setTaskWorkPeriod(newWorkPeriod);
-
-                    System.out.println("Task postponed !");
                     return true;
                 }
             }
         }
-        System.out.println("Task does not exist");
         return false;
     }
 
@@ -293,9 +265,6 @@ public class AgendaRepository implements Serializable {
         Optional<Task> assignedTask = Optional.empty();
         for (Task task : agenda) {
             if (task.getTitle().trim().equalsIgnoreCase(title.trim()) && task.getStatus() == status && task.getTaskWorkPeriod().getWorkStartDate().toString().trim().equalsIgnoreCase(executionDate.trim()) && task.getGreenSpace().getName().trim().equalsIgnoreCase(greenSpaceName.trim())) {
-                System.out.println("-----------");
-                System.out.println("Workperiod Task da agenda:" + task.getTaskWorkPeriod().getWorkStartDate() + "  " + task.getTaskWorkPeriod().getWorkStartHour() + "  " + task.getTaskWorkPeriod().getWorkStartMin() + "  " + task.getTaskWorkPeriod().getWorkEndDate() + "  " + task.getTaskWorkPeriod().getWorkEndHour() + "  " + task.getTaskWorkPeriod().getWorkEndMin());
-
                 task.assignTeam(team);
                 assignedTask = Optional.of(task);
                 return assignedTask;
@@ -319,9 +288,6 @@ public class AgendaRepository implements Serializable {
         Optional<Task> assignedTask;
         for (Task task : agenda) {
             if (task.getTitle().trim().equalsIgnoreCase(title.trim()) && task.getStatus() == status && task.getTaskWorkPeriod().getWorkStartDate().toString().trim().equalsIgnoreCase(executionDate.trim()) && task.getGreenSpace().getName().trim().equalsIgnoreCase(greenSpaceName.trim())) {
-                System.out.println("-----------");
-                System.out.println("Workperiod Task da agenda:" + task.getTaskWorkPeriod().getWorkStartDate() + task.getTaskWorkPeriod().getWorkStartHour() + task.getTaskWorkPeriod().getWorkStartMin() + task.getTaskWorkPeriod().getWorkEndDate() + task.getTaskWorkPeriod().getWorkEndHour() + task.getTaskWorkPeriod().getWorkEndMin());
-
                 task.assignVehicles(vehicles);
                 assignedTask = Optional.of(task);
                 return assignedTask;

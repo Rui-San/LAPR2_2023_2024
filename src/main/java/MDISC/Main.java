@@ -19,37 +19,45 @@ public class Main {
     }
 
     public static void DijkstraAlgorithm(Graph graph,Map<Vertex, Integer> distance, Map<Vertex, Vertex> previous, Vertex source) {
-
+        // Lista de vértices visitados
         List<Vertex> visited = new ArrayList<>();
 
+        // Inicializa as distâncias e os vértices anteriores
         for (Vertex vertex : graph.getVertexes()) {
-            distance.put(vertex, Integer.MAX_VALUE);
-            previous.put(vertex, null);
+            distance.put(vertex, Integer.MAX_VALUE); // todas as distâncias são inicializadas com infinito
+            previous.put(vertex, null); // todos os vértices anteriores são inicializados com null
         }
-        distance.put(source, 0);
-        previous.put(source, source);
+        distance.put(source, 0); // a distância do vértice AP começará em 0
+        previous.put(source, source); // o vértice anterior do vértice AP será ele mesmo
 
-        Vertex visiting = source;
+        Vertex visiting = source; // colocar o vértice AP como o vertice que estamos a visitar
 
         while(visited.size() != graph.getVertexes().size()){
+            // Obter as arestas adjacentes ao vértice que estamos a visitar
             List<Edge> adjacentEdges = graph.getEdgesFromVertex(visiting);
-            for(Edge adjacentEdge : adjacentEdges){
-                Vertex neighbor;
+            for(Edge adjacentEdge : adjacentEdges){ // para cada aresta
+                Vertex neighbor; // obter o vértice vizinho ao vértice que estamos a visitar
                 if(adjacentEdge.getVertexFrom().getName().equals(visiting.getName())){
                     neighbor = adjacentEdge.getVertexTo();
                 } else {
                     neighbor = adjacentEdge.getVertexFrom();
                 }
+                // se a distancia alocada ao vertice vizinho for maior que a distancia da aresta + a distancia do vertice que estamos a visitar
+                // alocar a distancia do vertice vizinho como a distancia da aresta + a distancia do vertice que estamos a visitar
+                // alocar o vertice anterior do vertice vizinho como o vertice que estamos a visitar
                 if(distance.get(neighbor) > distance.get(visiting) + adjacentEdge.getWeight() && !visited.contains(neighbor) ){
                     distance.put(neighbor, distance.get(visiting) + adjacentEdge.getWeight());
                     previous.put(neighbor, visiting);
                 }
             }
+            // adicionar o vertice que estamos a visitar à lista de visitados
             visited.add(visiting);
+            // obter o vertice com a menor distancia que ainda não foi visitado
             visiting = getMinDistanceVertex(graph, distance, visited);
         }
     }
 
+    // Metodo para obter o vertice com a menor distancia que ainda não foi visitado
     public static Vertex getMinDistanceVertex(Graph graph, Map<Vertex, Integer> distance, List<Vertex> visited) {
         Vertex nextVertex = null;
         for(Vertex vertex : graph.getVertexes()){

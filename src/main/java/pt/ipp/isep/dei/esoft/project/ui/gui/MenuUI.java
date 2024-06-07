@@ -44,9 +44,6 @@ public class MenuUI implements Initializable {
         allOptions.addAll(List.of(mbJobs, mbSkills, mbCollaborators, mbVehicles, mbTeams, mbGreenSpaces, mbTasks, mbMyAgenda, mbUpdateVehicleKm, mbRoutesToOpen));
 
         UserSession session = ApplicationSession.getInstance().getCurrentSession();
-        String af = ApplicationSession.getInstance().getCurrentSession().getUserId().getEmail().toString();
-
-        System.out.println(af);
 
         List<Control> sessionOptions = new ArrayList<>();
 
@@ -79,8 +76,6 @@ public class MenuUI implements Initializable {
                 vbMenuButtonsHolder.getChildren().remove(option);
             }
         }
-
-        System.out.println("Sorting: " + ApplicationSession.getInstance().getProperties().getProperty(ApplicationSession.SORTING_ALGORITHM));
 
     }
 

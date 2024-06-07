@@ -262,7 +262,6 @@ public class TeamRepository implements Serializable {
             for (Collaborator collaborator : team.getMembers()) {
                 if (collaborator.getEmail().getEmail().trim().equalsIgnoreCase(postponedTask.getTeamAssigned().getMembers().get(0).getEmail().getEmail().trim())) {
                     team.addWorkPeriod(newWorkPeriod);
-                    System.out.println("Team work period postponed!");
                 }
             }
         }

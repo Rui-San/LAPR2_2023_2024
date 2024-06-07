@@ -189,13 +189,13 @@ public class Repositories implements Serializable {
 
             in.close();
             file.close();
-            System.out.println("All repos have been deserialized");
+            System.out.println("[Log] All repos have been deserialized.");
 
             Repositories.getInstance().authenticationRepository = new AuthenticationRepository();
 
             return true;
         }catch (Exception e){
-            System.out.println("First time executing program, data from bootstrap has been saved.");
+            System.out.println("[Log] First time executing program, data from bootstrap has been saved.");
             return false;
         }
     }

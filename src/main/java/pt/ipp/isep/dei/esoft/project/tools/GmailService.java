@@ -28,7 +28,7 @@ public class GmailService implements EmailSender{
             writer.write("Body: " + body + "\n");
             writer.close();
         } catch (Exception e) {
-            System.out.println("[ERROR] Could not write to file.");
+            System.out.println("[Error] Could not write to file.");
         }
     }
 

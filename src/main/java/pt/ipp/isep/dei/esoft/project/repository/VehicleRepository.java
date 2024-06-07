@@ -224,7 +224,6 @@ public class VehicleRepository implements Serializable {
         for (Vehicle vehicle : getVehicleList()) {
             if (postponedTask.getVehiclesAssigned().contains(vehicle)) {
                 vehicle.addWorkPeriod(newWorkPeriod);
-                System.out.println("Work period added to vehicle " + vehicle.getPlateId());
             }
         }
     }

@@ -82,10 +82,7 @@ public class AuthenticationUI implements Initializable {
     public void btnLoginAction() {
         boolean success = false;
 
-        System.out.println("Username: " + txtUsername.getText().trim());
-        System.out.println("Password: " + txtPassword.getText().trim());
         success = ctrl.doLogin(txtUsername.getText().trim(), txtPassword.getText().trim());
-        System.out.println("Login successful: " + success);
 
         if (success) {
             List<UserRoleDTO> roles = this.ctrl.getUserRoles();

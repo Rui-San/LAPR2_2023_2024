@@ -136,17 +136,11 @@ public class AddNewEntryAgendaUI implements Initializable {
                     int workStartingHours = insertDatePopupUI.getWorkStartingHours();
                     int workStartingMinutes = insertDatePopupUI.getWorkStartingMinutes();
                     if (selectedDate != null && (workStartingMinutes > 0 || workStartingHours >0)) {
-                        System.out.println(selectedTask.title + selectedTask.description + selectedTask.urgency + selectedTask.taskType + selectedTask.greenSpaceName + selectedTask.expectedDurationToString());
-                        System.out.println(selectedDate);
-                        System.out.println();
-                        System.out.println(workStartingHours + " : " + workStartingMinutes) ;
                         if (controller.registerTaskAgenda(selectedTask, selectedDate, workStartingHours, workStartingMinutes).isPresent()) {
 
                             taskList.clear();
                             taskList.addAll(controller.getToDoDTOManagerlist());
                             updateTableView();
-
-                            System.out.println(Repositories.getInstance().getAgendaRepository().getAgenda());
 
                             AlertUI.createAlert(Alert.AlertType.INFORMATION, "Add new entry to agenda", "Confirmation of operation", "Task successfully placed in Agenda").show();
                             lblAddError.setVisible(false);

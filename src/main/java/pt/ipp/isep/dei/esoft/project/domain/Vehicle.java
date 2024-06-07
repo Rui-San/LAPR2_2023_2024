@@ -416,15 +416,6 @@ public class Vehicle implements Serializable {
     }
 
     public boolean isAvailable(WorkPeriod taskWorkPeriod) {
-        System.out.println("Listar work periods desta team:");
-        if(this.workPeriods.isEmpty()){
-            System.out.println("Não tem nenhuns");
-        }
-        for (WorkPeriod workPeriod : workPeriods){
-            System.out.println(workPeriod.getWorkStartDate() + "----end----" + workPeriod.getWorkEndDate());
-        }
-
-
         for (WorkPeriod workPeriod : workPeriods) {
             if (workPeriod.isOverlap(taskWorkPeriod)) {
                 return false;
@@ -434,14 +425,6 @@ public class Vehicle implements Serializable {
     }
 
     public boolean isAvailable(WorkPeriod newTaskWorkPeriod, WorkPeriod oldTaskWorkPeriod) {
-        System.out.println("Listar work periods desta team:");
-        if(this.workPeriods.isEmpty()){
-            System.out.println("Não tem nenhuns");
-        }
-        for (WorkPeriod workPeriod : workPeriods){
-            System.out.println(workPeriod.getWorkStartDate() + "----end----" + workPeriod.getWorkEndDate());
-        }
-
 
         for (WorkPeriod workPeriod : workPeriods) {
             if (workPeriod.isOverlap(newTaskWorkPeriod) && !workPeriod.matches(oldTaskWorkPeriod)){
@@ -466,15 +449,10 @@ public class Vehicle implements Serializable {
         for (int i = 0; i < workPeriods.size(); i++) {
             if (workPeriods.get(i).matches(taskWorkPeriod)) {
                 indexToRemove = i;
-                System.out.println("Class Veiculo: WorkPeriod encontrado e removido: " + workPeriods.get(i));
-
             }
         }
         if (indexToRemove != -1) {
             workPeriods.remove(indexToRemove);
-        }else{
-            System.out.println("Nenhum WorkPeriod correspondente encontrado para remover.");
-
         }
     }
 }

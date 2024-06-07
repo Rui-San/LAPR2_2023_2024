@@ -111,7 +111,6 @@ public class TeamProposalUI implements Initializable {
             int maxTeamSize = Integer.parseInt(txtMaxTeamSize.getText());
 
             if (minTeamSize >= 1 && maxTeamSize >= minTeamSize) {
-                System.out.println(skillsNeeded.get(0).getSkillName());
                 generatedTeams = controller.generateAllTeamProposal(minTeamSize, maxTeamSize, skillsNeeded, quantityNeeded);
                 if (generatedTeams.isEmpty()) {
                     lblGenerateTeamError.setText("No teams could be generated with the given inputs.");

@@ -99,27 +99,19 @@ public class CompleteTaskController {
      */
     public Optional<Task> completeTaskAgenda(AgendaTaskDTO agendaTaskDTO) {
 
-        System.out.println("Iniciando cancelamento de tarefa...");
-
         Task completedTask = agendaRepository.updateTaskToDone(agendaTaskDTO.title, agendaTaskDTO.greenSpaceName, agendaTaskDTO.workStartDate, agendaTaskDTO.status);
 
         if (completedTask != null) {
-            System.out.println("Tarefa encontrada e status atualizado para DONE.");
 
             if(completedTask.getTeamAssigned() != null){
-                System.out.println("tamanho da equipa: " +completedTask.getTeamAssigned().getMembers().size());
-                System.out.println("Removendo work period da equipe.");
                 teamRepository.removeWorkPeriodFromTeam(completedTask, completedTask.getTaskWorkPeriod());
             }
             if(!completedTask.getVehiclesAssigned().isEmpty()){
-                System.out.println("Numero de veiculos dentro da task: " + completedTask.getVehiclesAssigned().size());
-                System.out.println("Removendo work period dos veículos.");
                 vehicleRepository.removeWorkPeriodFromVehicle(completedTask, completedTask.getTaskWorkPeriod());
             }
 
             return Optional.of(completedTask);
         }else{
-            System.out.println("Tarefa não encontrada ou não pode ser completada.");
             return Optional.empty();
         }
     }

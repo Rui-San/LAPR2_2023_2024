@@ -181,7 +181,7 @@ public class Bootstrap implements Runnable {
         for (Vehicle vehicle : vehicles) {
             if (vehicle.getCurrentKm() >= 5000) {
                 int kmsForCheckupBootstrap = vehicle.getCurrentKm() - 1000;
-                VehicleCheckup checkup = new VehicleCheckup(vehicle, new Date(), kmsForCheckupBootstrap);
+                VehicleCheckup checkup = new VehicleCheckup(vehicle, new Date("06/06/2024"), kmsForCheckupBootstrap);
             }
         }
 

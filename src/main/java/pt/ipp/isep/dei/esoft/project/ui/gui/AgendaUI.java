@@ -107,7 +107,6 @@ public class AgendaUI implements Initializable {
         AgendaTaskDTO selectedTask = tbTasks.getSelectionModel().getSelectedItem();
 
         if (validateSelectedTask(selectedTask)) {
-            System.out.println(selectedTask.isTeamAssigned.trim());
             if (selectedTask.isTeamAssigned.trim().equalsIgnoreCase("Yes")) {
                 lblError.setText("This task already have a team assigned to.");
                 lblError.setVisible(true);

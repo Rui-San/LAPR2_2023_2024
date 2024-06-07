@@ -146,7 +146,7 @@ public class ListCollaboratorTasksUI implements Initializable {
         }
 
         if (selectedTask.status == Status.CANCELED) {
-            lblError.setText("The selected task is already canceled");
+            lblError.setText("The selected task is canceled");
             lblError.setVisible(true);
             return false;
         }
