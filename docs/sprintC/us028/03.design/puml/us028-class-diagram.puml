@@ -152,7 +152,6 @@ Task ---> WorkPeriod
 WorkPeriod ..> Date
 WorkPeriod ..> TaskDuration
 ApplicationSession ..> UserSession
-ApplicationSession --> AuthenticationRepository
 UserSession .down.> Email
 
 @enduml
