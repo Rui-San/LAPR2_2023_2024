@@ -1,0 +1,145 @@
+@startuml
+skinparam monochrome true
+skinparam classAttributeIconSize 0
+
+title US028 - Class Diagram
+
+package "Domain Model" {
+    class Organization {
+        - tasks: List<Task>
+        + addTask(task: Task)
+        + validateTask(task: Task)
+        + completeTask(task: Task)
+    }
+
+    class Task {
+        - id: String
+        - title: String
+        - status: Status
+        - workperiod: Workperiod
+        + getWorkPeriod(): Workperiod
+        + setStatus(status: Status)
+        + validate()
+    }
+
+    class UserSession {
+        - userId: String
+        + getCurrentUser(): User
+        + getUserId(): String
+    }
+
+    class ApplicationSession {
+        - sessionId: String
+        + getInstance(): ApplicationSession
+        + getCurrentSession(): UserSession
+    }
+
+    class Workperiod {
+        - startDate: Date
+        - endDate: Date
+        + isOverlap(startDate: Date, endDate: Date): boolean
+    }
+
+    class Email {
+        - address: String
+        + getUserId(): String
+    }
+}
+
+package "Controllers" {
+    class ListCollaboratorTasksController {
+        - agendaRepository: AgendaRepository
+        - agendaMapper: AgendaMapper
+        + getCollaboratorTasks(): List<AgendaTaskDTO>
+        + getFilteredTasks(initialDate: Date, finalDate: Date): List<AgendaTaskDTO>
+    }
+
+    class CompleteTaskController {
+        + completeTaskAgenda(task: AgendaTaskDTO): Optional<Task>
+    }
+}
+
+package "UI" {
+    class ListCollaboratorTasksUI {
+        - controller: ListCollaboratorTasksController
+        - completeTaskController: CompleteTaskController
+        - taskTable: TableView<AgendaTaskDTO>
+        - dpInitialDate: DatePicker
+        - dpFinalDate: DatePicker
+        - cbStatusFilter: ComboBox<String>
+        - lblError: Label
+        + initialize(url: URL, resourceBundle: ResourceBundle)
+        + btnFilterAction()
+        + filterTable()
+        + btnSetCompleted()
+        + completeTask()
+        + filterStatus()
+        + btnClearFilter()
+        + validateFinalDate(): boolean
+        + checkIsOneNull(): boolean
+        + fillTaskList(collabAgenda: List<AgendaTaskDTO>)
+        + fillStatusFilter()
+        + setError(field: Control, lblError: Label, message: String)
+        + clearError(field: Control, lblError: Label)
+        + updateTableView()
+        + dpToDate(dp: DatePicker): Date
+        + showTaskDetailsPopup(task: AgendaTaskDTO)
+    }
+}
+
+package "Repository" {
+    class AgendaRepository {
+        + getCollaboratorSpecificAgenda(userId: String): List<Task>
+    }
+}
+
+package "Mappers" {
+    class AgendaMapper {
+        + toDTOList(tasks: List<Task>): List<AgendaTaskDTO>
+        + toDTO(task: Task): AgendaTaskDTO
+    }
+}
+
+class AgendaTaskDTO {
+    - title: String
+    - taskType: TaskType
+    - status: Status
+    - urgency: Urgency
+    - greenSpaceName: String
+    - workStartDate: String
+    - expectedDuration: int
+}
+
+enum Status {
+    PLANNED
+    DONE
+    CANCELED
+    POSTPONED
+}
+
+enum TaskType {
+    MAINTENANCE
+    INSPECTION
+}
+
+enum Urgency {
+    LOW
+    MEDIUM
+    HIGH
+}
+
+class Date {
+    - day: int
+    - month: int
+    - year: int
+    + toString(): String
+}
+
+DomainModel --> Controllers
+Controllers --> UI
+Controllers --> Repository
+Controllers --> Mappers
+Repository --> DomainModel
+Mappers --> DomainModel
+
+@enduml
