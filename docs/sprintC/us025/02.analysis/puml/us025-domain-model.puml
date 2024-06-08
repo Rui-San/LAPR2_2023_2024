@@ -4,23 +4,37 @@ skinparam packageStyle rectangle
 skinparam shadowing false
 
 'left to right direction
-title US025 - Domain Model
+
 skinparam classAttributeIconSize 0
 
 hide circle
 hide methods
 
+title US025 - Domain Model
 
-class GSM {
+'class Platform {
+'  -description
+'}
 
+
+
+class Agenda{
+    tasks
 }
 
-class Agenda {
-
+class Task{
+    title
+    description
+    state
+    urgency
+    assignedGreenSpace
+    assignedVehicle
+    assignedTeam
+    expectedDuration
 }
 
 
-
-GSM "1" -- "1" Agenda : cancels an entry
+Task "*" -u- "1" Agenda : "are part of >"
+GSM -- Task : "cancel >"
 
 @enduml

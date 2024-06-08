@@ -51,7 +51,7 @@ class AgendaController{
 'package Domain <<Folder>> #AAAAAA{
 package Repository <<Folder>> #DDDDDD {
 class VehicleRepository{
-    - List<Team> vehicleList
+    - List<Vehicle> vehicleList
 
     + getVehicleList()
     + getVehicleByPlateId(vehicleDTO.plateID)

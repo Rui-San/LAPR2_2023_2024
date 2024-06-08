@@ -1,0 +1,157 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+
+skinparam classAttributeIconSize 0
+
+title US028 - Class Diagram
+
+package GUI <<Folder>> #DDDDDD {
+    class ListCollaboratorTasksUI {
+        + ListCollaboratorTasksUI()
+        + initialize(url: URL, resourceBundle: ResourceBundle)
+        + btnFilterAction()
+        + filterTable()
+        + filterStatus()
+        + btnClearFilter()
+        + validateFinalDate(): boolean
+        + checkIsOneNull(): boolean
+        + fillTaskList(collabAgenda: List<AgendaTaskDTO>)
+        + fillStatusFilter()
+        + setError(field: Control, lblError: Label, message: String)
+        + clearError(field: Control, lblError: Label)
+        + updateTableView()
+        + dpToDate(dp: DatePicker): Date
+        + showTaskDetailsPopup(task: AgendaTaskDTO)
+    }
+}
+
+package Controller <<Folder>> #DDDDDD {
+    class ListCollaboratorTasksController {
+        - Date initialDate
+        - Date finalDate
+        - AgendaRepository agendaRepository
+        + ListCollaboratorTasksController()
+        + getAgendaRepository(): AgendaRepository
+        + getCollaboratorName(): String
+        + getCollaboratorTasks(): List<AgendaTaskDTO>
+        + getFilteredTasks(initialDate: Date, finalDate: Date): List<AgendaTaskDTO>
+        + updateInitialDate(initialDate: Date)
+        + updateFinalDate(finalDate: Date)
+    }
+}
+
+package Repository <<Folder>> #DDDDDD {
+    class AgendaRepository {
+        + getCollaboratorSpecificAgenda(userId: String): List<Task>
+    }
+}
+
+package Mapper <<Folder>> #DDDDDD {
+    class AgendaMapper {
+        + toDTOList(tasks: List<Task>): List<AgendaTaskDTO>
+        + toDTO(task: Task): AgendaTaskDTO
+    }
+}
+
+package DTO <<Folder>> #DDDDDD {
+    class AgendaTaskDTO {
+        + String title
+        + TaskType taskType
+        + Status status
+        + Urgency urgency
+        + String greenSpaceName
+        + String workStartDate
+        + int expectedDuration
+    }
+}
+
+package Domain <<Folder>> #DDDDDD {
+    class Organization {
+        + addTask(task: Task)
+        + validateTask(task: Task)
+        + completeTask(task: Task)
+    }
+
+    class Task {
+        + String id
+        + String title
+        + Status status
+        + WorkPeriod workPeriod
+        + Task()
+        + getWorkPeriod(): WorkPeriod
+        + setStatus(status: Status)
+        + validate()
+    }
+
+    class WorkPeriod {
+        - Date workStartDate
+        - int workStartHour
+        - int workStartMin
+        - Date workEndDate
+        - int workEndHour
+        - int workEndMin
+        + WorkPeriod(workStartDate: Date, workStartHour: int, workStartMin: int, expectedDuration: TaskDuration)
+        + WorkPeriod(initialDate: Date, finalDate: Date)
+        + getWorkStartDate(): Date
+        + getWorkStartHour(): int
+        + getWorkStartMin(): int
+        + getWorkEndDate(): Date
+        + getWorkEndHour(): int
+        + getWorkEndMin(): int
+        + isOverlap(other: WorkPeriod): boolean
+    }
+
+    class TaskDuration {
+        + int getTotalDurationMinutes(): int
+    }
+
+    class Email {
+        + String address
+        + Email()
+        + getUserId(): String
+    }
+
+    class UserSession {
+        + String userId
+        + UserSession()
+        + getCurrentUser(): User
+        + getUserId(): String
+    }
+
+    class ApplicationSession {
+        + ApplicationSession()
+        + getInstance(): ApplicationSession
+        + getCurrentSession(): UserSession
+        + getProperties(): Properties
+        + getAuthenticationRepository(): AuthenticationRepository
+    }
+}
+
+
+
+class Date {
+    + int day
+    + int month
+    + int year
+    + Date()
+    + toString(): String
+    + clone(): Date
+    + plusDays(days: int): Date
+}
+
+ListCollaboratorTasksUI .down.> ListCollaboratorTasksController
+ListCollaboratorTasksController ...> AgendaRepository
+ListCollaboratorTasksController ..> AgendaMapper
+ListCollaboratorTasksController ..> ApplicationSession
+AgendaRepository ---> Task
+AgendaMapper ..> AgendaTaskDTO
+Task ---> WorkPeriod
+WorkPeriod ..> Date
+WorkPeriod ..> TaskDuration
+ApplicationSession ..> UserSession
+UserSession .down.> Email
+
+@enduml

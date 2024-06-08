@@ -4,23 +4,49 @@ skinparam packageStyle rectangle
 skinparam shadowing false
 
 'left to right direction
-title US026 - Domain Model
+
 skinparam classAttributeIconSize 0
 
 hide circle
 hide methods
 
+title US026 - Domain Model
 
-class GSM {
+'class Platform {
+'  -description
+'}
 
+class Vehicle{
+    plateId
+    brand
+    model
+    type
+    tare
+    grossWeight
+    currentKm
+    registerDate
+    acquisitionDate
+    checkupFrequencyKms
 }
 
-class Agenda {
+class Agenda{
+    tasks
+}
 
+class Task{
+    title
+    description
+    state
+    urgency
+    assignedGreenSpace
+    assignedVehicle
+    assignedTeam
+    expectedDuration
 }
 
 
-
-GSM "1" -- "1" Agenda : assign vehicles\nto an entry
+Task "*" -u- "1" Agenda : "are part of >"
+Vehicle "1" -u- "0..*" Task : "is assigned to >"
+GSM -- Task : "assigns vehicles to >"
 
 @enduml

@@ -6,59 +6,67 @@ skinparam linetype polyline
 'skinparam linetype orto
 
 skinparam classAttributeIconSize 0
-title US025 - Class Diagram
+title US029 - Class Diagram
 
 package GUI <<Folder>> #DDDDDD {
 
-class AgendaUI {
-    - AgendaTaskDTO selectedTask
-    + initialize(location, resources)
-    - fillTaskTable()
-    + btnCancelTask()
-    - updateTableView()
+class ListCollaboratorTasksUI {
+    + ListCollaboratorTasksUI()
+    + initialize(url, resourceBundle)
+    + btnSetCompleted()
+    + completeTask()
     - validateSelectedTask(selectedTask)
+    - fillTaskList(collabAgenda)
+    - updateTableView()
 }
+
 }
 
 package Controller <<Folder>> #DDDDDD {
-class CancelEntryAgendaController {
-    + CancelEntryAgendaController()
-    + cancelTaskAgenda(agendaTaskDTO)
+class ListCollaboratorTasksController {
+    + ListCollaboratorTasksController()
     + getAgendaRepository()
-    + getTeamRepository()
-    + getVehicleRepository()
+    + getCollaboratorTasks()
 }
 
-class AgendaController{
-    + getAgendaTaskDTOManagerList()
+class CompleteTaskController{
+    + CompleteTaskController()
+    - getAgendaRepository()
+    - getTeamRepository()
+    - getVehicleRepository()
+    + completeTaskAgenda(selectedTask)
 }
+
 }
 
 'package Domain <<Folder>> #AAAAAA{
 package Repository <<Folder>> #DDDDDD {
-class TeamRepository{
-    - List<Team> teamList
-
-    + removeWorkPeriodFromTeam(canceledTask, taskWorkPeriod)
-}
-
 class VehicleRepository{
     - List<Vehicle> vehicleList
 
-    + removeWorkPeriodFromVehicle(canceledTask, taskWorkPeriod)
-}
+    + removeWorkPeriodFromVehicle(completedTask, taskWorkPeriod)
+   }
 
 class AgendaRepository{
     - List<Task> agenda
 
-    + updateTaskToCanceled(title, greenSpace, executionDate, status)
+    + getCollbaboratorSpecificAgenda(collaboratorEmail)
+    + updateTaskToDone(title, greenSpaceName, workStartDate, status)
+    }
+
+class TeamRepository{
+    - List<Team> teamList
+
+    + removeWorkPeriodFromTeam(completedTask, taskWorkPeriod)
+
 }
+
 class Repositories {
     - Repositories()
     + getInstance() : Repositories
-    + getTeamRepository()
-    + getAgendaRepository()
     + getVehicleRepository()
+    + getAgendaRepository()
+    + getTeamRepository()
 }
 
 class ApplicationSession{
@@ -82,6 +90,23 @@ class Email{
 
 
 package Domain <<Folder>> #DDDDDD {
+
+class WorkPeriod{
+    + Date workStartDate
+    + int workStartHour
+    + int workStartMin
+    + Date workEndDate
+    + int workEndHour
+    + int workEndMin
+
+}
+
+class Team {
+    - List<Collaborator> members
+    + + removeWorkPeriodIfExists(oldWorkPeriod)
+
+}
+
 class Vehicle{
     + String plateId
     + String brand
@@ -90,14 +115,6 @@ class Vehicle{
     + double tare
     ...
     + removeWorkPeriodIfExists(oldWorkPeriod)
-}
-
-
-class Team {
-    - List<Collaborator> members
-    - List<WorkPeriod> workPeriods
-
-    + removeWorkPeriodIfExists(workPeriod)
 }
 
 class Task {
@@ -109,16 +126,6 @@ class Task {
 
     + Task(title, description, taskType, greenSpace,\nurgency, days, hours, minutes)
     (...)
-}
-
-class WorkPeriod{
-    + Date workStartDate
-    + int workStartHour
-    + int workStartMin
-    + Date workEndDate
-    + int workEndHour
-    + int workEndMin
-
 }
 
 class TaskDuration {
@@ -140,8 +147,7 @@ package Mapper <<Folder>> #DDDDDD {
 
 class AgendaMapper{
     + AgendaMapper()
-    + toDTO(agendaTask, teamDTO, List<VehicleDTO> vehicleDTOList)
-
+    + toDTO(task)
 }
 
 }
@@ -191,36 +197,34 @@ class VehicleDTO{
 
 }
 
-
-
-
-AgendaUI ..> AgendaController
-AgendaUI ..> CancelEntryAgendaController
-AgendaController ...> Repositories
-CancelEntryAgendaController ..> Repositories
-AgendaController .> ApplicationSession
-ApplicationSession -> ApplicationSession : instance
+ListCollaboratorTasksUI ..> ListCollaboratorTasksController
+ListCollaboratorTasksUI ..> CompleteTaskController
+ListCollaboratorTasksController ..> Repositories : repositories
+CompleteTaskController ..> Repositories
+Repositories --> Repositories : instance
+ListCollaboratorTasksController ...> ApplicationSession
+ApplicationSession --> ApplicationSession : instance
 ApplicationSession -down-> "1" UserSession : userSession
 UserSession ..> Email
-Repositories ---> "1" AgendaRepository
-Repositories ---> "1" TeamRepository
-Repositories ---> "1" VehicleRepository
-AgendaRepository "1" -down-> Task : task
-VehicleRepository "1" -down-> Vehicle : vehicle
-Task *--"1" TaskDuration : taskDuration
-TeamRepository "1" -> Team : team
-AgendaController ..> AgendaRepository : agendaRepository
-CancelEntryAgendaController .> AgendaRepository : agendaRepository
-CancelEntryAgendaController ..> TeamRepository : teamRepository
-CancelEntryAgendaController ..> VehicleRepository : vehicleRepository
-Repositories -> Repositories : instance
-AgendaController ..right...> AgendaMapper
+Repositories  ---> TeamRepository
+Repositories ---> VehicleRepository
+Repositories ---> AgendaRepository
+ListCollaboratorTasksController ...> AgendaRepository : agendaRepository
+CompleteTaskController ...> AgendaRepository : agendaRepository
+CompleteTaskController ...> VehicleRepository : vehicleRepository
+CompleteTaskController ...> TeamRepository : teamRepository
+ListCollaboratorTasksController ..> Mapper
 AgendaMapper ..> AgendaTaskDTO
 AgendaTaskDTO ..> "1"TeamDTO
 TeamDTO "1" ..> CollaboratorDTO
 AgendaTaskDTO "1" ..> VehicleDTO
-Vehicle "1" -down--> WorkPeriod : workperiod
-Team "1" -down--> WorkPeriod : workperiod
-Task "1" *---"1" WorkPeriod : workperiod
+VehicleRepository "1" -down-> Vehicle : vehicle
+TeamRepository "1" -down-> Team : team
+AgendaRepository "1" -down-> Task : task
+Task *--"1" TaskDuration : taskDuration
+Task *---"1" WorkPeriod : workPeriod
+Vehicle "1" --> WorkPeriod : workPeriod
+Team "1" ---> WorkPeriod : workPeriod
+
 
 @enduml

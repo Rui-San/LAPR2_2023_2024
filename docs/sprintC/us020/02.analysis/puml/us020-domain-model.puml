@@ -36,10 +36,10 @@ class Address{
     district
 }
 
-GSM "1" -d- "*" GreenSpace : "registers"
-GreenSpace "1" --r "1" Address : "is located at" >
-Garden --r|> GreenSpace : "is a type of
-MediumPark --u|> GreenSpace : "is a type of
-LargePark --u|> GreenSpace : "is a type of
+GSM "1" -d- "*" GreenSpace : registers >
+GreenSpace "1" --r "1" Address : is located at  >
+Garden --r|> GreenSpace : "is a type of"
+MediumPark --u|> GreenSpace : "is a type of"
+LargePark --u|> GreenSpace : "is a type of"
 
 @enduml

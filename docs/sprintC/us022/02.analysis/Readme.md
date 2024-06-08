@@ -1,4 +1,4 @@
-# US006 - Create a Task 
+# US022 - Add new entry in the Agenda
 
 ## 2. Analysis
 

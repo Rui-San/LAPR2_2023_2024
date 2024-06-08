@@ -19,16 +19,22 @@ hide methods
 class GSM {
 
 }
-class ToDo {
+class ToDoList {
 
 }
 
 class Task{
-    type
-    duration
+    title
+    description
+    state
+    urgency
+    assignedGreenSpace
+    assignedVehicle
+    assignedTeam
+    expectedDuration
 }
 
-GSM "1" -- "*" ToDo : Add new entry
-ToDo "1" -- "*" Task : contains
+GSM "1" -- "*" Task : "register new entry"
+ToDoList "1" -- "*" Task : "enters in <"
 
 @enduml

@@ -1,41 +1,43 @@
-# US006 - Create a Task 
+# US028 - Create a Task 
 
 ## 3. Design - User Story Realization 
 
 ### 3.1. Rationale
 
-_**Note that SSD - Alternative One is adopted.**_
-
 | Interaction ID | Question: Which class is responsible for... | Answer               | Justification (with patterns)                                                                                 |
 |:-------------  |:--------------------- |:---------------------|:--------------------------------------------------------------------------------------------------------------|
-| Step 1  		 |	... interacting with the actor? | CreateTaskUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
-| 			  		 |	... coordinating the US? | CreateTaskController | Controller                                                                                                    |
-| 			  		 |	... instantiating a new Task? | Organization         | Creator (Rule 1): in the DM Organization has a Task.                                                          |
-| 			  		 | ... knowing the user using the system?  | UserSession          | IE: cf. A&A component documentation.                                                                          |
-| 			  		 |							 | Organization         | IE: knows/has its own Employees                                                                               |
-| 			  		 |							 | Employee             | IE: knows its own data (e.g. email)                                                                           |
-| Step 2  		 |							 |                      |                                                                                                               |
-| Step 3  		 |	...saving the inputted data? | Task                 | IE: object created in step 1 has its own data.                                                                |
-| Step 4  		 |	...knowing the task categories to show? | System               | IE: Task Categories are defined by the Administrators.                                                        |
-| Step 5  		 |	... saving the selected category? | Task                 | IE: object created in step 1 is classified in one Category.                                                   |
-| Step 6  		 |							 |                      |                                                                                                               |              
-| Step 7  		 |	... validating all data (local validation)? | Task                 | IE: owns its data.                                                                                            | 
-| 			  		 |	... validating all data (global validation)? | Organization         | IE: knows all its tasks.                                                                                      | 
-| 			  		 |	... saving the created task? | Organization         | IE: owns all its tasks.                                                                                       | 
-| Step 8  		 |	... informing operation success?| CreateTaskUI         | IE: is responsible for user interactions.                                                                     | 
+| Step 1  		 |	... interacting with the actor? | ListCollaboratorTasksUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
+| 			  		 |	... coordinating the US? | ListCollaboratorTasksController | Controller: Responsible for handling the input from the UI and coordinating the tasks.                       |
+| 			  		 |	... instantiating a new Task? | Task         | Creator: Task is the domain object that needs to be instantiated and manipulated.                            |
+| 			  		 | ... knowing the user using the system?  | UserSession          | Information Expert: Maintains details about the current user session.                                         |
+| Step 2  		 |	... retrieving the collaborator-specific agenda? | AgendaRepository                 | Information Expert: Responsible for fetching data related to the agenda from the repository.                  |
+| Step 3  		 |	... getting the current application session? | ApplicationSession    | Information Expert: Manages the current session information.                                                  |
+| Step 4  		 |	... getting the current user session? | UserSession           | Information Expert: Provides the details of the current logged-in user.                                        |
+| Step 5  		 |	... retrieving the user ID? | Email                  | Information Expert: Responsible for user identification through email.                                         |
+| Step 6  		 |	... converting the tasks to DTOs? | AgendaMapper          | Information Expert: Converts domain objects to Data Transfer Objects.                                          |
+| Step 7  		 |	... knowing the details of each task? | Task                 | Information Expert: Owns its data and operations related to it.                                                |
+| Step 8  		 |	... knowing the work periods of tasks? | Workperiod           | Information Expert: Manages the work period details for tasks.                                                 |
+| Step 9  		 |	... checking for overlapping work periods? | Workperiod           | Information Expert: Has the information necessary to determine overlaps.                                       |
+| Step 10  		 |	... adding tasks to the filtered list? | ListCollaboratorTasksController | Controller: Manages the flow and coordination of task filtering.                                              |
+| Step 11  		 |	... displaying the collaborator's specific agenda? | ListCollaboratorTasksUI          | Pure Fabrication: Manages UI rendering and user interactions.                                                 |
 
-### Systematization ##
+### Systematization
 
-According to the taken rationale, the conceptual classes promoted to software classes are: 
+According to the taken rationale, the conceptual classes promoted to software classes are:
 
-* Organization
-* Task
+- **Organization**
+- **Task**
+- **UserSession**
+- **ApplicationSession**
+- **Workperiod**
+- **Email**
 
-Other software classes (i.e. Pure Fabrication) identified: 
+Other software classes (i.e., Pure Fabrication) identified:
 
-* CreateTaskUI  
-* CreateTaskController
-
+- **ListCollaboratorTasksUI**
+- **ListCollaboratorTasksController**
+- **AgendaRepository**
+- **AgendaMapper**
 
 ## 3.2. Sequence Diagram (SD)
 

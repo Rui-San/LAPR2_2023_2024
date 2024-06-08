@@ -4,23 +4,16 @@ skinparam packageStyle rectangle
 skinparam shadowing false
 
 'left to right direction
-title US021 - Domain Model
+
 skinparam classAttributeIconSize 0
 
 hide circle
 hide methods
 
-'title Domain Model
+title US029 - Domain Model
 
-'class Platform {
-'  -description
-'}
-
-class GSM {
-
-}
-class Agenda {
-
+class Agenda{
+    tasks
 }
 
 class Task{
@@ -31,10 +24,21 @@ class Task{
     assignedGreenSpace
     assignedVehicle
     assignedTeam
+    startDate
     expectedDuration
 }
 
-GSM "1" -- "*" Task : "plans the task"
-Agenda "1" -- "*" Task : "enters in <"
+class Collaborator{
+    name
+    admissionDate
+    birthDate
+    phoneNumber
+    email
+    idDocType
+    idDocNumber
+}
 
+
+Task "*" -u- "1" Agenda : "are part of >"
+Collaborator -right- Task : "mark as complete >"
 @enduml
