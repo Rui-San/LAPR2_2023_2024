@@ -464,6 +464,116 @@ If there are no vehicles needing check-up, the list will be empty.
 
 ## Troubleshooting
 
+> ### Issue 1: 
+>
+> If when starting the application, an error occurs related to repository loading/serialization, delete the data.dat file from the root. A new file will be generated after.
+
+> ### Issue 2: 
+>
+> If the graph image doesn’t save immediately after calculating the best routes to open, wait a few seconds, it means the graph is extensive and may require a few extra seconds. 
+
+> ### Issue 3: 
+>
+> If while logging in, you see the error “Invalid username or password” make you inserted the right email and password and try again. 
+
+> ### Issue 4: 
+>
+> If, as a collaborator, you cannot register the completion of a task because it is already in the 'Done' state, it means that it has already been updated by another member of the same team. 
+
+> ### Issue 5: 
+>
+> If you receive any message indicating the impossibility of registering/changing attributes in the system, you should correct the errors highlighted in red before submission. 
+
+> ### Issue 6: 
+>
+> If experiencing slowness in the application, check if other programs are consuming a lot of system resources. Closing unnecessary programs can help improve performance. Remember to check the minimum requirements section for using the application in this user manual. 
+
+> ### Issue 7: 
+>
+> If encountering formatting or layout issues in the application, verify if the screen resolution and zoom settings are appropriate for the interface size. Remember to check the minimum requirements section for using the application in this user manual. 
+
+> ### Issue 8:
+>
+>If the system doesn’t allow you to postpone a task from the agenda to a specific date, you must choose another date, as the team and vehicles associated with the task might be occupied during that time. 
+
+> ### Issue 9: 
+>
+> If, when loading the file to analyse the routes to be opened, an error occurs, check if the file has the .csv extension and try again.
+
 ## Frequently Asked Questions
+
+> **Q.1:** Can I assign multiple skills to a collaborator at once?
+> 
+> **A.1:** Yes, in the "Assign Skill" menu, you can select an existing collaborator and choose which skills you want to assign to him from the available list.
+
+> **Q.2:** Can I cancel a task that has already been marked as completed?
+>
+> **A.2:** No, once a task is marked as completed, it cannot be cancelled.
+
+> **Q.3:** How do I log in to the system?
+>
+> **A.3:** To log in to the system, you need to access the login menu and enter your user credentials, such as email and password.
+
+> **Q.4:** How do I log out of the system?
+>
+> **A.4:** To log out of the system, simply click on the logout button, located in the top right corner of the page. This will end your session, and you will be logged out of the system.
+
+> **Q.5:** Does the system save the new changes?
+>
+> **A.5:** Yes, the system has a persistence mechanism that automatically saves changes even after closing the application.
+
+> **Q.6:** How do roles work in the system and what are their main functionalities?
+>
+> **A.6:** In the system, roles play a crucial role in assigning permissions and defining available functionalities for each type of user. Each role has access to different parts of the system and can perform specific operations based on those permissions.
+
+> **Q.7:** Is the app available for personal download?
+>
+> **A.7:** No, the application is not available for personal download and is still only accessible for MusgoSublime.
+
+> **Q.8:** Can a Green Space Manager modify a task from another manager?
+>
+> **A.8:** No, each manager has their own tasks that only they can plan, manage and modify.
+
+> **Q.9:** As a Green Space Manager, can I create a task for a green space managed by another manager?
+>
+> **A.9:** No, the created task must be for a green space managed by the manager logged into the system.
+
+> **Q.10:** Can I assign teams and vehicles to a task in the To-Do list?
+>
+> **A.10:** No, only tasks that are in the agenda (planned) are subject to modifications.
+
+> **Q.11:** Is there a limit to the number of skills I can assign to a collaborator?
+>
+> **A.11:** There is no specific limit to the number of skills you can assign to a collaborator. However, it is important to consider the relevance and the collaborator's capacity to acquire and develop those skills.
+
+> **Q.12:** Can I generate team proposals with only one collaborator?
+>
+> **A.12:** Yes, the program allows the generation of teams with just one collaborator.
+
+
+> **Q.13:** Can a team and vehicles be assigned to more than one task?
+>
+> **A.13:** Yes, as long as the timeframes of the different tasks do not overlap.
+
+> **Q.14:** At what percentage will a vehicle appear in the list of vehicles needing check-up?
+>
+> **A.14:** The vehicle will appear in the list when it is within a margin of 5% of the check-up frequency.
+
+> **Q.15:** Can a collaborator have more than one job?
+>
+> **A.15:** No, a collaborator can only have one job but can have a list of different skills.
+
+> **Q.16:** Can I run the application on an old computer? 
+>
+> **A.16:** Probably yes, the application isn’t very resource intensive, but be sure check the system requirements.
+
+> **Q.17:** What is the difference between a task with the status "pending," "processed," and "planned"?
+>
+> **A. 17:** A task with the status "pending" means it has been entered into the To-Do list and has not yet been planned in the agenda, lacking a specific date and time for execution. When a task is planned from the To-Do list to the agenda, the date and time of execution are set, and it will have the status "processed" in the To-Do list and "planned" in the Agenda.
+
+> **Q.18:** Can I access the generated graphs, as well as the generated .csv file containing the routes to be opened after closing the application?
+>
+> **A. 18:** Yes, both are saved in the folder for future use, as you can verify in points 4.21 and 4.22 of this user manual.
+
 
 ## References
