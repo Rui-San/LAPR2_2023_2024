@@ -38,11 +38,13 @@ Iterative Development".
 
 **Roles of People or Organizations**
 
-* Organization
 * Collaborator
 * Team
-* FM
+* VFM
 * HRM
+* GSM
+* QAM
+
 
 ---
 
@@ -64,6 +66,17 @@ Iterative Development".
 * Register a vehicle's check-up
 * List of the vehicles needing the check-up
 * Generate team proposal automatically
+* Register green space
+* Add new entry to-do
+* Add new entry in agenda
+* List green spaces managed by user
+* Postpone an entry in the agenda
+* Cancel an entry in the agenda
+* Postpone an entry in the agenda
+* Assign Vehicles to an entry in the agenda
+* Assign team to an entry in the agenda
+* Consult tasks assigned between two dates
+* Register the completion of a task
 
 ---
 
@@ -123,7 +136,7 @@ Iterative Development".
 
 **Organizations**
 
-* Organization
+
 
 ---
 
@@ -136,6 +149,7 @@ Iterative Development".
 **Records of finance, work, contracts, legal matters**
 
 * Agenda
+* To-Do list
 * Vehicle Checkup
 
 ---
