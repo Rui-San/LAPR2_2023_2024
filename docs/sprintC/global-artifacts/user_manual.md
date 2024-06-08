@@ -242,77 +242,88 @@ Manager, GSM stands for Green Space Manager and QAM stands for Software Quality 
 Note that, for the features involving mathematics (mdisc and matcp) the user does not need to be logged in the system to
 use the feature.
 
-| **Feature**                   | **Admin** | **HRM** | **VFM** | **GSM** | **QAM** | **Collaborator** |
-|:------------------------------|:----------|:--------|:--------|:--------|:--------|:-----------------|
-| Login                         |           |         |         |         |         |                  |
-| Register job                  |           |         |         |         |         |                  |
-| Register skill                |           |         |         |         |         |                  |
-| Register collaborator         |           |         |         |         |         |                  |
-| Assign skills                 |           |         |         |         |         |                  |
-| Register vehicle              |           |         |         |         |         |                  |
-| Register vehicle checkup      |           |         |         |         |         |                  |
-| List vehicles needing checkup |           |         |         |         |         |                  |
-| Generate team proposal        |           |         |         |         |         |                  |
-|                               |           |         |         |         |         |                  |
-|                               |           |         |         |         |         |                  |
-|                               |           |         |         |         |         |                  |
-|                               |           |         |         |         |         |                  |
-|                               |           |         |         |         |         |                  |
-|                               |           |         |         |         |         |                  |
-|                               |           |         |         |         |         |                  |
-|                               |           |         |         |         |         |                  |
-|                               |           |         |         |         |         |                  |
-|                               |           |         |         |         |         |                  |
-|                               |           |         |         |         |         |                  |
-|                               |           |         |         |         |         |                  |
-|                               |           |         |         |         |         |                  |
+| **Feature**                      | **Admin** | **HRM** | **VFM** | **GSM** | **QAM** | **Collaborator** |
+|:---------------------------------|:----------|:--------|:--------|:--------|:--------|:-----------------|
+| Login                            |           |         |         |         |         |                  |
+| Register job                     |           |         |         |         |         |                  |
+| Register skill                   |           |         |         |         |         |                  |
+| Register collaborator            |           |         |         |         |         |                  |
+| Assign skills                    |           |         |         |         |         |                  |
+| Register vehicle                 |           |         |         |         |         |                  |
+| Register vehicle checkup         |           |         |         |         |         |                  |
+| List vehicles needing checkup    |           |         |         |         |         |                  |
+| Generate team proposal           |           |         |         |         |         |                  |
+| Register green space             |           |         |         |         |         |                  |
+| List green spaces                                 |           |         |         |         |         |                  |
+|    Add new entry To-Do                              |           |         |         |         |         |                  |
+|      Consult entries in the To-Do list                            |           |         |         |         |         |                  |
+|    Add new entry in the agenda                              |           |         |         |         |         |                  |
+|    Assign team to an entry in the agenda                              |           |         |         |         |         |                  |
+|       Postpone an entry in the agenda                           |           |         |         |         |         |                  |
+|         Cancel an entry in the agenda                         |           |         |         |         |         |                  |
+|  Assign vehicles to an entry in the agenda                                |           |         |         |         |         |                  |
+|          Consult entries in the agenda                        |           |         |         |         |         |                  |
+|    Consult tasks assigned to Collaborator                              |           |         |         |         |         |                  |
+|    Record the completion of a task                              |           |         |         |         |         |                  |
+|  Update Vehicle Kilometers                                |           |         |         |         |         |                  |
+|  Import routes from csv file                                |           |         |         |         |         |                  |
+|  Obtain routes to be opened                                |           |         |         |         |         |                  |
+|  Run tests for inputs of variable size                                |           |         |         |         |         |                  |
+|  Place signs to evacuate to an Assembly Point                               |           |         |         |         |         |                  |
+|  Place signs to evacuate to one of the several Assembly Points                               |           |         |         |         |         |                  |
 
 ---
 
 ## Features
 
-Firstly, upon opening the application, a menu will be presented where the user can choose one of the 3 options:
+Firstly, upon opening the application, a menu will be presented to log in to the application.
 
-![Initial Menu](user_manual_resources/menu1.png)
+![Initial Menu](user_manual_resources/login.png)
 
-The option 0 (Cancel) is used to quit the application.
+The application allows the authentication of different types of users, each with different roles. For example, the "Admin" role has access to almost all the application's content, while the roles "Human Resources Manager," "Green Space Manager," "Vehicle and Fleet Manager," and "Collaborator" each have different menus according to their system permissions.
 
-The option 2 (Know the Development Team) display information about the individuals who contributed to the development of
-the application.
+Admin role menu:
 
-![Initial Menu](user_manual_resources/menu2.png)
+![Initial Menu](user_manual_resources/login2.png)
 
-Then, if the user decides to login (option 1), he will be taken to another interface where he must enter the email and
-password to authenticate.
+HRM role have access to the menus for jobs, skills, collaborators, and teams.
 
-The login screen will give the user three tries to login if he can’t enter after three tries, he will be sent back to
-the main menu.
+With this role, the user can manage everything related to collaborators and teams. Specifically, he can add jobs, add skills, add new collaborators to the system, assign skills to existing collaborators, and automatically generate work teams based on inputs provided to the program.
 
-![Initial Menu](user_manual_resources/menu3.png)
+![Initial Menu](user_manual_resources/login3.png)
 
-Now that the user is logged in, we can access features of the role that his account contains through the designed menu
-for that role, specifically, contents related to the Human Resources Manager (HRM) and the Vehicle Fleet Manager (VFM).
+VFM role have access to the vehicles menu and can register new vehicles in the system, record new vehicle checkups and ask for a list of the vehicles that need to go for inspection.
 
-![Initial Menu](user_manual_resources/menu4.png)
+![Initial Menu](user_manual_resources/login4.png)
 
-![Initial Menu](user_manual_resources/menu5.png)
+GSM role have access to the menu for managing green spaces and tasks.
+With this role, the user can register a new green space and list the green spaces managed by himself. User can also create new entries in the To-Do list and manage them, which includes planning them to the agenda and subsequently assigning teams to tasks, assigning vehicles, postponing an entry, or even cancelling an entry from the Agenda. He may also analyse csv to understand routes to be open and best routes to assembly points.
+
+![Initial Menu](user_manual_resources/login5.png)
+
+Finally, the Collaborator role, which allows access to a specific Agenda, called “My Agenda”, with the tasks assigned to the collaborator using the system and also the ability to update the kilometres of an existing vehicle.
+
+![Initial Menu](user_manual_resources/login6.png)
+
+At any time, the user may wish to end the session by using the logout button. All changes made throughout the program will be saved using a persistence mechanism, ensuring that no data is lost.
+
+![Initial Menu](user_manual_resources/login7.png)
 
 ### 1. Register a Skill | Human Resources Manager
 
-After selecting option 1 in HRM’s menu (Register new skill), the user will be redirected to an interface where he will
-need to enter the name of the skill he wishes to register. After introducing the skill name, the system will ask for
-user confirmation before saving.
+After selecting menu “Register Skill”, the user will be redirected to an interface where he will need to enter the name of the skill to register. After introducing the skill name, the system will ask for user confirmation before saving.
 
-After confirming the operation, the new skill will be saved, and the system will show a message of success. If the HRM
-tries to register a skill that already exists in the system, a notification will be displayed indicating that “This
-Skill is already registered!”.
+![Register new skill](user_manual_resources/skill1.png)
 
-![Register new skill](user_manual_resources/us001.1.png)
+![Register new skill](user_manual_resources/skill2.png)
 
-There are additional controls considering the inputs that are entered, such as checking if its field is empty, if it
-contains not allowed characters, or even numbers.
+After confirming the operation, the new skill will be saved, and the system will show a message of success. If the user tries to register a skill that already exists in the system, a notification will be displayed indicating that the Skill is already registered.
 
-![Register new skill](user_manual_resources/us001.2.png)
+![Register new skill](user_manual_resources/skill3.png)
+
+There are additional controls considering the inputs that are entered, such as checking if the field is empty, if it contains not allowed characters, or even numbers.
+
+![Register new skill](user_manual_resources/skill4.png)
 
 ### 2. Register a Job | Human Resources Manager
 
@@ -326,8 +337,7 @@ already registered!”.
 
 ![Register new Job](user_manual_resources/us002.1.png)
 
-There are also additional controls considering the inputs that are entered, such as checking if its field is empty, if
-it contains not allowed characters, or even numbers.
+Very similar to the register a new skill, after selecting menu “Register job”, the user will be redirected to an interface where he will need to enter the name of the job to register. After introducing the job name, the system will ask for user confirmation before saving.
 
 ![Register new Job](user_manual_resources/us002.2.png)
 
