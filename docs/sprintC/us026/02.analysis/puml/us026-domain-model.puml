@@ -47,6 +47,6 @@ class Task{
 
 Task "*" -u- "1" Agenda : "are part of >"
 Vehicle "1" -u- "0..*" Task : "is assigned to >"
-GSM -- Task : "assigns vehicles to >"
+GSM "*" -- "*" Task : "assigns vehicles to >"
 
 @enduml

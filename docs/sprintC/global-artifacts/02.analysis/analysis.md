@@ -45,7 +45,6 @@ Iterative Development".
 * GSM
 * QAM
 
-
 ---
 
 **Places**
@@ -179,37 +178,53 @@ remembering, or it is derivable from the List of Common Associations:
 - **_A_** is related with a transaction (item) of **_B_**
 - etc.
 
-| Concept (A) 		 |  Association   	  |  Concept (B) |
-|----------------|:-----------------:|-------------:|
-| Organization   |       owns        |         Task |
-| Organization   |       owns        |       Agenda |
-| Organization   |      has an       |      Address |
-| Organization   |       owns        |   UserPortal |
-| Collaborator   |        has        |        Skill |
-| Collaborator   |      has an       |      Address |
-| Collaborator   |        has        |          Job |
-| HRM            |     works for     | Organization |
-| HRM            |       is a        | Collaborator |
-| HRM            |     register      |        Skill |
-| HRM            |     register      |          Job |
-| HRM            |     register      | Collaborator |
-| HRM            | assigns skills to | Collaborator |
-| HRM            |     generates     |         Team |
-| FM             |       is a        | Collaborator |
-| FM             |     registers     |      Vehicle |
-| FM             |     registers     |      Checkup |
-| FM             | requests to show  |  CheckupList |
-| UserPortal     |        has        |      Comment |
-| Agenda         |        has        |         Task |
-| Task           | is carried out by |         Team |
-| GreenSpace     |      has an       |      Address |
-| GreenSpace     | is maintained by  | Organization |
-| Team           |        has        | Collaborator |
-| Vehicle        |       does        |      Checkup |
-| Vehicle        |  is an asset of   | Organization |
-| CheckupList    |        has        |      Vehicle |
-| GSM            |       is a        | Collaborator |
-| GSM            |      manages      |   GreenSpace |
+
+| Concept (A) 		 |         Association   	          |  Concept (B) |
+|----------------|:--------------------------------:|-------------:|
+| Organization   |               owns               |         Task |
+| Organization   |               owns               |       Agenda |
+| Organization   |              has an              |      Address |
+| Organization   |               owns               |   UserPortal |
+| Collaborator   |               has                |        Skill |
+| Collaborator   |              has an              |      Address |
+| Collaborator   |               has                |          Job |
+| HRM            |            works for             | Organization |
+| HRM            |               is a               | Collaborator |
+| HRM            |             register             |        Skill |
+| HRM            |             register             |          Job |
+| HRM            |             register             | Collaborator |
+| HRM            |        assigns skills to         | Collaborator |
+| HRM            |            generates             |         Team |
+| FM             |               is a               | Collaborator |
+| FM             |            registers             |      Vehicle |
+| FM             |            registers             |      Checkup |
+| FM             |         requests to show         |  CheckupList |
+| UserPortal     |               has                |      Comment |
+| Agenda         |               has                |         Task |
+| Task           |        is carried out by         |         Team |
+| GreenSpace     |              has an              |      Address |
+| GreenSpace     |         is maintained by         | Organization |
+| Team           |               has                | Collaborator |
+| Vehicle        |               does               |      Checkup |
+| Vehicle        |          is an asset of          | Organization |
+| CheckupList    |               has                |      Vehicle |
+| GSM            |               is a               | Collaborator |
+| GSM            |             manages              |   GreenSpace |
+| Garden         |               is a               |   GreenSpace |
+| MediumPark     |               is a               |   GreenSpace |
+| LargePark      |               is a               |   GreenSpace |
+| GSM            |            registers             |   GreenSpace |
+| GSM            |       registers new entry        |         Task |
+| Task           |            enters in             |     ToDoList |
+| GSM            |              plans               |         Task |
+| Task           |            enters in             |       Agenda |
+| GSM            |        assigns a team to         |         Task |
+| GSM            |            postpones             |         Task |
+| GSM            |              cancel              |         Task |
+| GSM            |       assigns vehicles to        |         Task |
+| GSM            |        List managed by me        |   GreenSpace |
+| Collaborator   | lists assigned between two dates |         Task |
+| Collaborator   |         mark as complete         |         Task |
 
 ## Domain Model
 
@@ -218,3 +233,9 @@ remembering, or it is derivable from the List of Common Associations:
 **Insert below the Domain Model Diagram in a SVG format**
 
 ![Domain Model](svg/project-domain-model.svg)
+
+<hr>
+
+### Below is a domain model without user roles for better visualization:
+
+![Domain Model](svg/project-domain-model-without-roles.svg)

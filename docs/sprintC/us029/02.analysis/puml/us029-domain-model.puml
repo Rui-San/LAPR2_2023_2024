@@ -40,5 +40,5 @@ class Collaborator{
 
 
 Task "*" -u- "1" Agenda : "are part of >"
-Collaborator -right- Task : "mark as complete >"
+Collaborator "*" -right- "*" Task : "mark as complete >"
 @enduml

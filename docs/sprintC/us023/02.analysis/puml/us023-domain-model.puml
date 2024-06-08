@@ -10,7 +10,7 @@ skinparam classAttributeIconSize 0
 hide circle
 hide methods
 
-'title Domain Model
+title US23 - Domain Model
 
 'class Platform {
 '  -description
@@ -41,6 +41,6 @@ class Task{
 
 Task "*" -u- "1" Agenda : "are part of >"
 Team "1" -u- "0..*" Task : "is assigned to >"
-GSM -- Task : "assigns a team to >"
+GSM "*" -- "*" Task : "assigns a team to >"
 
 @enduml

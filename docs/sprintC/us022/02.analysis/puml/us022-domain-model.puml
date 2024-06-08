@@ -4,7 +4,7 @@ skinparam packageStyle rectangle
 skinparam shadowing false
 
 'left to right direction
-title US021 - Domain Model
+title US022 - Domain Model
 skinparam classAttributeIconSize 0
 
 hide circle
@@ -34,7 +34,7 @@ class Task{
     expectedDuration
 }
 
-GSM "1" -- "*" Task : "plans the task"
+GSM "1" -- "*" Task : "plans >"
 Agenda "1" -- "*" Task : "enters in <"
 
 @enduml

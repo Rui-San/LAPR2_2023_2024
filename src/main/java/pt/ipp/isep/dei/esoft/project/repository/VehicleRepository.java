@@ -203,6 +203,11 @@ public class VehicleRepository implements Serializable {
         return null;
     }
 
+    /**
+     * Removes a vehicle from the list of vehicles.
+     * @param canceledTask The task that was canceled.
+     * @param oldWorkPeriod The work period that was canceled.
+     */
     public void removeWorkPeriodFromVehicle(Task canceledTask, WorkPeriod oldWorkPeriod) {
         List<String> vehiclePlateIds = new ArrayList<>();
 
@@ -219,6 +224,12 @@ public class VehicleRepository implements Serializable {
         }
     }
 
+    /**
+     * Postpones the work periods of a task.
+     * @param postponedTask The task that was postponed.
+     * @param oldWorkPeriod The old work period.
+     * @param newWorkPeriod The new work period.
+     */
     public void postponeWorkPeriods(Task postponedTask, WorkPeriod oldWorkPeriod, WorkPeriod newWorkPeriod) {
         removeWorkPeriodFromVehicle(postponedTask, oldWorkPeriod);
         for (Vehicle vehicle : getVehicleList()) {
@@ -228,6 +239,12 @@ public class VehicleRepository implements Serializable {
         }
     }
 
+    /**
+     * Updates the kilometers of a vehicle.
+     * @param plateId The plate ID of the vehicle.
+     * @param newKms The new kilometers of the vehicle.
+     * @return An optional with the updated vehicle if the operation was successful, an empty optional otherwise.
+     */
     public Optional<Vehicle> updateVehicleKms(String plateId, int newKms) {
 
         Optional<Vehicle> updatedVehicle = Optional.empty();

@@ -1,4 +1,4 @@
-# US006 - Create a Task 
+# US021 - Add new entry to the To-Do List
 
 [Requirements Engineering](01.requirements-engineering/Readme.md)
 

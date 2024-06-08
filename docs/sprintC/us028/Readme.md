@@ -1,4 +1,4 @@
-# US006 - Create a Task 
+# US028 - Consult tasks assigned between two dates
 
 [Requirements Engineering](01.requirements-engineering/Readme.md)
 

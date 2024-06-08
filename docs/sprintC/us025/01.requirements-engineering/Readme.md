@@ -17,7 +17,6 @@ the team that will carry out the task, the vehicles/equipment assigned to
 the task, expected duration, and the status (Planned, Postponed, Canceled,
 Done).
 
-> 
 **From the client clarifications:**
 
 > **Question:** When a GSM wants to cancel a task or a Collaborator wants to record the completion of a task, the task just changes its status in the Agenda to "Canceled" or "Done", respectively.

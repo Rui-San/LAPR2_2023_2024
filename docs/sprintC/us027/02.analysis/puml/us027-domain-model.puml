@@ -29,7 +29,7 @@ class Address{
     district
 }
 
-GSM "1" -- "*" GreenSpace : "list managed by me"
+GSM "1" -- "*" GreenSpace : "list managed by me >"
 GreenSpace "1" -- "1" Address : "has >"
 
 @enduml

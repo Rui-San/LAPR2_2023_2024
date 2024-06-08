@@ -3,10 +3,6 @@
 skinparam packageStyle rectangle
 'skinparam shadowing false
 
-skinparam rectangle {
-    borderColor transparent
-}
-
 title Use Case Diagram
 
 left to right direction

@@ -30,5 +30,5 @@ class Task{
 
 
 Task "*" -u- "1" Agenda : "are part of >"
-GSM -- Task : "postpones >"
+GSM "*" -- "*" Task : "postpones >"
 @enduml

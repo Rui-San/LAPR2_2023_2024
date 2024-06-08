@@ -37,13 +37,6 @@ class Job{
     name
 }
 
-class HRM{
-
-}
-
-class FM{
-
-}
 
 class Team{
     name
@@ -115,22 +108,11 @@ Organization "1" --- "1" Agenda : "owns >"
 Organization "1" --- "1" Address : "has an >"
 Organization "1" --- "1..*" UserPortal : "owns >"
 Organization "1" --- "*" GreenSpace : "is maintained by <"
-'Organization "1" -- "*" Skill : "owns >"
-'Organization "1" -- "*" Job : "owns >"
 Organization "1" --- "*" Collaborator : "works for <"
 Organization "1" --- "*" Vehicle : "is an asset of <"
 Collaborator "1" --- "*" Skill : "has >"
 Collaborator "1" --- "1" Address : "has an >"
 Collaborator "1" -- "1" Job : "has >"
-HRM "1" -- "*" Skill : "register >"
-HRM "1" -- "*" Job : "register >"
-HRM "1" --|> "1" Collaborator
-HRM "1" -- "*" Collaborator : "register >"
-HRM "1" -- "*" Collaborator : "assigns skills to >"
-HRM "1" -- "*" Team : "generates >"
-FM "1" --|> "1" Collaborator
-FM "1" -- "*" Vehicle : "registers >"
-FM "1" -- "*" Checkup : "registers >"
 UserPortal "1" -- "*" Comment : "has >"
 Task "*" -- "1" Team : "is assigned to <"
 Task "*" -down- "*" Vehicle : "is assigned to <"
@@ -138,22 +120,11 @@ GreenSpace "1" -- "1" Address : "has an >"
 Team "1" -- "*" Collaborator : "belongs to <"
 Vehicle "1" --right "*" Checkup : "does >"
 CheckupList "1" -- "1..*" Vehicle : "has >"
-FM "1" -- "*" CheckupList : "requests to show >"
-GSU "*" -- "*" Comment : "makes a >"
-GSM "1" --|> "1" Collaborator
 Garden --r|> GreenSpace : "is a type of"
 MediumPark --u|> GreenSpace : "is a type of"
 LargePark --u|> GreenSpace : "is a type of"
-GSM "1" -d- "*" GreenSpace : registers >
-GSM "1" -- "*" Task : "register new entry >"
 ToDoList "1" -- "*" Task : "enters in <"
-GSM "1" -- "*" Task : "plans >"
 Agenda "1" -- "*" Task : "enters in <"
-GSM "*" -- "*" Task : "assigns a team to >"
-GSM "*" -- "*" Task : "postpones >"
-GSM "*" -- "*" Task : "cancel >"
-GSM "*" -- "*" Task : "assigns vehicles to >"
-GSM "1" -- "*" GreenSpace : "list managed by me >"
 Collaborator "1" -u- "0..*" Task : "lists assigned between\ntwo dates <"
 Collaborator "*" -right- "*" Task : "mark as complete >"
 

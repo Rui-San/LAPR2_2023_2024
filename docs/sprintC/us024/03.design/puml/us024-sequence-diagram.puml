@@ -9,6 +9,7 @@ autonumber
 
 actor "Green Space\nManager" as GSM
 participant ":AgendaUI" as UI
+participant ":AgendaController" as AGENDA_CTRL
 participant ":PostPoneTaskPopupUI" as Popup
 participant ":PostponeTaskController" as CTRL
 participant ":Repositories" as REPO
@@ -28,8 +29,19 @@ activate GSM
     GSM -> UI : Asks to postpone an entry on Agenda
 
     activate UI
-        UI --> GSM : Shows the tasks of the Agenda and asks to\nselect the task to be postponed
+
+        UI -> AGENDA_CTRL : getAgendaTaskDTOManagerList()
+        activate AGENDA_CTRL
+        |||
+        ref over AGENDA_CTRL
+        SD_managerSpecificAgendaDTO
+
+        end ref
+        AGENDA_CTRL --> UI : managerSpecificAgendaDTO
+        deactivate AGENDA_CTRL
+
 loop until doesn't select a valid option
+        UI --> GSM : Shows the tasks of the Agenda and asks to\nselect the task to be postponed
     deactivate UI
 
     GSM -> UI : Selects a task

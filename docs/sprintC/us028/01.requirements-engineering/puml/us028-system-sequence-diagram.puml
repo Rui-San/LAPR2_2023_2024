@@ -3,40 +3,27 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title US028 - System Sequence Diagram (SSD)
+title US029 - System Sequence Diagram (SSD)
 
 autonumber
-
 actor "Collaborator" as Collaborator
 participant ":ListCollaboratorTasksUI" as UI
 
+
 activate Collaborator
+activate UI
 
-    Collaborator -> UI : asks to list tasks assigned to the collaborator\nbetween two dates
-    activate UI
+loop until the collaborator shows a valid task
+Collaborator -> UI: asks to record the completion of a task(selectedTask)
+UI -> Collaborator: asks the confirmation of the operation
+Collaborator -> UI: Confirms the operation
 
-    loop until doesn't select a valid option
-            UI --> Collaborator : Shows the tasks assigned to the collaborator \nand asks to select one
-        deactivate UI
-
-        Collaborator -> UI : Selects one task
-        activate UI
-            UI --> UI : validate selected option
-    end loop
-    |||
-            UI --> UI: keepData(selectedTask)
-
-loop until typed data is valid
-        UI --> Collaborator : requests data (initialDate, finalDate)
-    deactivate UI
-
-    Collaborator -> UI : types requested data
-    activate UI
-        UI --> UI : validateData(initialDate,\nfinalDate)
 end loop
-        UI --> UI: gets tasks assigned to the collaborator\nbetween the two dates
-        UI--> UI: sorts the tasks by date
-        UI --> Collaborator : shows tasks assigned to the collaborator\nbetween the two dates and sorted by date
-    deactivate UI
+
+
+
+UI -> Collaborator: Displays operation success
+
+
 
 @enduml

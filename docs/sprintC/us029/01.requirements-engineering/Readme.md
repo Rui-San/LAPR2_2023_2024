@@ -44,7 +44,7 @@ He can filter by the different values the status of the status, like planned, ex
 * **AC2:** The tasks showing to the collaborator, are only the ones assigned to him.
 * **AC3:** If the task recorded as completed had a team and/or vehicles assigned, both will be released from that work period.
 * **AC4:** Only tasks with status Planned can be set as completed.
-*
+
 ### 1.4. Found out Dependencies
 
 * There is a dependency on "US003 - Register a collaborator" as there must be at least one collaborator created in the system for him to be assigned to a task.

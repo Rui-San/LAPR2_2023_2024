@@ -1,0 +1,116 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title SD_managerSpecificAgendaDTO
+
+autonumber
+
+participant ":AgendaUI" as UI
+participant ":AgendaController" as AGENDA_CTRL
+
+participant ":CollaboratorMapper" as CollaboratorMapper
+participant ":CollaboratorDTO" as CollaboratorDTO
+participant ":TeamMapper" as TeamMapper
+participant ":TeamDTO" as TeamDTO
+
+participant ":VehicleMapper" as VehicleMapper
+participant ":VehicleDTO" as VehicleDTO
+
+participant ":AgendaMapper" as AgendaMapper
+participant ":AgendaTaskDTO" as AgendaTaskDTO
+
+activate UI
+
+UI -> AGENDA_CTRL : getAgendaTaskDTOManagerList()
+activate AGENDA_CTRL
+
+    ref over AGENDA_CTRL
+    SD_obtainManagerAgendaTaskList
+
+    end ref
+
+    |||
+
+
+        loop for each task in agendaTaskList
+            AGENDA_CTRL -> AGENDA_CTRL : getTeamAssigned() [task]
+
+            alt task have a team assigned
+            |||
+
+            AGENDA_CTRL -> AGENDA_CTRL : getMembers() [Team]
+
+                |||
+
+                AGENDA_CTRL -> CollaboratorMapper : toDTOlist(teamMembers)
+                activate CollaboratorMapper
+                loop for each collaborator in teamMembers
+                |||
+                            CollaboratorMapper -> CollaboratorDTO** : toDTO(collaborator)
+
+
+
+                             CollaboratorMapper --> CollaboratorMapper : add(collaboratorDTO)
+
+                end loop
+                            CollaboratorMapper --> AGENDA_CTRL : collaboratorDTOlist
+                            deactivate CollaboratorMapper
+                            |||
+
+                AGENDA_CTRL -> TeamMapper : toDTO(collaboratorDTOlist)
+                activate TeamMapper
+                TeamMapper -> TeamDTO** : new TeamDTO(collaboratorDTOList)
+                |||
+                TeamMapper --> AGENDA_CTRL : teamDTO
+                deactivate TeamMapper
+
+            else task doesn't have a team assigned
+                AGENDA_CTRL -> AGENDA_CTRL : teamDTO = null
+            end
+
+            AGENDA_CTRL -> AGENDA_CTRL : getVehiclesAssigned() [task]
+
+            alt task have vehicles assigned
+                |||
+
+            AGENDA_CTRL -> VehicleMapper : toDTOList(getVehiclesAssigned())
+                activate VehicleMapper
+                loop for each vehicle in getVehiclesAssigned()
+                |||
+                            VehicleMapper -> VehicleDTO** : toDTO(vehicle)
+
+                                            |||
+                            VehicleMapper --> VehicleMapper : add(vehicleDTO)
+
+                end loop
+
+                            VehicleMapper --> AGENDA_CTRL : vehicleDTOList
+                            deactivate VehicleMapper
+            else task doesn't have vehicles assigned
+                AGENDA_CTRL -> AGENDA_CTRL : vehicleDTOList = null
+            end
+
+            |||
+            |||
+            AGENDA_CTRL -> AgendaMapper : toDTO(agendaTask, teamDTO,vehicleDTOList)
+            activate AgendaMapper
+
+            AgendaMapper -> AgendaTaskDTO** : new AgendaTaskDTO(title, description, taskType, greenSpaceName, \nurgency, status, expectedDuration, workStartDate, workStartHour,\n workStartMin, teamDTO, vehicleDTOList)
+
+            AgendaMapper --> AGENDA_CTRL : agendaTaskDTO
+            deactivate AgendaMapper
+
+            |||
+            AGENDA_CTRL -> AGENDA_CTRL : managerSpecificAgendaDTO.add(agendaTaskDTO)
+        end
+
+    |||
+
+    AGENDA_CTRL --> UI : managerSpecificAgendaDTO
+    deactivate AGENDA_CTRL
+
+deactivate UI
+
+@enduml
