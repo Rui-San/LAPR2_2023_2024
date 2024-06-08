@@ -43,6 +43,8 @@ class TeamRepository{
 }
 
 class VehicleRepository{
+    - List<Vehicle> vehicleList
+
     + removeWorkPeriodFromVehicle(canceledTask, taskWorkPeriod)
 }
 
