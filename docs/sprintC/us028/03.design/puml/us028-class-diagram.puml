@@ -47,6 +47,18 @@ package Repository <<Folder>> #DDDDDD {
     class AgendaRepository {
         + getCollaboratorSpecificAgenda(userId: String): List<Task>
     }
+
+    class ApplicationSession {
+            + ApplicationSession()
+            + getInstance(): ApplicationSession
+            + getCurrentSession(): UserSession
+            + getProperties(): Properties
+            + getAuthenticationRepository(): AuthenticationRepository
+        }
+
+    class UserSession {
+            + getUserEmail()
+        }
 }
 
 package Mapper <<Folder>> #DDDDDD {
@@ -114,39 +126,29 @@ package Domain <<Folder>> #DDDDDD {
         + getUserId(): String
     }
 
-    class UserSession {
-        + String userId
-        + UserSession()
-        + getCurrentUser(): User
-        + getUserId(): String
-    }
 
-    class ApplicationSession {
-        + ApplicationSession()
-        + getInstance(): ApplicationSession
-        + getCurrentSession(): UserSession
-        + getProperties(): Properties
-        + getAuthenticationRepository(): AuthenticationRepository
+    class Date {
+        + int day
+        + int month
+        + int year
+        + Date()
+        + toString(): String
+        + clone(): Date
+        + plusDays(days: int): Date
     }
 }
 
 
 
-class Date {
-    + int day
-    + int month
-    + int year
-    + Date()
-    + toString(): String
-    + clone(): Date
-    + plusDays(days: int): Date
-}
+
 
 ListCollaboratorTasksUI .down.> ListCollaboratorTasksController
 ListCollaboratorTasksController ...> AgendaRepository
 ListCollaboratorTasksController ..> AgendaMapper
+ApplicationSession -> ApplicationSession : instance
+
 ListCollaboratorTasksController ..> ApplicationSession
-AgendaRepository ---> Task
+AgendaRepository ---> Task : task
 AgendaMapper ..> AgendaTaskDTO
 Task ---> WorkPeriod
 WorkPeriod ..> Date
