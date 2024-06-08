@@ -25,34 +25,35 @@
 - [System Requirements](#system-requirements)
 - [System Overview](#system-overview)
 - [Features](#features)
-    - [Register a Skill | Human Resources Manager](#1-register-a-skill--human-resources-manager)
-    - [Register a Job | Human Resources Manager](#2-register-a-job--human-resources-manager)
-    - [Register a Collaborator | Human Resources Manager](#3-register-a-collaborator--human-resources-manager)
-    - [Assign skills to a Collaborator | Human Resources Manager](#4-assign-skills-to-a-collaborator--human-resources-manager)
-    - [Generate a team proposal | Human Resources Manager](#5-generate-a-team-proposal--human-resources-manager)
-    - [Register a Vehicle | Fleet Manager](#6-register-a-vehicle--fleet-manager)
-    - [Register a Vehicle's Check-up | Fleet Manager](#7-register-a-vehicles-check-up--fleet-manager)
-    - [Register a Green Space | Green Space Manager](#8-list-vehicles-needing-check-up--fleet-manager)
-    - [Add new entry to the To-Do list | Green Space Manager](#8-list-vehicles-needing-check-up--fleet-manager)
-    - [Add new entry in the Agenda | Green Space Manager](#8-list-vehicles-needing-check-up--fleet-manager)
-    - [Assign team to an entry in the Agenda | Green Space Manager](#8-list-vehicles-needing-check-up--fleet-manager)
-    - [Postpone an entry in the Agenda | Green Space Manager](#8-list-vehicles-needing-check-up--fleet-manager)
-    - [Cancel an entry in the Agenda | Green Space Manager](#8-list-vehicles-needing-check-up--fleet-manager)
-    - [Assign one or more vehicles to and entry in the Agenda | Green Space Manager](#8-list-vehicles-needing-check-up--fleet-manager)
-    - [List all green spaces managed by me | Green Space Manager](#8-list-vehicles-needing-check-up--fleet-manager)
-    - [Consult the tasks assigned to me between two dates | Collaborator](#8-list-vehicles-needing-check-up--fleet-manager)
-    - [Record the completion of a task | Collaborator](#8-list-vehicles-needing-check-up--fleet-manager)
-    - [Update vehicle Kilometers | Collaborator](#8-list-vehicles-needing-check-up--fleet-manager)
-    - [Import routes from csv file | Green Space Manager](#8-list-vehicles-needing-check-up--fleet-manager)
-    - [Obtain routes to be opened | Green Space Manager](#8-list-vehicles-needing-check-up--fleet-manager)
-    - [Run tests for inputs of variable size | Quality Assessment Team Manager](#8-list-vehicles-needing-check-up--fleet-manager)
-    - [Place signs to evacuate to an Assembly point | Green Space Manager](#8-list-vehicles-needing-check-up--fleet-manager)
-    - [Place signs to evacuate to one of the several Assembly points | Green Space Manager](#8-list-vehicles-needing-check-up--fleet-manager)
+    - [Register a Skill | Human Resources Manager](#register-a-skill--human-resources-manager)
+    - [Register a Job | Human Resources Manager](#register-a-job--human-resources-manager)
+    - [Register a Collaborator | Human Resources Manager](#register-a-collaborator--human-resources-manager)
+    - [Assign skills to a Collaborator | Human Resources Manager](#assign-skills-to-a-collaborator--human-resources-manager)
+    - [Generate a team proposal | Human Resources Manager](#generate-a-team-proposal--human-resources-manager)
+    - [Register a Vehicle | Fleet Manager](#register-a-vehicle--fleet-manager)
+    - [Register a Vehicle's Check-up | Fleet Manager](#register-a-vehicles-check-up--fleet-manager)
+    - [List Vehicles needing check-up | Fleet Manager](#list-vehicles-needing-check-up--fleet-manager)
+    - [Register a Green Space | Green Space Manager](#register-a-green-space--green-space-manager)
+    - [Add new entry to the To-Do list | Green Space Manager](#add-new-entry-to-the-to-do-list--green-space-manager)
+    - [Add new entry in the Agenda | Green Space Manager](#add-new-entry-in-the-agenda--green-space-manager)
+    - [Assign team to an entry in the Agenda | Green Space Manager](#assign-team-to-an-entry-in-the-agenda--green-space-manager)
+    - [Postpone an entry in the Agenda | Green Space Manager](#postpone-an-entry-in-the-agenda--green-space-manager)
+    - [Cancel an entry in the Agenda | Green Space Manager](#cancel-an-entry-in-the-agenda--green-space-manager)
+    - [Assign one or more vehicles to and entry in the Agenda | Green Space Manager](#assign-one-or-more-vehicles-to-an-entry-in-the-agenda--green-space-manager)
+    - [List all green spaces managed by me | Green Space Manager](#list-all-green-spaces-managed-by-me--green-space-manager)
+    - [Consult the tasks assigned to me between two dates | Collaborator](#consult-the-tasks-assigned-to-me-between-two-dates--collaborator)
+    - [Record the completion of a task | Collaborator](#record-the-completion-of-a-task--collaborator)
+    - [Update vehicle Kilometers | Collaborator](#update-vehicle-kilometers--collaborator)
+    - [Import routes from csv file | Green Space Manager](#import-routes-from-a-csv-file--green-space-manager)
+    - [Obtain routes to be opened | Green Space Manager](#obtain-routes-to-be-opened--green-space-manager)
+    - [Run tests for inputs of variable size | Quality Assessment Team Manager](#run-tests-for-inputs-of-variable-size-quality-assessment-team-manager)
+    - [Place signs to evacuate to an Assembly point | Green Space Manager](#place-signs-to-evacuate-to-an-assembly-points--green-space-manager)
+    - [Place signs to evacuate to one of the several Assembly points | Green Space Manager](#place-signs-to-evacuate-to-one-of-the-several-assembly-points-green-space-manager)
 
 
 - [Troubleshooting](#troubleshooting)
 - [Frequently Asked Questions](#frequently-asked-questions)
-- [References](#references)
+
 
 ---
 
@@ -309,7 +310,7 @@ At any time, the user may wish to end the session by using the logout button. Al
 
 ![Initial Menu](user_manual_resources/login7.png)
 
-### 1. Register a Skill | Human Resources Manager
+### Register a Skill | Human Resources Manager
 
 After selecting menu “Register Skill”, the user will be redirected to an interface where he will need to enter the name of the skill to register. After introducing the skill name, the system will ask for user confirmation before saving.
 
@@ -325,152 +326,365 @@ There are additional controls considering the inputs that are entered, such as c
 
 ![Register new skill](user_manual_resources/skill4.png)
 
-### 2. Register a Job | Human Resources Manager
-
-Very similar to the register a new skill, after selecting option 2 in HRM’s menu (Register new job), the user will be
-redirected to an interface where he will need to enter the name of the job he wishes to register. After introducing the
-job name, the system will ask for user confirmation before saving.
-
-After confirming the operation, the new skill will be saved, and the system will show a message of success. If the HRM
-tries to register a job that already exists in the system, a notification will be displayed indicating that “This job is
-already registered!”.
-
-![Register new Job](user_manual_resources/us002.1.png)
+### Register a Job | Human Resources Manager
 
 Very similar to the register a new skill, after selecting menu “Register job”, the user will be redirected to an interface where he will need to enter the name of the job to register. After introducing the job name, the system will ask for user confirmation before saving.
 
-![Register new Job](user_manual_resources/us002.2.png)
+![Register new Job](user_manual_resources/job1.png)
 
-### 3. Register a Collaborator | Human Resources Manager
+![Register new Job](user_manual_resources/job2.png)
 
-This feature is used to add new collaborators to the system. Upon choosing option 3 of HRM’s menu (Register new
-collaborator), the user will be asked to fill all the collaborator’s attributes.
+After confirming the operation, the new job will be saved, and the system will show a message of success. If the user tries to register a job that already exists in the system, a notification will be displayed indicating that the job is already registered.
 
-![Register new Collaborator](user_manual_resources/us003.1.png)
+![Register new Job](user_manual_resources/job3.png)
 
-![Register new Collaborator](user_manual_resources/us003.2.png)
+There are also additional controls considering the inputs that are entered, such as checking if its field is empty, if it contains not allowed characters, or even numbers.
 
-When registering a new employee, all personal information must be filled in before submission. Additionally, all fields
-have input control, generating a specific error message indicating the error of the specific field.
+![Register new Job](user_manual_resources/job4.png)
+
+
+### Register a Collaborator | Human Resources Manager
+
+This feature is used to add new collaborators to the system. Upon choosing menu “Register Collaborator”, the user will be asked to fill all the collaborator’s attributes.
+
+![Register new Collaborator](user_manual_resources/col1.png)
+
+When registering a new employee, all personal information must be filled in before submission. Additionally, all fields have input control, generating a specific error message indicating the error of the specific field.
 
 Some error messages that can be displayed when inputs are incorrect are:
 
-* “Name must not contain special characters”.
-* “Birthdate cannot be in the future.”
-* “Collaborator must be 18 years old.”
-* “Street number must be a positive integer!”
-* “Postal code must follow the format XXXX-XXX”.
-* “Email format must follow the pattern prefix domain”.
-* “Mobile Number is not in a correct format”.
-* “NIF in wrong format. Must be 9 numeric digits”.
-* “Passport in wrong format. Must be two letters + 6 numeric digits (Example: AB222222)”
+
+![Register new Collaborator](user_manual_resources/col2.png)
 
 Among other specific errors that may show when input data is not valid.
 
-![Register new Collaborator](user_manual_resources/us003.3.png)
+After correctly inputting all necessary information, the filled data will be showed for confirmation and a success message will be sent.
 
-After correctly inputting all necessary information, the filled data will be showed for confirmation. Upon confirmation,
-the new collaborator will be saved, and a success message will be sent.
+![Register new Collaborator](user_manual_resources/col3.png)
 
-![Register new Collaborator](user_manual_resources/us003.4.png)
+After confirmation/submitting the data, if the employee already exists in the system, an error message will be displayed indicating that the collaborator is already in the system, which means that there is a collaborator in the system with the same id number or email.
 
-After confirmation/submitting the data, if the employee already exists in the system, an error message will be displayed
-indicating that “This collaborator is already in the system!”
+### Assign skills to a Collaborator | Human Resources Manager
 
-### 4. Assign skills to a Collaborator | Human Resources Manager
+The menu “Assign Skill” will bring the interface for Assigning skills to a collaborator.
 
-The option 4 (Assign skills to collaborator) from the HRM’s menu, will bring the interface for Assigning skills to a
-Collaborator. In this interface, the list of available collaborators in the system will be displayed and the user must
-select which collaborator want to assign new skills to.
+In this interface, the user must select a collaborator existing in the system and choose, from the list of available skills, the skills to be assigned to the selected collaborator.
 
-![Assign skills to a Collaborator](user_manual_resources/us004.1.png)
+![Assign skills to a Collaborator](user_manual_resources/assignskill1.png)
 
-After selecting the collaborator, the list of available skills will appear, and the user can select one or more skills
-to assign to the collaborator.
+On the left side, upon selecting a collaborator, it will display the current skills that the selected collaborator has, updating the list based on the selected collaborator
 
-After selecting a skill, the application will ask the user if he wants to submit or choose more skills before
-submitting.
+![Assign skills to a Collaborator](user_manual_resources/assignskill2.png)
 
-When the user no longer wishes to select additional skills, the selected information is displayed for confirmation
-before being saved.
+On the right side, there is a list of available skills to assign to the collaborator, where the user can select one or more.
 
-![Assign skills to a Collaborator](user_manual_resources/us004.2.png)
+![Assign skills to a Collaborator](user_manual_resources/assignskill3.png)
 
-If the user selects a skill that has already been chosen before, an error message will be displayed saying “This skill
-has already been chosen, please select a different one.”
+If the collaborator already possesses one of the selected skills, it will be underlined in red, otherwise, if it's a possible assignment, it will assume green. Only the green-highlighted skills can be assigned to the collaborator (the ones the collaborator doesn’t have yet).
 
-![Assign skills to a Collaborator](user_manual_resources/us004.3.png)
 
-### 5. Generate a team proposal | Human Resources Manager
+![Assign skills to a Collaborator](user_manual_resources/assignskill4.png)
 
-Generate team proposal is the last option of HRM’s menu (option 5). To use this feature, the user needs to type the
-desired team size, including both the minimum and maximum team size.
+Upon clicking the button to assign skills, a message will be displayed showing all the selected data so that the user can confirm the action.
 
-![Generate a team proposal](user_manual_resources/us005.1.png)
+![Assign skills to a Collaborator](user_manual_resources/assignskill5.png)
 
-Next, user must select the necessary skills the team members may have and the quantity of collaborators with that
-specific skill.
+### Generate a team proposal | Human Resources Manager
 
-![Generate a team proposal](user_manual_resources/us005.2.png)
+The "Generate Team Proposal" menu allows for the automatic generation of multiple teams based on the inputs and selections made by the user, including the minimum and maximum team size and the required skill set (which skills are necessary within the team and in what quantity).
 
-Upon submission of the information, the system generates all possible teams based on the input and displays the most
-efficient team first.
 
-![Generate a team proposal](user_manual_resources/us005.3.png)
+![Generate a team proposal](user_manual_resources/teamproposal1.png)
 
-The user can either accept or reject the proposed team. If accepted, the team will be saved in the system. If the user
-rejects the displayed team, the next most efficient team (if available) will be shown.
+After entering the minimum and maximum team sizes, the user needs to select the desired skill then specify the quantity of that skill and click the "Add" button. Once all necessary skills are selected, click on the "Generate all team proposals" button and the generated teams will appear on the right side of the screen.
 
-In case the user views all possible teams without selecting any, the program will prompt whether he wants to cancel the
-process or view the teams again.
+![Generate a team proposal](user_manual_resources/teamproposal2.png)
 
-![Generate a team proposal](user_manual_resources/us005.4.png)
+The generated teams will be displayed based on their efficiency, which means that the first team that appears on the screen is the one with the fewest number of collaborators to meet the required skills. The user can either accept the first team shown or request to see the next generated team as an alternative.
 
-If, based on the provided information, it was not possible to generate any team, an error message will be displayed
-indicating the error.
+![Generate a team proposal](user_manual_resources/teamproposal3.png)
 
-![Generate a team proposal](user_manual_resources/us005.5.png)
+If it's not possible to create any team with the entered data, a message will be displayed indicating why was not possible to generate any team.
 
-### 6. Register a Vehicle | Fleet Manager
+### Register a Vehicle | Fleet Manager
 
-When choosing option 1 in the VFM’s menu (Register new vehicle), the system will display the user interface for
-registering a new vehicle where the user needs to fill in all the vehicle-related data before submitting.
+When choosing menu “Register Vehicle”, the system will display the user interface for registering a new vehicle where the user needs to fill in all the vehicle-related data before submitting.
 
-![Register a Vehicle](user_manual_resources/us006.1.png)
+![Register a Vehicle](user_manual_resources/vehicle1.png)
 
-Like the other interfaces, there are input controls that display errors if the entered information does not meet the
-acceptance criteria, some of the errors that user may encounter are:
+Like the other interfaces, there are input controls that display errors if the entered information does not meet the acceptance criteria. Some of the errors that user may encounter are:
 
-![Register a Vehicle](user_manual_resources/us006.2.png)
+![Register a Vehicle](user_manual_resources/vehicle2.png)
 
-After submission, the data will be shown to the user for confirmation and will be saved, displaying a success message.
-If the vehicle is already in the system, a message will be displayed, indicating the error.
+Upon clicking the button to register a new vehicle, a message containing all the entered information will be displayed to the user for confirmation.
 
-![Register a Vehicle](user_manual_resources/us006.3.png)
+![Register a Vehicle](user_manual_resources/vehicle3.png)
 
-### 7. Register a Vehicle's Check-up | Fleet Manager
+After submission, a message of success will be displayed. If the vehicle is already registered in the system, an error message will be displayed.
 
-The option 4 of VFM’s menu (Register new vehicle’s check-up), allows the registration of a new vehicle’s check-up. To
-use this feature, first the user must select a vehicle from the list.
+### Register a Vehicle's Check-up | Fleet Manager
 
-For the chosen vehicle, the user now needs to type the check-up data, which is the check-up date and the kilometers. In
-the end of process, all data will be displayed for confirmation and the user may proceed or not.
+“Register vehicle check-up” menu, allows the registration of a new vehicle’s check-up.
 
-![Register a Vehicle's Check-up](user_manual_resources/us007.1.png)
+To use this feature, first the user must select a vehicle from the list. For the chosen vehicle, the user now needs to type the check-up data, which is the check-up date and the kilometers.
 
-The check-up kilometers cannot be less than zero or superior to the current kilometers of the vehicle, otherwise an
-error will be showed.
+![Register a Vehicle's Check-up](user_manual_resources/checkup1.png)
 
-![Register a Vehicle's Check-up](user_manual_resources/us007.2.png)
+In the end of the process, all data will be displayed for confirmation and the user may proceed or not.
 
-### 8. List Vehicles needing check-up | Fleet Manager
+![Register a Vehicle's Check-up](user_manual_resources/checkup2.png)
 
-This menu generates a list of the vehicles needing check-up. After selecting the option 3 on VFM’s menu, the list will
-be displayed with all vehicles needing check-up.
+The check-up kilometers cannot be less than zero or superior to the current kilometers of the vehicle, otherwise an error will be showed.
+
+![Register a Vehicle's Check-up](user_manual_resources/checkup3.png)
+
+
+### List Vehicles needing check-up | Fleet Manager
+
+This menu generates a list of the vehicles needing check-up. After selecting this menu, the list will be displayed automatically with all vehicles needing check-up.
 
 If there are no vehicles needing check-up, the list will be empty.
 
-![List Vehicles needing check-up](user_manual_resources/us008.1.png)
+![List Vehicles needing check-up](user_manual_resources/needcheckup.png)
+
+### Register a Green Space | Green Space Manager
+
+In the "Register Green Space" menu, the user needs to fill in all the fields with the information related to the new green space before submission.
+
+![Register a Green Space](user_manual_resources/greenspace1.png)
+
+All fields have input control, generating a specific error message indicating the error of the specific field.
+Some error messages that can be displayed when inputs are incorrect are:
+
+![Register a Green Space](user_manual_resources/greenspace2.png)
+
+After submitting the data, a message containing all the information will be displayed for the user to confirm.
+
+![Register a Green Space](user_manual_resources/greenspace3.png)
+
+The user can either accept or cancel the operation. A success message will be displayed if the registration is successful. In case the green space already exists in the system, an error message will be shown indicating the error.
+
+![Register a Green Space](user_manual_resources/greenspace4.png)
+
+![Register a Green Space](user_manual_resources/greenspace5.png)
+
+### Add new entry to the To-Do list | Green Space Manager
+
+When choosing the "Add Task" menu, the user needs to fill in all the information regarding the task, such as the title, description, expected duration, select the green space where the task will be executed, specify the urgency, and select the type.
+
+![Add new entry to the To-Do list](user_manual_resources/registertask1.png)
+
+All fields have input control, generating a specific error message indicating the error of the specific field.
+Some error messages that can be displayed when inputs are incorrect are:
+
+![Add new entry to the To-Do list](user_manual_resources/registertask2.png)
+
+After all fields are correctly filled out and without errors, upon submission, a message containing all the information will be displayed for confirmation.
+A new entry in the To-Do list always has its status set to "pending" since it has not yet been processed to the agenda.
+
+![Add new entry to the To-Do list](user_manual_resources/registertask3.png)
+
+A success or error message will be displayed upon confirmation if the specific task already exists in the system with the same parameters and is still with status “pending”.
+
+![Add new entry to the To-Do list](user_manual_resources/registertask4.png)
+
+### Add new entry in the Agenda | Green Space Manager
+
+In the "Add Task to Agenda" menu, all tasks created by the logged-in manager in the To-Do list will be shown, whether they are in the "pending" state or already "processed" (meaning they have previously entered the Agenda).
+
+![Add new entry in the Agenda](user_manual_resources/addagenda1.png)
+
+After selecting the desired task, the user needs to click on the "Add" button, and a popup will appear for the user to enter the date and time when that task will be executed.
+
+![Add new entry in the Agenda](user_manual_resources/addagenda2.png)
+
+This interface allows the user to double-click on a specific task to open a window with all the information about the task.
+
+![Add new entry in the Agenda](user_manual_resources/addagenda3.png)
+
+If the task is already processed or if there is already an identical task in the Agenda for the same green space that is still not completed, an error message will be displayed, otherwise, a success message will appear.
+
+![Add new entry in the Agenda](user_manual_resources/addagenda4.png)
+
+![Add new entry in the Agenda](user_manual_resources/addagenda5.png)
+
+### Assign team to an entry in the Agenda | Green Space Manager
+
+Upon entering the agenda menu, the logged-in manager will see his own tasks. After selecting the desired task, the manager can click on the "Assign team" button, which will open a popup with all the teams for him to choose one.
+
+![Assign team to an entry in the Agenda](user_manual_resources/assignteam1.png)
+
+![Assign team to an entry in the Agenda](user_manual_resources/assignteam2.png)
+
+Since this operation is still on the Agenda menu, the user can still double-click on a specific task and/or team to open a window with all the information about the selected task/team.
+
+![Assign team to an entry in the Agenda](user_manual_resources/assignteam3.png)
+
+![Assign team to an entry in the Agenda](user_manual_resources/assignteam4.png)
+
+If the selected task is already completed or, alternatively, has been cancelled, an error message indicating the issue will be displayed.
+
+When choosing the team, the system automatically checks if the team is available during the timeframe of that task. If it is available, the action is completed successfully, otherwise, an error message will be displayed indicating that the team is not available at that time.
+
+![Assign team to an entry in the Agenda](user_manual_resources/assignteam5.png)\
+
+### Postpone an entry in the Agenda | Green Space Manager
+
+In the agenda menu, the logged-in manager will see his own tasks. After selecting the desired task, the manager can click on the "Postpone Task" button, which will open a popup for the user to specify the new execution date and hour.
+
+![Postpone an entry in the Agenda](user_manual_resources/postpone1.png)
+
+
+This interface allows the user to double-click on a specific task to open a window with all the information about the selected task.
+
+![Postpone an entry in the Agenda](user_manual_resources/postpone2.png)
+
+If the task being postponed has teams and vehicles assigned, the system will check if it's possible to postpone to the new date by verifying the availability of the team and vehicles for the new intended date. If it's not possible to postpone to the chosen date, an error message will be displayed, otherwise, the selected task's status changes to "postponed" and a new task is created for the new date with status “planned”.
+
+![Postpone an entry in the Agenda](user_manual_resources/postpone3.png)
+
+![Postpone an entry in the Agenda](user_manual_resources/postpone4.png)
+
+### Cancel an entry in the Agenda | Green Space Manager
+
+Very similar to the last option inside the agenda menu, the user can select one of his tasks from the agenda and click the "Cancel Task" button to proceed with its cancellation.
+
+![Cancel an entry in the Agenda](user_manual_resources/cancel1.png)
+
+This interface allows the user to double-click on a specific task to open a window with all the information about the selected task.
+After cancelling the task, the task's status will change to "cancelled" and any teams and/or vehicles associated with that time period (if any) will become available.
+
+![Cancel an entry in the Agenda](user_manual_resources/cancel2.png)
+
+### Assign one or more vehicles to an entry in the Agenda | Green Space Manager
+
+In the agenda menu, the logged-in manager can view all his tasks and, to assign one or more vehicles to a task, he must select a task and click the "Assign Vehicle" button.
+
+![Assign vehicles to an entry in the Agenda](user_manual_resources/assignvehicle1.png)
+
+After clicking the "Assign Vehicle" button, a popup will appear with all the vehicles in the system, and the manager can select one or more.
+
+![Assign vehicles to an entry in the Agenda](user_manual_resources/assignvehicle2.png)
+
+This interface allows the user to double-click on a specific task to open a window with all the information about the selected task.
+
+![Assign vehicles to an entry in the Agenda](user_manual_resources/assignvehicle3.png)
+
+### List all green spaces managed by me | Green Space Manager
+
+This option is very user-friendly because all you must do is select the "List Green Spaces" menu, and a list will appear with all the green spaces managed by the currently logged-in manager in the system.
+
+![List all green spaces managed by me](user_manual_resources/listgreenspace.png)
+
+### Consult the tasks assigned to me between two dates | Collaborator
+
+As a collaborator, upon entering the system, you will have access to the "My Agenda" menu, where the list of tasks assigned to the collaborator currently logged into the system will appear.
+
+![Consult the tasks assigned to me between two dates](user_manual_resources/taskassigned1.png)
+
+By default, the list of assigned tasks will be shown sorted by date. The collaborator can filter the agenda by the task's status in the top right corner or, alternatively, filter the agenda tasks between two dates.
+
+![Consult the tasks assigned to me between two dates](user_manual_resources/taskassigned2.png)
+
+This interface allows the user to double-click on a specific task to open a window with all the information about the selected task.
+
+![Consult the tasks assigned to me between two dates](user_manual_resources/taskassigned3.png)
+
+### Record the completion of a task | Collaborator
+
+Upon entering the "My Agenda" menu, the collaborator will have access to all tasks assigned to him. To mark a task as completed, simply select the task and click the "Set Completed" button.
+
+![Record the completion of a task](user_manual_resources/complete1.png)
+
+If the selected task is already completed, the action is not permitted. Otherwise, a success message will be sent.
+
+![Record the completion of a task](user_manual_resources/complete2.png)
+
+### Update Vehicle Kilometers | Collaborator
+
+This menu is intended for the collaborator, as they use the vehicles daily for task execution. It allows the user to update the mileage of a specific vehicle, thereby facilitating fleet management to determine if a vehicle is approaching its inspection date.
+To use this feature, the user needs to access the menu “Update Km” and the list of all vehicles will be displayed.
+Simply select the vehicle to be updated and type the current kilometers of the vehicle.
+
+![Update Vehicle Kilometers](user_manual_resources/updatekm1.png)
+
+If the kilometers entered by the collaborator is lower than the current kilometers recorded in the system, an error message will be displayed, preventing the completion of the operation.
+
+![Update Vehicle Kilometers](user_manual_resources/updatekm2.png)
+
+### Import routes from a csv file | Green Space Manager
+
+This feature is used to read all possible routes that can be opened. The data structure read will be used to calculate routes to be opened and pipes needed to be laid with a minimum accumulated cost, ensuring that all points are adequately supplied.
+This functionality is used in functionalities 4.21 and 4.22 and does not require a login. To understand how it works, check sections 4.21 and 4.22 of this user manual.
+
+### Obtain routes to be opened | Green Space Manager
+
+This functionality can be used in two different ways, either using the console or through the graphical application, in the Green Space Manager menu.
+To use this feature in the main application, login as Green Space Manager and select the “Routes to Open” menu:
+
+![Obtain routes to be opened](user_manual_resources/us13_4.png)
+
+![Obtain routes to be opened](user_manual_resources/us13_6.png)
+
+After selecting the csv file, the program will automatically calculate the best routes to be opened with the minimum cost and show on the table all routes and the cost.
+
+![Obtain routes to be opened](user_manual_resources/us13_5.png)
+
+Additionally, the program provides a real-time graphical demonstration of all possible paths, with the optimal route to be opened shown in red.
+
+![Obtain routes to be opened](user_manual_resources/us13_3.png)
+
+**To use this feature in the console, follow these steps:**
+> Run MainUS13 application in the src folder: (src/matdisc/MATDISC_class_resolution/MainUS13.java).
+Through feature Import routes to be opened, which allows reading a .csv file, a file chooser will appear when starting the program and the user must select which .csv file want to analyse
+
+![Obtain routes to be opened](user_manual_resources/us13_1.png)
+
+After choosing the file, the routes to be opened will be displayed, along with the associated total cost.
+
+![Obtain routes to be opened](user_manual_resources/us13_2.png)
+
+In both applications, the generated graph and CSV file with the optimal route are automatically saved in the “MATDISC_GRAPH_IMAGES” folder at the project root.
+
+### Run tests for inputs of variable size| Quality Assessment Team Manager
+
+* To access this feature, the user needs to initialize the MainUS14 application located in the src folder (src/matdisc/MATDISC_class_resolution/MainUS14.java).
+* First, the user needs to place all the files that need to be analysed in the _US14_DataSet folder located in the same execution directory of the application.
+* Once all the csv files are in the folder, simply run the application and the files will be read one by one.
+* For each file, the program displays a message with the file information and the algorithm execution time.
+
+![Run tests for inputs of variable size](user_manual_resources/us14_1.png)
+
+When the reading and execution of all files in the folder are finished, the program will generate a real-time graph showing the asymptotic behaviour of the execution time of the algorithm.
+
+![Run tests for inputs of variable size](user_manual_resources/us14_2.png)
+
+After the execution of the program, the graph image and the CSV file containing the data for each CSV file will be automatically saved in the “MATDISC_GRAPH_IMAGES” folder at the project root.
+
+###	Place signs to evacuate to an Assembly Points | Green Space Manager
+
+* This feature helps the user to know where to place signs to evacuate (in case of emergency) park users to an Assembly Point. These signs give a shortest route from these different points (where the signs will be placed) to the Assembly Point.
+* To access this feature, the user needs to initialize the Main application located in the src folder (src/ MDISC/Main.java).
+* After running this application, all points will be displayed, and the user must choose the desired point. User must select the option “y” to start the application or “n” to close.
+* The program automatically runs the algorithm and shows the user the shortest route from the selected point to the assembly point, including the path cost.
+
+![Place signs to evacuate to one of the several Assembly Points](user_manual_resources/us17_1.png)
+
+The generated graph and csv (with the route and cost) will be automatically saved in the “output” folder located in the same directory as the execution file.
+
+### Place signs to evacuate to one of the several Assembly Points| Green Space Manager
+
+* This feature helps the user to know where to place signs to evacuate (in case of emergency) park users to one of the several Assembly Points. These signs give the shortest routes to the closest Assembly Point.
+* To access this feature, the user needs to initialize the Main application located in the src folder (src/ MDISC/Main.java).
+* After running this application, all points will be displayed, and the user must choose the desired point. User must select the option “y” to start the application or “n” to close.
+* The program automatically runs the algorithm and shows the user the shortest route from the selected point to the closest assembly point found, including the path cost.
+
+![Place signs to evacuate to one of the several Assembly Points](user_manual_resources/us18_1.png)
+
+In the background, the application will generate several images that represents the shortest path from each point to the nearest assembly point (one image for each point).
+
+The generated graph images and csv can be found in the “output” folder located in the same directory as the execution file.
+
 
 ## Troubleshooting
 
@@ -484,7 +698,7 @@ If there are no vehicles needing check-up, the list will be empty.
 
 > ### Issue 3: 
 >
-> If while logging in, you see the error “Invalid username or password” make you inserted the right email and password and try again. 
+> If while logging in, you see the error “Invalid username or password” make sure you inserted the right email and password try again. 
 
 > ### Issue 4: 
 >
@@ -584,6 +798,3 @@ If there are no vehicles needing check-up, the list will be empty.
 > **Q.18:** Can I access the generated graphs, as well as the generated .csv file containing the routes to be opened after closing the application?
 >
 > **A. 18:** Yes, both are saved in the folder for future use, as you can verify in points 4.21 and 4.22 of this user manual.
-
-
-## References
