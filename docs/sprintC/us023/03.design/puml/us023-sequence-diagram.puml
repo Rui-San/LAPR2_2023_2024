@@ -121,6 +121,15 @@ activate UI
                     end
 
                     AgendaRepository --> CTRL : task Optional
+                deactivate AgendaRepository
+            loop for every collaborator in the selectedTeam
+            |||
+                    ref over CTRL
+                        SD_sendEmailToCollaborator
+
+                        end ref
+                        |||
+            end loop
                     deactivate AgendaRepository
 
 

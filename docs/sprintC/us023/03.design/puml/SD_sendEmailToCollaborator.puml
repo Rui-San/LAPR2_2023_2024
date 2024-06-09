@@ -1,0 +1,75 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title SD_obtainManagerAgendaTaskList
+
+autonumber
+
+participant ":AssignTeamToEntryAgendaController" as AGENDA_CTRL
+
+participant ":ApplicationSession" as APP
+participant "singleton\n:ApplicationSession" as APPSingleton
+participant "properties\n:Properties" as Props
+participant ":EmailSender" as Email
+participant ":DEISender" as DEI
+participant ":GmailSender" as Gmail
+
+activate AGENDA_CTRL
+
+    AGENDA_CTRL -> APP : getInstance()
+    activate APP
+
+        APP --> AGENDA_CTRL : singleton
+    deactivate APP
+
+    AGENDA_CTRL -> APPSingleton : getProperties()
+    activate APPSingleton
+
+        APPSingleton --> AGENDA_CTRL : properties
+    deactivate APPSingleton
+
+    AGENDA_CTRL -> Props : getProperty(ApplicationSession.EMAIL_SERVICE)
+    activate Props
+
+        Props --> AGENDA_CTRL : emailService
+    deactivate Props
+
+    alt if emailService = GmailService
+
+        AGENDA_CTRL -> AGENDA_CTRL : emailSender
+        note right
+            emailSender = "@gmail.com"
+        end note
+
+        AGENDA_CTRL -> AGENDA_CTRL : body(emailSender)
+        AGENDA_CTRL -> Email** : sendEmail(emailSender, body)
+        activate Email
+
+            Email -> Gmail** : sendEmail(emailSender, body)
+
+        deactivate Email
+
+    else if emailService = DEIService
+
+        AGENDA_CTRL -> AGENDA_CTRL : emailSender
+        note right
+            emailSender = "@isep.ipp.pt"
+        end note
+
+        AGENDA_CTRL -> AGENDA_CTRL : body(emailSender)
+        AGENDA_CTRL -> Email** : sendEmail(emailSender, body)
+        activate Email
+
+            Email -> DEI** : sendEmail(emailSender, body)
+
+        deactivate Email
+    end
+
+
+
+
+deactivate AGENDA_CTRL
+
+@enduml

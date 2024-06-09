@@ -72,6 +72,11 @@ This diagram shows the full sequence of interactions between the classes involve
 
 ![Sequence Diagram - getTeamDomainObject](svg/SD_getTeamDomainObject.svg)
 
+### Ref: SD_sendEmailToCollaborator
+
+![Sequence Diagram - SD_sendEmailToCollaborator](svg/SD_sendEmailToCollaborator.svg)
+
+
 ## 3.3. Class Diagram (CD)
 
 ![Class Diagram](svg/us023-class-diagram.svg)
