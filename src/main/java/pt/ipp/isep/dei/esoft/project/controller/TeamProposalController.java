@@ -1,8 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.controller;
 
-import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
-import pt.ipp.isep.dei.esoft.project.domain.Skill;
-import pt.ipp.isep.dei.esoft.project.domain.Team;
+import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 
 import java.util.List;
@@ -22,6 +20,11 @@ public class TeamProposalController {
     private CollaboratorRepository collaboratorRepository;
 
     /**
+     * MemberOfTeam Repository
+     */
+    private MemberOfTeamRepository memberOfTeamRepository;
+
+    /**
      * Team repository
      */
     private TeamRepository teamRepository;
@@ -33,10 +36,11 @@ public class TeamProposalController {
      * @param collaboratorRepository the collaborator repository
      * @param teamRepository         the team repository
      */
-    public TeamProposalController(SkillRepository skillRepository, CollaboratorRepository collaboratorRepository, TeamRepository teamRepository) {
+    public TeamProposalController(SkillRepository skillRepository, CollaboratorRepository collaboratorRepository, TeamRepository teamRepository, MemberOfTeamRepository memberOfTeamRepository){
         this.skillRepository = skillRepository;
         this.collaboratorRepository = collaboratorRepository;
         this.teamRepository = teamRepository;
+        this.memberOfTeamRepository = memberOfTeamRepository;
     }
     /**
      * Constructor of a TeamProposalController object.
@@ -86,6 +90,14 @@ public class TeamProposalController {
         return teamRepository;
     }
 
+    public MemberOfTeamRepository getMemberOfTeamRepository() {
+        if (memberOfTeamRepository == null) {
+            Repositories repositories = Repositories.getInstance();
+
+            memberOfTeamRepository = repositories.getMemberOfTeamRepository();
+        }
+        return memberOfTeamRepository;
+    }
 
     /**
      * Returns the list of skill from repository
@@ -129,6 +141,10 @@ public class TeamProposalController {
      * @param teamAccepted the team proposal to save
      */
     public void saveTeamProposal(Team teamAccepted) {
+        for (Collaborator collaborator : teamAccepted.getMembers()) {
+            MemberOfTeam memberOfTeam = new MemberOfTeam(teamAccepted, collaborator);
+            getMemberOfTeamRepository().getListMemberOfTeam().add(memberOfTeam);
+        }
         getTeamRepository().saveTeamProposal(teamAccepted);
     }
 }

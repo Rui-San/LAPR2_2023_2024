@@ -51,6 +51,8 @@ public class Repositories implements Serializable {
      */
     private final AgendaRepository agendaRepository;
 
+    private final MemberOfTeamRepository memberOfTeamRepository;
+
     /**
      * Private constructor to prevent external instantiation.
      */
@@ -65,6 +67,7 @@ public class Repositories implements Serializable {
         greenSpaceRepository = new GreenSpaceRepository();
         toDoRepository = new ToDoRepository();
         agendaRepository = new AgendaRepository();
+        memberOfTeamRepository = new MemberOfTeamRepository();
     }
 
     /**
@@ -159,6 +162,13 @@ public class Repositories implements Serializable {
     public AgendaRepository getAgendaRepository(){
         return agendaRepository;
     }
+
+    /**
+     * Retrieves the MemberOfTeamRepository instance.
+     *
+     * @return The MemberOfTeamRepository instance.
+     */
+    public MemberOfTeamRepository getMemberOfTeamRepository() { return memberOfTeamRepository; }
 
     /**
      * Saves the current state of the Repositories instance to a file.
