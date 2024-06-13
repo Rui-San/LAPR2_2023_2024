@@ -205,7 +205,7 @@ public class DateTest {
 
     @Test
     public void testIsPastDate_FutureDate() {
-        Date futureDate = new Date("10/06/2024");
+        Date futureDate = new Date("13/06/2024");
         assertFalse(futureDate.isPastDate());
     }
 

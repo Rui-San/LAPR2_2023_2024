@@ -138,17 +138,23 @@
 
 .menu-btn{
     -fx-background-color: #f4f4f4;
-    -fx-border-width: 0px 0px 1px 0px;
-    -fx-border-color: gray;
     -fx-background-radius: 0;
     -fx-font-weight: 500;
-    -fx-font-size: 16px;
+    -fx-font-size: 17px;
     -fx-text-fill: black;
     -fx-focus-color: transparent;
     -fx-pref-width: 200px;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.menu-btn-selected{
+    -fx-border-width: 0 0 0 5px;
+    -fx-border-color: #4CAF50;
 }
 
 .menu-btn:hover{
+    -fx-border-width: 0 0 0 5px;
+    -fx-border-color: #4CAF50;
     -fx-background-color: #E0E0E0;
 }
 
@@ -276,4 +282,40 @@
 
 .tb-tasks-collaborator .table-row-cell .cell {
     -fx-font-size: 12px;
+}
+
+.logout-menu-item{
+    -fx-background-color: rgba(0, 0, 0, 0.1);
+    -fx-background-radius: 50;
+    -fx-text-fill: white !important;
+    -fx-color: white !important;
+    -fx-font-weight: bold;
+    -fx-font-size: 15px;
+    -fx-cursor: hand;
+}
+
+.logout-menu-item .label{
+    -fx-text-fill: white;
+}
+
+.logout-menu-item .menu-item{
+    -fx-cursor: hand;
+    -fx-padding: 1em;
+    -fx-background-color: transparent;
+    -fx-background-radius: 20;
+}
+
+.logout-menu-item .menu-item:hover {
+  -fx-background-color: rgba(0, 0, 0, 0.2);
+  -fx-background-radius: 20;
+}
+
+.logout-menu-item .context-menu{
+    -fx-pref-width: 270px;
+    -fx-background-color: rgba(51,123,54,0.8);
+    -fx-background-radius: 20;
+}
+
+.logout-menu-item:hover{
+    -fx-background-color: rgba(0, 0, 0, 0.2);
 }

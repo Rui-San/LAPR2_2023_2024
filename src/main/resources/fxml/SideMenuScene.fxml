@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -7,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="1024.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.MenuUI">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="653.0" prefWidth="1031.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.MenuUI">
    <left>
       <VBox fx:id="vbMenuButtonsHolder" prefHeight="470.0" prefWidth="150.0" styleClass="menu-style" BorderPane.alignment="CENTER">
          <children>
@@ -93,25 +94,36 @@
       </VBox>
    </left>
    <center>
-      <StackPane fx:id="contentArea" prefHeight="573.0" prefWidth="874.0" BorderPane.alignment="CENTER" />
+      <StackPane fx:id="contentArea" prefHeight="679.0" prefWidth="1070.0" BorderPane.alignment="CENTER" />
    </center>
    <top>
-      <AnchorPane prefHeight="53.0" prefWidth="1024.0" styleClass="menu-header" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="83.0" prefWidth="1073.0" styleClass="menu-header" BorderPane.alignment="CENTER">
          <children>
-            <Text fill="WHITE" layoutX="14.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Projeto Integrador - LAPR 2" textAlignment="CENTER" wrappingWidth="287.13671875">
+            <Text fill="WHITE" layoutX="39.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dashboard" textAlignment="CENTER" wrappingWidth="162.13671875">
                <font>
-                  <Font name="Berlin Sans FB" size="18.0" />
+                  <Font name="Berlin Sans FB" size="30.0" />
                </font>
             </Text>
-            <Button layoutX="810.0" layoutY="7.0" mnemonicParsing="false" onAction="#logoutAction" text="Logout ⧩">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <styleClass>
-                  <String fx:value="menu-btn" />
-                  <String fx:value="menu-btn-logout" />
-               </styleClass>
-            </Button>
+            <Circle fill="#85d099" layoutX="778.0" layoutY="43.0" radius="20.0" stroke="#105110" strokeType="INSIDE" />
+            <Label layoutX="805.0" layoutY="24.0" prefHeight="17.0" prefWidth="170.0" style="-fx-font-weight: bold; -fx-font-size: 16;" text="Collaborator Name" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="806.0" layoutY="44.0" prefHeight="17.0" prefWidth="170.0" style="-fx-font-size: 12;" text="Human Resources Manager" textFill="#d0d0d0">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <MenuButton layoutX="747.0" layoutY="15.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="270.0" styleClass="logout-menu-item" textFill="WHITE">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Config" />
+                  <MenuItem mnemonicParsing="false" onAction="#logoutAction" text="Logout" />
+              </items>
+               <font>
+                  <Font name="Berlin Sans FB" size="11.0" />
+               </font>
+            </MenuButton>
          </children>
       </AnchorPane>
    </top>
