@@ -552,6 +552,12 @@ public class Collaborator implements Cloneable, Serializable {
         return clone;
     }
 
+    public String getAge(){
+        int days = this.birthdate.getDateDifferenceInDays(new Date());
+        int years = days / 365;
+        return String.valueOf(years);
+    }
+
 
     /**
      * Creates a deep copy of the collaborator.

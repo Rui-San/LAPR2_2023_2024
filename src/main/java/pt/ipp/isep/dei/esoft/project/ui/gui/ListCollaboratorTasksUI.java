@@ -12,8 +12,6 @@ import javafx.beans.property.SimpleStringProperty;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -23,11 +21,9 @@ import java.util.ResourceBundle;
 
 import pt.ipp.isep.dei.esoft.project.controller.CompleteTaskController;
 import pt.ipp.isep.dei.esoft.project.controller.ListCollaboratorTasksController;
-import pt.ipp.isep.dei.esoft.project.domain.Task;
 import pt.ipp.isep.dei.esoft.project.dto.AgendaTaskDTO;
-import pt.ipp.isep.dei.esoft.project.repository.AgendaRepository;
-import pt.ipp.isep.dei.esoft.project.tools.Sorting;
 import pt.ipp.isep.dei.esoft.project.tools.Status;
+import pt.ipp.isep.dei.esoft.project.ui.gui.popups.TaskDetailsPopupUI;
 
 
 public class ListCollaboratorTasksUI implements Initializable {

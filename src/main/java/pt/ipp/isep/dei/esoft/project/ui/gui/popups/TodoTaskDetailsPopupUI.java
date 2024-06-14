@@ -1,12 +1,10 @@
-package pt.ipp.isep.dei.esoft.project.ui.gui;
+package pt.ipp.isep.dei.esoft.project.ui.gui.popups;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.dto.ToDoTaskWithStatusDTO;
-import pt.ipp.isep.dei.esoft.project.dto.VehicleDTO;
 import pt.ipp.isep.dei.esoft.project.tools.TaskDurationFormatter;
-import pt.ipp.isep.dei.esoft.project.tools.TaskStartDateFormatter;
 
 public class TodoTaskDetailsPopupUI {
 

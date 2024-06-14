@@ -1,0 +1,12 @@
+ORIGINAL FILE: segunda_feira.csv
+
+MINIMAL SPANNING TREE:
+
+VERTEX1;VERTEX2;COST
+2;3;1.0
+1;2;3.0
+1;4;4.0
+3;5;6.0
+5;6;9.0
+
+Total cost of the Minimal Spanning Tree: 23.0

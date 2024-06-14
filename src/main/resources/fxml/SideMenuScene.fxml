@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
@@ -10,7 +12,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="653.0" prefWidth="1031.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.MenuUI">
    <left>
-      <VBox fx:id="vbMenuButtonsHolder" prefHeight="470.0" prefWidth="150.0" styleClass="menu-style" BorderPane.alignment="CENTER">
+      <VBox fx:id="vbMenuButtonsHolder" prefHeight="570.0" prefWidth="167.0" styleClass="menu-style" BorderPane.alignment="CENTER">
          <children>
             <MenuButton fx:id="mbJobs" mnemonicParsing="false" popupSide="RIGHT" styleClass="menu-btn" text="Jobs">
               <items>
@@ -34,6 +36,7 @@
                </cursor>
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#RegisterCollaborator" text="Register Collaborator" />
+                  <MenuItem mnemonicParsing="false" onAction="#ListCollaborators" text="List Collaborators" />
                   <MenuItem mnemonicParsing="false" onAction="#AssignSkill" text="Assign skill" />
                </items>
             </MenuButton>
@@ -105,19 +108,27 @@
                </font>
             </Text>
             <Circle fill="#85d099" layoutX="778.0" layoutY="43.0" radius="20.0" stroke="#105110" strokeType="INSIDE" />
-            <Label layoutX="805.0" layoutY="24.0" prefHeight="17.0" prefWidth="170.0" style="-fx-font-weight: bold; -fx-font-size: 16;" text="Collaborator Name" textFill="WHITE">
+            <ImageView fitHeight="52.0" fitWidth="51.0" layoutX="752.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/user-circle-icon.png" />
+               </image>
+               <effect>
+                  <ColorAdjust brightness="0.15" contrast="0.34" hue="-0.34" />
+               </effect>
+            </ImageView>
+            <Label fx:id="profileItemName" layoutX="805.0" layoutY="24.0" prefHeight="17.0" prefWidth="170.0" style="-fx-font-weight: bold; -fx-font-size: 16;" text="Collaborator Name" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label layoutX="806.0" layoutY="44.0" prefHeight="17.0" prefWidth="170.0" style="-fx-font-size: 12;" text="Human Resources Manager" textFill="#d0d0d0">
+            <Label fx:id="profileItemRole" layoutX="806.0" layoutY="44.0" prefHeight="17.0" prefWidth="170.0" style="-fx-font-size: 11;" text="Human Resources Manager" textFill="#d0d0d0">
                <font>
-                  <Font size="15.0" />
+                  <Font size="14.0" />
                </font>
             </Label>
             <MenuButton layoutX="747.0" layoutY="15.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="270.0" styleClass="logout-menu-item" textFill="WHITE">
               <items>
-                <MenuItem mnemonicParsing="false" text="Config" />
+                <MenuItem mnemonicParsing="false" onAction="#openConfig" text="Config" />
                   <MenuItem mnemonicParsing="false" onAction="#logoutAction" text="Logout" />
               </items>
                <font>

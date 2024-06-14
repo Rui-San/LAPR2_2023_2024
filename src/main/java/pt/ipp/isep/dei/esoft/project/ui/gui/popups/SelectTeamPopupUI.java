@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.esoft.project.ui.gui;
+package pt.ipp.isep.dei.esoft.project.ui.gui.popups;
 
 
 import javafx.beans.property.SimpleStringProperty;
@@ -13,7 +13,6 @@ import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.controller.AssignTeamToEntryAgendaController;
-import pt.ipp.isep.dei.esoft.project.dto.AgendaTaskDTO;
 import pt.ipp.isep.dei.esoft.project.dto.TeamDTO;
 
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.esoft.project.ui.gui;
+package pt.ipp.isep.dei.esoft.project.ui.gui.popups;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

@@ -128,7 +128,7 @@
 }
 
 .menu-header{
-    -fx-background-color: linear-gradient(#4CAF50, #388E3C);
+    -fx-background-color: #388E3C;
 }
 
 .menu-style{
@@ -139,23 +139,58 @@
 .menu-btn{
     -fx-background-color: #f4f4f4;
     -fx-background-radius: 0;
-    -fx-font-weight: 500;
     -fx-font-size: 17px;
-    -fx-text-fill: black;
+    -fx-text-fill: gray;
     -fx-focus-color: transparent;
     -fx-pref-width: 200px;
     -fx-alignment: CENTER_LEFT;
 }
 
-.menu-btn-selected{
-    -fx-border-width: 0 0 0 5px;
-    -fx-border-color: #4CAF50;
+.menu-btn .context-menu{
+    -fx-background-color: #E0E0E0;;
+    -fx-background-radius: 0;
+    -fx-border-width: 0;
+    -fx-padding: 0;
+    -fx-effect: dropshadow(three-pass-box, #D1D1D1, 3, 0.1, 2, 0);
 }
 
-.menu-btn:hover{
+.menu-btn .context-menu .menu-item .label{
+    -fx-text-fill: gray;
+    -fx-background-color: transparent;
+}
+
+.menu-btn .menu-item:hover{
+    -fx-background-color: #CFD0CF;
+    -fx-text-fill: black;
+}
+
+.menu-btn .menu-item:hover .label{
+    -fx-text-fill: black;
+}
+
+.menu-btn:focused, .menu-btn:focused .label{
+    -fx-background-color: #E0E0E0;
+    -fx-text-fill: black;
+}
+
+.menu-btn .label{
+    -fx-text-fill: gray;
+}
+
+.menu-btn-selected{
     -fx-border-width: 0 0 0 5px;
+    -fx-padding-left: 5px;
     -fx-border-color: #4CAF50;
     -fx-background-color: #E0E0E0;
+    -fx-text-fill: black;
+}
+
+.menu-btn-selected .label{
+    -fx-text-fill: black;
+}
+
+.menu-btn:hover, .menu-btn:hover .label {
+    -fx-text-fill: black;
 }
 
 .menu-btn-logout{

@@ -13,13 +13,13 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import pt.ipp.isep.dei.esoft.project.controller.AddNewEntryAgendaController;
-import pt.ipp.isep.dei.esoft.project.dto.AgendaTaskDTO;
 import pt.ipp.isep.dei.esoft.project.dto.ToDoTaskWithStatusDTO;
-import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.tools.Status;
 import pt.ipp.isep.dei.esoft.project.tools.TaskDurationFormatter;
 import pt.ipp.isep.dei.esoft.project.tools.TaskType;
 import pt.ipp.isep.dei.esoft.project.tools.UrgencyType;
+import pt.ipp.isep.dei.esoft.project.ui.gui.popups.InsertDatePopupUI;
+import pt.ipp.isep.dei.esoft.project.ui.gui.popups.TodoTaskDetailsPopupUI;
 
 import java.io.IOException;
 import java.net.URL;

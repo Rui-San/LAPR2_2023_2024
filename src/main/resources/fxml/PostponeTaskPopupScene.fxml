@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="348.0" maxWidth="412.0" minHeight="150.0" minWidth="300.0" prefHeight="284.0" prefWidth="377.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.PostponeTaskPopupUI">
+<AnchorPane maxHeight="348.0" maxWidth="412.0" minHeight="150.0" minWidth="300.0" prefHeight="284.0" prefWidth="377.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.popups.PostponeTaskPopupUI">
    <children>
       <Text layoutX="76.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Postpone task" textAlignment="CENTER" wrappingWidth="225.0078125">
          <font>

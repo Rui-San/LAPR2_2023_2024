@@ -7,6 +7,8 @@ import pt.ipp.isep.dei.esoft.project.repository.GreenSpaceRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.session.ApplicationSession;
 import pt.ipp.isep.dei.esoft.project.tools.GreenSpaceSorting;
+import pt.isep.lei.esoft.auth.domain.model.UserRole;
+import pt.isep.lei.esoft.auth.mappers.dto.UserRoleDTO;
 
 import java.util.List;
 
@@ -52,7 +54,13 @@ public class ListGreenSpacesController {
      */
     public List<GreenSpaceDTO> getManagerGreenSpaceDTOList(){
         String managerEmail = ApplicationSession.getInstance().getCurrentSession().getUserId().getEmail();
-        List<GreenSpace> managerGreenSpacesList = greenSpaceRepository.getGreenSpaceListByManager(managerEmail);
+        UserRoleDTO managerRole = ApplicationSession.getInstance().getCurrentSession().getUserRoles().get(0);
+        List<GreenSpace> managerGreenSpacesList;
+        if(!managerRole.getId().equals("ADMINISTRATOR")){
+            managerGreenSpacesList = greenSpaceRepository.getGreenSpaceListByManager(managerEmail);
+        }else {
+            managerGreenSpacesList = greenSpaceRepository.getGreenSpaceList();
+        }
         managerGreenSpacesList = GreenSpaceSorting.sort(managerGreenSpacesList);
 
         return GreenSpaceMapper.toDTOlist(managerGreenSpacesList);

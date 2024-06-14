@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.esoft.project.ui.gui;
+package pt.ipp.isep.dei.esoft.project.ui.gui.popups;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
@@ -10,7 +10,6 @@ import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.controller.AssignVehiclesToEntryAgendaController;
 import pt.ipp.isep.dei.esoft.project.dto.VehicleDTO;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class SelectVehiclesPopupUI {

@@ -17,7 +17,6 @@ public class Bootstrap implements Runnable {
         addSkills();
         addJobs();
         addVehicle();
-        addCheckup();
         addCollaborator();
         assignSkills();
         addGreenSpaces();
@@ -25,41 +24,6 @@ public class Bootstrap implements Runnable {
         Repositories.save();
         Repositories.load();
     }
-
-
-    public void fillRepositoryLists() {
-        Repositories.getInstance().getJobRepository().loadJobsFromFile();
-        Repositories.getInstance().getSkillRepository().loadSkillsFromFile();
-        Repositories.getInstance().getCollaboratorRepository().loadCollaboratorsFromFile();
-        Repositories.getInstance().getTeamRepository().loadTeamsFromFile();
-
-    }
-/*
-    private void fillJobRepositoryFromFile() {
-        List<Job> jobList = SerializationUtils.readFromFile(SerializationFiles.JOB_DATABASE);
-        JobRepository jobRepository = Repositories.getInstance().getJobRepository();
-        for (Job job : jobList) {
-            jobRepository.add(job);
-        }
-    }
-
-    private void fillSkillRepositoryFromFile() {
-        List<Skill> skillList = SerializationUtils.readFromFile(SerializationFiles.SKILL_DATABASE);
-        SkillRepository skillRepository = Repositories.getInstance().getSkillRepository();
-        for (Skill skill : skillList) {
-            skillRepository.add(skill);
-        }
-    }
-
-    private void fillCollaboratorRepositoryFromFile() {
-        List<Collaborator> collaboratorList = SerializationUtils.readFromFile(SerializationFiles.COLLABORATOR_DATABASE);
-        CollaboratorRepository collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
-        for (Collaborator collaborator : collaboratorList) {
-            collaboratorRepository.add(collaborator);
-        }
-    }
-
- */
 
     private void addGreenSpaces() {
         GreenSpaceRepository greenSpaceRepository = Repositories.getInstance().getGreenSpaceRepository();
@@ -143,13 +107,13 @@ public class Bootstrap implements Runnable {
         authenticationRepository.addUserWithRole("Vehicle Fleet Manager", "vfm@this.app", "vfm",
                 AuthenticationController.ROLE_VFM);
 
-        authenticationRepository.addUserWithRole("Green Space Manager One", "gsm1@this.app", "gsm1",
+        authenticationRepository.addUserWithRole("Porto Parks", "gsm1@this.app", "gsm1",
                 AuthenticationController.ROLE_GSM);
 
-        authenticationRepository.addUserWithRole("Green Space Manager Two", "gsm2@this.app", "gsm2",
+        authenticationRepository.addUserWithRole("Lisbon Parks", "gsm2@this.app", "gsm2",
                 AuthenticationController.ROLE_GSM);
 
-        authenticationRepository.addUserWithRole("Green Space Manager Three", "gsm3@this.app", "gsm3",
+        authenticationRepository.addUserWithRole("Aveiro Parks", "gsm3@this.app", "gsm3",
                 AuthenticationController.ROLE_GSM);
 
         for(Collaborator collaborator : Repositories.getInstance().getCollaboratorRepository().getCollaboratorList()) {
@@ -171,20 +135,6 @@ public class Bootstrap implements Runnable {
         vehicleRepository.add(vehicle4);
         Vehicle vehicle5 = new Vehicle("55-EE-55", "Mercedes-Benz", "E-Class", VehicleType.PASSENGERS, 1900, 2300, 15000, "30/9/2008", "15/10/2023", 15000);
         vehicleRepository.add(vehicle5);
-    }
-
-    private void addCheckup() {
-
-        CheckupRepository checkupRepository = Repositories.getInstance().getCheckupRepository();
-        List<Vehicle> vehicles = Repositories.getInstance().getVehicleRepository().getVehicleList();
-
-        for (Vehicle vehicle : vehicles) {
-            if (vehicle.getCurrentKm() >= 5000) {
-                int kmsForCheckupBootstrap = vehicle.getCurrentKm() - 1000;
-                VehicleCheckup checkup = new VehicleCheckup(vehicle, new Date("06/06/2024"), kmsForCheckupBootstrap);
-            }
-        }
-
     }
 
 }

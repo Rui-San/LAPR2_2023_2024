@@ -17,7 +17,7 @@ public class GreenSpaceSorting {
         try {
             algorithm = SortingAlgorithm.valueOf(ApplicationSession.getInstance().getProperties().getProperty(ApplicationSession.SORTING_ALGORITHM));
         } catch (IllegalArgumentException e){
-            System.out.println("[Log] Invalid sorting algorithm. Using default algorithm.");
+            System.out.println("[Warning] Sorting algorithm not found. Using default algorithm.");
         }
         switch (algorithm){
             case SelectionSort:
@@ -40,6 +40,7 @@ public class GreenSpaceSorting {
                 }
             }
         }
+        System.out.println("[Log] Green spaces sorted. (Bubble sort algorithm used.)");
         return sortedList;
     }
 
@@ -57,6 +58,7 @@ public class GreenSpaceSorting {
             sortedList.set(minIndex, sortedList.get(i));
             sortedList.set(i, temp);
         }
+        System.out.println("[Log] Green spaces sorted. (Selection sort algorithm used.)");
         return sortedList;
     }
 

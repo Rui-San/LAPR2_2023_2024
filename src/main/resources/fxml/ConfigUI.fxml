@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="573.0" prefWidth="874.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.ConfigUI">
+   <children>
+      <Text layoutX="10.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Configuration" textAlignment="CENTER" wrappingWidth="854.77734375">
+         <font>
+            <Font name="Berlin Sans FB" size="28.0" />
+         </font>
+      </Text>
+      <Group layoutX="134.0" layoutY="-93.0">
+         <children>
+            <Label layoutX="110.0" layoutY="201.0" prefHeight="17.0" prefWidth="300.0" text="Sorting Algorithm:" />
+            <ComboBox fx:id="cbSortingAlgorithm" layoutX="110.0" layoutY="222.0" maxHeight="-Infinity" minHeight="-Infinity" onAction="#changeSorting" prefHeight="39.0" prefWidth="386.0" promptText="Sorting Algorithm" styleClass="form-input-datepicker" />
+         </children>
+      </Group>
+      <Group layoutX="133.0" layoutY="-20.0">
+         <children>
+            <Label layoutX="110.0" layoutY="200.0" prefHeight="17.0" prefWidth="382.0" text="Company email:" />
+            <ComboBox fx:id="cbEmailService" layoutX="305.0" layoutY="220.0" maxHeight="-Infinity" minHeight="-Infinity" onAction="#changeService" prefHeight="36.0" prefWidth="193.0" promptText="Email Service" styleClass="form-input-datepicker" />
+            <Label layoutX="285.0" layoutY="226.0" text="\@">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtUsername" editable="false" layoutX="110.0" layoutY="222.0" prefHeight="42.0" prefWidth="165.0" promptText="User" styleClass="form-input" />
+         </children>
+      </Group>
+      <Group layoutX="134.0" layoutY="52.0">
+         <children>
+            <Label layoutX="110.0" layoutY="200.0" prefHeight="17.0" prefWidth="382.0" text="Theme:" />
+            <ComboBox disable="true" layoutX="111.0" layoutY="220.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="39.0" prefWidth="386.0" promptText="Light" styleClass="form-input-datepicker" />
+         </children>
+      </Group>
+      <Group layoutX="134.0" layoutY="127.0">
+         <children>
+            <Label layoutX="110.0" layoutY="200.0" prefHeight="17.0" prefWidth="382.0" text="Language:" />
+            <ComboBox disable="true" layoutX="111.0" layoutY="220.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="39.0" prefWidth="386.0" promptText="English" styleClass="form-input-datepicker" />
+         </children>
+      </Group>
+   </children>
+</AnchorPane>

@@ -10,6 +10,7 @@ import pt.ipp.isep.dei.esoft.project.controller.AddNewEntryToDoController;
 import pt.ipp.isep.dei.esoft.project.controller.ListGreenSpacesController;
 import pt.ipp.isep.dei.esoft.project.domain.GreenSpace;
 import pt.ipp.isep.dei.esoft.project.dto.GreenSpaceDTO;
+import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.session.ApplicationSession;
 
 import java.io.Serializable;
@@ -37,7 +38,7 @@ public class ListGreenSpacesUI implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        title.setText("Green Spaces managed by " + ApplicationSession.getInstance().getCurrentSession().getUserId());
+        title.setText("Green Spaces managed by " + Repositories.getInstance().getAuthenticationRepository().getAuthenticationFacade().getUser(ApplicationSession.getInstance().getCurrentSession().getUserId().getEmail()).get().getName());
         greenSpaceType.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().type.toString()));
         greenSpaceName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().name));
         greenSpaceAddress.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().addressToString()));
