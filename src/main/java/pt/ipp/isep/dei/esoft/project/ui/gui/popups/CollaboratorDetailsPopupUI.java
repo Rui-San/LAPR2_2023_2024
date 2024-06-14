@@ -39,7 +39,7 @@ public class CollaboratorDetailsPopupUI {
         }else {
             assignedSkills.setText("No skills assigned");
         }
-        Team team = Repositories.getInstance().getTeamRepository().getTeamByTeamMemberEmails(selectedCollaborator.getEmail().toString());
+        Team team = Repositories.getInstance().getTeamRepository().getTeamByTeamMemberEmails(selectedCollaborator.getEmail().getEmail());
         if (team != null) {
             for (Collaborator collaborator : team.getMembers()) {
                 if (!collaborator.getEmail().getEmail().equals(selectedCollaborator.getEmail().getEmail())) {

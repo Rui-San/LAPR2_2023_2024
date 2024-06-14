@@ -213,7 +213,7 @@ public class AssignSkillUI implements Initializable {
                     sb.append("\n").append(skill.getSkillName());
                 }
 
-                Alert alertConfirmation = AlertUI.createAlert(Alert.AlertType.CONFIRMATION, "Assign Skills", "Confirm the operation", sb.toString());
+                Alert alertConfirmation = AlertUI.createAlert(Alert.AlertType.INFORMATION, "Assign Skills", "Confirm the operation", sb.toString());
                 if (alertConfirmation.showAndWait().get() == ButtonType.OK) {
                     controller.assignSkillsToCollaborator(collaborator, selectedSkills);
 

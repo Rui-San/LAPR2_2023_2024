@@ -49,7 +49,7 @@ public class ListCollaboratorsUI implements Initializable {
         job.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getJob().getJobName()));
         mobileNumber.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMobileNumber()));
         assignedToTeam.setCellValueFactory(cellData ->{
-            Team team = Repositories.getInstance().getTeamRepository().getTeamByTeamMemberEmails(cellData.getValue().getEmail().toString());
+            Team team = Repositories.getInstance().getTeamRepository().getTeamByTeamMemberEmails(cellData.getValue().getEmail().getEmail());
             if(team != null){
                 return new SimpleStringProperty("Yes");
             }else {
