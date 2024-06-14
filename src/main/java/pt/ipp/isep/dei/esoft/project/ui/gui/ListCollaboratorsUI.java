@@ -21,10 +21,7 @@ import pt.ipp.isep.dei.esoft.project.dto.VehicleDTO;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.tools.Status;
 import pt.ipp.isep.dei.esoft.project.tools.TaskStartDateFormatter;
-import pt.ipp.isep.dei.esoft.project.ui.gui.popups.PostponeTaskPopupUI;
-import pt.ipp.isep.dei.esoft.project.ui.gui.popups.SelectTeamPopupUI;
-import pt.ipp.isep.dei.esoft.project.ui.gui.popups.SelectVehiclesPopupUI;
-import pt.ipp.isep.dei.esoft.project.ui.gui.popups.TaskDetailsPopupUI;
+import pt.ipp.isep.dei.esoft.project.ui.gui.popups.*;
 
 import java.io.IOException;
 import java.net.URL;
@@ -62,6 +59,17 @@ public class ListCollaboratorsUI implements Initializable {
         skillCount.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getSkillList().size())));
 
         fillCollaboratorTable();
+
+        tbCollaborator.setRowFactory(tv -> {
+            TableRow<Collaborator> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && !row.isEmpty()) {
+                    Collaborator selectedCollaborator = row.getItem();
+                    showCollaboratorDetailsPopup(selectedCollaborator);
+                }
+            });
+            return row;
+        });
     }
 
     private void fillCollaboratorTable() {
@@ -86,18 +94,17 @@ public class ListCollaboratorsUI implements Initializable {
         });
     }
 
-    /*
-    private void showTaskDetailsPopup(AgendaTaskDTO task) {
+    private void showCollaboratorDetailsPopup(Collaborator selectedCollaborator) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TaskDetailsPopupScene.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CollaboratorDetailsPopupScene.fxml"));
             Parent root = loader.load();
-            TaskDetailsPopupUI controller = loader.getController();
-            controller.initData(task);
+            CollaboratorDetailsPopupUI controller = loader.getController();
+            controller.initData(selectedCollaborator);
 
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(new Scene(root));
-            stage.setTitle("Task Details");
+            stage.setTitle("Collaborator Details");
             Image image = new Image("file:MS_logo.png");
             stage.getIcons().add(image);
             stage.setResizable(false);
@@ -106,7 +113,7 @@ public class ListCollaboratorsUI implements Initializable {
             e.printStackTrace();
             // Handle error loading FXML
         }
-    }*/
+    }
 
 }
 

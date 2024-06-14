@@ -194,12 +194,10 @@ public class Address implements Cloneable, Serializable {
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("  Street: ").append(street).append("\n");
-        stringBuilder.append("  Street Number: ").append(streetNumber).append("\n");
-        stringBuilder.append("  Postal Code: ").append(postalCode).append("\n");
-        stringBuilder.append("  City: ").append(city).append("\n");
-        stringBuilder.append("  District: ").append(district);
-
+        stringBuilder.append(street).append(" ");
+        stringBuilder.append(streetNumber).append(" ");
+        stringBuilder.append(", ").append(postalCode);
+        stringBuilder.append(city);
         return stringBuilder.toString();
     }
 
